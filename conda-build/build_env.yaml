@@ -10,5 +10,5 @@ dependencies:
   - twine
   - anaconda-client
   - libmamba
-
-
+  - conda-verify
+  
