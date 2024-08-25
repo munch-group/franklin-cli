@@ -32,7 +32,7 @@ jobs:
         with:
           meta_yaml_dir: devtools/conda-build
           python-version: ${{ matrix.python-version }} # Values previously defined in `matrix`
-          pplatform_all: true
+          platform_all: true
           user: mbgexercises
           label: auto
           token: ${{ secrets.ANACONDA_TOKEN }} # Replace with the right name of your secret
