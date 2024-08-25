@@ -3,12 +3,13 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  # - anaconda
-  # - conda-build
-  # - git
-  # - pip
-  # - twine
-  # - anaconda-client
+  - anaconda
+  - conda-build
+  - git
+  - pip
+  - twine
+  - anaconda-client
   - libmamba
   - conda-verify
+  - setuptools
   
