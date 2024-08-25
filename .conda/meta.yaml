@@ -1,0 +1,76 @@
+{% set version = "0.1.15" %}
+
+package:
+  name: mbg-exercise-client
+  version: {{ version }}
+
+source:
+  git_url: git@gitlab.au.dk:mbg-exercises/mbg-exercise-client.git
+
+build:
+  noarch: python
+  number: 0
+  # script: python -m pip install --no-deps --ignore-installed .
+  entry_points:
+    - mbg-exercises = mbg_exercise_client:launch_exercise
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python>=3.7
+    - requests
+    - conda-forge::colorama
+    - conda-forge::readchar
+    - packaging
+
+channels:
+  - defaults
+
+test:
+  imports:
+    - mbg_exercise_client
+
+about:
+  # home: https://github.com/kaspermunch/geneinfo.git
+  # license: MIT
+  summary: 'summary'
+  description: |
+    Description.
+
+
+# package:
+#   name: bp-help
+#   version: "0.3"
+
+# source:
+#   path: ../
+
+# requirements:
+#   build:
+#     - python
+#   run:
+#     - python #>=3.9, <=3.11
+#     - pygments
+#     - textual
+#     - rich
+#     - art
+
+# channels:
+#   - defaults
+#   - conda-forge
+#   - sepandhaghighi
+
+# about:
+#   home: https://github.com/kaspermunch/bp-help
+#   license: MIT
+
+# build:
+#   script: python -m pip install . -vv
+#   noarch: python
+
+# test:
+#   imports:
+#     - bp-help
+
