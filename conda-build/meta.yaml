@@ -9,7 +9,7 @@ package:
   # version: {{ version }}
 
 source:
-  git_url: git@github.com:munch-group/mbg-exercise-client.git
+  git_url: https://github.com/munch-group/mbg-exercise-client.git
 
 build:
   noarch: python
