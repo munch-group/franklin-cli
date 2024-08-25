@@ -19,9 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Conda environment creation and activation
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
-          miniconda-version: "latest"
+          # miniconda-version: "latest"
           python-version: ${{ matrix.python-version }}
           environment-file: .conda/build_env.yaml    # Path to the build conda environment
           auto-update-conda: false
