@@ -15,6 +15,8 @@ build:
   # noarch: python
   number: 0
   # script: python -m pip install --no-deps --ignore-installed .
+  # script: "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
+  script: {{ PYTHON }} -m pip install . -vv
   entry_points:
     - mbg-exercises = mbg_exercise_client:launch_exercise
 
