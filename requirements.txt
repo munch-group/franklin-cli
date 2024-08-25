@@ -2,4 +2,4 @@ python>=3.8
 requests
 packaging
 colorama
-readchar!=3.0.5
+readchar

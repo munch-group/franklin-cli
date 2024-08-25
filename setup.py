@@ -16,7 +16,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     # url="https://github.com/kaspermunch/geneinfo",
     packages=setuptools.find_packages(),
-    python_requires='>=3.7',
+    python_requires='>=3.8',
     entry_points = {
         'console_scripts': [
             'mbg-exercises=mbg_exercise_client:launch_exercise',
@@ -31,5 +31,5 @@ setuptools.setup(
           'requests',
           'packaging',
           'colorama',
-          'readchar!=3.0.5',
+          'readchar',
     ])
