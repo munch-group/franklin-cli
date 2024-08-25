@@ -24,8 +24,8 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
-    - libmamba
+    # - setuptools # "I have the impression that if you don't add that, conda is just using the site version of python and pip, which causes the build package to land in the wrong place."
+    - libmamba   # because the default solver is libmamba and not classic
   run:
     - python>=3.8
     - requests
