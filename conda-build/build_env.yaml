@@ -11,5 +11,4 @@ dependencies:
   - anaconda-client
   - libmamba
   - conda-verify
-  - setuptools
   
