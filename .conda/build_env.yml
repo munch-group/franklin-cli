@@ -1,0 +1,13 @@
+name: condabuild
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - anaconda
+  - conda-build
+  - git
+  - pip
+  - twine
+  - anaconda-client
+
+
