@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [macOS-latest, ubuntu-latest, windows-latest]
-        # python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        # python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"] 
         python-version: ["3.11"]
 
     steps:
@@ -21,7 +21,7 @@ jobs:
       - name: Conda environment creation and activation
         uses: conda-incubator/setup-miniconda@v3
         with:
-          # miniconda-version: "latest"
+          miniconda-version: "latest"
           python-version: ${{ matrix.python-version }}
           environment-file: conda-build/build_env.yaml    # Path to the build conda environment
           auto-update-conda: false
@@ -32,7 +32,8 @@ jobs:
         with:
           meta_yaml_dir: conda-build
           python-version: ${{ matrix.python-version }} # Values previously defined in `matrix`
-          platform_all: true
+          # platform_all: true
+          platform_osx-arm64: true
           user: mbgexercises
           label: auto
           token: ${{ secrets.ANACONDA_TOKEN }} # Replace with the right name of your secret

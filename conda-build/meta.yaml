@@ -24,14 +24,14 @@ requirements:
     - pip
     - libmamba
   run:
-    - python>=3.7
+    - python>=3.8
     - requests
     - colorama
     - readchar
     - packaging
 
 channels:    # write here the list of channels to look for your library dependencies
-  - uibcdf
+  # - uibcdf
   - conda-forge
   - default
 
@@ -42,6 +42,8 @@ dependencies:   # Keep this block with only these two packages
 test:
   imports:
     - mbg_exercise_client
+  commands:
+    - mbg-exercises --help    
 
 about:
   home: https://github.com/munch-group/mbg-exercise-client
