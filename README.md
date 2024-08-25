@@ -5,6 +5,12 @@ conda create -n mbg -c mbgexercises mbg-exercise-client
 conda create -n mbg -c mbgexercises -c labscript-suite mbg-exercise-client windows-curses
 
 
+Create release 
+
+gh release create <tagname> --target main
+
+
+
 
 ## Getting started
 

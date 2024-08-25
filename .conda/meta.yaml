@@ -1,11 +1,14 @@
-{% set version = "0.1.15" %}
+{% set data = load_setup_py_data() %}
+# {% set version = "0.1.15" %}
 
 package:
   name: mbg-exercise-client
-  version: {{ version }}
+  version: {{ environ['GIT_DESCRIBE_TAG'] }}
+  # version: {{ data.get('version') }}  
+  # version: {{ version }}
 
 source:
-  git_url: git@gitlab.au.dk:mbg-exercises/mbg-exercise-client.git
+  git_url: git@github.com:munch-group/mbg-exercise-client.git
 
 build:
   noarch: python
@@ -21,56 +24,26 @@ requirements:
   run:
     - python>=3.7
     - requests
-    - conda-forge::colorama
-    - conda-forge::readchar
+    - colorama
+    - readchar
     - packaging
 
-channels:
-  - defaults
+channels:    # write here the list of channels to look for your library dependencies
+  - uibcdf
+  - conda-forge
+  - default
 
+dependencies:   # Keep this block with only these two packages
+  - anaconda-client
+  - conda-build
+  
 test:
   imports:
     - mbg_exercise_client
 
 about:
-  # home: https://github.com/kaspermunch/geneinfo.git
-  # license: MIT
+  home: https://github.com/munch-group/mbg-exercise-client
+  license: MIT
   summary: 'summary'
   description: |
     Description.
-
-
-# package:
-#   name: bp-help
-#   version: "0.3"
-
-# source:
-#   path: ../
-
-# requirements:
-#   build:
-#     - python
-#   run:
-#     - python #>=3.9, <=3.11
-#     - pygments
-#     - textual
-#     - rich
-#     - art
-
-# channels:
-#   - defaults
-#   - conda-forge
-#   - sepandhaghighi
-
-# about:
-#   home: https://github.com/kaspermunch/bp-help
-#   license: MIT
-
-# build:
-#   script: python -m pip install . -vv
-#   noarch: python
-
-# test:
-#   imports:
-#     - bp-help
-
