@@ -24,6 +24,7 @@ requirements:
   host:
     - python
     - pip
+    - setuptools
     - libmamba
   run:
     - python>=3.8
