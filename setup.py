@@ -7,7 +7,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setuptools.setup(
-    name="mbg-exercise-client",
+    name="exercise-client",
     version="0.2.4",
     author="Kasper Munch",
     author_email="kaspermunch@birc.au.dk",
@@ -19,7 +19,7 @@ setuptools.setup(
     python_requires='>=3.8',
     entry_points = {
         'console_scripts': [
-            'mbg-exercises=mbg_exercise_client:launch_exercise',
+            'exercises=exercise_client:exercises',
             ]
     },    
     classifiers=[

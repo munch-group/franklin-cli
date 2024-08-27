@@ -2,7 +2,7 @@
 # {% set version = "0.1.15" %}
 
 package:
-  name: mbg-exercise-client
+  name: exercise-client
   # version: {{ environ['GIT_DESCRIBE_TAG'] }}
   # version: {{ environ.get('GIT_DESCRIBE_TAG', '')[1:]+environ.get('GIT_DESCRIBE_NUMBER', '') }}
   # version: {{ environ.get('GIT_DESCRIBE_TAG', '')[1:] }}
@@ -10,7 +10,7 @@ package:
   # version: {{ version }}
 
 source:
-  git_url: https://github.com/munch-group/mbg-exercise-client.git
+  git_url: https://github.com/munch-group/exercise-client.git
 
 build:
   noarch: python
@@ -19,7 +19,7 @@ build:
   # script: "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
   # script: {{ PYTHON }} -m pip install . -vv
   entry_points:
-    - mbg-exercises = mbg_exercise_client:launch_exercise
+    - exercises = exercise_client:launch_exercise
 
 requirements:
   host:
@@ -44,12 +44,12 @@ dependencies:   # Keep this block with only these two packages
   
 test:
   imports:
-    - mbg_exercise_client
+    - exercise_client
   commands:
-    - mbg-exercises --help    
+    - exercises --help    
 
 about:
-  home: https://github.com/munch-group/mbg-exercise-client
+  home: https://github.com/munch-group/exercise-client
   license: MIT
   summary: 'summary'
   description: |

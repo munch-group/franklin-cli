@@ -24,7 +24,7 @@ import atexit
 
 import logging
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename='mbg-exercise.log', level=logging.DEBUG)
+logging.basicConfig(filename='exercise.log', level=logging.DEBUG)
 # logging.basicConfig(level=logging.INFO)
 
 from . import cutie
@@ -70,7 +70,7 @@ def format_cmd(cmd):
     return cmd
 
 def newer_version_of_package():
-    cmd = 'conda search -c mbgexercises mbg-exercise-client'
+    cmd = 'conda search -c mbgexercises exercise-client'
 
     p = Popen(format_cmd(cmd), stdout=PIPE, stderr=DEVNULL, text=True)
     conda_search, _ = p.communicate()
