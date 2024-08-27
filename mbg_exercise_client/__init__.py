@@ -60,6 +60,9 @@ class SuppressedKeyboardInterrupt:
 
 
 REGISTRY_BASE_URL = 'registry.gitlab.au.dk'
+GITLAB_GROUP = 'mbg-exercises'
+GITLAB_API_URL = 'https://gitlab.au.dk/api/v4'
+GITLAB_TOKEN = 'glpat-tiYpz3zJ95qzVXnyN8--'
 
 def format_cmd(cmd):
     cmd = shlex.split(cmd)
@@ -92,48 +95,115 @@ def docker_installed():
     return False
 
 
-def select_image(image_name_list):
+def select_image(exercises_images):
 
-    image_tree = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
-    for image_name in image_name_list:
-        c, w, v = image_name.split('-')
-        image_tree[c.replace('_', ' ')][w.replace('_', ' ')][v.replace('_', ' ')] = image_name
+    # print(exercise_list)
+    # image_tree = defaultdict(lambda: defaultdict(str))
+    # for course, exercise in exercise_dict:
+    #     # c, w, v = image_name.split('-')
+    #     # image_tree[c.replace('_', ' ')][w.replace('_', ' ')][v.replace('_', ' ')] = image_name
+    #     image_tree[course][exercise] = image_name
 
     print("\nSelect course, week, and exercise below (use arrow keys to move, enter to select)")
 
-    print("\nSelect course:")
-    captions = []
-    options = list(image_tree.keys())
-    course = options[cutie.select(options, caption_indices=captions, selected_index=0)]
-    print("\nSelect week:")
-    captions = []
-    options = list(image_tree[course].keys())
-    week = options[cutie.select(options, caption_indices=captions, selected_index=0)]
-    print("\nSelect exercise:")
-    captions = []
-    options = list(image_tree[course][week].keys())
-    exercise = options[cutie.select(options, caption_indices=captions, selected_index=0)]
+    def pick_course():
+        course_names = get_course_names()
+        course_group_names, course_danish_names,  = zip(*sorted(course_names.items()))
+        print("\nSelect course:")
+        captions = []
+        # options = list(image_tree.keys())
+        # course = options[cutie.select(options, caption_indices=captions, selected_index=0)]
+        course_idx = cutie.select(course_danish_names, caption_indices=captions, selected_index=0)
+        return course_group_names[course_idx], course_danish_names[course_idx]
 
-    print(f"\nSelected: {course} -> {week} -> {exercise}\n")
+    while True:
+        course, danish_course_name = pick_course()
+
+        exercise_names = get_exercise_names(course)
+
+        # only use those with listed images
+        for key in list(exercise_names.keys()):
+            if (course, key) not in exercises_images:
+                del exercise_names[key]
+
+        if exercise_names:
+            break
+
+        print(f"\n  >>No exercises for {danish_course_name}<<")
+
+    exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
+    print(f"\nSelect exercise in {danish_course_name}:")
+    captions = []
+    # options = list(image_tree[course].keys())
+    # week = options[cutie.select(options, caption_indices=captions, selected_index=0)]
+    exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
+    exercise = exercise_repo_names[exercise_idx]
+    # print("\nSelect exercise:")
+    # captions = []
+    # options = list(image_tree[course][week].keys())
+    # exercise = options[cutie.select(options, caption_indices=captions, selected_index=0)]
+
+    print(f"\nStarting JupyterLab that will work with: {danish_course_name}: {exercise_danish_names[exercise_idx]} \n")
     time.sleep(1)
 
-    selected_image = image_tree[course][week][exercise]
+    selected_image = exercises_images[(course, exercise)]
     return selected_image
 
 
 def get_registry_listing(registry):
     s = requests.Session()
     # s.auth = ('user', 'pass')
-    s.headers.update({'PRIVATE-TOKEN': 'glpat-tiYpz3zJ95qzVXnyN8--'})
+    s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
     # s.headers.update({'PRIVATE-TOKEN': 'glpat-BmHo-Fh5R\_TvsTHqojzz'})
     images = {}
     r  = s.get(registry,  headers={ "Content-Type" : "application/json"})
     if not r.ok:
       r.raise_for_status()
     for entry in r.json():
-        name = entry['path'].split('/')[-1]
-        images[name] = entry['location']
+        group, course, exercise = entry['path'].split('/')
+        images[(course, exercise)] = entry['location']
     return images
+
+
+def get_course_names():
+    s = requests.Session()
+    s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
+    url = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/subgroups'
+#https://gitlab.au.dk/api/v4/groups/mbg-exercises/subgroups
+
+    name_mapping = {}
+    r  = s.get(url, headers={ "Content-Type" : "application/json"})
+    if not r.ok:
+        r.raise_for_status()
+
+    for entry in r.json():
+        if 'template' in entry['path'].lower():
+            continue
+        if entry['description']:
+            name_mapping[entry['path']] = entry['description']
+        else:
+            name_mapping[entry['path']] = entry['path']
+    
+    return name_mapping
+
+
+def get_exercise_names(course):
+    s = requests.Session()
+    s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
+    url = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}%2F{course}/projects'
+
+    name_mapping = {}
+    r  = s.get(url, headers={ "Content-Type" : "application/json"})
+    if not r.ok:
+        r.raise_for_status()
+
+    for entry in r.json():
+        if entry['description']:
+            name_mapping[entry['path']] = entry['description']
+        else:
+            name_mapping[entry['path']] = entry['path']
+    
+    return name_mapping
 
 
 def docker_command(command, silent=False, return_json=False):
@@ -311,12 +381,11 @@ def launch_exercise():
         sys.exit(1) 
 
     # get registry listing
-    registry = 'https://gitlab.au.dk/api/v4/groups/mbg-exercises/registry/repositories'
-    images = get_registry_listing(registry)
+    registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
+    exercises_images = get_registry_listing(registry)
 
     # select image using menu prompt
-    image = select_image(sorted(images))
-    image_url = images[image]
+    image_url = select_image(exercises_images)
 
     try:
         cmd = 'docker --version'
@@ -338,7 +407,8 @@ def launch_exercise():
             sys.exit()
 
     # get local images
-    local_images = docker_images()
+    # local_images = docker_images()
+
     # pull image if not already present
     if not docker_image_exists(image_url):
         docker_pull(image_url)
@@ -350,7 +420,8 @@ def launch_exercise():
         home = home.replace('\\', '/').replace('C:', '/c')  
 
     # command for running jupyter docker container
-    cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main"
+    # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main"
+    cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
 
     # if platform.system() == "Windows":
     #     popen_kwargs = dict(creationflags = DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
@@ -375,6 +446,17 @@ def launch_exercise():
 
     cmd = f"docker logs --follow {run_container_id}"
     docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True, **popen_kwargs)
+
+    # docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, universal_newlines=False, **popen_kwargs)
+    # docker_p_nice_stdout = open(os.dup(docker_log_p.stdout.fileno()), newline='') 
+
+    # docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, **popen_kwargs)
+    # docker_p_nice_stdout = open(os.dup(docker_log_p.stdout.fileno()), 'rb') 
+    # https://koldfront.dk/making_subprocesspopen_in_python_3_play_nice_with_elaborate_output_1594
+
+# newline determines how to parse newline characters from the stream. It can be None, '', '\n', '\r', and '\r\n'. It works as follows:
+# When reading input from the stream, if newline is None, universal newlines mode is enabled. Lines in the input can end in '\n', '\r', or '\r\n', and these are translated into '\n' before being returned to the caller. If it is '', universal newlines mode is enabled, but line endings are returned to the caller untranslated. If it has any of the other legal values, input lines are only terminated by the given string, and the line ending is returned to the caller untranslated.
+# When writing output to the stream, if newline is None, any '\n' characters written are translated to the system default line separator, os.linesep. If newline is '' or '\n', no translation takes place. If newline is any of the other legal values, any '\n' characters written are translated to the given string.
 
 #     # signal handler for cleanup when terminal window is closed
 #     def handler(signal_nr, frame):
@@ -420,30 +502,30 @@ def launch_exercise():
 
     while True:
         time.sleep(0.1)
-        line = docker_log_p.stdout.readline()#.decode().strip()
+        line = docker_log_p.stdout.readline()
+        # line = docker_p_nice_stdout.readline().decode()
         match= re.search(r'https?://127.0.0.1\S+', line)
         if match:
             token_url = match.group(0)
             break
 
-    print(f'Open browser URL: {token_url}\n')
     webbrowser.open(token_url, new=1)
 
-    print("Press Ctrl+C multiple times to stop Jupyter server.\n")
+    print(f'JupyterLab should open in your browser. If not you can open it at this URL:\n\n\t{token_url}.\n\nTo stop JupyterLab press Ctrl-C multiple times in this window')
 
     for _ in range(60 * 60 * 24 * 365):
         try:
             time.sleep(1)
         except BaseException as e:
             with SuppressedKeyboardInterrupt():
-                print('Jupyter server is stopping... ', end='', flush=True)
+                logging.debug('Jupyter server is stopping')
                 docker_kill(run_container_id)
                 docker_log_p.stdout.close()
                 docker_log_p.kill()
                 docker_run_p.kill()
                 docker_log_p.wait()
                 docker_run_p.wait()
-                print('done.\n', flush=True)
+                logging.debug('Jupyter server stopped')
                 break
                 # if e is KeyboardInterrupt:
                 #     break
