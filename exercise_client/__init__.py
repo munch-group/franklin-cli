@@ -20,7 +20,8 @@ import json
 import signal
 import argparse
 from textwrap import wrap
-import atexit
+
+import shutil
 
 import logging
 logger = logging.getLogger(__name__)
@@ -162,6 +163,7 @@ def get_registry_listing(registry):
     for entry in r.json():
         group, course, exercise = entry['path'].split('/')
         images[(course, exercise)] = entry['location']
+        # images[(course, exercise)] = entry#['location']
     return images
 
 
@@ -353,6 +355,8 @@ def launch_exercise():
         # run trouble shooting
         pass
 
+    # gb_free = shutil.disk_usage('/').free / 1024**3
+    # if gb_free < 10:
 
     if not args.skip_update_check:
         newer_version = newer_version_of_package()
@@ -385,9 +389,13 @@ def launch_exercise():
     # get registry listing
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
     exercises_images = get_registry_listing(registry)
+    # image_info = get_registry_listing(registry)
+    # exercises_images = dict((key, val['location']) for key, val in image_info.items())
 
     # select image using menu prompt
     image_url = select_image(exercises_images)
+
+    # image_size = [val['size'] for val in image_info.values() if val['location'] == image_url][0]
 
     try:
         cmd = 'docker --version'

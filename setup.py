@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name="exercise-client",
-    version="0.3.2",
+    version="0.3.3",
     author="Kasper Munch",
     author_email="kaspermunch@birc.au.dk",
     description="Tool for lauching jupyter from docker containers", 
@@ -19,7 +19,7 @@ setuptools.setup(
     python_requires='>=3.8',
     entry_points = {
         'console_scripts': [
-            'exercises=exercise_client:exercises',
+            'exercises=exercise_client:launch_exercise',
             ]
     },    
     classifiers=[
