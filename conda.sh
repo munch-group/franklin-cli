@@ -38,3 +38,8 @@ done
 for path in `find outputdir -name '*.bz2'`; do 
     anaconda upload --user mbgexercises $path
 done
+
+
+cd conda-build
+conda build .
+cd ..
