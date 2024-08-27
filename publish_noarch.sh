@@ -2,7 +2,13 @@
 
 set -e
 
-git status --porcelain
+if [ -z "$(git status --porcelain)" ];
+then
+    echo "Working directory clean. Proceeding..."
+else
+    echo "Uncommitted changes. Please commit or stash before proceeding."
+    exit 1
+fi
 
 source ~/miniconda3/etc/profile.d/conda.sh
 
