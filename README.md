@@ -1,3 +1,6 @@
+
+conda create -n tester -c conda-forge -c mbgexercises mbg-exercise-client -y
+
 # mbg-exercise-client
 
 conda create -n mbg -c mbgexercises mbg-exercise-client

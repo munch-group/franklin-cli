@@ -356,10 +356,14 @@ def launch_exercise():
 
     if not args.skip_update_check:
         newer_version = newer_version_of_package()
+        newer_version = newer_version.replace('*', '') # remove trailing glob
         if newer_version:
-            print(f'Package needs to update. Try again once this update completes.')
-            cmd = f"conda install -y -q -c mbgexercises mbg-exercises={newer_version}"
+            print(f'Package needs to update.')
+            cmd = f"conda install -y -q -c mbgexercises mbg-exercise-client={newer_version}"
+            print(cmd)
             os.system(cmd)
+            print("\nmbg-exercises updated and ready for use.\n")
+        sys.exit()
 
     # user home directory and parent working directory
     home = expanduser("~")
