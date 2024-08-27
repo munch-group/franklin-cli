@@ -143,7 +143,7 @@ def select_image(exercises_images):
     # options = list(image_tree[course][week].keys())
     # exercise = options[cutie.select(options, caption_indices=captions, selected_index=0)]
 
-    print(f"\nStarting JupyterLab that will work with: {danish_course_name}: {exercise_danish_names[exercise_idx]} \n")
+    print(f"\nStarting JupyterLab that will work with:\n\n    {danish_course_name}: {exercise_danish_names[exercise_idx]} \n")
     time.sleep(1)
 
     selected_image = exercises_images[(course, exercise)]
@@ -331,15 +331,15 @@ def launch_exercise():
                     dest="fixme",
                     action='store_true',
                     help="Run trouble shooting")
-    parser.add_argument("-a", "--vip",
-                    dest="vip",
+    parser.add_argument("-c", "--clone",
+                    dest="clone",
                     action='store_true',
-                    help="Download the VIP version of the exercise")
-    parser.add_argument("-n", "--no-mount-limit",
-                    dest="no_mount_limit",
+                    help="Also clone the repository")
+    parser.add_argument("-a", "--at-your-own-risk",
+                    dest="at_your_own_risk",
                     action='store_true',
                     help="Override check for maximum depths of mounted directories")
-    parser.add_argument("-u", "--skip-update-check",
+    parser.add_argument("-s", "--skip-update-check",
                     dest="skip_update_check",
                     action='store_true',
                     help="Override check for package updates")
@@ -369,12 +369,10 @@ def launch_exercise():
     home = expanduser("~")
     pwd = os.getcwd()
 
-    subdir_limit = 1
-    if not args.no_mount_limit:
+    subdir_limit = 0
+    if not args.at_your_own_risk:
         if above_subdir_limit(subdir_limit):
-            msg = f"""Please run this command in a directory where the depth of 
-                sub-directories is at most {subdir_limit}. Ideally, in a directory 
-                with no sub-directories"""
+            msg = f"""Please run the command in a directory without any sub-directories"""
             print(wrap_text(msg))
             sys.exit(1)
 
@@ -515,7 +513,9 @@ def launch_exercise():
 
     webbrowser.open(token_url, new=1)
 
-    print(f'JupyterLab should open in your browser. If not you can open it at this URL:\n\n\t{token_url}.\n\nTo stop JupyterLab press Ctrl-C multiple times in this window')
+    print(f'JupyterLab should open in your browser. If not you can open it at this URL:\n\n    {token_url}.\n')
+    
+    print('To stop JupyterLab press Ctrl-C in this window.\n')
 
     for _ in range(60 * 60 * 24 * 365):
         try:
@@ -537,6 +537,8 @@ def launch_exercise():
                 #     raise e
 
     print("JupyterLab no longer running. Close browser window.\n")
+
+
 
 
     # except BaseException as e:
