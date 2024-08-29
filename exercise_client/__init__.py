@@ -77,7 +77,7 @@ def newer_version_of_package():
     conda_search, _ = p.communicate()
     newest_version = conda_search.strip().splitlines()[-1].split()[1]
 
-    cmd = 'conda list -f mbg-exercise-client'
+    cmd = 'conda list -f exercise-client'
     p = Popen(format_cmd(cmd), stdout=PIPE, stderr=DEVNULL, text=True)
     conda_search, _ = p.communicate()
     this_version = conda_search.strip().splitlines()[-1].split()[1]
