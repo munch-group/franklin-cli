@@ -370,9 +370,9 @@ def launch_exercise():
         p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
         if stdout:
-            [logger.debug(x) for x in stdout.splitlines()]
+            [logger.debug(x) for x in stdout.decode().splitlines()]
         if stderr:
-            [logger.debug(x) for x in stderr.splitlines()]
+            [logger.debug(x) for x in stderr.decode().splitlines()]
         if p.returncode:
             logger.debug(f"Update failed with return code {p.returncode}")
             msg = f"""
