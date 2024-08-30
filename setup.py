@@ -29,7 +29,7 @@ setuptools.setup(
     ],
     install_requires=[
           'python>=3.8',
-          'requests=2.32.3',
-          'colorama=0.4.6',
-          'readchar=4.0.5'
+          'requests>=2.32',
+          'colorama>=0.4',
+          'readchar>=4.0'
     ])
