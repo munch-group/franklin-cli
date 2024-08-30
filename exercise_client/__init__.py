@@ -9,7 +9,7 @@ if platform.system() == "Windows":
 import sys
 import os
 # from distutils.version import LooseVersion
-from packaging.version import Version
+# from packaging.version import Version
 import requests
 import asyncio
 import time
@@ -59,7 +59,7 @@ class SuppressedKeyboardInterrupt:
     def __exit__(self, type, value, traceback):
         signal.signal(signal.SIGINT, self.old_handler)
 
-
+ANACONDA_CHANNEL = 'kaspermunch'
 REGISTRY_BASE_URL = 'registry.gitlab.au.dk'
 GITLAB_GROUP = 'mbg-exercises'
 GITLAB_API_URL = 'https://gitlab.au.dk/api/v4'
@@ -70,20 +70,20 @@ def format_cmd(cmd):
     cmd[0] = shutil.which(cmd[0]) 
     return cmd
 
-def newer_version_of_package():
-    cmd = 'conda search -c mbgexercises exercise-client'
+# def newer_version_of_package():
+#     cmd = f'conda search -c {ANACONDA_CHANNEL} exercise-client'
 
-    p = Popen(format_cmd(cmd), stdout=PIPE, stderr=DEVNULL, text=True)
-    conda_search, _ = p.communicate()
-    newest_version = conda_search.strip().splitlines()[-1].split()[1]
+#     p = Popen(format_cmd(cmd), stdout=PIPE, stderr=DEVNULL, text=True)
+#     conda_search, _ = p.communicate()
+#     newest_version = conda_search.strip().splitlines()[-1].split()[1]
 
-    cmd = 'conda list -f exercise-client'
-    p = Popen(format_cmd(cmd), stdout=PIPE, stderr=DEVNULL, text=True)
-    conda_search, _ = p.communicate()
-    this_version = conda_search.strip().splitlines()[-1].split()[1]
+#     cmd = 'conda list -f exercise-client'
+#     p = Popen(format_cmd(cmd), stdout=PIPE, stderr=DEVNULL, text=True)
+#     conda_search, _ = p.communicate()
+#     this_version = conda_search.strip().splitlines()[-1].split()[1]
 
-    if Version(newest_version) > Version(this_version):
-        return newest_version
+#     if Version(newest_version) > Version(this_version):
+#         return newest_version
 
 
 def docker_installed():
@@ -359,15 +359,18 @@ def launch_exercise():
     # if gb_free < 10:
 
     if not args.skip_update_check:
-        newer_version = newer_version_of_package()
-        newer_version = newer_version.replace('*', '') # remove trailing glob
-        if newer_version:
-            print(f'Package needs to update.')
-            cmd = f"conda install -y -q -c mbgexercises mbg-exercise-client={newer_version}"
-            print(cmd)
-            os.system(cmd)
-            print("\nmbg-exercises updated and ready for use.\n")
-        sys.exit()
+        os.system(cmd)
+        cmd = f"conda update -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
+        print(cmd)
+        # newer_version = newer_version_of_package()
+        # newer_version = newer_version.replace('*', '') # remove trailing glob
+        # if newer_version:
+        #     print(f'Package needs to update.')
+        #     cmd = f"conda install -y -q -c {ANACONDA_CHANNEL} exercise-client={newer_version}"
+        #     print(cmd)
+        #     os.system(cmd)
+        #     print("\nmbg-exercises updated and ready for use.\n")
+        # sys.exit()
 
     # user home directory and parent working directory
     home = expanduser("~")

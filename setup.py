@@ -8,10 +8,10 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name="exercise-client",
-    version="0.3.6",
+    version="0.3.7",
     author="Kasper Munch",
     author_email="kaspermunch@birc.au.dk",
-    description="Tool for lauching jupyter from docker containers", 
+    description="Tool for launching jupyter from docker containers", 
     long_description=long_description,
     long_description_content_type="text/markdown",
     # url="https://github.com/kaspermunch/geneinfo",
@@ -28,8 +28,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-          'requests',
-          'packaging',
-          'colorama',
-          'readchar',
+          'python>=3.8'
+          'requests=2.32.3',
+          'colorama=0.4.6',
+          'readchar=4.0.5',
     ])

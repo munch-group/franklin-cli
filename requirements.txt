@@ -1,5 +1,4 @@
 python>=3.8
-requests
-packaging
-colorama
-readchar
+requests=2.32.3
+colorama=0.4.6
+readchar=4.0.5
