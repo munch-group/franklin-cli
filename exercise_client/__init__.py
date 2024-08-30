@@ -363,7 +363,7 @@ def launch_exercise():
     if args.skip_update_check:
         logger.debug('Update check skipped')
     else:
-        print('Updating package...', end='', flush=True)
+        print('Updating client...', end='', flush=True)
         # cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
         cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
         logger.debug(cmd)
@@ -376,7 +376,7 @@ def launch_exercise():
         if p.returncode:
             logger.debug(f"Update failed with return code {p.returncode}")
             msg = f"""
-            Could not update package. Please try again later.
+            Could not update client. Please try again later.
             If problem persists, please email {MAINTAINER_EMAIL}
             with a screenshot of the error message.
             """
