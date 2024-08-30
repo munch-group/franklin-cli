@@ -28,7 +28,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-          'python>=3.8'
+          'python>=3.8',
           'requests=2.32.3',
           'colorama=0.4.6',
           'readchar=4.0.5',
