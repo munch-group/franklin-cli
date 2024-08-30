@@ -30,6 +30,13 @@ logging.basicConfig(filename='exercise.log', level=logging.DEBUG)
 
 from . import cutie
 
+MAINTAINER_EMAIL = 'kaspermunch@birc.au.dk'
+ANACONDA_CHANNEL = 'kaspermunch'
+REGISTRY_BASE_URL = 'registry.gitlab.au.dk'
+GITLAB_GROUP = 'mbg-exercises'
+GITLAB_API_URL = 'https://gitlab.au.dk/api/v4'
+GITLAB_TOKEN = 'glpat-tiYpz3zJ95qzVXnyN8--'
+
 class CleanupAndTerminate(Exception):
     pass
 
@@ -58,12 +65,6 @@ class SuppressedKeyboardInterrupt:
     
     def __exit__(self, type, value, traceback):
         signal.signal(signal.SIGINT, self.old_handler)
-
-ANACONDA_CHANNEL = 'kaspermunch'
-REGISTRY_BASE_URL = 'registry.gitlab.au.dk'
-GITLAB_GROUP = 'mbg-exercises'
-GITLAB_API_URL = 'https://gitlab.au.dk/api/v4'
-GITLAB_TOKEN = 'glpat-tiYpz3zJ95qzVXnyN8--'
 
 def format_cmd(cmd):
     cmd = shlex.split(cmd)
@@ -359,9 +360,18 @@ def launch_exercise():
     # if gb_free < 10:
 
     if not args.skip_update_check:
-        os.system(cmd)
+        print('Updating package...', end='', flush=True)
         cmd = f"conda update -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
-        print(cmd)
+        p = subprocess.run(format_cmd(cmd), stdout=DEVNULL, stderr=DEVNULL)
+        if p.returncode():
+            msg = f"""
+            Could not update package. Please try again later.
+            If problem persists, please email {MAINTAINER_EMAIL}
+            with a screenshot of the error message.
+            """
+            print(wrap_text(msg))
+            sys.exit()
+        print('done.', flush=True)
         # newer_version = newer_version_of_package()
         # newer_version = newer_version.replace('*', '') # remove trailing glob
         # if newer_version:
