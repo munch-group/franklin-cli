@@ -368,9 +368,9 @@ def launch_exercise():
         p = Popen(shlex.split(cmd), stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
         if stdout:
-            logger.debug(f"{stdout}")
+            [logger.debug(x) for x in stdout.splitlines()]
         if stderr:
-            logger.debug(f"{stdout}")
+            [logger.debug(x) for x in stderr.splitlines()]
         if p.returncode:
             logger.debug(f"Update failed with return code {p.returncode}")
             msg = f"""
