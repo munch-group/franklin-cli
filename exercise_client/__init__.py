@@ -453,9 +453,12 @@ def launch_exercise():
         pwd = pwd.replace('\\', '/').replace('C:', '/c')
         home = home.replace('\\', '/').replace('C:', '/c')  
 
+    also_mount_repository == ''
+    if args.clone:
+        also_mount_repository = f'--mount type=bind,source={pwd}/git-repository,target=/root/git-repository'
     # command for running jupyter docker container
     # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main"
-    cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
+    cmd = f"docker run --rm {also_mount_repository} --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
 
     # if platform.system() == "Windows":
     #     popen_kwargs = dict(creationflags = DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
