@@ -359,11 +359,12 @@ def launch_exercise():
     # gb_free = shutil.disk_usage('/').free / 1024**3
     # if gb_free < 10:
 
-    if not args.skip_update_check:
+
+    if args.skip_update_check:
+        logger.debug('Update check skipped')
+    else:
         print('Updating package...', end='', flush=True)
         cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
-        print(cmd)
-        # p = subprocess.run(format_cmd(cmd))
         p = Popen(shlex.split(cmd), stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
         if stdout:
