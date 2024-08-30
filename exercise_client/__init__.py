@@ -453,7 +453,7 @@ def launch_exercise():
         pwd = pwd.replace('\\', '/').replace('C:', '/c')
         home = home.replace('\\', '/').replace('C:', '/c')  
 
-    also_mount_repository == ''
+    also_mount_repository = ''
     if args.clone:
         also_mount_repository = f'--mount type=bind,source={pwd}/git-repository,target=/root/git-repository'
     # command for running jupyter docker container
