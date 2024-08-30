@@ -27,11 +27,10 @@ requirements:
     - pip
     - libmamba   # because the default solver is libmamba and not classic
   run:
-    - python>=3.8
-    - requests
-    - colorama
-    - readchar
-    - packaging
+    - 'python>=3.8'
+    - 'requests=2.32.3'
+    - 'colorama=0.4.6'
+    - 'readchar=4.0.5
 
 channels:    # write here the list of channels to look for your library dependencies
   # - uibcdf
