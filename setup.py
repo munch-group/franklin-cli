@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name="exercise-client",
-    version="0.3.7",
+    version="0.4.0",
     author="Kasper Munch",
     author_email="kaspermunch@birc.au.dk",
     description="Tool for launching jupyter from docker containers", 
