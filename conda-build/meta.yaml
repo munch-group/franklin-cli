@@ -30,7 +30,7 @@ requirements:
     - 'python>=3.8'
     - 'requests>=2.32.3'
     - 'colorama>=0.4.6'
-    - 'readchar=4.0.5
+    - 'readchar>=4.0.5'
 
 channels:    # write here the list of channels to look for your library dependencies
   # - uibcdf
