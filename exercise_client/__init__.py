@@ -361,7 +361,7 @@ def launch_exercise():
 
     if not args.skip_update_check:
         print('Updating package...', end='', flush=True)
-        cmd = f"conda update -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
+        cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
         p = subprocess.run(format_cmd(cmd), stdout=DEVNULL, stderr=DEVNULL)
         if p.returncode:
             msg = f"""
