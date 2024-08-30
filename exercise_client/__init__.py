@@ -365,6 +365,7 @@ def launch_exercise():
     else:
         print('Updating package...', end='', flush=True)
         cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
+        logger.debug(cmd)
         p = Popen(shlex.split(cmd), stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
         if stdout:
