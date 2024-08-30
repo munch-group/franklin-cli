@@ -364,9 +364,10 @@ def launch_exercise():
         logger.debug('Update check skipped')
     else:
         print('Updating package...', end='', flush=True)
-        cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
+        # cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
+        cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
         logger.debug(cmd)
-        p = Popen(shlex.split(cmd), stdout=PIPE, stderr=PIPE)
+        p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
         if stdout:
             [logger.debug(x) for x in stdout.splitlines()]
