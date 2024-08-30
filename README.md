@@ -1,5 +1,5 @@
 
-conda create -n tester -c conda-forge -c mbgexercises mbg-exercise-client -y
+conda create -n tester -c conda-forge -c kaspermunch exercise-client -y
 
 gh release create --latest -p
 
