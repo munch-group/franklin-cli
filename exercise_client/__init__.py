@@ -106,7 +106,7 @@ def select_image(exercises_images):
     #     # image_tree[c.replace('_', ' ')][w.replace('_', ' ')][v.replace('_', ' ')] = image_name
     #     image_tree[course][exercise] = image_name
 
-    print("\nSelect course, week, and exercise below (use arrow keys to move, enter to select)")
+    print("\nSelect course, week, and exercise below.\nUse arrow keys to move and enter to select (or Ctrl-C to exit).\n")
 
     def pick_course():
         course_names = get_course_names()
