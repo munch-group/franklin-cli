@@ -386,7 +386,7 @@ def launch_exercise():
     home = expanduser("~")
     pwd = os.getcwd()
 
-    subdir_limit = 0
+    subdir_limit = 1
     if not args.at_your_own_risk:
         if above_subdir_limit(subdir_limit):
             msg = f"""Please run the command in a directory without any sub-directories"""
