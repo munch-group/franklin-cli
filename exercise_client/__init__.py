@@ -362,7 +362,9 @@ def launch_exercise():
     if not args.skip_update_check:
         print('Updating package...', end='', flush=True)
         cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
+        print(cmd)
         p = subprocess.run(format_cmd(cmd), stdout=DEVNULL, stderr=DEVNULL)
+        p.communicate()
         if p.returncode:
             msg = f"""
             Could not update package. Please try again later.
