@@ -31,7 +31,7 @@ logging.basicConfig(filename='exercise.log', level=logging.DEBUG)
 from . import cutie
 
 MAINTAINER_EMAIL = 'kaspermunch@birc.au.dk'
-ANACONDA_CHANNEL = 'kaspermunch'
+ANACONDA_CHANNEL = 'munch-group'
 REGISTRY_BASE_URL = 'registry.gitlab.au.dk'
 GITLAB_GROUP = 'mbg-exercises'
 GITLAB_API_URL = 'https://gitlab.au.dk/api/v4'
