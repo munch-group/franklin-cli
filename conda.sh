@@ -36,6 +36,6 @@ done
 
 # upload versios for other architectures
 for path in `find outputdir -name '*.bz2'`; do 
-    anaconda upload --user mbgexercises $path
+    anaconda upload --user munch-group $path
 done
 

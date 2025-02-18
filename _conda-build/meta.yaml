@@ -1,0 +1,56 @@
+{% set data = load_setup_py_data() %}
+# {% set version = "0.1.15" %}
+
+package:
+  name: franklin
+  # version: {{ environ['GIT_DESCRIBE_TAG'] }}
+  # version: {{ environ.get('GIT_DESCRIBE_TAG', '')[1:]+environ.get('GIT_DESCRIBE_NUMBER', '') }}
+  # version: {{ environ.get('GIT_DESCRIBE_TAG', '')[1:] }}
+  version: {{ data.get('version') }}  
+  # version: {{ version }}
+
+source:
+  git_url: https://github.com/munch-group/franklin.git
+
+build:
+  noarch: python
+  number: 0
+  # script: python -m pip install --no-deps --ignore-installed .
+  # script: "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
+  # script: {{ PYTHON }} -m pip install . -vv
+  entry_points:
+    - exercises = exercise_client:launch_exercise
+
+requirements:
+  host:
+    - python
+    - pip
+    - libmamba   # because the default solver is libmamba and not classic
+  run:
+    - 'python>=3.8'
+    - 'requests>=2.32.3'
+    - 'colorama>=0.4.6'
+    - 'readchar>=4.0.5'
+    - 'psutil'
+
+channels:    # write here the list of channels to look for your library dependencies
+  # - uibcdf
+  - conda-forge
+  - default
+
+dependencies:   # Keep this block with only these two packages
+  - anaconda-client
+  - conda-build
+  
+test:
+  imports:
+    - exercise_client
+  commands:
+    - exercises --help    
+
+about:
+  home: https://github.com/munch-group/franklin
+  license: MIT
+  summary: 'summary'
+  description: |
+    Description.

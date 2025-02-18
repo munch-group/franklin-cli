@@ -27,8 +27,8 @@ def update_client(update):
         logger.debug('Update check skipped')
     else:
         click.echo('Updating client...', nl=False)
-        # cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
-        cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
+        # cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
+        cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
         logger.debug(cmd)
         p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
@@ -44,7 +44,7 @@ def update_client(update):
                 The package is not installed as a conda package in this environment.
                 Please install the package with the following command:
                 
-                conda install -c {ANACONDA_CHANNEL} exercise-client
+                conda install -c {ANACONDA_CHANNEL} franklin
                 """
                 click.echo(msg)
             msg = f"""
@@ -125,12 +125,12 @@ def test():
 @docker.command()
 def volumes():
     """List docker volumes."""
-    click.echo(_docker.volumes(logger))
+    click.echo(_docker.volumes())
 
 @docker.command()
 def images():
     """List docker images."""
-    click.echo(_docker.images(logger))
+    click.echo(_docker.images())
 
 @click.argument("url")
 @docker.command()
@@ -144,7 +144,7 @@ def pull(url):
 @docker.command()
 def containers():
     """List docker containers."""
-    click.echo(_docker.containers(logger))
+    click.echo(_docker.containers())
 
 @click.argument('container')
 @docker.command()
@@ -152,14 +152,14 @@ def kill(container):
     """Kills a running container.
     
     CONTAINER is the id of the container to kill."""
-    _docker.kill(container, logger)
+    _docker.kill(container)
 
 @click.option("--verbose/--no-verbose", default=False, help="More detailed output")
 @docker.command()
 def storage(verbose):
     """Show Docker's disk usage."""
 
-    click.echo(_docker.storage(verbose, logger))
+    click.echo(_docker.storage(verbose))
 
 
 @docker.group()
@@ -169,7 +169,7 @@ def remove():
 
 @remove.command()
 def images():
-    _docker.remove_images(logger)
+    _docker.remove_images()
 
 
 
