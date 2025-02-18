@@ -1,4 +1,5 @@
-python>=3.8
 request>s=2.32.3
 colorama>=0.4.6
 readchar>=4.0.5
+click
+psutil

@@ -31,6 +31,7 @@ requirements:
     - 'requests>=2.32.3'
     - 'colorama>=0.4.6'
     - 'readchar>=4.0.5'
+    - 'psutil'
 
 channels:    # write here the list of channels to look for your library dependencies
   # - uibcdf

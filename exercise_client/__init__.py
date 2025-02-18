@@ -1,369 +1,32 @@
+import sys
+import os
 import platform
-from collections import defaultdict
-import shlex
-import shutil
-import subprocess
 from subprocess import Popen, PIPE, STDOUT, DEVNULL, CalledProcessError
 if platform.system() == "Windows":
     from subprocess import DETACHED_PROCESS, CREATE_NEW_PROCESS_GROUP
-import sys
-import os
-# from distutils.version import LooseVersion
-# from packaging.version import Version
-import requests
-import asyncio
-import time
-import webbrowser
-import re
-from os.path import expanduser
-import json
-import signal
-import argparse
-from textwrap import wrap
 
-import shutil
+import click
 
 import logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename='exercise.log', level=logging.DEBUG)
 # logging.basicConfig(level=logging.INFO)
 
-from . import cutie
+from . import jupyter as _jupyter
+from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, REGISTRY_BASE_URL, REQUIRED_GB_FREE_DISK
+from .utils import wrap_text
+from . import docker as _docker
 
-MAINTAINER_EMAIL = 'kaspermunch@birc.au.dk'
-ANACONDA_CHANNEL = 'munch-group'
-REGISTRY_BASE_URL = 'registry.gitlab.au.dk'
-GITLAB_GROUP = 'mbg-exercises'
-GITLAB_API_URL = 'https://gitlab.au.dk/api/v4'
-GITLAB_TOKEN = 'glpat-tiYpz3zJ95qzVXnyN8--'
+# TODO: maybe I can use the platforms on gitlab actions to build conda
+# environments for different platforms as backup for when docker fails...
 
-class CleanupAndTerminate(Exception):
-    pass
+# TODO: open download link for exercise notebook in browser after starting container
 
-class DelayedKeyboardInterrupt:
-    def __enter__(self):
-        self.signal_received = False
-        self.old_handler = signal.signal(signal.SIGINT, self.handler)
-                
-    def handler(self, sig, frame):
-        self.signal_received = (sig, frame)
-        # logging.debug('SIGINT received. Delaying KeyboardInterrupt.')
-    
-    def __exit__(self, type, value, traceback):
-        signal.signal(signal.SIGINT, self.old_handler)
-        if self.signal_received:
-            self.old_handler(*self.signal_received)
-
-class SuppressedKeyboardInterrupt:
-    def __enter__(self):
-        self.signal_received = False
-        self.old_handler = signal.signal(signal.SIGINT, self.handler)
-                
-    def handler(self, sig, frame):
-        self.signal_received = (sig, frame)
-        # logging.debug('SIGINT received. Delaying KeyboardInterrupt.')
-    
-    def __exit__(self, type, value, traceback):
-        signal.signal(signal.SIGINT, self.old_handler)
-
-def format_cmd(cmd):
-    cmd = shlex.split(cmd)
-    cmd[0] = shutil.which(cmd[0]) 
-    return cmd
-
-# def newer_version_of_package():
-#     cmd = f'conda search -c {ANACONDA_CHANNEL} exercise-client'
-
-#     p = Popen(format_cmd(cmd), stdout=PIPE, stderr=DEVNULL, text=True)
-#     conda_search, _ = p.communicate()
-#     newest_version = conda_search.strip().splitlines()[-1].split()[1]
-
-#     cmd = 'conda list -f exercise-client'
-#     p = Popen(format_cmd(cmd), stdout=PIPE, stderr=DEVNULL, text=True)
-#     conda_search, _ = p.communicate()
-#     this_version = conda_search.strip().splitlines()[-1].split()[1]
-
-#     if Version(newest_version) > Version(this_version):
-#         return newest_version
-
-
-def docker_installed():
-    if platform.system() == 'Darwin':
-        return shutil.which('docker')
-    if platform.system() == 'Linux':
-        return shutil.which('docker')
-    if platform.system() == 'Windows':
-        return shutil.which('docker')
-    return False
-
-
-def select_image(exercises_images):
-
-    # print(exercise_list)
-    # image_tree = defaultdict(lambda: defaultdict(str))
-    # for course, exercise in exercise_dict:
-    #     # c, w, v = image_name.split('-')
-    #     # image_tree[c.replace('_', ' ')][w.replace('_', ' ')][v.replace('_', ' ')] = image_name
-    #     image_tree[course][exercise] = image_name
-
-    print("\nSelect course, week, and exercise below.\nUse arrow keys to move and enter to select (or Ctrl-C to exit).\n")
-
-    def pick_course():
-        course_names = get_course_names()
-        course_group_names, course_danish_names,  = zip(*sorted(course_names.items()))
-        print("\nSelect course:")
-        captions = []
-        # options = list(image_tree.keys())
-        # course = options[cutie.select(options, caption_indices=captions, selected_index=0)]
-        course_idx = cutie.select(course_danish_names, caption_indices=captions, selected_index=0)
-        return course_group_names[course_idx], course_danish_names[course_idx]
-
-    while True:
-        course, danish_course_name = pick_course()
-
-        exercise_names = get_exercise_names(course)
-
-        # only use those with listed images
-        for key in list(exercise_names.keys()):
-            if (course, key) not in exercises_images:
-                del exercise_names[key]
-
-        if exercise_names:
-            break
-
-        print(f"\n  >>No exercises for {danish_course_name}<<")
-
-    exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
-    print(f"\nSelect exercise in {danish_course_name}:")
-    captions = []
-    # options = list(image_tree[course].keys())
-    # week = options[cutie.select(options, caption_indices=captions, selected_index=0)]
-    exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
-    exercise = exercise_repo_names[exercise_idx]
-    # print("\nSelect exercise:")
-    # captions = []
-    # options = list(image_tree[course][week].keys())
-    # exercise = options[cutie.select(options, caption_indices=captions, selected_index=0)]
-
-    print(f"\nStarting JupyterLab that will work with:\n\n    {danish_course_name}: {exercise_danish_names[exercise_idx]} \n")
-    time.sleep(1)
-
-    selected_image = exercises_images[(course, exercise)]
-    return selected_image
-
-
-def get_registry_listing(registry):
-    s = requests.Session()
-    # s.auth = ('user', 'pass')
-    s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
-    # s.headers.update({'PRIVATE-TOKEN': 'glpat-BmHo-Fh5R\_TvsTHqojzz'})
-    images = {}
-    r  = s.get(registry,  headers={ "Content-Type" : "application/json"})
-    if not r.ok:
-      r.raise_for_status()
-    for entry in r.json():
-        group, course, exercise = entry['path'].split('/')
-        images[(course, exercise)] = entry['location']
-        # images[(course, exercise)] = entry#['location']
-    return images
-
-
-def get_course_names():
-    s = requests.Session()
-    s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
-    url = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/subgroups'
-#https://gitlab.au.dk/api/v4/groups/mbg-exercises/subgroups
-
-    name_mapping = {}
-    r  = s.get(url, headers={ "Content-Type" : "application/json"})
-    if not r.ok:
-        r.raise_for_status()
-
-    for entry in r.json():
-        if 'template' in entry['path'].lower():
-            continue
-        if entry['description']:
-            name_mapping[entry['path']] = entry['description']
-        else:
-            name_mapping[entry['path']] = entry['path']
-    
-    return name_mapping
-
-
-def get_exercise_names(course):
-    s = requests.Session()
-    s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
-    url = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}%2F{course}/projects'
-
-    name_mapping = {}
-    r  = s.get(url, headers={ "Content-Type" : "application/json"})
-    if not r.ok:
-        r.raise_for_status()
-
-    for entry in r.json():
-        if entry['description']:
-            name_mapping[entry['path']] = entry['description']
-        else:
-            name_mapping[entry['path']] = entry['path']
-    
-    return name_mapping
-
-
-def docker_command(command, silent=False, return_json=False):
-    if silent:
-        return subprocess.run(format_cmd(command), check=False, stdout=DEVNULL, stderr=DEVNULL)
-    if return_json:
-        result = []
-        for line in subprocess.check_output(format_cmd(command + ' --format json')).decode().strip().splitlines():
-            result.append(json.loads(line))
-        return result
-    else:
-        return subprocess.check_output(format_cmd(command)).decode().strip()
-
-
-def docker_volume_ls():
-    return docker_command('docker volume ls', return_json=True)
-
-
-def docker_images():
-    return docker_command('docker images', return_json=True)
-
-
-def docker_pull(image_url):
-    print("Downloading resources (this can take 10 min or more) ... ", end='', flush=True)
-    # return os.system(f'docker pull {image_url}:main')
-    docker_command(f'docker pull {image_url}:main', silent=True)
-    print("done.", flush=True)
-
-
-def docker_containers():
-    return docker_command('docker ps', return_json=True)
-
-
-def docker_prune_containers():
-    docker_command(f'docker container prune --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
-
-
-def docker_prune_volumes():
-    docker_command(f'docker volume --filter="Name={REGISTRY_BASE_URL}*"')
-
-
-def docker_prune_all():
-    docker_command(f'docker prune -a', silent=True)
-
-
-def docker_rm_image(image, force=False):
-    if force:
-        docker_command(f'docker image rm -f {image}', silent=True)
-    else:
-        docker_command(f'docker image rm {image}', silent=True)
-
-
-def docker_kill(container_id):
-    docker_command(f'docker kill {container_id}', silent=True)
-
-
-def docker_cleanup():
-    for image in docker_images():
-        if image['Repository'].startswith(REGISTRY_BASE_URL):
-            docker_rm_image(image['ID'])
-    docker_prune_containers()
-    docker_prune_volumes()
-    docker_prune_all()
-
-
-def docker_image_exists(image_url):
-    for image in docker_images():
-        if image['Repository'].startswith(image_url):
-            return True
-    return False
-
-
-def above_subdir_limit(allowed_depth):
-    for dir, _, _ in os.walk('.'):
-        if len(dir.split('/')) > allowed_depth:
-            return True
-    return False
-
-
-def wrap_text(text):
-    return "\n".join(wrap(' '.join(text.split()), 80))    
-
-# async def ainput(string: str) -> str:
-#     await asyncio.get_event_loop().run_in_executor(
-#             None, lambda s=string: sys.stdout.write(s+' '))
-#     return await asyncio.get_event_loop().run_in_executor(
-#             None, sys.stdin.readline)
-
-# line = await .ainput('Is this your line? ')
-
-# docker_run_p = None
-
-# @atexit.register
-# def kill_child():
-#     logging.debug('atexit handler called')
-#     if docker_run_p is None:
-#         pass
-#     else:
-#         os.kill(docker_run_p, signal.SIGTERM)
-#         docker_run_p.kill()
-#         docker_run_p.wait()
-
-
-def launch_exercise():
-
-    description = """
-    Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
-    """
-
-    not_wrapped = """Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla."""
-
-    description = wrap_text(description) + "\n\n" + not_wrapped
-
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
-                                        description="description")
-
-    parser.add_argument("-v", "--verbose",
-                    dest="verbose",
-                    action='store_true',
-                    help="Print debugging information")
-    parser.add_argument("-f", "--fixme",
-                    dest="fixme",
-                    action='store_true',
-                    help="Run trouble shooting")
-    parser.add_argument("-c", "--clone",
-                    dest="clone",
-                    action='store_true',
-                    help="Also clone the repository")
-    parser.add_argument("-a", "--at-your-own-risk",
-                    dest="at_your_own_risk",
-                    action='store_true',
-                    help="Override check for maximum depths of mounted directories")
-    parser.add_argument("-s", "--skip-update-check",
-                    dest="skip_update_check",
-                    action='store_true',
-                    help="Override check for package updates")
-
-    # cleanup docker images and containers when terminal window is closed
-    cleanup = False
-
-    args = parser.parse_args()
-
-    if args.fixme:
-        # run trouble shooting
-        pass
-
-    # gb_free = shutil.disk_usage('/').free / 1024**3
-    # if gb_free < 10:
-
-
-    if args.skip_update_check:
+def update_client(update):
+    if not update:
         logger.debug('Update check skipped')
     else:
-        print('Updating client...', end='', flush=True)
+        click.echo('Updating client...', nl=False)
         # cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
         cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps exercise-client"
         logger.debug(cmd)
@@ -375,295 +38,218 @@ def launch_exercise():
             [logger.debug(x) for x in stderr.decode().splitlines()]
         if p.returncode:
             logger.debug(f"Update failed with return code {p.returncode}")
+
+            if stderr and 'PackageNotInstalledError' in stderr.decode():
+                msg = f"""
+                The package is not installed as a conda package in this environment.
+                Please install the package with the following command:
+                
+                conda install -c {ANACONDA_CHANNEL} exercise-client
+                """
+                click.echo(msg)
             msg = f"""
             Could not update client. Please try again later.
             If problem persists, please email {MAINTAINER_EMAIL}
             with a screenshot of the error message.
             """
-            print(wrap_text(msg))
+            click.echo(msg)
             sys.exit()
-        print('done.', flush=True)
-        # newer_version = newer_version_of_package()
-        # newer_version = newer_version.replace('*', '') # remove trailing glob
-        # if newer_version:
-        #     print(f'Package needs to update.')
-        #     cmd = f"conda install -y -q -c {ANACONDA_CHANNEL} exercise-client={newer_version}"
-        #     print(cmd)
-        #     os.system(cmd)
-        #     print("\nmbg-exercises updated and ready for use.\n")
-        # sys.exit()
-
-    # user home directory and parent working directory
-    home = expanduser("~")
-    pwd = os.getcwd()
-
-    subdir_limit = 1
-    if not args.at_your_own_risk:
-        if above_subdir_limit(subdir_limit):
-            msg = f"""Please run the command in a directory without any sub-directories"""
-            print(wrap_text(msg))
-            sys.exit(1)
+        click.echo('done.')
 
 
 
-    if not docker_installed():
-        print('Docker is not installed')
-        sys.exit(1) 
+# @click.option("--verbose",
+#                 default=False,
+#                 help="Print debugging information")
+# @click.option("--fixme",
+#                 default=False,
+#                 help="Run trouble shooting")
+# @click.option("--clone",
+#                 default=False,
+#                 help="Also clone the repository")
+@click.option("--subdir-limit",
+                default=0,
+                help="Allowed depth of subdir tree")
+@click.option('--update/--no-update', default=True,
+                help="Override check for package updates")
+@click.command()
+def jupyter(subdir_limit, update):
 
-    # get registry listing
-    registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
-    exercises_images = get_registry_listing(registry)
-    # image_info = get_registry_listing(registry)
-    # exercises_images = dict((key, val['location']) for key, val in image_info.items())
+    # gb_free = shutil.disk_usage('/').free / 1024**3
+    # if gb_free < 10:
 
-    # select image using menu prompt
-    image_url = select_image(exercises_images)
-
-    # image_size = [val['size'] for val in image_info.values() if val['location'] == image_url][0]
-
-    try:
-        cmd = 'docker --version'
-        p = subprocess.run(format_cmd(cmd), check=True, stdout=DEVNULL, stderr=DEVNULL)
-    except CalledProcessError:
-        try:
-            cmd = r'"C:\Program Files\Docker\Docker\Docker Desktop.exe"'
-            p = subprocess.run(cmd, check=True)
-            time.sleep(5)
-        except CalledProcessError:
-            print('\n\nIT SEEMS "DOCKER DESKTOP" IS NOT INSTALLED. PLEASE INSTALL VIA WEBPAGE.\n\n')
-            time.sleep(2)
-            if platform.system == "Windows":
-                webbrowser.open("https://docs.docker.com/desktop/install/windows-install/", new=1)
-            if platform.system == "Mac":
-                webbrowser.open("https://docs.docker.com/desktop/install/mac-install/", new=1)
-            if platform.system == "Linux":
-                webbrowser.open("https://docs.docker.com/desktop/install/linux-install/", new=1)
-            sys.exit()
-
-    # get local images
-    # local_images = docker_images()
-
-    # pull image if not already present
-    if not docker_image_exists(image_url):
-        docker_pull(image_url)
-        assert docker_image_exists(image_url)
-        
-    # replace backslashes with forward slashes and C: with /c for windows
-    if platform.system() == 'Windows':
-        pwd = pwd.replace('\\', '/').replace('C:', '/c')
-        home = home.replace('\\', '/').replace('C:', '/c')  
-
-    # repo_mount = ''
-    # if args.clone:
-    #     repo_mount = f'--mount type=bind,source={pwd}/git-repository,target=/root/git-repository'
-
-    # command for running jupyter docker container
-    # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main"
-    # cmd = f"docker run --rm {repo_mount} --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
-    cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
-
-    # if platform.system() == "Windows":
-    #     popen_kwargs = dict(creationflags = DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
-    # else:
-    #     popen_kwargs = dict(start_new_session = True)
-    popen_kwargs = dict()
-
-    # run docker container
-    # global docker_run_p
-    docker_run_p = Popen(shlex.split(cmd), stdout=DEVNULL, stderr=DEVNULL, **popen_kwargs)
-
-    time.sleep(5)
-
-    # get id of running container
-    for cont in docker_containers():
-        if cont['Image'].startswith(image_url):
-            run_container_id  = cont['ID']
-            break
+    if _docker.check_internet_connection():
+        logger.error("Internet connection to Docker Hub ok")
     else:
-        print('No running container with image')
-        sys.exit()   
+        click.secho('"No internet connection', fg='red')
+        logger.error("No internet connection to Docker Hub")
+        sys.exit(1)
 
-    cmd = f"docker logs --follow {run_container_id}"
-    docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True, **popen_kwargs)
+    if _docker.check_docker_desktop_running():
+        logger.debug("Docker Desktop is running")
+    else:
+        click.secho('Docker Desktop is not running', fg='red')
+        logger.error("Docker Desktop is not running")
+        sys.exit(1)
 
-    # docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, universal_newlines=False, **popen_kwargs)
-    # docker_p_nice_stdout = open(os.dup(docker_log_p.stdout.fileno()), newline='') 
+    free_gb = _docker.free_disk_space()
+    if free_gb < REQUIRED_GB_FREE_DISK:
+        click.secho(f'Not enough disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {free_gb} GB', fg='red')
+        logger.error(f"Not enough disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {free_gb} GB")
+        sys.exit(1)
 
-    # docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, **popen_kwargs)
-    # docker_p_nice_stdout = open(os.dup(docker_log_p.stdout.fileno()), 'rb') 
-    # https://koldfront.dk/making_subprocesspopen_in_python_3_play_nice_with_elaborate_output_1594
+    # TODO: check if docker is installed
+    # _docker.check_no_other_exercise_container_running()
+    # _docker.check_no_other_local_jupyter_running()
 
-# newline determines how to parse newline characters from the stream. It can be None, '', '\n', '\r', and '\r\n'. It works as follows:
-# When reading input from the stream, if newline is None, universal newlines mode is enabled. Lines in the input can end in '\n', '\r', or '\r\n', and these are translated into '\n' before being returned to the caller. If it is '', universal newlines mode is enabled, but line endings are returned to the caller untranslated. If it has any of the other legal values, input lines are only terminated by the given string, and the line ending is returned to the caller untranslated.
-# When writing output to the stream, if newline is None, any '\n' characters written are translated to the system default line separator, os.linesep. If newline is '' or '\n', no translation takes place. If newline is any of the other legal values, any '\n' characters written are translated to the given string.
+    update_client(update)
 
-#     # signal handler for cleanup when terminal window is closed
-#     def handler(signal_nr, frame):
-#         with SuppressedKeyboardInterrupt():
-#             signal_name = signal.Signals(signal_nr).name
-#             logging.debug(f'Signal handler called with signal {signal_name} ({signal_nr})')
-            
-#             logging.debug('killing docker container')
-#             docker_kill(run_container_id)
-
-#             logging.debug('killing docker log process')
-#             docker_log_p.kill()
-
-#             logging.debug('waiting for docker log process')
-#             docker_log_p.wait()
-
-#             logging.debug('killing docker run process')
-#             docker_run_p.kill()
-#             #docker_run_p.kill(signal.CTRL_C_EVENT)
-
-#             logging.debug('waiting for docker run process')
-#             docker_run_p.wait()
-
-#             if cleanup:
-#                 docker_cleanup()
-#         sys.exit()
-#         #raise Exception
-
-# #os.kill(self.p.pid, signal.CTRL_C_EVENT)
-
-#     # register handler for signals
-#     signal.signal(signal.SIGTERM, handler)
-#     # signal.signal(signal.SIGINT, handler)
-#     signal.signal(signal.SIGABRT, handler)
-#     if platform.system() == 'Mac':
-#         signal.signal(signal.SIGHUP, handler)
-#     if platform.system() == 'Linux':
-#         signal.signal(signal.SIGHUP, handler)
-#     if platform.system() == 'Windows':
-#         signal.signal(signal.SIGBREAK, handler)
-#         signal.signal(signal.CTRL_C_EVENT, handler)
+    _jupyter.launch_exercise()
 
 
-    while True:
-        time.sleep(0.1)
-        line = docker_log_p.stdout.readline()
-        # line = docker_p_nice_stdout.readline().decode()
-        match= re.search(r'https?://127.0.0.1\S+', line)
-        if match:
-            token_url = match.group(0)
-            break
+@click.group()
+def docker():
+    """Docker commands."""
+    pass
 
-    webbrowser.open(token_url, new=1)
 
-    print(f'JupyterLab should open in your browser. If not you can open it at this URL:\n\n    {token_url}.\n')
+@docker.command()
+def test():
+    """List docker volumes."""
+    click.echo(
+        'asdfadsfasdf'
+    )
+    _docker.prune(logger)
+
+
+@docker.command()
+def volumes():
+    """List docker volumes."""
+    click.echo(_docker.volumes(logger))
+
+@docker.command()
+def images():
+    """List docker images."""
+    click.echo(_docker.images(logger))
+
+@click.argument("url")
+@docker.command()
+def pull(url):
+    """Pull docker image.
     
-    print('To stop JupyterLab press Ctrl-C in this window.\n')
+    URL is the Docker image URL.
+    """
+    _docker.pull(url)
 
-    for _ in range(60 * 60 * 24 * 365):
-        try:
-            time.sleep(1)
-        except BaseException as e:
-            with SuppressedKeyboardInterrupt():
-                logging.debug('Jupyter server is stopping')
-                docker_kill(run_container_id)
-                docker_log_p.stdout.close()
-                docker_log_p.kill()
-                docker_run_p.kill()
-                docker_log_p.wait()
-                docker_run_p.wait()
-                logging.debug('Jupyter server stopped')
-                break
-                # if e is KeyboardInterrupt:
-                #     break
-                # else:
-                #     raise e
+@docker.command()
+def containers():
+    """List docker containers."""
+    click.echo(_docker.containers(logger))
 
-    print("JupyterLab no longer running. Close browser window.\n")
+@click.argument('container')
+@docker.command()
+def kill(container):
+    """Kills a running container.
+    
+    CONTAINER is the id of the container to kill."""
+    _docker.kill(container, logger)
 
+@click.option("--verbose/--no-verbose", default=False, help="More detailed output")
+@docker.command()
+def storage(verbose):
+    """Show Docker's disk usage."""
+
+    click.echo(_docker.storage(verbose, logger))
 
 
+@docker.group()
+def remove():
+    """Remove Docker elements."""
+    pass
 
-    # except BaseException as e:
-    #     with DelayedKeyboardInterrupt():
-    #         print('Service is stopping... ', end='', flush=True)
-    #         docker_kill(run_container_id)
-    #         docker_log_p.stdout.close()
-    #         docker_log_p.kill()
-    #         docker_run_p.kill()
-    #         docker_log_p.wait()
-    #         docker_run_p.wait()
-    #         print('done.', flush=True)
-    #     if e is not KeyboardInterrupt:
-    #         raise e
-    # # finally:
-    # #     docker_kill(run_container_id)
-    # #     if cleanup:
-    # #         docker_cleanup()
+@remove.command()
+def images():
+    _docker.remove_images(logger)
 
 
 
-        # docker system df
-        # docker system df -v
+# @click.option("--containers/--no-containers", default=True, help="Prune containers")
+# @click.option("--volumes/--no-volumes", default=True, help="Prune volumes")
+# @docker.command()
+# def prune(containers, volumes):
+#     """Prune docker containers and volumes."""
+#     if containers and volumes:
+#         _docker.prune_all()
+#     elif containers:
+#         _docker.prune_containers()
+#     elif volumes:
+#         _docker.prune_volumes()
 
-        # docker system prune -a
+# @click.option("--force/--no-force", default=False, help="Force removal")
+# @click.argument('image')
+# @docker.command()
+# def remove(image, force):
+#     """Remove docker image.
+    
+#     IMAGE is the id of the image to remove.
+#     """
 
+#     _docker.rm_image(image, force)
 
+# @docker.command()
+# def cleanup():
+#     """Cleanup everything."""
 
-
-
-            # from flask import Flask
-            # app = Flask(__name__)
-
-            # @app.route('/')
-            # def display():
-            #     return "Looks like it works!"
-
-            # app.run(port=8888)
-
-
-
-
-
-
-
-
-
+#     for image in _docker.images():
+#         if image['Repository'].startswith(REGISTRY_BASE_URL):
+#             _docker.rm_image(image['ID'])
+#     _docker.prune_containers()
+#     _docker.prune_volumes()
+#     _docker.prune_all()
 
 
 
 
+@click.group()
+def devel():
+    pass
 
+@devel.command()
+def download():
+    pass
 
+@devel.command()
+def sync():
+    pass
 
+@devel.command()
+def status():
+    pass
 
+#@click.group(invoke_without_command=True)
+@click.group()
+def franklin():
+    """
+    Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
 
+    \b
+    Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
 
-# import signal
-# os.kill(self.p.pid, signal.CTRL_C_EVENT)
+    Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
+    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.    
+    """
 
-    # stdout, stderr = docker_run_p.communicate()
-    # if stdout:
-    #     print(f'[stdout] {stdout}', end='', flush=True)
-    # if stderr:
-    #     print(f'[stderr] {stderr}', end='', flush=True, file=sys.stderr)
+    pass
 
+franklin.add_command(jupyter)
+franklin.add_command(docker)
+franklin.add_command(devel)
 
-
-# JUST START DOCKER RUN WITH POPEN NONBLOCKING, THEN START DOCKER LOGS WITH POPEN NONBLOCKING, THEN READ FROM THIER STREAMS IN LOOP.
-
-
-    # args = f"run --rm --mount type=bind,source={user_home}/.ssh,target=/tmp/.ssh --mount type=bind,source={user_home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main".split()
-
-    # proc = await asyncio.create_subprocess_exec('docker', args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
-
-
-# # USE RUNNER TO CAPTURE OUTPUT stream FROM 'docker logs --follow <container_id>'
-
-
-# # if proc takes very long to complete, the CPUs are free to use cycles for 
-# # other processes
-# stdout, stderr = await proc.communicate()
-
-
-    sys.exit()
-
-    args = f"run --rm --mount type=bind,source={user_home}/.ssh,target=/tmp/.ssh --mount type=bind,source={user_home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main".split()
-    asyncio.run(run_docker(args))
 
     # container_id = subprocess.check_output('docker ps -q', shell=True).decode().strip()
 

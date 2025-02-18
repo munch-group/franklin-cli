@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name="exercise-client",
-    version="0.6.5",
+    version="0.7.0",
     author="Kasper Munch",
     author_email="kaspermunch@birc.au.dk",
     description="Tool for launching jupyter from docker containers", 
@@ -19,7 +19,8 @@ setuptools.setup(
     python_requires='>=3.8',
     entry_points = {
         'console_scripts': [
-            'exercises=exercise_client:launch_exercise',
+            'franklin-jupyter=exercise_client:jupyter',
+            'franklin=exercise_client:franklin',
             ]
     },    
     classifiers=[
@@ -28,8 +29,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-          'python>=3.8',
           'requests>=2.32',
           'colorama>=0.4',
-          'readchar>=4.0'
+          'readchar>=4.0',
+          'click'
     ])
