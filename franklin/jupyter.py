@@ -7,26 +7,123 @@ import platform
 import shlex
 import time
 import webbrowser
-import argparse
 import logging
 import subprocess
 import click
 import shutil
+import time
 from subprocess import Popen, PIPE, DEVNULL, CalledProcessError, STDOUT
-from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, GITLAB_API_URL, GITLAB_GROUP
+from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, GITLAB_API_URL, GITLAB_GROUP, ALLOW_SUBDIRS
 from os.path import expanduser
 from .utils import format_cmd, wrap_text
 from .select import select_image
-from .gitlab import get_registry_listing
+from .gitlab import get_registry_listing, get_course_names, get_exercise_names
 from . import docker as _docker
-from .utils import SuppressedKeyboardInterrupt
+from .utils import update_client
+from .logger import logger
 
 
-def above_subdir_limit(allowed_depth):
-    for dir, _, _ in os.walk('.'):
-        if len(dir.split('/')) > allowed_depth:
-            return True
-    return False
+from . import cutie
+
+
+def select_image(exercises_images):
+
+    # print(exercise_list)
+    # image_tree = defaultdict(lambda: defaultdict(str))
+    # for course, exercise in exercise_dict:
+    #     # c, w, v = image_name.split('-')
+    #     # image_tree[c.replace('_', ' ')][w.replace('_', ' ')][v.replace('_', ' ')] = image_name
+    #     image_tree[course][exercise] = image_name
+
+    click.clear()
+    click.secho("\n\nFranklin says Hi", fg='green')
+    click.echo(click.wrap_text("\n\nUse arrow keys to move and enter to select"
+                               "Press Ctrl-C to close the application.", width=max((shutil.get_terminal_size().columns)/2, 70), 
+               initial_indent='', subsequent_indent='', 
+               preserve_paragraphs=True))   
+    
+
+    def pick_course():
+        course_names = get_course_names()
+        course_group_names, course_danish_names,  = zip(*sorted(course_names.items()))
+        click.secho("\nSelect course:", fg='green')
+        captions = []
+        # options = list(image_tree.keys())
+        # course = options[cutie.select(options, caption_indices=captions, selected_index=0)]
+        course_idx = cutie.select(course_danish_names, caption_indices=captions, selected_index=0)
+        return course_group_names[course_idx], course_danish_names[course_idx]
+
+    while True:
+        course, danish_course_name = pick_course()
+
+        exercise_names = get_exercise_names(course)
+
+        # only use those with listed images
+        for key in list(exercise_names.keys()):
+            if (course, key) not in exercises_images:
+                del exercise_names[key]
+
+        if exercise_names:
+            break
+
+        click.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
+
+    exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
+    click.secho(f"\nSelect exercise in {danish_course_name}:", fg='green')
+    captions = []
+    # options = list(image_tree[course].keys())
+    # week = options[cutie.select(options, caption_indices=captions, selected_index=0)]
+    exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
+    exercise = exercise_repo_names[exercise_idx]
+    # print("\nSelect exercise:")
+    # captions = []
+    # options = list(image_tree[course][week].keys())
+    # exercise = options[cutie.select(options, caption_indices=captions, selected_index=0)]
+
+    click.echo(f"\nPreparing jupyter session for:\n")
+    click.echo(f"    {danish_course_name}: {exercise_danish_names[exercise_idx]} \n")
+    time.sleep(1)
+
+    selected_image = exercises_images[(course, exercise)]
+    return selected_image
+
+
+
+# @click.option("--containers/--no-containers", default=True, help="Prune containers")
+# @click.option("--volumes/--no-volumes", default=True, help="Prune volumes")
+# @docker.command()
+# def prune(containers, volumes):
+#     """Prune docker containers and volumes."""
+#     if containers and volumes:
+#         _docker.prune_all()
+#     elif containers:
+#         _docker.prune_containers()
+#     elif volumes:
+#         _docker.prune_volumes()
+
+# @click.option("--force/--no-force", default=False, help="Force removal")
+# @click.argument('image')
+# @docker.command()
+# def remove(image, force):
+#     """Remove docker image.
+    
+#     IMAGE is the id of the image to remove.
+#     """
+
+#     _docker.rm_image(image, force)
+
+# @docker.command()
+# def cleanup():
+#     """Cleanup everything."""
+
+#     for image in _docker.images():
+#         if image['Repository'].startswith(REGISTRY_BASE_URL):
+#             _docker.rm_image(image['ID'])
+#     _docker.prune_containers()
+#     _docker.prune_volumes()
+#     _docker.prune_all()
+
+
 
 
 
@@ -34,18 +131,6 @@ def launch_exercise():
 
     cleanup = False
 
-    subdir_limit = 1
-    if above_subdir_limit(subdir_limit):
-        msg = click.wrap_text(
-            f"Please run the command in a directory without any sub-directories.",
-            width=shutil.get_terminal_size().columns - 2, 
-            initial_indent='', subsequent_indent='', preserve_paragraphs=True)
-        click.secho(msg, fg='red')
-        sys.exit(1)
-
-    if not _docker.installed():
-        print('Docker is not installed')
-        sys.exit(1) 
 
     # get registry listing
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
@@ -78,8 +163,8 @@ def launch_exercise():
             sys.exit()
 
     # pull image if not already present
-    if not _docker.image_exists(image_url):
-        _docker.pull(image_url)
+    if not _docker._image_exists(image_url):
+        _docker._pull(image_url)
         raise Exception('Image not found. Restart Docker Desktop and try again.')
 
     from pathlib import Path
@@ -134,7 +219,7 @@ def launch_exercise():
     time.sleep(5)
 
     # get id of running container
-    for cont in _docker.containers(return_json=True):
+    for cont in _docker._containers(return_json=True):
         if cont['Image'].startswith(image_url):
             run_container_id  = cont['ID']
             break
@@ -218,7 +303,7 @@ def launch_exercise():
         if c.upper() == 'Q':
             click.secho('Shutting down JupyterLab', fg='yellow')
             logging.debug('Jupyter server is stopping')
-            _docker.kill(run_container_id)
+            _docker._kill(run_container_id)
             docker_log_p.stdout.close()
             docker_log_p.kill()
             docker_run_p.kill()
@@ -230,5 +315,65 @@ def launch_exercise():
 
     sys.exit()
 
-    args = f"run --rm --mount type=bind,source={user_home}/.ssh,target=/tmp/.ssh --mount type=bind,source={user_home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main".split()
-    asyncio.run(run_docker(args))
+    # args = f"run --rm --mount type=bind,source={user_home}/.ssh,target=/tmp/.ssh --mount type=bind,source={user_home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main".split()
+    # asyncio.run(run_docker(args))
+
+@click.group()
+def jupyter():
+    """Docker commands."""
+    pass
+
+
+
+# @click.option("--verbose",
+#                 default=False,
+#                 help="Print debugging information")
+# @click.option("--fixme",
+#                 default=False,
+#                 help="Run trouble shooting")
+# @click.option("--clone",
+#                 default=False,
+#                 help="Also clone the repository")
+@click.option("--allow-subdirs-at-your-own-risk/--no-allow-subdirs-at-your-own-risk",
+                default=False,
+                help="Allow subdirs in current directory mounted by Docker.")
+@click.option('--update/--no-update', default=True,
+                help="Override check for package updates")
+@jupyter.command()
+def select(allow_subdirs_at_your_own_risk, update):
+
+    # gb_free = shutil.disk_usage('/').free / 1024**3
+    # if gb_free < 10:
+
+
+
+
+    _docker._prepare_user_setup(ALLOW_SUBDIRS or allow_subdirs_at_your_own_risk)
+
+    # if _docker._check_internet_connection():
+    #     logger.error("Internet connection to Docker Hub ok")
+    # else:
+    #     click.secho('"No internet connection', fg='red')
+    #     logger.error("No internet connection to Docker Hub")
+    #     sys.exit(1)
+
+    # if _docker._check_docker_desktop_running():
+    #     logger.debug("Docker Desktop is running")
+    # else:
+    #     click.secho('Docker Desktop is not running', fg='red')
+    #     logger.error("Docker Desktop is not running")
+    #     sys.exit(1)
+
+    # free_gb = _docker._free_disk_space()
+    # if free_gb < REQUIRED_GB_FREE_DISK:
+    #     click.secho(f'Not enough disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {free_gb} GB', fg='red')
+    #     logger.error(f"Not enough disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {free_gb} GB")
+    #     sys.exit(1)
+
+    # TODO: check if docker is installed
+    # _docker.check_no_other_exercise_container_running()
+    # _docker.check_no_other_local_jupyter_running()
+
+    update_client(update)
+
+    launch_exercise()    

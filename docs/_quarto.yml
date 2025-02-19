@@ -1,0 +1,100 @@
+project:
+  type: website
+  output-dir: _build
+  # resources:
+    # - objects.txt
+    # - objects-test.txt
+
+execute:
+  freeze: auto
+  echo: true
+
+metadata-files:
+  - api/_sidebar.yml
+
+filters:
+  - "interlinks"
+
+interlinks:
+  fast: true
+  sources:
+    python:
+      url: https://docs.python.org/3/
+    griffe:
+      url: https://mkdocstrings.github.io/griffe/
+    numpy:
+      url: https://numpy.org/doc/stable/
+    pandas:
+      url: https://pandas.pydata.org/docs/
+    matplotlib:
+      url: https://matplotlib.org/stable/
+    scipy:
+      url: https://docs.scipy.org/doc/scipy/
+    statsmodels:
+      url: https://www.statsmodels.org/stable/      
+    # quartodoc-test:
+    #   url: https://machow.github.io/quartodoc
+    #   inv: objects-test.txt
+
+website:
+  title: "franklin"
+  page-navigation: true
+  navbar:
+    left:
+      # - file: examples/
+      #   text: Examples
+      - href: api/
+        text: API reference
+    right:
+      - icon: github
+        href: https://github.com/munch-group/franklin/
+  sidebar:
+    - id: pages
+      title: Get Started
+      style: floating
+      align: left
+      contents:
+        - section: "Overview"
+          contents:
+            - pages/overview.ipynb
+
+
+lightbox: true
+
+format:
+  html:
+    theme: cosmo
+    css:
+      - api/_styles-quartodoc.css
+      - styles.css
+    toc: true
+    mermaid:
+      theme: neutral     
+
+quartodoc:
+  style: pkgdown
+  dir: api
+  package: franklin
+  render_interlinks: true
+  options:
+    signature_name: full
+  renderer:
+    style: markdown
+    table_style: description-list
+  sidebar: "api/_sidebar.yml"
+  css: "api/_styles-quartodoc.css"
+
+  sections:
+    - title: Some section
+      package: franklin.jupyter
+      desc: |
+        Some description...
+      contents:
+        - launch_exercise
+    # - title: Some other section
+    #   package: franklin.docker
+    #   desc: |
+    #     Some description...
+    #   contents:
+    #     - scriptname
+

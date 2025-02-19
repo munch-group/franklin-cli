@@ -7,242 +7,26 @@ if platform.system() == "Windows":
 
 import click
 
-import logging
-logger = logging.getLogger(__name__)
-logging.basicConfig(filename='exercise.log', level=logging.DEBUG)
-# logging.basicConfig(level=logging.INFO)
 
-from . import jupyter as _jupyter
+
 from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, REGISTRY_BASE_URL, REQUIRED_GB_FREE_DISK
 from .utils import wrap_text
+from .logger import logger
+
 from . import docker as _docker
+from . import jupyter as _jupyter
+
+
 
 # TODO: maybe I can use the platforms on gitlab actions to build conda
 # environments for different platforms as backup for when docker fails...
 
 # TODO: open download link for exercise notebook in browser after starting container
 
-def update_client(update):
-    if not update:
-        logger.debug('Update check skipped')
-    else:
-        click.echo('Updating client...', nl=False)
-        # cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
-        cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
-        logger.debug(cmd)
-        p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
-        stdout, stderr = p.communicate()
-        if stdout:
-            [logger.debug(x) for x in stdout.decode().splitlines()]
-        if stderr:
-            [logger.debug(x) for x in stderr.decode().splitlines()]
-        if p.returncode:
-            logger.debug(f"Update failed with return code {p.returncode}")
-
-            if stderr and 'PackageNotInstalledError' in stderr.decode():
-                msg = f"""
-                The package is not installed as a conda package in this environment.
-                Please install the package with the following command:
-                
-                conda install -c {ANACONDA_CHANNEL} franklin
-                """
-                click.echo(msg)
-            msg = f"""
-            Could not update client. Please try again later.
-            If problem persists, please email {MAINTAINER_EMAIL}
-            with a screenshot of the error message.
-            """
-            click.echo(msg)
-            sys.exit()
-        click.echo('done.')
-
-
-
-# @click.option("--verbose",
-#                 default=False,
-#                 help="Print debugging information")
-# @click.option("--fixme",
-#                 default=False,
-#                 help="Run trouble shooting")
-# @click.option("--clone",
-#                 default=False,
-#                 help="Also clone the repository")
-@click.option("--subdir-limit",
-                default=0,
-                help="Allowed depth of subdir tree")
-@click.option('--update/--no-update', default=True,
-                help="Override check for package updates")
-@click.command()
-def jupyter(subdir_limit, update):
-
-    # gb_free = shutil.disk_usage('/').free / 1024**3
-    # if gb_free < 10:
-
-
-    # TODO: check docker is not hanging and kill all processes if it is
-    # franklin docker kill
-
-    # windows must be updated
-
-    # cannot limit resources on windows (maybe if running as administrator?)
-
-    # run docker as admin on win
-
-    # make a subfolder called franklin and mount there
-
-    # check if they are in the right environment
-
-    # windows only
-    # wsl --shutdown
-
-
-    if _docker.check_internet_connection():
-        logger.error("Internet connection to Docker Hub ok")
-    else:
-        click.secho('"No internet connection', fg='red')
-        logger.error("No internet connection to Docker Hub")
-        sys.exit(1)
-
-    if _docker.check_docker_desktop_running():
-        logger.debug("Docker Desktop is running")
-    else:
-        click.secho('Docker Desktop is not running', fg='red')
-        logger.error("Docker Desktop is not running")
-        sys.exit(1)
-
-    free_gb = _docker.free_disk_space()
-    if free_gb < REQUIRED_GB_FREE_DISK:
-        click.secho(f'Not enough disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {free_gb} GB', fg='red')
-        logger.error(f"Not enough disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {free_gb} GB")
-        sys.exit(1)
-
-    # TODO: check if docker is installed
-    # _docker.check_no_other_exercise_container_running()
-    # _docker.check_no_other_local_jupyter_running()
-
-    update_client(update)
-
-    _jupyter.launch_exercise()
-
-
-@click.group()
-def docker():
-    """Docker commands."""
-    pass
-
-
-@docker.command()
-def test():
-    """List docker volumes."""
-    click.echo(
-        'asdfadsfasdf'
-    )
-    _docker.prune(logger)
-
-
-@docker.command()
-def volumes():
-    """List docker volumes."""
-    click.echo(_docker.volumes())
-
-@docker.command()
-def images():
-    """List docker images."""
-    click.echo(_docker.images())
-
-@click.argument("url")
-@docker.command()
-def pull(url):
-    """Pull docker image.
-    
-    URL is the Docker image URL.
-    """
-    _docker.pull(url)
-
-@docker.command()
-def containers():
-    """List docker containers."""
-    click.echo(_docker.containers())
-
-@click.argument('container')
-@docker.command()
-def kill(container):
-    """Kills a running container.
-    
-    CONTAINER is the id of the container to kill."""
-    _docker.kill(container)
-
-@click.option("--verbose/--no-verbose", default=False, help="More detailed output")
-@docker.command()
-def storage(verbose):
-    """Show Docker's disk usage."""
-
-    click.echo(_docker.storage(verbose))
-
-
-@docker.group()
-def remove():
-    """Remove Docker elements."""
-    pass
-
-@remove.command()
-def images():
-    _docker.remove_images()
-
-
-
-# @click.option("--containers/--no-containers", default=True, help="Prune containers")
-# @click.option("--volumes/--no-volumes", default=True, help="Prune volumes")
-# @docker.command()
-# def prune(containers, volumes):
-#     """Prune docker containers and volumes."""
-#     if containers and volumes:
-#         _docker.prune_all()
-#     elif containers:
-#         _docker.prune_containers()
-#     elif volumes:
-#         _docker.prune_volumes()
-
-# @click.option("--force/--no-force", default=False, help="Force removal")
-# @click.argument('image')
-# @docker.command()
-# def remove(image, force):
-#     """Remove docker image.
-    
-#     IMAGE is the id of the image to remove.
-#     """
-
-#     _docker.rm_image(image, force)
-
-# @docker.command()
-# def cleanup():
-#     """Cleanup everything."""
-
-#     for image in _docker.images():
-#         if image['Repository'].startswith(REGISTRY_BASE_URL):
-#             _docker.rm_image(image['ID'])
-#     _docker.prune_containers()
-#     _docker.prune_volumes()
-#     _docker.prune_all()
 
 
 
 
-@click.group()
-def devel():
-    pass
-
-@devel.command()
-def download():
-    pass
-
-@devel.command()
-def sync():
-    pass
-
-@devel.command()
-def status():
-    pass
 
 #@click.group(invoke_without_command=True)
 @click.group()
@@ -264,9 +48,53 @@ def franklin():
 
     pass
 
-franklin.add_command(jupyter)
-franklin.add_command(docker)
-franklin.add_command(devel)
+
+
+
+
+
+@click.group()
+def docker():
+    """Docker commands."""
+    pass
+
+
+franklin.add_command(_jupyter.jupyter)
+franklin.add_command(_docker.docker)
+
+
+
+
+# @click.group()
+# def devel():
+#     pass
+
+# @devel.command()
+# def download():
+#     pass
+
+# @devel.command()
+# def sync():
+#     pass
+
+# @devel.command()
+# def status():
+#     pass
+
+# franklin.add_command(jupyter)
+# franklin.add_command(docker)
+# franklin.add_command(devel)
+
+
+
+
+
+
+
+
+
+
+
 
 
     # container_id = subprocess.check_output('docker ps -q', shell=True).decode().strip()

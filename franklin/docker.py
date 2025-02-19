@@ -2,17 +2,22 @@ import platform
 import subprocess
 from subprocess import DEVNULL
 import json
+import sys
+import os
 import click
 import shutil
-import psutil
+import time
 import requests
 from .utils import format_cmd
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP
+from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
+from .logger import logger
 
 
-def installed():
+
+
+def _docker_desktop_installed():
     if platform.system() == 'Darwin':
         return shutil.which('docker')
     if platform.system() == 'Linux':
@@ -21,20 +26,21 @@ def installed():
         return shutil.which('docker')
     return False
 
-
-
-def free_disk_space():
-    return shutil.disk_usage('/').free / 1024**3
-
-def check_docker_desktop_running():
+# def _free_disk_space():
     
-    processes = [p.name() for p in psutil.process_iter() if 'docker desktop' in p.name().lower()]
-    if not processes:
-        return False
-    return True
 
 
-def check_internet_connection():
+# def _check_docker_desktop_running():
+    
+#     # processes = [p.name() for p in psutil.process_iter() if 'docker desktop' in p.name().lower()]
+#     # if not processes:
+#     #     return False
+#     # return True
+
+#     return _status() == 'running'
+
+
+def _check_internet_connection():
     try:
         request = requests.get("https://hub.docker.com/", timeout=2)
         return True
@@ -42,7 +48,69 @@ def check_internet_connection():
         return False
 
 
-def command(command, silent=False, return_json=False):
+def _prepare_user_setup(allow_subdirs=False):
+
+    if not _docker_desktop_installed():
+        click.secho("The Docker Desktop application is not installed on your computer.", fg='red')
+        click.secho('Visit https://www.docker.com/products/docker-desktop and click the big blue "Download Docker Desktop" button.', fg='red')
+        sys.exit(1)
+
+    if not _status() == 'running':
+        click.secho("Need to start Docker Desktop. Please wait.", fg='green')
+        _restart()
+    for _ in range(10):
+        if _status() == 'running':                
+            break
+        time.sleep(6)
+    if not _status() == 'running':
+        click.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
+        sys.exit(1)
+    click.secho('Docker Desktop is running', fg='green')
+
+
+    if not _check_internet_connection():
+        click.secho("No internet connection. Please check your network.", fg='red')
+        sys.exit(1)
+
+
+    gb_free = shutil.disk_usage('/').free / 1024**3
+    if gb_free < REQUIRED_GB_FREE_DISK:
+        click.secho(f"Not enough free disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {gb_free:.2f} GB", fg='red')
+        sys.exit(1)
+    elif gb_free < 2 * REQUIRED_GB_FREE_DISK:
+        click.secho(f"Low disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {gb_free:.2f} GB", fg='yellow')
+    else:     
+        click.secho(f"Free disk space: {gb_free:.2f} GB", fg='green')
+
+    dirs_in_cwd = any(os.path.isdir(x) for x in os.listdir(os.getcwd()))
+    if dirs_in_cwd and not allow_subdirs:
+        msg = click.secho("Please run the command in a directory without any sub-directories.", fg='red')
+        sys.exit(1)
+
+
+    # for dir, _, _ in os.walk('.'):
+    #     if len(dir.split('/')) > allowed_depth:
+    #         print(dir)
+    #         return True
+    # return False
+
+
+    # if _above_subdir_limit(SUBDIR_LIMIT):
+    #     msg = click.wrap_text(
+    #         f"Please run the command in a directory without any sub-directories.",
+    #         width=shutil.get_terminal_size().columns - 2, 
+    #         initial_indent='', subsequent_indent='', preserve_paragraphs=True)
+    #     click.secho(msg, fg='red')
+    #     sys.exit(1)
+
+
+def _image_exists(image_url):
+    for image in images(return_json=True):
+        if image['Repository'].startswith(image_url):
+            return True
+    return False
+
+def _command(command, silent=False, return_json=False):
     if silent:
         return subprocess.run(format_cmd(command), check=False, stdout=DEVNULL, stderr=DEVNULL)
     if return_json:
@@ -54,32 +122,188 @@ def command(command, silent=False, return_json=False):
         return subprocess.check_output(format_cmd(command)).decode().strip()
 
 
-def volumes(return_json=False):
-    return command('docker volume ls', return_json=return_json)
+@click.group()
+def docker():
+    """Docker commands."""
+
+    pass
 
 
-def images(return_json=False):
-    return command('docker images', return_json=return_json)
+def _pull(image_url):
+    subprocess.run(format_cmd(f'docker pull {image_url}:main'), check=False)
+
+@click.argument("url")
+@docker.command()
+def _pull(url):
+    """Pull docker image.
+    
+    URL is the Docker image URL.
+    """
+    _pull(url)
 
 
-def pull(image_url):
-    subprocess.run(format_cmd(f'docker pull {image_url}:main'), check=False,
-                    # stdout=DEVNULL, stderr=DEVNULL
-                    )
+def _containers(return_json=False):
+    return _command('docker ps', return_json=return_json)
 
-    # # return os.system(f'docker pull {image_url}:main')
-
-    # # ps = subprocess.Popen(format_cmd(f"docker pull {image_url}:main"), stdout=subprocess.PIPE)
-    # # # output = subprocess.check_output(format_cmd("grep -v 'Digest\|Status\|What\|View'"), stdin=ps.stdout)
-    # # subprocess.run(format_cmd("grep -v 'Digest\|Status\|What\|View'"), stdin=ps.stdout)
-    # # ps.wait()
+@docker.command()
+def containers():
+    """List docker containers."""
+    click.echo(_containers())
 
 
-def containers(return_json=False):
-    return command('docker ps', return_json=return_json)
+def _kill(container_id):
+    _command(f'docker kill {container_id}', silent=True)
+
+@click.argument('container')
+@docker.command()
+def kill(container):
+    """Kills a running container.
+    
+    CONTAINER is the id of the container to kill."""
+    _kill(container)
 
 
-def remove_images():
+def _storage(verbose=False):
+    if verbose:
+        return _command(f'docker system df -v')
+    return _command(f'docker system df')
+
+@click.option("--verbose/--no-verbose", default=False, help="More detailed output")
+@docker.command()
+def storage(verbose):
+    """Show Docker's disk usage."""
+    click.echo(_storage(verbose))
+
+
+def _logs(return_json=False):
+    _command('docker desktop logs', return_json=return_json)
+
+@docker.command()
+def logs():
+    _logs()
+
+
+def _restart():
+    _command(('docker desktop restart'), silent=True)
+
+@docker.command()
+def restart():
+    """Restart Docker Desktop"""
+    _restart()
+
+
+def _start():
+    _command('docker desktop start', silent=True)
+
+@docker.command()
+def start():
+    """Start Docker Desktop"""
+    _start()
+
+
+def _stop():
+    _command('docker desktop stop', silent=True)
+
+@docker.command()
+def stop():
+    """Stop Docker Desktop"""
+    _stop()
+
+
+def _status():
+    stdout = subprocess.check_output(format_cmd('docker desktop status --format json')).decode()
+    data = json.loads(stdout)
+    return data['Status']
+
+@docker.command()
+def status():
+    "Docker Desktop status"
+    s = _status()
+    fg = 'green' if s == 'running' else 'red'
+    click.secho(s, fg=fg)
+
+
+def _update(return_json=False):
+    return _command('docker desktop update', return_json=return_json)
+
+@docker.command()
+def update():
+    """Update Docker Desktop"""
+    _update()
+
+
+def _version(return_json=False):
+    _command('docker desktop version --format json', return_json=return_json)
+
+@docker.command()
+def version():
+    """Get Docker Desktop version"""
+    _version()
+
+
+def _volumes(return_json=False):
+    return _command('docker volume ls', return_json=return_json)
+
+@docker.command()
+def volumes():
+    """List docker volumes."""
+    click.echo(_volumes())
+
+
+def _images(return_json=False):
+    return _command('docker images', return_json=return_json)
+
+@docker.command()
+def images():
+    """List docker images."""
+    click.echo(_images())
+
+
+
+
+
+# def prune_containers():
+#     _command(f'docker container prune --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
+
+
+# def prune_volumes():
+#     _command(f'docker volume --filter="Name={REGISTRY_BASE_URL}*"')
+
+
+# def prune_all():
+#     _command(f'docker prune -a', silent=True)
+
+
+# def rm_image(image, force=False):
+#     if force:
+#         _command(f'docker image rm -f {image}', silent=True)
+#     else:
+#         _command(f'docker image rm {image}', silent=True)
+
+
+
+
+# def cleanup():
+#     for image in images():
+#         if image['Repository'].startswith(REGISTRY_BASE_URL):
+#             rm_image(image['ID'])
+#     prune_containers()
+#     prune_volumes()
+#     prune_all()
+
+
+
+###########################################################
+# remove subcommand
+###########################################################
+
+@docker.group()
+def remove():
+    """Remove Docker elements."""
+    pass
+
+
+def _remove_images():
     img = images(return_json=True)
     if not img:
         click.echo("\nNo images to remove\n")
@@ -126,81 +350,8 @@ def remove_images():
     for img_id in [table[i][-1] for i in selected_indices]:
         rm_image(img_id, force=True)
 
-    # print([image_ids[i] for i in selected_indices])
 
-# [{'Containers': 'N/A', 
-#   'CreatedAt': '2024-08-30 18:51:38 +0200 CEST', 
-#   'CreatedSince': '5 months ago', 
-#   'Digest': '<none>', 
-#   'ID': '3523f5255b8d', 
-#   'Repository': 'registry.gitlab.au.dk/mbg-exercises/experimental-molecular-biology/molecular_biology_ii-chipseq-exercise', 
-#   'SharedSize': 'N/A', 
-#   'Size': '3.09GB', 'Tag': 'main', 'UniqueSize': 'N/A', 'VirtualSize': '3.091GB'}]a
+@remove.command()
+def images():
+    _remove_images()
 
-
-#     print(img)
-
-#     nemeses_options = [
-#         "The French",
-#         "The Police",
-#         "The Knights Who Say Ni",
-#         "Women",
-#         "The Black Knight",
-#         "The Bridge Keeper",
-#     ]
-#     print("Choose your nemeses")
-#     # Choose multiple options from a list
-#     nemeses_indices = cutie.select_multiple(
-#         nemeses_options, caption_indices=[6], hide_confirm=False
-#     )
-#     nemeses = [
-#         nemesis
-#         for nemesis_index, nemesis in enumerate(nemeses_options)
-#         if nemesis_index in nemeses_indices
-#     ]
-#     click.echo(nemeses)
-
-
-def prune_containers():
-    command(f'docker container prune --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
-
-
-def prune_volumes():
-    command(f'docker volume --filter="Name={REGISTRY_BASE_URL}*"')
-
-
-def prune_all():
-    command(f'docker prune -a', silent=True)
-
-
-def rm_image(image, force=False):
-    if force:
-        command(f'docker image rm -f {image}', silent=True)
-    else:
-        command(f'docker image rm {image}', silent=True)
-
-
-def kill(container_id):
-    command(f'docker kill {container_id}', silent=True)
-
-
-def cleanup():
-    for image in images():
-        if image['Repository'].startswith(REGISTRY_BASE_URL):
-            rm_image(image['ID'])
-    prune_containers()
-    prune_volumes()
-    prune_all()
-
-
-def storage(verbose=False):
-    if verbose:
-        return command(f'docker system df -v')
-    return command(f'docker system df')
-
-
-def image_exists(image_url):
-    for image in images(return_json=True):
-        if image['Repository'].startswith(image_url):
-            return True
-    return False
