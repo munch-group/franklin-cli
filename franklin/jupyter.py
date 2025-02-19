@@ -34,10 +34,6 @@ def launch_exercise():
 
     cleanup = False
 
-    # user home directory and parent working directory
-    home = expanduser("~")
-    pwd = os.getcwd()
-
     subdir_limit = 1
     if above_subdir_limit(subdir_limit):
         msg = click.wrap_text(
@@ -85,11 +81,20 @@ def launch_exercise():
     if not _docker.image_exists(image_url):
         _docker.pull(image_url)
         raise Exception('Image not found. Restart Docker Desktop and try again.')
-        
-    # replace backslashes with forward slashes and C: with /c for windows
-    if platform.system() == 'Windows':
-        pwd = pwd.replace('\\', '/').replace('C:', '/c')
-        home = home.replace('\\', '/').replace('C:', '/c')  
+
+    from pathlib import Path
+    home = str(Path.home())
+    pwd = str(Path.cwd())
+    # home = expanduser("~")
+    # pwd = os.getcwd()
+
+    # if platform.system() == 'Windows':
+    #     pwd = pwd.replace('\\', '/').replace('C:', '/c')
+    #     home = home.replace('\\', '/').replace('C:', '/c')  
+
+    ssh_mount = (os.path.join(home,'.ssh'), '/tmp/.ssh')
+    anaconda_mount = (os.path.join(home, '.anaconda'), '/root/.anaconda')
+    pwd_mount = (pwd, pwd)
 
     # repo_mount = ''
     # if clone:
@@ -98,7 +103,23 @@ def launch_exercise():
     # command for running jupyter docker container
     # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main"
     # cmd = f"docker run --rm {repo_mount} --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
-    cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
+
+
+
+    cmd = (
+        f"docker run --rm"
+        f" --mount type=bind,source={ssh_mount[0]},target={ssh_mount[1]}"
+        f" --mount type=bind,source={anaconda_mount[0]},target={anaconda_mount[1]}"
+        f" --mount type=bind,source={pwd_mount[0]},target={pwd_mount[1]}"
+        f" -w {pwd_mount[0]} -i -p 8888:8888 {image_url}:main"
+    )
+    
+        # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
+
+
+
+
+    # cmd = f"docker run --rm --mount type=bind,source=$env:userprofile\.ssh,target=/tmp/.ssh --mount type=bind,source=$env:userprofile\.anaconda,target=/root/.anaconda --mount type=bind,source=$($pwd  -replace '\\', '/' -replace 'C:', '/c'),target=$($pwd -replace '\\', '/' -replace 'C:', '/c') -w $($pwd  -replace '\\', '/' -replace 'C:', '/c') -i -t -p 8888:8888 registry.gitlab.au.dk/au81667/mbg-docker-exercises:main
 
     # if platform.system() == "Windows":
     #     popen_kwargs = dict(creationflags = DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)

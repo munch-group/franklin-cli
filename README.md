@@ -1,14 +1,14 @@
 
-conda create -n tester -c conda-forge -c kaspermunch exercise-client -y
+conda create -n tester -c conda-forge -c munch-group franklin -y
 
 gh release create --latest -p
 
 
 # mbg-exercise-client
 
-conda create -n mbg -c mbgexercises mbg-exercise-client
+conda create -n franklin -c munch-group franklin
 
-conda create -n mbg -c mbgexercises -c labscript-suite mbg-exercise-client windows-curses
+conda create -n franklin -c munch-group -c labscript-suite franklin windows-curses
 
 
 Create release 

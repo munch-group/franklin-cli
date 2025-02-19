@@ -19,8 +19,8 @@ setuptools.setup(
     python_requires='>=3.8',
     entry_points = {
         'console_scripts': [
-            'franklin-jupyter=exercise_client:jupyter',
-            'franklin=exercise_client:franklin',
+            'franklin-jupyter=franklin:jupyter',
+            'franklin=franklin:franklin',
             ]
     },    
     classifiers=[

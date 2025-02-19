@@ -78,6 +78,24 @@ def jupyter(subdir_limit, update):
     # gb_free = shutil.disk_usage('/').free / 1024**3
     # if gb_free < 10:
 
+
+    # TODO: check docker is not hanging and kill all processes if it is
+    # franklin docker kill
+
+    # windows must be updated
+
+    # cannot limit resources on windows (maybe if running as administrator?)
+
+    # run docker as admin on win
+
+    # make a subfolder called franklin and mount there
+
+    # check if they are in the right environment
+
+    # windows only
+    # wsl --shutdown
+
+
     if _docker.check_internet_connection():
         logger.error("Internet connection to Docker Hub ok")
     else:
