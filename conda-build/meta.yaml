@@ -34,7 +34,7 @@ dependencies:   # Keep this block with only these two packages
   - anaconda-client
   - conda-build=24 # from 25 the output file is a .conda not .tar.bz2
   - conda-verify
-  - conda-forge/label/python_rc::_python_rc # Dummy package to force selection of python_rc channel when channel_priority is set to strict
+  # - conda-forge/label/python_rc::_python_rc # Dummy package to force selection of python_rc channel when channel_priority is set to strict
 
 test:
   imports:
