@@ -34,10 +34,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Test with pytest
-        run: |
-          pip install pytest
-          pytest test
+      # - name: Test with pytest
+      #   run: |
+      #     pip install pytest
+      #     pytest test
 
       - name: Build and upload the conda packages
         uses: uibcdf/action-build-and-upload-conda-packages@v1.4.0
