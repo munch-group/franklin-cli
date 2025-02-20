@@ -44,10 +44,10 @@ jobs:
         with:
           meta_yaml_dir: conda-build
           python-version: ${{ matrix.python-version }}
-          platform_all: true
-          # platform_osx-arm64: true
-          # platform_linux-64: true
-          # platform_osx-64: true
+          # platform_all: true
+          platform_osx-arm64: true
+          platform_linux-64: true
+          platform_osx-64: true
           user: munch-group
           label: auto
           token: ${{ secrets.ANACONDA_TOKEN }} 
