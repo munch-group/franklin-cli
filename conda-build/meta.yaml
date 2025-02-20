@@ -24,11 +24,6 @@ requirements:
     - readchar>=4.0.5
     - click
     - psutil
-    - conda-forge/label/python_rc::_python_rc # Dummy package to force selection of python_rc channel when channel_priority is set to strict
-
-
-
-
 
 channels:  # channels for your library dependencies
   - uibcdf
