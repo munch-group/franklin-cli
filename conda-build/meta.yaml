@@ -29,11 +29,12 @@ requirements:
 channels:  # channels for your library dependencies
   - uibcdf
   - conda-forge
-  - default
+  - conda install conda-forge/label/python_rc::_python_rc
+#  - default
 
 dependencies:   # Keep this block with only these two packages
   - anaconda-client
-  - conda-build #=24 # from 25 the output file is a .conda not .tar.bz2
+  - conda-build=24 # from 25 the output file is a .conda not .tar.bz2
   - conda-verify
   
 test:
