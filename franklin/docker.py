@@ -16,8 +16,6 @@ from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
 
 
-
-
 def _docker_desktop_installed():
     if platform.system() == 'Darwin':
         return shutil.which('docker')
@@ -46,8 +44,6 @@ def _failsafe_start_docker_desktop():
         utils.secho('Visit https://www.docker.com/products/docker-desktop and click the big blue "Download Docker Desktop" button.', fg='red')
         sys.exit(1)
 
-    # utils.echo('Starting Docker Desktop...', nl=False)
-
     _start_docker_desktop()
 
     if not _status() == 'running':
@@ -55,58 +51,10 @@ def _failsafe_start_docker_desktop():
         _kill_all_docker_desktop_processes()
         _start_docker_desktop()
 
-    # utils.echo(' done.')
-
     if not _status() == 'running':
         utils.logger.debug('Could not start Docker Desktop. Please start Docker Desktop manually')
         utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
         sys.exit(1)
-#    utils.logger.debug('Docker Desktop is running')
-
-
-
-
-# def _prepare_user_setup(allow_subdirs=False):
-
-
-#     if not _check_internet_connection():
-#         utils.secho("No internet connection. Please check your network.", fg='red')
-#         sys.exit(1)
-
-#     dirs_in_cwd = any(os.path.isdir(x) for x in os.listdir(os.getcwd()))
-#     if dirs_in_cwd and not allow_subdirs:
-#         msg = utils.secho("Please run the command in a directory without any sub-directories.", fg='red')
-#         sys.exit(1)
-
-
-    # elif gb_free < 2 * REQUIRED_GB_FREE_DISK:
-    #     utils.secho(f"Low disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {gb_free:.2f} GB", fg='red')
-    #     utils.secho(f'You can use "franklin docker remove" to remove cached Docker content you no longer need. it automatically get downloaded if you should need it again', fg='red')
-    # else:     
-    #     utils.secho(f"Free disk space: {gb_free:.2f} GB", fg='green')
-
-
-
-    # for dir, _, _ in os.walk('.'):
-    #     if len(dir.split('/')) > allowed_depth:
-    #         print(dir)
-    #         return True
-    # return False
-
-
-    # if _above_subdir_limit(SUBDIR_LIMIT):
-    #     msg = click.wrap_text(
-    #         f"Please run the command in a directory without any sub-directories.",
-    #         width=shutil.get_terminal_size().columns - 2, 
-    #         initial_indent='', subsequent_indent='', preserve_paragraphs=True)
-    #     click.secho(msg, fg='red')
-    #     sys.exit(1)
-
-
-
-
-
-
 
 
 def _image_exists(image_url):
@@ -114,6 +62,7 @@ def _image_exists(image_url):
         if image['Repository'].startswith(image_url):
             return True
     return False
+
 
 def _command(command, silent=False, return_json=False):
     if silent:
@@ -211,6 +160,17 @@ def version():
     _version()
 
 
+def _prune():
+    _command(f'docker system prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
+
+@docker.command()
+def prune():
+    """
+    Remove, all stopped containers, all networks not used by at 
+    least one container all dangling images, unused build cache.
+    """
+    _prune()
+
 ###########################################################
 # docker kill subcommands
 ###########################################################
@@ -219,6 +179,7 @@ def version():
 def kill():
     """Kill Docker elements."""
     pass
+
 
 def _kill_container(container_id):
     """Kill a running container."""
@@ -297,8 +258,6 @@ def containers():
     utils.echo(_containers(), nowrap=True)
 
 
-
-
 def _storage(verbose=False):
     if verbose:
         return _command(f'docker system df -v')
@@ -319,7 +278,6 @@ def logs():
     _logs()
 
 
-
 def _volumes(return_json=False):
     return _command('docker volume ls', return_json=return_json)
 
@@ -338,37 +296,9 @@ def images():
     utils.echo(_images(), nowrap=True)
 
 
-
-
-
-# def prune_containers():
-#     _command(f'docker container prune --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
-
-
-# def prune_volumes():
-#     _command(f'docker volume --filter="Name={REGISTRY_BASE_URL}*"')
-
-
-# def prune_all():
-#     _command(f'docker prune -a', silent=True)
-
-
-
-# def cleanup():
-#     for image in images():
-#         if image['Repository'].startswith(REGISTRY_BASE_URL):
-#             rm_image(image['ID'])
-#     prune_containers()
-#     prune_volumes()
-#     prune_all()
-
-
-
 ###########################################################
 # docker remove subcommands
 ###########################################################
-
-
 
 def rm_image(image, force=False):
     if force:
@@ -439,60 +369,6 @@ def _remove_images():
 
     for img_id in _multi_select_table(header, table, ids):
         rm_image(img_id, force=True)
-
-
-# def _remove_images():
-#     img = _images(return_json=True)
-#     if not img:
-#         click.echo("\nNo images to remove\n")
-#         return
-
-#     course_names = get_course_names()
-#     exercise_names = {}
-
-#     # header = ['Course', 'Exercise', 'Created', 'Size', 'ID']
-#     header = ['Course', 'Exercise', 'Created', 'Size']
-#     table = []
-#     ids = []
-#     prefix = f'{REGISTRY_BASE_URL}/{GITLAB_GROUP}'
-#     for img in _images(return_json=True):
-#         if img['Repository'].startswith(prefix):
-
-#             rep = img['Repository'].replace(prefix, '')
-#             if rep.startswith('/'):
-#                 rep = rep[1:]
-#             course_label, exercise_label = rep.split('/')
-#             if exercise_label not in exercise_names:
-#                 exercise_names.update(get_exercise_names(course_label))
-#             course_name = course_names[course_label]
-#             exercise_name = exercise_names[exercise_label]
-#             course_field = course_name[:30]+'...' if len(course_name) > 33 else course_name
-#             exercise_field = exercise_name[:30]+'...' if len(exercise_name) > 33 else exercise_name
-#             # table.append((course_field, exercise_field , img['CreatedSince'], img['Size'], img['ID']))
-#             ids.append(img['ID'])
-#             table.append((course_field, exercise_field , img['CreatedSince'], img['Size']))
-
-#     col_widths = [max(len(x) for x in col) for col in zip(*table)]
-
-#     table_width = sum(col_widths) + 4 * len(col_widths) + 2
-#     # print(table_width)
-#     utils.secho("\nChoose images to remove:", fg='green')
-
-#     utils.echo("\nUse arrows to move highlight and space to select/deselect one or more images. Press enter to remove \n")
-
-#     utils.echo('    | '+'| '.join([x.ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
-#     click.echo('-'*table_width)
-#     rows = []
-#     for row in table:
-#         rows.append('| '+'| '.join([x.ljust(w+2) for x, w in zip(row, col_widths)]))
-#     captions = []
-#     selected_indices = cutie.select_multiple(
-#         rows, caption_indices=captions, 
-#         # hide_confirm=False
-#     )
-#     for img_id in [ids[i]for i in selected_indices]:
-#         rm_image(img_id, force=True)
-
 
 @remove.command()
 def images():

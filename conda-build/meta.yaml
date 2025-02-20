@@ -11,7 +11,7 @@ build:
   number: 0
   script: python -m pip install . -vv
   # entry_points:
-  #   - exercises = exercise_client:launch_exercise
+  #   - franklin = franklin:franklin
 
 requirements:
   host:
@@ -19,7 +19,7 @@ requirements:
     - pip
   run:  # your library dependencies
     - python
-    - request>s=2.32.3
+    - requests>=2.32.3
     - colorama>=0.4.6
     - readchar>=4.0.5
     - click
@@ -38,7 +38,7 @@ dependencies:   # Keep this block with only these two packages
   
 test:
   imports:
-    - exercise_client
+    - franklin
 
 about:
   home: https://github.com/munch-group/franklin.git

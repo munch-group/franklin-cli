@@ -19,7 +19,7 @@ build:
   # script: "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
   # script: {{ PYTHON }} -m pip install . -vv
   entry_points:
-    - exercises = exercise_client:launch_exercise
+    - franklin = franklin:franklin
 
 requirements:
   host:
@@ -27,11 +27,11 @@ requirements:
     - pip
     - libmamba   # because the default solver is libmamba and not classic
   run:
-    - 'python>=3.8'
-    - 'requests>=2.32.3'
-    - 'colorama>=0.4.6'
-    - 'readchar>=4.0.5'
-    - 'psutil'
+    - python
+    - requests
+    - colorama
+    - readchar
+    - psutil
 
 channels:    # write here the list of channels to look for your library dependencies
   # - uibcdf
@@ -44,9 +44,9 @@ dependencies:   # Keep this block with only these two packages
   
 test:
   imports:
-    - exercise_client
+    - franklin
   commands:
-    - exercises --help    
+    - franklin --help    
 
 about:
   home: https://github.com/munch-group/franklin
