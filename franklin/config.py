@@ -9,3 +9,4 @@ GITLAB_API_URL = 'https://gitlab.au.dk/api/v4'
 GITLAB_TOKEN = 'glpat-tiYpz3zJ95qzVXnyN8--'
 REQUIRED_GB_FREE_DISK = 5
 ALLOW_SUBDIRS = False
+WRAP_WIDTH = 70

@@ -3,13 +3,18 @@ import shlex
 import sys
 import shutil
 import click
+import requests 
+from .config import REQUIRED_GB_FREE_DISK
+from . import utils
 from textwrap import wrap
 from .logger import logger
-from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL
+from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, WRAP_WIDTH
 from subprocess import Popen, PIPE
+
 
 class CleanupAndTerminate(Exception):
     pass
+
 
 class DelayedKeyboardInterrupt:
     def __enter__(self):
@@ -25,6 +30,7 @@ class DelayedKeyboardInterrupt:
         if self.signal_received:
             self.old_handler(*self.signal_received)
 
+
 class SuppressedKeyboardInterrupt:
     def __enter__(self):
         self.signal_received = False
@@ -37,13 +43,57 @@ class SuppressedKeyboardInterrupt:
     def __exit__(self, type, value, traceback):
         signal.signal(signal.SIGINT, self.old_handler)
 
+
 def format_cmd(cmd):
     cmd = shlex.split(cmd)
     cmd[0] = shutil.which(cmd[0]) 
     return cmd
 
-def wrap_text(text):
-    return "\n".join(wrap(' '.join(text.split()), 80))    
+
+def gb_free_disk():
+    return shutil.disk_usage('/').free / 1024**3
+
+
+def wrap(text):
+    """
+    Wraps text to fit terminal width or WRAP_WIDTH, whatever
+    is smaller
+    """
+
+    leading_ws = text[:len(text) - len(text.lstrip())]
+    trailing_ws = text[:len(text.rstrip()) - len(text)]    
+
+    leading_nl = len(leading_ws) - len(leading_ws.lstrip('\n'))
+
+    text = text.strip("\n")
+    initial_indent = text[:len(text) - len(text.lstrip())]
+    text = text.lstrip()
+    text = click.wrap_text(text, width=max((shutil.get_terminal_size().columns)/2, WRAP_WIDTH), 
+                initial_indent=initial_indent, subsequent_indent=initial_indent, 
+                preserve_paragraphs=True)
+    
+    text = '\n' * leading_nl + text + trailing_ws
+    return text
+
+
+def echo(text='', nowrap=False, **kwargs):
+    """
+    Wrapper for echo that wraps text
+    """
+    if not nowrap and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
+        text = wrap(text)
+    click.echo(text, **kwargs)
+    
+
+def secho(text='', nowrap=False, **kwargs):
+    """
+    Wrapper for secho that wraps text.
+    kwargs are passed to click.secho
+    """
+    if not nowrap and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
+        text = wrap(text)
+    click.secho(text, **kwargs)
+
 
 def update_client(update):
     if not update:
@@ -78,3 +128,44 @@ def update_client(update):
             click.echo(msg)
             sys.exit()
         click.echo('done.')
+
+
+def _check_internet_connection():
+    try:
+        request = requests.get("https://hub.docker.com/", timeout=2)        
+        return True
+    except (requests.ConnectionError, requests.Timeout) as exception:
+        utils.secho("No internet connection. Please check your network.", fg='red')
+        sys.exit(1)
+        return False
+
+
+def _check_free_disk_space():
+
+    gb_free = utils.gb_free_disk()
+    if gb_free < REQUIRED_GB_FREE_DISK:
+        utils.secho(f"Not enough free disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {gb_free:.2f} GB", fg='red')
+        sys.exit(1)
+    elif gb_free < 2 * REQUIRED_GB_FREE_DISK:
+        utils.echo()
+        utils.secho('='*70, fg='red')
+        utils.echo()
+        utils.secho(f"  You are running low on disk space. Franklin needs {REQUIRED_GB_FREE_DISK} GB of free disk space to run and you only have {gb_free:.2f} GB left.", fg='red', bold=True, blink=True)
+        utils.echo()
+        utils.echo(f'  You can use "franklin docker remove" to remove cached Docker content you no longer need. it automatically get downloaded if you should need it again')
+        utils.echo()
+        utils.secho('='*70, fg='red')
+        utils.echo()
+        click.pause()
+    else:
+        utils.echo(f"\n  Free space on disk: ", nl=False)
+        utils.secho(f"{gb_free:.2f} GB", fg='green', bold=True)
+        utils.echo    
+
+
+def _welcome_screen():
+
+    utils.echo()
+    utils.secho("FRANKLIN", fg='green', bold=True)
+    utils.echo("Science and everyday life cannot and should not be separated. - Rosalind D. Franklin")
+    utils.echo()
