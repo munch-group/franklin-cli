@@ -10,8 +10,8 @@ source:
 build:
   number: 0
   script: python -m pip install . -vv
-  # entry_points:
-  #   - franklin = franklin:franklin
+  entry_points:
+    - franklin = franklin:franklin
 
 requirements:
   host:
