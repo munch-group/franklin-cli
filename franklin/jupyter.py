@@ -180,10 +180,13 @@ def launch_exercise():
 
     # run docker container
     # global docker_run_p
-    # docker_run_p = Popen(shlex.split(cmd), stdout=DEVNULL, stderr=DEVNULL, **popen_kwargs)
-    docker_run_p = Popen(utils.format_cmd(cmd), 
-                        #  stdout=DEVNULL, stderr=DEVNULL, 
-                         **popen_kwargs)
+    print(cmd)
+    print(utils.format_cmd(cmd))
+    docker_run_p = Popen(shlex.split(cmd), stdout=DEVNULL, stderr=DEVNULL, **popen_kwargs)
+
+    # docker_run_p = Popen(utils.format_cmd(cmd), 
+    #                     #  stdout=DEVNULL, stderr=DEVNULL, 
+    #                      **popen_kwargs)
 
     time.sleep(5)
 
