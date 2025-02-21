@@ -190,7 +190,7 @@ def launch_exercise():
     # docker_run_p = Popen(shlex.split(cmd), 
     #                      stdout=DEVNULL, stderr=DEVNULL, 
     #                      **popen_kwargs)
-
+    print(utils.format_cmd(cmd))
     docker_run_p = Popen(utils.format_cmd(cmd), 
                         #  stdout=DEVNULL, stderr=DEVNULL, 
                          **popen_kwargs)
