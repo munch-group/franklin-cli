@@ -143,7 +143,7 @@ def launch_exercise():
         f" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
         f" -w {cwd_mount_source} -i -p 8888:8888 {image_url}:main"
     )
-
+    logger.debug(f'docker run cmd: {cmd}')
     # if platform.system() == 'Windows':
     #     cmd = (
     #         f"docker run --rm"
