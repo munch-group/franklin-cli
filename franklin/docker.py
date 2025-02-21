@@ -89,6 +89,28 @@ def _command(command, silent=False, return_json=False):
     else:
         return subprocess.check_output(utils.format_cmd(command)).decode().strip()
 
+
+def _multi_select_table(header, table, ids):
+
+    col_widths = [max(len(x) for x in col) for col in zip(*table)]
+
+    table_width = sum(col_widths) + 4 * len(col_widths) + 2
+
+    utils.echo("Use up/down arrows to navigate, Space to select/deselect, and Enter to remove selection.\n")
+
+    utils.echo('    | '+'| '.join([x.ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
+    click.echo('-'*table_width)
+    rows = []
+    for row in table:
+        rows.append('| '+'| '.join([x.ljust(w+2) for x, w in zip(row, col_widths)]))
+    captions = []
+    selected_indices = cutie.select_multiple(
+        rows, caption_indices=captions, 
+        # hide_confirm=False
+    )
+    return [ids[i]for i in selected_indices]
+
+
 ###########################################################
 # docker subcommands
 ###########################################################
@@ -214,6 +236,42 @@ def _kill_all_docker_desktop_processes():
             if not 'SYSTEM' in pid.username():
                 process.kill()
                 
+@kill.command('container')
+def _kill_selected_containers():
+    cont = _containers(return_json=True)
+    if not cont:
+        click.echo("\nNo running containers to kill\n")
+        return
+
+    course_names = get_course_names()
+    exercise_names = {}
+
+    header = ['Course', 'Exercise', 'Started']
+    table = []
+    ids = []
+    prefix = f'{REGISTRY_BASE_URL}/{GITLAB_GROUP}'
+    for cont in _containers(return_json=True):
+        if cont['Image'].startswith(prefix):
+            rep = cont['Image'].replace(prefix, '')
+            if rep.endswith(':main'):
+                rep = rep[:-5]
+            if rep.startswith('/'):
+                rep = rep[1:]
+            course_label, exercise_label = rep.split('/')
+            if exercise_label not in exercise_names:
+                exercise_names.update(get_exercise_names(course_label))
+            course_name = course_names[course_label]
+            exercise_name = exercise_names[exercise_label]
+            course_field = course_name[:30]+'...' if len(course_name) > 33 else course_name
+            exercise_field = exercise_name[:30]+'...' if len(exercise_name) > 33 else exercise_name
+            # table.append((course_field, exercise_field , img['CreatedSince'], img['Size'], img['ID']))
+            ids.append(cont['ID'])
+            table.append((course_field, exercise_field , cont['RunningFor']))
+
+    utils.secho("\nChoose containes to kill:", fg='green')
+
+    for cont_id in _multi_select_table(header, table, ids):
+        _kill_container(cont_id, force=True)
 
 ###########################################################
 # docker prune subcommands
@@ -314,7 +372,7 @@ def images():
 # docker remove subcommands
 ###########################################################
 
-def rm_image(image, force=False):
+def _rm_image(image, force=False):
     if force:
         _command(f'docker image rm -f {image}', silent=True)
     else:
@@ -327,28 +385,8 @@ def remove():
     pass
 
 
-def _multi_select_table(header, table, ids):
-
-    col_widths = [max(len(x) for x in col) for col in zip(*table)]
-
-    table_width = sum(col_widths) + 4 * len(col_widths) + 2
-
-    utils.echo("\nUse arrows to move highlight and space to select/deselect one or more images. Press enter to remove \n")
-
-    utils.echo('    | '+'| '.join([x.ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
-    click.echo('-'*table_width)
-    rows = []
-    for row in table:
-        rows.append('| '+'| '.join([x.ljust(w+2) for x, w in zip(row, col_widths)]))
-    captions = []
-    selected_indices = cutie.select_multiple(
-        rows, caption_indices=captions, 
-        # hide_confirm=False
-    )
-    return [ids[i]for i in selected_indices]
-
-
-def _remove_images():
+@remove.command('image')
+def _remove_selected_images():
     img = _images(return_json=True)
     if not img:
         click.echo("\nNo images to remove\n")
@@ -382,9 +420,6 @@ def _remove_images():
     utils.secho("\nChoose images to remove:", fg='green')
 
     for img_id in _multi_select_table(header, table, ids):
-        rm_image(img_id, force=True)
+        _rm_image(img_id, force=True)
 
-@remove.command()
-def images():
-    _remove_images()
 

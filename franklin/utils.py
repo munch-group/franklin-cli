@@ -58,20 +58,20 @@ def wrap(text):
     Wraps text to fit terminal width or WRAP_WIDTH, whatever
     is smaller
     """
-
-    leading_ws = text[:len(text) - len(text.lstrip())]
-    trailing_ws = text[:len(text.rstrip()) - len(text)]    
-
-    leading_nl = len(leading_ws) - len(leading_ws.lstrip('\n'))
-
-    text = text.strip("\n")
+    nr_leading_nl = len(text) - len(text.lstrip('\n'))
+    text = text.lstrip('\n')
+    
     initial_indent = text[:len(text) - len(text.lstrip())]
     text = text.lstrip()
+    
+    trailing_ws = text[len(text.rstrip()) - len(text):]   
+    text = text.rstrip()
+
     text = click.wrap_text(text, width=max((shutil.get_terminal_size().columns)/2, WRAP_WIDTH), 
                 initial_indent=initial_indent, subsequent_indent=initial_indent, 
                 preserve_paragraphs=True)
     
-    text = '\n' * leading_nl + text + trailing_ws
+    text = '\n' * nr_leading_nl + text + trailing_ws
     return text
 
 
