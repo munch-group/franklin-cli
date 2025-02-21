@@ -141,11 +141,11 @@ def launch_exercise():
         cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
 
     cmd = (
-        f"docker run --rm"
-        f" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
-        f" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
-        f" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
-        f" -w {cwd_mount_target} -i -p 8888:8888 {image_url}:main"
+        rf"docker run --rm"
+        rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
+        rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
+        rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
+        rf" -w {cwd_mount_target} -i -p 8888:8888 {image_url}:main"
     )
     logger.debug(f'docker run cmd: {cmd}')
     # if platform.system() == 'Windows':
