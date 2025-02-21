@@ -93,24 +93,7 @@ def launch_exercise():
 
     # image_size = [val['size'] for val in image_info.values() if val['location'] == image_url][0]
 
-    try:
-        cmd = 'docker --version'
-        p = subprocess.run(utils.format_cmd(cmd), check=True, stdout=DEVNULL, stderr=DEVNULL)
-    except CalledProcessError:
-        try:
-            cmd = r'"C:\Program Files\Docker\Docker\Docker Desktop.exe"'
-            p = subprocess.run(cmd, check=True)
-            time.sleep(5)
-        except CalledProcessError:
-            print('\n\nIT SEEMS "DOCKER DESKTOP" IS NOT INSTALLED. PLEASE INSTALL VIA WEBPAGE.\n\n')
-            time.sleep(2)
-            if platform.system == "Windows":
-                webbrowser.open("https://docs.docker.com/desktop/install/windows-install/", new=1)
-            if platform.system == "Mac":
-                webbrowser.open("https://docs.docker.com/desktop/install/mac-install/", new=1)
-            if platform.system == "Linux":
-                webbrowser.open("https://docs.docker.com/desktop/install/linux-install/", new=1)
-            sys.exit()
+
 
     # pull image if not already present
     if not _docker._image_exists(image_url):
@@ -148,9 +131,6 @@ def launch_exercise():
     )
     
         # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
-
-
-
 
     # cmd = f"docker run --rm --mount type=bind,source=$env:userprofile\.ssh,target=/tmp/.ssh --mount type=bind,source=$env:userprofile\.anaconda,target=/root/.anaconda --mount type=bind,source=$($pwd  -replace '\\', '/' -replace 'C:', '/c'),target=$($pwd -replace '\\', '/' -replace 'C:', '/c') -w $($pwd  -replace '\\', '/' -replace 'C:', '/c') -i -t -p 8888:8888 registry.gitlab.au.dk/au81667/mbg-docker-exercises:main
 
@@ -226,6 +206,8 @@ def jupyter():
 def select(allow_subdirs_at_your_own_risk, update):
 
     utils._welcome_screen()
+
+    _docker._check_docker_desktop_installed()
 
     _docker._failsafe_start_docker_desktop()
 

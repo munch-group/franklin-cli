@@ -11,7 +11,6 @@ from .logger import logger
 from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, WRAP_WIDTH
 from subprocess import Popen, PIPE
 
-
 class CleanupAndTerminate(Exception):
     pass
 
@@ -82,6 +81,7 @@ def echo(text='', nowrap=False, **kwargs):
     """
     if not nowrap and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
         text = wrap(text)
+    logger.debug(text)        
     click.echo(text, **kwargs)
     
 
@@ -92,6 +92,7 @@ def secho(text='', nowrap=False, **kwargs):
     """
     if not nowrap and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
         text = wrap(text)
+    logger.debug(text)        
     click.secho(text, **kwargs)
 
 

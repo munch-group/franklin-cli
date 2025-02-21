@@ -3,27 +3,46 @@ import subprocess
 from subprocess import run, check_output, Popen, PIPE, DEVNULL
 import json
 import sys
-import os
+import webbrowser
 import click
 import shutil
 import time
 import psutil
-import requests
+import sysconfig
 from . import utils
 from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
 
-
-def _docker_desktop_installed():
+def _find_docker_desktop_executable():
     if platform.system() == 'Darwin':
         return shutil.which('docker')
     if platform.system() == 'Linux':
         return shutil.which('docker')
     if platform.system() == 'Windows':
         return shutil.which('docker')
-    return False
+
+def _check_docker_desktop_installed():
+
+    if not _find_docker_desktop_executable():
+
+        utils.secho(f"The Docker Desktop application is not installed on your computer.", fg='red')
+    
+        architecture = sysconfig.get_platform().split('-')[2]
+        if platform.system() == 'Windows':
+            installer = 'Docker%20Desktop%20Installer.exe'
+        elif platform.system() == 'Darwin':
+            installer = 'Docker.dmg'
+        else:
+            url = 'https://docs.docker.com/desktop/linux/install/'
+            utils.echo(f'Download from {url} and install before proceeding.')
+            sys.exit(1)
+
+        download_url = f'https://desktop.docker.com/{architecture}/main/{installer}'
+        utils.echo("Downloading from {download_url} through your web browser. Go to your Downloads folder and install Docker Desktop before proceeding.")
+        webbrowser.open(download_url, new=1)
+        sys.exit(1)
 
 
 def _start_docker_desktop():
@@ -36,14 +55,9 @@ def _start_docker_desktop():
         time.sleep(1)
     utils.echo()
 
+
 def _failsafe_start_docker_desktop():
     
-    if not _docker_desktop_installed():
-        utils.logger.debug('The Docker Desktop application is not installed on your computer')
-        utils.secho("The Docker Desktop application is not installed on your computer.", fg='red')
-        utils.secho('Visit https://www.docker.com/products/docker-desktop and click the big blue "Download Docker Desktop" button.', fg='red')
-        sys.exit(1)
-
     _start_docker_desktop()
 
     if not _status() == 'running':
