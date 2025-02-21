@@ -131,6 +131,7 @@ def launch_exercise():
     cwd_mount_source = Path.cwd()
     cwd_mount_target = Path.cwd()
 
+
     if platform.system() == 'Windows':
         ssh_mount = PureWindowsPath(ssh_mount)
         anaconda_mount = PureWindowsPath(anaconda_mount)
@@ -139,6 +140,10 @@ def launch_exercise():
         parts = cwd_mount_target.parts
         assert ':' in parts[0]
         cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
+
+        # trans = str.maketrans({'\\': r"\\"})
+        # cwd_mount_source = cwd_mount_source.translate(trans)
+
 
     cmd = (
         rf"docker run --rm"
@@ -180,13 +185,15 @@ def launch_exercise():
 
     # run docker container
     # global docker_run_p
-    print(cmd)
-    print(utils.format_cmd(cmd))
-    docker_run_p = Popen(shlex.split(cmd), stdout=DEVNULL, stderr=DEVNULL, **popen_kwargs)
-
-    # docker_run_p = Popen(utils.format_cmd(cmd), 
-    #                     #  stdout=DEVNULL, stderr=DEVNULL, 
+    # print(cmd)
+    # print(shlex.split(cmd))
+    # docker_run_p = Popen(shlex.split(cmd), 
+    #                      stdout=DEVNULL, stderr=DEVNULL, 
     #                      **popen_kwargs)
+
+    docker_run_p = Popen(utils.format_cmd(cmd), 
+                        #  stdout=DEVNULL, stderr=DEVNULL, 
+                         **popen_kwargs)
 
     time.sleep(5)
 
