@@ -164,7 +164,9 @@ def launch_exercise():
 
     while True:
         click.echo('\nPress Q to shut down jupyter and close application')
-        c = 'q'#click.getchar()
+        c = input()
+        c = c.strip()
+        # c = click.getchar()
         click.echo()
         if c.upper() == 'Q':
             click.secho('Shutting down JupyterLab', fg='yellow')
