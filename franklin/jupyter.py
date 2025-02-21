@@ -12,6 +12,7 @@ import subprocess
 import click
 import shutil
 import time
+from pathlib import Path, PureWindowsPath, PurePosixPath
 from subprocess import Popen, PIPE, DEVNULL, CalledProcessError, STDOUT
 from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, GITLAB_API_URL, GITLAB_GROUP, ALLOW_SUBDIRS
 from os.path import expanduser
@@ -93,44 +94,15 @@ def launch_exercise():
 
     # image_size = [val['size'] for val in image_info.values() if val['location'] == image_url][0]
 
-
-
     # pull image if not already present
     if not _docker._image_exists(image_url):
         _docker._pull(image_url)
-        raise Exception('Image not found. Restart Docker Desktop and try again.')
-
-    # from pathlib import Path
-    # home = str(Path.home())
-    # pwd = str(Path.cwd())
-    # home = expanduser("~")
-    # pwd = os.getcwd()
-
-    # if platform.system() == 'Windows':
-    #     pwd = pwd.replace('\\', '/').replace('C:', '/c')
-    #     home = home.replace('\\', '/').replace('C:', '/c')  
-
-    # ssh_mount = (os.path.join(home,'.ssh'), '/tmp/.ssh')
-    # anaconda_mount = (os.path.join(home, '.anaconda'), '/root/.anaconda')
-    # pwd_mount = (pwd, pwd)
-
-    # repo_mount = ''
-    # if clone:
-    #     repo_mount = f'--mount type=bind,source={pwd}/git-repository,target=/root/git-repository'
-
-    # command for running jupyter docker container
-    # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main"
-    # cmd = f"docker run --rm {repo_mount} --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
-
-
-    from pathlib import Path, PureWindowsPath, PurePosixPath
+        # raise Exception('Image not found. Restart Docker Desktop and try again.')
 
     ssh_mount = Path.home() / '.ssh'
     anaconda_mount = Path.home() / '.anaconda'
-
     cwd_mount_source = Path.cwd()
     cwd_mount_target = Path.cwd()
-
 
     if platform.system() == 'Windows':
         ssh_mount = PureWindowsPath(ssh_mount)
@@ -141,10 +113,6 @@ def launch_exercise():
         assert ':' in parts[0]
         cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
 
-        # trans = str.maketrans({'\\': r"\\"})
-        # cwd_mount_source = cwd_mount_source.translate(trans)
-
-
     cmd = (
         rf"docker run --rm"
         rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
@@ -153,49 +121,15 @@ def launch_exercise():
         rf" -w {cwd_mount_target} -i -p 8888:8888 {image_url}:main"
     )
     logger.debug(f'docker run cmd: {cmd}')
-    # if platform.system() == 'Windows':
-    #     cmd = (
-    #         f"docker run --rm"
-    #         f" --mount type=bind,source=%HOMEDRIVE%%HOMEPATH%\.ssh,target=/tmp/.ssh"
-    #         f" --mount type=bind,source=%HOMEDRIVE%%HOMEPATH%\.anaconda,target=/root/.anaconda"
-    #         f"  -w {pwd} -i -t -p 8888:8888 {image_url}:main"
-    #     )
-    # else:
-    #     cmd = (
-    #         f"docker run --rm"
-    #         f" --mount type=bind,source={ssh_mount[0]},target={ssh_mount[1]}"
-    #         f" --mount type=bind,source={anaconda_mount[0]},target={anaconda_mount[1]}"
-    #         f" --mount type=bind,source={pwd_mount[0]},target={pwd_mount[1]}"
-    #         f" -w {pwd_mount[0]} -i -p 8888:8888 {image_url}:main"
-    #     )
-    
-
-
-
-
-        # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
-
-    # cmd = f"docker run --rm --mount type=bind,source=$env:userprofile\.ssh,target=/tmp/.ssh --mount type=bind,source=$env:userprofile\.anaconda,target=/root/.anaconda --mount type=bind,source=$($pwd  -replace '\\', '/' -replace 'C:', '/c'),target=$($pwd -replace '\\', '/' -replace 'C:', '/c') -w $($pwd  -replace '\\', '/' -replace 'C:', '/c') -i -t -p 8888:8888 registry.gitlab.au.dk/au81667/mbg-docker-exercises:main
 
     # if platform.system() == "Windows":
     #     popen_kwargs = dict(creationflags = DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
     # else:
     #     popen_kwargs = dict(start_new_session = True)
     popen_kwargs = dict()
-
-    # run docker container
-    # global docker_run_p
-    # print(cmd)
-    # print(shlex.split(cmd))
-    # docker_run_p = Popen(shlex.split(cmd), 
-    #                      stdout=DEVNULL, stderr=DEVNULL, 
-    #                      **popen_kwargs)
-
     cmd = cmd.split()
     cmd[0] = shutil.which(cmd[0])
-    docker_run_p = Popen(cmd, 
-                        stdout=DEVNULL, stderr=DEVNULL, 
-                         **popen_kwargs)
+    docker_run_p = Popen(cmd, stdout=DEVNULL, stderr=DEVNULL, **popen_kwargs)
 
     time.sleep(5)
 
@@ -229,9 +163,9 @@ def launch_exercise():
     click.secho(f'Jupyter is running at {token_url}', fg='green')
 
     while True:
-        utils.echo('\nPress Q to shut down jupyter and close application\n', nl=False)
+        click.echo('\nPress Q to shut down jupyter and close application:', nl=False)
         c = click.getchar()
-        utils.echo()
+        click.echo(f" {c.upper()}")
         if c.upper() == 'Q':
             click.secho('Shutting down JupyterLab', fg='yellow')
             logging.debug('Jupyter server is stopping')
