@@ -128,7 +128,7 @@ def launch_exercise():
     cmd = cmd.split()
     cmd[0] = shutil.which(cmd[0])
     docker_run_p = Popen(cmd, 
-                        #  stdout=DEVNULL, stderr=DEVNULL, 
+                         stdout=DEVNULL, stderr=DEVNULL, 
                          **popen_kwargs)
 
     time.sleep(5)
