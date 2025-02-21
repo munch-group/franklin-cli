@@ -255,7 +255,7 @@ def select(allow_subdirs_at_your_own_risk, update):
 
     dirs_in_cwd = any(os.path.isdir(x) for x in os.listdir(os.getcwd()))
     if dirs_in_cwd and not allow_subdirs_at_your_own_risk:
-        utils.secho("Please run the command in a directory without any sub-directories.", fg='red')
+        utils.secho("\n  Please run the command in a directory without any sub-directories.", fg='red')
         sys.exit(1)
 
 

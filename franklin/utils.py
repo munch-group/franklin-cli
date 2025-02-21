@@ -161,7 +161,7 @@ def _check_free_disk_space():
     else:
         utils.echo(f"\n  Free space on disk: ", nl=False)
         utils.secho(f"{gb_free:.2f} GB", fg='green', bold=True)
-        utils.echo    
+
 
 
 def _welcome_screen():
@@ -169,4 +169,4 @@ def _welcome_screen():
     utils.echo()
     utils.secho("FRANKLIN", fg='green', bold=True)
     utils.echo("Science and everyday life cannot and should not be separated. - Rosalind D. Franklin")
-    utils.echo()
+
