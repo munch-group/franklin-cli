@@ -136,6 +136,9 @@ def launch_exercise():
         anaconda_mount = PureWindowsPath(anaconda_mount)
         cwd_mount_source = PureWindowsPath(cwd_mount_source)
         cwd_mount_target = PurePosixPath(cwd_mount_source)
+        parts = cwd_mount_target.parts
+        assert ':' in parts[0]
+        cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
 
     cmd = (
         f"docker run --rm"
