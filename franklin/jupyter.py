@@ -39,9 +39,7 @@ def select_image(exercises_images):
     #     # image_tree[c.replace('_', ' ')][w.replace('_', ' ')][v.replace('_', ' ')] = image_name
     #     image_tree[course][exercise] = image_name
 
-    utils.echo("\n\nUse arrow keys to move and enter to select\n"
-                    "Press Ctrl-C to close the application.")   
-
+    utils.echo("\n\nUse arrow keys for navigation and enter to select\n")
     def pick_course():
         course_names = get_course_names()
         course_group_names, course_danish_names,  = zip(*sorted(course_names.items()))
@@ -69,6 +67,7 @@ def select_image(exercises_images):
 
     exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
     click.secho(f"\nSelect exercise in {danish_course_name}:", fg='green')
+    utils.echo("\n\nUse arrow keys for navigation and enter to select\n")
     captions = []
     exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
     exercise = exercise_repo_names[exercise_idx]
@@ -97,7 +96,6 @@ def launch_exercise():
     # pull image if not already present
     if not _docker._image_exists(image_url):
         _docker._pull(image_url)
-        # raise Exception('Image not found. Restart Docker Desktop and try again.')
 
     ssh_mount = Path.home() / '.ssh'
     anaconda_mount = Path.home() / '.anaconda'
@@ -129,7 +127,9 @@ def launch_exercise():
     popen_kwargs = dict()
     cmd = cmd.split()
     cmd[0] = shutil.which(cmd[0])
-    docker_run_p = Popen(cmd, stdout=DEVNULL, stderr=DEVNULL, **popen_kwargs)
+    docker_run_p = Popen(cmd, 
+                         #stdout=DEVNULL, stderr=DEVNULL, 
+                         **popen_kwargs)
 
     time.sleep(5)
 
