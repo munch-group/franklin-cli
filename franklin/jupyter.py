@@ -180,14 +180,21 @@ def launch_exercise():
 
     # run docker container
     # global docker_run_p
-    docker_run_p = Popen(shlex.split(cmd), stdout=DEVNULL, stderr=DEVNULL, **popen_kwargs)
+    # docker_run_p = Popen(shlex.split(cmd), stdout=DEVNULL, stderr=DEVNULL, **popen_kwargs)
+    docker_run_p = Popen(utils.format_cmd(cmd), 
+                        #  stdout=DEVNULL, stderr=DEVNULL, 
+                         **popen_kwargs)
 
     time.sleep(5)
 
     # get id of running container
-    for cont in _docker._containers(return_json=True):
-        if cont['Image'].startswith(image_url):
-            run_container_id  = cont['ID']
+    for _ in range(10):
+        time.sleep(1)
+        run_container_id = None
+        for cont in _docker._containers(return_json=True):
+            if cont['Image'].startswith(image_url):
+                run_container_id  = cont['ID']
+        if run_container_id:
             break
     else:
         print('No running container with image')
