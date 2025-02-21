@@ -142,7 +142,7 @@ def launch_exercise():
         f" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
         f" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
         f" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
-        f" -w {cwd_mount_source} -i -p 8888:8888 {image_url}:main"
+        f" -w {cwd_mount_target} -i -p 8888:8888 {image_url}:main"
     )
     logger.debug(f'docker run cmd: {cmd}')
     # if platform.system() == 'Windows':
