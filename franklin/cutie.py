@@ -163,8 +163,10 @@ def select_multiple(
     caption_indices: Optional[List[int]] = None,
     deselected_unticked_prefix: str = "\033[1m( )\033[0m ",
     deselected_ticked_prefix: str = "\033[1m(\033[32mx\033[0;1m)\033[0m ",
-    selected_unticked_prefix: str = "\033[32;1m{ }\033[0m ",
-    selected_ticked_prefix: str = "\033[32;1m{x}\033[0m ",
+    # selected_unticked_prefix: str = "\033[32;1m{ }\033[0m ",
+    # selected_ticked_prefix: str = "\033[32;1m{x}\033[0m ",
+    selected_unticked_prefix: str = "\033[32;1m( )\033[0m ",
+    selected_ticked_prefix: str = "\033[32;1m(x)\033[0m ",
     caption_prefix: str = "",
     ticked_indices: Optional[List[int]] = None,
     cursor_index: int = 0,
@@ -206,7 +208,8 @@ def select_multiple(
     Returns:
         List[int]: The indices that have been selected
     """
-    print("\n" * (len(options) - 1))
+    trailing_line = 1 if hide_confirm else 0
+    print("\n" * (len(options) - 1 + trailing_line))
     if caption_indices is None:
         caption_indices = []
     if ticked_indices is None:
@@ -214,7 +217,7 @@ def select_multiple(
     max_index = len(options) - (1 if hide_confirm else 0)
     error_message = ""
     while True:
-        print(f"\033[{len(options) + 1}A")
+        print(f"\033[{len(options) + 1 + trailing_line}A")
         for i, option in enumerate(options):
             prefix = ""
             if i in caption_indices:
@@ -230,6 +233,7 @@ def select_multiple(
                 else:
                     prefix = deselected_unticked_prefix
             print("\033[K{}{}".format(prefix, option))
+        print()
         if hide_confirm:
             print(f"{error_message}\033[K", end="", flush=True)
         else:
