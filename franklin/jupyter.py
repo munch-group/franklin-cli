@@ -100,9 +100,9 @@ def launch_exercise():
         _docker._pull(image_url)
         raise Exception('Image not found. Restart Docker Desktop and try again.')
 
-    from pathlib import Path
-    home = str(Path.home())
-    pwd = str(Path.cwd())
+    # from pathlib import Path
+    # home = str(Path.home())
+    # pwd = str(Path.cwd())
     # home = expanduser("~")
     # pwd = os.getcwd()
 
@@ -110,9 +110,9 @@ def launch_exercise():
     #     pwd = pwd.replace('\\', '/').replace('C:', '/c')
     #     home = home.replace('\\', '/').replace('C:', '/c')  
 
-    ssh_mount = (os.path.join(home,'.ssh'), '/tmp/.ssh')
-    anaconda_mount = (os.path.join(home, '.anaconda'), '/root/.anaconda')
-    pwd_mount = (pwd, pwd)
+    # ssh_mount = (os.path.join(home,'.ssh'), '/tmp/.ssh')
+    # anaconda_mount = (os.path.join(home, '.anaconda'), '/root/.anaconda')
+    # pwd_mount = (pwd, pwd)
 
     # repo_mount = ''
     # if clone:
@@ -122,14 +122,48 @@ def launch_exercise():
     # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -t -p 8888:8888 {image_url}:main"
     # cmd = f"docker run --rm {repo_mount} --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
 
+
+    from pathlib import Path, PureWindowsPath
+
+    ssh_mount = Path.home() / '.ssh'
+    anaconda_mount = Path.home() / '.anaconda'
+
+    cwd_mount_source = Path.cwd()
+    cwd_mount_target = Path.cwd()
+
+    if platform.system() == 'Windows':
+        ssh_mount = PureWindowsPath(ssh_mount)
+        anaconda_mount = PureWindowsPath(anaconda_mount)
+        cwd_mount_source = PureWindowsPath(cwd_mount_source)
+
     cmd = (
         f"docker run --rm"
-        f" --mount type=bind,source={ssh_mount[0]},target={ssh_mount[1]}"
-        f" --mount type=bind,source={anaconda_mount[0]},target={anaconda_mount[1]}"
-        f" --mount type=bind,source={pwd_mount[0]},target={pwd_mount[1]}"
-        f" -w {pwd_mount[0]} -i -p 8888:8888 {image_url}:main"
+        f" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
+        f" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
+        f" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
+        f" -w {cwd_mount_source} -i -p 8888:8888 {image_url}:main"
     )
+
+    # if platform.system() == 'Windows':
+    #     cmd = (
+    #         f"docker run --rm"
+    #         f" --mount type=bind,source=%HOMEDRIVE%%HOMEPATH%\.ssh,target=/tmp/.ssh"
+    #         f" --mount type=bind,source=%HOMEDRIVE%%HOMEPATH%\.anaconda,target=/root/.anaconda"
+    #         f"  -w {pwd} -i -t -p 8888:8888 {image_url}:main"
+    #     )
+    # else:
+    #     cmd = (
+    #         f"docker run --rm"
+    #         f" --mount type=bind,source={ssh_mount[0]},target={ssh_mount[1]}"
+    #         f" --mount type=bind,source={anaconda_mount[0]},target={anaconda_mount[1]}"
+    #         f" --mount type=bind,source={pwd_mount[0]},target={pwd_mount[1]}"
+    #         f" -w {pwd_mount[0]} -i -p 8888:8888 {image_url}:main"
+    #     )
     
+
+
+
+
         # cmd = f"docker run --rm --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
 
     # cmd = f"docker run --rm --mount type=bind,source=$env:userprofile\.ssh,target=/tmp/.ssh --mount type=bind,source=$env:userprofile\.anaconda,target=/root/.anaconda --mount type=bind,source=$($pwd  -replace '\\', '/' -replace 'C:', '/c'),target=$($pwd -replace '\\', '/' -replace 'C:', '/c') -w $($pwd  -replace '\\', '/' -replace 'C:', '/c') -i -t -p 8888:8888 registry.gitlab.au.dk/au81667/mbg-docker-exercises:main
