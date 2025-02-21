@@ -128,7 +128,7 @@ def launch_exercise():
     cmd = cmd.split()
     cmd[0] = shutil.which(cmd[0])
     docker_run_p = Popen(cmd, 
-                         #stdout=DEVNULL, stderr=DEVNULL, 
+                        #  stdout=DEVNULL, stderr=DEVNULL, 
                          **popen_kwargs)
 
     time.sleep(5)
@@ -156,6 +156,9 @@ def launch_exercise():
         match= re.search(r'https?://127.0.0.1\S+', line)
         if match:
             token_url = match.group(0)
+            docker_log_p.stdout.close()
+            docker_log_p.terminate()
+            docker_log_p.wait()
             break
 
     webbrowser.open(token_url, new=1)
@@ -172,10 +175,10 @@ def launch_exercise():
             click.secho('Shutting down JupyterLab', fg='yellow')
             logging.debug('Jupyter server is stopping')
             _docker._kill_container(run_container_id)
-            docker_log_p.stdout.close()
-            docker_log_p.kill()
+            # docker_log_p.stdout.close()
+            # docker_log_p.kill()
             docker_run_p.kill()
-            docker_log_p.wait()
+            # docker_log_p.wait()
             docker_run_p.wait()
             logging.debug('Jupyter server stopped')
             click.secho('Jupyter server stopped', fg='red')
