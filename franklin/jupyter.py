@@ -123,7 +123,7 @@ def launch_exercise():
     # cmd = f"docker run --rm {repo_mount} --mount type=bind,source={home}/.ssh,target=/tmp/.ssh --mount type=bind,source={home}/.anaconda,target=/root/.anaconda --mount type=bind,source={pwd},target={pwd} -w {pwd} -i -p 8888:8888 {image_url}:main"
 
 
-    from pathlib import Path, PureWindowsPath
+    from pathlib import Path, PureWindowsPath, PurePosixPath
 
     ssh_mount = Path.home() / '.ssh'
     anaconda_mount = Path.home() / '.anaconda'
@@ -135,6 +135,7 @@ def launch_exercise():
         ssh_mount = PureWindowsPath(ssh_mount)
         anaconda_mount = PureWindowsPath(anaconda_mount)
         cwd_mount_source = PureWindowsPath(cwd_mount_source)
+        cwd_mount_target = PurePosixPath(cwd_mount_source)
 
     cmd = (
         f"docker run --rm"
