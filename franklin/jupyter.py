@@ -163,9 +163,9 @@ def launch_exercise():
     click.secho(f'Jupyter is running at {token_url}', fg='green')
 
     while True:
-        click.echo('\nPress Q to shut down jupyter and close application:', nl=False)
-        c = click.getchar()
-        click.echo(f" {c.upper()}")
+        click.echo('\nPress Q to shut down jupyter and close application')
+        c = 'q'#click.getchar()
+        click.echo()
         if c.upper() == 'Q':
             click.secho('Shutting down JupyterLab', fg='yellow')
             logging.debug('Jupyter server is stopping')
