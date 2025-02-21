@@ -96,7 +96,7 @@ def _multi_select_table(header, table, ids):
 
     table_width = sum(col_widths) + 4 * len(col_widths) + 2
 
-    utils.echo("Use up/down arrows to navigate, Space to select/deselect, and Enter to remove selection.\n")
+    utils.echo("Use up/down arrows to navigate and Space to select/deselect.\n")
 
     utils.echo('    | '+'| '.join([x.ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
     click.echo('-'*table_width)
@@ -106,7 +106,7 @@ def _multi_select_table(header, table, ids):
     captions = []
     selected_indices = cutie.select_multiple(
         rows, caption_indices=captions, 
-        # hide_confirm=False
+        hide_confirm=False
     )
     return [ids[i]for i in selected_indices]
 

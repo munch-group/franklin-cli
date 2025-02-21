@@ -161,20 +161,24 @@ def select(
 def select_multiple(
     options: List[str],
     caption_indices: Optional[List[int]] = None,
-    deselected_unticked_prefix: str = "\033[1m( )\033[0m ",
-    deselected_ticked_prefix: str = "\033[1m(\033[32mx\033[0;1m)\033[0m ",
+    # deselected_unticked_prefix: str = "\033[1m( )\033[0m ",
+    # deselected_ticked_prefix: str = "\033[1m(\033[32mx\033[0;1m)\033[0m ",
     # selected_unticked_prefix: str = "\033[32;1m{ }\033[0m ",
     # selected_ticked_prefix: str = "\033[32;1m{x}\033[0m ",
-    selected_unticked_prefix: str = "\033[32;1m( )\033[0m ",
-    selected_ticked_prefix: str = "\033[32;1m(x)\033[0m ",
+    deselected_unticked_prefix: str = "\033[1m[ ]\033[0m ",
+    deselected_ticked_prefix: str = "\033[1m[\033[32mx\033[0;1m]\033[0m ",
+    selected_unticked_prefix: str = "\033[32;1m[ ]\033[0m ",
+    selected_ticked_prefix: str = "\033[32;1m[x]\033[0m ",
     caption_prefix: str = "",
     ticked_indices: Optional[List[int]] = None,
-    cursor_index: int = 0,
+    cursor_index: int = None,
     minimal_count: int = 0,
     maximal_count: Optional[int] = None,
     hide_confirm: bool = True,
-    deselected_confirm_label: str = "\033[1m(( confirm ))\033[0m",
-    selected_confirm_label: str = "\033[1;32m{{ confirm }}\033[0m",
+    # deselected_confirm_label: str = "\033[1m(( confirm ))\033[0m",
+    # selected_confirm_label: str = "\033[1;32m{{ confirm }}\033[0m",
+    deselected_confirm_label: str = "\033[1m[[ confirm ]]\033[0m",
+    selected_confirm_label: str = "\033[1;32m[[ confirm ]]\033[0m",
 ) -> List[int]:
     """Select multiple options from a list.
 
@@ -208,13 +212,15 @@ def select_multiple(
     Returns:
         List[int]: The indices that have been selected
     """
-    trailing_line = 1 if hide_confirm else 0
+    trailing_line = 1
     print("\n" * (len(options) - 1 + trailing_line))
     if caption_indices is None:
         caption_indices = []
     if ticked_indices is None:
         ticked_indices = []
     max_index = len(options) - (1 if hide_confirm else 0)
+    if cursor_index is None:
+        cursor_index = max_index
     error_message = ""
     while True:
         print(f"\033[{len(options) + 1 + trailing_line}A")
