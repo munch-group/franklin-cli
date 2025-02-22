@@ -64,7 +64,7 @@ def wrap(text):
     initial_indent = text[:len(text) - len(text.lstrip())]
     text = text.lstrip()
     
-    trailing_ws = text[len(text.rstrip()) - len(text):]   
+    trailing_ws = text[len(text.rstrip()):]   
     text = text.rstrip()
 
     text = click.wrap_text(text, width=max((shutil.get_terminal_size().columns)/2, WRAP_WIDTH), 
@@ -79,7 +79,7 @@ def echo(text='', nowrap=False, **kwargs):
     """
     Wrapper for echo that wraps text
     """
-    if not nowrap and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
+    if not nowrap:# and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
         text = wrap(text)
     logger.debug(text)        
     click.echo(text, **kwargs)
@@ -90,7 +90,7 @@ def secho(text='', nowrap=False, **kwargs):
     Wrapper for secho that wraps text.
     kwargs are passed to click.secho
     """
-    if not nowrap and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
+    if not nowrap:# and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
         text = wrap(text)
     logger.debug(text)        
     click.secho(text, **kwargs)
@@ -159,14 +159,6 @@ def _check_free_disk_space():
         utils.echo()
         click.pause()
     else:
-        utils.echo(f"\n  Free space on disk: ", nl=False)
+        utils.echo(f"  Free space on disk: ", nl=False)
         utils.secho(f"{gb_free:.2f} GB", fg='green', bold=True)
-
-
-
-def _welcome_screen():
-
-    utils.echo()
-    utils.secho("FRANKLIN", fg='green', bold=True)
-    utils.echo("Science and everyday life cannot and should not be separated. - Rosalind D. Franklin")
 

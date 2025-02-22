@@ -39,11 +39,10 @@ def select_image(exercises_images):
     #     # image_tree[c.replace('_', ' ')][w.replace('_', ' ')][v.replace('_', ' ')] = image_name
     #     image_tree[course][exercise] = image_name
 
-    utils.echo("\n\nUse arrow keys for navigation and enter to select\n")
     def pick_course():
         course_names = get_course_names()
         course_group_names, course_danish_names,  = zip(*sorted(course_names.items()))
-        click.secho("\nSelect course:", fg='green')
+        utils.secho("\nUse arrow keys to select course and press Enter:", fg='green')
         captions = []
         # options = list(image_tree.keys())
         # course = options[cutie.select(options, caption_indices=captions, selected_index=0)]
@@ -66,8 +65,7 @@ def select_image(exercises_images):
         click.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
 
     exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
-    click.secho(f"\nSelect exercise in {danish_course_name}:", fg='green')
-    utils.echo("\n\nUse arrow keys for navigation and enter to select\n")
+    utils.secho("\nUse arrow keys to select exercise in {danish_course_name} and press Enter:", fg='green')
     captions = []
     exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
     exercise = exercise_repo_names[exercise_idx]
@@ -120,11 +118,11 @@ def launch_exercise():
     )
     logger.debug(f'docker run cmd: {cmd}')
 
-    # if platform.system() == "Windows":
-    #     popen_kwargs = dict(creationflags = DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
-    # else:
-    #     popen_kwargs = dict(start_new_session = True)
-    popen_kwargs = dict()
+    if platform.system() == "Windows":
+        popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
+    else:
+        popen_kwargs = dict(start_new_session = True)
+    # popen_kwargs = dict()
     cmd = cmd.split()
     cmd[0] = shutil.which(cmd[0])
     docker_run_p = Popen(cmd, 
@@ -165,6 +163,45 @@ def launch_exercise():
 
     click.secho(f'Jupyter is running at {token_url}', fg='green')
 
+
+    #########################
+
+    # import threading, ctypes
+
+    # class KeyboardThread(threading.Thread):
+
+    #     def __init__(self, input_cbk = None, name='keyboard-input-thread'):
+    #         self.input_cbk = input_cbk
+    #         super(KeyboardThread, self).__init__(name=name, daemon=True)
+    #         self.start()
+
+    #     def run(self):
+    #         while True:
+    #             # self.input_cbk(input()) #waits to get input + Return
+    #             self.input_cbk(click.getchar()) #waits to get input + Return
+
+    # def my_callback(inp):
+    #     inp = inp.strip()
+    #     if inp.upper() == 'Q':
+    #         click.secho('Shutting down JupyterLab', fg='yellow')
+    #         _docker._kill_container(run_container_id)
+    #         # docker_log_p.stdout.close()
+    #         # docker_log_p.kill()
+    #         docker_run_p.kill()
+    #         # docker_log_p.wait()
+    #         docker_run_p.wait()
+    #         logging.debug('Jupyter server stopped')
+    #         click.secho('Jupyter server stopped', fg='red')
+    #         raise SystemExit
+
+    # #start the Keyboard thread
+    # kthread = KeyboardThread(my_callback)
+
+    # while True:
+    #     pass
+
+    #########################
+
     while True:
         click.echo('\nPress Q to shut down jupyter and close application')
         # c = input()
@@ -172,14 +209,22 @@ def launch_exercise():
         c = click.getchar()
         click.echo()
         if c.upper() == 'Q':
+            # if not click.confirm("Shutdown Jupyter?", default=None):
+            #     continue
             click.secho('Shutting down JupyterLab', fg='yellow')
             logging.debug('Jupyter server is stopping')
             _docker._kill_container(run_container_id)
-            # docker_log_p.stdout.close()
-            # docker_log_p.kill()
-            docker_run_p.kill()
-            # docker_log_p.wait()
+            # # docker_log_p.stdout.close()
+            # # docker_log_p.kill()
+            # docker_run_p.kill()
+            # # docker_log_p.wait()
+            # docker_run_p.wait()
+
+
+            # docker_run_p.kill()
+            docker_run_p.terminate()
             docker_run_p.wait()
+
             logging.debug('Jupyter server stopped')
             click.secho('Jupyter server stopped', fg='red')
             break
@@ -201,7 +246,9 @@ def jupyter():
 @jupyter.command()
 def select(allow_subdirs_at_your_own_risk, update):
 
-    utils._welcome_screen()
+    click.echo()
+    utils.secho("FRANKLIN", fg='green', bold=True)
+    click.echo("Science and everyday life cannot and should not be separated. - Rosalind D. Franklin")
 
     _docker._check_docker_desktop_installed()
 
