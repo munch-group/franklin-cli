@@ -43,6 +43,16 @@ class SuppressedKeyboardInterrupt:
         signal.signal(signal.SIGINT, self.old_handler)
 
 
+# def print_exercise_tree(exercise_dict, image_name):
+
+#     print(exercise_list)
+#     image_tree = defaultdict(lambda: defaultdict(str))
+#     for course, exercise in exercise_dict:
+#         # c, w, v = image_name.split('-')
+#         # image_tree[c.replace('_', ' ')][w.replace('_', ' ')][v.replace('_', ' ')] = image_name
+#         image_tree[course][exercise] = image_name
+
+
 def format_cmd(cmd):
     cmd = shlex.split(cmd)
     cmd[0] = shutil.which(cmd[0]) 
@@ -75,25 +85,21 @@ def wrap(text):
     return text
 
 
-def echo(text='', nowrap=False, **kwargs):
-    """
-    Wrapper for echo that wraps text
-    """
-    if not nowrap:# and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
-        text = wrap(text)
-    logger.debug(text)        
-    click.echo(text, **kwargs)
-    
 
 def secho(text='', nowrap=False, **kwargs):
     """
     Wrapper for secho that wraps text.
     kwargs are passed to click.secho
     """
-    if not nowrap:# and 'nl' not in kwargs: # FIXME: somehow nl does not work with wrapping
+    if not nowrap:
         text = wrap(text)
-    logger.debug(text)        
+    for line in text.strip().splitlines():
+        logger.debug(line.strip())
     click.secho(text, **kwargs)
+
+
+def echo(text='', nowrap=False, **kwargs):
+    secho(text, nowrap=nowrap, **kwargs)
 
 
 def update_client(update):
@@ -148,17 +154,37 @@ def _check_free_disk_space():
         utils.secho(f"Not enough free disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {gb_free:.2f} GB", fg='red')
         sys.exit(1)
     elif gb_free < 2 * REQUIRED_GB_FREE_DISK:
+        click.clear()
         utils.echo()
-        utils.secho('='*70, fg='red')
+        utils.echo()
+        utils.echo()
+        utils.echo()
+        utils.echo()
+        utils.secho('='*75, fg='red')
         utils.echo()
         utils.secho(f"  You are running low on disk space. Franklin needs {REQUIRED_GB_FREE_DISK} GB of free disk space to run and you only have {gb_free:.2f} GB left.", fg='red', bold=True, blink=True)
         utils.echo()
         utils.echo(f'  You can use "franklin docker remove" to remove cached Docker content you no longer need. it automatically get downloaded if you should need it again')
         utils.echo()
-        utils.secho('='*70, fg='red')
+        utils.secho('='*75, fg='red')
         utils.echo()
         click.pause()
+        click.clear()
     else:
         utils.echo(f"  Free space on disk: ", nl=False)
         utils.secho(f"{gb_free:.2f} GB", fg='green', bold=True)
 
+
+
+class TroubleShooting():
+    def __init__(self, color='red'):
+        self.color = color
+
+    def __enter__(self):
+        logger.debug('START TROUBLESHOOTING')
+        click.secho('Franklin is troubleshooting...', fg=self.color, nl=False)
+        return self
+    
+    def __exit__(self, type, value, traceback):
+        click.secho(' done.', fg=self.color)
+        logger.debug('END TROUBLESHOOTING')

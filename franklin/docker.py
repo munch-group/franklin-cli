@@ -3,8 +3,10 @@ import subprocess
 from subprocess import run, check_output, Popen, PIPE, DEVNULL
 import json
 import sys
-import webbrowser
+import os
+import re
 import click
+import requests
 import shutil
 import time
 import psutil
@@ -14,36 +16,139 @@ from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
+from pathlib import Path
+from filecmp import dircmp
 
-def _find_docker_desktop_executable():
+def _docker_desktop_settings(**kwargs):
+
+    home = Path.home()
     if platform.system() == 'Darwin':
-        return shutil.which('docker')
-    if platform.system() == 'Linux':
-        return shutil.which('docker')
-    if platform.system() == 'Windows':
-        return shutil.which('docker')
+        json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
+    elif platform.system() == 'Windows':
+        json_settings = home / '/AppData/Roaming/Docker/settings-store.json'
+    elif platform.system() == 'Linux':
+        json_settings = home / '.docker/desktop/settings-store.json'
 
-def _check_docker_desktop_installed():
+    with open(json_settings, 'r') as f:
+        settings = json.load(f)
 
-    if not _find_docker_desktop_executable():
-
-        utils.secho(f"The Docker Desktop application is not installed on your computer.", fg='red')
+    if not kwargs:
+        return settings
     
-        architecture = sysconfig.get_platform().split('-')[2]
-        if platform.system() == 'Windows':
-            installer = 'Docker%20Desktop%20Installer.exe'
-        elif platform.system() == 'Darwin':
-            installer = 'Docker.dmg'
-        else:
-            url = 'https://docs.docker.com/desktop/linux/install/'
-            utils.echo(f'Download from {url} and install before proceeding.')
-            sys.exit(1)
+    for key, value in kwargs.items():
+        settings[key] = value
 
-        download_url = f'https://desktop.docker.com/{architecture}/main/{installer}'
-        utils.echo("Downloading from {download_url} through your web browser. Go to your Downloads folder and install Docker Desktop before proceeding.")
-        webbrowser.open(download_url, new=1)
+    with open(json_settings, 'w') as f:
+        json.dump(settings, f)
+
+
+def _install_docker_desktop():
+
+    utils.secho(f"\nInstalling Docker desktop.", fg='green')
+
+    architecture = sysconfig.get_platform().split('-')[2]
+    assert architecture in ['amd64', 'arm64']
+
+    if platform.system() == 'Windows':
+        if architecture == 'arm64':
+            download_url = 'https://desktop.docker.com/win/main/arm64/Docker%20Desktop%20Installer.exe'
+        else:
+            download_url = 'https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe'
+        installer = 'Docker Desktop Installer.exe'
+    elif platform.system() == 'Darwin':
+        if architecture == 'arm64':
+            download_url = 'https://desktop.docker.com/mac/main/arm64/Docker.dmg'
+        else:
+            download_url = 'https://desktop.docker.com/mac/main/amd64/Docker.dmg'
+        installer = 'Docker.dmg'
+    else:
+        url = 'https://docs.docker.com/desktop/linux/install/'
+        utils.echo(f'Download from {url} and install before proceeding.')
         sys.exit(1)
 
+    response = requests.get(download_url, stream=True)
+    if not response.ok:
+        utils.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
+        sys.exit(1)
+
+    file_size = response.headers['Content-length']
+    with open(installer, mode="wb") as file:
+        nr_chunks = int(file_size) // (10 * 1024) + 1
+        with click.progressbar(length=nr_chunks, label='Downloading', fill_char='#') as bar:
+            for chunk in response.iter_content(chunk_size=10 * 1024):
+                file.write(chunk)
+                bar.update(1)
+
+    def _run(cmd):
+        logger.debug(cmd)
+        cmd = cmd.split()
+        cmd[0] = shutil.which(cmd[0])
+        return check_output(cmd).decode().strip()
+    
+
+    if platform.system() == 'Windows':
+        run(installer, check=True)
+    elif platform.system() == 'Darwin':
+        cmd = f'hdiutil attach -nobrowse -readonly {installer}'
+        logger.debug(cmd)
+        cmd = cmd.split()
+        cmd[0] = shutil.which(cmd[0])
+        output = check_output(cmd).decode().strip()
+
+        # Extract the mounted volume name from the output
+        mounted_volume_name = re.search(r'/Volumes/([^ ]*)', output.strip()).group(1)
+
+        utils.echo("Installing:")
+        utils.echo()
+        utils.secho('='*75, fg='red')
+        utils.echo('  Press Enter and then drag the Docker to the Applications folder.', fg='red')
+        utils.secho('='*75, fg='red')
+        utils.echo()
+        click.pause('Press Enter...')
+
+        _run(f'open /Volumes/{mounted_volume_name}')
+
+        utils.echo(" - Copying to Applications...")
+        output = _run(f'du -s /Volumes/Docker/Docker.app')
+        source_size = output.split()[0]
+
+        prev_size = ''
+        for _ in range(1000):
+            cmd = f'du -s /Applications/Docker.app'
+            logger.debug(cmd)
+            cmd = cmd.split()
+            cmd[0] = shutil.which(cmd[0])
+            output = run(cmd, stdout=PIPE, stderr=DEVNULL, timeout=1, check=False).stdout.decode().strip()
+            if output:
+                size = output.split()[0]
+                if size == prev_size:
+                    break
+                prev_size = size
+            time.sleep(5)
+
+        time.sleep(5)
+
+        # # allow some time for the app to be copied and validated...
+        # with click.progressbar(length=10, label='Validating Docker Desktop', fill_char='#') as bar:
+        #     for _ in range(10):
+        #         time.sleep(1)
+        #         bar.update(1)
+
+        utils.echo(" - Unmounting...")
+
+        if os.path.exists('/Volumes/{mounted_volume_name}'):
+            _run(f'hdiutil detach /Volumes/{mounted_volume_name}/')
+
+    utils.echo(" - Removing installer...")
+    os.remove('Docker.dmg')
+
+    utils.echo(" - Setup...")
+    # Disable the "Open on startup"
+    _docker_desktop_settings(OpenUIOnStartupDisabled=True)
+
+
+#  start /w "" "Docker Desktop Installer.exe" uninstall
+#  /Applications/Docker.app/Contents/MacOS/uninstall
 
 def _start_docker_desktop():
     if not _status() == 'running':
@@ -58,6 +163,9 @@ def _start_docker_desktop():
 
 def _failsafe_start_docker_desktop():
     
+    if not shutil.which('docker'):
+         _install_docker_desktop()
+
     _start_docker_desktop()
 
     if not _status() == 'running':
