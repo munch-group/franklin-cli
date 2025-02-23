@@ -95,15 +95,16 @@ def _install_docker_desktop():
         utils.echo("Installing:")
         utils.echo()
         utils.secho('='*75, fg='red')
-        utils.echo('  You will be prompted for install permission. Accept follow the installation procedure. Once completed, return to this window.', fg='red')
+        utils.echo('  You will be prompted for install permission. Accept and then follow the installation procedure. Once completed, return to this window.', fg='red')
         utils.secho('='*75, fg='red')
         utils.echo()
         click.pause()
+        
+        run(installer, check=True)
 
         utils.echo(" - Removing installer...")
         os.remove(installer)
 
-        run(installer, check=True)
     elif platform.system() == 'Darwin':
         cmd = f'hdiutil attach -nobrowse -readonly {installer}'
         logger.debug(cmd)
