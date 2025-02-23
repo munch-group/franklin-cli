@@ -79,7 +79,7 @@ def _install_docker_desktop():
     file_size = response.headers['Content-length']
     with open(installer, mode="wb") as file:
         nr_chunks = int(file_size) // (10 * 1024) + 1
-        with click.progressbar(length=nr_chunks, label='Downloading', fill_char='#') as bar:
+        with click.progressbar(length=nr_chunks, label='Downloading', fill_char='=', empty_char=' ') as bar:
             for chunk in response.iter_content(chunk_size=10 * 1024):
                 file.write(chunk)
                 bar.update(1)

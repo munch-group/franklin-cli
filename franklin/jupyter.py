@@ -73,7 +73,7 @@ def launch_exercise():
     bar.update(prg)
 
     bar_length = 20
-    with click.progressbar(length=bar_length, label='Launching:', fill_char='#') as bar:
+    with click.progressbar(length=bar_length, label='Launching:', fill_char='=', empty_char=' ') as bar:
         prg = 1
         bar.update(prg)
 
