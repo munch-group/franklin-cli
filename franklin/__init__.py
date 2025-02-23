@@ -9,18 +9,9 @@ from .config import REQUIRED_GB_FREE_DISK
 @click.group()
 def franklin():
     """
-    Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
-
-    \b
-    Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-
-    Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
-    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.    
+    Franklin is a tool for running Jupyter servers predefined as Docker containers. 
+    For more information relevant to students, instructors, and professors, see the
+    online at https://munch-group.org/franklin.
     """
 
 franklin.add_command(_jupyter.jupyter)

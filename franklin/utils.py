@@ -139,7 +139,8 @@ def update_client(update):
 
 def _check_internet_connection():
     try:
-        request = requests.get("https://hub.docker.com/", timeout=2)        
+        request = requests.get("https://hub.docker.com/", timeout=2)    
+        utils.secho("  Internet connection OK.", fg='green')
         return True
     except (requests.ConnectionError, requests.Timeout) as exception:
         utils.secho("No internet connection. Please check your network.", fg='red')
@@ -171,8 +172,9 @@ def _check_free_disk_space():
         click.pause()
         click.clear()
     else:
-        utils.echo(f"  Free space on disk: ", nl=False)
-        utils.secho(f"{gb_free:.2f} GB", fg='green', bold=True)
+        utils.echo(f"  This machine has", nl=False)
+        utils.secho(f" {gb_free:.2f} GB", fg='green', nl=False)
+        utils.echo(f"  of free disk space, which is sufficient for Franklin to run.")
 
 
 

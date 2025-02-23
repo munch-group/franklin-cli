@@ -155,7 +155,7 @@ def launch_exercise():
 
     webbrowser.open(token_url, new=1)
 
-    utils.secho(f'\nJupyter is running and should open in your default browser.')
+    utils.secho(f'\nJupyter is running and should open in your default browser.', fg='green')
     utils.echo(f'If not, you can access it at this URL:')
     utils.echo(f'{token_url}', nowrap=True)
 
@@ -190,13 +190,26 @@ def jupyter():
 @jupyter.command()
 def select(allow_subdirs_at_your_own_risk, update):
 
-    click.echo()
-    utils.secho("FRANKLIN", fg='green', bold=True)
-    click.echo("Science and everyday life cannot and should not be separated. - Rosalind D. Franklin")
+    click.clear()
+    s = """
+  ▗▄▄▄▖▗▄▄▖  ▗▄▖ ▗▖  ▗▖▗▖ ▗▖▗▖   ▗▄▄▄▖▗▖  ▗▖
+  ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌     █  ▐▛▚▖▐▌
+  ▐▛▀▀▘▐▛▀▚▖▐▛▀▜▌▐▌ ▝▜▌▐▛▚▖ ▐▌     █  ▐▌ ▝▜▌
+  ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▌  ▐▌▐▌ ▐▌▐▙▄▄▖▗▄█▄▖▐▌  ▐▌
+    """
+    for line in s.splitlines():
+        utils.secho(line, nowrap=True, fg='green')
+
+    # utils.secho("FRANKLIN", fg='green', bold=True)
+    utils.echo('  "Science and everyday life cannot and should not be separated"\n')
+    utils.echo("  - Rosalind D. Franklin")              
+    time.sleep(1)
+
+    utils._check_internet_connection()
+    time.sleep(1)
 
     _docker._failsafe_start_docker_desktop()
 
-    utils._check_internet_connection()
 
     utils._check_free_disk_space()
 
