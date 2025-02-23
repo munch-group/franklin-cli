@@ -99,7 +99,7 @@ def _install_docker_desktop():
         utils.secho('='*75, fg='red')
         utils.echo()
         click.pause()
-        
+
         run(installer, check=True)
 
         utils.echo(" - Removing installer...")
@@ -159,9 +159,9 @@ def _install_docker_desktop():
         utils.echo(" - Removing installer...")
         os.remove(installer)
 
-    utils.echo(" - Setup...")
-    # Disable the "Open on startup"
-    _docker_desktop_settings(OpenUIOnStartupDisabled=True)
+        utils.echo(" - Setup...")
+        # Disable the "Open on startup"
+        _docker_desktop_settings(OpenUIOnStartupDisabled=True)
 
 
 #  start /w "" "Docker Desktop Installer.exe" uninstall
