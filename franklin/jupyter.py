@@ -155,7 +155,8 @@ def launch_exercise():
 
     webbrowser.open(token_url, new=1)
 
-    utils.secho(f'\nJupyter is running and should open in your default browser. If not, you can access it at this URL: {token_url}', fg='green')
+    utils.secho(f'\nJupyter is running and should open in your default browser. If not, you can access it at this URL:', fg='green')
+    utils.secho(f'{token_url}', fg='green')
 
     while True:
         utils.echo('\nPress Q to shut down jupyter and close application')
