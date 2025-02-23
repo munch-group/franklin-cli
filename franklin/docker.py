@@ -46,7 +46,7 @@ def _install_docker_desktop():
 
     utils.secho(f"\nInstalling Docker desktop.", fg='green')
 
-    architecture = sysconfig.get_platform().split('-')[2]
+    architecture = sysconfig.get_platform().split('-')[-1]
     assert architecture in ['amd64', 'arm64']
 
     if platform.system() == 'Windows':
