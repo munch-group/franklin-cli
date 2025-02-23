@@ -65,16 +65,16 @@ def launch_exercise():
 
     image_url = select_image(exercises_images)
 
+    if not _docker._image_exists(image_url):
+        utils.echo("Downloading image:")
+        _docker._pull(image_url)
+
+    prg += 1
+    bar.update(prg)
+
     bar_length = 20
     with click.progressbar(length=bar_length, label='Launching:', fill_char='#') as bar:
         prg = 1
-        bar.update(prg)
-
-        if not _docker._image_exists(image_url):
-            utils.echo("Downloading image:")
-            _docker._pull(image_url)
-
-        prg += 1
         bar.update(prg)
 
         ssh_mount = Path.home() / '.ssh'
