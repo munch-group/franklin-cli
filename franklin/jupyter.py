@@ -69,9 +69,6 @@ def launch_exercise():
         utils.echo("Downloading image:")
         _docker._pull(image_url)
 
-    prg += 1
-    bar.update(prg)
-
     bar_length = 20
     with click.progressbar(length=bar_length, label='Launching:', fill_char='=', empty_char=' ') as bar:
         prg = 1

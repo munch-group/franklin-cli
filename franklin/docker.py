@@ -68,11 +68,6 @@ def _install_docker_desktop():
 
     response = requests.get(download_url, stream=True)
     if not response.ok:
-
-
-
-
-
         utils.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
         sys.exit(1)
 
