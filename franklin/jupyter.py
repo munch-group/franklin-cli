@@ -79,6 +79,9 @@ def launch_exercise():
         cwd_mount_source = Path.cwd()
         cwd_mount_target = Path.cwd()
 
+        ssh_mount.mkdir(exist_ok=True)
+        anaconda_mount.mkdir(exist_ok=True)
+
         if platform.system() == 'Windows':
             ssh_mount = PureWindowsPath(ssh_mount)
             anaconda_mount = PureWindowsPath(anaconda_mount)
@@ -87,9 +90,6 @@ def launch_exercise():
             parts = cwd_mount_target.parts
             assert ':' in parts[0]
             cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
-
-        ssh_mount.mkdir(exist_ok=True)
-        anaconda_mount.mkdir(exist_ok=True)
 
         cmd = (
             rf"docker run --rm"
