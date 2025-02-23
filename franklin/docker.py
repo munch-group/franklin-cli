@@ -68,6 +68,11 @@ def _install_docker_desktop():
 
     response = requests.get(download_url, stream=True)
     if not response.ok:
+
+
+
+
+
         utils.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
         sys.exit(1)
 
@@ -85,8 +90,19 @@ def _install_docker_desktop():
         cmd[0] = shutil.which(cmd[0])
         return check_output(cmd).decode().strip()
     
-
     if platform.system() == 'Windows':
+
+        utils.echo("Installing:")
+        utils.echo()
+        utils.secho('='*75, fg='red')
+        utils.echo('  You will be prompted for install permission. Accept follow the installation procedure. Once completed, return to this window.', fg='red')
+        utils.secho('='*75, fg='red')
+        utils.echo()
+        click.pause()
+
+        utils.echo(" - Removing installer...")
+        os.remove(installer)
+
         run(installer, check=True)
     elif platform.system() == 'Darwin':
         cmd = f'hdiutil attach -nobrowse -readonly {installer}'
@@ -139,8 +155,8 @@ def _install_docker_desktop():
         if os.path.exists('/Volumes/{mounted_volume_name}'):
             _run(f'hdiutil detach /Volumes/{mounted_volume_name}/')
 
-    utils.echo(" - Removing installer...")
-    os.remove('Docker.dmg')
+        utils.echo(" - Removing installer...")
+        os.remove(installer)
 
     utils.echo(" - Setup...")
     # Disable the "Open on startup"
