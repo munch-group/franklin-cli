@@ -8,16 +8,16 @@ import re
 import click
 import requests
 import shutil
+import logging
 import time
 import psutil
 import sysconfig
 from . import utils
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK
+from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
-from pathlib import Path
-from filecmp import dircmp
+from pathlib import Path, PureWindowsPath, PurePosixPath
 
 def _docker_desktop_settings(**kwargs):
 
@@ -74,16 +74,10 @@ def _install_docker_desktop():
     file_size = response.headers['Content-length']
     with open(installer, mode="wb") as file:
         nr_chunks = int(file_size) // (10 * 1024) + 1
-        with click.progressbar(length=nr_chunks, label='Downloading', fill_char='=', empty_char=' ') as bar:
+        with click.progressbar(length=nr_chunks, label='Downloading', **PG_OPTIONS) as bar:
             for chunk in response.iter_content(chunk_size=10 * 1024):
                 file.write(chunk)
                 bar.update(1)
-
-    def _run(cmd):
-        logger.debug(cmd)
-        cmd = cmd.split()
-        cmd[0] = shutil.which(cmd[0])
-        return check_output(cmd).decode().strip()
     
     if platform.system() == 'Windows':
 
@@ -101,10 +95,7 @@ def _install_docker_desktop():
         os.remove(installer)
 
     elif platform.system() == 'Darwin':
-        cmd = f'hdiutil attach -nobrowse -readonly {installer}'
-        logger.debug(cmd)
-        cmd = cmd.split()
-        cmd[0] = shutil.which(cmd[0])
+        cmd = utils._cmd(f'hdiutil attach -nobrowse -readonly {installer}')
         output = check_output(cmd).decode().strip()
 
         # Extract the mounted volume name from the output
@@ -118,12 +109,9 @@ def _install_docker_desktop():
         utils.echo()
         click.pause('Press Enter...')
 
-        _run(f'open /Volumes/{mounted_volume_name}')
+        check_output(utils._cmd(f'open /Volumes/{mounted_volume_name}')).decode().strip()
 
         utils.echo(" - Copying to Applications...")
-        output = _run(f'du -s /Volumes/Docker/Docker.app')
-        source_size = output.split()[0]
-
         prev_size = ''
         for _ in range(1000):
             cmd = f'du -s /Applications/Docker.app'
@@ -327,6 +315,78 @@ def prune():
     """
     _prune()
 
+# def _build(directory=Path.cwd(), tag=None):
+
+#     if tag is None:
+#         check_output('')
+#     git config --get remote.origin.url
+
+#     tag = f'-t {tag}' if tag else ''
+#     subprocess.run(utils.format_cmd(f'docker build --platform=linux/amd64 {directory} {tag}'), check=False)
+
+#     git config --get remote.origin.url
+
+#  -t franklin/genomic-thinking/arg-dashboard for build
+# #docker build --platform=linux/amd64 -t kaspermunch/jupyter-linux-amd64:latest .
+
+# @click.argument("directory")
+# @click.option("--tag", help="Tag for the image")
+# @docker.command()
+# def build(directory, tag=None):
+#     """
+#     Build image from Dockerfile. Use for testing that the image builds correctly.
+#     """
+#     _build(directory, tag)
+
+
+def _run(image_url):
+
+    if platform.system() == "Windows":
+        popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
+    else:
+        popen_kwargs = dict(start_new_session = True)
+
+    ssh_mount = Path.home() / '.ssh'
+    anaconda_mount = Path.home() / '.anaconda'
+    cwd_mount_source = Path.cwd()
+    cwd_mount_target = Path.cwd()
+    ssh_mount.mkdir(exist_ok=True)
+    anaconda_mount.mkdir(exist_ok=True)
+    if platform.system() == 'Windows':
+        ssh_mount = PureWindowsPath(ssh_mount)
+        anaconda_mount = PureWindowsPath(anaconda_mount)
+        cwd_mount_source = PureWindowsPath(cwd_mount_source)
+        cwd_mount_target = PurePosixPath(cwd_mount_source)
+        parts = cwd_mount_target.parts
+        assert ':' in parts[0]
+        cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
+
+    cmd = (
+        # rf"docker run --rm"
+        rf"docker run --rm --pull=always"
+        rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
+        rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
+        rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
+        rf" -w {cwd_mount_target} -i -p 8050:8050 -p 8888:8888 {image_url}:main"
+    )
+    logger.debug(cmd)
+
+    cmd = cmd.split()
+    cmd[0] = shutil.which(cmd[0])
+    docker_run_p = Popen(cmd, 
+                        stdout=DEVNULL, stderr=DEVNULL, 
+                        **popen_kwargs)
+    return docker_run_p
+
+@click.argument("url")
+@docker.command()
+def run(url):
+    """
+    Run container from image. Use for testing that the image runs correctly.    
+    """
+    _run(url)
+
+
 ###########################################################
 # docker kill subcommands
 ###########################################################
@@ -336,10 +396,10 @@ def kill():
     """Kill Docker elements."""
     pass
 
-
 def _kill_container(container_id):
     """Kill a running container."""
-    run(utils.format_cmd(f'docker kill {container_id}'), check=False, stderr=DEVNULL, stdout=DEVNULL)
+    cmd = utils._cmd(f'docker kill {container_id}', log=False)
+    Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
 
 @click.argument("container_id")
 @kill.command('container')

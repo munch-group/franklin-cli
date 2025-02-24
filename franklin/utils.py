@@ -4,12 +4,15 @@ import sys
 import shutil
 import click
 import requests 
+import time
 from .config import REQUIRED_GB_FREE_DISK
 from . import utils
 from textwrap import wrap
+import platform
 from .logger import logger
-from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, WRAP_WIDTH
+from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, WRAP_WIDTH, MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT, BOLD_TEXT_ON_WINDOWS, PG_OPTIONS
 from subprocess import Popen, PIPE
+
 
 class CleanupAndTerminate(Exception):
     pass
@@ -59,15 +62,51 @@ def format_cmd(cmd):
     return cmd
 
 
+def _cmd(cmd, log=True, **kwargs):
+    if log:
+        logger.debug(cmd)
+    cmd = cmd.split()
+    cmd[0] = shutil.which(cmd[0])
+    return cmd
+
+
 def gb_free_disk():
     return shutil.disk_usage('/').free / 1024**3
 
 
-def wrap(text):
+def _check_window_size():
+
+    def _box(text):
+        window_box = \
+            '|' + '-'*(MIN_WINDOW_WIDTH-2) + '|\n' + \
+        ('|' + ' '*(MIN_WINDOW_WIDTH-2) + '|\n') * (MIN_WINDOW_HEIGHT-3) + \
+            '| ' + text.ljust(MIN_WINDOW_WIDTH-3) + '|\n' + \
+            '|' + '-'*(MIN_WINDOW_WIDTH-2) + '|' 
+        return '\n'*150 + window_box
+
+
+    ts = shutil.get_terminal_size()
+    if ts.columns < MIN_WINDOW_WIDTH or ts.lines < MIN_WINDOW_HEIGHT:
+        while True:
+            ts = shutil.get_terminal_size()
+            if ts.columns >= MIN_WINDOW_WIDTH and ts.lines >= MIN_WINDOW_HEIGHT:
+                break
+            click.secho(_box('Please resize the window to at least fit this square'), fg='red', bold=True)
+            time.sleep(0.1)
+        click.secho(_box('Thanks!'), fg='green', bold=True)
+        click.pause()
+
+    text = 'Please resize the window to at least fit this square'
+
+
+def wrap(text, width=None):
     """
     Wraps text to fit terminal width or WRAP_WIDTH, whatever
     is smaller
     """
+    if width is None:
+        width = WRAP_WIDTH
+
     nr_leading_nl = len(text) - len(text.lstrip('\n'))
     text = text.lstrip('\n')
     
@@ -77,7 +116,7 @@ def wrap(text):
     trailing_ws = text[len(text.rstrip()):]   
     text = text.rstrip()
 
-    text = click.wrap_text(text, width=max((shutil.get_terminal_size().columns)/2, WRAP_WIDTH), 
+    text = click.wrap_text(text, width=max((shutil.get_terminal_size().columns)/2, width), 
                 initial_indent=initial_indent, subsequent_indent=initial_indent, 
                 preserve_paragraphs=True)
     
@@ -86,15 +125,26 @@ def wrap(text):
 
 
 
-def secho(text='', nowrap=False, **kwargs):
+def secho(text='', center=False, nowrap=False, **kwargs):
     """
     Wrapper for secho that wraps text.
     kwargs are passed to click.secho
     """
     if not nowrap:
         text = wrap(text)
+    if center:
+        cent = []
+        for line in text.strip().splitlines():
+            line = line.strip()
+            if line:
+                line = line.center(MIN_WINDOW_WIDTH)
+            cent.append(line)
+        text = '\n'.join(cent)
     for line in text.strip().splitlines():
         logger.debug(line.strip())
+
+    if platform.system() == 'Windows' and not BOLD_TEXT_ON_WINDOWS:
+        kwargs['bold'] = False
     click.secho(text, **kwargs)
 
 
@@ -102,45 +152,10 @@ def echo(text='', nowrap=False, **kwargs):
     secho(text, nowrap=nowrap, **kwargs)
 
 
-def update_client(update):
-    if not update:
-        logger.debug('Update check skipped')
-    else:
-        click.echo('Updating client...', nl=False)
-        # cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
-        cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
-        logger.debug(cmd)
-        p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
-        stdout, stderr = p.communicate()
-        if stdout:
-            [logger.debug(x) for x in stdout.decode().splitlines()]
-        if stderr:
-            [logger.debug(x) for x in stderr.decode().splitlines()]
-        if p.returncode:
-            logger.debug(f"Update failed with return code {p.returncode}")
-
-            if stderr and 'PackageNotInstalledError' in stderr.decode():
-                msg = f"""
-                The package is not installed as a conda package in this environment.
-                Please install the package with the following command:
-                
-                conda install -c {ANACONDA_CHANNEL} franklin
-                """
-                click.echo(msg)
-            msg = f"""
-            Could not update client. Please try again later.
-            If problem persists, please email {MAINTAINER_EMAIL}
-            with a screenshot of the error message.
-            """
-            click.echo(msg)
-            sys.exit()
-        click.echo('done.')
-
-
 def _check_internet_connection():
     try:
         request = requests.get("https://hub.docker.com/", timeout=2)    
-        utils.secho("  Internet connection OK.", fg='green')
+        logger.debug("Internet connection OK.")
         return True
     except (requests.ConnectionError, requests.Timeout) as exception:
         utils.secho("No internet connection. Please check your network.", fg='red')
@@ -172,9 +187,16 @@ def _check_free_disk_space():
         click.pause()
         click.clear()
     else:
-        utils.echo(f"  This machine has", nl=False)
-        utils.secho(f" {gb_free:.2f} GB", fg='green', nl=False)
-        utils.echo(f"  of free disk space, which is sufficient for Franklin to run.")
+        utils.echo(f"Franklin needs", nl=False)
+        utils.secho(f" {REQUIRED_GB_FREE_DISK:.1f} Gb", nl=False, bold=True)
+        utils.echo(f" of free disk space to run.")
+        # fake progress bar to make the student aware that this check is important
+        with click.progressbar(length=100, label='Checking disk space', **PG_OPTIONS) as bar:
+            for i in range(100):
+                time.sleep(0.01)
+                bar.update(1)
+        utils.echo(f"Free disk space:", nl=False)
+        utils.secho(f" {gb_free:.1f} Gb", fg='green', bold=True)
 
 
 

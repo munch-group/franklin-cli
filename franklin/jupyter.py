@@ -14,13 +14,13 @@ import shutil
 import time
 from pathlib import Path, PureWindowsPath, PurePosixPath
 from subprocess import Popen, PIPE, DEVNULL, STDOUT
-from .config import GITLAB_API_URL, GITLAB_GROUP
+from .config import GITLAB_API_URL, GITLAB_GROUP, MIN_WINDOW_HEIGHT, PG_OPTIONS
 from . import utils
 from .gitlab import get_registry_listing, get_course_names, get_exercise_names
 from . import docker as _docker
-from .utils import update_client
 from .logger import logger
 from . import cutie
+from .update import _update_client
 
 
 def select_image(exercises_images):
@@ -50,8 +50,9 @@ def select_image(exercises_images):
     exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
     exercise = exercise_repo_names[exercise_idx]
 
-    utils.echo(f"\nPreparing jupyter session for:\n", nowrap=True)  # FIXME: if I don't add nowrap here and below, text is printed twice...
-    utils.echo(f"    {danish_course_name}: {exercise_danish_names[exercise_idx]} \n", nowrap=True)
+    utils.echo(f"\nPreparing jupyter session for:\n", nowrap=True) 
+    utils.echo(f"    {danish_course_name}: {exercise_danish_names[exercise_idx]}")
+    utils.echo()
     time.sleep(1)
 
     selected_image = exercises_images[(course, exercise)]
@@ -69,47 +70,13 @@ def launch_exercise():
         utils.echo("Downloading image:")
         _docker._pull(image_url)
 
-    bar_length = 20
-    with click.progressbar(length=bar_length, label='Launching:', fill_char='=', empty_char=' ') as bar:
+    ticks = 20
+    with click.progressbar(length=ticks, label='Launching:', **PG_OPTIONS) as bar:
         prg = 1
         bar.update(prg)
 
-        ssh_mount = Path.home() / '.ssh'
-        anaconda_mount = Path.home() / '.anaconda'
-        cwd_mount_source = Path.cwd()
-        cwd_mount_target = Path.cwd()
+        docker_run_p = _docker._run(image_url)
 
-        ssh_mount.mkdir(exist_ok=True)
-        anaconda_mount.mkdir(exist_ok=True)
-
-        if platform.system() == 'Windows':
-            ssh_mount = PureWindowsPath(ssh_mount)
-            anaconda_mount = PureWindowsPath(anaconda_mount)
-            cwd_mount_source = PureWindowsPath(cwd_mount_source)
-            cwd_mount_target = PurePosixPath(cwd_mount_source)
-            parts = cwd_mount_target.parts
-            assert ':' in parts[0]
-            cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
-
-        cmd = (
-            rf"docker run --rm"
-            rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
-            rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
-            rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
-            rf" -w {cwd_mount_target} -i -p 8050:8050 -p 8888:8888 {image_url}:main"
-        )
-        logger.debug(f'docker run cmd: {cmd}')
-
-        if platform.system() == "Windows":
-            popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
-        else:
-            popen_kwargs = dict(start_new_session = True)
-
-        cmd = cmd.split()
-        cmd[0] = shutil.which(cmd[0])
-        docker_run_p = Popen(cmd, 
-                            stdout=DEVNULL, stderr=DEVNULL, 
-                            **popen_kwargs)
         for b in range(5):
             time.sleep(1)
             prg += 1
@@ -136,10 +103,16 @@ def launch_exercise():
             sys.exit()   
 
 
-        bar.update(bar_length)
+        bar.update(ticks)
+
 
     cmd = f"docker logs --follow {run_container_id}"
+    if platform.system() == "Windows":
+        popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
+    else:
+        popen_kwargs = dict(start_new_session = True)
     docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True, **popen_kwargs)
+
 
     while True:
         time.sleep(0.1)
@@ -171,6 +144,7 @@ def launch_exercise():
             docker_run_p.wait()
             click.secho('Jupyter server stopped', fg='red')
             logging.debug('Jupyter server stopped') # FIXME: change to utils.secho and no logging call
+            logging.shutdown()
             break
 
     sys.exit()
@@ -190,39 +164,42 @@ def jupyter():
 @jupyter.command()
 def select(allow_subdirs_at_your_own_risk, update):
 
+    utils._check_window_size()
+
     click.clear()
     s = """
-  ▗▄▄▄▖▗▄▄▖  ▗▄▖ ▗▖  ▗▖▗▖ ▗▖▗▖   ▗▄▄▄▖▗▖  ▗▖
-  ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌     █  ▐▛▚▖▐▌
-  ▐▛▀▀▘▐▛▀▚▖▐▛▀▜▌▐▌ ▝▜▌▐▛▚▖ ▐▌     █  ▐▌ ▝▜▌
-  ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▌  ▐▌▐▌ ▐▌▐▙▄▄▖▗▄█▄▖▐▌  ▐▌
+           ▗▄▄▄▖▗▄▄▖  ▗▄▖ ▗▖  ▗▖▗▖ ▗▖▗▖   ▗▄▄▄▖▗▖  ▗▖
+           ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌     █  ▐▛▚▖▐▌
+           ▐▛▀▀▘▐▛▀▚▖▐▛▀▜▌▐▌ ▝▜▌▐▛▚▖ ▐▌     █  ▐▌ ▝▜▌
+           ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▌  ▐▌▐▌ ▐▌▐▙▄▄▖▗▄█▄▖▐▌  ▐▌
     """
     for line in s.splitlines():
-        utils.secho(line, nowrap=True, fg='green')
+        utils.secho(line, nowrap=True, center=True, fg='green')
 
-    # utils.secho("FRANKLIN", fg='green', bold=True)
-    utils.echo('  "Science and everyday life cannot and should not be separated"\n')
-    utils.echo("  - Rosalind D. Franklin")              
-    time.sleep(1)
+    utils.echo('"Science and everyday life cannot and should not be separated"', center=True)
+    utils.echo("Rosalind D. Franklin", center=True)
 
     utils._check_internet_connection()
-    time.sleep(1)
-
     _docker._failsafe_start_docker_desktop()
-
-
+    # click.clear()
+    # click.echo('\n'*int(MIN_WINDOW_HEIGHT/2))
     utils._check_free_disk_space()
-
+    time.sleep(2)
     # TODO: _docker.check_no_other_exercise_container_running()
     # TODO: _docker.check_no_other_local_jupyter_running()
 
-    dirs_in_cwd = any(os.path.isdir(x) for x in os.listdir(os.getcwd()))
-    if dirs_in_cwd and not allow_subdirs_at_your_own_risk:
-        utils.secho("\n  Please run the command in a directory without any sub-directories.", fg='red')
-        sys.exit(1)
+    if not allow_subdirs_at_your_own_risk:
+        for x in os.listdir(os.getcwd()):
+            if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
+                utils.secho("\n  Please run the command in a directory without any sub-directories.", fg='red')
+                sys.exit(1)
+    # dirs_in_cwd = any(os.path.isdir(x) ))
+    # if dirs_in_cwd and not allow_subdirs_at_your_own_risk:
+    #     utils.secho("\n  Please run the command in a directory without any sub-directories.", fg='red')
+    #     sys.exit(1)
 
 
-    update_client(update)
+    _update_client(update)
 
     launch_exercise()    
 

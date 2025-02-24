@@ -5,6 +5,7 @@ from . import utils
 import time
 import sys
 from .config import REQUIRED_GB_FREE_DISK
+from . import update as _update
 
 @click.group()
 def franklin():
@@ -13,6 +14,11 @@ def franklin():
     For more information relevant to students, instructors, and professors, see the
     online at https://munch-group.org/franklin.
     """
+
+
+
+# franklin.add_command(_update.update)
+
 
 franklin.add_command(_jupyter.jupyter)
 franklin.add_command(_docker.docker)
