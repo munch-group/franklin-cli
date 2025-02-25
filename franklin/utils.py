@@ -139,10 +139,12 @@ def secho(text='', center=False, nowrap=False, **kwargs):
             if line:
                 line = line.center(MIN_WINDOW_WIDTH)
             cent.append(line)
-        text = '\n'.join(cent)
+        text = '\n'.join(cent)        
     for line in text.strip().splitlines():
-        logger.debug(line.strip())
-
+        try:
+            logger.debug(line.strip())
+        except UnicodeEncodeError:
+            pass
     if platform.system() == 'Windows' and not BOLD_TEXT_ON_WINDOWS:
         kwargs['bold'] = False
     click.secho(text, **kwargs)

@@ -174,7 +174,8 @@ def select(allow_subdirs_at_your_own_risk, update):
            ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▌  ▐▌▐▌ ▐▌▐▙▄▄▖▗▄█▄▖▐▌  ▐▌
     """
     for line in s.splitlines():
-        utils.secho(line, nowrap=True, center=True, fg='green')
+        utils.secho(line, nowrap=True, center=True, fg='green', log=False)
+        logger.debug("################ FRANKLIN ################")
 
     utils.echo('"Science and everyday life cannot and should not be separated"', center=True)
     utils.echo("Rosalind D. Franklin", center=True)

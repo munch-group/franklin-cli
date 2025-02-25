@@ -232,6 +232,7 @@ def docker():
 def _pull(image_url):
     subprocess.run(utils.format_cmd(f'docker pull {image_url}:main'), check=False)
 
+
 @click.argument("url")
 @docker.command()
 def pull(url):
