@@ -125,7 +125,7 @@ def wrap(text, width=None):
 
 
 
-def secho(text='', center=False, nowrap=False, **kwargs):
+def secho(text='', center=False, nowrap=False, log=True, **kwargs):
     """
     Wrapper for secho that wraps text.
     kwargs are passed to click.secho
@@ -140,18 +140,23 @@ def secho(text='', center=False, nowrap=False, **kwargs):
                 line = line.center(MIN_WINDOW_WIDTH)
             cent.append(line)
         text = '\n'.join(cent)        
-    for line in text.strip().splitlines():
-        try:
-            logger.debug(line.strip())
-        except UnicodeEncodeError:
-            pass
+    if log:
+        for line in text.strip().splitlines():
+            try:
+                logger.debug(line.strip())
+            except UnicodeEncodeError:
+                line = str.decode('utf-8',errors='ignore')
+                logger.debug(line.strip())
+                
+
+                pass
     if platform.system() == 'Windows' and not BOLD_TEXT_ON_WINDOWS:
         kwargs['bold'] = False
     click.secho(text, **kwargs)
 
 
-def echo(text='', nowrap=False, **kwargs):
-    secho(text, nowrap=nowrap, **kwargs)
+def echo(text='', nowrap=False, log=True, **kwargs):
+    secho(text, nowrap=nowrap, log=log, **kwargs)
 
 
 def _check_internet_connection():
