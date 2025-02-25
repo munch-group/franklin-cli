@@ -4,12 +4,13 @@ import click
 from subprocess import Popen, PIPE
 from .utils import logger
 from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL
+from . import utils
 
 def _update_client(update):
     if not update:
         logger.debug('Update check skipped')
     else:
-        click.echo('Updating client...', nl=False)
+        click.echo('Updating franklin...', nl=False)
         # cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
         cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
         logger.debug(cmd)
@@ -31,13 +32,11 @@ def _update_client(update):
                 """
                 click.echo(msg)
             msg = f"""
-            Could not update client. Please try again later.
-            If problem persists, please email {MAINTAINER_EMAIL}
-            with a screenshot of the error message.
+            Could not update client.
             """
-            click.echo(msg)
+            utils.secho(msg, fg='red')
             sys.exit()
-        click.echo('done.')
+        click.echo('done')
 
 
 @click.command('update')

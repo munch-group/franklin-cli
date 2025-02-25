@@ -46,6 +46,12 @@ class SuppressedKeyboardInterrupt:
         signal.signal(signal.SIGINT, self.old_handler)
 
 
+"""
+Please email {MAINTAINER_EMAIL} with subject line: 'asdflkajsd lfajsd' and 
+attach the franklin.log that Franklin writes in current dir.
+
+"""
+
 # def print_exercise_tree(exercise_dict, image_name):
 
 #     print(exercise_list)

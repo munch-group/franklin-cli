@@ -45,7 +45,7 @@ def select_image(exercises_images):
         click.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
 
     exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
-    utils.secho("\nUse arrow keys to select exercise in {danish_course_name} and press Enter:", fg='green')
+    utils.secho(f"\nUse arrow keys to select exercise in {danish_course_name} and press Enter:", fg='green')
     captions = []
     exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
     exercise = exercise_repo_names[exercise_idx]
@@ -152,7 +152,7 @@ def launch_exercise():
 
 @click.group()
 def jupyter():
-    """Docker commands."""
+    """Jupyter commands"""
     pass
 
 
@@ -163,6 +163,8 @@ def jupyter():
                 help="Override check for package updates")
 @jupyter.command()
 def select(allow_subdirs_at_your_own_risk, update):
+
+    click.UsageError("Hej")
 
     utils._check_window_size()
 

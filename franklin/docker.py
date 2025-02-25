@@ -12,8 +12,9 @@ import logging
 import time
 import psutil
 import sysconfig
+from functools import wraps
 from . import utils
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS
+from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
@@ -162,7 +163,10 @@ def _start_docker_desktop():
 
 
 def _failsafe_start_docker_desktop():
-    
+
+    if shutil.which('docker') and _status() == 'running':
+        return
+
     if not shutil.which('docker'):
          _install_docker_desktop()
 
@@ -177,6 +181,28 @@ def _failsafe_start_docker_desktop():
         utils.logger.debug('Could not start Docker Desktop. Please start Docker Desktop manually')
         utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
         sys.exit(1)
+
+
+def ensure_docker_running(func):
+    """
+    Decorator for functions that require Docker Desktop to be running.
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        _failsafe_start_docker_desktop()
+        return func(*args, **kwargs)
+    return wrapper
+
+def irrelevant_unless_docker_running(func):
+    """
+    Decorator for functions that require Docker Desktop to be running.
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if not _status() == 'running':
+            utils.secho("Docker Desktop is not running. This command is meaningless without Docker Desktop running.")
+        return None
+    return wrapper
 
 
 def _image_exists(image_url):
@@ -198,23 +224,36 @@ def _command(command, silent=False, return_json=False):
         return subprocess.check_output(utils.format_cmd(command)).decode().strip()
 
 
-def _multi_select_table(header, table, ids):
+def _multi_select_table(header, table, ids, min_widths=None):
 
     col_widths = [max(len(x) for x in col) for col in zip(*table)]
 
+    max_width = shutil.get_terminal_size().columns - 4 - 4*len(col_widths) 
+
+    if min_widths is None:
+        min_widths = [15] * len(col_widths)
+    elif None in min_widths:
+        non_col_widths = sum(c for c, m in zip(col_widths, min_widths) if m is None)
+        leeway = (max_width - sum(x for x in min_widths if x is not None))
+        col_widths = [int(c / non_col_widths * leeway) if m is None else m for c, m in zip(col_widths, min_widths)]
+    elif sum(col_widths) > max_width:
+        leeway = max_width - sum(min_widths)
+        if leeway > 0:
+            col_widths =  [min_widths[i] + int((w/sum(col_widths)*leeway)) for i, w in enumerate(col_widths)]
+
     table_width = sum(col_widths) + 4 * len(col_widths) + 2
 
-    utils.echo("Use up/down arrows to navigate and Space to select/deselect.\n")
-
-    utils.echo('    | '+'| '.join([x.ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
+    utils.echo("Move: Arrow up/down, Toggle-select: Space, Confirm: Enter, Abort: Ctrl-C\n")
+    utils.echo('    | '+'| '.join([x[:w].ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
     click.echo('-'*table_width)
     rows = []
     for row in table:
-        rows.append('| '+'| '.join([x.ljust(w+2) for x, w in zip(row, col_widths)]))
+        rows.append('| '+'| '.join([x[:w].ljust(w+2) for x, w in zip(row, col_widths)]))
     captions = []
     selected_indices = cutie.select_multiple(
         rows, caption_indices=captions, 
-        hide_confirm=False
+        # hide_confirm=False
+        hide_confirm=True
     )
     return [ids[i]for i in selected_indices]
 
@@ -235,6 +274,7 @@ def _pull(image_url):
 
 @click.argument("url")
 @docker.command()
+@ensure_docker_running
 def pull(url):
     """Pull docker image.
     
@@ -265,6 +305,7 @@ def _stop():
     _command('docker desktop stop', silent=True)
 
 @docker.command()
+@irrelevant_unless_docker_running
 def stop():
     """Stop Docker Desktop"""
     _stop()
@@ -381,6 +422,7 @@ def _run(image_url):
 
 @click.argument("url")
 @docker.command()
+@ensure_docker_running
 def run(url):
     """
     Run container from image. Use for testing that the image runs correctly.    
@@ -393,6 +435,7 @@ def run(url):
 ###########################################################
 
 @docker.group()
+@irrelevant_unless_docker_running
 def kill():
     """Kill Docker elements."""
     pass
@@ -402,10 +445,11 @@ def _kill_container(container_id):
     cmd = utils._cmd(f'docker kill {container_id}', log=False)
     Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
 
-@click.argument("container_id")
-@kill.command('container')
-def kill_container(container_id):
-    _kill_container(container_id)
+# @click.argument("container_id")
+# @kill.command('container')
+# @irrelevant_unless_docker_running
+# def kill_container(container_id):
+#     _kill_container(container_id)
 
 
 @kill.command('everything')
@@ -418,6 +462,7 @@ def _kill_all_docker_desktop_processes():
                 process.kill()
                 
 @kill.command('container')
+@irrelevant_unless_docker_running
 def _kill_selected_containers():
     cont = _containers(return_json=True)
     if not cont:
@@ -443,15 +488,12 @@ def _kill_selected_containers():
                 exercise_names.update(get_exercise_names(course_label))
             course_name = course_names[course_label]
             exercise_name = exercise_names[exercise_label]
-            course_field = course_name[:30]+'...' if len(course_name) > 33 else course_name
-            exercise_field = exercise_name[:30]+'...' if len(exercise_name) > 33 else exercise_name
-            # table.append((course_field, exercise_field , img['CreatedSince'], img['Size'], img['ID']))
             ids.append(cont['ID'])
-            table.append((course_field, exercise_field , cont['RunningFor']))
+            table.append((course_name, exercise_name , cont['RunningFor'].replace(' ago', '')))
 
     utils.secho("\nChoose containes to kill:", fg='green')
 
-    for cont_id in _multi_select_table(header, table, ids):
+    for cont_id in _multi_select_table(header, table, ids, min_widths=[None, None, 20]):
         _kill_container(cont_id, force=True)
 
 ###########################################################
@@ -506,6 +548,7 @@ def _containers(return_json=False):
     return _command('docker ps', return_json=return_json)
 
 @show.command()
+@ensure_docker_running
 def containers():
     """List docker containers."""
     utils.echo(_containers(), nowrap=True)
@@ -518,6 +561,7 @@ def _storage(verbose=False):
 
 @click.option("--verbose/--no-verbose", default=False, help="More detailed output")
 @show.command()
+@ensure_docker_running
 def storage(verbose):
     """Show Docker's disk usage."""
     utils.echo(_storage(verbose), nowrap=True)
@@ -535,6 +579,7 @@ def _volumes(return_json=False):
     return _command('docker volume ls', return_json=return_json)
 
 @show.command()
+@ensure_docker_running
 def volumes():
     """List docker volumes."""
     utils.echo(_volumes(), nowrap=True)
@@ -544,6 +589,7 @@ def _images(return_json=False):
     return _command('docker images', return_json=return_json)
 
 @show.command()
+@ensure_docker_running
 def images():
     """List docker images."""
     utils.echo(_images(), nowrap=True)
@@ -561,6 +607,7 @@ def _rm_image(image, force=False):
 
 
 @docker.group()
+@ensure_docker_running
 def remove():
     """Remove Docker elements."""
     pass
@@ -577,7 +624,7 @@ def _remove_selected_images():
     exercise_names = {}
 
     # header = ['Course', 'Exercise', 'Created', 'Size', 'ID']
-    header = ['Course', 'Exercise', 'Created', 'Size']
+    header = ['Course', 'Exercise', 'Age', 'Size']
     table = []
     ids = []
     prefix = f'{REGISTRY_BASE_URL}/{GITLAB_GROUP}'
@@ -592,15 +639,17 @@ def _remove_selected_images():
                 exercise_names.update(get_exercise_names(course_label))
             course_name = course_names[course_label]
             exercise_name = exercise_names[exercise_label]
-            course_field = course_name[:30]+'...' if len(course_name) > 33 else course_name
-            exercise_field = exercise_name[:30]+'...' if len(exercise_name) > 33 else exercise_name
+            course_field = course_name
+            exercise_field = exercise_name
+            # course_field = course_name[:30]+'...' if len(course_name) > 33 else course_name
+            # exercise_field = exercise_name[:30]+'...' if len(exercise_name) > 33 else exercise_name
             # table.append((course_field, exercise_field , img['CreatedSince'], img['Size'], img['ID']))
             ids.append(img['ID'])
-            table.append((course_field, exercise_field , img['CreatedSince'], img['Size']))
+            table.append((course_field, exercise_field , img['CreatedSince'].replace(' ago', ''), img['Size'].replace("GB", " GB")))
 
     utils.secho("\nChoose images to remove:", fg='green')
 
-    for img_id in _multi_select_table(header, table, ids):
+    for img_id in _multi_select_table(header, table, ids, min_widths=[None, None, 9, 9]):
         _rm_image(img_id, force=True)
 
 
