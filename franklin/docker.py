@@ -14,6 +14,7 @@ import psutil
 import sysconfig
 from functools import wraps
 from . import utils
+from .utils import AliasedGroup
 from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
@@ -200,8 +201,9 @@ def irrelevant_unless_docker_running(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         if not _status() == 'running':
-            utils.secho("Docker Desktop is not running. This command is meaningless without Docker Desktop running.")
-        return None
+            utils.secho("Docker is not running")
+            return None
+        return func(*args, **kwargs)
     return wrapper
 
 
@@ -224,11 +226,11 @@ def _command(command, silent=False, return_json=False):
         return subprocess.check_output(utils.format_cmd(command)).decode().strip()
 
 
-def _multi_select_table(header, table, ids, min_widths=None):
+def _table(header, table, ids, min_widths=None, select=True):
 
     col_widths = [max(len(x) for x in col) for col in zip(*table)]
 
-    max_width = shutil.get_terminal_size().columns - 4 - 4*len(col_widths) 
+    max_width = shutil.get_terminal_size().columns - 4 * len(col_widths) - 4 * int(select) - 2
 
     if min_widths is None:
         min_widths = [15] * len(col_widths)
@@ -243,12 +245,16 @@ def _multi_select_table(header, table, ids, min_widths=None):
 
     table_width = sum(col_widths) + 4 * len(col_widths) + 2
 
-    utils.echo("Move: Arrow up/down, Toggle-select: Space, Confirm: Enter, Abort: Ctrl-C\n")
-    utils.echo('    | '+'| '.join([x[:w].ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
-    click.echo('-'*table_width)
+    utils.echo("Move: Arrow up/down, Toggle-select: Space, Confirm: Enter, Abort: Ctrl-C\n"*int(select))
+    utils.echo('    '*int(select)+'| '+'| '.join([x[:w].ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
+    click.echo('-'*(table_width-4*int(not select)))
     rows = []
     for row in table:
         rows.append('| '+'| '.join([x[:w].ljust(w+2) for x, w in zip(row, col_widths)]))
+
+    if not select:
+        return rows
+
     captions = []
     selected_indices = cutie.select_multiple(
         rows, caption_indices=captions, 
@@ -262,7 +268,7 @@ def _multi_select_table(header, table, ids, min_widths=None):
 # docker subcommands
 ###########################################################
 
-@click.group()
+@click.group(cls=AliasedGroup)
 def docker():
     """Docker commands."""
     pass
@@ -346,16 +352,65 @@ def version():
     _version()
 
 
-def _prune():
+###########################################################
+# docker prune subcommands
+###########################################################
+
+
+@docker.group(cls=AliasedGroup)
+def prune():
+    """Prune Docker elements"""
+    pass
+
+
+def _prune_containers():
+    _command(f'docker container prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
+
+@prune.command('containers')
+def prune_containers():
+    """
+    Remove all stopped containers.
+    """
+    _prune_containers()
+
+
+def _prune_images():
+    _command(f'docker image prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
+
+@prune.command('images')
+def prune_images():
+    """
+    Remove all unused images.
+    """
+    _prune_images()
+
+
+# def _prune_cache():
+#     _command(f'docker system prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
+
+# @docker.command('cache')
+# def prune_cache():
+#     """
+#     Remove all dangling images.
+#     """
+#     _prune_cache()
+
+
+def _prune_all():
     _command(f'docker system prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
 
-@docker.command()
-def prune():
+@prune.command('all')
+def prune_all():
     """
-    Remove, all stopped containers, all networks not used by at 
-    least one container all dangling images, unused build cache.
+    Remove everything you are not using right now: all stopped 
+    containers, all networks not used by at least one container, 
+    all dangling images, unused build cache.
     """
-    _prune()
+    _prune_all()
+
+
+
+
 
 # def _build(directory=Path.cwd(), tag=None):
 
@@ -434,10 +489,9 @@ def run(url):
 # docker kill subcommands
 ###########################################################
 
-@docker.group()
-@irrelevant_unless_docker_running
+@docker.group(cls=AliasedGroup)
 def kill():
-    """Kill Docker elements."""
+    """Kill Docker elements"""
     pass
 
 def _kill_container(container_id):
@@ -445,28 +499,27 @@ def _kill_container(container_id):
     cmd = utils._cmd(f'docker kill {container_id}', log=False)
     Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
 
-# @click.argument("container_id")
-# @kill.command('container')
-# @irrelevant_unless_docker_running
 # def kill_container(container_id):
 #     _kill_container(container_id)
 
 
-@kill.command('everything')
+@kill.command('docker')
 def _kill_all_docker_desktop_processes():
-    """Kills all docker-related processes."""
+    """
+    Kills Docker the hard way (tute la famiglia).
+    """
     for process in psutil.process_iter():
         if 'docker' in process.name().lower():
             pid = psutil.Process(process.pid)
             if not 'SYSTEM' in pid.username():
                 process.kill()
                 
-@kill.command('container')
-@irrelevant_unless_docker_running
-def _kill_selected_containers():
-    cont = _containers(return_json=True)
-    if not cont:
-        click.echo("\nNo running containers to kill\n")
+
+def _container_list(callback=None):
+
+    current_containers = _containers(return_json=True)
+    if not current_containers:
+        click.echo("\nNo running containers\n")
         return
 
     course_names = get_course_names()
@@ -476,7 +529,7 @@ def _kill_selected_containers():
     table = []
     ids = []
     prefix = f'{REGISTRY_BASE_URL}/{GITLAB_GROUP}'
-    for cont in _containers(return_json=True):
+    for cont in current_containers:
         if cont['Image'].startswith(prefix):
             rep = cont['Image'].replace(prefix, '')
             if rep.endswith(':main'):
@@ -491,10 +544,29 @@ def _kill_selected_containers():
             ids.append(cont['ID'])
             table.append((course_name, exercise_name , cont['RunningFor'].replace(' ago', '')))
 
-    utils.secho("\nChoose containes to kill:", fg='green')
+    if callback is None:
+        for row in _table(header, table, ids, min_widths=[None, None, 20], select=True):
+            utils.echo(row)
+        utils.echo()
+        return
+    
+    utils.secho("\nChoose containers to kill:", fg='green')
 
-    for cont_id in _multi_select_table(header, table, ids, min_widths=[None, None, 20]):
-        _kill_container(cont_id, force=True)
+    for cont_id in _table(header, table, ids, min_widths=[None, None, 20], select=True):
+        callback(cont_id, force=True)
+
+
+@kill.command('containers')
+@click.argument("container_id", required=False)
+@irrelevant_unless_docker_running
+def _kill_selected_containers(container_id=None):
+
+    if container_id:
+        _kill_container(container_id)
+        return
+    
+    _container_list(callback=_kill_container)
+
 
 ###########################################################
 # docker prune subcommands
@@ -539,8 +611,9 @@ def _kill_selected_containers():
 ###########################################################
 
 
-@docker.group()
+@docker.group(cls=AliasedGroup)
 def show():
+    """Show Docker elements"""
     pass
 
 
@@ -550,8 +623,9 @@ def _containers(return_json=False):
 @show.command()
 @ensure_docker_running
 def containers():
-    """List docker containers."""
-    utils.echo(_containers(), nowrap=True)
+    """Show running docker containers."""
+    _container_list()
+    # utils.echo(_containers(), nowrap=True)
 
 
 def _storage(verbose=False):
@@ -592,7 +666,8 @@ def _images(return_json=False):
 @ensure_docker_running
 def images():
     """List docker images."""
-    utils.echo(_images(), nowrap=True)
+    # utils.echo(_images(), nowrap=True)
+    _image_list()
 
 
 ###########################################################
@@ -606,15 +681,13 @@ def _rm_image(image, force=False):
         _command(f'docker image rm {image}', silent=True)
 
 
-@docker.group()
+@docker.group(cls=AliasedGroup)
 @ensure_docker_running
 def remove():
-    """Remove Docker elements."""
+    """Remove Docker images and volumes"""
     pass
 
-
-@remove.command('image')
-def _remove_selected_images():
+def _image_list(callback=None):
     img = _images(return_json=True)
     if not img:
         click.echo("\nNo images to remove\n")
@@ -647,9 +720,67 @@ def _remove_selected_images():
             ids.append(img['ID'])
             table.append((course_field, exercise_field , img['CreatedSince'].replace(' ago', ''), img['Size'].replace("GB", " GB")))
 
+    if callback is None:
+        for row in _table(header, table, ids, min_widths=[None, None, 9, 9], select=False):
+            utils.echo(row)
+        utils.echo()
+        return
+
     utils.secho("\nChoose images to remove:", fg='green')
 
-    for img_id in _multi_select_table(header, table, ids, min_widths=[None, None, 9, 9]):
-        _rm_image(img_id, force=True)
+    for img_id in _table(header, table, ids, min_widths=[None, None, 9, 9], select=True):
+        callback(img_id, force=True)
 
 
+@remove.command('images')
+@click.argument("image_id", required=False)
+def _remove_selected_images(image_id=None):
+    
+    if image_id:
+        _rm_image(image_id)
+        return
+
+    _image_list(callback=_rm_image)
+
+
+    # img = _images(return_json=True)
+    # if not img:
+    #     click.echo("\nNo images to remove\n")
+    #     return
+
+    # course_names = get_course_names()
+    # exercise_names = {}
+
+    # # header = ['Course', 'Exercise', 'Created', 'Size', 'ID']
+    # header = ['Course', 'Exercise', 'Age', 'Size']
+    # table = []
+    # ids = []
+    # prefix = f'{REGISTRY_BASE_URL}/{GITLAB_GROUP}'
+    # for img in _images(return_json=True):
+    #     if img['Repository'].startswith(prefix):
+
+    #         rep = img['Repository'].replace(prefix, '')
+    #         if rep.startswith('/'):
+    #             rep = rep[1:]
+    #         course_label, exercise_label = rep.split('/')
+    #         if exercise_label not in exercise_names:
+    #             exercise_names.update(get_exercise_names(course_label))
+    #         course_name = course_names[course_label]
+    #         exercise_name = exercise_names[exercise_label]
+    #         course_field = course_name
+    #         exercise_field = exercise_name
+    #         # course_field = course_name[:30]+'...' if len(course_name) > 33 else course_name
+    #         # exercise_field = exercise_name[:30]+'...' if len(exercise_name) > 33 else exercise_name
+    #         # table.append((course_field, exercise_field , img['CreatedSince'], img['Size'], img['ID']))
+    #         ids.append(img['ID'])
+    #         table.append((course_field, exercise_field , img['CreatedSince'].replace(' ago', ''), img['Size'].replace("GB", " GB")))
+
+    # utils.secho("\nChoose images to remove:", fg='green')
+
+    # for img_id in _table(header, table, ids, min_widths=[None, None, 9, 9]):
+    #     _rm_image(img_id, force=True)
+
+
+@remove.command('everything')
+def _remove_everything():
+    _command(f'docker system prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)

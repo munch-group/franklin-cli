@@ -2,12 +2,14 @@ import click
 from . import docker as _docker
 from . import jupyter as _jupyter
 from . import utils
+from .utils import AliasedGroup
 import time
 import sys
 from .config import REQUIRED_GB_FREE_DISK
 from . import update as _update
+from . import tldr as _tldr
 
-@click.group()
+@click.group(cls=AliasedGroup)
 def franklin():
     """
     Franklin is a tool for running Jupyter servers predefined as Docker containers. 
@@ -24,6 +26,7 @@ franklin.add_command(_jupyter.jupyter)
 franklin.add_command(_docker.docker)
 # franklin.add_command(_devel.devel)
 # franklin.add_command(_about.about)
+franklin.add_command(_tldr.tldr)
 
 
 # @franklin.command()

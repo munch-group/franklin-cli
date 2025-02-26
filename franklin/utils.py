@@ -14,6 +14,51 @@ from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, WRAP_WIDTH, MIN_WINDOW_W
 from subprocess import Popen, PIPE
 
 
+class AliasedGroup(click.Group):
+    def get_command(self, ctx, cmd_name):
+        rv = click.Group.get_command(self, ctx, cmd_name)
+        if rv is not None:
+            return rv
+        
+        aliases = {
+            'rm': 'remove',
+            'ls': 'list',
+            'up': 'update',
+            'dl': 'download',
+            'image': 'images',
+            'container': 'containers',
+        }            
+        if cmd_name in aliases:
+            return click.Group.get_command(self, ctx, aliases[cmd_name])
+
+    def resolve_command(self, ctx, args):
+        # always return the full command name
+        _, cmd, args = super().resolve_command(ctx, args)
+        return cmd.name, cmd, args
+
+
+class PrefixAliasedGroup(click.Group):
+    def get_command(self, ctx, cmd_name):
+        rv = click.Group.get_command(self, ctx, cmd_name)
+        if rv is not None:
+            return rv
+
+        # see if it is a prefix of a command
+        matches = [x for x in self.list_commands(ctx)
+                   if x.startswith(cmd_name)]
+        matches
+        if not matches:
+            return None
+        elif len(matches) == 1:
+            return click.Group.get_command(self, ctx, matches[0])
+        ctx.fail(f"Too many matches: {', '.join(sorted(matches))}")
+
+    def resolve_command(self, ctx, args):
+        # always return the full command name
+        _, cmd, args = super().resolve_command(ctx, args)
+        return cmd.name, cmd, args
+    
+
 class CleanupAndTerminate(Exception):
     pass
 
@@ -47,7 +92,7 @@ class SuppressedKeyboardInterrupt:
 
 
 """
-Please email {MAINTAINER_EMAIL} with subject line: 'asdflkajsd lfajsd' and 
+Please email {MAINTAINER_EMAIL} with subject line: 'asd flkajsd lfajsd' and 
 attach the franklin.log that Franklin writes in current dir.
 
 """
@@ -131,19 +176,21 @@ def wrap(text, width=None):
 
 
 
-def secho(text='', center=False, nowrap=False, log=True, **kwargs):
+def secho(text='', width=None, center=False, nowrap=False, log=True, **kwargs):
     """
     Wrapper for secho that wraps text.
     kwargs are passed to click.secho
     """
+    if width is None:
+        width = WRAP_WIDTH
     if not nowrap:
-        text = wrap(text)
+        text = wrap(text, width=width)
     if center:
         cent = []
         for line in text.strip().splitlines():
             line = line.strip()
             if line:
-                line = line.center(MIN_WINDOW_WIDTH)
+                line = line.center(width)
             cent.append(line)
         text = '\n'.join(cent)        
     if log:
@@ -161,8 +208,8 @@ def secho(text='', center=False, nowrap=False, log=True, **kwargs):
     click.secho(text, **kwargs)
 
 
-def echo(text='', nowrap=False, log=True, **kwargs):
-    secho(text, nowrap=nowrap, log=log, **kwargs)
+def echo(text='', width=None, nowrap=False, log=True, **kwargs):
+    secho(text, width=width, nowrap=nowrap, log=log, **kwargs)
 
 
 def _check_internet_connection():

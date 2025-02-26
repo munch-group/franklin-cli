@@ -1,4 +1,3 @@
-
 import sys
 import os
 import re
@@ -16,6 +15,7 @@ from pathlib import Path, PureWindowsPath, PurePosixPath
 from subprocess import Popen, PIPE, DEVNULL, STDOUT
 from .config import GITLAB_API_URL, GITLAB_GROUP, MIN_WINDOW_HEIGHT, PG_OPTIONS
 from . import utils
+from .utils import AliasedGroup
 from .gitlab import get_registry_listing, get_course_names, get_exercise_names
 from . import docker as _docker
 from .logger import logger
@@ -150,7 +150,7 @@ def launch_exercise():
     sys.exit()
 
 
-@click.group()
+@click.group(cls=AliasedGroup)
 def jupyter():
     """Jupyter commands"""
     pass
@@ -181,6 +181,7 @@ def select(allow_subdirs_at_your_own_risk, update):
 
     utils.echo('"Science and everyday life cannot and should not be separated"', center=True)
     utils.echo("Rosalind D. Franklin", center=True)
+    utils.echo()
 
     utils._check_internet_connection()
     _docker._failsafe_start_docker_desktop()
