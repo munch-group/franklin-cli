@@ -13,6 +13,11 @@ from .logger import logger
 from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, WRAP_WIDTH, MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT, BOLD_TEXT_ON_WINDOWS, PG_OPTIONS
 from subprocess import Popen, PIPE
 
+from functools import wraps
+import platform
+import webbrowser
+import urllib
+
 
 class AliasedGroup(click.Group):
     def get_command(self, ctx, cmd_name):
@@ -63,6 +68,49 @@ class CleanupAndTerminate(Exception):
     pass
 
 
+def _crash_email():
+
+    preamble = ("This email is prefilled with information of the crash you can send to the maintainer of Franklin.").upper()
+
+    info = ''
+    for k, v in platform.uname()._asdict().items():
+        info += f"{k}: {v}\n"
+    info += f"Platform: {platform.platform()}\n"
+    info += f"Machine: {platform.machine()}\n"
+    info += f"Processor: {platform.processor()}\n"
+    info += f"Python Version: {platform.python_version()}\n"
+    info += f"Python Compiler: {platform.python_compiler()}\n"
+    info += f"Python Build: {platform.python_build()}\n"
+    info += f"Python Implementation: {platform.python_implementation()}\n"
+
+    import os
+    if os.path.exists('franklin.log'):
+        with open('franklin.log', 'r') as f:
+            log = f.read()
+
+    subject = urllib.parse.quote("Franklin CRASH REPORT")
+    body = urllib.parse.quote(f"{preamble}\n\n{info}\n{log}")
+    webbrowser.open(f"mailto:?to={MAINTAINER_EMAIL}&subject={subject}&body={body}", new=1)
+
+
+def crash_report(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            ret = func(*args, **kwargs)
+        except KeyboardInterrupt:
+            raise
+        except SystemExit:
+            raise
+        except:
+            logger.exception('CRASH')
+            utils.secho(f"Franklin encountered an unexpected problem. Your email client should open an email prefilled with information of the crash you can send to the maintainer of Franklin. If it does not, please send an email to {MAINTAINER_EMAIL} attaching the franklin.log", fg='red')
+            _crash_email()
+            raise 
+        return ret
+    return wrapper
+
+
 class DelayedKeyboardInterrupt:
     def __enter__(self):
         self.signal_received = False
@@ -90,12 +138,6 @@ class SuppressedKeyboardInterrupt:
     def __exit__(self, type, value, traceback):
         signal.signal(signal.SIGINT, self.old_handler)
 
-
-"""
-Please email {MAINTAINER_EMAIL} with subject line: 'asd flkajsd lfajsd' and 
-attach the franklin.log that Franklin writes in current dir.
-
-"""
 
 # def print_exercise_tree(exercise_dict, image_name):
 

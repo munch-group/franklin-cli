@@ -1,6 +1,6 @@
 import platform
 import subprocess
-from subprocess import run, check_output, Popen, PIPE, DEVNULL
+from subprocess import check_output, Popen, PIPE, DEVNULL
 import json
 import sys
 import os
@@ -14,7 +14,7 @@ import psutil
 import sysconfig
 from functools import wraps
 from . import utils
-from .utils import AliasedGroup
+from .utils import AliasedGroup, crash_report
 from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
@@ -49,15 +49,17 @@ def _install_docker_desktop():
     utils.secho(f"\nInstalling Docker desktop.", fg='green')
 
     architecture = sysconfig.get_platform().split('-')[-1]
-    assert architecture in ['amd64', 'arm64']
+    assert architecture# in ['amd64', 'arm64', 'aarch64', 'x86_64']
 
-    if platform.system() == 'Windows':
+    operating_system = platform.system()
+
+    if operating_system == 'Windows':
         if architecture == 'arm64':
             download_url = 'https://desktop.docker.com/win/main/arm64/Docker%20Desktop%20Installer.exe'
         else:
             download_url = 'https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe'
         installer = 'Docker Desktop Installer.exe'
-    elif platform.system() == 'Darwin':
+    elif operating_system == 'Darwin':
         if architecture == 'arm64':
             download_url = 'https://desktop.docker.com/mac/main/arm64/Docker.dmg'
         else:
@@ -91,7 +93,7 @@ def _install_docker_desktop():
         utils.echo()
         click.pause()
 
-        run(installer, check=True)
+        subprocess.run(installer, check=True)
 
         utils.echo(" - Removing installer...")
         os.remove(installer)
@@ -120,7 +122,7 @@ def _install_docker_desktop():
             logger.debug(cmd)
             cmd = cmd.split()
             cmd[0] = shutil.which(cmd[0])
-            output = run(cmd, stdout=PIPE, stderr=DEVNULL, timeout=1, check=False).stdout.decode().strip()
+            output = subprocess.run(cmd, stdout=PIPE, stderr=DEVNULL, timeout=1, check=False).stdout.decode().strip()
             if output:
                 size = output.split()[0]
                 if size == prev_size:
@@ -281,6 +283,7 @@ def _pull(image_url):
 @click.argument("url")
 @docker.command()
 @ensure_docker_running
+@crash_report
 def pull(url):
     """Pull docker image.
     
@@ -293,6 +296,7 @@ def _restart():
     _command(('docker desktop restart'), silent=True)
 
 @docker.command()
+@crash_report
 def restart():
     """Restart Docker Desktop"""
     _restart()
@@ -302,6 +306,7 @@ def _start():
     _command('docker desktop start', silent=True)
 
 @docker.command()
+@crash_report
 def start():
     """Start Docker Desktop"""
     _start()
@@ -312,6 +317,7 @@ def _stop():
 
 @docker.command()
 @irrelevant_unless_docker_running
+@crash_report
 def stop():
     """Stop Docker Desktop"""
     _stop()
@@ -327,6 +333,7 @@ def _status():
     return data['Status']
 
 @docker.command()
+@crash_report
 def status():
     "Docker Desktop status"
     s = _status()
@@ -338,6 +345,7 @@ def _update(return_json=False):
     return _command('docker desktop update', return_json=return_json)
 
 @docker.command()
+@crash_report
 def update():
     """Update Docker Desktop"""
     _update()
@@ -358,6 +366,7 @@ def version():
 
 
 @docker.group(cls=AliasedGroup)
+@crash_report
 def prune():
     """Prune Docker elements"""
     pass
@@ -367,6 +376,7 @@ def _prune_containers():
     _command(f'docker container prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
 
 @prune.command('containers')
+@crash_report
 def prune_containers():
     """
     Remove all stopped containers.
@@ -378,6 +388,7 @@ def _prune_images():
     _command(f'docker image prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
 
 @prune.command('images')
+@crash_report
 def prune_images():
     """
     Remove all unused images.
@@ -400,6 +411,7 @@ def _prune_all():
     _command(f'docker system prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)
 
 @prune.command('all')
+@crash_report
 def prune_all():
     """
     Remove everything you are not using right now: all stopped 
@@ -478,6 +490,7 @@ def _run(image_url):
 @click.argument("url")
 @docker.command()
 @ensure_docker_running
+@crash_report
 def run(url):
     """
     Run container from image. Use for testing that the image runs correctly.    
@@ -490,6 +503,7 @@ def run(url):
 ###########################################################
 
 @docker.group(cls=AliasedGroup)
+@crash_report
 def kill():
     """Kill Docker elements"""
     pass
@@ -504,6 +518,7 @@ def _kill_container(container_id):
 
 
 @kill.command('docker')
+@crash_report
 def _kill_all_docker_desktop_processes():
     """
     Kills Docker the hard way (tute la famiglia).
@@ -559,6 +574,7 @@ def _container_list(callback=None):
 @kill.command('containers')
 @click.argument("container_id", required=False)
 @irrelevant_unless_docker_running
+@crash_report
 def _kill_selected_containers(container_id=None):
 
     if container_id:
@@ -612,6 +628,7 @@ def _kill_selected_containers(container_id=None):
 
 
 @docker.group(cls=AliasedGroup)
+@crash_report
 def show():
     """Show Docker elements"""
     pass
@@ -622,6 +639,7 @@ def _containers(return_json=False):
 
 @show.command()
 @ensure_docker_running
+@crash_report
 def containers():
     """Show running docker containers."""
     _container_list()
@@ -636,6 +654,7 @@ def _storage(verbose=False):
 @click.option("--verbose/--no-verbose", default=False, help="More detailed output")
 @show.command()
 @ensure_docker_running
+@crash_report
 def storage(verbose):
     """Show Docker's disk usage."""
     utils.echo(_storage(verbose), nowrap=True)
@@ -645,6 +664,7 @@ def _logs(return_json=False):
     _command('docker desktop logs', return_json=return_json)
 
 @show.command()
+@crash_report
 def logs():
     _logs()
 
@@ -654,6 +674,7 @@ def _volumes(return_json=False):
 
 @show.command()
 @ensure_docker_running
+@crash_report
 def volumes():
     """List docker volumes."""
     utils.echo(_volumes(), nowrap=True)
@@ -664,6 +685,7 @@ def _images(return_json=False):
 
 @show.command()
 @ensure_docker_running
+@crash_report
 def images():
     """List docker images."""
     # utils.echo(_images(), nowrap=True)
@@ -683,6 +705,7 @@ def _rm_image(image, force=False):
 
 @docker.group(cls=AliasedGroup)
 @ensure_docker_running
+@crash_report
 def remove():
     """Remove Docker images and volumes"""
     pass
@@ -734,6 +757,7 @@ def _image_list(callback=None):
 
 @remove.command('images')
 @click.argument("image_id", required=False)
+@crash_report
 def _remove_selected_images(image_id=None):
     
     if image_id:
@@ -782,5 +806,6 @@ def _remove_selected_images(image_id=None):
 
 
 @remove.command('everything')
+@crash_report
 def _remove_everything():
     _command(f'docker system prune --all --force --filter="Name={REGISTRY_BASE_URL}*"', silent=True)

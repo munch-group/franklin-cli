@@ -2,7 +2,7 @@
 import sys
 import click
 from subprocess import Popen, PIPE
-from .utils import logger
+from .utils import logger, crash_report
 from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL
 from . import utils
 
@@ -40,6 +40,7 @@ def _update_client(update):
 
 
 @click.command('update')
+@crash_report
 def update():
     """Update the Franklin client."""    
     _update_client(update=True)

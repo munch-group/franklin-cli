@@ -1,6 +1,7 @@
 
 import click
 from . import utils
+from .utils import crash_report
 
 
 @click.group()
@@ -9,6 +10,7 @@ def tldr():
     pass
 
 @tldr.command()
+@crash_report
 def docker():
     """What is docker?"""
 
@@ -23,6 +25,7 @@ alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la als
 
 
 @tldr.command()
+@crash_report
 def image():
     """What is a docker image?"""
 
@@ -38,6 +41,7 @@ alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la als
 
 
 @tldr.command()
+@crash_report
 def container():
     """What is a docker container?"""
 
@@ -53,6 +57,7 @@ alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la als
 
 
 @tldr.command()
+@crash_report
 def terminal():
     """What is a terminal?"""
 
@@ -69,6 +74,7 @@ alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la als
 
 
 @tldr.command()
+@crash_report
 def server():
     """What is a server?"""
 
@@ -84,6 +90,7 @@ alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la als
 
 
 @tldr.command()
+@crash_report
 def jupyter():
     """What is jupyter?"""
 

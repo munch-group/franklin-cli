@@ -15,7 +15,7 @@ from pathlib import Path, PureWindowsPath, PurePosixPath
 from subprocess import Popen, PIPE, DEVNULL, STDOUT
 from .config import GITLAB_API_URL, GITLAB_GROUP, MIN_WINDOW_HEIGHT, PG_OPTIONS
 from . import utils
-from .utils import AliasedGroup
+from .utils import AliasedGroup, crash_report
 from .gitlab import get_registry_listing, get_course_names, get_exercise_names
 from . import docker as _docker
 from .logger import logger
@@ -162,9 +162,8 @@ def jupyter():
 @click.option('--update/--no-update', default=True,
                 help="Override check for package updates")
 @jupyter.command()
+@crash_report
 def select(allow_subdirs_at_your_own_risk, update):
-
-    click.UsageError("Hej")
 
     utils._check_window_size()
 
