@@ -15,7 +15,7 @@ import sysconfig
 from functools import wraps
 from . import utils
 from .utils import AliasedGroup, crash_report
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH
+from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH, WRAP_WIDTH
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
@@ -46,8 +46,6 @@ def _docker_desktop_settings(**kwargs):
 
 def _install_docker_desktop():
 
-    utils.secho(f"\nInstalling Docker desktop.", fg='green')
-
     architecture = sysconfig.get_platform().split('-')[-1]
     assert architecture# in ['amd64', 'arm64', 'aarch64', 'x86_64']
 
@@ -70,17 +68,17 @@ def _install_docker_desktop():
         utils.echo(f'Download from {url} and install before proceeding.')
         sys.exit(1)
 
-    download_msg = """
-    Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.
-
-    Once the download completes, return to this window for further instructions on how to install.
-
-    Press Enter to start the download...
-    """
     utils.echo()
-    utils.secho('='*75, fg='blue')
-    utils.echo(download_msg, fg='blue')
-    utils.secho('='*75, fg='blue')
+    utils.secho(f"Franklin needs Docker Desktop.", fg='green')
+
+    utils.echo()
+    utils.secho('='*(WRAP_WIDTH+4), fg='green')
+    utils.echo("  Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.")
+    utils.echo()
+    utils.echo("  Once the download completes, return to this window for further instructions on how to install.")
+    utils.echo()
+    utils.echo("  Press Enter to start the download...")
+    utils.secho('='*(WRAP_WIDTH+4), fg='green')
     utils.echo()
     click.pause('')
 
@@ -99,11 +97,27 @@ def _install_docker_desktop():
     
     if platform.system() == 'Windows':
 
+        utils.echo()
+        utils.secho('='*(WRAP_WIDTH+4), fg='blue')
+        utils.secho("To install Docker Desktop on windows, please follow this exact sequence of steps:", fg='blue')
+        utils.echo()
+        utils.secho('  1. Open the Downloads folder.', fg='blue')
+        utils.secho('  2. Double-click the "Docker Desktop Installer.exe" file.', fg='blue')
+        utils.secho('  3. Follow the installation procedure.', fg='blue')
+        utils.secho('  4. When the installation is completed, open Docker Desktop.', fg='blue')
+        utils.secho('  5. When you are asked to log in or create an account, just click skip.', fg='blue')
+        utils.secho('  6  When you are asked to take a survey, just click skip.', fg='blue')
+        utils.secho('  7. Return to this window and start Franklin the same way as you did before.', fg='blue')
+        utils.secho('  Press Enter to close Franklin.', fg='blue')
+        utils.echo()
+        utils.secho('='*(WRAP_WIDTH+4), fg='blue')
+        click.pause('')        
+
         install_msg = """
         To install Docker Desktop on windows, please follow this exact sequence of steps:
 
         1. Open the Downloads folder.
-        2. Double-click the Docker Desktop Installer.exe file.
+        2. Double-click the "Docker Desktop Installer.exe" file.
         3. Follow the installation procedure.
         4. When the installation is completed, open Docker Desktop.
         5. When you are asked to log in or create an account, just click skip.
