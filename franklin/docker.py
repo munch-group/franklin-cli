@@ -70,6 +70,20 @@ def _install_docker_desktop():
         utils.echo(f'Download from {url} and install before proceeding.')
         sys.exit(1)
 
+    download_msg = """
+    Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.
+
+    Once the download completes, return to this window for further instructions on how to install.
+
+    Press Enter to start the download...
+    """
+    utils.echo()
+    utils.secho('='*75, fg='blue')
+    utils.echo(download_msg, fg='blue')
+    utils.secho('='*75, fg='blue')
+    utils.echo()
+    click.pause('')
+
     response = requests.get(download_url, stream=True)
     if not response.ok:
         utils.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
@@ -85,27 +99,27 @@ def _install_docker_desktop():
     
     if platform.system() == 'Windows':
 
-        utils.echo("Installing:")
+        install_msg = """
+        To install Docker Desktop on windows, please follow this exact sequence of steps:
+
+        1. Open the Downloads folder.
+        2. Double-click the Docker Desktop Installer.exe file.
+        3. Follow the installation procedure.
+        4. When the installation is completed, open Docker Desktop.
+        5. When you are asked to log in or create an account, just click skip.
+        6  When you are asked to take a survey, just click skip.
+        7. Return to this window and start Franklin the same way as you did before.
+        
+        Press Enter to close Franklin.
+        """
         utils.echo()
-        utils.secho('='*75, fg='red')
-        utils.echo('  You will be prompted for install permission. Accept and then follow the installation procedure.\n\nWhen the installation is completed, return to this window and press Enter to continue.', fg='red')
-        utils.secho('='*75, fg='red')
+        utils.secho('='*75, fg='blue')
+        utils.echo(download_msg, fg='blue')
+        utils.secho('='*75, fg='blue')
         utils.echo()
         click.pause('')
 
-        for _ in range(3):
-            if shutil.which('docker'):
-                break
-            utils.echo()
-            utils.secho('='*75, fg='red')
-            utils.echo('  It seems Docker has not been installed. Did you install Docker using the Docker installer as asked? If not, please do that before pressing Enter again.', fg='red')
-            utils.secho('='*75, fg='red')
-            utils.echo()
-            click.pause('')
-                
-
-
-        subprocess.run(installer, check=True)
+        # subprocess.run(installer, check=True)
 
         utils.echo(" - Removing installer...")
         os.remove(installer)

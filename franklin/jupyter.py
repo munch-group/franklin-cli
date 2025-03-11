@@ -194,7 +194,7 @@ def select(allow_subdirs_at_your_own_risk, update):
     if not allow_subdirs_at_your_own_risk:
         for x in os.listdir(os.getcwd()):
             if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
-                utils.secho("\n  Please run the command in a directory without any sub-directories.", fg='red')
+                utils.secho("\n  Please run the command in a directory without any sub-directories.\n", fg='red')
                 sys.exit(1)
     # dirs_in_cwd = any(os.path.isdir(x) ))
     # if dirs_in_cwd and not allow_subdirs_at_your_own_risk:
