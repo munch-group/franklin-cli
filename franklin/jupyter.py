@@ -50,8 +50,9 @@ def select_image(exercises_images):
     exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
     exercise = exercise_repo_names[exercise_idx]
 
-    utils.echo(f"\nPreparing jupyter session for:\n", nowrap=True) 
-    utils.echo(f"    {danish_course_name}: {exercise_danish_names[exercise_idx]}")
+    utils.secho(f"\nPreparing jupyter session:", fg='green')
+    utils.echo(f"Course: {danish_course_name}")
+    utils.echo(f"Exercise: {exercise_danish_names[exercise_idx]}")
     utils.echo()
     time.sleep(1)
 
@@ -67,7 +68,8 @@ def launch_exercise():
     image_url = select_image(exercises_images)
 
     if not _docker._image_exists(image_url):
-        utils.echo("Downloading image:")
+        utils.secho("Downloading image:", fg='green')
+        utils.echo()
         _docker._pull(image_url)
 
     ticks = 20
