@@ -97,6 +97,7 @@ def _install_docker_desktop():
 
         kwargs = dict(subsequent_indent=5)
         utils.echo()
+        utils.echo()
         utils.secho(f"How to install Docker Desktop on Windows:", fg='green')
         utils.secho('='*WRAP_WIDTH, fg='green')
         utils.echo()
@@ -109,8 +110,8 @@ def _install_docker_desktop():
         utils.echo('  5. Accept the Docker Desktop license agreement')
         utils.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
         utils.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
-        utils.echo('  5. Wait while it says "Starting Docker Server..."')
-        utils.echo('  5. If if says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
+        utils.echo('  5. Wait while it says "Starting the Docker Engine..."')
+        utils.echo('  5. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
         utils.echo('  8. Return to this window and start Franklin the same way as you did before.', **kwargs)
         utils.echo()
         utils.echo('  Press Enter now to close Franklin.')
