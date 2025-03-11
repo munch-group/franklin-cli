@@ -93,6 +93,18 @@ def _install_docker_desktop():
         utils.echo()
         click.pause('')
 
+        for _ in range(3):
+            if shutil.which('docker'):
+                break
+            utils.echo()
+            utils.secho('='*75, fg='red')
+            utils.echo('  It seems Docker has not been installed. Did you install Docker using the Docker installer as asked? If not, please do that before pressing Enter again.', fg='red')
+            utils.secho('='*75, fg='red')
+            utils.echo()
+            click.pause('')
+                
+
+
         subprocess.run(installer, check=True)
 
         utils.echo(" - Removing installer...")
