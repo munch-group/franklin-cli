@@ -98,40 +98,20 @@ def _install_docker_desktop():
     if platform.system() == 'Windows':
 
         utils.echo()
-        utils.secho('='*WRAP_WIDTH, fg='blue')
-        utils.secho("To install Docker Desktop on windows, please follow this exact sequence of steps:", fg='blue')
+        utils.secho('='*WRAP_WIDTH, fg='green')
+        utils.echo("To install Docker Desktop on windows, please follow this exact sequence of steps:")
         utils.echo()
-        utils.secho('  1. Open the Downloads folder.', fg='blue')
-        utils.secho('  2. Double-click the "Docker Desktop Installer.exe" file.', fg='blue')
-        utils.secho('  3. Follow the installation procedure.', fg='blue')
-        utils.secho('  4. When the installation is completed, open Docker Desktop.', fg='blue')
-        utils.secho('  5. When you are asked to log in or create an account, just click skip.', fg='blue')
-        utils.secho('  6  When you are asked to take a survey, just click skip.', fg='blue')
-        utils.secho('  7. Return to this window and start Franklin the same way as you did before.', fg='blue')
-        utils.secho('  Press Enter to close Franklin.', fg='blue')
+        utils.echo('  1. Open the Downloads folder.')
+        utils.echo('  2. Double-click the "Docker Desktop Installer.exe" file.')
+        utils.echo('  3. Follow the installation procedure.')
+        utils.echo('  4. When the installation is completed, open Docker Desktop.')
+        utils.echo('  5. When you are asked to log in or create an account, just click skip.')
+        utils.echo('  6  When you are asked to take a survey, just click skip.')
+        utils.echo('  7. Return to this window and start Franklin the same way as you did before.')
+        utils.echo('  Press Enter to close Franklin.')
         utils.echo()
-        utils.secho('='*WRAP_WIDTH, fg='blue')
+        utils.echo('='*WRAP_WIDTH, fg='green')
         click.pause('')        
-
-        install_msg = """
-        To install Docker Desktop on windows, please follow this exact sequence of steps:
-
-        1. Open the Downloads folder.
-        2. Double-click the "Docker Desktop Installer.exe" file.
-        3. Follow the installation procedure.
-        4. When the installation is completed, open Docker Desktop.
-        5. When you are asked to log in or create an account, just click skip.
-        6  When you are asked to take a survey, just click skip.
-        7. Return to this window and start Franklin the same way as you did before.
-        
-        Press Enter to close Franklin.
-        """
-        utils.echo()
-        utils.secho('='*75, fg='blue')
-        utils.echo(download_msg, fg='blue')
-        utils.secho('='*75, fg='blue')
-        utils.echo()
-        click.pause('')
 
         # subprocess.run(installer, check=True)
 
@@ -147,9 +127,9 @@ def _install_docker_desktop():
 
         utils.echo("Installing:")
         utils.echo()
-        utils.secho('='*75, fg='red')
+        utils.secho('='*WRAP_WIDTH, fg='red')
         utils.echo('  Press Enter and then drag the Docker to the Applications folder.', fg='red')
-        utils.secho('='*75, fg='red')
+        utils.secho('='*WRAP_WIDTH, fg='red')
         utils.echo()
         click.pause('Press Enter...')
 

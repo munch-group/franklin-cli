@@ -192,7 +192,7 @@ def _check_window_size():
     text = 'Please resize the window to at least fit this square'
 
 
-def wrap(text, width=None):
+def wrap(text, width=None, initial_indent=None, subsequent_indent=None):
     """
     Wraps text to fit terminal width or WRAP_WIDTH, whatever
     is smaller
@@ -203,9 +203,13 @@ def wrap(text, width=None):
     nr_leading_nl = len(text) - len(text.lstrip('\n'))
     text = text.lstrip('\n')
     
-    initial_indent = text[:len(text) - len(text.lstrip())]
+    if initial_indent is None:
+        initial_indent = text[:len(text) - len(text.lstrip())]
     text = text.lstrip()
-    
+
+    if subsequent_indent is None:
+        subsequent_indent = initial_indent
+
     trailing_ws = text[len(text.rstrip()):]   
     text = text.rstrip()
 
@@ -218,7 +222,8 @@ def wrap(text, width=None):
 
 
 
-def secho(text='', width=None, center=False, nowrap=False, log=True, **kwargs):
+def secho(text='', width=None, center=False, nowrap=False, log=True,
+          initial_indent=None, subsequent_indent=None, **kwargs):
     """
     Wrapper for secho that wraps text.
     kwargs are passed to click.secho
@@ -226,7 +231,9 @@ def secho(text='', width=None, center=False, nowrap=False, log=True, **kwargs):
     if width is None:
         width = WRAP_WIDTH
     if not nowrap:
-        text = wrap(text, width=width)
+        text = wrap(text, width=width, 
+                    initial_indent=initial_indent, 
+                    subsequent_indent=subsequent_indent)
     if center:
         cent = []
         for line in text.strip().splitlines():
