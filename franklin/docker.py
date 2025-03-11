@@ -90,33 +90,28 @@ def _install_docker_desktop():
     file_size = response.headers['Content-length']
     with open(installer, mode="wb") as file:
         nr_chunks = int(file_size) // (10 * 1024) + 1
-        with click.progressbar(length=nr_chunks, label='Downloading', **PG_OPTIONS) as bar:
+        with click.progressbar(length=nr_chunks, label='Downloading:', **PG_OPTIONS) as bar:
             for chunk in response.iter_content(chunk_size=10 * 1024):
                 file.write(chunk)
                 bar.update(1)
     
     if platform.system() == 'Windows':
 
+        kwargs = dict(subsequent_indent=5)
         utils.echo()
         utils.secho('='*WRAP_WIDTH, fg='green')
         utils.echo("  To install Docker Desktop on windows, please follow this exact sequence of steps:")
         utils.echo()
-        utils.echo('  1. Open the Downloads folder.', subsequent_indent=5)
-        utils.echo('  2. Double-click the "Docker Desktop Installer.exe" file.', subsequent_indent=5)
-        utils.echo('  3. Follow the installation procedure.', subsequent_indent=5)
-        utils.echo('  4. When the installation is completed, open Docker Desktop.', subsequent_indent=5)
-
-        accept = click.confirm('  5. Do you accept the Docker Desktop license agreement?')
-
-        utils.echo('  5. When you are asked to log in or create an account, just click skip.', subsequent_indent=5)
-        utils.echo('  6  When you are asked to take a survey, just click skip.', subsequent_indent=5)
-
-        accept = click.confirm('  5. Do you accept the Docker Desktop license agreement?')
-        accept = click.confirm('  5. Wait while it says "Starting ..."')
-        accept = click.confirm('  5. It if says "New version available in the bottom left corner, click that tup update (and scroll to find the blue button)"')
-
-
-        utils.echo('  7. Return to this window and start Franklin the same way as you did before.', subsequent_indent=5)
+        utils.echo('  1. Open the Downloads folder.', **kwargs)
+        utils.echo('  2. Double-click the "Docker Desktop Installer.exe" file.', **kwargs)
+        utils.echo('  3. Follow the installation procedure.', **kwargs)
+        utils.echo('  4. When the installation is completed, open Docker Desktop.', **kwargs)
+        utils.echo('  5. Accept the Docker Desktop license agreement')
+        utils.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
+        utils.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
+        utils.echo('  5. Wait while it says "Starting Docker Server..."')
+        utils.echo('  5. If if says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
+        utils.echo('  8. Return to this window and start Franklin the same way as you did before.', **kwargs)
         utils.echo()
         utils.echo('  Press Enter to close Franklin.')
         utils.echo()
