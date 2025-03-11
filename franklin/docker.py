@@ -1,6 +1,6 @@
 import platform
 import subprocess
-from subprocess import check_output, Popen, PIPE, DEVNULL
+from subprocess import check_output, Popen, PIPE, STDOUT, STDERR, DEVNULL
 import json
 import sys
 import os
@@ -105,8 +105,17 @@ def _install_docker_desktop():
         utils.echo('  2. Double-click the "Docker Desktop Installer.exe" file.', subsequent_indent=5)
         utils.echo('  3. Follow the installation procedure.', subsequent_indent=5)
         utils.echo('  4. When the installation is completed, open Docker Desktop.', subsequent_indent=5)
+
+        accept = click.confirm('  5. Do you accept the Docker Desktop license agreement?')
+
         utils.echo('  5. When you are asked to log in or create an account, just click skip.', subsequent_indent=5)
         utils.echo('  6  When you are asked to take a survey, just click skip.', subsequent_indent=5)
+
+        accept = click.confirm('  5. Do you accept the Docker Desktop license agreement?')
+        accept = click.confirm('  5. Wait while it says "Starting ..."')
+        accept = click.confirm('  5. It if says "New version available in the bottom left corner, click that tup update (and scroll to find the blue button)"')
+
+
         utils.echo('  7. Return to this window and start Franklin the same way as you did before.', subsequent_indent=5)
         utils.echo()
         utils.echo('  Press Enter to close Franklin.')
@@ -299,7 +308,29 @@ def docker():
 
 
 def _pull(image_url):
-    subprocess.run(utils.format_cmd(f'docker pull {image_url}:main'), check=False)
+
+    p = Popen(utils.format_cmd(f'docker pull {image_url}:main'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
+    f = p.stdout
+    buffer = []
+    while True:            
+        c = f.read(1)
+        if not c:
+            break
+        if len(buffer) < 6:
+            buffer.append(c)
+        else:
+            if ''.join(buffer) == 'Digest':
+                break
+            buffer.append(c)
+            buffer.pop(0)
+            sys.stdout.write(c)
+            sys.stdout.flush()
+    for c in buffer:
+        sys.stdout.write(c)
+        sys.stdout.flush()
+    p.wait()
+
+    # subprocess.run(utils.format_cmd(f'docker pull {image_url}:main'), check=False)
 
 
 @click.argument("url")
