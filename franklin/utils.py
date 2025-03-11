@@ -257,8 +257,8 @@ def secho(text='', width=None, center=False, nowrap=False, log=True,
     click.secho(text, **kwargs)
 
 
-def echo(text='', width=None, nowrap=False, log=True, **kwargs):
-    secho(text, width=width, nowrap=nowrap, log=log, **kwargs)
+def echo(text='', width=None, nowrap=False, log=True, initial_indent=None, subsequent_indent=None, **kwargs):
+    secho(text, width=width, nowrap=nowrap, log=log, initial_indent=initial_indent, subsequent_indent=subsequent_indent, **kwargs)
 
 
 def _check_internet_connection():
