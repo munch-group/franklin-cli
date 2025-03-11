@@ -214,7 +214,7 @@ def wrap(text, width=None, initial_indent=None, subsequent_indent=None):
     text = text.rstrip()
 
     text = click.wrap_text(text, width=max((shutil.get_terminal_size().columns)/2, width), 
-                initial_indent=initial_indent, subsequent_indent=initial_indent, 
+                initial_indent=initial_indent, subsequent_indent=subsequent_indent, 
                 preserve_paragraphs=True)
     
     text = '\n' * nr_leading_nl + text + trailing_ws
