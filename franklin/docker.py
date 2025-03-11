@@ -72,13 +72,13 @@ def _install_docker_desktop():
     utils.secho(f"Franklin needs Docker Desktop.", fg='green')
 
     utils.echo()
-    utils.secho('='*(WRAP_WIDTH+4), fg='green')
+    utils.secho('='*WRAP_WIDTH, fg='green')
     utils.echo("  Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.")
     utils.echo()
     utils.echo("  Once the download completes, return to this window for further instructions on how to install.")
     utils.echo()
     utils.echo("  Press Enter to start the download...")
-    utils.secho('='*(WRAP_WIDTH+4), fg='green')
+    utils.secho('='*WRAP_WIDTH, fg='green')
     utils.echo()
     click.pause('')
 
@@ -98,7 +98,7 @@ def _install_docker_desktop():
     if platform.system() == 'Windows':
 
         utils.echo()
-        utils.secho('='*(WRAP_WIDTH+4), fg='blue')
+        utils.secho('='*WRAP_WIDTH, fg='blue')
         utils.secho("To install Docker Desktop on windows, please follow this exact sequence of steps:", fg='blue')
         utils.echo()
         utils.secho('  1. Open the Downloads folder.', fg='blue')
@@ -110,7 +110,7 @@ def _install_docker_desktop():
         utils.secho('  7. Return to this window and start Franklin the same way as you did before.', fg='blue')
         utils.secho('  Press Enter to close Franklin.', fg='blue')
         utils.echo()
-        utils.secho('='*(WRAP_WIDTH+4), fg='blue')
+        utils.secho('='*WRAP_WIDTH, fg='blue')
         click.pause('')        
 
         install_msg = """
