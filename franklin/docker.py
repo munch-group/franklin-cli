@@ -1,6 +1,6 @@
 import platform
 import subprocess
-from subprocess import check_output, Popen, PIPE, STDOUT, STDERR, DEVNULL
+from subprocess import check_output, Popen, PIPE, STDOUT, DEVNULL
 import json
 import sys
 import os
