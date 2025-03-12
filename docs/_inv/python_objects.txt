@@ -99,6 +99,7 @@ PyBUF_STRIDED_RO c:macro 1 c-api/buffer.html#c.$ -
 PyBUF_STRIDES c:macro 1 c-api/buffer.html#c.$ -
 PyBUF_WRITABLE c:macro 1 c-api/buffer.html#c.$ -
 PyBUF_WRITE c:macro 1 c-api/memoryview.html#c.$ -
+PyBaseObject_Type c:member 1 c-api/structures.html#c.$ -
 PyBool_Check c:function 1 c-api/bool.html#c.$ -
 PyBool_Check.o c:functionParam 1 c-api/bool.html#c.PyBool_Check -
 PyBool_FromLong c:function 1 c-api/bool.html#c.$ -
@@ -201,6 +202,10 @@ PyBytes_GET_SIZE.o c:functionParam 1 c-api/bytes.html#c.PyBytes_GET_SIZE -
 PyBytes_Size c:function 1 c-api/bytes.html#c.$ -
 PyBytes_Size.o c:functionParam 1 c-api/bytes.html#c.PyBytes_Size -
 PyBytes_Type c:member 1 c-api/bytes.html#c.$ -
+PyCF_ALLOW_TOP_LEVEL_AWAIT c:macro 1 c-api/veryhigh.html#c.$ -
+PyCF_ONLY_AST c:macro 1 c-api/veryhigh.html#c.$ -
+PyCF_OPTIMIZED_AST c:macro 1 c-api/veryhigh.html#c.$ -
+PyCF_TYPE_COMMENTS c:macro 1 c-api/veryhigh.html#c.$ -
 PyCFunction c:type 1 c-api/structures.html#c.$ -
 PyCFunctionFast c:type 1 c-api/structures.html#c.$ -
 PyCFunctionFastWithKeywords c:type 1 c-api/structures.html#c.$ -
@@ -723,6 +728,7 @@ PyDict_WatchCallback c:type 1 c-api/dict.html#c.$ -
 PyDict_WatchEvent c:type 1 c-api/dict.html#c.$ -
 PyDoc_STR c:macro 1 c-api/intro.html#c.$ -
 PyDoc_STRVAR c:macro 1 c-api/intro.html#c.$ -
+PyEllipsis_Type c:member 1 c-api/slice.html#c.$ -
 PyErr_BadArgument c:function 1 c-api/exceptions.html#c.$ -
 PyErr_BadInternalCall c:function 1 c-api/exceptions.html#c.$ -
 PyErr_CheckSignals c:function 1 c-api/exceptions.html#c.$ -
@@ -1943,6 +1949,9 @@ PyObject_DelAttrString.o c:functionParam 1 c-api/object.html#c.PyObject_DelAttrS
 PyObject_DelItem c:function 1 c-api/object.html#c.$ -
 PyObject_DelItem.key c:functionParam 1 c-api/object.html#c.PyObject_DelItem -
 PyObject_DelItem.o c:functionParam 1 c-api/object.html#c.PyObject_DelItem -
+PyObject_DelItemString c:function 1 c-api/object.html#c.$ -
+PyObject_DelItemString.key c:functionParam 1 c-api/object.html#c.PyObject_DelItemString -
+PyObject_DelItemString.o c:functionParam 1 c-api/object.html#c.PyObject_DelItemString -
 PyObject_Dir c:function 1 c-api/object.html#c.$ -
 PyObject_Dir.o c:functionParam 1 c-api/object.html#c.PyObject_Dir -
 PyObject_Format c:function 1 c-api/object.html#c.$ -
@@ -2890,6 +2899,12 @@ PyUnicode_DecodeCharmap.errors c:functionParam 1 c-api/unicode.html#c.PyUnicode_
 PyUnicode_DecodeCharmap.length c:functionParam 1 c-api/unicode.html#c.PyUnicode_DecodeCharmap -
 PyUnicode_DecodeCharmap.mapping c:functionParam 1 c-api/unicode.html#c.PyUnicode_DecodeCharmap -
 PyUnicode_DecodeCharmap.str c:functionParam 1 c-api/unicode.html#c.PyUnicode_DecodeCharmap -
+PyUnicode_DecodeCodePageStateful c:function 1 c-api/unicode.html#c.$ -
+PyUnicode_DecodeCodePageStateful.code_page c:functionParam 1 c-api/unicode.html#c.PyUnicode_DecodeCodePageStateful -
+PyUnicode_DecodeCodePageStateful.consumed c:functionParam 1 c-api/unicode.html#c.PyUnicode_DecodeCodePageStateful -
+PyUnicode_DecodeCodePageStateful.errors c:functionParam 1 c-api/unicode.html#c.PyUnicode_DecodeCodePageStateful -
+PyUnicode_DecodeCodePageStateful.size c:functionParam 1 c-api/unicode.html#c.PyUnicode_DecodeCodePageStateful -
+PyUnicode_DecodeCodePageStateful.str c:functionParam 1 c-api/unicode.html#c.PyUnicode_DecodeCodePageStateful -
 PyUnicode_DecodeFSDefault c:function 1 c-api/unicode.html#c.$ -
 PyUnicode_DecodeFSDefault.str c:functionParam 1 c-api/unicode.html#c.PyUnicode_DecodeFSDefault -
 PyUnicode_DecodeFSDefaultAndSize c:function 1 c-api/unicode.html#c.$ -
@@ -3030,6 +3045,7 @@ PyUnicode_FromWideChar.size c:functionParam 1 c-api/unicode.html#c.PyUnicode_Fro
 PyUnicode_FromWideChar.wstr c:functionParam 1 c-api/unicode.html#c.PyUnicode_FromWideChar -
 PyUnicode_GET_LENGTH c:function 1 c-api/unicode.html#c.$ -
 PyUnicode_GET_LENGTH.unicode c:functionParam 1 c-api/unicode.html#c.PyUnicode_GET_LENGTH -
+PyUnicode_GetDefaultEncoding c:function 1 c-api/unicode.html#c.$ -
 PyUnicode_GetLength c:function 1 c-api/unicode.html#c.$ -
 PyUnicode_GetLength.unicode c:functionParam 1 c-api/unicode.html#c.PyUnicode_GetLength -
 PyUnicode_InternFromString c:function 1 c-api/unicode.html#c.$ -
@@ -3048,6 +3064,9 @@ PyUnicode_MAX_CHAR_VALUE.unicode c:functionParam 1 c-api/unicode.html#c.PyUnicod
 PyUnicode_New c:function 1 c-api/unicode.html#c.$ -
 PyUnicode_New.maxchar c:functionParam 1 c-api/unicode.html#c.PyUnicode_New -
 PyUnicode_New.size c:functionParam 1 c-api/unicode.html#c.PyUnicode_New -
+PyUnicode_Partition c:function 1 c-api/unicode.html#c.$ -
+PyUnicode_Partition.sep c:functionParam 1 c-api/unicode.html#c.PyUnicode_Partition -
+PyUnicode_Partition.unicode c:functionParam 1 c-api/unicode.html#c.PyUnicode_Partition -
 PyUnicode_READ c:function 1 c-api/unicode.html#c.$ -
 PyUnicode_READ.data c:functionParam 1 c-api/unicode.html#c.PyUnicode_READ -
 PyUnicode_READ.index c:functionParam 1 c-api/unicode.html#c.PyUnicode_READ -
@@ -3057,6 +3076,13 @@ PyUnicode_READY.unicode c:functionParam 1 c-api/unicode.html#c.PyUnicode_READY -
 PyUnicode_READ_CHAR c:function 1 c-api/unicode.html#c.$ -
 PyUnicode_READ_CHAR.index c:functionParam 1 c-api/unicode.html#c.PyUnicode_READ_CHAR -
 PyUnicode_READ_CHAR.unicode c:functionParam 1 c-api/unicode.html#c.PyUnicode_READ_CHAR -
+PyUnicode_RPartition c:function 1 c-api/unicode.html#c.$ -
+PyUnicode_RPartition.sep c:functionParam 1 c-api/unicode.html#c.PyUnicode_RPartition -
+PyUnicode_RPartition.unicode c:functionParam 1 c-api/unicode.html#c.PyUnicode_RPartition -
+PyUnicode_RSplit c:function 1 c-api/unicode.html#c.$ -
+PyUnicode_RSplit.maxsplit c:functionParam 1 c-api/unicode.html#c.PyUnicode_RSplit -
+PyUnicode_RSplit.sep c:functionParam 1 c-api/unicode.html#c.PyUnicode_RSplit -
+PyUnicode_RSplit.unicode c:functionParam 1 c-api/unicode.html#c.PyUnicode_RSplit -
 PyUnicode_ReadChar c:function 1 c-api/unicode.html#c.$ -
 PyUnicode_ReadChar.index c:functionParam 1 c-api/unicode.html#c.PyUnicode_ReadChar -
 PyUnicode_ReadChar.unicode c:functionParam 1 c-api/unicode.html#c.PyUnicode_ReadChar -
@@ -3165,6 +3191,8 @@ PyUnstable_InterpreterFrame_GetLasti c:function 1 c-api/frame.html#c.$ -
 PyUnstable_InterpreterFrame_GetLasti.frame c:functionParam 1 c-api/frame.html#c.PyUnstable_InterpreterFrame_GetLasti -
 PyUnstable_InterpreterFrame_GetLine c:function 1 c-api/frame.html#c.$ -
 PyUnstable_InterpreterFrame_GetLine.frame c:functionParam 1 c-api/frame.html#c.PyUnstable_InterpreterFrame_GetLine -
+PyUnstable_InterpreterState_GetMainModule c:function 1 c-api/init.html#c.$ -
+PyUnstable_InterpreterState_GetMainModule.interp c:functionParam 1 c-api/init.html#c.PyUnstable_InterpreterState_GetMainModule -
 PyUnstable_Long_CompactValue c:function 1 c-api/long.html#c.$ -
 PyUnstable_Long_CompactValue.op c:functionParam 1 c-api/long.html#c.PyUnstable_Long_CompactValue -
 PyUnstable_Long_IsCompact c:function 1 c-api/long.html#c.$ -
@@ -3253,6 +3281,7 @@ Py_BytesMain.argc c:functionParam 1 c-api/init.html#c.Py_BytesMain -
 Py_BytesMain.argv c:functionParam 1 c-api/init.html#c.Py_BytesMain -
 Py_BytesWarningFlag c:member 1 c-api/init.html#c.$ -
 Py_CHARMASK c:macro 1 c-api/intro.html#c.$ -
+Py_CLEANUP_SUPPORTED c:macro 1 c-api/arg.html#c.$ -
 Py_CLEAR c:function 1 c-api/refcounting.html#c.$ -
 Py_CLEAR.o c:functionParam 1 c-api/refcounting.html#c.Py_CLEAR -
 Py_CONSTANT_ELLIPSIS c:macro 1 c-api/object.html#c.$ -
@@ -4578,6 +4607,8 @@ calendar py:module 0 library/calendar.html#module-$ -
 calendar.APRIL py:data 1 library/calendar.html#$ -
 calendar.AUGUST py:data 1 library/calendar.html#$ -
 calendar.Calendar py:class 1 library/calendar.html#$ -
+calendar.Calendar.firstweekday py:attribute 1 library/calendar.html#$ -
+calendar.Calendar.getfirstweekday py:method 1 library/calendar.html#$ -
 calendar.Calendar.itermonthdates py:method 1 library/calendar.html#$ -
 calendar.Calendar.itermonthdays py:method 1 library/calendar.html#$ -
 calendar.Calendar.itermonthdays2 py:method 1 library/calendar.html#$ -
@@ -4587,6 +4618,7 @@ calendar.Calendar.iterweekdays py:method 1 library/calendar.html#$ -
 calendar.Calendar.monthdatescalendar py:method 1 library/calendar.html#$ -
 calendar.Calendar.monthdays2calendar py:method 1 library/calendar.html#$ -
 calendar.Calendar.monthdayscalendar py:method 1 library/calendar.html#$ -
+calendar.Calendar.setfirstweekday py:method 1 library/calendar.html#$ -
 calendar.Calendar.yeardatescalendar py:method 1 library/calendar.html#$ -
 calendar.Calendar.yeardays2calendar py:method 1 library/calendar.html#$ -
 calendar.Calendar.yeardayscalendar py:method 1 library/calendar.html#$ -
@@ -5614,7 +5646,7 @@ dataclasses.replace py:function 1 library/dataclasses.html#$ -
 datetime py:module 0 library/datetime.html#module-$ -
 datetime.MAXYEAR py:data 1 library/datetime.html#$ -
 datetime.MINYEAR py:data 1 library/datetime.html#$ -
-datetime.UTC py:attribute 1 library/datetime.html#$ -
+datetime.UTC py:data 1 library/datetime.html#$ -
 datetime.date py:class 1 library/datetime.html#$ -
 datetime.date.__format__ py:method 1 library/datetime.html#$ -
 datetime.date.__str__ py:method 1 library/datetime.html#$ -
@@ -6104,13 +6136,25 @@ email.encoders.encode_noop py:function 1 library/email.encoders.html#$ -
 email.encoders.encode_quopri py:function 1 library/email.encoders.html#$ -
 email.errors py:module 0 library/email.errors.html#module-$ -
 email.errors.BoundaryError py:exception 1 library/email.errors.html#$ -
+email.errors.CloseBoundaryNotFoundDefect py:exception 1 library/email.errors.html#$ -
+email.errors.FirstHeaderLineIsContinuationDefect py:exception 1 library/email.errors.html#$ -
 email.errors.HeaderDefect py:exception 1 library/email.errors.html#$ -
 email.errors.HeaderParseError py:exception 1 library/email.errors.html#$ -
 email.errors.HeaderWriteError py:exception 1 library/email.errors.html#$ -
+email.errors.InvalidBase64CharactersDefect py:exception 1 library/email.errors.html#$ -
+email.errors.InvalidBase64LengthDefect py:exception 1 library/email.errors.html#$ -
+email.errors.InvalidBase64PaddingDefect py:exception 1 library/email.errors.html#$ -
+email.errors.InvalidDateDefect py:exception 1 library/email.errors.html#$ -
+email.errors.MalformedHeaderDefect py:exception 1 library/email.errors.html#$ -
 email.errors.MessageDefect py:exception 1 library/email.errors.html#$ -
 email.errors.MessageError py:exception 1 library/email.errors.html#$ -
 email.errors.MessageParseError py:exception 1 library/email.errors.html#$ -
+email.errors.MisplacedEnvelopeHeaderDefect py:exception 1 library/email.errors.html#$ -
+email.errors.MissingHeaderBodySeparatorDefect py:exception 1 library/email.errors.html#$ -
 email.errors.MultipartConversionError py:exception 1 library/email.errors.html#$ -
+email.errors.MultipartInvariantViolationDefect py:exception 1 library/email.errors.html#$ -
+email.errors.NoBoundaryInMultipartDefect py:exception 1 library/email.errors.html#$ -
+email.errors.StartBoundaryNotFoundDefect py:exception 1 library/email.errors.html#$ -
 email.generator py:module 0 library/email.generator.html#module-$ -
 email.generator.BytesGenerator py:class 1 library/email.generator.html#$ -
 email.generator.BytesGenerator.clone py:method 1 library/email.generator.html#$ -
@@ -6444,11 +6488,16 @@ errno.EADV py:data 1 library/errno.html#$ -
 errno.EAFNOSUPPORT py:data 1 library/errno.html#$ -
 errno.EAGAIN py:data 1 library/errno.html#$ -
 errno.EALREADY py:data 1 library/errno.html#$ -
+errno.EAUTH py:data 1 library/errno.html#$ -
+errno.EBADARCH py:data 1 library/errno.html#$ -
 errno.EBADE py:data 1 library/errno.html#$ -
+errno.EBADEXEC py:data 1 library/errno.html#$ -
 errno.EBADF py:data 1 library/errno.html#$ -
 errno.EBADFD py:data 1 library/errno.html#$ -
+errno.EBADMACHO py:data 1 library/errno.html#$ -
 errno.EBADMSG py:data 1 library/errno.html#$ -
 errno.EBADR py:data 1 library/errno.html#$ -
+errno.EBADRPC py:data 1 library/errno.html#$ -
 errno.EBADRQC py:data 1 library/errno.html#$ -
 errno.EBADSLT py:data 1 library/errno.html#$ -
 errno.EBFONT py:data 1 library/errno.html#$ -
@@ -6463,12 +6512,14 @@ errno.ECONNRESET py:data 1 library/errno.html#$ -
 errno.EDEADLK py:data 1 library/errno.html#$ -
 errno.EDEADLOCK py:data 1 library/errno.html#$ -
 errno.EDESTADDRREQ py:data 1 library/errno.html#$ -
+errno.EDEVERR py:data 1 library/errno.html#$ -
 errno.EDOM py:data 1 library/errno.html#$ -
 errno.EDOTDOT py:data 1 library/errno.html#$ -
 errno.EDQUOT py:data 1 library/errno.html#$ -
 errno.EEXIST py:data 1 library/errno.html#$ -
 errno.EFAULT py:data 1 library/errno.html#$ -
 errno.EFBIG py:data 1 library/errno.html#$ -
+errno.EFTYPE py:data 1 library/errno.html#$ -
 errno.EHOSTDOWN py:data 1 library/errno.html#$ -
 errno.EHOSTUNREACH py:data 1 library/errno.html#$ -
 errno.EIDRM py:data 1 library/errno.html#$ -
@@ -6480,6 +6531,9 @@ errno.EIO py:data 1 library/errno.html#$ -
 errno.EISCONN py:data 1 library/errno.html#$ -
 errno.EISDIR py:data 1 library/errno.html#$ -
 errno.EISNAM py:data 1 library/errno.html#$ -
+errno.EKEYEXPIRED py:data 1 library/errno.html#$ -
+errno.EKEYREJECTED py:data 1 library/errno.html#$ -
+errno.EKEYREVOKED py:data 1 library/errno.html#$ -
 errno.EL2HLT py:data 1 library/errno.html#$ -
 errno.EL2NSYNC py:data 1 library/errno.html#$ -
 errno.EL3HLT py:data 1 library/errno.html#$ -
@@ -6490,35 +6544,43 @@ errno.ELIBEXEC py:data 1 library/errno.html#$ -
 errno.ELIBMAX py:data 1 library/errno.html#$ -
 errno.ELIBSCN py:data 1 library/errno.html#$ -
 errno.ELNRNG py:data 1 library/errno.html#$ -
+errno.ELOCKUNMAPPED py:data 1 library/errno.html#$ -
 errno.ELOOP py:data 1 library/errno.html#$ -
+errno.EMEDIUMTYPE py:data 1 library/errno.html#$ -
 errno.EMFILE py:data 1 library/errno.html#$ -
 errno.EMLINK py:data 1 library/errno.html#$ -
 errno.EMSGSIZE py:data 1 library/errno.html#$ -
 errno.EMULTIHOP py:data 1 library/errno.html#$ -
 errno.ENAMETOOLONG py:data 1 library/errno.html#$ -
 errno.ENAVAIL py:data 1 library/errno.html#$ -
+errno.ENEEDAUTH py:data 1 library/errno.html#$ -
 errno.ENETDOWN py:data 1 library/errno.html#$ -
 errno.ENETRESET py:data 1 library/errno.html#$ -
 errno.ENETUNREACH py:data 1 library/errno.html#$ -
 errno.ENFILE py:data 1 library/errno.html#$ -
 errno.ENOANO py:data 1 library/errno.html#$ -
+errno.ENOATTR py:data 1 library/errno.html#$ -
 errno.ENOBUFS py:data 1 library/errno.html#$ -
 errno.ENOCSI py:data 1 library/errno.html#$ -
 errno.ENODATA py:data 1 library/errno.html#$ -
 errno.ENODEV py:data 1 library/errno.html#$ -
 errno.ENOENT py:data 1 library/errno.html#$ -
 errno.ENOEXEC py:data 1 library/errno.html#$ -
+errno.ENOKEY py:data 1 library/errno.html#$ -
 errno.ENOLCK py:data 1 library/errno.html#$ -
 errno.ENOLINK py:data 1 library/errno.html#$ -
+errno.ENOMEDIUM py:data 1 library/errno.html#$ -
 errno.ENOMEM py:data 1 library/errno.html#$ -
 errno.ENOMSG py:data 1 library/errno.html#$ -
 errno.ENONET py:data 1 library/errno.html#$ -
 errno.ENOPKG py:data 1 library/errno.html#$ -
+errno.ENOPOLICY py:data 1 library/errno.html#$ -
 errno.ENOPROTOOPT py:data 1 library/errno.html#$ -
 errno.ENOSPC py:data 1 library/errno.html#$ -
 errno.ENOSR py:data 1 library/errno.html#$ -
 errno.ENOSTR py:data 1 library/errno.html#$ -
 errno.ENOSYS py:data 1 library/errno.html#$ -
+errno.ENOTACTIVE py:data 1 library/errno.html#$ -
 errno.ENOTBLK py:data 1 library/errno.html#$ -
 errno.ENOTCAPABLE py:data 1 library/errno.html#$ -
 errno.ENOTCONN py:data 1 library/errno.html#$ -
@@ -6537,16 +6599,24 @@ errno.EOWNERDEAD py:data 1 library/errno.html#$ -
 errno.EPERM py:data 1 library/errno.html#$ -
 errno.EPFNOSUPPORT py:data 1 library/errno.html#$ -
 errno.EPIPE py:data 1 library/errno.html#$ -
+errno.EPROCLIM py:data 1 library/errno.html#$ -
+errno.EPROCUNAVAIL py:data 1 library/errno.html#$ -
+errno.EPROGMISMATCH py:data 1 library/errno.html#$ -
+errno.EPROGUNAVAIL py:data 1 library/errno.html#$ -
 errno.EPROTO py:data 1 library/errno.html#$ -
 errno.EPROTONOSUPPORT py:data 1 library/errno.html#$ -
 errno.EPROTOTYPE py:data 1 library/errno.html#$ -
+errno.EPWROFF py:data 1 library/errno.html#$ -
 errno.EQFULL py:data 1 library/errno.html#$ -
 errno.ERANGE py:data 1 library/errno.html#$ -
 errno.EREMCHG py:data 1 library/errno.html#$ -
 errno.EREMOTE py:data 1 library/errno.html#$ -
 errno.EREMOTEIO py:data 1 library/errno.html#$ -
 errno.ERESTART py:data 1 library/errno.html#$ -
+errno.ERFKILL py:data 1 library/errno.html#$ -
 errno.EROFS py:data 1 library/errno.html#$ -
+errno.ERPCMISMATCH py:data 1 library/errno.html#$ -
+errno.ESHLIBVERS py:data 1 library/errno.html#$ -
 errno.ESHUTDOWN py:data 1 library/errno.html#$ -
 errno.ESOCKTNOSUPPORT py:data 1 library/errno.html#$ -
 errno.ESPIPE py:data 1 library/errno.html#$ -
@@ -6587,7 +6657,7 @@ fcntl.flock py:function 1 library/fcntl.html#$ -
 fcntl.ioctl py:function 1 library/fcntl.html#$ -
 fcntl.lockf py:function 1 library/fcntl.html#$ -
 filecmp py:module 0 library/filecmp.html#module-$ -
-filecmp.DEFAULT_IGNORES py:attribute 1 library/filecmp.html#$ -
+filecmp.DEFAULT_IGNORES py:data 1 library/filecmp.html#$ -
 filecmp.clear_cache py:function 1 library/filecmp.html#$ -
 filecmp.cmp py:function 1 library/filecmp.html#$ -
 filecmp.cmpfiles py:function 1 library/filecmp.html#$ -
@@ -7255,10 +7325,10 @@ importlib.machinery py:module 0 library/importlib.html#module-$ -
 importlib.machinery.AppleFrameworkLoader py:class 1 library/importlib.html#$ -
 importlib.machinery.AppleFrameworkLoader.name py:attribute 1 library/importlib.html#$ -
 importlib.machinery.AppleFrameworkLoader.path py:attribute 1 library/importlib.html#$ -
-importlib.machinery.BYTECODE_SUFFIXES py:attribute 1 library/importlib.html#$ -
+importlib.machinery.BYTECODE_SUFFIXES py:data 1 library/importlib.html#$ -
 importlib.machinery.BuiltinImporter py:class 1 library/importlib.html#$ -
-importlib.machinery.DEBUG_BYTECODE_SUFFIXES py:attribute 1 library/importlib.html#$ -
-importlib.machinery.EXTENSION_SUFFIXES py:attribute 1 library/importlib.html#$ -
+importlib.machinery.DEBUG_BYTECODE_SUFFIXES py:data 1 library/importlib.html#$ -
+importlib.machinery.EXTENSION_SUFFIXES py:data 1 library/importlib.html#$ -
 importlib.machinery.ExtensionFileLoader py:class 1 library/importlib.html#$ -
 importlib.machinery.ExtensionFileLoader.create_module py:method 1 library/importlib.html#$ -
 importlib.machinery.ExtensionFileLoader.exec_module py:method 1 library/importlib.html#$ -
@@ -7284,11 +7354,11 @@ importlib.machinery.ModuleSpec.origin py:attribute 1 library/importlib.html#$ -
 importlib.machinery.ModuleSpec.parent py:attribute 1 library/importlib.html#$ -
 importlib.machinery.ModuleSpec.submodule_search_locations py:attribute 1 library/importlib.html#$ -
 importlib.machinery.NamespaceLoader py:class 1 library/importlib.html#$ -
-importlib.machinery.OPTIMIZED_BYTECODE_SUFFIXES py:attribute 1 library/importlib.html#$ -
+importlib.machinery.OPTIMIZED_BYTECODE_SUFFIXES py:data 1 library/importlib.html#$ -
 importlib.machinery.PathFinder py:class 1 library/importlib.html#$ -
 importlib.machinery.PathFinder.find_spec py:method 1 library/importlib.html#$ -
 importlib.machinery.PathFinder.invalidate_caches py:method 1 library/importlib.html#$ -
-importlib.machinery.SOURCE_SUFFIXES py:attribute 1 library/importlib.html#$ -
+importlib.machinery.SOURCE_SUFFIXES py:data 1 library/importlib.html#$ -
 importlib.machinery.SourceFileLoader py:class 1 library/importlib.html#$ -
 importlib.machinery.SourceFileLoader.is_package py:method 1 library/importlib.html#$ -
 importlib.machinery.SourceFileLoader.load_module py:method 1 library/importlib.html#$ -
@@ -7352,7 +7422,7 @@ importlib.resources.read_text py:function 1 library/importlib.resources.html#$ -
 importlib.util py:module 0 library/importlib.html#module-$ -
 importlib.util.LazyLoader py:class 1 library/importlib.html#$ -
 importlib.util.LazyLoader.factory py:method 1 library/importlib.html#$ -
-importlib.util.MAGIC_NUMBER py:attribute 1 library/importlib.html#$ -
+importlib.util.MAGIC_NUMBER py:data 1 library/importlib.html#$ -
 importlib.util._incompatible_extension_module_restrictions py:function 1 library/importlib.html#$ -
 importlib.util.cache_from_source py:function 1 library/importlib.html#$ -
 importlib.util.decode_source py:function 1 library/importlib.html#$ -
@@ -8000,11 +8070,11 @@ logging.handlers.WatchedFileHandler py:class 1 library/logging.handlers.html#$ -
 logging.handlers.WatchedFileHandler.emit py:method 1 library/logging.handlers.html#$ -
 logging.handlers.WatchedFileHandler.reopenIfNeeded py:method 1 library/logging.handlers.html#$ -
 logging.info py:function 1 library/logging.html#$ -
-logging.lastResort py:attribute 1 library/logging.html#$ -
+logging.lastResort py:data 1 library/logging.html#$ -
 logging.log py:function 1 library/logging.html#$ -
 logging.logging.Formatter.__init__ py:method 1 howto/logging.html#$ -
 logging.makeLogRecord py:function 1 library/logging.html#$ -
-logging.raiseExceptions py:attribute 1 library/logging.html#$ -
+logging.raiseExceptions py:data 1 library/logging.html#$ -
 logging.setLogRecordFactory py:function 1 library/logging.html#$ -
 logging.setLoggerClass py:function 1 library/logging.html#$ -
 logging.shutdown py:function 1 library/logging.html#$ -
@@ -9822,7 +9892,7 @@ secrets.token_bytes py:function 1 library/secrets.html#$ -
 secrets.token_hex py:function 1 library/secrets.html#$ -
 secrets.token_urlsafe py:function 1 library/secrets.html#$ -
 select py:module 0 library/select.html#module-$ -
-select.PIPE_BUF py:attribute 1 library/select.html#$ -
+select.PIPE_BUF py:data 1 library/select.html#$ -
 select.devpoll py:function 1 library/select.html#$ -
 select.devpoll.close py:method 1 library/select.html#$ -
 select.devpoll.closed py:attribute 1 library/select.html#$ -
@@ -11815,6 +11885,9 @@ trace.Trace.runctx py:method 1 library/trace.html#$ -
 trace.Trace.runfunc py:method 1 library/trace.html#$ -
 traceback py:module 0 library/traceback.html#module-$ -
 traceback.FrameSummary py:class 1 library/traceback.html#$ -
+traceback.FrameSummary.colno py:attribute 1 library/traceback.html#$ -
+traceback.FrameSummary.end_colno py:attribute 1 library/traceback.html#$ -
+traceback.FrameSummary.end_lineno py:attribute 1 library/traceback.html#$ -
 traceback.FrameSummary.filename py:attribute 1 library/traceback.html#$ -
 traceback.FrameSummary.line py:attribute 1 library/traceback.html#$ -
 traceback.FrameSummary.lineno py:attribute 1 library/traceback.html#$ -
@@ -13977,7 +14050,7 @@ break std:label -1 reference/simple_stmts.html#$ The break statement
 break std:pdbcommand 1 library/pdb.html#pdbcommand-$ -
 break-and-continue-statements-and-else-clauses-on-loops std:label -1 tutorial/controlflow.html#$ else Clauses on Loops
 browser-controllers std:label -1 library/webbrowser.html#$ Browser Controller Objects
-bsd0 std:label -1 license.html#$ ZERO-CLAUSE BSD LICENSE FOR CODE IN THE PYTHON 3.13.1 DOCUMENTATION
+bsd0 std:label -1 license.html#$ ZERO-CLAUSE BSD LICENSE FOR CODE IN THE PYTHON DOCUMENTATION
 buffer-request-types std:label -1 c-api/buffer.html#$ Buffer request types
 buffer-structs std:label -1 c-api/typeobj.html#$ Buffer Object Structures
 buffer-structure std:label -1 c-api/buffer.html#$ Buffer structure
@@ -14077,6 +14150,9 @@ c-arg-borrowed-buffer std:label -1 c-api/arg.html#$ -
 c-preinit std:label -1 c-api/init_config.html#$ Preinitialize Python with PyPreConfig
 c-wrapper-software std:label -1 faq/extending.html#$ Writing C is hard; are there any alternatives?
 c99 std:label -1 library/sys.html#$ -
+cProfile.-m std:cmdoption 1 library/profile.html#cmdoption-cProfile-m -
+cProfile.-o std:cmdoption 1 library/profile.html#cmdoption-cProfile-o -
+cProfile.-s std:cmdoption 1 library/profile.html#cmdoption-cProfile-s -
 cacheftp-handler-objects std:label -1 library/urllib.request.html#$ CacheFTPHandler Objects
 calendar-cli std:label -1 library/calendar.html#$ Command-Line Usage
 calendar.--css std:cmdoption 1 library/calendar.html#cmdoption-calendar-css -
@@ -14458,6 +14534,10 @@ embeddingincplusplus std:label -1 extending/embedding.html#$ Embedding Python in
 enable std:pdbcommand 1 library/pdb.html#pdbcommand-$ -
 encodings std:label -1 reference/lexical_analysis.html#$ Encoding declarations
 encodings-overview std:label -1 library/codecs.html#$ Encodings and Unicode
+ensurepip.--altinstall std:cmdoption 1 library/ensurepip.html#cmdoption-ensurepip-altinstall -
+ensurepip.--default-pip std:cmdoption 1 library/ensurepip.html#cmdoption-ensurepip-default-pip -
+ensurepip.--root std:cmdoption 1 library/ensurepip.html#cmdoption-ensurepip-root -
+ensurepip.--user std:cmdoption 1 library/ensurepip.html#cmdoption-ensurepip-user -
 entity-resolver-objects std:label -1 library/xml.sax.handler.html#$ EntityResolver Objects
 entry-points std:label -1 library/importlib.metadata.html#$ Entry points
 enum-advanced-tutorial std:label -1 howto/enum.html#$ Programmatic access to enumeration members and their attributes
@@ -14746,7 +14826,16 @@ i18n std:label -1 library/i18n.html#$ Internationalization
 i18n-howto std:label -1 library/gettext.html#$ Internationalizing your programs and modules
 id-classes std:label -1 reference/lexical_analysis.html#$ Reserved classes of identifiers
 identifiers std:label -1 reference/lexical_analysis.html#$ Identifiers and keywords
-idle std:label -1 library/idle.html#$ IDLE
+idle std:label -1 library/idle.html#$ IDLE — Python editor and shell
+idle.- std:cmdoption 1 library/idle.html#cmdoption-idle-0 -
+idle.-c std:cmdoption 1 library/idle.html#cmdoption-idle-c -
+idle.-d std:cmdoption 1 library/idle.html#cmdoption-idle-d -
+idle.-e std:cmdoption 1 library/idle.html#cmdoption-idle-e -
+idle.-h std:cmdoption 1 library/idle.html#cmdoption-idle-h -
+idle.-i std:cmdoption 1 library/idle.html#cmdoption-idle-i -
+idle.-r std:cmdoption 1 library/idle.html#cmdoption-idle-r -
+idle.-s std:cmdoption 1 library/idle.html#cmdoption-idle-s -
+idle.-t std:cmdoption 1 library/idle.html#cmdoption-idle-t -
 if std:label -1 reference/compound_stmts.html#$ The if statement
 if_expr std:label -1 reference/expressions.html#if-expr Conditional expressions
 ignore std:pdbcommand 1 library/pdb.html#pdbcommand-$ -
@@ -14802,6 +14891,7 @@ install-quiet-option std:label -1 using/windows.html#$ Installing Without UI
 installation_paths std:label -1 library/sysconfig.html#installation-paths Installation paths
 installing-index std:label -1 installing/index.html#$ Installing Python Modules
 installing/index std:doc -1 installing/index.html Installing Python Modules
+installing_idle_on_linux std:label -1 using/unix.html#installing-idle-on-linux Installing IDLE
 instance-methods std:label -1 reference/datamodel.html#$ Instance methods
 instancemethod-objects std:label -1 c-api/method.html#$ Instance Method Objects
 instrumentation std:label -1 howto/instrumentation.html#$ Instrumenting CPython with DTrace and SystemTap
@@ -15007,7 +15097,7 @@ library/http.cookiejar std:doc -1 library/http.cookiejar.html http.cookiejar —
 library/http.cookies std:doc -1 library/http.cookies.html http.cookies — HTTP state management
 library/http.server std:doc -1 library/http.server.html http.server — HTTP servers
 library/i18n std:doc -1 library/i18n.html Internationalization
-library/idle std:doc -1 library/idle.html IDLE
+library/idle std:doc -1 library/idle.html IDLE — Python editor and shell
 library/imaplib std:doc -1 library/imaplib.html imaplib — IMAP4 protocol client
 library/imghdr std:doc -1 library/imghdr.html imghdr — Determine the type of an image
 library/imp std:doc -1 library/imp.html imp — Access the import internals
@@ -15374,7 +15464,7 @@ numeric std:label -1 library/numeric.html#$ Numeric and Mathematical Modules
 numeric-hash std:label -1 library/stdtypes.html#$ Hashing of numeric types
 numeric-types std:label -1 reference/datamodel.html#$ Emulating numeric types
 numericobjects std:label -1 c-api/concrete.html#$ Numeric Objects
-o_ampersand std:label -1 c-api/arg.html#o-ampersand O& (object) [converter, anything]
+o_ampersand std:label -1 c-api/arg.html#o-ampersand O& (object) [converter, address]
 object std:label -1 c-api/object.html#$ Object Protocol
 object std:term -1 glossary.html#term-$ -
 objectinterface std:label -1 c-api/memory.html#$ Object allocators
@@ -15439,6 +15529,7 @@ os-newstreams std:label -1 library/os.html#$ File Object Creation
 os-path std:label -1 library/os.html#$ Miscellaneous System Information
 os-process std:label -1 library/os.html#$ Process Management
 os-procinfo std:label -1 library/os.html#$ Process Parameters
+os-scheduling-policy std:label -1 library/os.html#$ -
 os-timerfd std:label -1 library/os.html#$ Timer File Descriptors
 os-unshare-clone-flags std:label -1 library/os.html#$ -
 osx-gui-scripts std:label -1 using/mac.html#$ GUI Programming
@@ -15471,6 +15562,9 @@ path-like object std:term -1 glossary.html#term-path-like-object -
 path-objects std:label -1 library/zipfile.html#$ Path Objects
 path_fd std:label -1 library/os.html#path-fd -
 pathlib-pattern-language std:label -1 library/pathlib.html#$ Pattern language
+pdb.--command std:cmdoption 1 library/pdb.html#cmdoption-pdb-c -
+pdb.-c std:cmdoption 1 library/pdb.html#cmdoption-pdb-c -
+pdb.-m std:cmdoption 1 library/pdb.html#cmdoption-pdb-m -
 pep-0343 std:label -1 whatsnew/2.6.html#$ PEP 343: The ‘with’ statement
 pep-0366 std:label -1 whatsnew/2.6.html#$ PEP 366: Explicit Relative Imports From a Main Module
 pep-0370 std:label -1 whatsnew/2.6.html#$ PEP 370: Per-user site-packages Directory
@@ -15580,7 +15674,7 @@ provisional package std:term -1 glossary.html#term-provisional-package -
 proxy-basic-auth-handler std:label -1 library/urllib.request.html#$ ProxyBasicAuthHandler Objects
 proxy-digest-auth-handler std:label -1 library/urllib.request.html#$ ProxyDigestAuthHandler Objects
 proxy-handler std:label -1 library/urllib.request.html#$ ProxyHandler Objects
-psf-license std:label -1 license.html#$ PSF LICENSE AGREEMENT FOR PYTHON 3.13.1
+psf-license std:label -1 license.html#$ PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2
 pure-embedding std:label -1 extending/embedding.html#$ Pure Embedding
 pure-paths std:label -1 library/pathlib.html#$ Pure paths
 py-modindex std:label -1 py-modindex.html Python Module Index
@@ -15738,6 +15832,7 @@ python-grammar:parameter std:token -1 reference/compound_stmts.html#grammar-toke
 python-grammar:parameter_list std:token -1 reference/compound_stmts.html#grammar-token-python-grammar-parameter_list -
 python-grammar:parameter_list_no_posonly std:token -1 reference/compound_stmts.html#grammar-token-python-grammar-parameter_list_no_posonly -
 python-grammar:parameter_list_starargs std:token -1 reference/compound_stmts.html#grammar-token-python-grammar-parameter_list_starargs -
+python-grammar:parameter_star_kwargs std:token -1 reference/compound_stmts.html#grammar-token-python-grammar-parameter_star_kwargs -
 python-grammar:paramspec std:token -1 reference/compound_stmts.html#grammar-token-python-grammar-paramspec -
 python-grammar:parenth_form std:token -1 reference/expressions.html#grammar-token-python-grammar-parenth_form -
 python-grammar:pass_stmt std:token -1 reference/simple_stmts.html#grammar-token-python-grammar-pass_stmt -
@@ -15850,6 +15945,7 @@ refcounts std:label -1 extending/extending.html#$ Reference Counts
 refcountsinpython std:label -1 extending/extending.html#$ Reference Counting in Python
 reference count std:term -1 glossary.html#term-reference-count -
 reference-index std:label -1 reference/index.html#$ The Python Language Reference
+reference-namespace-package std:label -1 reference/import.html#$ Namespace packages
 reference/compound_stmts std:doc -1 reference/compound_stmts.html Compound statements
 reference/datamodel std:doc -1 reference/datamodel.html Data model
 reference/executionmodel std:doc -1 reference/executionmodel.html Execution model
@@ -16471,6 +16567,10 @@ weakref-example std:label -1 library/weakref.html#$ Example
 weakref-objects std:label -1 library/weakref.html#$ Weak Reference Objects
 weakref-support std:label -1 extending/newtypes.html#$ Weak Reference Support
 weakrefobjects std:label -1 c-api/weakref.html#$ Weak Reference Objects
+webbrowser.--new-tab std:cmdoption 1 library/webbrowser.html#cmdoption-webbrowser-t -
+webbrowser.--new-window std:cmdoption 1 library/webbrowser.html#cmdoption-webbrowser-n -
+webbrowser.-n std:cmdoption 1 library/webbrowser.html#cmdoption-webbrowser-n -
+webbrowser.-t std:cmdoption 1 library/webbrowser.html#cmdoption-webbrowser-t -
 whatis std:pdbcommand 1 library/pdb.html#pdbcommand-$ -
 whats-new-in-2.6 std:label -1 whatsnew/2.6.html#whats-new-in-2-6 What’s New in Python 2.6
 whatsnew-asyncio std:label -1 whatsnew/3.4.html#$ asyncio

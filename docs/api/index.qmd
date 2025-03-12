@@ -1,0 +1,10 @@
+# Function reference {.doc .doc-index}
+
+## Some section
+
+Some description...
+
+
+| | |
+| --- | --- |
+| [launch_exercise](launch_exercise.qmd#franklin.jupyter.launch_exercise) |  |

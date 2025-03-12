@@ -2,5 +2,4 @@
 # Project: franklin
 # Version: 0.0.9999
 # The remainder of this file is compressed using zlib.
-franklin.modulename.functionname py:function 1 api/functionname.html#franklin.modulename.functionname -
-franklin.modulename.scriptname py:function 1 api/scriptname.html#franklin.modulename.scriptname -
+franklin.jupyter.launch_exercise py:function 1 api/launch_exercise.html#franklin.jupyter.launch_exercise -

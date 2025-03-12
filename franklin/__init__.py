@@ -24,8 +24,6 @@ def franklin():
 
 franklin.add_command(_jupyter.jupyter)
 franklin.add_command(_docker.docker)
-# franklin.add_command(_devel.devel)
-# franklin.add_command(_about.about)
 franklin.add_command(_tldr.tldr)
 
 
