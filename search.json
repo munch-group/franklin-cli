@@ -1,0 +1,88 @@
+[
+  {
+    "objectID": "pages/overview.html",
+    "href": "pages/overview.html",
+    "title": "Overview",
+    "section": "",
+    "text": "franklin lets you …\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+    "crumbs": [
+      "Overview",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#installation",
+    "href": "pages/overview.html#installation",
+    "title": "Overview",
+    "section": "Installation",
+    "text": "Installation\nconda install -c munch-group franklin",
+    "crumbs": [
+      "Overview",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#basic-use",
+    "href": "pages/overview.html#basic-use",
+    "title": "Overview",
+    "section": "Basic use",
+    "text": "Basic use\nNulla eget cursus ipsum. Vivamus porttitor leo diam, sed volutpat lectus facilisis sit amet. Maecenas et pulvinar metus. Ut at dignissim tellus. In in tincidunt elit. Etiam vulputate lobortis arcu, vel faucibus leo lobortis ac. Aliquam erat volutpat. In interdum orci ac est euismod euismod. Nunc eleifend tristique risus, at lacinia odio commodo in. Sed aliquet ligula odio, sed tempor neque ultricies sit amet.",
+    "crumbs": [
+      "Overview",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#some-use-case",
+    "href": "pages/overview.html#some-use-case",
+    "title": "Overview",
+    "section": "Some use case",
+    "text": "Some use case\nThe functionname function does … franklin.modulename.functionname does … functionname does …\nMaecenas turpis velit, ultricies non elementum vel, luctus nec nunc. Nulla a diam interdum, faucibus sapien viverra, finibus metus. Donec non tortor diam. In ut elit aliquet, bibendum sem et, aliquam tortor. Donec congue, sem at rhoncus ultrices, nunc augue cursus erat, quis porttitor mauris libero ut ex. Nullam quis leo urna. Donec faucibus ligula eget pellentesque interdum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean rhoncus interdum erat ut ultricies. Aenean tempus ex non elit suscipit, quis dignissim enim efficitur. Proin laoreet enim massa, vitae laoreet nulla mollis quis.\n\nfrom franklin.franklin import franklin\nfranklin(3, 4)\n\n7\n\n\nVestibulum ultrices, tortor at mattis porta, odio nisi rutrum nulla, sit amet tincidunt eros quam facilisis tellus. Fusce eleifend lectus in elementum lacinia. Nam auctor nunc in massa ullamcorper, sit amet auctor ante accumsan. Nam ut varius metus. Curabitur eget tristique leo. Cras finibus euismod erat eget elementum. Integer vel placerat ex. Ut id eros quis lectus lacinia venenatis hendrerit vel ante.\ncontents:\n  - MdRenderer\nVestibulum ultrices, tortor at mattis porta, odio nisi rutrum nulla, sit amet tincidunt eros quam facilisis tellus. Fusce eleifend lectus in elementum lacinia. Nam auctor nunc in massa ullamcorper, sit amet auctor ante accumsan. Nam ut varius metus. Curabitur eget tristique leo. Cras finibus euismod erat eget elementum. Integer vel placerat ex. Ut id eros quis lectus lacinia venenatis hendrerit vel ante.",
+    "crumbs": [
+      "Overview",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#learning-more",
+    "href": "pages/overview.html#learning-more",
+    "title": "Overview",
+    "section": "Learning more",
+    "text": "Learning more\nGo to the anvanced page to learn how to …\n\nExamples page: sites using quartodoc.",
+    "crumbs": [
+      "Overview",
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\nlaunch_exercise",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#some-section",
+    "href": "api/index.html#some-section",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\nlaunch_exercise",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/launch_exercise.html",
+    "href": "api/launch_exercise.html",
+    "title": "launch_exercise",
+    "section": "",
+    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()",
+    "crumbs": [
+      "Some section",
+      "launch_exercise"
+    ]
+  }
+]
