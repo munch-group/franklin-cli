@@ -24,9 +24,6 @@ requirements:
     - readchar>=4.0.5
     - click
     - psutil
-    - conda-build
-    - git
-    - gh
 
 channels:  # channels for your library dependencies
   - uibcdf
