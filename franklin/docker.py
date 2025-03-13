@@ -21,6 +21,8 @@ from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
 from pathlib import Path, PureWindowsPath, PurePosixPath
 
+os.environ['DOCKER_CLI_HINTS'] = 'false'
+
 def _docker_desktop_settings(**kwargs):
 
     home = Path.home()
@@ -114,9 +116,9 @@ def _install_docker_desktop():
         utils.echo('  5. Accept the Docker Desktop license agreement')
         utils.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
         utils.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
-        utils.echo('  5. Wait while it says "Starting the Docker Engine..."')
-        utils.echo('  5. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
-        utils.echo('  8. Return to this window and start Franklin the same way as you did before.', **kwargs)
+        utils.echo('  8. Wait while it says "Starting the Docker Engine..."')
+        # utils.echo('  9. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
+        utils.echo('  9. Return to this window and start Franklin the same way as you did before.', **kwargs)
         utils.echo()
         utils.echo('  Press Enter now to close Franklin.')
         utils.echo()
@@ -203,7 +205,7 @@ def _failsafe_start_docker_desktop():
 
     if not shutil.which('docker'):
          _install_docker_desktop()
-
+    
     _start_docker_desktop()
 
     if not _status() == 'running':
@@ -215,6 +217,8 @@ def _failsafe_start_docker_desktop():
         utils.logger.debug('Could not start Docker Desktop. Please start Docker Desktop manually')
         utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
         sys.exit(1)
+
+    _update_docker_desktop()
 
 
 def ensure_docker_running(func):
@@ -315,8 +319,8 @@ def _container_list(callback=None):
     for cont in current_containers:
         if cont['Image'].startswith(prefix):
             rep = cont['Image'].replace(prefix, '')
-            if rep.endswith(':main'):
-                rep = rep[:-5]
+            if rep.endswith(':latest'):
+                rep = rep[:-7]
             if rep.startswith('/'):
                 rep = rep[1:]
             course_label, exercise_label = rep.split('/')
@@ -395,8 +399,16 @@ def docker():
 
 def _pull(image_url):
 
-    # p = Popen(utils.format_cmd(f'docker pull {image_url}:main'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
-    # f = p.stdout
+    p = Popen(utils.format_cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
+    f = p.stdout
+    # while True:
+    #     line = f.readline()
+    #     if not line:
+    #         break
+    #     sys.stdout.write(line)
+    #     sys.stdout.flush()
+    # p.wait()
+
     # buffer = []
     # while True:            
     #     c = f.read(1)
@@ -480,14 +492,18 @@ def status():
     utils.secho(s, fg=fg, nowrap=True)
 
 
-def _update(return_json=False):
-    return _command('docker desktop update', return_json=return_json)
+def _update_docker_desktop(return_json=False):
+    stdout = subprocess.check_output(utils.format_cmd('docker desktop update --check-only')).decode()
+    utils.echo(stdout)
+    if 'is already the latest version' not in stdout:
+        subprocess.run(utils.format_cmd('docker desktop update --quiet'))
 
 @docker.command()
+@irrelevant_unless_docker_running
 @crash_report
 def update():
     """Update Docker Desktop"""
-    _update()
+    _update_docker_desktop()
 
 
 def _version(return_json=False):
@@ -608,7 +624,7 @@ def _run(image_url):
         rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
         rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
         rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
-        rf" -w {cwd_mount_target} -i -p 8050:8050 -p 8888:8888 {image_url}:main"
+        rf" -w {cwd_mount_target} -i -p 8050:8050 -p 8888:8888 {image_url}:latest"
     )
     logger.debug(cmd)
 
@@ -653,7 +669,7 @@ def _kill_container(container_id):
 @crash_report
 def _kill_all_docker_desktop_processes():
     """
-    Kills Docker the hard way ("tute la famiglia!").
+    Kills all docker-related processes the hard way.
     """
     for process in psutil.process_iter():
         name = process.name().lower()

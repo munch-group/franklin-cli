@@ -72,7 +72,8 @@ def launch_exercise():
     else:
         utils.secho("Updating image:", fg='green')
     _docker._pull(image_url)
-
+    utils.echo()
+    
     ticks = 20
     with click.progressbar(length=ticks, label='Launching:', **PG_OPTIONS) as bar:
         prg = 1

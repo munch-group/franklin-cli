@@ -3,3 +3,6 @@ colorama>=0.4.6
 readchar>=4.0.5
 click
 psutil
+conda-build
+git
+gh
