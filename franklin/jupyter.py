@@ -69,8 +69,9 @@ def launch_exercise():
 
     if not _docker._image_exists(image_url):
         utils.secho("Downloading image:", fg='green')
-        utils.echo()
-        _docker._pull(image_url)
+    else:
+        utils.secho("Updating image:", fg='green')
+    _docker._pull(image_url)
 
     ticks = 20
     with click.progressbar(length=ticks, label='Launching:', **PG_OPTIONS) as bar:
@@ -97,11 +98,20 @@ def launch_exercise():
             bar.update(prg)
         else:
             utils.echo('Docker not responding...', fg='red')
-            with utils.TroubleShooting():
-                # utils.echo('Troubleshooting...', fg='red', nl=False)
-                _docker._kill_all_docker_desktop_processes()
-                # utils.echo(' done.', fg='red')
-            utils.echo('Please rerun your command now (press arrow-up)', fg='red')
+
+            logger.debug('Docker not responding.')
+            logger.debug('Killing all docker desktop processes.')
+            _docker._kill_all_docker_desktop_processes()
+
+            # with utils.TroubleShooting():
+            #     # utils.echo('Troubleshooting...', fg='red', nl=False)
+            #     _docker._kill_all_docker_desktop_processes()
+            #     # utils.echo(' done.', fg='red')
+            # utils.echo('Please rerun your command now (press arrow-up)', fg='red')
+            utils.boxed_text(f"Docker encountered a problem", 
+                            ['Docker had to be restarted. Please rerun your command now (press arrow-up)'],
+                            fg='green')            
+            # utils.echo('Docker encountered a problem and had to be restarted. Please rerun your command now (press arrow-up)', fg='red')
             sys.exit()   
 
 

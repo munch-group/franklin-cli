@@ -2,6 +2,15 @@ import requests
 from .config import GITLAB_API_URL, GITLAB_GROUP, GITLAB_TOKEN
 
 
+# curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
+
+
+# # this will show the namespace details of the Group with ID 54
+# curl --header "PRIVATE-TOKEN: ${TOKEN}" "https://gitlab.com/api/v4/namespaces/54
+
+# # this will show the namespace details of the User with username my-username
+# curl --header "PRIVATE-TOKEN: ${TOKEN}" "https://gitlab.com/api/v4/namespace/my-username
+
 def get_registry_listing(registry):
     s = requests.Session()
     # s.auth = ('user', 'pass')

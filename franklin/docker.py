@@ -68,17 +68,21 @@ def _install_docker_desktop():
         utils.echo(f'Download from {url} and install before proceeding.')
         sys.exit(1)
 
-    utils.echo()
-    utils.secho(f"Franklin needs Docker Desktop:", fg='green')
-    utils.secho('='*WRAP_WIDTH, fg='green')
-    utils.echo()
-    utils.echo("  Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.")
-    utils.echo()
-    utils.echo("  Press Enter to start the download...")
-    utils.echo()
-    utils.secho('='*WRAP_WIDTH, fg='green')
-    utils.echo()
-    click.pause('')
+    utils.boxed_text(f"Franklin needs Docker Desktop", 
+                     ['Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.'],
+                     prompt='Press Enter to start the download...', 
+                     fg='green')
+    # utils.echo()
+    # utils.secho(f"Franklin needs Docker Desktop:", fg='green')
+    # utils.secho('='*WRAP_WIDTH, fg='green')
+    # utils.echo()
+    # utils.echo("  Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.")
+    # utils.echo()
+    # utils.echo("  Press Enter to start the download...")
+    # utils.echo()
+    # utils.secho('='*WRAP_WIDTH, fg='green')
+    # utils.echo()
+    # click.pause('')
 
     response = requests.get(download_url, stream=True)
     if not response.ok:
@@ -412,7 +416,7 @@ def _pull(image_url):
     #     sys.stdout.flush()
     # p.wait()
 
-    subprocess.run(utils.format_cmd(f'docker pull {image_url}:main'), check=False)
+    subprocess.run(utils.format_cmd(f'docker pull {image_url}:latest'), check=False)
 
 
 @click.argument("url")
@@ -513,7 +517,7 @@ def _prune_containers():
 @crash_report
 def prune_containers():
     """
-    Remove all stopped containers.
+    Remove stopped containers.
     """
     _prune_containers()
 
@@ -525,7 +529,7 @@ def _prune_images():
 @crash_report
 def prune_images():
     """
-    Remove all unused images.
+    Remove unused images.
     """
     _prune_images()
 
@@ -547,9 +551,8 @@ def _prune_all():
 @crash_report
 def prune_all():
     """
-    Remove everything you are not using right now: all stopped 
-    containers, all networks not used by at least one container, 
-    all dangling images, unused build cache.
+    Remove stopped containers, unused networks, 
+    dangling images, and unused build cache.
     """
     _prune_all()
 
@@ -653,7 +656,8 @@ def _kill_all_docker_desktop_processes():
     Kills Docker the hard way ("tute la famiglia!").
     """
     for process in psutil.process_iter():
-        if 'docker' in process.name().lower():
+        name = process.name().lower()
+        if 'docker' in name and 'franklin' not in name:
             pid = psutil.Process(process.pid)
             if not 'SYSTEM' in pid.username():
                 process.kill()

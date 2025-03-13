@@ -56,7 +56,12 @@ website:
       contents:
         - section: "Overview"
           contents:
-            - pages/overview.ipynb
+            - pages/getting_started.qmd
+            - pages/docker.qmd
+            - pages/jupyter.qmd
+            - pages/git.qmd
+            - pages/gitlab.qmd
+            - pages/terminal.qmd
 
 
 lightbox: true

@@ -308,16 +308,31 @@ def _check_free_disk_space():
         utils.secho(f" {gb_free:.1f} Gb", fg='green', bold=True)
 
 
+def boxed_text(header, lines=[], prompt='', **kwargs):
+    utils.echo()
+    utils.secho(f"{header}:", **kwargs)
+    utils.secho('='*WRAP_WIDTH, **kwargs)
+    utils.echo()
+    for line in lines:
+        utils.echo("  {line}")
+    utils.echo()
+    utils.echo("  {prompt}")
+    utils.echo()
+    utils.secho('='*WRAP_WIDTH, **kwargs)
+    utils.echo()
+    if prompt:
+        click.pause('')
 
-class TroubleShooting():
-    def __init__(self, color='red'):
-        self.color = color
 
-    def __enter__(self):
-        logger.debug('START TROUBLESHOOTING')
-        click.secho('Franklin is troubleshooting...', fg=self.color, nl=False)
-        return self
+# class TroubleShooting():
+#     def __init__(self, color='red'):
+#         self.color = color
+
+#     def __enter__(self):
+#         logger.debug('START TROUBLESHOOTING')
+#         click.secho('Franklin is troubleshooting...', fg=self.color, nl=False)
+#         return self
     
-    def __exit__(self, type, value, traceback):
-        click.secho(' done.', fg=self.color)
-        logger.debug('END TROUBLESHOOTING')
+#     def __exit__(self, type, value, traceback):
+#         click.secho(' done.', fg=self.color)
+#         logger.debug('END TROUBLESHOOTING')
