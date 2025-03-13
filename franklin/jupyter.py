@@ -74,50 +74,71 @@ def launch_exercise():
     _docker._pull(image_url)
     utils.echo()
     
-    ticks = 20
-    with click.progressbar(length=ticks, label='Launching:', **PG_OPTIONS) as bar:
-        prg = 1
-        bar.update(prg)
 
-        docker_run_p = _docker._run(image_url)
+    def _launch():
 
-        for b in range(5):
-            time.sleep(1)
-            prg += 1
+        ticks = 20
+        with click.progressbar(length=ticks, label='Launching:', **PG_OPTIONS) as bar:
+            prg = 1
             bar.update(prg)
 
-        # get id of running container
-        for _ in range(10):
-            time.sleep(1)
-            run_container_id = None
-            for cont in _docker._containers(return_json=True):
-                if cont['Image'].startswith(image_url):
-                    run_container_id  = cont['ID']
-            if run_container_id:
-                break
-            prg += 1
-            bar.update(prg)
-        else:
-            utils.echo('Docker not responding...', fg='red')
+            docker_run_p = _docker._run(image_url)
 
-            logger.debug('Docker not responding.')
-            logger.debug('Killing all docker desktop processes.')
-            _docker._kill_all_docker_desktop_processes()
+            for b in range(5):
+                time.sleep(1)
+                prg += 1
+                bar.update(prg)
 
-            # with utils.TroubleShooting():
-            #     # utils.echo('Troubleshooting...', fg='red', nl=False)
-            #     _docker._kill_all_docker_desktop_processes()
-            #     # utils.echo(' done.', fg='red')
-            # utils.echo('Please rerun your command now (press arrow-up)', fg='red')
-            utils.boxed_text(f"Docker encountered a problem", 
-                            ['Docker had to be restarted. Please rerun your command now (press arrow-up)'],
-                            fg='green')            
-            # utils.echo('Docker encountered a problem and had to be restarted. Please rerun your command now (press arrow-up)', fg='red')
-            sys.exit()   
+            # get id of running container
+            for _ in range(5):
+                time.sleep(2)
+                run_container_id = None
+                for cont in _docker._containers(return_json=True):
+                    if cont['Image'].startswith(image_url):
+                        run_container_id  = cont['ID']
+                if run_container_id:
+                    bar.update(ticks)
+                    return run_container_id, docker_run_p
+                prg += 1
+                bar.update(prg)
+
+            bar.update(ticks)
+
+            if platform.system() == "Windows":
+                utils.echo('Docker is not responding. Restarting wsl...')
+                subprocess.check_call('wsl -t docker-desktop')
+                subprocess.check_call('wsl --restart')
+                _docker._failsafe_start_docker_desktop()
 
 
-        bar.update(ticks)
+            return None, None
 
+            # utils.echo('Docker not responding...', fg='red')
+
+            # logger.debug('Docker not responding.')
+            # logger.debug('Killing all docker desktop processes.')
+            # _docker._handle_hanging_docker_windows()
+
+            # # with utils.TroubleShooting():
+            # #     # utils.echo('Troubleshooting...', fg='red', nl=False)
+            # #     _docker._handle_hanging_docker_windows()
+            # #     # utils.echo(' done.', fg='red')
+            # # utils.echo('Please rerun your command now (press arrow-up)', fg='red')
+            # utils.boxed_text(f"Docker encountered a problem", 
+            #                 ['Docker had to be restarted. Please rerun your command now (press arrow-up)'],
+            #                 fg='green')            
+            # # utils.echo('Docker encountered a problem and had to be restarted. Please rerun your command now (press arrow-up)', fg='red')
+            # sys.exit()   
+
+
+
+
+
+
+    run_container_id, docker_run_p = None, None
+    _launch()
+    while not run_container_id:
+        run_container_id, docker_run_p = _launch()
 
     cmd = f"docker logs --follow {run_container_id}"
     if platform.system() == "Windows":

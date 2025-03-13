@@ -210,7 +210,7 @@ def _failsafe_start_docker_desktop():
 
     if not _status() == 'running':
         utils.logger.debug('Killing all Docker Desktop processes')
-        _kill_all_docker_desktop_processes()
+        _handle_hanging_docker_windows()
         _start_docker_desktop()
 
     if not _status() == 'running':
@@ -667,16 +667,20 @@ def _kill_container(container_id):
 
 @kill.command('docker')
 @crash_report
-def _kill_all_docker_desktop_processes():
+def _handle_hanging_docker_windows():
     """
-    Kills all docker-related processes the hard way.
+
     """
-    for process in psutil.process_iter():
-        name = process.name().lower()
-        if 'docker' in name and 'franklin' not in name:
-            pid = psutil.Process(process.pid)
-            if not 'SYSTEM' in pid.username():
-                process.kill()
+    if platform.system() == 'Windows':
+        utils.echo('Docker is not responding. Restarting wsl...')
+        subprocess.check_call('wsl -t docker-desktop')
+        subprocess.check_call('wsl --restart')    
+    # for process in psutil.process_iter():
+    #     name = process.name().lower()
+    #     if 'docker' in name and 'franklin' not in name:
+    #         pid = psutil.Process(process.pid)
+    #         if not 'SYSTEM' in pid.username():
+    #             process.kill()
                 
 
 

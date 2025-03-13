@@ -22,6 +22,10 @@ def get_registry_listing(registry):
       r.raise_for_status()
     for entry in r.json():
         group, course, exercise = entry['path'].split('/')
+        if exercise in ['base']:
+            continue
+        if course in ['base-images', 'base-templates']:
+            continue
         images[(course, exercise)] = entry['location']
         # images[(course, exercise)] = entry#['location']
     return images
