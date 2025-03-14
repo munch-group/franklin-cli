@@ -199,12 +199,10 @@ def _start_docker_desktop():
 
 
 def _failsafe_start_docker_desktop():
-    print('A')
+
     ###########################################
     _kill_docker_desktop()
-    print('B')
     _start_docker_desktop()
-    print('C')
     ###########################################
     # if shutil.which('docker') and _status() == 'running':
     #     return
@@ -225,14 +223,12 @@ def _failsafe_start_docker_desktop():
     #     _start_docker_desktop()
 
     if not _status() == 'running':
-        print('D')
         utils.logger.debug('Could not start Docker Desktop. Please start Docker Desktop manually')
         utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
         sys.exit(1)
 
-    print('E')
-    _update_docker_desktop()
-    print('F')
+    if platform.system() == 'Darwin':
+        _update_docker_desktop()
 
 
 def _failsafe_run_container(image_url):
@@ -618,8 +614,11 @@ def _update_docker_desktop(return_json=False):
 @irrelevant_unless_docker_running
 @crash_report
 def update():
-    """Update Docker Desktop"""
-    _update_docker_desktop()
+    """Update Docker Desktop (Mac only)"""
+    if platform.system() == 'Windows':
+        utils.echo('This command is not available on Windows systems. Please open the Docker Desktop application and check for updates there.')
+    else:
+        _update_docker_desktop()
 
 
 def _version(return_json=False):
