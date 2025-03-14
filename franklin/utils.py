@@ -84,9 +84,11 @@ def _crash_email():
     info += f"Python Implementation: {platform.python_implementation()}\n"
 
     import os
-    if os.path.exists('franklin.log'):
-        with open('franklin.log', 'r') as f:
-            log = f.read()
+    log = ''
+    if not platform.system() == 'Windows':
+        if os.path.exists('franklin.log'):
+            with open('franklin.log', 'r') as f:
+                log = f.read()
 
     subject = urllib.parse.quote("Franklin CRASH REPORT")
     body = urllib.parse.quote(f"{preamble}\n\n{info}\n{log}")
@@ -104,7 +106,11 @@ def crash_report(func):
             raise
         except:
             logger.exception('CRASH')
-            utils.secho(f"Franklin encountered an unexpected problem. Your email client should open an email prefilled with information of the crash you can send to the maintainer of Franklin. If it does not, please send an email to {MAINTAINER_EMAIL} attaching the franklin.log", fg='red')
+            utils.secho(f"Franklin encountered an unexpected problem.")
+            utils.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
+            utils.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
+            if platform.system() == 'Windows':
+                utils.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
             _crash_email()
             raise 
         return ret
