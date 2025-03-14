@@ -1096,7 +1096,7 @@ def _config_reset(variable):
             if variable not in DOCKER_SETTINGS:
                 utils.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
                 return
-            utils.echo(f'{variable}: {cfg.settings[variable]}')
+            cfg.settings[variable] = DOCKER_SETTINGS[variable]
         else:
-            for variable in DOCKER_SETTINGS:
-                utils.echo(f'{variable}: {DOCKER_SETTINGS[variable]}')
+            for variable in DOCKER_SETTINGS):
+                cfg.settings[variable] = DOCKER_SETTINGS[variable]
