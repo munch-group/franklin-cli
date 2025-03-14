@@ -1044,6 +1044,17 @@ class docker_config():
         with open(self.json_settings, 'w') as f:
             json.dump(self.settings, f)
 
+def _as_type(s):
+    if s.lower() in ['true', 'false']:
+        return s.lower() == 'true'
+    try:
+        return float(s)        
+    except ValueError:
+        try:
+            return int(s)
+        except ValueError:
+            return s
+
 
 @docker.group(cls=AliasedGroup)
 @crash_report
@@ -1077,6 +1088,7 @@ def _config_get(variable=None):
 def _config_set(variable, value):
     """Set Docker configuration for variable or all variables"""
 
+    value = _as_type(value)
     if variable not in DOCKER_SETTINGS:
         utils.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
         return
