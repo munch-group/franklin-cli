@@ -1098,5 +1098,5 @@ def _config_reset(variable):
                 return
             cfg.settings[variable] = DOCKER_SETTINGS[variable]
         else:
-            for variable in DOCKER_SETTINGS):
+            for variable in DOCKER_SETTINGS:
                 cfg.settings[variable] = DOCKER_SETTINGS[variable]
