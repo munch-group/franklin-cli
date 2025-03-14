@@ -781,7 +781,7 @@ def _kill_container(container_id):
 #     _kill_container(container_id)
 
 
-@docker.command('kill')
+# @docker.command('kill')
 @crash_report
 def _kill_docker_desktop():
     """
