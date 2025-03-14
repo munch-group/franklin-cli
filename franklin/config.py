@@ -20,7 +20,7 @@ DOCKER_SETTINGS = {
             "AutoPauseTimeoutSeconds": 300,
             "AutoStart": False,
             "Cpus": 5,
-            "DisplayedOnboarding": False,
+            "DisplayedOnboarding": True,
             "EnableIntegrityCheck": True,
             "MemoryMiB": 12288,
             "OpenUIOnStartupDisabled": True,
