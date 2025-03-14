@@ -200,27 +200,27 @@ def _start_docker_desktop():
 
 def _failsafe_start_docker_desktop():
 
-    ###########################################
-    _kill_docker_desktop()
-    _start_docker_desktop()
-    ###########################################
-    # if shutil.which('docker') and _status() == 'running':
-    #     return
-
-    # if not shutil.which('docker'):
-    #      _install_docker_desktop()
-    
+    # ###########################################
+    # _kill_docker_desktop()
     # _start_docker_desktop()
+    # ###########################################
+    if shutil.which('docker') and _status() == 'running':
+        return
 
-    # for _ in range(10):
-    #     time.sleep(5)
-    #     if _status() == 'running':
-    #         break
-    # else:
-    #     utils.logger.debug('Killing Docker Desktop')
-    #     _kill_docker_desktop()
-    #     utils.logger.debug('Starting Docker Desktop')
-    #     _start_docker_desktop()
+    if not shutil.which('docker'):
+         _install_docker_desktop()
+    
+    _start_docker_desktop()
+
+    for _ in range(10):
+        time.sleep(5)
+        if _status() == 'running':
+            break
+    else:
+        utils.logger.debug('Killing Docker Desktop')
+        _kill_docker_desktop()
+        utils.logger.debug('Starting Docker Desktop')
+        _start_docker_desktop()
 
     if not _status() == 'running':
         utils.logger.debug('Could not start Docker Desktop. Please start Docker Desktop manually')
@@ -233,22 +233,22 @@ def _failsafe_start_docker_desktop():
 
 def _failsafe_run_container(image_url):
 
-    ###########################################
-    _kill_docker_desktop()
-    _start_docker_desktop()
-    ###########################################
-    # docker_run_p = _run(image_url)
-    # run_container_id = None
-    # for _ in range(10):
-    #     time.sleep(5)    
-    #     for cont in _containers(return_json=True):
-    #         if cont['Image'].startswith(image_url):
-    #             run_container_id  = cont['ID']
-    #     if run_container_id is not None:
-    #         return run_container_id, docker_run_p
-    # else:
-    #     _kill_docker_desktop()
-    #     _failsafe_run_container()
+    # ###########################################
+    # _kill_docker_desktop()
+    # _start_docker_desktop()
+    # ###########################################
+    docker_run_p = _run(image_url)
+    run_container_id = None
+    for _ in range(10):
+        time.sleep(5)    
+        for cont in _containers(return_json=True):
+            if cont['Image'].startswith(image_url):
+                run_container_id  = cont['ID']
+        if run_container_id is not None:
+            return run_container_id, docker_run_p
+    else:
+        _kill_docker_desktop()
+        _failsafe_run_container()
 
     docker_run_p = _run(image_url)
     run_container_id = None
