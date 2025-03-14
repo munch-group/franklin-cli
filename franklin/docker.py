@@ -798,9 +798,13 @@ def _kill_docker_desktop():
 
 
     if platform.system() == 'Windows':
+        print('a')
         utils.echo('Docker is not responding. Restarting wsl...')
+        print('b')
         subprocess.check_call('wsl -t docker-desktop')
+        print('c')
         subprocess.check_call('wsl --shutdown')    
+        print('d')
     # for process in psutil.process_iter():
     #     name = process.name().lower()
     #     if 'docker' in name and 'franklin' not in name:
