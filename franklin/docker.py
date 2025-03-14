@@ -199,10 +199,12 @@ def _start_docker_desktop():
 
 
 def _failsafe_start_docker_desktop():
-
+    print('A')
     ###########################################
     _kill_docker_desktop()
+    print('B')
     _start_docker_desktop()
+    print('C')
     ###########################################
     # if shutil.which('docker') and _status() == 'running':
     #     return
@@ -223,11 +225,14 @@ def _failsafe_start_docker_desktop():
     #     _start_docker_desktop()
 
     if not _status() == 'running':
+        print('D')
         utils.logger.debug('Could not start Docker Desktop. Please start Docker Desktop manually')
         utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
         sys.exit(1)
 
+    print('E')
     _update_docker_desktop()
+    print('F')
 
 
 def _failsafe_run_container(image_url):
