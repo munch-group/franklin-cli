@@ -208,9 +208,14 @@ def _failsafe_start_docker_desktop():
     
     _start_docker_desktop()
 
-    if not _status() == 'running':
-        utils.logger.debug('Killing all Docker Desktop processes')
-        _handle_hanging_docker_windows()
+    for _ in range(10):
+        time.sleep(5)
+        if _status() == 'running':
+            break
+    else:
+        utils.logger.debug('Killing Docker Desktop')
+        _kill_docker_desktop()
+        utils.logger.debug('Starting Docker Desktop')
         _start_docker_desktop()
 
     if not _status() == 'running':
@@ -219,6 +224,104 @@ def _failsafe_start_docker_desktop():
         sys.exit(1)
 
     _update_docker_desktop()
+
+
+def _failsafe_run_container(image_url):
+
+    docker_run_p = _run(image_url)
+    run_container_id = None
+    for _ in range(10):
+        time.sleep(5)    
+        for cont in _containers(return_json=True):
+            if cont['Image'].startswith(image_url):
+                run_container_id  = cont['ID']
+        if run_container_id is not None:
+            return run_container_id, docker_run_p
+    else:
+        _kill_docker_desktop()
+        _failsafe_run_container()
+
+    docker_run_p = _run(image_url)
+    run_container_id = None
+    for _ in range(10):
+        time.sleep(5)    
+        for cont in _containers(return_json=True):
+            if cont['Image'].startswith(image_url):
+                run_container_id  = cont['ID']
+        if run_container_id is not None:
+            return run_container_id, docker_run_p
+    else:
+        utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
+        sys.exit(1)
+
+
+        # utils.echo('Docker not responding...', fg='red')
+
+        # logger.debug('Docker not responding.')
+        # logger.debug('Killing all docker desktop processes.')
+        # _docker._handle_hanging_docker_windows()
+
+        # # with utils.TroubleShooting():
+        # #     # utils.echo('Troubleshooting...', fg='red', nl=False)
+        # #     _docker._handle_hanging_docker_windows()
+        # #     # utils.echo(' done.', fg='red')
+        # # utils.echo('Please rerun your command now (press arrow-up)', fg='red')
+        # utils.boxed_text(f"Docker encountered a problem", 
+        #                 ['Docker had to be restarted. Please rerun your command now (press arrow-up)'],
+        #                 fg='green')            
+        # # utils.echo('Docker encountered a problem and had to be restarted. Please rerun your command now (press arrow-up)', fg='red')
+        # sys.exit()   
+
+    # ticks = 20
+    # with click.progressbar(length=ticks, label='Launching:', **PG_OPTIONS) as bar:
+    #     prg = 1
+    #     bar.update(prg)
+
+    #     docker_run_p = _run(image_url)
+
+    #     for b in range(5):
+    #         time.sleep(1)
+    #         prg += 1
+    #         bar.update(prg)
+
+    #     # get id of running container
+    #     for _ in range(5):
+    #         time.sleep(2)
+    #         run_container_id = None
+    #         for cont in _containers(return_json=True):
+    #             if cont['Image'].startswith(image_url):
+    #                 run_container_id  = cont['ID']
+    #         if run_container_id:
+    #             bar.update(ticks)
+    #             return run_container_id, docker_run_p
+    #         prg += 1
+    #         bar.update(prg)
+
+    #     bar.update(ticks)
+
+    #     if platform.system() == "Windows":
+    #         _kill_docker_desktop()
+    #         _failsafe_start_docker_desktop()
+
+
+    #     return None, None
+
+        # utils.echo('Docker not responding...', fg='red')
+
+        # logger.debug('Docker not responding.')
+        # logger.debug('Killing all docker desktop processes.')
+        # _docker._handle_hanging_docker_windows()
+
+        # # with utils.TroubleShooting():
+        # #     # utils.echo('Troubleshooting...', fg='red', nl=False)
+        # #     _docker._handle_hanging_docker_windows()
+        # #     # utils.echo(' done.', fg='red')
+        # # utils.echo('Please rerun your command now (press arrow-up)', fg='red')
+        # utils.boxed_text(f"Docker encountered a problem", 
+        #                 ['Docker had to be restarted. Please rerun your command now (press arrow-up)'],
+        #                 fg='green')            
+        # # utils.echo('Docker encountered a problem and had to be restarted. Please rerun your command now (press arrow-up)', fg='red')
+        # sys.exit()   
 
 
 def ensure_docker_running(func):
@@ -619,8 +722,8 @@ def _run(image_url):
         cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
 
     cmd = (
-        # rf"docker run --rm"
-        rf"docker run --rm --pull=always --label dk.au.gitlab.group={GITLAB_GROUP}"
+        # rf"docker run --rm --pull=always --label dk.au.gitlab.group={GITLAB_GROUP}"
+        rf"docker run --label dk.au.gitlab.group={GITLAB_GROUP}"
         rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
         rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
         rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
@@ -667,21 +770,31 @@ def _kill_container(container_id):
 
 @kill.command('docker')
 @crash_report
-def _handle_hanging_docker_windows():
+def _kill_docker_desktop():
+    """
+    Kills Docker desktop. For situations where it cannot be stopped normally.
     """
 
-    """
+            
+    # if docker is not running, try to kill other docker-related processes
+    # then try to start docker
+    # if it still does not work, 
+
+    # sascha says docker seems to be running fine even when franklin says docker is not 
+    # working after course selection.       
+
+
     if platform.system() == 'Windows':
         utils.echo('Docker is not responding. Restarting wsl...')
         subprocess.check_call('wsl -t docker-desktop')
-        subprocess.check_call('wsl --restart')    
+        subprocess.check_call('wsl --shutdown')    
     # for process in psutil.process_iter():
     #     name = process.name().lower()
     #     if 'docker' in name and 'franklin' not in name:
     #         pid = psutil.Process(process.pid)
     #         if not 'SYSTEM' in pid.username():
     #             process.kill()
-                
+         
 
 
 @kill.command('containers')

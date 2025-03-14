@@ -192,7 +192,7 @@ def _check_window_size():
     text = 'Please resize the window to at least fit this square'
 
 
-def wrap(text, width=None, initial_indent=None, subsequent_indent=None):
+def wrap(text, width=None, indent=True, initial_indent=None, subsequent_indent=None):
     """
     Wraps text to fit terminal width or WRAP_WIDTH, whatever
     is smaller
@@ -213,6 +213,10 @@ def wrap(text, width=None, initial_indent=None, subsequent_indent=None):
     trailing_ws = text[len(text.rstrip()):]   
     text = text.rstrip()
 
+    if not indent:
+        initial_indent = ''
+        subsequent_indent = ''
+
     text = click.wrap_text(text, width=max((shutil.get_terminal_size().columns)/2, width), 
                 initial_indent=initial_indent, subsequent_indent=subsequent_indent, 
                 preserve_paragraphs=True)
@@ -223,7 +227,7 @@ def wrap(text, width=None, initial_indent=None, subsequent_indent=None):
 
 
 def secho(text='', width=None, center=False, nowrap=False, log=True,
-          initial_indent=None, subsequent_indent=None, **kwargs):
+          indent=True, initial_indent=None, subsequent_indent=None, **kwargs):
     """
     Wrapper for secho that wraps text.
     kwargs are passed to click.secho
@@ -232,6 +236,7 @@ def secho(text='', width=None, center=False, nowrap=False, log=True,
         width = WRAP_WIDTH
     if not nowrap:
         text = wrap(text, width=width, 
+                    indent=indent,
                     initial_indent=initial_indent, 
                     subsequent_indent=subsequent_indent)
     if center:
@@ -257,8 +262,8 @@ def secho(text='', width=None, center=False, nowrap=False, log=True,
     click.secho(text, **kwargs)
 
 
-def echo(text='', width=None, nowrap=False, log=True, initial_indent=None, subsequent_indent=None, **kwargs):
-    secho(text, width=width, nowrap=nowrap, log=log, initial_indent=initial_indent, subsequent_indent=subsequent_indent, **kwargs)
+def echo(text='', width=None, nowrap=False, log=True, indent=True, initial_indent=None, subsequent_indent=None, **kwargs):
+    secho(text, width=width, nowrap=nowrap, log=log, indent=indent, initial_indent=initial_indent, subsequent_indent=subsequent_indent, **kwargs)
 
 
 def _check_internet_connection():

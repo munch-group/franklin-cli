@@ -29,22 +29,17 @@ def _update_client(update):
         if stderr:
             [logger.debug(x) for x in stderr.decode().splitlines()]
         if p.returncode:
+            utils.secho('\nCould not update client', fg='red')
             logger.debug(f"Update failed with return code {p.returncode}")
-
             if stderr and 'PackageNotInstalledError' in stderr.decode():
-                msg = f"""
+                msg = f"""\n\n
                 The package is not installed as a conda package in this environment.
-                Please install the package with the following command:
-                
-                conda install -c {ANACONDA_CHANNEL} franklin
                 """
-                click.echo(msg)
-            msg = f"""
-            Could not update client.
-            """
-            utils.secho(msg, fg='red')
+                utils.echo("\n\nPlease install the package with the following command:")                
+                utils.echo(f"\n\n  conda install {ANACONDA_CHANNEL}::franklin\n\n")
             sys.exit()
         click.echo('done')
+
         new_version = franklin_version()
         if new_version == version:
             utils.secho(f"Franklin is running the newest version.")
