@@ -192,6 +192,14 @@ def _check_window_size():
     text = 'Please resize the window to at least fit this square'
 
 
+def dummy_progressbar(seconds, label='Hang on...', **kwargs):
+    kwargs.update(PG_OPTIONS)
+    with click.progressbar(length=100, label='', **kwargs) as bar:
+        for i in range(100):
+            time.sleep(seconds/100)
+            bar.update(1)
+
+
 def wrap(text, width=None, indent=True, initial_indent=None, subsequent_indent=None):
     """
     Wraps text to fit terminal width or WRAP_WIDTH, whatever

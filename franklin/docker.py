@@ -797,16 +797,32 @@ def _kill_docker_desktop():
     # working after course selection.       
 
 
+    utils.echo('Docker Desktop needs a reboot.')
+    logger.debug('Trying restart Docker Desktop nicely')
+    _restart()
+    utils.dummy_progressbar(10, label='Restarting.')
+    if _status() == 'running':
+        return
+
+
     if platform.system() == 'Windows':
-        utils.echo('Docker is not responding. Restarting wsl...')
-        utils.echo('a')
-        sys.stdout.flush()
-        # subprocess.check_call('wsl -t docker-desktop')
-        utils.echo('b')
-        sys.stdout.flush()
-        # subprocess.check_call('wsl --shutdown')    
-        utils.echo('c')
-        sys.stdout.flush()
+        utils.echo('Docker Desktop WSL distribution needs a reboot.')
+        logger.debug('Restarting WSL Docker Desktop distribution.')
+        subprocess.check_call('wsl -t docker-desktop')
+        utils.dummy_progressbar(10, label='Restarting.')
+        if _status() == 'running':
+            return
+        
+    if platform.system() == 'Windows':
+        utils.echo('WSL needs to restart.')
+        logger.debug('Restarting WSL')
+        subprocess.check_call('wsl --shutdown')    
+        utils.dummy_progressbar(10, label='Restarting.')
+        if _status() == 'running':
+            return    
+        logger.debug('Restarting WSL Docker Desktop distribution.')
+
+
     # for process in psutil.process_iter():
     #     name = process.name().lower()
     #     if 'docker' in name and 'franklin' not in name:
