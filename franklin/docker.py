@@ -801,10 +801,10 @@ def _kill_docker_desktop():
         utils.echo('Docker is not responding. Restarting wsl...')
         utils.echo('a')
         sys.stdout.flush()
-        subprocess.check_call('wsl -t docker-desktop')
+        # subprocess.check_call('wsl -t docker-desktop')
         utils.echo('b')
         sys.stdout.flush()
-        subprocess.check_call('wsl --shutdown')    
+        # subprocess.check_call('wsl --shutdown')    
         utils.echo('c')
         sys.stdout.flush()
     # for process in psutil.process_iter():
