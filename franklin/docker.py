@@ -1066,7 +1066,8 @@ def _config_get(variable=None):
             utils.echo(f'{variable}: {cfg.settings[variable]}')
         else:
             for variable in DOCKER_SETTINGS:
-                utils.echo(f'{str(variable).rjust(31)}: {cfg.settings[variable]}')
+                if variable in cfg.settings:
+                    utils.echo(f'{str(variable).rjust(31)}: {cfg.settings[variable]}')
 
 
 @config.command('set')
