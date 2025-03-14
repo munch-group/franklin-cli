@@ -15,36 +15,13 @@ import sysconfig
 from functools import wraps
 from . import utils
 from .utils import AliasedGroup, crash_report
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH, WRAP_WIDTH
+from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH, WRAP_WIDTH, DOCKER_SETTINGS
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
 from pathlib import Path, PureWindowsPath, PurePosixPath
 
 os.environ['DOCKER_CLI_HINTS'] = 'false'
-
-def _docker_desktop_settings(**kwargs):
-
-    home = Path.home()
-    if platform.system() == 'Darwin':
-        json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
-    elif platform.system() == 'Windows':
-        json_settings = home / '/AppData/Roaming/Docker/settings-store.json'
-    elif platform.system() == 'Linux':
-        json_settings = home / '.docker/desktop/settings-store.json'
-
-    with open(json_settings, 'r') as f:
-        settings = json.load(f)
-
-    if not kwargs:
-        return settings
-    
-    for key, value in kwargs.items():
-        settings[key] = value
-
-    with open(json_settings, 'w') as f:
-        json.dump(settings, f)
-
 
 def _install_docker_desktop():
 
@@ -181,8 +158,7 @@ def _install_docker_desktop():
 
         utils.echo(" - Setup...")
         # Disable the "Open on startup"
-        _docker_desktop_settings(OpenUIOnStartupDisabled=True)
-
+        _config_defaults()
 
 #  start /w "" "Docker Desktop Installer.exe" uninstall
 #  /Applications/Docker.app/Contents/MacOS/uninstall
@@ -1044,3 +1020,82 @@ def _remove_selected_images(image_id=None):
 def _remove_everything():
     _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
              
+
+###########################################################
+# docker remove subcommands
+###########################################################
+
+class docker_config():
+
+    home = Path.home()
+    if platform.system() == 'Darwin':
+        json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
+    elif platform.system() == 'Windows':
+        json_settings = home / 'AppData/Roaming/Docker/settings-store.json'
+    elif platform.system() == 'Linux':
+        json_settings = home / '.docker/desktop/settings-store.json'
+
+    def __enter__(self):
+        with open(self.json_settings, 'r') as f:
+            self.settings = json.load(f)
+        return self
+
+    def __exit__(self, type, value, traceback):
+        with open(self.json_settings, 'w') as f:
+            json.dump(self.settings, f)
+
+
+@docker.group(cls=AliasedGroup)
+@crash_report
+def config():
+    """Docker configuration"""
+    pass
+
+
+@config.command('get')
+@click.argument("variable", required=False)
+@crash_report
+def _config_get(variable=None):
+    """Get Docker configuration for variable or all variables"""
+
+    with docker_config() as cfg:
+        if variable is not None:
+            if variable not in DOCKER_SETTINGS:
+                utils.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
+                return
+            utils.echo(f'{variable}: {cfg.settings[variable]}')
+        else:
+            for variable in DOCKER_SETTINGS:
+                utils.echo(f'{str(variable).rjust(31)}: {cfg.settings[variable]}')
+
+
+@config.command('set')
+@click.argument("variable", required=True)
+@click.argument("value", required=True)
+@crash_report
+def _config_set(variable, value):
+    """Set Docker configuration for variable or all variables"""
+
+    if variable not in DOCKER_SETTINGS:
+        utils.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
+        return
+
+    with docker_config() as cfg:
+        cfg.settings[variable] = value
+
+
+@config.command('reset')
+@click.argument("variable", required=False)
+@crash_report
+def _config_reset(variable):
+    """Resets Docker configuration to defaults set by Franklin"""
+
+    with docker_config() as cfg:
+        if variable is not None:
+            if variable not in DOCKER_SETTINGS:
+                utils.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
+                return
+            utils.echo(f'{variable}: {cfg.settings[variable]}')
+        else:
+            for variable in DOCKER_SETTINGS:
+                utils.echo(f'{variable}: {DOCKER_SETTINGS[variable]}')

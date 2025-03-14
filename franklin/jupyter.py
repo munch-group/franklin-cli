@@ -43,6 +43,7 @@ def select_image(exercises_images):
         if exercise_names:
             break
         click.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
+        time.sleep(2)
 
     exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
     utils.secho(f"\nUse arrow keys to select exercise in {danish_course_name} and press Enter:", fg='green')
