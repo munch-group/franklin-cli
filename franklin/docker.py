@@ -200,13 +200,18 @@ def _start_docker_desktop():
 
 def _failsafe_start_docker_desktop():
 
+
+    _kill_docker_desktop()
+    _start_docker_desktop()
+
+
     if shutil.which('docker') and _status() == 'running':
         return
 
     if not shutil.which('docker'):
          _install_docker_desktop()
     
-    # _start_docker_desktop()
+    _start_docker_desktop()
 
     for _ in range(10):
         time.sleep(5)
