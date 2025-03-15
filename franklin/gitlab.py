@@ -4,7 +4,7 @@ from . import utils
 from . import cutie
 import time
 import click
-from utils import crash_report
+from .utils import crash_report
 
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
 
