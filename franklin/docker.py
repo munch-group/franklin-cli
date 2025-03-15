@@ -156,9 +156,11 @@ def _install_docker_desktop():
         utils.echo(" - Removing installer...")
         os.remove(installer)
 
-        utils.echo(" - Setup...")
-        # Disable the "Open on startup"
-        _config_defaults()
+        utils.echo(" - Setting up configuration defaults...")
+        _config_reset()
+        _config_fit()
+
+
 
 #  start /w "" "Docker Desktop Installer.exe" uninstall
 #  /Applications/Docker.app/Contents/MacOS/uninstall
@@ -206,13 +208,7 @@ def _failsafe_start_docker_desktop():
     if platform.system() == 'Darwin':
         _update_docker_desktop()
 
-
-def _failsafe_run_container(image_url):
-
-    # ###########################################
-    # _kill_docker_desktop()
-    # _start_docker_desktop()
-    # ###########################################
+def _run_container(image_url):
     docker_run_p = _run(image_url)
     run_container_id = None
     for _ in range(10):
@@ -223,8 +219,19 @@ def _failsafe_run_container(image_url):
         if run_container_id is not None:
             return run_container_id, docker_run_p
     else:
+        raise Exception()
+
+def _failsafe_run_container(image_url):
+
+    # ###########################################
+    # _kill_docker_desktop()
+    # _start_docker_desktop()
+    # ###########################################
+    try:
+        _run_container(image_url)
+    except:
         _kill_docker_desktop()
-        _failsafe_run_container()
+        _start_docker_desktop()    
 
     docker_run_p = _run(image_url)
     run_container_id = None
@@ -1112,3 +1119,16 @@ def _config_reset(variable):
         else:
             for variable in DOCKER_SETTINGS:
                 cfg.settings[variable] = DOCKER_SETTINGS[variable]
+
+@config.command('fit')
+@click.argument()
+@crash_report
+def _config_fit():
+    """Sets resource limits to reasonable values given machine resources"""
+
+    nr_cpu = psutil.cpu_count(logical=True)
+    _config_set('Cpus', nr_cpu // 2)
+
+    svmem = psutil.virtual_memory()
+    mem_mb = svmem.total // (1024 ** 2)
+    _config_set('MemoryMiB', mem_mb // 2)

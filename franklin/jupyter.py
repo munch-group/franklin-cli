@@ -46,7 +46,7 @@ def select_image(exercises_images):
         time.sleep(2)
 
     exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
-    utils.secho(f"\nUse arrow keys to select exercise in {danish_course_name} and press Enter:", fg='green')
+    utils.secho(f'\nUse arrow keys to select exercise in "{danish_course_name}" and press Enter:', fg='green')
     captions = []
     exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
     exercise = exercise_repo_names[exercise_idx]
