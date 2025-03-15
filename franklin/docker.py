@@ -1126,8 +1126,8 @@ def _config_fit():
     """Sets resource limits to reasonable values given machine resources"""
 
     nr_cpu = psutil.cpu_count(logical=True)
-    _config_set('Cpus', nr_cpu // 2)
+    _config_set('Cpus', str(nr_cpu // 2))
 
     svmem = psutil.virtual_memory()
     mem_mb = svmem.total // (1024 ** 2)
-    _config_set('MemoryMiB', mem_mb // 2)
+    _config_set('MemoryMiB', str(mem_mb // 2))
