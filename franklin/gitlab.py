@@ -150,3 +150,19 @@ def gitlab_get():
     """Start Docker Desktop"""
     _gitlab_get()
 
+
+def _gitlab_get():
+
+    output = subprocess.check_output(utils._cmd(f'git add -u')).decode()
+    print(output)
+    output = subprocess.check_output(utils._cmd(f'git commit -m "update"')).decode()
+    print(output)
+    output = subprocess.check_output(utils._cmd(f'git push')).decode()
+    print(output)
+    #_command(f'git clone {exercise}', silent=True)
+
+@gitlab.command('get')
+@crash_report
+def gitlab_get():
+    """Start Docker Desktop"""
+    _gitlab_get()
