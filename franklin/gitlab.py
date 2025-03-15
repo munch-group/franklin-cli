@@ -206,7 +206,9 @@ def _gitlab_down():
     repo_name = exercise.split('/')[-1]
     clone_url = f'git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{repo_name}.git'
     repo_local_path = os.path.join(os.getcwd(), repo_name)
-
+    if platform.system() == 'Windows':
+        repo_local_path = PureWindowsPath(repo_local_path)
+        
     # check if we are in an already cloned repo
     os.path.dirname(os.path.realpath(__file__))
     if os.path.basename(os.getcwd()) == repo_name and os.path.exists('.git'):
