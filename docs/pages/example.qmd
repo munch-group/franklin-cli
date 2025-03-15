@@ -7,15 +7,6 @@ format:
   code-fold: true
 ---
 
-```{python}
-#| echo: false
-# make global parameters available to embed in the text
-import sys
-sys.path.append('..')
-from global_params import load_params
-params = load_params('../global_params.yml')
-```
-
 
 ## Including BibTex references
 
@@ -23,13 +14,13 @@ There are many ways to manage BibTex references. In [ReadCube Papers](https://ww
 
 You can render citations in different ways to accommodate their sentence. Skov et al. reported strong selection on the human X chromosome [-@Skov2023]. Lineages in small populations have shorter coalescence times [see @NielsenSlatkin2016, chap. 1]. The Neanderthal genome has been sequenced [@Prufer2012]. The X chromosome is subject to recurrent sweeps [@Nam2015; @Dutheil2015]. Following @Munch2014, we blah blah...
 
-## Illustrations
+## images
 
 You can see an elephant in @fig-elephant. 
 
 ::: {#fig-elephant }
 
-![](illustrations/elephant.png){width="50%"}
+![](images/elephant.png){width="50%"}
 
 Some caption for an illustration showing an elephant
 :::
@@ -37,16 +28,16 @@ Some caption for an illustration showing an elephant
 Elephants are big (@fig-bigelephant):
 
 :::{#fig-bigelephant .column-screen-inset-right}
-![](illustrations/elephant.png)
+![](images/elephant.png)
 :::
 
 There are two elephants in @fig-twoelephants. The elephants in @fig-surus and @fig-hanno look similar.
 
 ::: {#fig-twoelephants layout-ncol=2}
 
-![](illustrations/elephant.png){#fig-surus}
+![](images/elephant.png){#fig-surus}
 
-![](illustrations/elephant.png){#fig-hanno}
+![](images/elephant.png){#fig-hanno}
 
 Some caption you wrote for an illustration of two elephants.
 :::

@@ -6,3 +6,11 @@ title: Git
 ## This pages are under construction
 
 :::
+
+
+
+
+
+### Resolving conflicts
+
+Blah blah...

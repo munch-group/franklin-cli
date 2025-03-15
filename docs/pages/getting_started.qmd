@@ -77,22 +77,21 @@ Here is a footnote reference[^elephant] so you can read about elephants in the m
 
 If you like, [you can make comments in the margin without footnote a reference.]{.aside}
 
-<!-- 
 ## Plot included from notebook
 
 See plot @fig-danishinteraction below.
 
-{{< embed ../../notebooks/example.ipynb#fig-danishinteraction echo=false >}}
+{{< embed ../notebooks/example.ipynb#fig-danishinteraction echo=false >}}
 
 Or this really wide plot below (@fig-danishinteractionfacets).
 
 :::{.column-screen}
-{{< embed ../../notebooks/example.ipynb#fig-danishinteractionfacets echo=false >}}
+{{< embed ../notebooks/example.ipynb#fig-danishinteractionfacets echo=false >}}
 :::
 
 ## Text included from notebook
 
-{{< embed ../../notebooks/example.ipynb#doc-sampling echo=false >}}
+{{< embed ../notebooks/example.ipynb#doc-sampling echo=false >}}
 
 ## Table included from notebook
 
@@ -100,16 +99,15 @@ These were selected to represent as many nationalities as possible (@tbl-subject
 
 you can also allow the table to be wider
 
-{{< embed ../../notebooks/example.ipynb#tbl-subjects echo=false >}}
+{{< embed ../notebooks/example.ipynb#tbl-subjects echo=false >}}
 
- -->
 
 ## Margin content
 
 You can anything in the margin like @fig-meaninformality.
 
 ::: {.column-margin}
-{{< embed ../../notebooks/example.ipynb#fig-meaninformality echo=false >}}
+{{< embed ../notebooks/example.ipynb#fig-meaninformality echo=false >}}
 :::
 
 

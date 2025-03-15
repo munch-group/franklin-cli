@@ -133,33 +133,74 @@ def gitlab():
     pass
 
 
+# def _gitlab_download():
+
+
+#     utils.boxed_text("Convenience upload", [
+#         'This command executes the following git commands:',
+#         '',
+#         '  git add -u',
+#         '  git commit -m "update"',
+#         '  git push',
+#         '',
+#         'It only works if no other changes have been made to the remote repository since you "downloaded" it',
+#         ])
+
+
+#     click.confirm('Do you want to continue?', abort=True)
+
+
+
+#     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
+#     exercises_images = get_registry_listing(registry)
+
+#     course, exercise = select_exercise(exercises_images)
+
+
+#     output = subprocess.check_output(utils._cmd(f'git clone git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{exercise}.git')).decode()
+#     print(output)
+#     #_command(f'git clone {exercise}', silent=True)
+
 def _gitlab_download():
 
-
-    utils.boxed_text("Convenience upload", [
-        'This command executes the following git commands:',
-        '',
-        '  git add -u',
-        '  git commit -m "update"',
-        '  git push',
-        '',
-        'It only works if no other changes have been made to the remote repository since you "downloaded" it',
-        ])
-
-
-    click.confirm('Do you want to continue?', abort=True)
-
-
-
+    # get images for available exercises
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
     exercises_images = get_registry_listing(registry)
 
+    # pick course and exercise
     course, exercise = select_exercise(exercises_images)
 
+    # url for cloning the repository
+    repo_name = exercise.split('/')[-1]
+    clone_url = f'git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{repo_name}.git'
+    repo_local_path = os.path.join(os.getcwd(), repo_name)
 
-    output = subprocess.check_output(utils._cmd(f'git clone git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{exercise}.git')).decode()
-    print(output)
-    #_command(f'git clone {exercise}', silent=True)
+    # check if we are in an already cloned repo
+    os.path.dirname(os.path.realpath(__file__))
+    if os.path.basename(os.getcwd()) == repo_name and os.path.exists('.git'):
+        repo_local_path = os.path.join(os.getcwd())
+
+    # update or clone the repository
+    if os.path.exists(repo_local_path):
+        utils.secho(f"The repository '{repo_name}' already exists at {repo_local_path}.")
+        if click.confirm('Do you want to update the existing repository?', default=True):
+            try:
+                output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} pull --rebase')).decode()
+                print(output)
+            except subprocess.CalledProcessError as e:
+                utils.secho(f"Failed to update repository: {e.output.decode()}", fg='red')
+                utils.secho("Please resolve any conflicts and try again.", fg='red')
+                utils.secho("For more information on resolving conflicts, see:")
+                utils.secho("https://munch-group/franklin/git.html#resolving-conflicts", fg='blue')
+        else:
+            utils.secho("Download aborted.", fg='red')
+    else:
+        try:
+            output = subprocess.check_output(utils._cmd(f'git clone {clone_url}')).decode()
+            print(output)
+        except subprocess.CalledProcessError as e:
+            utils.secho(f"Failed to clone repository: {e.output.decode()}", fg='red')
+
 
 @gitlab.command('download')
 @crash_report
@@ -168,33 +209,91 @@ def gitlab_download():
     _gitlab_download()
 
 
-def _gitlab_upload():
 
-    utils.boxed_text("Convenience download", [
-        'This command executes the following git commands:',
-        '',
-        '  git add -u',
-        '  git commit -m "update"',
-        '  git push',
-        '',
-        'It only works if no other changes have been made to the remote repository since you "downloaded" it',
-        ])
+def _gitlab_upload(repo_local_path):
 
-
-    if not os.path.exists('.git'):
+    if not os.path.exists(os.path.join(repo_local_path, '.git')):
         utils.secho("Not a git repository", fg='red')
         return
 
-    output = subprocess.check_output(utils._cmd(f'git add -u')).decode()
+    # Fetch the latest changes from the remote repository
+    output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} fetch')).decode()
     print(output)
-    output = subprocess.check_output(utils._cmd(f'git commit -m "update"')).decode()
-    print(output)
-    output = subprocess.check_output(utils._cmd(f'git push')).decode()
-    print(output)
-    #_command(f'git clone {exercise}', silent=True)
+
+    # Check the status to see if there are any upstream changes
+    status_output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} status')).decode()
+    if "Your branch is up to date" in status_output:
+        utils.secho("No changes to upload.", fg='green')
+        return
+    else:
+
+        try:
+            output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} pull --rebase')).decode()
+            rebase_possible = True
+            print(output)
+        except subprocess.CalledProcessError as e:
+            rebase_possible = False
+            output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} rebase --abort')).decode()
+            print(output)
+
+        if not rebase_possible:
+            utils.secho(f"Failed to upload changes: {e.output.decode()}", fg='red')
+            utils.secho("Please resolve any conflicts and try again.", fg='red')
+            utils.secho("For more information on resolving conflicts, see:")
+            utils.secho("https://munch-group/franklin/git.html#resolving-conflicts", fg='blue')
+            return
+
+    # Proceed with adding, committing, and pushing changes
+    try:
+        output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} add -u')).decode()
+    except subprocess.CalledProcessError as e:        
+        print(e.output.decode())
+        raise click.Abort()
+
+    try:
+        output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} commit -m "update"')).decode()
+    except subprocess.CalledProcessError as e:        
+        print(e.output.decode())
+        raise click.Abort()
+
+    try:
+        output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} pull --rebase')).decode()
+    except subprocess.CalledProcessError as e: 
+        try:
+            output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} rebase --abort')).decode()
+        except subprocess.CalledProcessError as e:        
+            print(e.output.decode())
+            raise click.Abort()
+
+    try:
+        output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} push')).decode()
+    except subprocess.CalledProcessError as e:        
+        print(e.output.decode())
+        raise click.Abort()
+
+    # Instead of deleting the repository dir, we prune all tracked files and 
+    # and resulting empty directories - in case there are 
+
+    output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} ls-files')).decode()
+    tracked_dirs = set()
+    for line in output.splitlines():
+        path = os.path.join(repo_local_path, *(line.split('/')))
+        tracked_dirs.add(os.path.dirname(path))
+        print('REMOVING:', path)
+        # os.remove(path)
+    
+    # traverse repo bottom up and remove empty directories
+    subdirs = reversed([x[0] for x in os.walk(repo_local_path) if os.path.isdir(x[0])])
+    for subdir in subdirs:
+        if not os.listdir(dir) and subdir in tracked_dirs:
+            print('REMOVING:', subdir)
+            #os.rmdir(dir)
+    
+
 
 @gitlab.command('upload')
+@click.argument("directory", required=False)
 @crash_report
-def gitlab_upload():
+def gitlab_upload(directory=os.getcwd()):
     '''"Upload" exercise to GitLab'''
-    _gitlab_upload()
+    _gitlab_upload(directory)

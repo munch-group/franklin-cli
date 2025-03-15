@@ -441,7 +441,6 @@ PyConfig.stdio_errors c:member 1 c-api/init_config.html#c.$ -
 PyConfig.tracemalloc c:member 1 c-api/init_config.html#c.$ -
 PyConfig.use_environment c:member 1 c-api/init_config.html#c.$ -
 PyConfig.use_hash_seed c:member 1 c-api/init_config.html#c.$ -
-PyConfig.use_system_logger c:member 1 c-api/init_config.html#c.$ -
 PyConfig.user_site_directory c:member 1 c-api/init_config.html#c.$ -
 PyConfig.verbose c:member 1 c-api/init_config.html#c.$ -
 PyConfig.warn_default_encoding c:member 1 c-api/init_config.html#c.$ -
@@ -14141,7 +14140,7 @@ c-api/time std:doc -1 c-api/time.html PyTime C API
 c-api/tuple std:doc -1 c-api/tuple.html Tuple Objects
 c-api/type std:doc -1 c-api/type.html Type Objects
 c-api/typehints std:doc -1 c-api/typehints.html Objects for Type Hinting
-c-api/typeobj std:doc -1 c-api/typeobj.html Type Objects
+c-api/typeobj std:doc -1 c-api/typeobj.html Type Object Structures
 c-api/unicode std:doc -1 c-api/unicode.html Unicode Objects and Codecs
 c-api/utilities std:doc -1 c-api/utilities.html Utilities
 c-api/veryhigh std:doc -1 c-api/veryhigh.html The Very High Level Layer
@@ -16419,7 +16418,7 @@ type-aliases std:label -1 library/typing.html#$ Type aliases
 type-of-class-objects std:label -1 library/typing.html#$ The type of class objects
 type-params std:label -1 reference/compound_stmts.html#$ Type parameter lists
 type-specific-methods std:label -1 library/unittest.html#$ -
-type-structs std:label -1 c-api/typeobj.html#$ Type Objects
+type-structs std:label -1 c-api/typeobj.html#$ Type Object Structures
 typebool std:label -1 library/stdtypes.html#$ Boolean Type - bool
 typebytearray std:label -1 library/stdtypes.html#$ Bytearray Objects
 typebytes std:label -1 library/stdtypes.html#$ Bytes Objects
