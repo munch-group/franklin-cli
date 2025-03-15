@@ -5,6 +5,7 @@ from . import cutie
 import time
 import click
 from .utils import crash_report
+import subprocess
 
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
 
@@ -138,7 +139,9 @@ def _gitlab_get():
 
     course, exercise = select_exercise(exercises_images)
 
-    print(f'git clone git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{exercise}.git') 
+
+    output = subprocess.check_output(utils._cmd(f'git clone git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{exercise}.git')).decode()
+    print(output)
     #_command(f'git clone {exercise}', silent=True)
 
 @gitlab.command('get')
