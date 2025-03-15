@@ -16,54 +16,17 @@ from subprocess import Popen, PIPE, DEVNULL, STDOUT
 from .config import GITLAB_API_URL, GITLAB_GROUP, MIN_WINDOW_HEIGHT, PG_OPTIONS
 from . import utils
 from .utils import AliasedGroup, crash_report
-from .gitlab import get_registry_listing, get_course_names, get_exercise_names, pick_course
+from .gitlab import get_registry_listing, get_course_names, get_exercise_names, pick_course, select_exercise, select_image
 from . import docker as _docker
 from .logger import logger
 from . import cutie
 from .update import _update_client
 
-def select_exercise(exercises_images):
-    while True:
-        course, danish_course_name = pick_course()
-        exercise_names = get_exercise_names(course)
-        # only use those with listed images
-        for key in list(exercise_names.keys()):
-            if (course, key) not in exercises_images:
-                del exercise_names[key]
-        if exercise_names:
-            break
-        click.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
-        time.sleep(2)
-
-    exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
-    utils.secho(f'\nUse arrow keys to select exercise in "{danish_course_name}" and press Enter:', fg='green')
-    captions = []
-    exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
-    exercise = exercise_repo_names[exercise_idx]
-
-    utils.secho(f"\Selected:", fg='green')
-    utils.echo(f"Course: {danish_course_name}")
-    utils.echo(f"Exercise: {exercise_danish_names[exercise_idx]}")
-    utils.echo()
-    time.sleep(1)
-
-    return course, exercise
-
-
-def select_image(exercises_images):
-
-    course, exercise = select_exercise(exercises_images)
-
-    selected_image = exercises_images[(course, exercise)]
-    return selected_image
 
 
 def launch_exercise():
 
-    registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
-    exercises_images = get_registry_listing(registry)
-
-    image_url = select_image(exercises_images)
+    image_url = select_image()
 
     if not _docker._image_exists(image_url):
         utils.secho("Downloading image:", fg='green')
