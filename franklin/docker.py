@@ -1070,9 +1070,6 @@ def config():
     pass
 
 
-@config.command('get')
-@click.argument("variable", required=False)
-@crash_report
 def _config_get(variable=None):
     """Get Docker configuration for variable or all variables"""
 
@@ -1087,11 +1084,13 @@ def _config_get(variable=None):
                 if variable in cfg.settings:
                     utils.echo(f'{str(variable).rjust(31)}: {cfg.settings[variable]}')
 
-
-@config.command('set')
-@click.argument("variable", required=True)
-@click.argument("value", required=True)
+@config.command('get')
+@click.argument("variable", required=False)
 @crash_report
+def config_get(variable=None):
+     return _config_get(variable=variable)
+     
+
 def _config_set(variable, value):
     """Set Docker configuration for variable or all variables"""
 
@@ -1104,11 +1103,15 @@ def _config_set(variable, value):
     with docker_config() as cfg:
         cfg.settings[variable] = value
 
-
-@config.command('reset')
-@click.argument("variable", required=False)
+@config.command('set')
+@click.argument("variable", required=True)
+@click.argument("value", required=True)
 @crash_report
-def _config_reset(variable):
+def config_set(variable, value):
+    return _config_set(variable, value)
+
+
+def _config_reset(variable=None):
     """Resets Docker configuration to defaults set by Franklin"""
 
     with docker_config() as cfg:
@@ -1121,8 +1124,13 @@ def _config_reset(variable):
             for variable in DOCKER_SETTINGS:
                 cfg.settings[variable] = DOCKER_SETTINGS[variable]
 
-@config.command('fit')
+@config.command('reset')
+@click.argument("variable", required=False)
 @crash_report
+def config_reset(variable):
+    return config_reset(variable=variable)
+
+
 def _config_fit():
     """Sets resource limits to reasonable values given machine resources"""
 
@@ -1132,3 +1140,8 @@ def _config_fit():
     svmem = psutil.virtual_memory()
     mem_mb = svmem.total // (1024 ** 2)
     _config_set('MemoryMiB', mem_mb // 2)
+
+@config.command('fit')
+@crash_report
+def config_fit():
+    return _config_fit()
