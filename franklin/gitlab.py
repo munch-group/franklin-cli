@@ -131,7 +131,7 @@ def select_image():
 
 def _config_local_repo(repo_local_path):
 
-    subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config pull.rebase false'))
+    subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config pull.rebase false'))
 
     if platform.system() == 'Windows':
         subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config merge.tool vscode'))
@@ -148,12 +148,12 @@ def _git_safe_pull(repo_local_path):
 
     merge_conflict = False
     try:
-        output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} pull')).decode()
+        output = subprocess.check_output(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} pull')).decode()
     except subprocess.CalledProcessError as e:        
         print(e.output.decode())
 
         # merge conflict
-        output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} diff --name-only --diff-filter=U --relative')).decode()
+        output = subprocess.check_output(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} diff --name-only --diff-filter=U --relative')).decode()
 
         utils.echo('Changes to the following files conflict with changes to the gitlab versions of the same files:')
         utils.echo(output)
