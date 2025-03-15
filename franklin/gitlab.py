@@ -147,11 +147,11 @@ def _gitlab_get():
 @gitlab.command('get')
 @crash_report
 def gitlab_get():
-    """Start Docker Desktop"""
+    '''"Download" exercise from GitLab'''
     _gitlab_get()
 
 
-def _gitlab_get():
+def _gitlab_put():
 
     output = subprocess.check_output(utils._cmd(f'git add -u')).decode()
     print(output)
@@ -161,8 +161,8 @@ def _gitlab_get():
     print(output)
     #_command(f'git clone {exercise}', silent=True)
 
-@gitlab.command('get')
+@gitlab.command('put')
 @crash_report
-def gitlab_get():
-    """Start Docker Desktop"""
-    _gitlab_get()
+def gitlab_put():
+    '''"Upload" exercise to GitLab'''
+    _gitlab_put()
