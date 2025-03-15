@@ -18,6 +18,7 @@ from functools import wraps
 import platform
 import webbrowser
 import urllib
+import re
 
 
 class AliasedGroup(click.Group):
@@ -107,6 +108,8 @@ def crash_report(func):
             raise
         except SystemExit:
             raise
+        except click.Abort:
+            raise
         except:
             logger.exception('CRASH')
             utils.secho(f"Franklin encountered an unexpected problem.")
@@ -167,7 +170,7 @@ def format_cmd(cmd):
 def _cmd(cmd, log=True, **kwargs):
     if log:
         logger.debug(cmd)
-    cmd = cmd.split()
+    cmd = shlex.split(cmd)
     cmd[0] = shutil.which(cmd[0])
     return cmd
 
