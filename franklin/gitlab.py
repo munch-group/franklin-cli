@@ -9,7 +9,7 @@ import subprocess
 import os
 import platform
 import shutil
-from pathlib import Path, PureWindowsPath
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
 
@@ -131,7 +131,7 @@ def select_image():
 
 def _config_local_repo(repo_local_path):
 
-    subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config pull.rebase false'))
+    subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config pull.rebase false'))
 
     if platform.system() == 'Windows':
         subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config merge.tool vscode'))
@@ -208,7 +208,7 @@ def _gitlab_down():
     repo_local_path = os.path.join(os.getcwd(), repo_name)
     if platform.system() == 'Windows':
         repo_local_path = PureWindowsPath(repo_local_path)
-        
+
     # check if we are in an already cloned repo
     os.path.dirname(os.path.realpath(__file__))
     if os.path.basename(os.getcwd()) == repo_name and os.path.exists('.git'):
