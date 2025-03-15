@@ -1095,7 +1095,8 @@ def _config_get(variable=None):
 def _config_set(variable, value):
     """Set Docker configuration for variable or all variables"""
 
-    value = _as_type(value)
+    if type(value) is str:
+        value = _as_type(value)
     if variable not in DOCKER_SETTINGS:
         utils.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
         return
@@ -1126,8 +1127,8 @@ def _config_fit():
     """Sets resource limits to reasonable values given machine resources"""
 
     nr_cpu = psutil.cpu_count(logical=True)
-    _config_set('Cpus', str(nr_cpu // 2))
+    _config_set('Cpus', nr_cpu // 2)
 
     svmem = psutil.virtual_memory()
     mem_mb = svmem.total // (1024 ** 2)
-    _config_set('MemoryMiB', str(mem_mb // 2))
+    _config_set('MemoryMiB', mem_mb // 2)
