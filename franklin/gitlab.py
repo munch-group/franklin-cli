@@ -4,6 +4,7 @@ from . import utils
 from . import cutie
 import time
 import click
+from utils import crash_report
 
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
 
@@ -124,18 +125,24 @@ def select_image():
 
 
 
-# @click.group(cls=utils.AliasedGroup)
-# def devel():
-#     """Docker commands."""
-#     pass
+@click.group(cls=utils.AliasedGroup)
+def devel():
+    """GitLab commands."""
+    pass
 
 
-# def _devel_get():
-#     select_exercise(exercises_images)
-#     _command('', silent=True)
+def _devel_get():
 
-# @docker.command()
-# @crash_report
-# def start():
-#     """Start Docker Desktop"""
-#     _start()
+    registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
+    exercises_images = get_registry_listing(registry)
+
+    course, exercise = select_exercise(exercises_images)
+
+    print(course) 
+    #_command(f'git clone {exercise}', silent=True)
+
+@devel.command('get')
+@crash_report
+def devel_get():
+    """Start Docker Desktop"""
+    _devel_get()
