@@ -1121,7 +1121,6 @@ def _config_reset(variable):
                 cfg.settings[variable] = DOCKER_SETTINGS[variable]
 
 @config.command('fit')
-@click.argument()
 @crash_report
 def _config_fit():
     """Sets resource limits to reasonable values given machine resources"""
