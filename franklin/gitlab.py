@@ -126,12 +126,12 @@ def select_image():
 
 
 @click.group(cls=utils.AliasedGroup)
-def devel():
+def gitlab():
     """GitLab commands."""
     pass
 
 
-def _devel_get():
+def _gitlab_get():
 
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
     exercises_images = get_registry_listing(registry)
@@ -141,8 +141,8 @@ def _devel_get():
     print(course) 
     #_command(f'git clone {exercise}', silent=True)
 
-@devel.command('get')
+@gitlab.command('get')
 @crash_report
-def devel_get():
+def gitlab_get():
     """Start Docker Desktop"""
-    _devel_get()
+    _gitlab_get()
