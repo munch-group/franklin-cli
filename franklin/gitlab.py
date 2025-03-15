@@ -9,6 +9,7 @@ import subprocess
 import os
 import platform
 import shutil
+from pathlib import Path, PureWindowsPath
 
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
 
@@ -372,4 +373,6 @@ def gitlab_up(directory, remove):
     '''"Upload" exercise to GitLab'''
     if directory is None:
         directory = os.getcwd()
+    if platform.system() == 'Windows':
+        directory = PureWindowsPath(directory)
     _gitlab_up(directory, remove)
