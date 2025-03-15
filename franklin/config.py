@@ -22,7 +22,7 @@ DOCKER_SETTINGS = {
             "Cpus": 5,
             "DisplayedOnboarding": True,
             "EnableIntegrityCheck": True,
-            "MemoryMiB": 12288,
+            "MemoryMiB": 20000,
             "OpenUIOnStartupDisabled": True,
             "ShowAnnouncementNotifications": True,
             "ShowGeneralNotifications": True,

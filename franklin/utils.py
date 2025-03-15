@@ -1,6 +1,7 @@
 import signal 
 import shlex
 import sys
+import os
 import shutil
 import click
 import requests 
@@ -70,6 +71,9 @@ class CleanupAndTerminate(Exception):
 
 def _crash_email():
 
+    if os.environ.get('NOEMAIL', '0'):
+        return
+
     preamble = ("This email is prefilled with information of the crash you can send to the maintainer of Franklin.").upper()
 
     info = ''
@@ -83,7 +87,6 @@ def _crash_email():
     info += f"Python Build: {platform.python_build()}\n"
     info += f"Python Implementation: {platform.python_implementation()}\n"
 
-    import os
     log = ''
     if not platform.system() == 'Windows':
         if os.path.exists('franklin.log'):
@@ -333,9 +336,9 @@ def boxed_text(header, lines=[], prompt='', **kwargs):
     utils.secho('='*WRAP_WIDTH, **kwargs)
     utils.echo()
     for line in lines:
-        utils.echo("  {line}")
+        utils.echo(f"  {line}")
     utils.echo()
-    utils.echo("  {prompt}")
+    utils.echo(f"  {prompt}")
     utils.echo()
     utils.secho('='*WRAP_WIDTH, **kwargs)
     utils.echo()

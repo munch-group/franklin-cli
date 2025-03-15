@@ -133,7 +133,23 @@ def gitlab():
     pass
 
 
-def _gitlab_get():
+def _gitlab_download():
+
+
+    utils.boxed_text("Convenience upload", [
+        'This command executes the following git commands:',
+        '',
+        '  git add -u',
+        '  git commit -m "update"',
+        '  git push',
+        '',
+        'It only works if no other changes have been made to the remote repository since you "downloaded" it',
+        ])
+
+
+    click.confirm('Do you want to continue?', abort=True)
+
+
 
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
     exercises_images = get_registry_listing(registry)
@@ -145,14 +161,25 @@ def _gitlab_get():
     print(output)
     #_command(f'git clone {exercise}', silent=True)
 
-@gitlab.command('get')
+@gitlab.command('download')
 @crash_report
-def gitlab_get():
+def gitlab_download():
     '''"Download" exercise from GitLab'''
-    _gitlab_get()
+    _gitlab_download()
 
 
-def _gitlab_put():
+def _gitlab_upload():
+
+    utils.boxed_text("Convenience download", [
+        'This command executes the following git commands:',
+        '',
+        '  git add -u',
+        '  git commit -m "update"',
+        '  git push',
+        '',
+        'It only works if no other changes have been made to the remote repository since you "downloaded" it',
+        ])
+
 
     if not os.path.exists('.git'):
         utils.secho("Not a git repository", fg='red')
@@ -166,8 +193,8 @@ def _gitlab_put():
     print(output)
     #_command(f'git clone {exercise}', silent=True)
 
-@gitlab.command('put')
+@gitlab.command('upload')
 @crash_report
-def gitlab_put():
+def gitlab_upload():
     '''"Upload" exercise to GitLab'''
-    _gitlab_put()
+    _gitlab_upload()

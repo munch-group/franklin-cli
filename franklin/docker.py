@@ -14,12 +14,13 @@ import psutil
 import sysconfig
 from functools import wraps
 from . import utils
-from .utils import AliasedGroup, crash_report
+from .utils import AliasedGroup, crash_report, _cmd
 from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH, WRAP_WIDTH, DOCKER_SETTINGS
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
 from pathlib import Path, PureWindowsPath, PurePosixPath
+from packaging.version import Version, InvalidVersion
 
 os.environ['DOCKER_CLI_HINTS'] = 'false'
 
@@ -94,8 +95,8 @@ def _install_docker_desktop():
         utils.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
         utils.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
         utils.echo('  8. Wait while it says "Starting the Docker Engine..."')
-        # utils.echo('  9. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
-        utils.echo('  9. Return to this window and start Franklin the same way as you did before.', **kwargs)
+        utils.echo('  9. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
+        utils.echo('  10. Return to this window and start Franklin the same way as you did before.', **kwargs)
         utils.echo()
         utils.echo('  Press Enter now to close Franklin.')
         utils.echo()
@@ -206,7 +207,7 @@ def _failsafe_start_docker_desktop():
         sys.exit(1)
 
     if platform.system() == 'Darwin':
-        _update_docker_desktop()
+        _update_docker()
 
 def _run_container(image_url):
     docker_run_p = _run(image_url)
@@ -587,30 +588,68 @@ def status():
     utils.secho(s, fg=fg, nowrap=True)
 
 
-def _update_docker_desktop(return_json=False):
-    stdout = subprocess.check_output(utils.format_cmd('docker desktop update --check-only')).decode()
-    utils.echo(stdout)
-    if 'is already the latest version' not in stdout:
-        subprocess.run(utils.format_cmd('docker desktop update --quiet'))
+def _get_latest_docker_version():
+
+    # A bit of a hack: gets version as tag of base docker image (which is for use with "docker in docker")
+
+    s = requests.Session()
+    url = 'https://registry.hub.docker.com/v2/namespaces/library/repositories/docker/tags'
+    tags = []
+    r  = s.get(url, headers={ "Content-Type" : "application/json"})
+    if not r.ok:
+        r.raise_for_status()
+    data = r.json()
+    for entry in data['results']:
+        if 'name' in entry:
+            try:
+                tags.append(Version(entry['name']))
+            except InvalidVersion:
+                # latest and other non-version tags
+                pass
+    return max(tags)
+
+
+def _update_docker(return_json=False):
+
+    if platform.system() == 'Windows':
+        current_engine_version = _version()
+        most_recent_version = _get_latest_docker_version()
+        if current_engine_version < most_recent_version:
+            utils.boxed_text(f"Update Docker Desktop",
+                             [f'Please open the "Docker Desktop" application and and click where it says "New version available" in the bottom right corner.', 
+                              'Then scroll down and click the blue button to update'],
+                            prompt='Press Enter to close Franklin.', fg='red')
+            sys.exit(0)
+    else:
+        stdout = subprocess.check_output(utils.format_cmd('docker desktop update --check-only')).decode()
+        utils.echo(stdout)
+        if 'is already the latest version' not in stdout:
+            subprocess.run(utils.format_cmd('docker desktop update --quiet'))
+
 
 @docker.command()
-@irrelevant_unless_docker_running
 @crash_report
 def update():
     """Update Docker Desktop (Mac only)"""
     if platform.system() == 'Windows':
         utils.echo('This command is not available on Windows systems. Please open the Docker Desktop application and check for updates there.')
     else:
-        _update_docker_desktop()
+        _update_docker()
 
 
 def _version(return_json=False):
-    _command('docker desktop version --format json', return_json=return_json)
+    stdout = subprocess.check_output(_cmd('docker version --format json'))
+    data = json.loads(stdout.decode())
+    cmp = data['Server']['Components']
+    vers = [c['Version'] for c in cmp if c['Name'] == 'Engine'][0]
+    return Version(vers)
+    # return data['Server']['Components']['Name'].split()[2]
 
 @docker.command()
+@crash_report
 def version():
     """Get Docker Desktop version"""
-    _version()
+    utils.echo(_version())
 
 
 ###########################################################
