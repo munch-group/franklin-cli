@@ -6,6 +6,7 @@ import time
 import click
 from .utils import crash_report
 import subprocess
+import os
 
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
 
@@ -152,6 +153,10 @@ def gitlab_get():
 
 
 def _gitlab_put():
+
+    if not os.path.exists('.git'):
+        utils.secho("Not a git repository", fg='red')
+        return
 
     output = subprocess.check_output(utils._cmd(f'git add -u')).decode()
     print(output)
