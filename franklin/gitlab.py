@@ -1,6 +1,7 @@
 import requests
 from .config import GITLAB_API_URL, GITLAB_GROUP, GITLAB_TOKEN
-
+from . import utils
+from . import cutie
 
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
 
@@ -70,3 +71,12 @@ def get_exercise_names(course):
             name_mapping[entry['path']] = entry['path']
     
     return name_mapping
+
+
+def pick_course():
+    course_names = get_course_names()
+    course_group_names, course_danish_names,  = zip(*sorted(course_names.items()))
+    utils.secho("\nUse arrow keys to select course and press Enter:", fg='green')
+    captions = []
+    course_idx = cutie.select(course_danish_names, caption_indices=captions, selected_index=0)
+    return course_group_names[course_idx], course_danish_names[course_idx]
