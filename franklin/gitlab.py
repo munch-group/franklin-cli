@@ -131,14 +131,15 @@ def select_image():
 
 def _config_local_repo(repo_local_path):
 
-    subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config pull.rebase false'))
 
     if platform.system() == 'Windows':
-        subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config merge.tool vscode'))
-        subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config mergetool.vscode.cmd "code --wait --merge $REMOTE $LOCAL $BASE $MERGED"'))
-        subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config diff.tool vscode'))
-        subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"'))
+        subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config pull.rebase false'))
+        subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config merge.tool vscode'))
+        subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config mergetool.vscode.cmd "code --wait --merge $REMOTE $LOCAL $BASE $MERGED"'))
+        subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config diff.tool vscode'))
+        subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"'))
     else:
+        subprocess.check_call(utils._cmd(f'git -C {repo_local_path} config pull.rebase false'))
         subprocess.check_call(utils._cmd(f"git -C {repo_local_path} config merge.tool vscode"))
         subprocess.check_call(utils._cmd(f"git -C {repo_local_path} config mergetool.vscode.cmd 'code --wait --merge $REMOTE $LOCAL $BASE $MERGED'"))
         subprocess.check_call(utils._cmd(f"git -C {repo_local_path} config diff.tool vscode"))
