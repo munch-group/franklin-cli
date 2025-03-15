@@ -138,7 +138,7 @@ def _gitlab_get():
 
     course, exercise = select_exercise(exercises_images)
 
-    print(course) 
+    print(f'git clone git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{exercise}.git') 
     #_command(f'git clone {exercise}', silent=True)
 
 @gitlab.command('get')
@@ -146,3 +146,4 @@ def _gitlab_get():
 def gitlab_get():
     """Start Docker Desktop"""
     _gitlab_get()
+
