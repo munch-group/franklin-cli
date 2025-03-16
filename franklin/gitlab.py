@@ -225,6 +225,8 @@ def _gitlab_down():
             merge_conflict = _git_safe_pull(repo_local_path)
             if merge_conflict:
                 return
+            else:
+                utils.secho(f"Local repository updated.", fg='green')
         else:
             raise click.Abort()
     else:
@@ -233,6 +235,8 @@ def _gitlab_down():
             print(output)
         except subprocess.CalledProcessError as e:
             utils.secho(f"Failed to clone repository: {e.output.decode()}", fg='red')
+            raise click.Abort()
+        utils.secho(f"Local repository updated.", fg='green')
 
     _config_local_repo(repo_local_path)
 
@@ -245,7 +249,6 @@ def _gitlab_up(repo_local_path, remove_tracked_files):
     if not os.path.exists(os.path.join(repo_local_path, '.git')):
         utils.secho(f"{repo_local_path} is not a git repository", fg='red')
         return
-
 
     _config_local_repo(repo_local_path)
 
