@@ -18,5 +18,5 @@ def franklin():
 franklin.add_command(_jupyter.jupyter)
 franklin.add_command(_docker.docker)
 franklin.add_command(_tldr.tldr)
-# franklin.add_command(_gitlab.exercise)
-# franklin.add_command(_update.update)
+franklin.add_command(_gitlab.exercise)
+franklin.add_command(_update.update)

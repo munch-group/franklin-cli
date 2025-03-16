@@ -349,12 +349,19 @@ def _gitlab_up(repo_local_path, remove_tracked_files):
         utils.secho(f"Local files removed.", fg='green')
 
 
+def _gitlab_status():
+    pass
 
 @click.group(cls=utils.AliasedGroup)
 def exercise():
     """GitLab commands."""
     pass
 
+@exercise.command('status')
+@crash_report
+def _status():
+    '''Status of local repository'''
+    _gitlab_status()
 
 @exercise.command('down')
 @crash_report
