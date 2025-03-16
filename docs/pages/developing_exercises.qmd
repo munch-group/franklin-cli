@@ -1,0 +1,20 @@
+---
+title: Developing exercises
+---
+
+## TLDR;
+
+
+## Create an exercise repository
+
+A git repository is where an exercise lives
+
+- **exercise.ipynb:**: blah blah
+- **Dockerfile:** blah blah
+- **README.md:**: blah blah
+- **docker-entrypoint.sh:**: blah blah
+- **tagged-release.sh:**: blah blah
+
+
+
+## Develop/change a new exercise on GitLab
