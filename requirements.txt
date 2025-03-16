@@ -4,4 +4,3 @@ readchar>=4.0.5
 click
 psutil
 packaging
-git
