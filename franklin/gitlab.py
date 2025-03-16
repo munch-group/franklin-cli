@@ -6,6 +6,7 @@ import time
 import click
 from .utils import crash_report
 import subprocess
+from subprocess import DEVNULL, STDOUT
 import os
 import platform
 import shutil
@@ -149,7 +150,8 @@ def _git_safe_pull(repo_local_path):
 
     merge_conflict = False
     try:
-        output = subprocess.check_output(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} pull')).decode()
+        # output = subprocess.check_output(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} pull')).decode()
+        subprocess.run(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} diff --name-only --diff-filter=U --relative'), stdout=DEVNULL, stderr=STDOUTcheck=True)
     except subprocess.CalledProcessError as e:        
         print(e.output.decode())
 
@@ -232,7 +234,6 @@ def _gitlab_down():
     else:
         try:
             output = subprocess.check_output(utils._cmd(f'git clone {clone_url}')).decode()
-            print(output)
         except subprocess.CalledProcessError as e:
             utils.secho(f"Failed to clone repository: {e.output.decode()}", fg='red')
             raise click.Abort()
