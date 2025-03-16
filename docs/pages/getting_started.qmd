@@ -9,6 +9,17 @@ aliases:
 
 :::
 
+
+
+::: {.callout-note }
+## Feedback to the documentation
+
+These pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click "Sign up" to create a Hypothes.is account. Once you are logged in to that, you click [this invite link](https://hypothes.is/groups/99akKdQZ/franklin) to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click "Annotate" to add your suggestion/comment. 
+
+:::
+
+
+
 **franklin** lets you ... 
 
 {{< lipsum 1 >}}
