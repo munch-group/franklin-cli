@@ -91,9 +91,9 @@ def jupyter():
                 help="Allow subdirs in current directory mounted by Docker.")
 @click.option('--update/--no-update', default=True,
                 help="Override check for package updates")
-@jupyter.command()
+@jupyter.command('run')
 @crash_report
-def select(allow_subdirs_at_your_own_risk, update):
+def run_jupyter(allow_subdirs_at_your_own_risk, update):
 
     utils._check_window_size()
 
