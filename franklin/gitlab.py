@@ -6,7 +6,7 @@ import time
 import click
 from .utils import crash_report
 import subprocess
-from subprocess import DEVNULL, STDOUT
+from subprocess import DEVNULL, STDOUT, PIPE
 import os
 import platform
 import shutil
@@ -151,7 +151,7 @@ def _git_safe_pull(repo_local_path):
     merge_conflict = False
     try:
         # output = subprocess.check_output(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} pull')).decode()
-        subprocess.run(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} diff --name-only --diff-filter=U --relative'), stdout=DEVNULL, stderr=STDOUT, check=True)
+        subprocess.run(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} diff --name-only --diff-filter=U --relative'), stdout=PIPE, stderr=PIPE, check=True)
     except subprocess.CalledProcessError as e:        
         print(e.output.decode())
 
@@ -223,7 +223,7 @@ def _gitlab_down():
     # update or clone the repository
     if os.path.exists(repo_local_path):
         utils.secho(f"The repository '{repo_name}' already exists at {repo_local_path}.")
-        if click.confirm('Do you want to update the existing repository?', default=True):
+        if click.confirm('\nDo you want to update the existing repository?', default=True):
             merge_conflict = _git_safe_pull(repo_local_path)
             if merge_conflict:
                 return
