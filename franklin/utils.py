@@ -11,7 +11,7 @@ from .config import REQUIRED_GB_FREE_DISK
 from . import utils
 from textwrap import wrap
 from .logger import logger
-from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, WRAP_WIDTH, MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT, BOLD_TEXT_ON_WINDOWS, PG_OPTIONS
+from .config import MAINTAINER_EMAIL, WRAP_WIDTH, MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT, BOLD_TEXT_ON_WINDOWS, PG_OPTIONS
 import subprocess
 import platform
 from functools import wraps
@@ -20,12 +20,10 @@ import urllib
 from importlib.metadata import version as _version
 
 
-def franklin_version():
-    try:
-        return _version('franklin')
-    except:
-        return None
-    
+###########################################################
+# Click
+###########################################################
+
 class AliasedGroup(click.Group):
     def get_command(self, ctx, cmd_name):
         rv = click.Group.get_command(self, ctx, cmd_name)
@@ -71,9 +69,41 @@ class PrefixAliasedGroup(click.Group):
         return cmd.name, cmd, args
     
 
-class CleanupAndTerminate(Exception):
-    pass
+###########################################################
+# Keyboard interrupt handling
+###########################################################
 
+class DelayedKeyboardInterrupt:
+    def __enter__(self):
+        self.signal_received = False
+        self.old_handler = signal.signal(signal.SIGINT, self.handler)
+                
+    def handler(self, sig, frame):
+        self.signal_received = (sig, frame)
+        # logging.debug('SIGINT received. Delaying KeyboardInterrupt.')
+    
+    def __exit__(self, type, value, traceback):
+        signal.signal(signal.SIGINT, self.old_handler)
+        if self.signal_received:
+            self.old_handler(*self.signal_received)
+
+
+class SuppressedKeyboardInterrupt:
+    def __enter__(self):
+        self.signal_received = False
+        self.old_handler = signal.signal(signal.SIGINT, self.handler)
+                
+    def handler(self, sig, frame):
+        self.signal_received = (sig, frame)
+        # logging.debug('SIGINT received. Delaying KeyboardInterrupt.')
+    
+    def __exit__(self, type, value, traceback):
+        signal.signal(signal.SIGINT, self.old_handler)
+
+
+###########################################################
+# Crash handling
+###########################################################
 
 class Crash(Exception):
     def __init__(self, message, errors):            
@@ -149,53 +179,12 @@ def crash_report(func):
     return wrapper
 
 
-class DelayedKeyboardInterrupt:
-    def __enter__(self):
-        self.signal_received = False
-        self.old_handler = signal.signal(signal.SIGINT, self.handler)
-                
-    def handler(self, sig, frame):
-        self.signal_received = (sig, frame)
-        # logging.debug('SIGINT received. Delaying KeyboardInterrupt.')
-    
-    def __exit__(self, type, value, traceback):
-        signal.signal(signal.SIGINT, self.old_handler)
-        if self.signal_received:
-            self.old_handler(*self.signal_received)
+###########################################################
+# Subprocesses
+###########################################################
 
-
-class SuppressedKeyboardInterrupt:
-    def __enter__(self):
-        self.signal_received = False
-        self.old_handler = signal.signal(signal.SIGINT, self.handler)
-                
-    def handler(self, sig, frame):
-        self.signal_received = (sig, frame)
-        # logging.debug('SIGINT received. Delaying KeyboardInterrupt.')
-    
-    def __exit__(self, type, value, traceback):
-        signal.signal(signal.SIGINT, self.old_handler)
-
-
-# def print_exercise_tree(exercise_dict, image_name):
-
-#     print(exercise_list)
-#     image_tree = defaultdict(lambda: defaultdict(str))
-#     for course, exercise in exercise_dict:
-#         # c, w, v = image_name.split('-')
-#         # image_tree[c.replace('_', ' ')][w.replace('_', ' ')][v.replace('_', ' ')] = image_name
-#         image_tree[course][exercise] = image_name
-
-
-def format_cmd(cmd):
-    cmd = shlex.split(cmd)
-    cmd[0] = shutil.which(cmd[0]) 
-    return cmd
-
-
-def _cmd(cmd, log=True, **kwargs):
-    if log:
-        logger.debug(cmd)
+def _cmd(cmd):
+    logger.debug(cmd)
     cmd = shlex.split(cmd)
     cmd[0] = shutil.which(cmd[0])
     return cmd
@@ -203,10 +192,8 @@ def _cmd(cmd, log=True, **kwargs):
 
 def _run_cmd(cmd, check=True, capture_output=True, timeout=None):
 
-    cmd = shlex.split(cmd)
-    cmd[0] = shutil.which(cmd[0])
+    cmd = _cmd(cmd)
     try:
-        logger.debug(cmd)
         p = subprocess.run(cmd, check=check, 
                                 capture_output=capture_output, timeout=timeout)
         output = p.stdout.decode()
@@ -220,64 +207,9 @@ def _run_cmd(cmd, check=True, capture_output=True, timeout=None):
     return output
 
 
-
-def jupyter_ports_in_use():
-        
-    output = _run_cmd('jupyter server list')
-    occupied_ports = [int(x) for x in re.findall(r'(?<=->)\d+', output, re.MULTILINE)]
-    occupied_ports = [int(x) for x in re.findall(r'(?<=localhost:)\d+', output, re.MULTILINE)]
-    return occupied_ports
-
-
-def is_wsl(v: str = platform.uname().release) -> int:
-    """
-    detects if Python is running in WSL
-    """
-
-    if v.endswith("-Microsoft"):
-        return 1
-    elif v.endswith("microsoft-standard-WSL2"):
-        return 2
-
-    return 0
-
-
-def wsl_available() -> int:
-    """
-    detect if Windows Subsystem for Linux is available from Windows
-    """
-    if os.name != "nt" or not shutil.which("wsl"):
-        return False
-    try:
-        return is_wsl(
-            subprocess.check_output(
-                ["wsl", "uname", "-r"], text=True, timeout=15
-            ).strip()
-        )
-    except subprocess.SubprocessError:
-        return False
-
-def system():
-    plat = platform.system()
-    if plat == 'Windows':
-        wsl = is_wsl()
-        if wsl == 0:
-            return 'Windows'
-        if wsl == 1:
-            return 'WSL'
-        if wsl == 2:
-            return 'WSL2'
-    return plat
-
-
-
-if __name__ == "__main__":
-    print("WSL: ", is_wsl())
-    print("is WSL available: ", wsl_available())
-
-def gb_free_disk():
-    return shutil.disk_usage('/').free / 1024**3
-
+###########################################################
+# Terminal output
+###########################################################
 
 def _check_window_size():
 
@@ -346,7 +278,6 @@ def wrap(text, width=None, indent=True, initial_indent=None, subsequent_indent=N
     return text
 
 
-
 def secho(text='', width=None, center=False, nowrap=False, log=True,
           indent=True, initial_indent=None, subsequent_indent=None, **kwargs):
     """
@@ -383,8 +314,90 @@ def secho(text='', width=None, center=False, nowrap=False, log=True,
     click.secho(text, **kwargs)
 
 
-def echo(text='', width=None, nowrap=False, log=True, indent=True, initial_indent=None, subsequent_indent=None, **kwargs):
-    secho(text, width=width, nowrap=nowrap, log=log, indent=indent, initial_indent=initial_indent, subsequent_indent=subsequent_indent, **kwargs)
+def echo(text='', width=None, nowrap=False, log=True, indent=True, 
+         initial_indent=None, subsequent_indent=None, **kwargs):
+    
+    secho(text, width=width, nowrap=nowrap, log=log, indent=indent, 
+          initial_indent=initial_indent, subsequent_indent=subsequent_indent, **kwargs)
+
+
+def boxed_text(header, lines=[], prompt='', **kwargs):
+    utils.echo()
+    utils.secho(f"{header}:", **kwargs)
+    utils.secho('='*WRAP_WIDTH, **kwargs)
+    utils.echo()
+    for line in lines:
+        utils.echo(f"  {line}")
+    utils.echo()
+    utils.echo(f"  {prompt}")
+    utils.echo()
+    utils.secho('='*WRAP_WIDTH, **kwargs)
+    utils.echo()
+    if prompt:
+        click.pause('')
+
+
+###########################################################
+# Checks
+###########################################################
+
+def franklin_version():
+    try:
+        return _version('franklin')
+    except:
+        return None
+    
+
+def is_wsl(v: str = platform.uname().release) -> int:
+    """
+    detects if Python is running in WSL
+    """
+    if v.endswith("-Microsoft"):
+        return 1
+    elif v.endswith("microsoft-standard-WSL2"):
+        return 2
+    return 0
+
+
+def wsl_available() -> int:
+    """
+    detect if Windows Subsystem for Linux is available from Windows
+    """
+    if os.name != "nt" or not shutil.which("wsl"):
+        return False
+    try:
+        return is_wsl(
+            subprocess.check_output(
+                ["wsl", "uname", "-r"], text=True, timeout=15
+            ).strip()
+        )
+    except subprocess.SubprocessError:
+        return False
+
+
+def system():
+    plat = platform.system()
+    if plat == 'Windows':
+        wsl = is_wsl()
+        if wsl == 0:
+            return 'Windows'
+        if wsl == 1:
+            return 'WSL'
+        if wsl == 2:
+            return 'WSL2'
+    return plat
+
+
+###########################################################
+# Resources
+###########################################################
+
+def jupyter_ports_in_use():
+        
+    output = _run_cmd('jupyter server list')
+    occupied_ports = [int(x) for x in re.findall(r'(?<=->)\d+', output, re.MULTILINE)]
+    occupied_ports = [int(x) for x in re.findall(r'(?<=localhost:)\d+', output, re.MULTILINE)]
+    return occupied_ports
 
 
 def _check_internet_connection():
@@ -396,6 +409,10 @@ def _check_internet_connection():
         utils.secho("No internet connection. Please check your network.", fg='red')
         sys.exit(1)
         return False
+
+
+def gb_free_disk():
+    return shutil.disk_usage('/').free / 1024**3
 
 
 def _check_free_disk_space():
@@ -434,31 +451,3 @@ def _check_free_disk_space():
         utils.secho(f" {gb_free:.1f} Gb", fg='green', bold=True)
 
 
-def boxed_text(header, lines=[], prompt='', **kwargs):
-    utils.echo()
-    utils.secho(f"{header}:", **kwargs)
-    utils.secho('='*WRAP_WIDTH, **kwargs)
-    utils.echo()
-    for line in lines:
-        utils.echo(f"  {line}")
-    utils.echo()
-    utils.echo(f"  {prompt}")
-    utils.echo()
-    utils.secho('='*WRAP_WIDTH, **kwargs)
-    utils.echo()
-    if prompt:
-        click.pause('')
-
-
-# class TroubleShooting():
-#     def __init__(self, color='red'):
-#         self.color = color
-
-#     def __enter__(self):
-#         logger.debug('START TROUBLESHOOTING')
-#         click.secho('Franklin is troubleshooting...', fg=self.color, nl=False)
-#         return self
-    
-#     def __exit__(self, type, value, traceback):
-#         click.secho(' done.', fg=self.color)
-#         logger.debug('END TROUBLESHOOTING')

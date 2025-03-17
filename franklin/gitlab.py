@@ -44,7 +44,6 @@ def get_course_names():
     s = requests.Session()
     s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
     url = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/subgroups'
-#https://gitlab.au.dk/api/v4/groups/mbg-exercises/subgroups
 
     name_mapping = {}
     r  = s.get(url, headers={ "Content-Type" : "application/json"})
@@ -182,6 +181,7 @@ def _launch_mergetool(repo_local_path):
     except subprocess.CalledProcessError as e:        
         print(e.output.decode())   
 
+
 def _finish_any_merge_in_progress(repo_local_path):
     if _merge_in_progress(repo_local_path):
         try:
@@ -306,7 +306,6 @@ def _gitlab_up(repo_local_path, remove_tracked_files):
     # else:
 
 
-
     if remove_tracked_files:
 
         try:
@@ -327,30 +326,23 @@ def _gitlab_up(repo_local_path, remove_tracked_files):
 
         # Instead of deleting the repository dir, we prune all tracked files and 
         # and resulting empty directories - in case there are 
-
         path = os.path.join(repo_local_path, 'franklin.log')
         if os.path.exists(path):
             os.remove(path)
-
         output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} ls-files')).decode()
         tracked_dirs = set()
         for line in output.splitlines():
             path = os.path.join(repo_local_path, *(line.split('/')))
             tracked_dirs.add(os.path.dirname(path))
-            # print('REMOVING:', path)
             os.remove(path)
-
         # traverse repo bottom up and remove empty directories
         subdirs = reversed([x[0] for x in os.walk(repo_local_path) if os.path.isdir(x[0])])
         for subdir in subdirs:
             if not os.listdir(subdir) and subdir in tracked_dirs:
-                # print('REMOVING:', subdir)
                 os.rmdir(subdir)
-
         path = os.path.join(repo_local_path, '.git')
         if os.path.exists(path):
             shutil.rmtree(path)
-
         if os.path.exists(repo_local_path) and not os.listdir(repo_local_path):
             os.rmdir(repo_local_path)
 

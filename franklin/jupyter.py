@@ -10,20 +10,67 @@ import subprocess
 import click
 import shutil
 import time
-from pathlib import Path, PureWindowsPath, PurePosixPath
-from subprocess import Popen, PIPE, DEVNULL, STDOUT
-from .config import GITLAB_API_URL, GITLAB_GROUP, MIN_WINDOW_HEIGHT, PG_OPTIONS
+from subprocess import Popen, PIPE, STDOUT
 from . import utils
 from .utils import AliasedGroup, crash_report
-from .gitlab import get_registry_listing, get_course_names, get_exercise_names, pick_course, select_exercise, select_image
+from .gitlab import select_image
 from . import docker as _docker
 from .logger import logger
-from . import cutie
 from .update import _update_client
 
 
+banner = """
+        ▗▄▄▄▖▗▄▄▖  ▗▄▖ ▗▖  ▗▖▗▖ ▗▖▗▖   ▗▄▄▄▖▗▖  ▗▖
+        ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌     █  ▐▛▚▖▐▌
+        ▐▛▀▀▘▐▛▀▚▖▐▛▀▜▌▐▌ ▝▜▌▐▛▚▖ ▐▌     █  ▐▌ ▝▜▌
+        ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▌  ▐▌▐▌ ▐▌▐▙▄▄▖▗▄█▄▖▐▌  ▐▌
+"""
 
-def launch_exercise():
+
+@click.group(cls=AliasedGroup)
+def jupyter():
+    """Jupyter commands"""
+    pass
+
+
+@click.option("--allow-subdirs-at-your-own-risk/--no-allow-subdirs-at-your-own-risk",
+                default=False,
+                help="Allow subdirs in current directory mounted by Docker.")
+@click.option('--update/--no-update', default=True,
+                help="Override check for package updates")
+@jupyter.command('run')
+@crash_report
+def launch_exercise(allow_subdirs_at_your_own_risk, update):
+
+    utils._check_window_size()
+
+    click.clear()
+
+    for line in banner.splitlines():
+        utils.secho(line, nowrap=True, center=True, fg='green')
+
+    logger.debug("################ STARTING FRANKLIN ################")
+
+    utils.echo()
+    utils.echo('"Science and everyday life cannot and should not be separated"', center=True)
+    utils.echo("Rosalind D. Franklin", center=True)
+    utils.echo()
+
+    if not allow_subdirs_at_your_own_risk:
+        for x in os.listdir(os.getcwd()):
+            if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
+                utils.secho("\n  Please run the command in a directory without any sub-directories.\n", fg='red')
+                sys.exit(1)
+
+    utils._check_internet_connection()
+    utils.logger.debug('Starting Docker Desktop')
+    _docker._failsafe_start_docker_desktop()
+    utils._check_free_disk_space()
+    time.sleep(2)
+
+    _update_client(update)
+
+    utils.secho('Starting container:', fg='green')
 
     image_url = select_image()
 
@@ -42,7 +89,6 @@ def launch_exercise():
     else:
         popen_kwargs = dict(start_new_session = True)
     docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True, **popen_kwargs)
-
 
     while True:
         time.sleep(0.1)
@@ -85,91 +131,3 @@ def launch_exercise():
             break
 
     sys.exit()
-
-
-@click.group(cls=AliasedGroup)
-def jupyter():
-    """Jupyter commands"""
-    pass
-
-
-@click.option("--allow-subdirs-at-your-own-risk/--no-allow-subdirs-at-your-own-risk",
-                default=False,
-                help="Allow subdirs in current directory mounted by Docker.")
-@click.option('--update/--no-update', default=True,
-                help="Override check for package updates")
-@jupyter.command()
-@crash_report
-def run(allow_subdirs_at_your_own_risk, update):
-
-    utils._check_window_size()
-
-    click.clear()
-    s = """
-           ▗▄▄▄▖▗▄▄▖  ▗▄▖ ▗▖  ▗▖▗▖ ▗▖▗▖   ▗▄▄▄▖▗▖  ▗▖
-           ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌     █  ▐▛▚▖▐▌
-           ▐▛▀▀▘▐▛▀▚▖▐▛▀▜▌▐▌ ▝▜▌▐▛▚▖ ▐▌     █  ▐▌ ▝▜▌
-           ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▌  ▐▌▐▌ ▐▌▐▙▄▄▖▗▄█▄▖▐▌  ▐▌
-    """
-    for line in s.splitlines():
-        utils.secho(line, nowrap=True, center=True, fg='green', log=False)
-    logger.debug("################ STARTING FRANKLIN ################")
-
-    utils.echo('"Science and everyday life cannot and should not be separated"', center=True)
-    utils.echo("Rosalind D. Franklin", center=True)
-    utils.echo()
-
-    if not allow_subdirs_at_your_own_risk:
-        for x in os.listdir(os.getcwd()):
-            if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
-                utils.secho("\n  Please run the command in a directory without any sub-directories.\n", fg='red')
-                sys.exit(1)
-
-    utils._check_internet_connection()
-    utils.logger.debug('Starting Docker Desktop')
-    _docker._failsafe_start_docker_desktop()
-    # click.clear()
-    # click.echo('\n'*int(MIN_WINDOW_HEIGHT/2))
-    utils._check_free_disk_space()
-    time.sleep(2)
-    # TODO: _docker.check_no_other_exercise_container_running()
-    # TODO: _docker.check_no_other_local_jupyter_running()
-
-    # dirs_in_cwd = any(os.path.isdir(x) ))
-    # if dirs_in_cwd and not allow_subdirs_at_your_own_risk:
-    #     utils.secho("\n  Please run the command in a directory without any sub-directories.", fg='red')
-    #     sys.exit(1)
-
-
-    _update_client(update)
-
-    utils.secho('Starting container:', fg='green')
-    launch_exercise()    
-
-
-
-# import threading
-
-# class KeyboardThread(threading.Thread):
-
-#     def __init__(self, input_cbk = None, name='keyboard-input-thread'):
-#         self.input_cbk = input_cbk
-#         super(KeyboardThread, self).__init__(name=name, daemon=True)
-#         self.start()
-
-#     def run(self):
-#         while True:
-#             self.input_cbk(input()) #waits to get input + Return
-
-# showcounter = 0 #something to demonstrate the change
-
-# def my_callback(inp):
-#     #evaluate the keyboard input
-#     print('You Entered:', inp, ' Counter is at:', showcounter)
-
-# #start the Keyboard thread
-# kthread = KeyboardThread(my_callback)
-
-# while True:
-#     #the normal program executes without blocking. here just counting up
-#     showcounter += 1

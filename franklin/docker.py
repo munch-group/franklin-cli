@@ -7,28 +7,27 @@ import re
 import click
 import requests
 import shutil
-import logging
 import time
 import psutil
 import sysconfig
 from functools import wraps
 from . import utils
 from .utils import AliasedGroup, crash_report, _cmd
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH, WRAP_WIDTH, DOCKER_SETTINGS, CONTAINER_MEMORY_LIMIT
+from .config import REGISTRY_BASE_URL, GITLAB_GROUP, PG_OPTIONS, WRAP_WIDTH, DOCKER_SETTINGS
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
 from pathlib import Path, PureWindowsPath, PurePosixPath
 from packaging.version import Version, InvalidVersion
 
-from subprocess import check_call, check_output, Popen, PIPE, DEVNULL, STDOUT, TimeoutExpired, CalledProcessError
+from subprocess import check_output, Popen, PIPE, DEVNULL, STDOUT, TimeoutExpired, CalledProcessError
 
 os.environ['DOCKER_CLI_HINTS'] = 'false'
 
 def _install_docker_desktop():
 
     architecture = sysconfig.get_platform().split('-')[-1]
-    assert architecture# in ['amd64', 'arm64', 'aarch64', 'x86_64']
+    assert architecture
 
     operating_system = utils.system()
 
@@ -53,17 +52,6 @@ def _install_docker_desktop():
                      ['Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.'],
                      prompt='Press Enter to start the download...', 
                      fg='green')
-    # utils.echo()
-    # utils.secho(f"Franklin needs Docker Desktop:", fg='green')
-    # utils.secho('='*WRAP_WIDTH, fg='green')
-    # utils.echo()
-    # utils.echo("  Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.")
-    # utils.echo()
-    # utils.echo("  Press Enter to start the download...")
-    # utils.echo()
-    # utils.secho('='*WRAP_WIDTH, fg='green')
-    # utils.echo()
-    # click.pause('')
 
     response = requests.get(download_url, stream=True)
     if not response.ok:
@@ -144,13 +132,7 @@ def _install_docker_desktop():
                 prev_size = size
             time.sleep(5)
 
-        time.sleep(5)
-
-        # # allow some time for the app to be copied and validated...
-        # with click.progressbar(length=10, label='Validating Docker Desktop', fill_char='#') as bar:
-        #     for _ in range(10):
-        #         time.sleep(1)
-        #         bar.update(1)
+        utils.dummy_progressbar(seconds=10, label='Validating Docker Desktop:')
 
         utils.echo(" - Unmounting...")
 
@@ -185,11 +167,8 @@ def _install_docker_desktop():
         click.pause('')
         sys.exit(0)
 
-
 #  start /w "" "Docker Desktop Installer.exe" uninstall
 #  /Applications/Docker.app/Contents/MacOS/uninstall
-
-
 
 def _failsafe_start_docker_desktop():
 
@@ -207,105 +186,6 @@ def _failsafe_start_docker_desktop():
     if utils.system() == 'Darwin':
         _update_docker()
 
-###########################
-
-    # # _kill_docker_processes()
-
-    # # _stop()
-    # # _kill_docker_processes()
-    # # _shutdown_wsl_docker_distribution()
-    # # _shutdown_wsl()
-    # # _start()
-
-    # if not _status() == 'running':
-    #     # if start does not timeout
-    #     if _start():
-    #         for w in range(3):
-    #             time.sleep(1)
-    #             if _status() == 'running':                
-    #                 return
-    #             utils.logger.debug('Waited')  
-        
-    # # _stop()
-    # _kill_docker_processes()
-    # # _shutdown_wsl_docker_distribution()
-    # # _shutdown_wsl()
-    # _start()
-
-
-    # if not _status() == 'running':
-    #     # if restart does not timeout
-    #     if _restart():
-    #         for w in range(3):
-    #             time.sleep(1)
-    #             if _status() == 'running':                
-    #                 return
-    #             utils.logger.debug('Waited')  
-
-
-    # if not _status() == 'running':
-    #     utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
-    #     sys.exit(1)
-
-
-############################################
-
-    # if not _status() == 'running':
-    #     _kill_docker_processes()
-    #     _start()
-    #     for w in range(10):
-    #         time.sleep(5)
-    #         if _status() == 'running':                
-    #             return
-    #         utils.logger.debug('Waited 5')     
-
-    # if not _status() == 'running':
-    #     _shutdown_wsl_docker_distribution()
-    #     for w in range(10):
-    #         time.sleep(2)
-    #         if _status() == 'running':                
-    #             return
-    #         utils.logger.debug('Waited 5')   
-
-    # if not _status() == 'running':
-    #     _shutdown_wsl()
-    #     for w in range(10):
-    #         time.sleep(2)
-    #         if _status() == 'running':                
-    #             return
-    #         utils.logger.debug('Waited 5') 
-
-    # _kill_docker_processes()
-
-    # if not _status() == 'running':
-    #     # if start does not timeout
-    #     if _start():
-    #         for w in range(10):
-    #             time.sleep(5)
-    #             if _status() == 'running':                
-    #                 return
-    #             utils.logger.debug('Waited 5')  
-
-    # if not _status() == 'running':
-    #     if _restart():
-    #         # if restart does not timeout
-    #         for _ in range(10):
-    #             time.sleep(5)
-    #             if _status() == 'running':
-    #                 return
-    #             utils.logger.debug('Waited 5')
-    # else:
-    #     utils.logger.debug('Killing Docker Desktop')
-    #     _kill_docker_processes()
-    #     utils.logger.debug('Starting Docker Desktop')
-    #     _start()
-
-    # if not _status() == 'running':
-    #     utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
-    #     sys.exit(1)
-
-    # if utils.system() == 'Darwin':
-    #     _update_docker()
 
 def _run_container(image_url):
     docker_run_p, port = _run(image_url)
@@ -322,109 +202,12 @@ def _run_container(image_url):
 
 def _failsafe_run_container(image_url):
 
-
-# docker: Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint adoring_dirac (16a673f3a2eecddfc1c6af4227a54fcec8588350c8a7a0dc22fe94dc2a34bb60): Bind for 0.0.0.0:8050 failed: port is already allocated
-
     try:
         return _run_container(image_url)
     except:
         _prune_all()    
         _restart()    
         return _run_container(image_url)
-
-
-
-    # # ###########################################
-    # # _kill_docker_processes()
-    # # _start_docker_desktop()
-    # # ###########################################
-    # try:
-    #     _run_container(image_url)
-    # except:
-    #     _kill_docker_processes()
-    #     _start()    
-
-    # docker_run_p = _run(image_url)
-    # run_container_id = None
-    # for _ in range(10):
-    #     time.sleep(5)    
-    #     for cont in _containers(return_json=True):
-    #         if cont['Image'].startswith(image_url):
-    #             run_container_id  = cont['ID']
-    #     if run_container_id is not None:
-    #         return run_container_id, docker_run_p
-    # else:
-    #     utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
-    #     sys.exit(1)
-
-
-        # utils.echo('Docker not responding...', fg='red')
-
-        # logger.debug('Docker not responding.')
-        # logger.debug('Killing all docker desktop processes.')
-        # _docker._handle_hanging_docker_windows()
-
-        # # with utils.TroubleShooting():
-        # #     # utils.echo('Troubleshooting...', fg='red', nl=False)
-        # #     _docker._handle_hanging_docker_windows()
-        # #     # utils.echo(' done.', fg='red')
-        # # utils.echo('Please rerun your command now (press arrow-up)', fg='red')
-        # utils.boxed_text(f"Docker encountered a problem", 
-        #                 ['Docker had to be restarted. Please rerun your command now (press arrow-up)'],
-        #                 fg='green')            
-        # # utils.echo('Docker encountered a problem and had to be restarted. Please rerun your command now (press arrow-up)', fg='red')
-        # sys.exit()   
-
-    # ticks = 20
-    # with click.progressbar(length=ticks, label='Launching:', **PG_OPTIONS) as bar:
-    #     prg = 1
-    #     bar.update(prg)
-
-    #     docker_run_p = _run(image_url)
-
-    #     for b in range(5):
-    #         time.sleep(1)
-    #         prg += 1
-    #         bar.update(prg)
-
-    #     # get id of running container
-    #     for _ in range(5):
-    #         time.sleep(2)
-    #         run_container_id = None
-    #         for cont in _containers(return_json=True):
-    #             if cont['Image'].startswith(image_url):
-    #                 run_container_id  = cont['ID']
-    #         if run_container_id:
-    #             bar.update(ticks)
-    #             return run_container_id, docker_run_p
-    #         prg += 1
-    #         bar.update(prg)
-
-    #     bar.update(ticks)
-
-    #     if utils.system() == "Windows":
-    #         _kill_docker_processes()
-    #         _failsafe_start_docker_desktop()
-
-
-    #     return None, None
-
-        # utils.echo('Docker not responding...', fg='red')
-
-        # logger.debug('Docker not responding.')
-        # logger.debug('Killing all docker desktop processes.')
-        # _docker._handle_hanging_docker_windows()
-
-        # # with utils.TroubleShooting():
-        # #     # utils.echo('Troubleshooting...', fg='red', nl=False)
-        # #     _docker._handle_hanging_docker_windows()
-        # #     # utils.echo(' done.', fg='red')
-        # # utils.echo('Please rerun your command now (press arrow-up)', fg='red')
-        # utils.boxed_text(f"Docker encountered a problem", 
-        #                 ['Docker had to be restarted. Please rerun your command now (press arrow-up)'],
-        #                 fg='green')            
-        # # utils.echo('Docker encountered a problem and had to be restarted. Please rerun your command now (press arrow-up)', fg='red')
-        # sys.exit()   
 
 
 def ensure_docker_running(func):
@@ -457,16 +240,16 @@ def _image_exists(image_url):
     return False
 
 
-def _command(command, silent=False, return_json=False):
-    if silent:
-        return subprocess.run(utils.format_cmd(command), check=False, stdout=DEVNULL, stderr=DEVNULL)
-    if return_json:
-        result = []
-        for line in subprocess.check_output(utils.format_cmd(command + ' --format json')).decode().strip().splitlines():
-            result.append(json.loads(line))
-        return result
-    else:
-        return subprocess.check_output(utils.format_cmd(command)).decode().strip()
+# def _command(command, silent=False, return_json=False):
+#     if silent:
+#         return subprocess.run(utils.format_cmd(command), check=False, stdout=DEVNULL, stderr=DEVNULL)
+#     if return_json:
+#         result = []
+#         for line in subprocess.check_output(utils.format_cmd(command + ' --format json')).decode().strip().splitlines():
+#             result.append(json.loads(line))
+#         return result
+#     else:
+#         return subprocess.check_output(utils.format_cmd(command)).decode().strip()
 
 
 def _table(header, table, ids, min_widths=None, select=True):
@@ -505,7 +288,6 @@ def _table(header, table, ids, min_widths=None, select=True):
         hide_confirm=True
     )
     return [ids[i]for i in selected_indices]
-
 
 
 def _container_list(callback=None):
@@ -557,7 +339,6 @@ def _image_list(callback=None):
     course_names = get_course_names()
     exercise_names = {}
 
-    # header = ['Course', 'Exercise', 'Created', 'Size', 'ID']
     header = ['Course', 'Exercise', 'Age', 'Size']
     table = []
     ids = []
@@ -575,9 +356,6 @@ def _image_list(callback=None):
             exercise_name = exercise_names[exercise_label]
             course_field = course_name
             exercise_field = exercise_name
-            # course_field = course_name[:30]+'...' if len(course_name) > 33 else course_name
-            # exercise_field = exercise_name[:30]+'...' if len(exercise_name) > 33 else exercise_name
-            # table.append((course_field, exercise_field , img['CreatedSince'], img['Size'], img['ID']))
             ids.append(img['ID'])
             table.append((course_field, exercise_field , img['CreatedSince'].replace(' ago', ''), img['Size'].replace("GB", " GB")))
 
@@ -605,7 +383,8 @@ def docker():
 
 def _pull(image_url):
 
-    p = Popen(utils.format_cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
+    # p = Popen(utils.format_cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
+    p = Popen(utils._cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
     f = p.stdout
     # while True:
     #     line = f.readline()
@@ -634,7 +413,8 @@ def _pull(image_url):
     #     sys.stdout.flush()
     # p.wait()
 
-    subprocess.run(utils.format_cmd(f'docker pull {image_url}:latest'), check=False)
+    # subprocess.run(utils.format_cmd(f'docker pull {image_url}:latest'), check=False)
+    utils._run_cmd(f'docker pull {image_url}:latest', check=False)
 
 
 @click.argument("url")
@@ -684,7 +464,6 @@ def _start():
         raise click.Abort()    
     return True
 
-    # _command('docker desktop start', silent=True)
 
 @docker.command()
 @crash_report
@@ -694,7 +473,8 @@ def start():
 
 
 def _stop():
-    _command('docker desktop stop', silent=True)
+    # _command('docker desktop stop', silent=True)
+    utils._run_cmd('docker desktop stop', check=False)
 
 @docker.command()
 @irrelevant_unless_docker_running
@@ -705,11 +485,11 @@ def stop():
 
 
 def _status():
-    stdout = subprocess.run(utils.format_cmd('docker desktop status --format json'), 
-                            check=False, stderr=DEVNULL, stdout=PIPE).stdout.decode()
+    # stdout = subprocess.run(utils._cmd('docker desktop status --format json'), 
+    #                         check=False, stderr=DEVNULL, stdout=PIPE).stdout.decode()
+    stdout = utils._run_cmd('docker desktop status --format json', check=False)
     if not stdout:
         return 'not running'
-    # stdout = subprocess.check_output(utils.format_cmd('docker desktop status --format json')).decode()
     data = json.loads(stdout)
     return data['Status']
 
@@ -755,10 +535,11 @@ def _update_docker(return_json=False):
                             prompt='Press Enter to close Franklin.', fg='red')
             sys.exit(0)
     else:
-        stdout = subprocess.check_output(utils.format_cmd('docker desktop update --check-only')).decode()
-        utils.echo(stdout)
+        # stdout = subprocess.check_output(utils.format_cmd('docker desktop update --check-only')).decode()
+        stdout = utils._run_cmd('docker desktop update --check-only')
         if 'is already the latest version' not in stdout:
-            subprocess.run(utils.format_cmd('docker desktop update --quiet'))
+            # subprocess.run(utils.format_cmd('docker desktop update --quiet'))
+            utils._run_cmd('docker desktop update --quiet')
 
 
 @docker.command()
@@ -777,13 +558,70 @@ def _version(return_json=False):
     cmp = data['Server']['Components']
     vers = [c['Version'] for c in cmp if c['Name'] == 'Engine'][0]
     return Version(vers)
-    # return data['Server']['Components']['Name'].split()[2]
 
 @docker.command()
 @crash_report
 def version():
     """Get Docker Desktop version"""
     utils.echo(_version())
+
+
+
+def _run(image_url):
+
+    if utils.system() == "Windows":
+        popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
+    else:
+        popen_kwargs = dict(start_new_session = True)
+
+    ssh_mount = Path.home() / '.ssh'
+    anaconda_mount = Path.home() / '.anaconda'
+    cwd_mount_source = Path.cwd()
+    cwd_mount_target = Path.cwd()
+    ssh_mount.mkdir(exist_ok=True)
+    anaconda_mount.mkdir(exist_ok=True)
+    if utils.system() == 'Windows':
+        ssh_mount = PureWindowsPath(ssh_mount)
+        anaconda_mount = PureWindowsPath(anaconda_mount)
+        cwd_mount_source = PureWindowsPath(cwd_mount_source)
+        cwd_mount_target = PurePosixPath(cwd_mount_source)
+        parts = cwd_mount_target.parts
+        assert ':' in parts[0]
+        cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
+
+    port = '8888'
+    occupied_ports = utils.jupyter_ports_in_use()
+    if occupied_ports:
+        utils.echo(f"Default host port {port} is in use.", nl=False)
+        port = str(max(occupied_ports) + 1)
+        utils.echo(f"Using port {port} instead.")
+
+    cmd = (
+        # rf"docker run --memory {CONTAINER_MEMORY_LIMIT} --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
+        rf"docker run --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
+        rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
+        rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
+        rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
+        rf" -w {cwd_mount_target} -i -p 8050:8050 -p {port}:8888 {image_url}:latest"
+    )
+    logger.debug(cmd)
+
+    cmd = cmd.split()
+    cmd[0] = shutil.which(cmd[0])
+    docker_run_p = Popen(cmd, 
+                        stdout=DEVNULL, stderr=DEVNULL, 
+                        **popen_kwargs)
+    return docker_run_p, port
+
+@click.argument("url")
+@docker.command()
+@ensure_docker_running
+@crash_report
+def run(url):
+    """
+    Run container from image. Use for testing that the image runs correctly.    
+    """
+    _run(url)
 
 
 ###########################################################
@@ -798,7 +636,8 @@ def prune():
 
 
 def _prune_networks():
-    _command(f'docker container prune --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"')
+    # _command(f'docker container prune --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"')
+    utils._run_cmd(f'docker network prune --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"')
 
 @prune.command('networks')
 @crash_report
@@ -810,7 +649,8 @@ def prune_networks():
 
 
 def _prune_containers():
-    _command(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+    # _command(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+    utils._run_cmd(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @prune.command('containers')
 @crash_report
@@ -822,7 +662,8 @@ def prune_containers():
 
 
 def _prune_images():
-    _command(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+    # _command(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+    utils._run_cmd(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @prune.command('images')
 @crash_report
@@ -844,7 +685,8 @@ def prune_images():
 
 
 def _prune_all():
-    _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+    # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+    utils._run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @prune.command('all')
 @crash_report
@@ -879,63 +721,6 @@ def prune_all():
 #     _build(directory, tag)
 
 
-def _run(image_url):
-
-    if utils.system() == "Windows":
-        popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
-    else:
-        popen_kwargs = dict(start_new_session = True)
-
-    ssh_mount = Path.home() / '.ssh'
-    anaconda_mount = Path.home() / '.anaconda'
-    cwd_mount_source = Path.cwd()
-    cwd_mount_target = Path.cwd()
-    ssh_mount.mkdir(exist_ok=True)
-    anaconda_mount.mkdir(exist_ok=True)
-    if utils.system() == 'Windows':
-        ssh_mount = PureWindowsPath(ssh_mount)
-        anaconda_mount = PureWindowsPath(anaconda_mount)
-        cwd_mount_source = PureWindowsPath(cwd_mount_source)
-        cwd_mount_target = PurePosixPath(cwd_mount_source)
-        parts = cwd_mount_target.parts
-        assert ':' in parts[0]
-        cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
-
-    port = 8888
-    occupied_ports = utils.jupyter_ports_in_use()
-    if occupied_ports:
-        utils.echo(f"Default host port {port} is in use.", nl=False)
-        port = str(max(occupied_ports) + 1)
-        utils.echo(f"Using port {port} instead.")
-
-    cmd = (
-        # rf"docker run --rm --pull=always --label dk.au.gitlab.group={GITLAB_GROUP}"
-        # rf"docker run --memory {CONTAINER_MEMORY_LIMIT} --label dk.au.gitlab.group={GITLAB_GROUP}"
-        rf"docker run --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
-        rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
-        rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
-        rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
-        rf" -w {cwd_mount_target} -i -p 8050:8050 -p {port}:8888 {image_url}:latest"
-    )
-    logger.debug(cmd)
-
-    cmd = cmd.split()
-    cmd[0] = shutil.which(cmd[0])
-    docker_run_p = Popen(cmd, 
-                        stdout=DEVNULL, stderr=DEVNULL, 
-                        **popen_kwargs)
-    return docker_run_p, port
-
-@click.argument("url")
-@docker.command()
-@ensure_docker_running
-@crash_report
-def run(url):
-    """
-    Run container from image. Use for testing that the image runs correctly.    
-    """
-    _run(url)
-
 
 ###########################################################
 # docker kill subcommands
@@ -949,7 +734,7 @@ def kill():
 
 def _kill_container(container_id):
     """Kill a running container."""
-    cmd = utils._cmd(f'docker kill {container_id}', log=False)
+    cmd = utils._cmd(f'docker kill {container_id}')
     Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
 
 # def kill_container(container_id):
@@ -961,29 +746,6 @@ def _kill_docker_processes():
     """
     Kills docker processes using SIGTERM AND SIGKILL.
     """
-    # for process in psutil.process_iter():
-    #     name = process.name().lower()
-    #     if 'docker' in name and 'franklin' not in name:
-    #         pid = psutil.Process(process.pid)
-    #         print(pid)
-    #         if not 'SYSTEM' in pid.username():
-    #             process.terminate()
-    #             process.wait(10)
-
-    # for process in psutil.process_iter():
-    #     name = process.name().lower()
-    #     if 'docker' in name and 'franklin' not in name:
-    #         pid = psutil.Process(process.pid)
-    #         print(pid)
-    #         if not 'SYSTEM' in pid.username():
-    #             try:
-    #                 process.kill()
-    #                 process.wait(3)
-    #             except psutil.AccessDenied as e:
-    #                 print('could not kill:', name)
-    #             except psutil.NoSuchProcess as e:
-    #                 print('no such process:', name)
-
     for process in psutil.process_iter():
         name = process.name().lower()
         if 'docker' in name and 'franklin' not in name:
@@ -999,18 +761,6 @@ def _kill_docker_processes():
                 child.kill()  # unfriendly termination
 
 
-
-    # sascha says docker seems to be running fine even when franklin says docker is not 
-    # working after course selection.       
-
-
-    # utils.echo('Docker Desktop needs a reboot.')
-    # _restart()
-    # utils.dummy_progressbar(10, label='Restarting.')
-    # if _status() == 'running':
-    #     return
-
-    # _stop()
 def _shutdown_wsl():
     """
     Shutdown WSL
@@ -1022,6 +772,7 @@ def _shutdown_wsl():
         if _status() == 'running':
             return
         
+
 def _shutdown_wsl_docker_distribution():
     """
     Kills docker processes using SIGTERM AND SIGKILL.
@@ -1050,47 +801,8 @@ def _kill_selected_containers(container_id=None):
 
 
 ###########################################################
-# docker prune subcommands
-###########################################################
-
-# @click.option("--containers/--no-containers", default=True, help="Prune containers")
-# @click.option("--volumes/--no-volumes", default=True, help="Prune volumes")
-# @docker.command()
-# def prune(containers, volumes):
-#     """Prune docker containers and volumes."""
-#     if containers and volumes:
-#         _docker.prune_all()
-#     elif containers:
-#         _docker.prune_containers()
-#     elif volumes:
-#         _docker.prune_volumes()
-
-# @click.option("--force/--no-force", default=False, help="Force removal")
-# @click.argument('image')
-# @docker.command()
-# def remove(image, force):
-#     """Remove docker image.
-    
-#     IMAGE is the id of the image to remove.
-#     """
-
-#     _docker.rm_image(image, force)
-
-# @docker.command()
-# def cleanup():
-#     """Cleanup everything."""
-
-#     for image in _docker.images():
-#         if image['Repository'].startswith(REGISTRY_BASE_URL):
-#             _docker.rm_image(image['ID'])
-#     _docker.prune_containers()
-#     _docker.prune_volumes()
-#     _docker.prune_all()
-
-###########################################################
 # docker show subcommands
 ###########################################################
-
 
 @docker.group(cls=AliasedGroup)
 @crash_report
@@ -1100,7 +812,9 @@ def show():
 
 
 def _containers(return_json=False):
-    return _command('docker ps --all --size', return_json=return_json)
+    # return _command('docker ps --all --size', return_json=return_json)
+    output = utils._run_cmd('docker ps --all --size --format json')
+    return [json.loads(line) for line in output.strip().splitlines()]
 
 @show.command()
 @ensure_docker_running
@@ -1113,8 +827,10 @@ def containers():
 
 def _storage(verbose=False):
     if verbose:
-        return _command(f'docker system df -v')
-    return _command(f'docker system df')
+        # return _command(f'docker system df -v')
+        return utils._run_cmd('docker system df -v')
+    # return _command(f'docker system df')
+    return utils._run_cmd(f'docker system df')
 
 @click.option("--verbose/--no-verbose", default=False, help="More detailed output")
 @show.command()
@@ -1126,7 +842,10 @@ def storage(verbose):
 
 
 def _logs(return_json=False):
-    _command('docker desktop logs', return_json=return_json)
+    # _command('docker desktop logs', return_json=return_json)
+    output = utils._run_cmd('docker desktop logs --format json')
+    return [json.loads(line) for line in output.strip().splitlines()]
+
 
 @show.command()
 @crash_report
@@ -1135,7 +854,9 @@ def logs():
 
 
 def _volumes(return_json=False):
-    return _command('docker volume ls', return_json=return_json)
+    # return _command('docker volume ls', return_json=return_json)
+    output = utils._run_cmd('docker volume ls --format json')
+    return [json.loads(line) for line in output.strip().splitlines()]
 
 @show.command()
 @ensure_docker_running
@@ -1146,7 +867,9 @@ def volumes():
 
 
 def _images(return_json=False):
-    return _command('docker images', return_json=return_json)
+    # return _command('docker images', return_json=return_json)
+    output = utils._run_cmd('docker images --format json')
+    return [json.loads(line) for line in output.strip().splitlines()]
 
 @show.command()
 @ensure_docker_running
@@ -1161,7 +884,6 @@ def images():
 # docker remove subcommands
 ###########################################################
 
-
 @docker.group(cls=AliasedGroup)
 @ensure_docker_running
 @crash_report
@@ -1172,9 +894,12 @@ def remove():
 
 def _rm_container(container, force=False):
     if force:
-        _command(f'docker rm -f {container}', silent=True)
+        # _command(f'docker rm -f {container}', silent=True)
+        utils._run_cmd(f'docker rm -f {container}', check=False)
+
     else:
-        _command(f'docker rm {container}', silent=True)
+        # _command(f'docker rm {container}', silent=True)
+        utils._run_cmd(f'docker rm {container}', check=False)
 
 @remove.command('containers')
 @click.argument("container_id", required=False)
@@ -1190,9 +915,11 @@ def _remove_selected_containers(container_id=None):
 
 def _rm_image(image, force=False):
     if force:
-        _command(f'docker image rm -f {image}', silent=True)
+        # _command(f'docker image rm -f {image}', silent=True)
+        utils._run_cmd(f'docker image rm -f {image}', check=False)
     else:
-        _command(f'docker image rm {image}', silent=True)
+        # _command(f'docker image rm {image}', silent=True)
+        utils._run_cmd(f'docker image rm {image}', check=False)
 
 @remove.command('images')
 @click.argument("image_id", required=False)
@@ -1206,52 +933,15 @@ def _remove_selected_images(image_id=None):
     _image_list(callback=_rm_image)
 
 
-    # img = _images(return_json=True)
-    # if not img:
-    #     click.echo("\nNo images to remove\n")
-    #     return
-
-    # course_names = get_course_names()
-    # exercise_names = {}
-
-    # # header = ['Course', 'Exercise', 'Created', 'Size', 'ID']
-    # header = ['Course', 'Exercise', 'Age', 'Size']
-    # table = []
-    # ids = []
-    # prefix = f'{REGISTRY_BASE_URL}/{GITLAB_GROUP}'
-    # for img in _images(return_json=True):
-    #     if img['Repository'].startswith(prefix):
-
-    #         rep = img['Repository'].replace(prefix, '')
-    #         if rep.startswith('/'):
-    #             rep = rep[1:]
-    #         coursedocker_config()_label, exercise_label = rep.split('/')
-    #         if exercise_label not in exercise_names:
-    #             exercise_names.update(get_exercise_names(course_label))
-    #         course_name = course_names[course_label]
-    #         exercise_name = exercise_names[exercise_label]
-    #         course_field = course_name
-    #         exercise_field = exercise_name
-    #         # course_field = course_name[:30]+'...' if len(course_name) > 33 else course_name
-    #         # exercise_field = exercise_name[:30]+'...' if len(exercise_name) > 33 else exercise_name
-    #         # table.append((course_field, exercise_field , img['CreatedSince'], img['Size'], img['ID']))
-    #         ids.append(img['ID'])
-    #         table.append((course_field, exercise_field , img['CreatedSince'].replace(' ago', ''), img['Size'].replace("GB", " GB")))
-
-    # utils.secho("\nChoose images to remove:", fg='green')
-
-    # for img_id in _table(header, table, ids, min_widths=[None, None, 9, 9]):
-    #     _rm_image(img_id, force=True)
-
-
 @remove.command('everything')
 @crash_report
 def _remove_everything():
-    _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+    # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+    utils._run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
              
 
 ###########################################################
-# docker remove subcommands
+# docker config subcommands
 ###########################################################
 
 class docker_config():
