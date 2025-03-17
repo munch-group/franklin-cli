@@ -70,9 +70,17 @@ class CleanupAndTerminate(Exception):
     pass
 
 
+class Crash(Exception):
+    def __init__(self, message, errors):            
+        super().__init__(message)
+            
+        self.message = errors
+        self.errors = errors
+
+
 def _crash_email():
 
-    if os.environ.get('NOEMAIL', '0'):
+    if os.environ.get('DEVEL', None):
         return
 
     preamble = ("This email is prefilled with information of the crash you can send to the maintainer of Franklin.").upper()
@@ -105,11 +113,22 @@ def crash_report(func):
         try:
             ret = func(*args, **kwargs)
         except KeyboardInterrupt:
+            logger.exception('KeyboardInterrupt')
+            raise
+        except utils.Crash as e:
+            logger.exception('Raised: Crash')
+            utils.secho(f"Franklin encountered an unexpected problem.")
+            utils.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
+            utils.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
+            if platform.system() == 'Windows':
+                utils.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
+            _crash_email()
             raise
         except SystemExit:
             raise
         except click.Abort:
-            raise
+            logger.exception('Raised: Abort')
+            raise        
         except:
             logger.exception('CRASH')
             utils.secho(f"Franklin encountered an unexpected problem.")
@@ -205,8 +224,9 @@ def _check_window_size():
 
 
 def dummy_progressbar(seconds, label='Hang on...', **kwargs):
-    kwargs.update(PG_OPTIONS)
-    with click.progressbar(length=100, label='', **kwargs) as bar:
+    pg_options = PG_OPTIONS.copy()
+    pg_options.update(kwargs)
+    with click.progressbar(length=100, label=label, **pg_options) as bar:
         for i in range(100):
             time.sleep(seconds/100)
             bar.update(1)
@@ -325,7 +345,7 @@ def _check_free_disk_space():
         utils.secho(f" {REQUIRED_GB_FREE_DISK:.1f} Gb", nl=False, bold=True)
         utils.echo(f" of free disk space to run.")
         # fake progress bar to make the student aware that this check is important
-        with click.progressbar(length=100, label='Checking disk space', **PG_OPTIONS) as bar:
+        with click.progressbar(length=100, label='Checking disk space:', **PG_OPTIONS) as bar:
             for i in range(100):
                 time.sleep(0.01)
                 bar.update(1)

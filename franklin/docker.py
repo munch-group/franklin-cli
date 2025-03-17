@@ -15,12 +15,14 @@ import sysconfig
 from functools import wraps
 from . import utils
 from .utils import AliasedGroup, crash_report, _cmd
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH, WRAP_WIDTH, DOCKER_SETTINGS
+from .config import REGISTRY_BASE_URL, GITLAB_GROUP, REQUIRED_GB_FREE_DISK, PG_OPTIONS, MIN_WINDOW_WIDTH, WRAP_WIDTH, DOCKER_SETTINGS, CONTAINER_MEMORY_LIMIT
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
 from pathlib import Path, PureWindowsPath, PurePosixPath
 from packaging.version import Version, InvalidVersion
+
+from subprocess import check_call, check_output, Popen, PIPE, DEVNULL, STDOUT, TimeoutExpired, CalledProcessError
 
 os.environ['DOCKER_CLI_HINTS'] = 'false'
 
@@ -89,14 +91,15 @@ def _install_docker_desktop():
         utils.echo()
         utils.echo('  1. Open the Downloads folder.', **kwargs)
         utils.echo('  2. Double-click the "Docker Desktop Installer.exe" file.', **kwargs)
-        utils.echo('  3. Follow the installation procedure.', **kwargs)
+        utils.echo('  3. Follow the default installation procedure.', **kwargs)
         utils.echo('  4. When the installation is completed, open Docker Desktop.', **kwargs)
         utils.echo('  5. Accept the Docker Desktop license agreement')
         utils.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
         utils.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
         utils.echo('  8. Wait while it says "Starting the Docker Engine..."')
         utils.echo('  9. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
-        utils.echo('  10. Return to this window and start Franklin the same way as you did before.', **kwargs)
+        utils.echo('  10. Quit the Docker application.', **kwargs)
+        utils.echo('  11. Return to this window and start Franklin the same way as you did before.', **kwargs)
         utils.echo()
         utils.echo('  Press Enter now to close Franklin.')
         utils.echo()
@@ -138,6 +141,7 @@ def _install_docker_desktop():
                 size = output.split()[0]
                 if size == prev_size:
                     break
+                print(prev_size, size)
                 prev_size = size
             time.sleep(5)
 
@@ -157,57 +161,152 @@ def _install_docker_desktop():
         utils.echo(" - Removing installer...")
         os.remove(installer)
 
-        utils.echo(" - Setting up configuration defaults...")
-        _config_reset()
-        _config_fit()
-
+        kwargs = dict(subsequent_indent=5)
+        utils.echo()
+        utils.echo()
+        utils.secho(f"How to set up Docker Desktop on Mac:", fg='green')
+        utils.secho('='*WRAP_WIDTH, fg='green')
+        utils.echo()
+        utils.echo("  Please follow this exact sequence of steps:")
+        utils.echo()
+        utils.echo('  1. Open the Docker application from your Applications folder', **kwargs)
+        utils.echo('  3. Follow the default installation procedure.', **kwargs)
+        utils.echo('  4. When the installation is completed, open Docker Desktop.', **kwargs)
+        utils.echo('  5. Accept the Docker Desktop license agreement')
+        utils.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
+        utils.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
+        utils.echo('  8. Wait while it says "Starting the Docker Engine..."')
+        utils.echo('  9. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
+        utils.echo('  10. Quit the Docker application.', **kwargs)
+        utils.echo('  11. Return to this window and start Franklin the same way as you did before.', **kwargs)
+        utils.echo()
+        utils.echo('  Press Enter now to close Franklin.')
+        utils.echo()
+        utils.echo('='*WRAP_WIDTH, fg='green')
+        click.pause('')
+        sys.exit(0)
 
 
 #  start /w "" "Docker Desktop Installer.exe" uninstall
 #  /Applications/Docker.app/Contents/MacOS/uninstall
 
-def _start_docker_desktop():
-    if not _status() == 'running':
-        utils.logger.debug('Starting/restarting Docker Desktop')
-        _restart()
-    for w in range(10):
-        if _status() == 'running':                
-            break
-        time.sleep(1)
-    utils.echo()
 
 
 def _failsafe_start_docker_desktop():
 
-    # ###########################################
-    # _kill_docker_desktop()
-    # _start_docker_desktop()
-    # ###########################################
-    if shutil.which('docker') and _status() == 'running':
-        return
-
     if not shutil.which('docker'):
-         _install_docker_desktop()
-    
-    _start_docker_desktop()
+         _install_docker_desktop()    
 
-    for _ in range(10):
-        time.sleep(5)
-        if _status() == 'running':
-            break
-    else:
-        utils.logger.debug('Killing Docker Desktop')
-        _kill_docker_desktop()
-        utils.logger.debug('Starting Docker Desktop')
-        _start_docker_desktop()
+    _start()
+
+    utils.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
 
     if not _status() == 'running':
-        utils.logger.debug('Could not start Docker Desktop. Please start Docker Desktop manually')
         utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
         sys.exit(1)
 
     if platform.system() == 'Darwin':
         _update_docker()
+
+###########################
+
+    # # _kill_docker_processes()
+
+    # # _stop()
+    # # _kill_docker_processes()
+    # # _shutdown_wsl_docker_distribution()
+    # # _shutdown_wsl()
+    # # _start()
+
+    # if not _status() == 'running':
+    #     # if start does not timeout
+    #     if _start():
+    #         for w in range(3):
+    #             time.sleep(1)
+    #             if _status() == 'running':                
+    #                 return
+    #             utils.logger.debug('Waited')  
+        
+    # # _stop()
+    # _kill_docker_processes()
+    # # _shutdown_wsl_docker_distribution()
+    # # _shutdown_wsl()
+    # _start()
+
+
+    # if not _status() == 'running':
+    #     # if restart does not timeout
+    #     if _restart():
+    #         for w in range(3):
+    #             time.sleep(1)
+    #             if _status() == 'running':                
+    #                 return
+    #             utils.logger.debug('Waited')  
+
+
+    # if not _status() == 'running':
+    #     utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
+    #     sys.exit(1)
+
+
+############################################
+
+    # if not _status() == 'running':
+    #     _kill_docker_processes()
+    #     _start()
+    #     for w in range(10):
+    #         time.sleep(5)
+    #         if _status() == 'running':                
+    #             return
+    #         utils.logger.debug('Waited 5')     
+
+    # if not _status() == 'running':
+    #     _shutdown_wsl_docker_distribution()
+    #     for w in range(10):
+    #         time.sleep(2)
+    #         if _status() == 'running':                
+    #             return
+    #         utils.logger.debug('Waited 5')   
+
+    # if not _status() == 'running':
+    #     _shutdown_wsl()
+    #     for w in range(10):
+    #         time.sleep(2)
+    #         if _status() == 'running':                
+    #             return
+    #         utils.logger.debug('Waited 5') 
+
+    # _kill_docker_processes()
+
+    # if not _status() == 'running':
+    #     # if start does not timeout
+    #     if _start():
+    #         for w in range(10):
+    #             time.sleep(5)
+    #             if _status() == 'running':                
+    #                 return
+    #             utils.logger.debug('Waited 5')  
+
+    # if not _status() == 'running':
+    #     if _restart():
+    #         # if restart does not timeout
+    #         for _ in range(10):
+    #             time.sleep(5)
+    #             if _status() == 'running':
+    #                 return
+    #             utils.logger.debug('Waited 5')
+    # else:
+    #     utils.logger.debug('Killing Docker Desktop')
+    #     _kill_docker_processes()
+    #     utils.logger.debug('Starting Docker Desktop')
+    #     _start()
+
+    # if not _status() == 'running':
+    #     utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
+    #     sys.exit(1)
+
+    # if platform.system() == 'Darwin':
+    #     _update_docker()
 
 def _run_container(image_url):
     docker_run_p = _run(image_url)
@@ -224,28 +323,40 @@ def _run_container(image_url):
 
 def _failsafe_run_container(image_url):
 
-    # ###########################################
-    # _kill_docker_desktop()
-    # _start_docker_desktop()
-    # ###########################################
-    try:
-        _run_container(image_url)
-    except:
-        _kill_docker_desktop()
-        _start_docker_desktop()    
 
-    docker_run_p = _run(image_url)
-    run_container_id = None
-    for _ in range(10):
-        time.sleep(5)    
-        for cont in _containers(return_json=True):
-            if cont['Image'].startswith(image_url):
-                run_container_id  = cont['ID']
-        if run_container_id is not None:
-            return run_container_id, docker_run_p
-    else:
-        utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
-        sys.exit(1)
+# docker: Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint adoring_dirac (16a673f3a2eecddfc1c6af4227a54fcec8588350c8a7a0dc22fe94dc2a34bb60): Bind for 0.0.0.0:8050 failed: port is already allocated
+
+    try:
+        return _run_container(image_url)
+    except:
+        _prune_all()    
+        _restart()    
+        return _run_container(image_url)
+
+
+
+    # # ###########################################
+    # # _kill_docker_processes()
+    # # _start_docker_desktop()
+    # # ###########################################
+    # try:
+    #     _run_container(image_url)
+    # except:
+    #     _kill_docker_processes()
+    #     _start()    
+
+    # docker_run_p = _run(image_url)
+    # run_container_id = None
+    # for _ in range(10):
+    #     time.sleep(5)    
+    #     for cont in _containers(return_json=True):
+    #         if cont['Image'].startswith(image_url):
+    #             run_container_id  = cont['ID']
+    #     if run_container_id is not None:
+    #         return run_container_id, docker_run_p
+    # else:
+    #     utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
+    #     sys.exit(1)
 
 
         # utils.echo('Docker not responding...', fg='red')
@@ -293,7 +404,7 @@ def _failsafe_run_container(image_url):
     #     bar.update(ticks)
 
     #     if platform.system() == "Windows":
-    #         _kill_docker_desktop()
+    #         _kill_docker_processes()
     #         _failsafe_start_docker_desktop()
 
 
@@ -540,7 +651,18 @@ def pull(url):
 
 
 def _restart():
-    _command(('docker desktop restart'), silent=True)
+    cmd = 'docker desktop restart'
+    timeout=40    
+    try:
+        logger.debug(cmd)
+        output = check_output(utils._cmd(cmd), timeout=timeout).decode()
+    except TimeoutExpired as e:
+        logger.debug(f"Timeout of {timeout} seconds exceeded.")
+        return False
+    except subprocess.CalledProcessError as e:        
+        logger.debug(e.output.decode())
+        raise click.Abort()    
+    return True
 
 @docker.command()
 @crash_report
@@ -550,7 +672,20 @@ def restart():
 
 
 def _start():
-    _command('docker desktop start', silent=True)
+    cmd = 'docker desktop start'
+    timeout=40    
+    try:
+        logger.debug(cmd)
+        output = check_output(utils._cmd(cmd), timeout=timeout).decode()
+    except TimeoutExpired as e:
+        logger.debug(f"Timeout of {timeout} seconds exceeded.")
+        return False
+    except subprocess.CalledProcessError as e:        
+        logger.debug(e.output.decode())
+        raise click.Abort()    
+    return True
+
+    # _command('docker desktop start', silent=True)
 
 @docker.command()
 @crash_report
@@ -663,6 +798,18 @@ def prune():
     pass
 
 
+def _prune_networks():
+    _command(f'docker container prune --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"')
+
+@prune.command('networks')
+@crash_report
+def prune_networks():
+    """
+    Remove networks not used by at least one container.
+    """
+    _prune_networks()
+
+
 def _prune_containers():
     _command(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
 
@@ -757,7 +904,8 @@ def _run(image_url):
 
     cmd = (
         # rf"docker run --rm --pull=always --label dk.au.gitlab.group={GITLAB_GROUP}"
-        rf"docker run --label dk.au.gitlab.group={GITLAB_GROUP}"
+        # rf"docker run --memory {CONTAINER_MEMORY_LIMIT} --label dk.au.gitlab.group={GITLAB_GROUP}"
+        rf"docker run --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
         rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
         rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
         rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
@@ -803,37 +951,76 @@ def _kill_container(container_id):
 
 
 # @docker.command('kill')
-@crash_report
-def _kill_docker_desktop():
+def _kill_docker_processes():
     """
-    Kills Docker desktop. For situations where it cannot be stopped normally.
+    Kills docker processes using SIGTERM AND SIGKILL.
     """
+    # for process in psutil.process_iter():
+    #     name = process.name().lower()
+    #     if 'docker' in name and 'franklin' not in name:
+    #         pid = psutil.Process(process.pid)
+    #         print(pid)
+    #         if not 'SYSTEM' in pid.username():
+    #             process.terminate()
+    #             process.wait(10)
 
-            
-    # if docker is not running, try to kill other docker-related processes
-    # then try to start docker
-    # if it still does not work, 
+    # for process in psutil.process_iter():
+    #     name = process.name().lower()
+    #     if 'docker' in name and 'franklin' not in name:
+    #         pid = psutil.Process(process.pid)
+    #         print(pid)
+    #         if not 'SYSTEM' in pid.username():
+    #             try:
+    #                 process.kill()
+    #                 process.wait(3)
+    #             except psutil.AccessDenied as e:
+    #                 print('could not kill:', name)
+    #             except psutil.NoSuchProcess as e:
+    #                 print('no such process:', name)
+
+    for process in psutil.process_iter():
+        name = process.name().lower()
+        if 'docker' in name and 'franklin' not in name:
+
+            def on_terminate(proc):
+                print("process {} terminated with exit code {}".format(proc, proc.returncode))
+
+            children = psutil.Process(process.pid).children(recursive=True)
+            for child in children:
+                child.terminate()  # friendly termination
+            _, still_alive = psutil.wait_procs(children, timeout=3, callback=on_terminate)
+            for child in still_alive:
+                child.kill()  # unfriendly termination
+
+
 
     # sascha says docker seems to be running fine even when franklin says docker is not 
     # working after course selection.       
 
 
-    utils.echo('Docker Desktop needs a reboot.')
-    logger.debug('Trying restart Docker Desktop nicely')
-    _restart()
-    utils.dummy_progressbar(10, label='Restarting.')
-    if _status() == 'running':
-        return
+    # utils.echo('Docker Desktop needs a reboot.')
+    # _restart()
+    # utils.dummy_progressbar(10, label='Restarting.')
+    # if _status() == 'running':
+    #     return
 
-
+    # _stop()
+def _shutdown_wsl():
+    """
+    Shutdown WSL
+    """
     if platform.system() == 'Windows':
-        utils.echo('Docker Desktop WSL distribution needs a reboot.')
         logger.debug('Restarting WSL Docker Desktop distribution.')
         subprocess.check_call('wsl -t docker-desktop')
         utils.dummy_progressbar(10, label='Restarting.')
         if _status() == 'running':
             return
         
+def _shutdown_wsl_docker_distribution():
+    """
+    Kills docker processes using SIGTERM AND SIGKILL.
+    """
+    logger.debug('Restarting WSL Docker Desktop distribution.')
     if platform.system() == 'Windows':
         utils.echo('WSL needs to restart.')
         logger.debug('Restarting WSL')
@@ -841,16 +1028,6 @@ def _kill_docker_desktop():
         utils.dummy_progressbar(10, label='Restarting.')
         if _status() == 'running':
             return    
-        logger.debug('Restarting WSL Docker Desktop distribution.')
-
-
-    # for process in psutil.process_iter():
-    #     name = process.name().lower()
-    #     if 'docker' in name and 'franklin' not in name:
-    #         pid = psutil.Process(process.pid)
-    #         if not 'SYSTEM' in pid.username():
-    #             process.kill()
-         
 
 
 @kill.command('containers')
@@ -1042,7 +1219,7 @@ def _remove_selected_images(image_id=None):
     #         rep = img['Repository'].replace(prefix, '')
     #         if rep.startswith('/'):
     #             rep = rep[1:]
-    #         course_label, exercise_label = rep.split('/')
+    #         coursedocker_config()_label, exercise_label = rep.split('/')
     #         if exercise_label not in exercise_names:
     #             exercise_names.update(get_exercise_names(course_label))
     #         course_name = course_names[course_label]
@@ -1167,11 +1344,13 @@ def _config_reset(variable=None):
 @click.argument("variable", required=False)
 @crash_report
 def config_reset(variable):
-    return config_reset(variable=variable)
+    return _config_reset(variable=variable)
 
 
 def _config_fit():
     """Sets resource limits to reasonable values given machine resources"""
+
+    _config_reset()
 
     nr_cpu = psutil.cpu_count(logical=True)
     _config_set('Cpus', nr_cpu // 2)
@@ -1184,3 +1363,6 @@ def _config_fit():
 @crash_report
 def config_fit():
     return _config_fit()
+
+# uninstall
+#/Applications/Docker.app/Contents/MacOS/uninstall

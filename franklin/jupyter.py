@@ -68,12 +68,18 @@ def launch_exercise():
         c = click.getchar()
         click.echo()
         if c.upper() == 'Q':
-            utils.secho('Shutting down JupyterLab', fg='yellow') # FIXME: change to utils.secho and no logging call
+
+            utils.secho('Shutting down container', fg='red') 
+            sys.stdout.flush()
             _docker._kill_container(run_container_id)
             docker_run_p.terminate()
             docker_run_p.wait()
-            time.sleep(2) # for the impression of a shutdown process even when it is fast
-            utils.secho('Jupyter server stopped', fg='red')
+            utils.secho('Shutting down Docker Desktop', fg='yellow') 
+            sys.stdout.flush()
+            _docker._stop()
+            utils.secho('Service has stopped.', fg='green')
+            utils.echo()
+            utils.secho('Jupyter is not longer running and you can close the tab in your browser.')
             logging.shutdown()
             break
 
@@ -93,7 +99,7 @@ def jupyter():
                 help="Override check for package updates")
 @jupyter.command()
 @crash_report
-def select(allow_subdirs_at_your_own_risk, update):
+def run(allow_subdirs_at_your_own_risk, update):
 
     utils._check_window_size()
 
@@ -112,7 +118,13 @@ def select(allow_subdirs_at_your_own_risk, update):
     utils.echo("Rosalind D. Franklin", center=True)
     utils.echo()
 
+    with _docker.docker_config() as cfg:
+        if not cfg.settings:
+            # user settings emtpy
+            _docker._config_fit()
+
     utils._check_internet_connection()
+    utils.logger.debug('Starting Docker Desktop')
     _docker._failsafe_start_docker_desktop()
     # click.clear()
     # click.echo('\n'*int(MIN_WINDOW_HEIGHT/2))
@@ -134,11 +146,12 @@ def select(allow_subdirs_at_your_own_risk, update):
 
     _update_client(update)
 
+    utils.secho('Starting container:', fg='green')
     launch_exercise()    
 
 
 
-    import threading
+# import threading
 
 # class KeyboardThread(threading.Thread):
 
