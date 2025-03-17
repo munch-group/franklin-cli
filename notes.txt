@@ -100,8 +100,8 @@
 
 
 
-# >>> import platform
-# >>> platform.system()
+# >>> from .utils import platform
+# >>> utils.system()
 # 'Darwin'
 # >>> platform.processor()
 # 'i386'

@@ -2,7 +2,6 @@ import sys
 import os
 import re
 import logging
-import platform
 import shlex
 import time
 import webbrowser
@@ -35,10 +34,10 @@ def launch_exercise():
     _docker._pull(image_url)
     utils.echo()    
 
-    run_container_id, docker_run_p = _docker._failsafe_run_container(image_url)
+    run_container_id, docker_run_p, port = _docker._failsafe_run_container(image_url)
 
     cmd = f"docker logs --follow {run_container_id}"
-    if platform.system() == "Windows":
+    if utils.system() == "Windows":
         popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
     else:
         popen_kwargs = dict(start_new_session = True)
@@ -52,6 +51,8 @@ def launch_exercise():
         match= re.search(r'https?://127.0.0.1\S+', line)
         if match:
             token_url = match.group(0)
+            # replace port in token_url
+            token_url = re.sub(r'(?<=127.0.0.1:)\d+', port, token_url)
             docker_log_p.stdout.close()
             docker_log_p.terminate()
             docker_log_p.wait()
@@ -112,16 +113,17 @@ def run(allow_subdirs_at_your_own_risk, update):
     """
     for line in s.splitlines():
         utils.secho(line, nowrap=True, center=True, fg='green', log=False)
-        logger.debug("################ FRANKLIN ################")
+    logger.debug("################ STARTING FRANKLIN ################")
 
     utils.echo('"Science and everyday life cannot and should not be separated"', center=True)
     utils.echo("Rosalind D. Franklin", center=True)
     utils.echo()
 
-    with _docker.docker_config() as cfg:
-        if not cfg.settings:
-            # user settings emtpy
-            _docker._config_fit()
+    if not allow_subdirs_at_your_own_risk:
+        for x in os.listdir(os.getcwd()):
+            if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
+                utils.secho("\n  Please run the command in a directory without any sub-directories.\n", fg='red')
+                sys.exit(1)
 
     utils._check_internet_connection()
     utils.logger.debug('Starting Docker Desktop')
@@ -133,11 +135,6 @@ def run(allow_subdirs_at_your_own_risk, update):
     # TODO: _docker.check_no_other_exercise_container_running()
     # TODO: _docker.check_no_other_local_jupyter_running()
 
-    if not allow_subdirs_at_your_own_risk:
-        for x in os.listdir(os.getcwd()):
-            if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
-                utils.secho("\n  Please run the command in a directory without any sub-directories.\n", fg='red')
-                sys.exit(1)
     # dirs_in_cwd = any(os.path.isdir(x) ))
     # if dirs_in_cwd and not allow_subdirs_at_your_own_risk:
     #     utils.secho("\n  Please run the command in a directory without any sub-directories.", fg='red')

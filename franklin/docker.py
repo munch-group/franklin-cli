@@ -1,4 +1,3 @@
-import platform
 import subprocess
 from subprocess import check_output, Popen, PIPE, STDOUT, DEVNULL
 import json
@@ -31,7 +30,7 @@ def _install_docker_desktop():
     architecture = sysconfig.get_platform().split('-')[-1]
     assert architecture# in ['amd64', 'arm64', 'aarch64', 'x86_64']
 
-    operating_system = platform.system()
+    operating_system = utils.system()
 
     if operating_system == 'Windows':
         if architecture == 'arm64':
@@ -79,7 +78,7 @@ def _install_docker_desktop():
                 file.write(chunk)
                 bar.update(1)
     
-    if platform.system() == 'Windows':
+    if utils.system() == 'Windows':
 
         kwargs = dict(subsequent_indent=5)
         utils.echo()
@@ -112,7 +111,7 @@ def _install_docker_desktop():
         # utils.echo(" - Removing installer...")
         # os.remove(installer)
 
-    elif platform.system() == 'Darwin':
+    elif utils.system() == 'Darwin':
         cmd = utils._cmd(f'hdiutil attach -nobrowse -readonly {installer}')
         output = check_output(cmd).decode().strip()
 
@@ -205,7 +204,7 @@ def _failsafe_start_docker_desktop():
         utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
         sys.exit(1)
 
-    if platform.system() == 'Darwin':
+    if utils.system() == 'Darwin':
         _update_docker()
 
 ###########################
@@ -305,11 +304,11 @@ def _failsafe_start_docker_desktop():
     #     utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
     #     sys.exit(1)
 
-    # if platform.system() == 'Darwin':
+    # if utils.system() == 'Darwin':
     #     _update_docker()
 
 def _run_container(image_url):
-    docker_run_p = _run(image_url)
+    docker_run_p, port = _run(image_url)
     run_container_id = None
     for _ in range(10):
         time.sleep(5)    
@@ -317,7 +316,7 @@ def _run_container(image_url):
             if cont['Image'].startswith(image_url):
                 run_container_id  = cont['ID']
         if run_container_id is not None:
-            return run_container_id, docker_run_p
+            return run_container_id, docker_run_p, port
     else:
         raise Exception()
 
@@ -403,7 +402,7 @@ def _failsafe_run_container(image_url):
 
     #     bar.update(ticks)
 
-    #     if platform.system() == "Windows":
+    #     if utils.system() == "Windows":
     #         _kill_docker_processes()
     #         _failsafe_start_docker_desktop()
 
@@ -746,7 +745,7 @@ def _get_latest_docker_version():
 
 def _update_docker(return_json=False):
 
-    if platform.system() == 'Windows':
+    if utils.system() == 'Windows':
         current_engine_version = _version()
         most_recent_version = _get_latest_docker_version()
         if current_engine_version < most_recent_version:
@@ -766,7 +765,7 @@ def _update_docker(return_json=False):
 @crash_report
 def update():
     """Update Docker Desktop (Mac only)"""
-    if platform.system() == 'Windows':
+    if utils.system() == 'Windows':
         utils.echo('This command is not available on Windows systems. Please open the Docker Desktop application and check for updates there.')
     else:
         _update_docker()
@@ -882,7 +881,7 @@ def prune_all():
 
 def _run(image_url):
 
-    if platform.system() == "Windows":
+    if utils.system() == "Windows":
         popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
     else:
         popen_kwargs = dict(start_new_session = True)
@@ -893,7 +892,7 @@ def _run(image_url):
     cwd_mount_target = Path.cwd()
     ssh_mount.mkdir(exist_ok=True)
     anaconda_mount.mkdir(exist_ok=True)
-    if platform.system() == 'Windows':
+    if utils.system() == 'Windows':
         ssh_mount = PureWindowsPath(ssh_mount)
         anaconda_mount = PureWindowsPath(anaconda_mount)
         cwd_mount_source = PureWindowsPath(cwd_mount_source)
@@ -902,6 +901,13 @@ def _run(image_url):
         assert ':' in parts[0]
         cwd_mount_target = PurePosixPath('/', *(cwd_mount_target.parts[1:]))
 
+    port = 8888
+    occupied_ports = utils.jupyter_ports_in_use()
+    if occupied_ports:
+        utils.echo(f"Default host port {port} is in use.", nl=False)
+        port = str(max(occupied_ports) + 1)
+        utils.echo(f"Using port {port} instead.")
+
     cmd = (
         # rf"docker run --rm --pull=always --label dk.au.gitlab.group={GITLAB_GROUP}"
         # rf"docker run --memory {CONTAINER_MEMORY_LIMIT} --label dk.au.gitlab.group={GITLAB_GROUP}"
@@ -909,7 +915,7 @@ def _run(image_url):
         rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
         rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
         rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
-        rf" -w {cwd_mount_target} -i -p 8050:8050 -p 8888:8888 {image_url}:latest"
+        rf" -w {cwd_mount_target} -i -p 8050:8050 -p {port}:8888 {image_url}:latest"
     )
     logger.debug(cmd)
 
@@ -918,7 +924,7 @@ def _run(image_url):
     docker_run_p = Popen(cmd, 
                         stdout=DEVNULL, stderr=DEVNULL, 
                         **popen_kwargs)
-    return docker_run_p
+    return docker_run_p, port
 
 @click.argument("url")
 @docker.command()
@@ -1009,7 +1015,7 @@ def _shutdown_wsl():
     """
     Shutdown WSL
     """
-    if platform.system() == 'Windows':
+    if utils.system() == 'Windows':
         logger.debug('Restarting WSL Docker Desktop distribution.')
         subprocess.check_call('wsl -t docker-desktop')
         utils.dummy_progressbar(10, label='Restarting.')
@@ -1021,7 +1027,7 @@ def _shutdown_wsl_docker_distribution():
     Kills docker processes using SIGTERM AND SIGKILL.
     """
     logger.debug('Restarting WSL Docker Desktop distribution.')
-    if platform.system() == 'Windows':
+    if utils.system() == 'Windows':
         utils.echo('WSL needs to restart.')
         logger.debug('Restarting WSL')
         subprocess.check_call('wsl --shutdown')    
@@ -1251,16 +1257,19 @@ def _remove_everything():
 class docker_config():
 
     home = Path.home()
-    if platform.system() == 'Darwin':
+    if utils.system() == 'Darwin':
         json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
-    elif platform.system() == 'Windows':
+    elif utils.system() == 'Windows':
         json_settings = home / 'AppData/Roaming/Docker/settings-store.json'
-    elif platform.system() == 'Linux':
+    elif utils.system() == 'Linux':
         json_settings = home / '.docker/desktop/settings-store.json'
 
     def __enter__(self):
-        with open(self.json_settings, 'r') as f:
-            self.settings = json.load(f)
+        if os.path.exists(self.json_settings):
+            with open(self.json_settings, 'r') as f:
+                self.settings = json.load(f)
+        else:
+             self.settings = dict()
         return self
 
     def __exit__(self, type, value, traceback):

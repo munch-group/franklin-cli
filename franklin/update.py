@@ -5,22 +5,17 @@ from subprocess import Popen, PIPE
 from .utils import logger, crash_report
 from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL
 from . import utils
-from importlib.metadata import version as _version
-
-def franklin_version():
-    try:
-        return _version('franklin')
-    except:
-        return None
+from . import docker as _docker
 
 def _update_client(update):
     if not update:
         logger.debug('Update check skipped')
     else:
-        version = franklin_version()
+        version = utils.franklin_version()
         click.secho('Checking for Franklin update:', nl=False, fg='green')
         # cmd = f"{os.environ['CONDA_EXE']} update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
-        cmd = f"conda update -y -c {ANACONDA_CHANNEL} --no-update-deps franklin"
+        cmd = f"conda update -y -c conda-forge -c {ANACONDA_CHANNEL} --no-update-deps franklin"
+        
         logger.debug(cmd)
         p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate()
@@ -40,7 +35,15 @@ def _update_client(update):
             sys.exit()
         click.echo('done')
 
-        new_version = franklin_version()
+        utils.secho(f"Resetting to default settings and fitting them to your machine.")
+        _docker._config_fit()
+
+    # with docker_config() as cfg:
+    #     if not cfg.settings:
+    #         # user settings emtpy
+    #         _config_fit()
+
+        new_version = utils.franklin_version()
         if new_version == version:
             utils.secho(f"Franklin is running the newest version.")
         else:

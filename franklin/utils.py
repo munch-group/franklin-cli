@@ -2,6 +2,7 @@ import signal
 import shlex
 import sys
 import os
+import re
 import shutil
 import click
 import requests 
@@ -9,18 +10,22 @@ import time
 from .config import REQUIRED_GB_FREE_DISK
 from . import utils
 from textwrap import wrap
-import platform
 from .logger import logger
 from .config import ANACONDA_CHANNEL, MAINTAINER_EMAIL, WRAP_WIDTH, MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT, BOLD_TEXT_ON_WINDOWS, PG_OPTIONS
-from subprocess import Popen, PIPE
-
-from functools import wraps
+import subprocess
 import platform
+from functools import wraps
 import webbrowser
 import urllib
-import re
+from importlib.metadata import version as _version
 
 
+def franklin_version():
+    try:
+        return _version('franklin')
+    except:
+        return None
+    
 class AliasedGroup(click.Group):
     def get_command(self, ctx, cmd_name):
         rv = click.Group.get_command(self, ctx, cmd_name)
@@ -85,7 +90,8 @@ def _crash_email():
 
     preamble = ("This email is prefilled with information of the crash you can send to the maintainer of Franklin.").upper()
 
-    info = ''
+
+    info = f'Franklin version: {franklin_version()}\n'
     for k, v in platform.uname()._asdict().items():
         info += f"{k}: {v}\n"
     info += f"Platform: {platform.platform()}\n"
@@ -97,7 +103,7 @@ def _crash_email():
     info += f"Python Implementation: {platform.python_implementation()}\n"
 
     log = ''
-    if not platform.system() == 'Windows':
+    if not utils.system() == 'Windows':
         if os.path.exists('franklin.log'):
             with open('franklin.log', 'r') as f:
                 log = f.read()
@@ -106,6 +112,7 @@ def _crash_email():
     body = urllib.parse.quote(f"{preamble}\n\n{info}\n{log}")
     webbrowser.open(f"mailto:?to={MAINTAINER_EMAIL}&subject={subject}&body={body}", new=1)
 
+# BROWSER=wslview
 
 def crash_report(func):
     @wraps(func)
@@ -120,7 +127,7 @@ def crash_report(func):
             utils.secho(f"Franklin encountered an unexpected problem.")
             utils.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
             utils.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
-            if platform.system() == 'Windows':
+            if utils.system() == 'Windows':
                 utils.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
             _crash_email()
             raise
@@ -134,7 +141,7 @@ def crash_report(func):
             utils.secho(f"Franklin encountered an unexpected problem.")
             utils.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
             utils.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
-            if platform.system() == 'Windows':
+            if utils.system() == 'Windows':
                 utils.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
             _crash_email()
             raise 
@@ -193,6 +200,80 @@ def _cmd(cmd, log=True, **kwargs):
     cmd[0] = shutil.which(cmd[0])
     return cmd
 
+
+def _run_cmd(cmd, check=True, capture_output=True, timeout=None):
+
+    cmd = shlex.split(cmd)
+    cmd[0] = shutil.which(cmd[0])
+    try:
+        logger.debug(cmd)
+        p = subprocess.run(cmd, check=check, 
+                                capture_output=capture_output, timeout=timeout)
+        output = p.stdout.decode()
+    except subprocess.TimeoutExpired as e:
+        logger.debug(f"Command timeout of {timeout} seconds exceeded.")
+        return False
+    except subprocess.CalledProcessError as e:        
+        logger.debug(e.output.decode())
+        logger.exception('Command failed')
+        raise click.Abort()    
+    return output
+
+
+
+def jupyter_ports_in_use():
+        
+    output = _run_cmd('jupyter server list')
+    occupied_ports = [int(x) for x in re.findall(r'(?<=->)\d+', output, re.MULTILINE)]
+    occupied_ports = [int(x) for x in re.findall(r'(?<=localhost:)\d+', output, re.MULTILINE)]
+    return occupied_ports
+
+
+def is_wsl(v: str = platform.uname().release) -> int:
+    """
+    detects if Python is running in WSL
+    """
+
+    if v.endswith("-Microsoft"):
+        return 1
+    elif v.endswith("microsoft-standard-WSL2"):
+        return 2
+
+    return 0
+
+
+def wsl_available() -> int:
+    """
+    detect if Windows Subsystem for Linux is available from Windows
+    """
+    if os.name != "nt" or not shutil.which("wsl"):
+        return False
+    try:
+        return is_wsl(
+            subprocess.check_output(
+                ["wsl", "uname", "-r"], text=True, timeout=15
+            ).strip()
+        )
+    except subprocess.SubprocessError:
+        return False
+
+def system():
+    plat = platform.system()
+    if plat == 'Windows':
+        wsl = is_wsl()
+        if wsl == 0:
+            return 'Windows'
+        if wsl == 1:
+            return 'WSL'
+        if wsl == 2:
+            return 'WSL2'
+    return plat
+
+
+
+if __name__ == "__main__":
+    print("WSL: ", is_wsl())
+    print("is WSL available: ", wsl_available())
 
 def gb_free_disk():
     return shutil.disk_usage('/').free / 1024**3
@@ -297,7 +378,7 @@ def secho(text='', width=None, center=False, nowrap=False, log=True,
                 
 
                 pass
-    if platform.system() == 'Windows' and not BOLD_TEXT_ON_WINDOWS:
+    if utils.system() == 'Windows' and not BOLD_TEXT_ON_WINDOWS:
         kwargs['bold'] = False
     click.secho(text, **kwargs)
 
@@ -308,7 +389,7 @@ def echo(text='', width=None, nowrap=False, log=True, indent=True, initial_inden
 
 def _check_internet_connection():
     try:
-        request = requests.get("https://hub.docker.com/", timeout=2)    
+        request = requests.get("https://hub.docker.com/", timeout=5)    
         logger.debug("Internet connection OK.")
         return True
     except (requests.ConnectionError, requests.Timeout) as exception:

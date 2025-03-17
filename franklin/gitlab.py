@@ -8,7 +8,6 @@ from .utils import crash_report
 import subprocess
 from subprocess import DEVNULL, STDOUT, PIPE
 import os
-import platform
 import shutil
 from pathlib import Path, PurePosixPath, PureWindowsPath
 
@@ -132,7 +131,7 @@ def select_image():
 
 def _config_local_repo(repo_local_path):
 
-    if platform.system() == 'Windows':
+    if utils.system() == 'Windows':
         subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config pull.rebase false'))
         subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config merge.tool vscode'))
         subprocess.check_call(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} config mergetool.vscode.cmd "code --wait --merge $REMOTE $LOCAL $BASE $MERGED"'))
@@ -209,7 +208,7 @@ def _gitlab_down():
     repo_name = exercise.split('/')[-1]
     clone_url = f'git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{repo_name}.git'
     repo_local_path = os.path.join(os.getcwd(), repo_name)
-    if platform.system() == 'Windows':
+    if utils.system() == 'Windows':
         repo_local_path = PureWindowsPath(repo_local_path)
 
     # check if we are in an already cloned repo
@@ -380,6 +379,6 @@ def gitlab_up(directory, remove):
     '''"Upload" exercise to GitLab'''
     if directory is None:
         directory = os.getcwd()
-    if platform.system() == 'Windows':
+    if utils.system() == 'Windows':
         directory = PureWindowsPath(directory)
     _gitlab_up(directory, remove)

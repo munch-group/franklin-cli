@@ -26,6 +26,7 @@ requirements:
     - psutil
     - packaging
     - git
+    # - wslu # [win]
 
 channels:  # channels for your library dependencies
   - uibcdf
