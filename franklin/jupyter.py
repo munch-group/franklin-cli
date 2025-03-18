@@ -66,19 +66,19 @@ def _run(allow_subdirs_at_your_own_risk, update):
     utils.check_free_disk_space()
     time.sleep(2)
 
-    update_client(update)
-
-    term.echo()
-    term.secho('Starting container:', fg='green')
+    if update:
+        update_client(update)
+    else:
+        logger.debug('Update check skipped')
 
     image_url = select_image()
 
-    if not _docker.image_exists(image_url):
-        term.secho("Downloading image:".ljust(23), fg='green')
-    else:
-        term.secho("Checking for image update", fg='green')
+    term.secho("Downloading/updating image:".ljust(23), fg='green')
     _docker.pull(image_url)
     term.echo()    
+
+    term.echo()
+    term.secho('Starting container:', fg='green')
 
     run_container_id, docker_run_p, port = _docker.failsafe_run_container(image_url)
 

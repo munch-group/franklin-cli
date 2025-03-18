@@ -22,6 +22,13 @@ from .logger import logger
 from typing import Tuple, List, Dict, Callable, Any
 # type Vector = list[float]
 
+import yaml
+
+_root = os.path.abspath(os.path.dirname(__file__))
+config_path = os.path.join(_root, 'config.yaml')
+with open(config_path) as f:
+    cfg = yaml.safe_load(f)
+
 
 os.environ['DOCKER_CLI_HINTS'] = 'false'
 
@@ -48,7 +55,7 @@ def run_container(image_url: str) -> Tuple[str, Popen, str]:
     run_container_id = None
     for _ in range(10):
         time.sleep(5)    
-        for cont in containers(return_json=True):
+        for cont in containers():
             if cont['Image'].startswith(image_url):
                 run_container_id  = cont['ID']
         if run_container_id is not None:
@@ -162,7 +169,7 @@ def image_exists(image_url: str) -> bool:
 
 def table(header: str, table: List[List[str]], ids: List[str], min_widths: List[int]=None, select: bool=True) -> List[str]:
     """
-    Prepares a table for display in the terminal.
+    Called by *_list functions to format a table for display in the terminal.
 
     Parameters
     ----------
@@ -222,9 +229,24 @@ def table(header: str, table: List[List[str]], ids: List[str], min_widths: List[
     return [ids[i]for i in selected_indices]
 
 
-def container_list(callback=None):
+def container_list(callback: Callable=None) -> None:
+    """
+    Displays a list of running containers in the terminal. If callback 
+    is provided, it will prompt the user to select containers and run the 
+    callback function will be called for each container with the container ID
+    as argument.
 
-    current_containers = containers(return_json=True)
+    Parameters
+    ----------
+    callback : 
+        _description_, Callback function taking a container ID as argument, by default None
+
+    Returns
+    -------
+    :
+        None
+    """
+    current_containers = containers()
     if not current_containers:
         click.echo("\nNo running containers\n")
         return
@@ -262,7 +284,23 @@ def container_list(callback=None):
     for cont_id in table(header, table, ids, min_widths=[None, None, 20, 25], select=True):
         callback(cont_id, force=True)
 
-def image_list(callback=None):
+
+def image_list(callback: Callable=None):
+    """
+    Displays a list of images in the terminal. If callback is provided,
+    it will prompt the user to select images and run the callback function 
+    will be called for each image with the image ID as argument.
+
+    Parameters
+    ----------
+    callback : 
+        _description_, Callback function taking a container ID as argument, by default None
+
+    Returns
+    -------
+    :
+        None
+    """
     img = images(return_json=True)
     if not img:
         click.echo("\nNo images to remove\n")
@@ -309,15 +347,23 @@ def image_list(callback=None):
 
 @click.group(cls=AliasedGroup)
 def docker():
-    """Docker commands."""
+    """Docker commands
+    """
     pass
 
 
-def pull(image_url):
+def pull(image_url :str) -> None:
+    """
+    Pull Docker image.
 
+    Parameters
+    ----------
+    image_url : 
+        Image URL.
+    """
     # p = Popen(utils.format_cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
-    p = Popen(fmt_cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
-    f = p.stdout
+    # p = Popen(fmt_cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
+    # f = p.stdout
     # while True:
     #     line = f.readline()
     #     if not line:
@@ -345,8 +391,8 @@ def pull(image_url):
     #     sys.stdout.flush()
     # p.wait()
 
-    # subprocess.run(utils.format_cmd(f'docker pull {image_url}:latest'), check=False)
-    utils.run_cmd(f'docker pull {image_url}:latest', check=False)
+    subprocess.run(utils.fmt_cmd(f'docker pull {image_url}:latest'), check=False)
+    # utils.run_cmd(f'docker pull {image_url}:latest', check=False)
 
 
 @click.argument("url")
@@ -364,14 +410,16 @@ def _pull(url):
 @docker.command('restart')
 @crash_report
 def _restart():
-    """Restart Docker Desktop"""
+    """Restart Docker Desktop.
+    """
     docker_desktop_restart()
 
 
-@docker.command()
+@docker.command('start')
 @crash_report
 def _start():
-    """Start Docker Desktop"""
+    """Start Docker Desktop.
+    """
     docker_desktop_start()
 
 
@@ -379,14 +427,16 @@ def _start():
 @irrelevant_unless_docker_running
 @crash_report
 def _stop():
-    """Stop Docker Desktop"""
+    """Stop Docker Desktop.
+    """
     docker_desktop_stop()
 
 
 @docker.command('status')
 @crash_report
 def _status():
-    "Docker Desktop status"
+    """Docker Desktop status.
+    """
     s = docker_desktop_status()
     fg = 'green' if s == 'running' else 'red'
     term.secho(s, fg=fg, nowrap=True)
@@ -395,7 +445,8 @@ def _status():
 @docker.command('update')
 @crash_report
 def _update():
-    """Update Docker Desktop (Mac only)"""
+    """Update Docker Desktop.
+    """
     if utils.system() == 'Windows':
         term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and check for updates there.')
     else:
@@ -405,11 +456,25 @@ def _update():
 @docker.command('version')
 @crash_report
 def _version():
-    """Get Docker Desktop version"""
+    """Show Docker Desktop version
+    """
     term.echo(docker_desktop_version())
 
 
-def run(image_url):
+def run(image_url :str) -> Tuple[Popen, str]:
+    """
+    Runs a container from an image.
+
+    Parameters
+    ----------
+    image_url : 
+        Image URL.
+
+    Returns
+    -------
+    :
+        Tuple of subprocess handle for 'docker run' and host port used for jupyter display.
+    """
 
     if utils.system() == "Windows":
         popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
@@ -460,8 +525,9 @@ def run(image_url):
 @ensure_docker_running
 @crash_report
 def _run(url):
-    """
-    Run container from image. Use for testing that the image runs correctly.    
+    """Run container from image.
+     
+    Use for running locally built images.    
     """
     run(url)
 
@@ -473,7 +539,8 @@ def _run(url):
 @docker.group(cls=AliasedGroup)
 @crash_report
 def prune():
-    """Prune Docker elements"""
+    """Docker pruning commands.
+    """
     pass
 
 
@@ -484,34 +551,37 @@ def prune_networks():
 @prune.command('networks')
 @crash_report
 def _prune_networks():
-    """
-    Remove networks not used by at least one container.
+    """Remove networks not used by at least one container.
     """
     prune_networks()
 
 
 def prune_containers():
+    """
+    Prunes containers.
+    """
     # _command(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
     utils.run_cmd(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @prune.command('containers')
 @crash_report
 def _prune_containers():
-    """
-    Remove stopped containers.
+    """Prune containers.
     """
     prune_containers()
 
 
 def prune_images():
+    """
+    Prunes images.
+    """
     # _command(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
     utils.run_cmd(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @prune.command('images')
 @crash_report
 def _prune_images():
-    """
-    Remove unused images.
+    """Prune images.
     """
     prune_images()
 
@@ -527,13 +597,17 @@ def _prune_images():
 
 
 def prune_all():
+    """
+    Prunes all Docker elements.
+    """
     # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
     utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @prune.command('all')
 @crash_report
 def _prune_all():
-    """
+    """Prune all Docker elements.
+
     Remove stopped containers, unused networks, 
     dangling images, and unused build cache.
     """
@@ -571,11 +645,19 @@ def _prune_all():
 @docker.group(cls=AliasedGroup)
 @crash_report
 def kill():
-    """Kill Docker elements"""
+    """Docker kill commands.
+    """
     pass
 
-def kill_container(container_id):
-    """Kill a running container."""
+def kill_container(container_id: str) -> None:
+    """
+    Kills a running container.
+
+    Parameters
+    ----------
+    container_id : 
+        Container ID.
+    """
     cmd = fmt_cmd(f'docker kill {container_id}')
     Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
 
@@ -584,9 +666,9 @@ def kill_container(container_id):
 
 
 # @docker.command('kill')
-def kill_docker_processes():
+def kill_docker_processes() -> None:
     """
-    Kills docker processes using SIGTERM AND SIGKILL.
+    Kills all docker-related processes using SIGTERM AND SIGKILL.
     """
     for process in psutil.process_iter():
         name = process.name().lower()
@@ -605,7 +687,7 @@ def kill_docker_processes():
 
 def shutdown_wsl():
     """
-    Shutdown WSL
+    Shuts down WSL
     """
     if utils.system() == 'Windows':
         logger.debug('Restarting WSL Docker Desktop distribution.')
@@ -617,12 +699,11 @@ def shutdown_wsl():
 
 def shutdown_wsl_docker_distribution():
     """
-    Kills docker processes using SIGTERM AND SIGKILL.
+    Shuts down WSL Docker Desktop distribution
     """
-    logger.debug('Restarting WSL Docker Desktop distribution.')
     if utils.system() == 'Windows':
+        logger.debug('Shutting down WSL Docker Desktop distribution.')
         term.echo('WSL needs to restart.')
-        logger.debug('Restarting WSL')
         subprocess.check_call('wsl --shutdown')    
         term.dummy_progressbar(10, label='Restarting.')
         if docker_desktop_status() == 'running':
@@ -633,7 +714,16 @@ def shutdown_wsl_docker_distribution():
 @click.argument("container_id", required=False)
 @irrelevant_unless_docker_running
 @crash_report
-def kill_selected_containers(container_id=None):
+def kill_selected_containers(container_id: str=None) -> None:
+    """
+    If a container ID is given as argument, this container is killed.
+    Otherwise kills containers selected from a list of running containers. 
+
+    Parameters
+    ----------
+    container_id : 
+        Container ID, by default None
+    """
 
     if container_id:
         kill_container(container_id)
@@ -649,11 +739,12 @@ def kill_selected_containers(container_id=None):
 @docker.group(cls=AliasedGroup)
 @crash_report
 def show():
-    """Show Docker elements"""
+    """Docker show commands"""
     pass
 
 
-def containers(return_json=False):
+# def containers(return_json=False):
+def containers():
     # return _command('docker ps --all --size', return_json=return_json)
     output = utils.run_cmd('docker ps --all --size --format json')
     return [json.loads(line) for line in output.strip().splitlines()]
@@ -870,6 +961,7 @@ def _config_set(variable, value):
 
 def _config_reset(variable=None):
     """Resets Docker configuration to defaults set by Franklin"""
+
 
     with docker_config() as cfg:
         if variable is not None:

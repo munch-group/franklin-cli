@@ -270,7 +270,7 @@ def jupyter_ports_in_use():
 
 def check_internet_connection():
     try:
-        request = requests.get("https://hub.docker.com/", timeout=5)    
+        request = requests.get("https://hub.docker.com/", timeout=10)    
         logger.debug("Internet connection OK.")
         return True
     except (requests.ConnectionError, requests.Timeout) as exception:
