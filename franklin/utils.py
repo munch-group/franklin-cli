@@ -9,16 +9,15 @@ import requests
 import time
 from .config import REQUIRED_GB_FREE_DISK
 from . import utils
-from textwrap import wrap
 from .logger import logger
-from .config import MAINTAINER_EMAIL, WRAP_WIDTH, MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT, BOLD_TEXT_ON_WINDOWS, PG_OPTIONS
+from .config import MAINTAINER_EMAIL, PG_OPTIONS
 import subprocess
 import platform
 from functools import wraps
 import webbrowser
 import urllib
 from importlib.metadata import version as _version
-
+from . import terminal as term
 
 ###########################################################
 # Click
@@ -113,7 +112,7 @@ class Crash(Exception):
         self.errors = errors
 
 
-def _crash_email():
+def crash_email():
 
     if os.environ.get('DEVEL', None):
         return
@@ -154,12 +153,12 @@ def crash_report(func):
             raise
         except utils.Crash as e:
             logger.exception('Raised: Crash')
-            utils.secho(f"Franklin encountered an unexpected problem.")
-            utils.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
-            utils.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
+            term.secho(f"Franklin encountered an unexpected problem.")
+            term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
+            term.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
             if utils.system() == 'Windows':
-                utils.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
-            _crash_email()
+                term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
+            crash_email()
             raise
         except SystemExit:
             raise
@@ -168,12 +167,12 @@ def crash_report(func):
             raise        
         except:
             logger.exception('CRASH')
-            utils.secho(f"Franklin encountered an unexpected problem.")
-            utils.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
-            utils.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
+            term.secho(f"Franklin encountered an unexpected problem.")
+            term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
+            term.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
             if utils.system() == 'Windows':
-                utils.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
-            _crash_email()
+                term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
+            crash_email()
             raise 
         return ret
     return wrapper
@@ -183,16 +182,16 @@ def crash_report(func):
 # Subprocesses
 ###########################################################
 
-def _cmd(cmd):
+def fmt_cmd(cmd):
     logger.debug(cmd)
     cmd = shlex.split(cmd)
     cmd[0] = shutil.which(cmd[0])
     return cmd
 
 
-def _run_cmd(cmd, check=True, capture_output=True, timeout=None):
+def run_cmd(cmd, check=True, capture_output=True, timeout=None):
 
-    cmd = _cmd(cmd)
+    cmd = fmt_cmd(cmd)
     try:
         p = subprocess.run(cmd, check=check, 
                                 capture_output=capture_output, timeout=timeout)
@@ -205,137 +204,6 @@ def _run_cmd(cmd, check=True, capture_output=True, timeout=None):
         logger.exception('Command failed')
         raise click.Abort()    
     return output
-
-
-###########################################################
-# Terminal output
-###########################################################
-
-def _check_window_size():
-
-    def _box(text):
-        window_box = \
-            '|' + '-'*(MIN_WINDOW_WIDTH-2) + '|\n' + \
-        ('|' + ' '*(MIN_WINDOW_WIDTH-2) + '|\n') * (MIN_WINDOW_HEIGHT-3) + \
-            '| ' + text.ljust(MIN_WINDOW_WIDTH-3) + '|\n' + \
-            '|' + '-'*(MIN_WINDOW_WIDTH-2) + '|' 
-        return '\n'*150 + window_box
-
-
-    ts = shutil.get_terminal_size()
-    if ts.columns < MIN_WINDOW_WIDTH or ts.lines < MIN_WINDOW_HEIGHT:
-        while True:
-            ts = shutil.get_terminal_size()
-            if ts.columns >= MIN_WINDOW_WIDTH and ts.lines >= MIN_WINDOW_HEIGHT:
-                break
-            click.secho(_box('Please resize the window to at least fit this square'), fg='red', bold=True)
-            time.sleep(0.1)
-        click.secho(_box('Thanks!'), fg='green', bold=True)
-        click.pause()
-
-    text = 'Please resize the window to at least fit this square'
-
-
-def dummy_progressbar(seconds, label='Hang on...', **kwargs):
-    pg_options = PG_OPTIONS.copy()
-    pg_options.update(kwargs)
-    with click.progressbar(length=100, label=label, **pg_options) as bar:
-        for i in range(100):
-            time.sleep(seconds/100)
-            bar.update(1)
-
-
-def wrap(text, width=None, indent=True, initial_indent=None, subsequent_indent=None):
-    """
-    Wraps text to fit terminal width or WRAP_WIDTH, whatever
-    is smaller
-    """
-    if width is None:
-        width = WRAP_WIDTH
-
-    nr_leading_nl = len(text) - len(text.lstrip('\n'))
-    text = text.lstrip('\n')
-    
-    if initial_indent is None:
-        initial_indent = text[:len(text) - len(text.lstrip())]
-    text = text.lstrip()
-
-    if subsequent_indent is None:
-        subsequent_indent = initial_indent
-
-    trailing_ws = text[len(text.rstrip()):]   
-    text = text.rstrip()
-
-    if not indent:
-        initial_indent = ''
-        subsequent_indent = ''
-
-    text = click.wrap_text(text, width=max((shutil.get_terminal_size().columns)/2, width), 
-                initial_indent=initial_indent, subsequent_indent=subsequent_indent, 
-                preserve_paragraphs=True)
-    
-    text = '\n' * nr_leading_nl + text + trailing_ws
-    return text
-
-
-def secho(text='', width=None, center=False, nowrap=False, log=True,
-          indent=True, initial_indent=None, subsequent_indent=None, **kwargs):
-    """
-    Wrapper for secho that wraps text.
-    kwargs are passed to click.secho
-    """
-    if width is None:
-        width = WRAP_WIDTH
-    if not nowrap:
-        text = wrap(text, width=width, 
-                    indent=indent,
-                    initial_indent=initial_indent, 
-                    subsequent_indent=subsequent_indent)
-    if center:
-        cent = []
-        for line in text.strip().splitlines():
-            line = line.strip()
-            if line:
-                line = line.center(width)
-            cent.append(line)
-        text = '\n'.join(cent)        
-    if log:
-        for line in text.strip().splitlines():
-            try:
-                logger.debug(line.strip())
-            except UnicodeEncodeError:
-                line = str.decode('utf-8',errors='ignore')
-                logger.debug(line.strip())
-                
-
-                pass
-    if utils.system() == 'Windows' and not BOLD_TEXT_ON_WINDOWS:
-        kwargs['bold'] = False
-    click.secho(text, **kwargs)
-
-
-def echo(text='', width=None, nowrap=False, log=True, indent=True, 
-         initial_indent=None, subsequent_indent=None, **kwargs):
-    
-    secho(text, width=width, nowrap=nowrap, log=log, indent=indent, 
-          initial_indent=initial_indent, subsequent_indent=subsequent_indent, **kwargs)
-
-
-def boxed_text(header, lines=[], prompt='', **kwargs):
-    utils.echo()
-    utils.secho(f"{header}:", **kwargs)
-    utils.secho('='*WRAP_WIDTH, **kwargs)
-    utils.echo()
-    for line in lines:
-        utils.echo(f"  {line}")
-    utils.echo()
-    utils.echo(f"  {prompt}")
-    utils.echo()
-    utils.secho('='*WRAP_WIDTH, **kwargs)
-    utils.echo()
-    if prompt:
-        click.pause('')
-
 
 ###########################################################
 # Checks
@@ -394,19 +262,19 @@ def system():
 
 def jupyter_ports_in_use():
         
-    output = _run_cmd('jupyter server list')
+    output = run_cmd('jupyter server list')
     occupied_ports = [int(x) for x in re.findall(r'(?<=->)\d+', output, re.MULTILINE)]
     occupied_ports = [int(x) for x in re.findall(r'(?<=localhost:)\d+', output, re.MULTILINE)]
     return occupied_ports
 
 
-def _check_internet_connection():
+def check_internet_connection():
     try:
         request = requests.get("https://hub.docker.com/", timeout=5)    
         logger.debug("Internet connection OK.")
         return True
     except (requests.ConnectionError, requests.Timeout) as exception:
-        utils.secho("No internet connection. Please check your network.", fg='red')
+        term.secho("No internet connection. Please check your network.", fg='red')
         sys.exit(1)
         return False
 
@@ -415,39 +283,40 @@ def gb_free_disk():
     return shutil.disk_usage('/').free / 1024**3
 
 
-def _check_free_disk_space():
+def check_free_disk_space():
 
     gb_free = utils.gb_free_disk()
     if gb_free < REQUIRED_GB_FREE_DISK:
-        utils.secho(f"Not enough free disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {gb_free:.2f} GB", fg='red')
+        term.secho(f"Not enough free disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {gb_free:.2f} GB", fg='red')
         sys.exit(1)
     elif gb_free < 2 * REQUIRED_GB_FREE_DISK:
         click.clear()
-        utils.echo()
-        utils.echo()
-        utils.echo()
-        utils.echo()
-        utils.echo()
-        utils.secho('='*75, fg='red')
-        utils.echo()
-        utils.secho(f"  You are running low on disk space. Franklin needs {REQUIRED_GB_FREE_DISK} GB of free disk space to run and you only have {gb_free:.2f} GB left.", fg='red', bold=True, blink=True)
-        utils.echo()
-        utils.echo(f'  You can use "franklin docker remove" to remove cached Docker content you no longer need. it automatically get downloaded if you should need it again')
-        utils.echo()
-        utils.secho('='*75, fg='red')
-        utils.echo()
+        term.echo()
+        term.echo()
+        term.echo()
+        term.echo()
+        term.echo()
+        term.secho('='*75, fg='red')
+        term.echo()
+        term.secho(f"  You are running low on disk space. Franklin needs {REQUIRED_GB_FREE_DISK} GB of free disk space to run and you only have {gb_free:.2f} GB left.", fg='red', bold=True, blink=True)
+        term.echo()
+        term.echo(f'  You can use "franklin docker remove" to remove cached Docker content you no longer need. it automatically get downloaded if you should need it again')
+        term.echo()
+        term.secho('='*75, fg='red')
+        term.echo()
         click.pause()
         click.clear()
     else:
-        utils.echo(f"Franklin needs", nl=False)
-        utils.secho(f" {REQUIRED_GB_FREE_DISK:.1f} Gb", nl=False, bold=True)
-        utils.echo(f" of free disk space to run.")
+        term.echo()
+        term.echo(f"Franklin needs", nl=False)
+        term.secho(f" {REQUIRED_GB_FREE_DISK:.1f} Gb", nl=False, bold=True)
+        term.echo(f" of free disk space to run.")
         # fake progress bar to make the student aware that this check is important
-        with click.progressbar(length=100, label='Checking disk space:', **PG_OPTIONS) as bar:
+        with click.progressbar(length=100, label='Checking disk space:'.ljust(24), **PG_OPTIONS) as bar:
             for i in range(100):
                 time.sleep(0.01)
                 bar.update(1)
-        utils.echo(f"Free disk space:", nl=False)
-        utils.secho(f" {gb_free:.1f} Gb", fg='green', bold=True)
+        term.echo(f"Free disk space:", nl=False)
+        term.secho(f" {gb_free:.1f} Gb", fg='green', bold=True)
 
 

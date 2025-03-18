@@ -4,6 +4,15 @@ title: Developing exercises
 
 ## TLDR;
 
+    conda create -n franklin -c conda-forge munch-group::franklin
+    conda activate franklin
+
+    franklin exercise down
+    cd <repo>
+    franklin jupyter run
+    franklin up
+    cd ..
+
 
 ## Create an exercise repository
 

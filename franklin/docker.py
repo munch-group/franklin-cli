@@ -1,198 +1,54 @@
-import subprocess
-from subprocess import check_output, Popen, PIPE, STDOUT, DEVNULL
 import json
-import sys
 import os
-import re
 import click
-import requests
 import shutil
 import time
 import psutil
-import sysconfig
 from functools import wraps
+from pathlib import Path, PureWindowsPath, PurePosixPath
+from packaging.version import Version
+import subprocess
+from subprocess import Popen, PIPE, DEVNULL, STDOUT
+
+from .docker_desktop import docker_desktop_status, docker_desktop_start, docker_desktop_stop, docker_desktop_restart, update_docker_desktop, failsafe_start_docker_desktop, docker_desktop_version
+from . import terminal as term
 from . import utils
-from .utils import AliasedGroup, crash_report, _cmd
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP, PG_OPTIONS, WRAP_WIDTH, DOCKER_SETTINGS
+from .utils import AliasedGroup, crash_report, fmt_cmd
+from .config import REGISTRY_BASE_URL, GITLAB_GROUP, DOCKER_SETTINGS
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
-from pathlib import Path, PureWindowsPath, PurePosixPath
-from packaging.version import Version, InvalidVersion
 
-from subprocess import check_output, Popen, PIPE, DEVNULL, STDOUT, TimeoutExpired, CalledProcessError
+from typing import Tuple, List, Dict, Callable, Any
+# type Vector = list[float]
+
 
 os.environ['DOCKER_CLI_HINTS'] = 'false'
 
-def _install_docker_desktop():
+def run_container(image_url: str) -> Tuple[str, Popen, str]:
+    """
+    Run container from image.
 
-    architecture = sysconfig.get_platform().split('-')[-1]
-    assert architecture
+    Parameters
+    ----------
+    image_url : 
+        Image url
 
-    operating_system = utils.system()
+    Returns
+    -------
+    :
+        Tuple with container id, process handle and port.
 
-    if operating_system == 'Windows':
-        if architecture == 'arm64':
-            download_url = 'https://desktop.docker.com/win/main/arm64/Docker%20Desktop%20Installer.exe'
-        else:
-            download_url = 'https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe'
-        installer = 'Docker Desktop Installer.exe'
-    elif operating_system == 'Darwin':
-        if architecture == 'arm64':
-            download_url = 'https://desktop.docker.com/mac/main/arm64/Docker.dmg'
-        else:
-            download_url = 'https://desktop.docker.com/mac/main/amd64/Docker.dmg'
-        installer = 'Docker.dmg'
-    else:
-        url = 'https://docs.docker.com/desktop/linux/install/'
-        utils.echo(f'Download from {url} and install before proceeding.')
-        sys.exit(1)
-
-    utils.boxed_text(f"Franklin needs Docker Desktop", 
-                     ['Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.'],
-                     prompt='Press Enter to start the download...', 
-                     fg='green')
-
-    response = requests.get(download_url, stream=True)
-    if not response.ok:
-        utils.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
-        sys.exit(1)
-
-    file_size = response.headers['Content-length']
-    with open(installer, mode="wb") as file:
-        nr_chunks = int(file_size) // (10 * 1024) + 1
-        with click.progressbar(length=nr_chunks, label='Downloading:', **PG_OPTIONS) as bar:
-            for chunk in response.iter_content(chunk_size=10 * 1024):
-                file.write(chunk)
-                bar.update(1)
-    
-    if utils.system() == 'Windows':
-
-        kwargs = dict(subsequent_indent=5)
-        utils.echo()
-        utils.echo()
-        utils.secho(f"How to install Docker Desktop on Windows:", fg='green')
-        utils.secho('='*WRAP_WIDTH, fg='green')
-        utils.echo()
-        utils.echo("  Please follow this exact sequence of steps:")
-        utils.echo()
-        utils.echo('  1. Open the Downloads folder.', **kwargs)
-        utils.echo('  2. Double-click the "Docker Desktop Installer.exe" file.', **kwargs)
-        utils.echo('  3. Follow the default installation procedure.', **kwargs)
-        utils.echo('  4. When the installation is completed, open Docker Desktop.', **kwargs)
-        utils.echo('  5. Accept the Docker Desktop license agreement')
-        utils.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
-        utils.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
-        utils.echo('  8. Wait while it says "Starting the Docker Engine..."')
-        utils.echo('  9. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
-        utils.echo('  10. Quit the Docker application.', **kwargs)
-        utils.echo('  11. Return to this window and start Franklin the same way as you did before.', **kwargs)
-        utils.echo()
-        utils.echo('  Press Enter now to close Franklin.')
-        utils.echo()
-        utils.echo('='*WRAP_WIDTH, fg='green')
-        click.pause('')
-        sys.exit(0)
-
-        # subprocess.run(installer, check=True)
-
-        # utils.echo(" - Removing installer...")
-        # os.remove(installer)
-
-    elif utils.system() == 'Darwin':
-        cmd = utils._cmd(f'hdiutil attach -nobrowse -readonly {installer}')
-        output = check_output(cmd).decode().strip()
-
-        # Extract the mounted volume name from the output
-        mounted_volume_name = re.search(r'/Volumes/([^ ]*)', output.strip()).group(1)
-
-        utils.echo("Installing:")
-        utils.echo()
-        utils.secho('='*WRAP_WIDTH, fg='red')
-        utils.echo('  Press Enter and then drag the Docker to the Applications folder.', fg='red')
-        utils.secho('='*WRAP_WIDTH, fg='red')
-        utils.echo()
-        click.pause('Press Enter...')
-
-        check_output(utils._cmd(f'open /Volumes/{mounted_volume_name}')).decode().strip()
-
-        utils.echo(" - Copying to Applications...")
-        prev_size = ''
-        for _ in range(1000):
-            cmd = f'du -s /Applications/Docker.app'
-            logger.debug(cmd)
-            cmd = cmd.split()
-            cmd[0] = shutil.which(cmd[0])
-            output = subprocess.run(cmd, stdout=PIPE, stderr=DEVNULL, timeout=1, check=False).stdout.decode().strip()
-            if output:
-                size = output.split()[0]
-                if size == prev_size:
-                    break
-                print(prev_size, size)
-                prev_size = size
-            time.sleep(5)
-
-        utils.dummy_progressbar(seconds=10, label='Validating Docker Desktop:')
-
-        utils.echo(" - Unmounting...")
-
-        if os.path.exists('/Volumes/{mounted_volume_name}'):
-            _run(f'hdiutil detach /Volumes/{mounted_volume_name}/')
-
-        utils.echo(" - Removing installer...")
-        os.remove(installer)
-
-        kwargs = dict(subsequent_indent=5)
-        utils.echo()
-        utils.echo()
-        utils.secho(f"How to set up Docker Desktop on Mac:", fg='green')
-        utils.secho('='*WRAP_WIDTH, fg='green')
-        utils.echo()
-        utils.echo("  Please follow this exact sequence of steps:")
-        utils.echo()
-        utils.echo('  1. Open the Docker application from your Applications folder', **kwargs)
-        utils.echo('  3. Follow the default installation procedure.', **kwargs)
-        utils.echo('  4. When the installation is completed, open Docker Desktop.', **kwargs)
-        utils.echo('  5. Accept the Docker Desktop license agreement')
-        utils.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
-        utils.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
-        utils.echo('  8. Wait while it says "Starting the Docker Engine..."')
-        utils.echo('  9. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
-        utils.echo('  10. Quit the Docker application.', **kwargs)
-        utils.echo('  11. Return to this window and start Franklin the same way as you did before.', **kwargs)
-        utils.echo()
-        utils.echo('  Press Enter now to close Franklin.')
-        utils.echo()
-        utils.echo('='*WRAP_WIDTH, fg='green')
-        click.pause('')
-        sys.exit(0)
-
-#  start /w "" "Docker Desktop Installer.exe" uninstall
-#  /Applications/Docker.app/Contents/MacOS/uninstall
-
-def _failsafe_start_docker_desktop():
-
-    if not shutil.which('docker'):
-         _install_docker_desktop()    
-
-    _start()
-
-    utils.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
-
-    if not _status() == 'running':
-        utils.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
-        sys.exit(1)
-
-    if utils.system() == 'Darwin':
-        _update_docker()
-
-
-def _run_container(image_url):
-    docker_run_p, port = _run(image_url)
+    Raises
+    ------
+    :
+        Exception if container if a container id for the running container is not retrieved.
+    """
+    docker_run_p, port = run(image_url)
     run_container_id = None
     for _ in range(10):
         time.sleep(5)    
-        for cont in _containers(return_json=True):
+        for cont in containers(return_json=True):
             if cont['Image'].startswith(image_url):
                 run_container_id  = cont['ID']
         if run_container_id is not None:
@@ -200,41 +56,93 @@ def _run_container(image_url):
     else:
         raise Exception()
 
-def _failsafe_run_container(image_url):
+def failsafe_run_container(image_url: str) -> Tuple[str, Popen, str]:
+    """
+    Run container from image. Upon Exception is raised by run_container, it does a docker system prune and a docker desktop restart.
+
+    Parameters
+    ----------
+    image_url : 
+        Image URL.
+
+    Returns
+    -------
+    :
+        Tuple with container id, process handle and port.
+
+    Raises
+    ------
+    :
+        Exception if container if a container id for the running container is not retrieved.
+    """
 
     try:
-        return _run_container(image_url)
+        return run_container(image_url)
     except:
-        _prune_all()    
-        _restart()    
-        return _run_container(image_url)
+        prune_all()    
+        docker_desktop_restart()    
+        return run_container(image_url)
 
 
-def ensure_docker_running(func):
+def ensure_docker_running(func: Callable) -> Callable:
     """
     Decorator for functions that require Docker Desktop to be running.
+
+    Parameters
+    ----------
+    func : 
+        Function.
+
+    Returns
+    -------
+    :
+        Decorated function.
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
-        _failsafe_start_docker_desktop()
+        failsafe_start_docker_desktop()
         return func(*args, **kwargs)
     return wrapper
 
-def irrelevant_unless_docker_running(func):
+def irrelevant_unless_docker_running(func: Callable) -> Callable:
     """
-    Decorator for functions that require Docker Desktop to be running.
+    Decorator for click command functions that are irrelevant unless Docker Desktop is running.
+    If users use command when Docker Desktop is not running, they will be informed.
+
+    Parameters
+    ----------
+    func : 
+        Function.
+
+    Returns
+    -------
+    :
+        Decorated function.
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if not _status() == 'running':
-            utils.secho("Docker is not running")
+        if not docker_desktop_status() == 'running':
+            term.secho("Docker is not running")
             return None
         return func(*args, **kwargs)
     return wrapper
 
 
-def _image_exists(image_url):
-    for image in _images(return_json=True):
+def image_exists(image_url: str) -> bool:
+    """
+    Checks if image exists.
+
+    Parameters
+    ----------
+    image_url : 
+        Image URL.
+
+    Returns
+    -------
+    :
+        True if image exists, False otherwise.
+    """
+    for image in images(return_json=True):
         if image['Repository'].startswith(image_url):
             return True
     return False
@@ -252,8 +160,32 @@ def _image_exists(image_url):
 #         return subprocess.check_output(utils.format_cmd(command)).decode().strip()
 
 
-def _table(header, table, ids, min_widths=None, select=True):
+def table(header: str, table: List[List[str]], ids: List[str], min_widths: List[int]=None, select: bool=True) -> List[str]:
+    """
+    Prepares a table for display in the terminal.
 
+    Parameters
+    ----------
+    header : 
+        Table header.
+    table : 
+        List of lists of strings.
+    ids : 
+        List of string IDs for each row.
+    min_widths : 
+        List of same length as the number of table columns. Integer values represent 
+        minimal column widths. None values represent no minimal width. All columns 
+        with None have same width. By default None, in which case all columns have 
+        the same width. 
+    select : 
+        Whether to prompt user to select rows. By default True.
+
+    Returns
+    -------
+    :
+        If select is True, returns a list of selected IDs. If select is False, 
+        returns a list of strings for each row in the table.
+    """
     col_widths = [max(len(x) for x in col) for col in zip(*table)]
 
     max_width = shutil.get_terminal_size().columns - 4 * len(col_widths) - 4 * int(select) - 2
@@ -271,8 +203,8 @@ def _table(header, table, ids, min_widths=None, select=True):
 
     table_width = sum(col_widths) + 4 * len(col_widths) + 2
 
-    utils.echo("Move: Arrow up/down, Toggle-select: Space, Confirm: Enter, Abort: Ctrl-C\n"*int(select))
-    utils.echo('    '*int(select)+'| '+'| '.join([x[:w].ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
+    term.echo("Move: Arrow up/down, Toggle-select: Space, Confirm: Enter, Abort: Ctrl-C\n"*int(select))
+    term.echo('    '*int(select)+'| '+'| '.join([x[:w].ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
     click.echo('-'*(table_width-4*int(not select)))
     rows = []
     for row in table:
@@ -290,9 +222,9 @@ def _table(header, table, ids, min_widths=None, select=True):
     return [ids[i]for i in selected_indices]
 
 
-def _container_list(callback=None):
+def container_list(callback=None):
 
-    current_containers = _containers(return_json=True)
+    current_containers = containers(return_json=True)
     if not current_containers:
         click.echo("\nNo running containers\n")
         return
@@ -320,18 +252,18 @@ def _container_list(callback=None):
             table.append((course_name, exercise_name , cont['RunningFor'].replace(' ago', ''), cont['Size']))
 
     if callback is None:
-        for row in _table(header, table, ids, min_widths=[None, None, 20, 25], select=False):
-            utils.echo(row, nowrap=True)
-        utils.echo()
+        for row in table(header, table, ids, min_widths=[None, None, 20, 25], select=False):
+            term.echo(row, nowrap=True)
+        term.echo()
         return
     
-    utils.secho("Select containers:", fg='green')
+    term.secho("Select containers:", fg='green')
 
-    for cont_id in _table(header, table, ids, min_widths=[None, None, 20, 25], select=True):
+    for cont_id in table(header, table, ids, min_widths=[None, None, 20, 25], select=True):
         callback(cont_id, force=True)
 
-def _image_list(callback=None):
-    img = _images(return_json=True)
+def image_list(callback=None):
+    img = images(return_json=True)
     if not img:
         click.echo("\nNo images to remove\n")
         return
@@ -343,7 +275,7 @@ def _image_list(callback=None):
     table = []
     ids = []
     prefix = f'{REGISTRY_BASE_URL}/{GITLAB_GROUP}'
-    for img in _images(return_json=True):
+    for img in images(return_json=True):
         if img['Repository'].startswith(prefix):
 
             rep = img['Repository'].replace(prefix, '')
@@ -360,14 +292,14 @@ def _image_list(callback=None):
             table.append((course_field, exercise_field , img['CreatedSince'].replace(' ago', ''), img['Size'].replace("GB", " GB")))
 
     if callback is None:
-        for row in _table(header, table, ids, min_widths=[None, None, 9, 9], select=False):
-            utils.echo(row, nowrap=True)
-        utils.echo()
+        for row in table(header, table, ids, min_widths=[None, None, 9, 9], select=False):
+            term.echo(row, nowrap=True)
+        term.echo()
         return
 
-    utils.secho("\nSelect images:", fg='green')
+    term.secho("\nSelect images:", fg='green')
 
-    for img_id in _table(header, table, ids, min_widths=[None, None, 9, 9], select=True):
+    for img_id in table(header, table, ids, min_widths=[None, None, 9, 9], select=True):
         callback(img_id, force=True)
 
 
@@ -381,10 +313,10 @@ def docker():
     pass
 
 
-def _pull(image_url):
+def pull(image_url):
 
     # p = Popen(utils.format_cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
-    p = Popen(utils._cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
+    p = Popen(fmt_cmd(f'docker pull {image_url}:latest'), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True)
     f = p.stdout
     # while True:
     #     line = f.readline()
@@ -414,160 +346,70 @@ def _pull(image_url):
     # p.wait()
 
     # subprocess.run(utils.format_cmd(f'docker pull {image_url}:latest'), check=False)
-    utils._run_cmd(f'docker pull {image_url}:latest', check=False)
+    utils.run_cmd(f'docker pull {image_url}:latest', check=False)
 
 
 @click.argument("url")
-@docker.command()
+@docker.command('pull')
 @ensure_docker_running
 @crash_report
-def pull(url):
+def _pull(url):
     """Pull docker image.
     
     URL is the Docker image URL.
     """
-    _pull(url)
+    pull(url)
 
 
+@docker.command('restart')
+@crash_report
 def _restart():
-    cmd = 'docker desktop restart'
-    timeout=40    
-    try:
-        logger.debug(cmd)
-        output = check_output(utils._cmd(cmd), timeout=timeout).decode()
-    except TimeoutExpired as e:
-        logger.debug(f"Timeout of {timeout} seconds exceeded.")
-        return False
-    except subprocess.CalledProcessError as e:        
-        logger.debug(e.output.decode())
-        raise click.Abort()    
-    return True
-
-@docker.command()
-@crash_report
-def restart():
     """Restart Docker Desktop"""
-    _restart()
-
-
-def _start():
-    cmd = 'docker desktop start'
-    timeout=40    
-    try:
-        logger.debug(cmd)
-        output = check_output(utils._cmd(cmd), timeout=timeout).decode()
-    except TimeoutExpired as e:
-        logger.debug(f"Timeout of {timeout} seconds exceeded.")
-        return False
-    except subprocess.CalledProcessError as e:        
-        logger.debug(e.output.decode())
-        raise click.Abort()    
-    return True
+    docker_desktop_restart()
 
 
 @docker.command()
 @crash_report
-def start():
+def _start():
     """Start Docker Desktop"""
-    _start()
+    docker_desktop_start()
 
 
-def _stop():
-    # _command('docker desktop stop', silent=True)
-    utils._run_cmd('docker desktop stop', check=False)
-
-@docker.command()
+@docker.command('stop')
 @irrelevant_unless_docker_running
 @crash_report
-def stop():
+def _stop():
     """Stop Docker Desktop"""
-    _stop()
+    docker_desktop_stop()
 
 
+@docker.command('status')
+@crash_report
 def _status():
-    # stdout = subprocess.run(utils._cmd('docker desktop status --format json'), 
-    #                         check=False, stderr=DEVNULL, stdout=PIPE).stdout.decode()
-    stdout = utils._run_cmd('docker desktop status --format json', check=False)
-    if not stdout:
-        return 'not running'
-    data = json.loads(stdout)
-    return data['Status']
-
-@docker.command()
-@crash_report
-def status():
     "Docker Desktop status"
-    s = _status()
+    s = docker_desktop_status()
     fg = 'green' if s == 'running' else 'red'
-    utils.secho(s, fg=fg, nowrap=True)
+    term.secho(s, fg=fg, nowrap=True)
 
 
-def _get_latest_docker_version():
-
-    # A bit of a hack: gets version as tag of base docker image (which is for use with "docker in docker")
-
-    s = requests.Session()
-    url = 'https://registry.hub.docker.com/v2/namespaces/library/repositories/docker/tags'
-    tags = []
-    r  = s.get(url, headers={ "Content-Type" : "application/json"})
-    if not r.ok:
-        r.raise_for_status()
-    data = r.json()
-    for entry in data['results']:
-        if 'name' in entry:
-            try:
-                tags.append(Version(entry['name']))
-            except InvalidVersion:
-                # latest and other non-version tags
-                pass
-    return max(tags)
-
-
-def _update_docker(return_json=False):
-
-    if utils.system() == 'Windows':
-        current_engine_version = _version()
-        most_recent_version = _get_latest_docker_version()
-        if current_engine_version < most_recent_version:
-            utils.boxed_text(f"Update Docker Desktop",
-                             [f'Please open the "Docker Desktop" application and and click where it says "New version available" in the bottom right corner.', 
-                              'Then scroll down and click the blue button to update'],
-                            prompt='Press Enter to close Franklin.', fg='red')
-            sys.exit(0)
-    else:
-        # stdout = subprocess.check_output(utils.format_cmd('docker desktop update --check-only')).decode()
-        stdout = utils._run_cmd('docker desktop update --check-only')
-        if 'is already the latest version' not in stdout:
-            # subprocess.run(utils.format_cmd('docker desktop update --quiet'))
-            utils._run_cmd('docker desktop update --quiet')
-
-
-@docker.command()
+@docker.command('update')
 @crash_report
-def update():
+def _update():
     """Update Docker Desktop (Mac only)"""
     if utils.system() == 'Windows':
-        utils.echo('This command is not available on Windows systems. Please open the Docker Desktop application and check for updates there.')
+        term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and check for updates there.')
     else:
-        _update_docker()
+        update_docker_desktop()
 
 
-def _version(return_json=False):
-    stdout = subprocess.check_output(_cmd('docker version --format json'))
-    data = json.loads(stdout.decode())
-    cmp = data['Server']['Components']
-    vers = [c['Version'] for c in cmp if c['Name'] == 'Engine'][0]
-    return Version(vers)
-
-@docker.command()
+@docker.command('version')
 @crash_report
-def version():
+def _version():
     """Get Docker Desktop version"""
-    utils.echo(_version())
+    term.echo(docker_desktop_version())
 
 
-
-def _run(image_url):
+def run(image_url):
 
     if utils.system() == "Windows":
         popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
@@ -592,9 +434,9 @@ def _run(image_url):
     port = '8888'
     occupied_ports = utils.jupyter_ports_in_use()
     if occupied_ports:
-        utils.echo(f"Default host port {port} is in use.", nl=False)
+        term.echo(f"Default host port {port} is in use.", nl=False)
         port = str(max(occupied_ports) + 1)
-        utils.echo(f"Using port {port} instead.")
+        term.echo(f"Using port {port} instead.")
 
     cmd = (
         # rf"docker run --memory {CONTAINER_MEMORY_LIMIT} --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
@@ -614,14 +456,14 @@ def _run(image_url):
     return docker_run_p, port
 
 @click.argument("url")
-@docker.command()
+@docker.command('run')
 @ensure_docker_running
 @crash_report
-def run(url):
+def _run(url):
     """
     Run container from image. Use for testing that the image runs correctly.    
     """
-    _run(url)
+    run(url)
 
 
 ###########################################################
@@ -635,43 +477,43 @@ def prune():
     pass
 
 
-def _prune_networks():
+def prune_networks():
     # _command(f'docker container prune --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"')
-    utils._run_cmd(f'docker network prune --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"')
+    utils.run_cmd(f'docker network prune --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"')
 
 @prune.command('networks')
 @crash_report
-def prune_networks():
+def _prune_networks():
     """
     Remove networks not used by at least one container.
     """
-    _prune_networks()
+    prune_networks()
 
 
-def _prune_containers():
+def prune_containers():
     # _command(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
-    utils._run_cmd(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
+    utils.run_cmd(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @prune.command('containers')
 @crash_report
-def prune_containers():
+def _prune_containers():
     """
     Remove stopped containers.
     """
-    _prune_containers()
+    prune_containers()
 
 
-def _prune_images():
+def prune_images():
     # _command(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
-    utils._run_cmd(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
+    utils.run_cmd(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @prune.command('images')
 @crash_report
-def prune_images():
+def _prune_images():
     """
     Remove unused images.
     """
-    _prune_images()
+    prune_images()
 
 # def _prune_cache():
 #     _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
@@ -684,18 +526,18 @@ def prune_images():
 #     _prune_cache()
 
 
-def _prune_all():
+def prune_all():
     # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
-    utils._run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
+    utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @prune.command('all')
 @crash_report
-def prune_all():
+def _prune_all():
     """
     Remove stopped containers, unused networks, 
     dangling images, and unused build cache.
     """
-    _prune_all()
+    prune_all()
 
 # def _build(directory=Path.cwd(), tag=None):
 
@@ -732,9 +574,9 @@ def kill():
     """Kill Docker elements"""
     pass
 
-def _kill_container(container_id):
+def kill_container(container_id):
     """Kill a running container."""
-    cmd = utils._cmd(f'docker kill {container_id}')
+    cmd = fmt_cmd(f'docker kill {container_id}')
     Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
 
 # def kill_container(container_id):
@@ -742,7 +584,7 @@ def _kill_container(container_id):
 
 
 # @docker.command('kill')
-def _kill_docker_processes():
+def kill_docker_processes():
     """
     Kills docker processes using SIGTERM AND SIGKILL.
     """
@@ -761,29 +603,29 @@ def _kill_docker_processes():
                 child.kill()  # unfriendly termination
 
 
-def _shutdown_wsl():
+def shutdown_wsl():
     """
     Shutdown WSL
     """
     if utils.system() == 'Windows':
         logger.debug('Restarting WSL Docker Desktop distribution.')
         subprocess.check_call('wsl -t docker-desktop')
-        utils.dummy_progressbar(10, label='Restarting.')
-        if _status() == 'running':
+        term.dummy_progressbar(10, label='Restarting.')
+        if docker_desktop_status() == 'running':
             return
         
 
-def _shutdown_wsl_docker_distribution():
+def shutdown_wsl_docker_distribution():
     """
     Kills docker processes using SIGTERM AND SIGKILL.
     """
     logger.debug('Restarting WSL Docker Desktop distribution.')
     if utils.system() == 'Windows':
-        utils.echo('WSL needs to restart.')
+        term.echo('WSL needs to restart.')
         logger.debug('Restarting WSL')
         subprocess.check_call('wsl --shutdown')    
-        utils.dummy_progressbar(10, label='Restarting.')
-        if _status() == 'running':
+        term.dummy_progressbar(10, label='Restarting.')
+        if docker_desktop_status() == 'running':
             return    
 
 
@@ -791,13 +633,13 @@ def _shutdown_wsl_docker_distribution():
 @click.argument("container_id", required=False)
 @irrelevant_unless_docker_running
 @crash_report
-def _kill_selected_containers(container_id=None):
+def kill_selected_containers(container_id=None):
 
     if container_id:
-        _kill_container(container_id)
+        kill_container(container_id)
         return
     
-    _container_list(callback=_kill_container)
+    container_list(callback=kill_container)
 
 
 ###########################################################
@@ -811,73 +653,73 @@ def show():
     pass
 
 
-def _containers(return_json=False):
+def containers(return_json=False):
     # return _command('docker ps --all --size', return_json=return_json)
-    output = utils._run_cmd('docker ps --all --size --format json')
+    output = utils.run_cmd('docker ps --all --size --format json')
     return [json.loads(line) for line in output.strip().splitlines()]
 
-@show.command()
+@show.command('containers')
 @ensure_docker_running
 @crash_report
-def containers():
+def _containers():
     """Show running docker containers."""
-    _container_list()
-    # utils.echo(_containers(), nowrap=True)
+    container_list()
+    # term.echo(_containers(), nowrap=True)
 
 
-def _storage(verbose=False):
+def storage(verbose=False):
     if verbose:
         # return _command(f'docker system df -v')
-        return utils._run_cmd('docker system df -v')
+        return utils.run_cmd('docker system df -v')
     # return _command(f'docker system df')
-    return utils._run_cmd(f'docker system df')
+    return utils.run_cmd(f'docker system df')
 
 @click.option("--verbose/--no-verbose", default=False, help="More detailed output")
-@show.command()
+@show.command('storage')
 @ensure_docker_running
 @crash_report
-def storage(verbose):
+def _storage(verbose):
     """Show Docker's disk usage."""
-    utils.echo(_storage(verbose), nowrap=True)
+    term.echo(storage(verbose), nowrap=True)
 
 
-def _logs(return_json=False):
+def logs(return_json=False):
     # _command('docker desktop logs', return_json=return_json)
-    output = utils._run_cmd('docker desktop logs --format json')
+    output = utils.run_cmd('docker desktop logs --format json')
     return [json.loads(line) for line in output.strip().splitlines()]
 
 
-@show.command()
+@show.command('logs')
 @crash_report
-def logs():
-    _logs()
+def _logs():
+    logs()
 
 
-def _volumes(return_json=False):
+def volumes(return_json=False):
     # return _command('docker volume ls', return_json=return_json)
-    output = utils._run_cmd('docker volume ls --format json')
+    output = utils.run_cmd('docker volume ls --format json')
     return [json.loads(line) for line in output.strip().splitlines()]
 
-@show.command()
+@show.command('volumes')
 @ensure_docker_running
 @crash_report
-def volumes():
+def _volumes():
     """List docker volumes."""
-    utils.echo(_volumes(), nowrap=True)
+    term.echo(volumes(), nowrap=True)
 
 
-def _images(return_json=False):
+def images(return_json=False):
     # return _command('docker images', return_json=return_json)
-    output = utils._run_cmd('docker images --format json')
+    output = utils.run_cmd('docker images --format json')
     return [json.loads(line) for line in output.strip().splitlines()]
 
-@show.command()
+@show.command('images')
 @ensure_docker_running
 @crash_report
-def images():
+def _images():
     """List docker images."""
-    # utils.echo(_images(), nowrap=True)
-    _image_list()
+    # term.echo(_images(), nowrap=True)
+    image_list()
 
 
 ###########################################################
@@ -892,53 +734,53 @@ def remove():
     pass
 
 
-def _rm_container(container, force=False):
+def rm_container(container, force=False):
     if force:
         # _command(f'docker rm -f {container}', silent=True)
-        utils._run_cmd(f'docker rm -f {container}', check=False)
+        utils.run_cmd(f'docker rm -f {container}', check=False)
 
     else:
         # _command(f'docker rm {container}', silent=True)
-        utils._run_cmd(f'docker rm {container}', check=False)
+        utils.run_cmd(f'docker rm {container}', check=False)
 
 @remove.command('containers')
 @click.argument("container_id", required=False)
 @crash_report
-def _remove_selected_containers(container_id=None):
+def remove_selected_containers(container_id=None):
 
     if container_id:
-        _rm_container(container_id)
+        rm_container(container_id)
         return
     
-    _container_list(callback=_rm_container)
+    container_list(callback=rm_container)
 
 
-def _rm_image(image, force=False):
+def rm_image(image, force=False):
     if force:
         # _command(f'docker image rm -f {image}', silent=True)
-        utils._run_cmd(f'docker image rm -f {image}', check=False)
+        utils.run_cmd(f'docker image rm -f {image}', check=False)
     else:
         # _command(f'docker image rm {image}', silent=True)
-        utils._run_cmd(f'docker image rm {image}', check=False)
+        utils.run_cmd(f'docker image rm {image}', check=False)
 
 @remove.command('images')
 @click.argument("image_id", required=False)
 @crash_report
-def _remove_selected_images(image_id=None):
+def remove_selected_images(image_id=None):
     
     if image_id:
-        _rm_image(image_id)
+        rm_image(image_id)
         return
+    image_list(callback=rm_image)
 
-    _image_list(callback=_rm_image)
-
+def remove_everything():
+    # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+    utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
 
 @remove.command('everything')
 @crash_report
 def _remove_everything():
-    # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
-    utils._run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
-             
+    remove_everything()             
 
 ###########################################################
 # docker config subcommands
@@ -966,7 +808,7 @@ class docker_config():
         with open(self.json_settings, 'w') as f:
             json.dump(self.settings, f)
 
-def _as_type(s):
+def as_type(s):
     if s.lower() in ['true', 'false']:
         return s.lower() == 'true'
     try:
@@ -985,34 +827,34 @@ def config():
     pass
 
 
-def _config_get(variable=None):
+def config_get(variable=None):
     """Get Docker configuration for variable or all variables"""
 
     with docker_config() as cfg:
         if variable is not None:
             if variable not in DOCKER_SETTINGS:
-                utils.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
+                term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
                 return
-            utils.echo(f'{variable}: {cfg.settings[variable]}')
+            term.echo(f'{variable}: {cfg.settings[variable]}')
         else:
             for variable in DOCKER_SETTINGS:
                 if variable in cfg.settings:
-                    utils.echo(f'{str(variable).rjust(31)}: {cfg.settings[variable]}')
+                    term.echo(f'{str(variable).rjust(31)}: {cfg.settings[variable]}')
 
 @config.command('get')
 @click.argument("variable", required=False)
 @crash_report
-def config_get(variable=None):
-     return _config_get(variable=variable)
+def _config_get(variable=None):
+     return config_get(variable=variable)
      
 
-def _config_set(variable, value):
+def config_set(variable, value):
     """Set Docker configuration for variable or all variables"""
 
     if type(value) is str:
-        value = _as_type(value)
+        value = as_type(value)
     if variable not in DOCKER_SETTINGS:
-        utils.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
+        term.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
         return
 
     with docker_config() as cfg:
@@ -1022,8 +864,8 @@ def _config_set(variable, value):
 @click.argument("variable", required=True)
 @click.argument("value", required=True)
 @crash_report
-def config_set(variable, value):
-    return _config_set(variable, value)
+def _config_set(variable, value):
+    return config_set(variable, value)
 
 
 def _config_reset(variable=None):
@@ -1032,7 +874,7 @@ def _config_reset(variable=None):
     with docker_config() as cfg:
         if variable is not None:
             if variable not in DOCKER_SETTINGS:
-                utils.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
+                term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
                 return
             cfg.settings[variable] = DOCKER_SETTINGS[variable]
         else:
@@ -1046,22 +888,22 @@ def config_reset(variable):
     return _config_reset(variable=variable)
 
 
-def _config_fit():
+def config_fit():
     """Sets resource limits to reasonable values given machine resources"""
 
     _config_reset()
 
     nr_cpu = psutil.cpu_count(logical=True)
-    _config_set('Cpus', nr_cpu // 2)
+    config_set('Cpus', nr_cpu // 2)
 
     svmem = psutil.virtual_memory()
     mem_mb = svmem.total // (1024 ** 2)
-    _config_set('MemoryMiB', mem_mb // 2)
+    config_set('MemoryMiB', mem_mb // 2)
 
 @config.command('fit')
 @crash_report
-def config_fit():
-    return _config_fit()
+def _config_fit():
+    return config_fit()
 
 # uninstall
 #/Applications/Docker.app/Contents/MacOS/uninstall

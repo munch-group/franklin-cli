@@ -167,3 +167,5 @@ docs/.quarto/
 
 docs/.gitignore
 **/.DS_Store
+
+franklin.log

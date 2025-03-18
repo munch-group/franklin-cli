@@ -16,8 +16,8 @@ from .utils import AliasedGroup, crash_report
 from .gitlab import select_image
 from . import docker as _docker
 from .logger import logger
-from .update import _update_client
-
+from .update import update_client
+from . import terminal as term
 
 banner = """
         ▗▄▄▄▖▗▄▄▖  ▗▄▖ ▗▖  ▗▖▗▖ ▗▖▗▖   ▗▄▄▄▖▗▖  ▗▖
@@ -40,48 +40,47 @@ def jupyter():
                 help="Override check for package updates")
 @jupyter.command('run')
 @crash_report
-def launch_exercise(allow_subdirs_at_your_own_risk, update):
+def _run(allow_subdirs_at_your_own_risk, update):
 
-    utils._check_window_size()
+    term.check_window_size()
 
     click.clear()
 
     for line in banner.splitlines():
-        utils.secho(line, nowrap=True, center=True, fg='green')
+        term.secho(line, nowrap=True, center=True, fg='green')
 
-    logger.debug("################ STARTING FRANKLIN ################")
-
-    utils.echo()
-    utils.echo('"Science and everyday life cannot and should not be separated"', center=True)
-    utils.echo("Rosalind D. Franklin", center=True)
-    utils.echo()
+    term.echo()
+    term.echo('"Science and everyday life cannot and should not be separated"', center=True)
+    term.echo("Rosalind D. Franklin", center=True)
+    term.echo()
 
     if not allow_subdirs_at_your_own_risk:
         for x in os.listdir(os.getcwd()):
             if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
-                utils.secho("\n  Please run the command in a directory without any sub-directories.\n", fg='red')
+                term.secho("\n  Please run the command in a directory without any sub-directories.\n", fg='red')
                 sys.exit(1)
 
-    utils._check_internet_connection()
+    utils.check_internet_connection()
     utils.logger.debug('Starting Docker Desktop')
-    _docker._failsafe_start_docker_desktop()
-    utils._check_free_disk_space()
+    _docker.failsafe_start_docker_desktop()
+    utils.check_free_disk_space()
     time.sleep(2)
 
-    _update_client(update)
+    update_client(update)
 
-    utils.secho('Starting container:', fg='green')
+    term.echo()
+    term.secho('Starting container:', fg='green')
 
     image_url = select_image()
 
-    if not _docker._image_exists(image_url):
-        utils.secho("Downloading image:", fg='green')
+    if not _docker.image_exists(image_url):
+        term.secho("Downloading image:".ljust(23), fg='green')
     else:
-        utils.secho("Updating image:", fg='green')
-    _docker._pull(image_url)
-    utils.echo()    
+        term.secho("Checking for image update", fg='green')
+    _docker.pull(image_url)
+    term.echo()    
 
-    run_container_id, docker_run_p, port = _docker._failsafe_run_container(image_url)
+    run_container_id, docker_run_p, port = _docker.failsafe_run_container(image_url)
 
     cmd = f"docker logs --follow {run_container_id}"
     if utils.system() == "Windows":
@@ -106,28 +105,35 @@ def launch_exercise(allow_subdirs_at_your_own_risk, update):
 
     webbrowser.open(token_url, new=1)
 
-    utils.secho(f'\nJupyter is running and should open in your default browser.', fg='green')
-    utils.echo(f'If not, you can access it at this URL:')
-    utils.echo(f'{token_url}', nowrap=True)
+    term.secho(f'\nJupyter is running and should open in your default browser.', fg='green')
+    term.echo(f'If not, you can access it at this URL:')
+    term.echo(f'{token_url}', nowrap=True)
 
     while True:
-        utils.secho('\nPress Q to shut down jupyter and close application', fg='green')
+        term.secho('\nPress Q to shut down jupyter and close application', fg='green')
         c = click.getchar()
         click.echo()
         if c.upper() == 'Q':
 
-            utils.secho('Shutting down container', fg='red') 
+            term.secho('Shutting down container', fg='red') 
             sys.stdout.flush()
-            _docker._kill_container(run_container_id)
+            _docker.kill_container(run_container_id)
             docker_run_p.terminate()
             docker_run_p.wait()
-            utils.secho('Shutting down Docker Desktop', fg='yellow') 
+            term.secho('Shutting down Docker Desktop', fg='yellow') 
             sys.stdout.flush()
-            _docker._stop()
-            utils.secho('Service has stopped.', fg='green')
-            utils.echo()
-            utils.secho('Jupyter is not longer running and you can close the tab in your browser.')
+            _docker.docker_desktop_stop()
+            term.secho('Service has stopped.', fg='green')
+            term.echo()
+            term.secho('Jupyter is not longer running and you can close the tab in your browser.')
             logging.shutdown()
             break
 
     sys.exit()
+
+
+@jupyter.command('servers')
+@crash_report
+def _servers():
+    for line in utils.run_cmd('jupyter server list').splitlines():
+        term.echo(line)
