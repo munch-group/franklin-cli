@@ -194,7 +194,7 @@ def run_cmd(cmd, check=True, capture_output=True, timeout=None):
     cmd = fmt_cmd(cmd)
     try:
         p = subprocess.run(cmd, check=check, 
-                                capture_output=capture_output, timeout=timeout)
+                capture_output=capture_output, timeout=timeout)
         output = p.stdout.decode()
     except subprocess.TimeoutExpired as e:
         logger.debug(f"Command timeout of {timeout} seconds exceeded.")

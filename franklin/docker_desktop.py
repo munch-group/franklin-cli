@@ -101,28 +101,37 @@ def install_docker_desktop():
         term.echo("Installing:")
         term.echo()
         term.secho('='*WRAP_WIDTH, fg='red')
-        term.echo('  Press Enter and then drag the Docker to the Applications folder.', fg='red')
+        term.echo('  Press Enter and then drag the Docker application to the Applications folder.', fg='red')
+        term.secho('='*WRAP_WIDTH, fg='red')
+        term.echo()
+        click.pause('Press Enter...')
+        term.echo()
+        term.secho('='*WRAP_WIDTH, fg='red')
+        term.echo('  Did you drag the Docker application to the Applications folder? If so, press Press Enter to continue.', fg='red')
         term.secho('='*WRAP_WIDTH, fg='red')
         term.echo()
         click.pause('Press Enter...')
 
         check_output(utils.fmt_cmd(f'open /Volumes/{mounted_volume_name}')).decode().strip()
 
+   
+
         term.echo(" - Copying to Applications...")
-        prev_size = ''
-        for _ in range(1000):
-            cmd = f'du -s /Applications/Docker.app'
-            logger.debug(cmd)
-            cmd = cmd.split()
-            cmd[0] = shutil.which(cmd[0])
-            output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, timeout=1, check=False).stdout.decode().strip()
-            if output:
-                size = output.split()[0]
-                if size == prev_size:
-                    break
-                print(prev_size, size)
-                prev_size = size
-            time.sleep(5)
+        with click.progressbar(length=100, label='Copying to Applications:', **PG_OPTIONS) as bar:
+            prev_size = ''
+            for _ in range(1000):
+                cmd = f'du -s /Applications/Docker.app'
+                logger.debug(cmd)
+                cmd = cmd.split()
+                cmd[0] = shutil.which(cmd[0])
+                output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, timeout=1, check=False).stdout.decode().strip()
+                if output:
+                    size = output.split()[0]
+                    if size == prev_size:
+                        break
+                    bar.update(100*int(1 - (size - prev_size) / size))
+                    prev_size = size
+                time.sleep(5)
 
         term.dummy_progressbar(seconds=10, label='Validating Docker Desktop:')
 

@@ -622,6 +622,12 @@ def _prune_all():
     """
     prune_all()
 
+
+
+
+# docker build command
+
+
 # def _build(directory=Path.cwd(), tag=None):
 
 #     if tag is None:
@@ -644,6 +650,8 @@ def _prune_all():
 #     Build image from Dockerfile. Use for testing that the image builds correctly.
 #     """
 #     _build(directory, tag)
+
+
 
 
 
@@ -953,6 +961,11 @@ def config_set(variable, value):
 
     if type(value) is str:
         value = as_type(value)
+
+    if value == 'DiskSizeMiB':
+        # for some reason Docker Desktop only accepts values in multiples of 1024
+        value = int(value / 1024) * 1024
+
     if variable not in DOCKER_SETTINGS:
         term.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
         return

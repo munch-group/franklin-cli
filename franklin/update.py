@@ -10,7 +10,7 @@ from . import terminal as term
 
 def update_client(update):
     version = utils.franklin_version()
-    click.secho('Checking for Franklin update:', nl=False, fg='green')
+    click.secho('Checking for Franklin update:', fg='green')
     cmd = f"conda update -y -c conda-forge -c {ANACONDA_CHANNEL} --no-update-deps franklin"
     
     logger.debug(cmd)
@@ -30,14 +30,14 @@ def update_client(update):
             term.echo("\n\nPlease install the package with the following command:")                
             term.echo(f"\n\n  conda install {ANACONDA_CHANNEL}::franklin\n\n")
         sys.exit()
-    click.echo('done')
+
 
     term.secho(f"Resetting to default settings and fitting them to your machine.")
     docker.config_fit()
 
     new_version = utils.franklin_version()
     if new_version == version:
-        term.secho(f"Franklin is running the newest version.")
+        term.secho(f"Franklin is running the newest version: {new_version}")
     else:
         term.echo(f"Franklin was updated from version {version} to {new_version} and exits to get a fresh start.")
         click.echo(f"Please run your command again.")
