@@ -77,9 +77,7 @@ def _run(allow_subdirs_at_your_own_risk, update):
     _docker.pull(image_url)
     term.echo()    
 
-    term.echo()
     term.secho('Starting container:', fg='green')
-
     run_container_id, docker_run_p, port = _docker.failsafe_run_container(image_url)
 
     cmd = f"docker logs --follow {run_container_id}"
@@ -92,6 +90,8 @@ def _run(allow_subdirs_at_your_own_risk, update):
     while True:
         time.sleep(0.1)
         line = docker_log_p.stdout.readline()
+        if line:
+            logger.debug('JUPYTER: '+line.strip())
         # line = docker_p_nice_stdout.readline().decode()
         match= re.search(r'https?://127.0.0.1\S+', line)
         if match:
@@ -125,7 +125,7 @@ def _run(allow_subdirs_at_your_own_risk, update):
             _docker.docker_desktop_stop()
             term.secho('Service has stopped.', fg='green')
             term.echo()
-            term.secho('Jupyter is not longer running and you can close the tab in your browser.')
+            term.secho('Jupyter is no longer running and you can close the tab in your browser.')
             logging.shutdown()
             break
 

@@ -25,6 +25,7 @@ requirements:
     - click
     - psutil
     - packaging
+    - yaml
     - git
     # - wslu # [win]
 

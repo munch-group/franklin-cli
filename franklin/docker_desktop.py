@@ -168,9 +168,9 @@ def failsafe_start_docker_desktop():
     if not shutil.which('docker'):
          install_docker_desktop()    
 
-    docker_desktop_start()
-
-    term.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
+    if not docker_desktop_status() == 'running':
+        docker_desktop_start()
+        term.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
 
     if not docker_desktop_status() == 'running':
         term.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')

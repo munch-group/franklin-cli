@@ -14,7 +14,7 @@ from .docker_desktop import docker_desktop_status, docker_desktop_start, docker_
 from . import terminal as term
 from . import utils
 from .utils import AliasedGroup, crash_report, fmt_cmd
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP, DOCKER_SETTINGS
+from .config import REGISTRY_BASE_URL, GITLAB_GROUP, DOCKER_SETTINGS, CONTAINER_MEMORY_LIMIT
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
@@ -167,7 +167,7 @@ def image_exists(image_url: str) -> bool:
 #         return subprocess.check_output(utils.format_cmd(command)).decode().strip()
 
 
-def table(header: str, table: List[List[str]], ids: List[str], min_widths: List[int]=None, select: bool=True) -> List[str]:
+def format_table(header: str, table: List[List[str]], ids: List[str], min_widths: List[int]=None, select: bool=True) -> List[str]:
     """
     Called by *_list functions to format a table for display in the terminal.
 
@@ -274,14 +274,14 @@ def container_list(callback: Callable=None) -> None:
             table.append((course_name, exercise_name , cont['RunningFor'].replace(' ago', ''), cont['Size']))
 
     if callback is None:
-        for row in table(header, table, ids, min_widths=[None, None, 20, 25], select=False):
+        for row in format_table(header, table, ids, min_widths=[None, None, 20, 25], select=False):
             term.echo(row, nowrap=True)
         term.echo()
         return
     
     term.secho("Select containers:", fg='green')
 
-    for cont_id in table(header, table, ids, min_widths=[None, None, 20, 25], select=True):
+    for cont_id in format_table(header, table, ids, min_widths=[None, None, 20, 25], select=True):
         callback(cont_id, force=True)
 
 
@@ -303,7 +303,7 @@ def image_list(callback: Callable=None):
     """
     img = images(return_json=True)
     if not img:
-        click.echo("\nNo images to remove\n")
+        click.echo("\nNo images\n")
         return
 
     course_names = get_course_names()
@@ -330,14 +330,14 @@ def image_list(callback: Callable=None):
             table.append((course_field, exercise_field , img['CreatedSince'].replace(' ago', ''), img['Size'].replace("GB", " GB")))
 
     if callback is None:
-        for row in table(header, table, ids, min_widths=[None, None, 9, 9], select=False):
+        for row in format_table(header, table, ids, min_widths=[None, None, 9, 9], select=False):
             term.echo(row, nowrap=True)
         term.echo()
         return
 
     term.secho("\nSelect images:", fg='green')
 
-    for img_id in table(header, table, ids, min_widths=[None, None, 9, 9], select=True):
+    for img_id in format_table(header, table, ids, min_widths=[None, None, 9, 9], select=True):
         callback(img_id, force=True)
 
 
@@ -503,10 +503,17 @@ def run(image_url :str) -> Tuple[Popen, str]:
         port = str(max(occupied_ports) + 1)
         term.echo(f"Using port {port} instead.")
 
+    # cmd = (
+    #     # rf"docker run --memory {CONTAINER_MEMORY_LIMIT} --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
+    #     rf"docker run --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
+    #     rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
+    #     rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
+    #     rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
+    #     rf" -w {cwd_mount_target} -i -p 8050:8050 -p {port}:8888 {image_url}:latest"
+    # )
     cmd = (
         # rf"docker run --memory {CONTAINER_MEMORY_LIMIT} --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
         rf"docker run --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
-        rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
         rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
         rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
         rf" -w {cwd_mount_target} -i -p 8050:8050 -p {port}:8888 {image_url}:latest"
@@ -518,6 +525,8 @@ def run(image_url :str) -> Tuple[Popen, str]:
     docker_run_p = Popen(cmd, 
                         stdout=DEVNULL, stderr=DEVNULL, 
                         **popen_kwargs)
+    if docker_run_p.poll() is not None:
+        raise Exception('Failed to start container')
     return docker_run_p, port
 
 @click.argument("url")
