@@ -7,8 +7,12 @@ from .config import ANACONDA_CHANNEL
 from . import utils
 from . import docker
 from . import terminal as term
+from typing import Tuple, List, Dict, Callable, Any
 
-def update_client(update):
+def update_client() -> None:
+    """
+    Update the Franklin client.
+    """
     version = utils.franklin_version()
     click.secho('Checking for Franklin update:', fg='green')
     cmd = f"conda update -y -c conda-forge -c {ANACONDA_CHANNEL} --no-update-deps franklin"
@@ -31,7 +35,6 @@ def update_client(update):
             term.echo(f"\n\n  conda install {ANACONDA_CHANNEL}::franklin\n\n")
         sys.exit()
 
-
     term.secho(f"Resetting to default settings and fitting them to your machine.")
     docker.config_fit()
 
@@ -47,5 +50,6 @@ def update_client(update):
 @click.command('update')
 @crash_report
 def update():
-    """Update the Franklin client."""    
+    """Update the Franklin client.
+    """    
     update_client(update=True)

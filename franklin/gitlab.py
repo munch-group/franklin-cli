@@ -11,6 +11,7 @@ import os
 import shutil
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from . import terminal as term
+from typing import Tuple, List, Dict, Callable, Any
 
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
 
@@ -21,7 +22,20 @@ from . import terminal as term
 # # this will show the namespace details of the User with username my-username
 # curl --header "PRIVATE-TOKEN: ${TOKEN}" "https://gitlab.com/api/v4/namespace/my-username
 
-def get_registry_listing(registry):
+def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
+    """
+    Fetches the listing of images in the GitLab registry.
+
+    Parameters
+    ----------
+    registry : 
+        URl to the GitLab registry.
+
+    Returns
+    -------
+    :
+        A dictionary with the course and exercise names as keys and the image locations
+    """
     s = requests.Session()
     # s.auth = ('user', 'pass')
     s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
@@ -37,11 +51,18 @@ def get_registry_listing(registry):
         if course in ['base-images', 'base-templates']:
             continue
         images[(course, exercise)] = entry['location']
-        # images[(course, exercise)] = entry#['location']
     return images
 
 
-def get_course_names():
+def get_course_names() -> Dict[str, str]:
+    """
+    Fetches the names of the courses in the GitLab group.
+
+    Returns
+    -------
+    :
+        A dictionary with the course names and the Danish course names
+    """
     s = requests.Session()
     s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
     url = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/subgroups'
@@ -62,7 +83,20 @@ def get_course_names():
     return name_mapping
 
 
-def get_exercise_names(course):
+def get_exercise_names(course: str) -> Dict[str, str]:
+    """
+    Fetches the names of the exercises in the GitLab group.
+
+    Parameters
+    ----------
+    course : 
+        Course name.
+
+    Returns
+    -------
+    :
+        A dictionary with the exercise names and the Danish exercise names
+    """
     s = requests.Session()
     s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
     url = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}%2F{course}/projects'
@@ -81,7 +115,15 @@ def get_exercise_names(course):
     return name_mapping
 
 
-def pick_course():
+def pick_course() -> Tuple[str, str]:
+    """
+    Prompts the user to select a course.
+
+    Returns
+    -------
+    :
+        The course name and the Danish name of the course.
+    """
     course_names = get_course_names()
     course_group_names, course_danish_names,  = zip(*sorted(course_names.items()))
     term.secho("\nUse arrow keys to select course and press Enter:", fg='green')
@@ -90,7 +132,20 @@ def pick_course():
     return course_group_names[course_idx], course_danish_names[course_idx]
 
 
-def select_exercise(exercises_images):
+def select_exercise(exercises_images: str) -> Tuple[str, str]:
+    """
+    Prompts the user to select an exercise.
+
+    Parameters
+    ----------
+    exercises_images : 
+        A dictionary with the exercise and exercise names as keys and the image locations
+
+    Returns
+    -------
+    :
+        A tuple of the course name and the exercise name.
+    """
     while True:
         course, danish_course_name = pick_course()
         exercise_names = get_exercise_names(course)
@@ -118,7 +173,15 @@ def select_exercise(exercises_images):
     return course, exercise
 
 
-def select_image():
+def select_image() -> str:
+    """
+    Prompts the user to select a course, then an exercise mapping to an image location.
+
+    Returns
+    -------
+    :
+        Image location.
+    """
 
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
     exercises_images = get_registry_listing(registry)
@@ -129,7 +192,15 @@ def select_image():
     return selected_image
 
 
-def config_local_repo(repo_local_path):
+def config_local_repo(repo_local_path: str) -> None:
+    """
+    Configures the local repository with the necessary settings for using vscode as the merge and diff tool.
+
+    Parameters
+    ----------
+    repo_local_path : 
+        Path to the local repository.
+    """
 
     if utils.system() == 'Windows':
         subprocess.check_call(utils.fmt_cmd(f'git -C {PurePosixPath(repo_local_path)} config pull.rebase false'))
@@ -145,7 +216,20 @@ def config_local_repo(repo_local_path):
         subprocess.check_call(utils.fmt_cmd(f"git -C {repo_local_path} config difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'"))
 
 
-def git_safe_pull(repo_local_path):
+def git_safe_pull(repo_local_path: str) -> bool:
+    """
+    Pulls changes from the remote repository and checks for merge conflicts.
+
+    Parameters
+    ----------
+    repo_local_path : 
+        Path to the local repository.
+
+    Returns
+    -------
+    :
+        True if there is a merge conflict, False otherwise.
+    """
 
     merge_conflict = False
     try:
@@ -171,12 +255,33 @@ def git_safe_pull(repo_local_path):
     return merge_conflict
 
 
-def merge_in_progress(repo_local_path):
+def merge_in_progress(repo_local_path: str) -> bool:
+    """
+    Checks if a merge is in progress.
+
+    Parameters
+    ----------
+    repo_local_path : 
+        Path to the local repository.
+
+    Returns
+    -------
+    :
+        True if a merge is in progress, False otherwise.
+    """
     return os.path.exists(os.path.join(repo_local_path, '.git/MERGE_HEAD'))
     # git merge HEAD
 
 
-def launch_mergetool(repo_local_path):
+def launch_mergetool(repo_local_path: str) -> None:
+    """
+    Launches vscode's mergetool.
+
+    Parameters
+    ----------
+    repo_local_path : 
+        Path to the local repository
+    """
     try:
         output = subprocess.check_output(utils.fmt_cmd(f'git -C {repo_local_path} mergetool')).decode()
     except subprocess.CalledProcessError as e:        
@@ -196,7 +301,10 @@ def finish_any_merge_in_progress(repo_local_path):
             return
 
 
-def gitlab_down():
+def gitlab_down() -> None:
+    """
+    "Downloads" an exercise from GitLab.
+    """
 
     # get images for available exercises
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
@@ -242,7 +350,17 @@ def gitlab_down():
     config_local_repo(repo_local_path)
 
 
-def gitlab_up(repo_local_path, remove_tracked_files):
+def gitlab_up(repo_local_path: str, remove_tracked_files: bool) -> None:
+    """
+    "Uploads" an exercise to GitLab.
+
+    Parameters
+    ----------
+    repo_local_path : 
+        Path to the local repository.
+    remove_tracked_files : 
+        Whether to remove the tracked files after uploading
+    """
 
     if not os.path.exists(repo_local_path):
         term.secho(f"{repo_local_path} does not exist", fg='red')
@@ -358,24 +476,28 @@ def gitlab_up(repo_local_path, remove_tracked_files):
     
 
 
-def gitlab_status():
+def gitlab_status() -> None:
+    """Displays the status of the local repository.
+    """
     pass
 
 @click.group(cls=utils.AliasedGroup)
 def exercise():
-    """GitLab commands."""
+    """GitLab commands.
+    """
     pass
 
 @exercise.command()
 @crash_report
 def status():
-    '''Status of local repository'''
+    """Status of local repository.
+    """
     gitlab_status()
 
 @exercise.command()
 @crash_report
 def down():
-    '''"Download" exercise from GitLab'''
+    """\"Download\" exercise from GitLab"""
     gitlab_down()
 
 
@@ -384,7 +506,7 @@ def down():
 @click.option('--remove/--no-remove', default=True, show_default=True)
 @crash_report
 def up(directory, remove):
-    '''"Upload" exercise to GitLab'''
+    """\"Uploads\" exercise to GitLab"""
     if directory is None:
         directory = os.getcwd()
     if utils.system() == 'Windows':

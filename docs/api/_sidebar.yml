@@ -3,7 +3,11 @@ website:
   - contents:
     - api/index.qmd
     - contents:
-      - api/launch_exercise.qmd
-      section: Some section
+      - api/_run.qmd
+      section: Jupyter
+    - contents:
+      - api/run.qmd
+      - api/pull.qmd
+      section: Docker
     id: api
   - id: dummy-sidebar

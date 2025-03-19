@@ -5,8 +5,13 @@ import time
 from . import utils
 from .logger import logger
 from . import terminal as term
+from typing import Tuple, List, Dict, Callable, Any
 
-def check_window_size():
+def check_window_size() -> None:
+    """
+    Check if the window is at least MIN_WINDOW_WIDTH x MIN_WINDOW_HEIGHT
+    If not, prompt the user to resize the window.
+    """
 
     def _box(text):
         window_box = \
@@ -31,7 +36,18 @@ def check_window_size():
     text = 'Please resize the window to at least fit this square'
 
 
-def dummy_progressbar(seconds, label='Hang on...', **kwargs):
+def dummy_progressbar(seconds: str, label: str='Hang on...', **kwargs: dict) -> None:
+    """
+    Dummy progressbar that waits for `seconds` seconds
+    and displays a progressbar with `label`.
+
+    Parameters
+    ----------
+    seconds : 
+        Number of seconds to wait
+    label :     
+        Label for progressbar, by default 'Hang on...'
+    """
     pg_options = PG_OPTIONS.copy()
     pg_options.update(kwargs)
     with click.progressbar(length=100, label=label, **pg_options) as bar:
@@ -40,10 +56,27 @@ def dummy_progressbar(seconds, label='Hang on...', **kwargs):
             bar.update(1)
 
 
-def wrap(text, width=None, indent=True, initial_indent=None, subsequent_indent=None):
+def wrap(text: str, width: int=None, indent: bool=True, initial_indent: str=None, subsequent_indent: str=None) -> str:
     """
-    Wraps text to fit terminal width or WRAP_WIDTH, whatever
-    is smaller
+    Wrap text to fit the terminal width.
+
+    Parameters
+    ----------
+    text : 
+        Text to wrap
+    width : 
+        Width of the terminal, by default None
+    indent : 
+        Whether to indent the text, by default True
+    initial_indent : 
+        String to prepend to the first line, by default None
+    subsequent_indent : 
+        String to prepend to subsequent lines, by default None
+
+    Returns
+    -------
+    :
+        Wrapped text.
     """
     if width is None:
         width = WRAP_WIDTH
@@ -73,11 +106,30 @@ def wrap(text, width=None, indent=True, initial_indent=None, subsequent_indent=N
     return text
 
 
-def secho(text='', width=None, center=False, nowrap=False, log=True,
-          indent=True, initial_indent=None, subsequent_indent=None, **kwargs):
+def secho(text: str='', width: int=None, center: bool=False, nowrap: bool=False, log: bool=True,
+          indent: bool=True, initial_indent: str=None, subsequent_indent: str=None, **kwargs: dict) -> None:
     """
-    Wrapper for secho that wraps text.
-    kwargs are passed to click.secho
+    Print text to the terminal with optional word wrapping and centering.
+
+    Parameters
+    ----------
+    text : 
+        Text to print, by default ''
+    width : 
+        Width of the terminal, by default None.
+    center : 
+        Whether to center the text, by default False.
+    nowrap : 
+        Whether to wrap the text, by default False
+    log : 
+        Whether to log the text, by
+        default True
+    indent : 
+        Whether to indent the text, by default True
+    initial_indent : 
+        String to prepend to the first line, by
+    subsequent_indent : 
+        String to prepend to subsequent lines, by"
     """
     if width is None:
         width = WRAP_WIDTH
@@ -109,14 +161,46 @@ def secho(text='', width=None, center=False, nowrap=False, log=True,
     click.secho(text, **kwargs)
 
 
-def echo(text='', width=None, nowrap=False, log=True, indent=True, 
-         initial_indent=None, subsequent_indent=None, **kwargs):
+def echo(text: str='', width: str=None, nowrap: bool=False, log: bool=True, indent: bool=True, 
+         initial_indent: str=None, subsequent_indent: str=None, **kwargs: dict) -> None:
+    """
+    Print text to the terminal with optional word wrapping.
+
+    Parameters
+    ----------
+    text : 
+        Text to print, by default ''
+    width : 
+        Width of the terminal, by default None
+    nowrap : 
+        Whether to wrap the text, by default False
+    log : 
+        Whether to log the text, by default True
+    indent : 
+        Whether to indent the text, by default True
+    initial_indent : 
+        String to prepend to the first line, by default None
+    subsequent_indent : 
+        String to prepend to subsequent lines, by default None
+    """
     
     secho(text, width=width, nowrap=nowrap, log=log, indent=indent, 
           initial_indent=initial_indent, subsequent_indent=subsequent_indent, **kwargs)
 
 
-def boxed_text(header, lines=[], prompt='', **kwargs):
+def boxed_text(header: str, lines: list=[], prompt: str='', **kwargs: dict) -> None:
+    """
+    Print text between two horizontal lines.
+
+    Parameters
+    ----------
+    header : 
+        Header text over the box
+    lines : 
+        List text lines to print in box.
+    prompt : 
+        Prompt text at the bottom of the box.
+    """
     term.echo()
     term.secho(f"{header}:", **kwargs)
     term.secho('='*WRAP_WIDTH, **kwargs)

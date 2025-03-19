@@ -36,6 +36,8 @@ PY_MONITORING_EVENT_PY_YIELD c:macro 1 c-api/monitoring.html#c.$ -
 PY_MONITORING_EVENT_RAISE c:macro 1 c-api/monitoring.html#c.$ -
 PY_MONITORING_EVENT_RERAISE c:macro 1 c-api/monitoring.html#c.$ -
 PY_MONITORING_EVENT_STOP_ITERATION c:macro 1 c-api/monitoring.html#c.$ -
+PY_MONITORING_IS_INSTRUMENTED_EVENT c:function 1 c-api/monitoring.html#c.$ -
+PY_MONITORING_IS_INSTRUMENTED_EVENT.ev c:functionParam 1 c-api/monitoring.html#c.PY_MONITORING_IS_INSTRUMENTED_EVENT -
 PY_RELEASE_LEVEL c:macro 1 c-api/apiabiversion.html#c.$ -
 PY_RELEASE_SERIAL c:macro 1 c-api/apiabiversion.html#c.$ -
 PY_VECTORCALL_ARGUMENTS_OFFSET c:macro 1 c-api/call.html#c.$ -
@@ -5987,6 +5989,7 @@ dis.Instruction.argrepr py:data 1 library/dis.html#$ -
 dis.Instruction.argval py:data 1 library/dis.html#$ -
 dis.Instruction.baseopcode py:data 1 library/dis.html#$ -
 dis.Instruction.baseopname py:data 1 library/dis.html#$ -
+dis.Instruction.cache_info py:data 1 library/dis.html#$ -
 dis.Instruction.cache_offset py:data 1 library/dis.html#$ -
 dis.Instruction.end_offset py:data 1 library/dis.html#$ -
 dis.Instruction.is_jump_target py:data 1 library/dis.html#$ -
@@ -12853,6 +12856,7 @@ winsound.MB_OK py:data 1 library/winsound.html#$ -
 winsound.MessageBeep py:function 1 library/winsound.html#$ -
 winsound.PlaySound py:function 1 library/winsound.html#$ -
 winsound.SND_ALIAS py:data 1 library/winsound.html#$ -
+winsound.SND_APPLICATION py:data 1 library/winsound.html#$ -
 winsound.SND_ASYNC py:data 1 library/winsound.html#$ -
 winsound.SND_FILENAME py:data 1 library/winsound.html#$ -
 winsound.SND_LOOP py:data 1 library/winsound.html#$ -
@@ -14460,6 +14464,7 @@ doc-xmlrpc-servers std:label -1 library/xmlrpc.server.html#$ DocXMLRPCServer Obj
 docstring std:term -1 glossary.html#term-$ -
 doctest-advanced-api std:label -1 library/doctest.html#$ Advanced API
 doctest-basic-api std:label -1 library/doctest.html#$ Basic API
+doctest-cli std:label -1 library/doctest.html#$ Command-line Usage
 doctest-debugging std:label -1 library/doctest.html#$ Debugging
 doctest-directives std:label -1 library/doctest.html#$ Directives
 doctest-doctest std:label -1 library/doctest.html#$ DocTest Objects
@@ -14479,6 +14484,12 @@ doctest-soapbox std:label -1 library/doctest.html#$ Soapbox
 doctest-unittest-api std:label -1 library/doctest.html#$ Unittest API
 doctest-warnings std:label -1 library/doctest.html#$ Warnings
 doctest-which-docstrings std:label -1 library/doctest.html#$ Which Docstrings Are Examined?
+doctest.--fail-fast std:cmdoption 1 library/doctest.html#cmdoption-doctest-f -
+doctest.--option std:cmdoption 1 library/doctest.html#cmdoption-doctest-o -
+doctest.--verbose std:cmdoption 1 library/doctest.html#cmdoption-doctest-v -
+doctest.-f std:cmdoption 1 library/doctest.html#cmdoption-doctest-f -
+doctest.-o std:cmdoption 1 library/doctest.html#cmdoption-doctest-o -
+doctest.-v std:cmdoption 1 library/doctest.html#cmdoption-doctest-v -
 doctest:directive std:token -1 library/doctest.html#grammar-token-doctest-directive -
 doctest:directive_option std:token -1 library/doctest.html#grammar-token-doctest-directive_option -
 doctest:directive_option_name std:token -1 library/doctest.html#grammar-token-doctest-directive_option_name -
@@ -14813,9 +14824,17 @@ http-methods std:label -1 library/http.html#$ HTTP methods
 http-password-mgr std:label -1 library/urllib.request.html#$ HTTPPasswordMgr Objects
 http-password-mgr-with-prior-auth std:label -1 library/urllib.request.html#$ HTTPPasswordMgrWithPriorAuth Objects
 http-redirect-handler std:label -1 library/urllib.request.html#$ HTTPRedirectHandler Objects
-http-server-cli std:label -1 library/http.server.html#$ -
+http-server-cli std:label -1 library/http.server.html#$ Command-line interface
 http-status-codes std:label -1 library/http.html#$ HTTP status codes
-http.server-security std:label -1 library/http.server.html#http-server-security Security Considerations
+http.server-security std:label -1 library/http.server.html#http-server-security Security considerations
+http.server.--bind std:cmdoption 1 library/http.server.html#cmdoption-http.server-b -
+http.server.--cgi std:cmdoption 1 library/http.server.html#cmdoption-http.server-cgi -
+http.server.--directory std:cmdoption 1 library/http.server.html#cmdoption-http.server-d -
+http.server.--protocol std:cmdoption 1 library/http.server.html#cmdoption-http.server-p -
+http.server.-b std:cmdoption 1 library/http.server.html#cmdoption-http.server-b -
+http.server.-d std:cmdoption 1 library/http.server.html#cmdoption-http.server-d -
+http.server.-p std:cmdoption 1 library/http.server.html#cmdoption-http.server-p -
+http.server.port std:cmdoption 1 library/http.server.html#cmdoption-http.server-arg-port -
 http_error_nnn std:label -1 library/urllib.request.html#http-error-nnn -
 httpconnection-objects std:label -1 library/http.client.html#$ HTTPConnection Objects
 httpmessage-objects std:label -1 library/http.client.html#$ HTTPMessage Objects
@@ -14953,6 +14972,7 @@ leap-second std:label -1 library/time.html#$ -
 legacy-unit-tests std:label -1 library/unittest.html#$ Re-using old test code
 levels std:label -1 library/logging.html#$ Logging Levels
 lexical std:label -1 reference/lexical_analysis.html#$ Lexical analysis
+lexical analyzer std:term -1 glossary.html#term-lexical-analyzer -
 lexical-handler-objects std:label -1 library/xml.sax.handler.html#$ LexicalHandler Objects
 lib-exception-groups std:label -1 library/exceptions.html#$ Exception groups
 library-config std:label -1 howto/logging.html#$ Configuring Logging for a Library
@@ -15399,6 +15419,7 @@ module-wsgiref std:label -1 whatsnew/2.5.html#$ The wsgiref package
 modulefinder-example std:label -1 library/modulefinder.html#$ Example usage of ModuleFinder
 moduleobjects std:label -1 c-api/module.html#$ Module Objects
 modules std:label -1 library/modules.html#$ Importing Modules
+monitoring-event-local std:label -1 library/sys.monitoring.html#$ Local events
 more-metacharacters std:label -1 howto/regex.html#$ More Metacharacters
 morsel-objects std:label -1 library/http.cookies.html#$ Morsel Objects
 msvcrt-console std:label -1 library/msvcrt.html#$ Console I/O
@@ -16222,6 +16243,7 @@ timerfd-howto std:label -1 howto/timerfd.html#$ timer file descriptor HOWTO
 tkinter std:label -1 library/tk.html#$ Graphical User Interfaces with Tk
 tkinter-file-handlers std:label -1 library/tkinter.html#$ File Handlers
 tkinter-setting-options std:label -1 library/tkinter.html#$ Setting Options
+token std:term -1 glossary.html#term-$ -
 tokenize-cli std:label -1 library/tokenize.html#$ Command-Line Usage
 tokenize.--exact std:cmdoption 1 library/tokenize.html#cmdoption-tokenize-e -
 tokenize.--help std:cmdoption 1 library/tokenize.html#cmdoption-tokenize-h -

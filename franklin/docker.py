@@ -756,12 +756,22 @@ def kill_selected_containers(container_id: str=None) -> None:
 @docker.group(cls=AliasedGroup)
 @crash_report
 def show():
-    """Docker show commands"""
+    """Docker show commands
+    """
     pass
 
 
 # def containers(return_json=False):
-def containers():
+def containers() -> List[Dict[str, Any]]:
+    """
+    Get information about running containers.
+
+    Returns
+    -------
+    :
+        List of dictionaries with information about running containers.
+    """
+
     # return _command('docker ps --all --size', return_json=return_json)
     output = utils.run_cmd('docker ps --all --size --format json')
     return [json.loads(line) for line in output.strip().splitlines()]
@@ -770,12 +780,16 @@ def containers():
 @ensure_docker_running
 @crash_report
 def _containers():
-    """Show running docker containers."""
+    """Show running docker containers.
+    """
     container_list()
     # term.echo(_containers(), nowrap=True)
 
 
 def storage(verbose=False):
+    """
+    Information about storage usage.
+    """
     if verbose:
         # return _command(f'docker system df -v')
         return utils.run_cmd('docker system df -v')
@@ -791,7 +805,20 @@ def _storage(verbose):
     term.echo(storage(verbose), nowrap=True)
 
 
-def logs(return_json=False):
+def logs() -> List[Dict[str, Any]]:
+    """
+    Docker Desktop logs.
+
+    Parameters
+    ----------
+    return_json : 
+        _description_, by default False
+
+    Returns
+    -------
+    :
+        List of dictionaries with log information.
+    """
     # _command('docker desktop logs', return_json=return_json)
     output = utils.run_cmd('docker desktop logs --format json')
     return [json.loads(line) for line in output.strip().splitlines()]
@@ -800,11 +827,20 @@ def logs(return_json=False):
 @show.command('logs')
 @crash_report
 def _logs():
+    """Show Docker Desktop logs.
+    """
     logs()
 
 
-def volumes(return_json=False):
-    # return _command('docker volume ls', return_json=return_json)
+def volumes() -> List[Dict[str, Any]]:
+    """
+    Docker volumes.
+
+    Returns
+    -------
+    :
+        List of dictionaries with volume information.
+    """
     output = utils.run_cmd('docker volume ls --format json')
     return [json.loads(line) for line in output.strip().splitlines()]
 
@@ -812,11 +848,20 @@ def volumes(return_json=False):
 @ensure_docker_running
 @crash_report
 def _volumes():
-    """List docker volumes."""
+    """List docker volumes.
+    """
     term.echo(volumes(), nowrap=True)
 
 
-def images(return_json=False):
+def images() -> List[Dict[str, Any]]:
+    """
+    Docker images.
+
+    Returns
+    -------
+    :
+        List of dictionaries with image information.
+    """
     # return _command('docker images', return_json=return_json)
     output = utils.run_cmd('docker images --format json')
     return [json.loads(line) for line in output.strip().splitlines()]
@@ -825,7 +870,8 @@ def images(return_json=False):
 @ensure_docker_running
 @crash_report
 def _images():
-    """List docker images."""
+    """List docker images.
+    """
     # term.echo(_images(), nowrap=True)
     image_list()
 
@@ -838,11 +884,22 @@ def _images():
 @ensure_docker_running
 @crash_report
 def remove():
-    """Remove Docker images and volumes"""
+    """Remove Docker images and volumes
+    """
     pass
 
 
-def rm_container(container, force=False):
+def rm_container(container, force=False) -> None:
+    """
+    Remove container.
+
+    Parameters
+    ----------
+    container : 
+        Container ID.
+    force : 
+        Force removal if container is in use, by default False
+    """
     if force:
         # _command(f'docker rm -f {container}', silent=True)
         utils.run_cmd(f'docker rm -f {container}', check=False)
@@ -855,7 +912,8 @@ def rm_container(container, force=False):
 @click.argument("container_id", required=False)
 @crash_report
 def remove_selected_containers(container_id=None):
-
+    """Remove selected containers.
+    """
     if container_id:
         rm_container(container_id)
         return
@@ -864,6 +922,16 @@ def remove_selected_containers(container_id=None):
 
 
 def rm_image(image, force=False):
+    """
+    Remove image.
+
+    Parameters
+    ----------
+    image : 
+        Image ID.
+    force : 
+        Force removal if image is in use, by default False
+    """    
     if force:
         # _command(f'docker image rm -f {image}', silent=True)
         utils.run_cmd(f'docker image rm -f {image}', check=False)
@@ -875,7 +943,8 @@ def rm_image(image, force=False):
 @click.argument("image_id", required=False)
 @crash_report
 def remove_selected_images(image_id=None):
-    
+    """Remove selected containers.
+    """
     if image_id:
         rm_image(image_id)
         return
@@ -888,6 +957,8 @@ def remove_everything():
 @remove.command('everything')
 @crash_report
 def _remove_everything():
+    """Remove all Docker elements.
+    """
     remove_everything()             
 
 ###########################################################
@@ -895,7 +966,9 @@ def _remove_everything():
 ###########################################################
 
 class docker_config():
-
+    """
+    Contest manager for Docker Desktop settings.
+    """
     home = Path.home()
     if utils.system() == 'Darwin':
         json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
@@ -916,7 +989,20 @@ class docker_config():
         with open(self.json_settings, 'w') as f:
             json.dump(self.settings, f)
 
-def as_type(s):
+def as_type(s: str) -> Any:
+    """
+    Convert string to int, float or bool.
+
+    Parameters
+    ----------
+    s : 
+        String to be converted.
+
+    Returns
+    -------
+    :
+        Representation of the string as int, float or bool.
+    """
     if s.lower() in ['true', 'false']:
         return s.lower() == 'true'
     try:
@@ -931,13 +1017,20 @@ def as_type(s):
 @docker.group(cls=AliasedGroup)
 @crash_report
 def config():
-    """Docker configuration"""
+    """Docker configuration.
+    """
     pass
 
 
-def config_get(variable=None):
-    """Get Docker configuration for variable or all variables"""
+def config_get(variable: str=None) -> None:
+    """
+    Get Docker configuration for variable or all variables.
 
+    Parameters
+    ----------
+    variable : 
+        Variable name, by default None in which case all variables are shown.
+    """
     with docker_config() as cfg:
         if variable is not None:
             if variable not in DOCKER_SETTINGS:
@@ -953,11 +1046,22 @@ def config_get(variable=None):
 @click.argument("variable", required=False)
 @crash_report
 def _config_get(variable=None):
+     """Get value of Docker configuration variable.
+     """
      return config_get(variable=variable)
      
 
-def config_set(variable, value):
-    """Set Docker configuration for variable or all variables"""
+def config_set(variable: str, value: Any) -> None:
+    """
+    Set value of Docker configuration variable.
+
+    Parameters
+    ----------
+    variable : 
+        Variable name.
+    value : 
+        Variable value.
+    """
 
     if type(value) is str:
         value = as_type(value)
@@ -978,13 +1082,20 @@ def config_set(variable, value):
 @click.argument("value", required=True)
 @crash_report
 def _config_set(variable, value):
+    """Set Docker configuration variable.
+    """
     return config_set(variable, value)
 
 
-def _config_reset(variable=None):
-    """Resets Docker configuration to defaults set by Franklin"""
+def _config_reset(variable: str=None) -> None:
+    """
+    Resets Docker configuration to defaults set by Franklin.
 
-
+    Parameters
+    ----------
+    variable : 
+        Variable name, by default None in which case all variables are reset.
+    """
     with docker_config() as cfg:
         if variable is not None:
             if variable not in DOCKER_SETTINGS:
@@ -999,11 +1110,14 @@ def _config_reset(variable=None):
 @click.argument("variable", required=False)
 @crash_report
 def config_reset(variable):
+    """Reset Docker configuration variable
+    """
     return _config_reset(variable=variable)
 
 
 def config_fit():
-    """Sets resource limits to reasonable values given machine resources"""
+    """Set resource limits to reasonable values given available resources.
+    """
 
     _config_reset()
 

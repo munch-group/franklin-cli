@@ -1,10 +1,20 @@
 # Function reference {.doc .doc-index}
 
-## Some section
+## Jupyter
 
 Some description...
 
 
 | | |
 | --- | --- |
-| [launch_exercise](launch_exercise.qmd#franklin.jupyter.launch_exercise) |  |
+| [_run](_run.qmd#franklin.jupyter._run) |  |
+
+## Docker
+
+Some description...
+
+
+| | |
+| --- | --- |
+| [run](run.qmd#franklin.docker.run) | Runs a container from an image. |
+| [pull](pull.qmd#franklin.docker.pull) | Pull Docker image. |

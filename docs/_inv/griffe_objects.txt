@@ -120,6 +120,7 @@ _griffe.agents.nodes.runtime.ObjectNode(parent)) py:param 2 reference/api/agents
 _griffe.agents.nodes.runtime.ObjectNode.alias_target_path py:attr 2 reference/api/agents/#griffe.ObjectNode.alias_target_path -
 _griffe.agents.nodes.runtime.ObjectNode.children py:attr 2 reference/api/agents/#griffe.ObjectNode.children -
 _griffe.agents.nodes.runtime.ObjectNode.exclude_specials py:attr 2 reference/api/agents/#griffe.ObjectNode.exclude_specials -
+_griffe.agents.nodes.runtime.ObjectNode.is_attribute py:attr 2 reference/api/agents/#griffe.ObjectNode.is_attribute -
 _griffe.agents.nodes.runtime.ObjectNode.is_builtin_function py:attr 2 reference/api/agents/#griffe.ObjectNode.is_builtin_function -
 _griffe.agents.nodes.runtime.ObjectNode.is_builtin_method py:attr 2 reference/api/agents/#griffe.ObjectNode.is_builtin_method -
 _griffe.agents.nodes.runtime.ObjectNode.is_cached_property py:attr 2 reference/api/agents/#griffe.ObjectNode.is_cached_property -
@@ -4969,6 +4970,7 @@ griffe.ObjectNode(parent)) py:param 2 reference/api/agents/#griffe.ObjectNode(pa
 griffe.ObjectNode.alias_target_path py:attr 1 reference/api/agents/#$ -
 griffe.ObjectNode.children py:attr 1 reference/api/agents/#$ -
 griffe.ObjectNode.exclude_specials py:attr 1 reference/api/agents/#$ -
+griffe.ObjectNode.is_attribute py:attr 1 reference/api/agents/#$ -
 griffe.ObjectNode.is_builtin_function py:attr 1 reference/api/agents/#$ -
 griffe.ObjectNode.is_builtin_method py:attr 1 reference/api/agents/#$ -
 griffe.ObjectNode.is_cached_property py:attr 1 reference/api/agents/#$ -

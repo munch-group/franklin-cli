@@ -16,8 +16,10 @@ import shutil
 from packaging.version import Version, InvalidVersion
 
 
-def install_docker_desktop():
-
+def install_docker_desktop() -> None:
+    """
+    Downloads and installs Docker Desktop on Windows or Mac.
+    """
     architecture = sysconfig.get_platform().split('-')[-1]
     assert architecture
 
@@ -172,7 +174,10 @@ def install_docker_desktop():
 #  /Applications/Docker.app/Contents/MacOS/uninstall
 
 
-def failsafe_start_docker_desktop():
+def failsafe_start_docker_desktop() -> None:
+    """
+    Starts Docker Desktop if it is not running, attempting to handle any errors.
+    """
 
     if not shutil.which('docker'):
          install_docker_desktop()    
@@ -189,7 +194,10 @@ def failsafe_start_docker_desktop():
         update_docker_desktop()
 
 
-def docker_desktop_restart():
+def docker_desktop_restart() -> None:
+    """
+    Restart Docker Desktop.
+    """
     cmd = 'docker desktop restart'
     timeout=40    
     try:
@@ -204,7 +212,10 @@ def docker_desktop_restart():
     return True
 
 
-def docker_desktop_start():
+def docker_desktop_start() -> None:
+    """
+    Start Docker Desktop.
+    """    
     cmd = 'docker desktop start'
     timeout=40    
     try:
@@ -219,12 +230,24 @@ def docker_desktop_start():
     return True
 
 
-def docker_desktop_stop():
+def docker_desktop_stop() -> None:
+    """
+    Stop Docker Desktop.
+    """       
     # _command('docker desktop stop', silent=True)
     utils.run_cmd('docker desktop stop', check=False)
 
 
-def docker_desktop_status():
+def docker_desktop_status() -> str:
+    """
+    Status of Docker Desktop.
+
+    Returns
+    -------
+    :
+        'running' if Docker Desktop is running.
+    """
+
     # stdout = subprocess.run(utils._cmd('docker desktop status --format json'), 
     #                         check=False, stderr=DEVNULL, stdout=PIPE).stdout.decode()
     stdout = utils.run_cmd('docker desktop status --format json', check=False)
@@ -234,15 +257,30 @@ def docker_desktop_status():
     return data['Status']
 
 
-def docker_desktop_version(return_json=False):
+def docker_desktop_version() -> Version:
+    """
+    Docker Desktop version.
+
+    Returns
+    -------
+    :
+        Docker Desktop version.
+    """
     stdout = subprocess.check_output(utils.fmt_cmd('docker version --format json'))
     data = json.loads(stdout.decode())
     cmp = data['Server']['Components']
     vers = [c['Version'] for c in cmp if c['Name'] == 'Engine'][0]
     return Version(vers)
 
-def get_latest_docker_version():
+def get_latest_docker_version() -> Version:
+    """
+    Get most recent Docker Desktop version.
 
+    Returns
+    -------
+    :
+        Docker Desktop version.
+    """
     # A bit of a hack: gets version as tag of base docker image (which is for use with "docker in docker")
 
     s = requests.Session()
@@ -262,10 +300,12 @@ def get_latest_docker_version():
     return max(tags)
 
 
-def update_docker_desktop(return_json=False):
-
+def update_docker_desktop() -> None:
+    """
+    Update Docker Desktop if a newer version is available.
+    """
     if utils.system() == 'Windows':
-        current_engine_version = version()
+        current_engine_version = docker_desktop_version()
         most_recent_version = get_latest_docker_version()
         if current_engine_version < most_recent_version:
             term.boxed_text(f"Update Docker Desktop",

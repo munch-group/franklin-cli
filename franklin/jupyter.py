@@ -40,7 +40,9 @@ def jupyter():
                 help="Override check for package updates")
 @jupyter.command('run')
 @crash_report
-def _run(allow_subdirs_at_your_own_risk, update):
+def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
+    """Run Jupyter notebook in a Docker container.
+    """
 
     term.check_window_size()
 
@@ -136,6 +138,8 @@ def _run(allow_subdirs_at_your_own_risk, update):
 
 @jupyter.command('servers')
 @crash_report
-def _servers():
+def _servers() -> None:
+    """List Jupyter servers running locally on the host machine.
+    """
     for line in utils.run_cmd('jupyter server list').splitlines():
         term.echo(line)

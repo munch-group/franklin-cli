@@ -18,12 +18,16 @@ import webbrowser
 import urllib
 from importlib.metadata import version as _version
 from . import terminal as term
+from typing import Tuple, List, Dict, Callable, Any
 
 ###########################################################
 # Click
 ###########################################################
 
 class AliasedGroup(click.Group):
+    """
+    A click Group that allows for aliases of commands.
+    """
     def get_command(self, ctx, cmd_name):
         rv = click.Group.get_command(self, ctx, cmd_name)
         if rv is not None:
@@ -47,6 +51,9 @@ class AliasedGroup(click.Group):
 
 
 class PrefixAliasedGroup(click.Group):
+    """
+    A click Group that allows for prefix matching of commands.
+    """
     def get_command(self, ctx, cmd_name):
         rv = click.Group.get_command(self, ctx, cmd_name)
         if rv is not None:
@@ -73,6 +80,9 @@ class PrefixAliasedGroup(click.Group):
 ###########################################################
 
 class DelayedKeyboardInterrupt:
+    """
+    Context manager to delay KeyboardInterrupt.
+    """
     def __enter__(self):
         self.signal_received = False
         self.old_handler = signal.signal(signal.SIGINT, self.handler)
@@ -88,6 +98,9 @@ class DelayedKeyboardInterrupt:
 
 
 class SuppressedKeyboardInterrupt:
+    """
+    Context manager to suppress KeyboardInterrupt
+    """
     def __enter__(self):
         self.signal_received = False
         self.old_handler = signal.signal(signal.SIGINT, self.handler)
@@ -105,6 +118,9 @@ class SuppressedKeyboardInterrupt:
 ###########################################################
 
 class Crash(Exception):
+    """
+    Package specific Exception raised when a crash is encountered.
+    """
     def __init__(self, message, errors):            
         super().__init__(message)
             
@@ -112,8 +128,10 @@ class Crash(Exception):
         self.errors = errors
 
 
-def crash_email():
-
+def crash_email() -> None:
+    """
+    Open the email client with a prefilled email to the maintainer of Franklin.
+    """
     if os.environ.get('DEVEL', None):
         return
 
@@ -143,7 +161,20 @@ def crash_email():
 
 # BROWSER=wslview
 
-def crash_report(func):
+def crash_report(func: Callable) -> Callable:
+    """
+    Decorator to handle crashes and open an email client with a prefilled email to the maintainer of Franklin.
+
+    Parameters
+    ----------
+    func : 
+        Function to decorate.
+
+    Returns
+    -------
+    :
+        Decorated function.
+    """
     @wraps(func)
     def wrapper(*args, **kwargs):
         try:
@@ -182,19 +213,49 @@ def crash_report(func):
 # Subprocesses
 ###########################################################
 
-def fmt_cmd(cmd):
+def fmt_cmd(cmd: str) -> List[str]:
+    """
+    Formats a command string into a list of arguments.
+
+    Parameters
+    ----------
+    cmd : 
+        Command string.
+
+    Returns
+    -------
+    :
+        List of arguments.
+    """
     logger.debug(cmd)
     cmd = shlex.split(cmd)
     cmd[0] = shutil.which(cmd[0])
     return cmd
 
 
-def run_cmd(cmd, check=True, capture_output=True, timeout=None):
+def run_cmd(cmd: str, check: bool=True, timeout: int=None) -> Any:
+    """
+    Runs a command.
+
+    Parameters
+    ----------
+    cmd : 
+        Command to run.
+    check : 
+        Whether to check for errors, by default True
+    timeout : 
+        Timeout in seconds, by default None
+
+    Returns
+    -------
+    :
+        The output of the command.
+    """
 
     cmd = fmt_cmd(cmd)
     try:
         p = subprocess.run(cmd, check=check, 
-                capture_output=capture_output, timeout=timeout)
+                capture_output=True, timeout=timeout)
         output = p.stdout.decode()
     except subprocess.TimeoutExpired as e:
         logger.debug(f"Command timeout of {timeout} seconds exceeded.")
@@ -209,7 +270,10 @@ def run_cmd(cmd, check=True, capture_output=True, timeout=None):
 # Checks
 ###########################################################
 
-def franklin_version():
+def franklin_version() -> str:
+    """
+    Get the version of the locally installed franklin package.
+    """
     try:
         return _version('franklin')
     except:
@@ -218,7 +282,7 @@ def franklin_version():
 
 def is_wsl(v: str = platform.uname().release) -> int:
     """
-    detects if Python is running in WSL
+    Detects if Python is running in WSL
     """
     if v.endswith("-Microsoft"):
         return 1
@@ -229,7 +293,7 @@ def is_wsl(v: str = platform.uname().release) -> int:
 
 def wsl_available() -> int:
     """
-    detect if Windows Subsystem for Linux is available from Windows
+    Detect if Windows Subsystem for Linux is available from Windows
     """
     if os.name != "nt" or not shutil.which("wsl"):
         return False
@@ -244,6 +308,14 @@ def wsl_available() -> int:
 
 
 def system():
+    """
+    Determine the system the code is running on.
+
+    Returns
+    -------
+    :
+        System name. Either: 'Windows', 'WSL', 'WSL2', 'Linux', or 'Darwin'
+    """
     plat = platform.system()
     if plat == 'Windows':
         wsl = is_wsl()
@@ -261,6 +333,14 @@ def system():
 ###########################################################
 
 def jupyter_ports_in_use():
+    """
+    Get a list of ports in use by Jupyter servers.
+
+    Returns
+    -------
+    :
+        List of ports in use.
+    """
         
     output = run_cmd('jupyter server list')
     occupied_ports = [int(x) for x in re.findall(r'(?<=->)\d+', output, re.MULTILINE)]
@@ -269,6 +349,14 @@ def jupyter_ports_in_use():
 
 
 def check_internet_connection():
+    """
+    Check if there is an internet connection.
+
+    Returns
+    -------
+    :
+        True if there is an internet connection, False otherwise
+    """
     try:
         request = requests.get("https://hub.docker.com/", timeout=10)    
         logger.debug("Internet connection OK.")
@@ -280,10 +368,21 @@ def check_internet_connection():
 
 
 def gb_free_disk():
+    """
+    Get the amount of free disk space in GB.
+
+    Returns
+    -------
+    :
+        Free disk space in GB.
+    """
     return shutil.disk_usage('/').free / 1024**3
 
 
 def check_free_disk_space():
+    """
+    Checks if there is enough free disk space to run Franklin, and exits if there is not.
+    """
 
     gb_free = utils.gb_free_disk()
     if gb_free < REQUIRED_GB_FREE_DISK:
