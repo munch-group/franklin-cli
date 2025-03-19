@@ -115,7 +115,7 @@ def install_docker_desktop():
             logger.debug(cmd)
             cmd = cmd.split()
             cmd[0] = shutil.which(cmd[0])
-            output = subprocess.run(cmd, stdout=PIPE, stderr=DEVNULL, timeout=1, check=False).stdout.decode().strip()
+            output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, timeout=1, check=False).stdout.decode().strip()
             if output:
                 size = output.split()[0]
                 if size == prev_size:
