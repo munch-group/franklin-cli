@@ -64,7 +64,7 @@ def wrap(text, width=None, indent=True, initial_indent=None, subsequent_indent=N
     if not indent:
         initial_indent = ''
         subsequent_indent = ''
-    print(text, width, initial_indent, subsequent_indent)
+
     text = click.wrap_text(text, width=max((shutil.get_terminal_size().columns)/2, width), 
                 initial_indent=initial_indent, subsequent_indent=subsequent_indent, 
                 preserve_paragraphs=True)
