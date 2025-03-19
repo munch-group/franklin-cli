@@ -71,7 +71,7 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
     time.sleep(2)
 
     if update:
-        update_client(update)
+        update_client()
     else:
         logger.debug('Update check skipped')
 
