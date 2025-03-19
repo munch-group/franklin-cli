@@ -107,6 +107,9 @@ def install_docker_desktop() -> None:
         term.secho('='*WRAP_WIDTH, fg='red')
         term.echo()
         click.pause('Press Enter...')
+
+        check_output(utils.fmt_cmd(f'open /Volumes/{mounted_volume_name}')).decode().strip()
+
         term.echo()
         term.secho('='*WRAP_WIDTH, fg='red')
         term.echo('  Did you drag the Docker application to the Applications folder? If so, press Press Enter to continue.', fg='red')
@@ -114,9 +117,6 @@ def install_docker_desktop() -> None:
         term.echo()
         click.pause('Press Enter...')
 
-        check_output(utils.fmt_cmd(f'open /Volumes/{mounted_volume_name}')).decode().strip()
-
-   
 
         term.echo(" - Copying to Applications...")
         with click.progressbar(length=100, label='Copying to Applications:', **PG_OPTIONS) as bar:
