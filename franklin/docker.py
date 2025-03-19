@@ -22,12 +22,12 @@ from .logger import logger
 from typing import Tuple, List, Dict, Callable, Any
 # type Vector = list[float]
 
-import yaml
 
-_root = os.path.abspath(os.path.dirname(__file__))
-config_path = os.path.join(_root, 'config.yaml')
-with open(config_path) as f:
-    cfg = yaml.safe_load(f)
+# import yaml
+# _root = os.path.abspath(os.path.dirname(__file__))
+# config_path = os.path.join(_root, 'config.yaml')
+# with open(config_path) as f:
+#     cfg = yaml.safe_load(f)
 
 
 os.environ['DOCKER_CLI_HINTS'] = 'false'
