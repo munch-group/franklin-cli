@@ -40,7 +40,7 @@ def install_docker_desktop():
         term.echo(f'Download from {url} and install before proceeding.')
         sys.exit(1)
 
-    utils.boxed_text(f"Franklin needs Docker Desktop", 
+    term.boxed_text(f"Franklin needs Docker Desktop", 
                      ['Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.'],
                      prompt='Press Enter to start the download...', 
                      fg='green')
@@ -259,7 +259,7 @@ def update_docker_desktop(return_json=False):
         current_engine_version = version()
         most_recent_version = get_latest_docker_version()
         if current_engine_version < most_recent_version:
-            utils.boxed_text(f"Update Docker Desktop",
+            term.boxed_text(f"Update Docker Desktop",
                              [f'Please open the "Docker Desktop" application and and click where it says "New version available" in the bottom right corner.', 
                               'Then scroll down and click the blue button to update'],
                             prompt='Press Enter to close Franklin.', fg='red')

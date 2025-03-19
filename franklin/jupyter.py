@@ -45,9 +45,11 @@ def _run(allow_subdirs_at_your_own_risk, update):
     term.check_window_size()
 
     click.clear()
-
+    logger.debug('####################################################################')
+    logger.debug('########################## FRANKLIN START ##########################')
+    logger.debug('####################################################################')
     for line in banner.splitlines():
-        term.secho(line, nowrap=True, center=True, fg='green')
+        term.secho(line, nowrap=True, center=True, fg='green', log=False)
 
     term.echo()
     term.echo('"Science and everyday life cannot and should not be separated"', center=True)
