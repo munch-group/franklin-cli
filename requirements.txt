@@ -6,4 +6,3 @@ psutil
 jupyter
 packaging
 pyyaml
-gitui
