@@ -535,6 +535,47 @@ def ui():
 
 
 
+# def git_new_exercise():
+#     """
+#     Create a new exercise repository for a course.
+
+#     Parameters
+#     ----------
+#     course : 
+#         Course name.
+#     new_repo_name : 
+#         Name of the new repository.
+#     """
+
+#     course_name, danish_course_name = pick_course()
+
+#     # ssh git@gitlab.au.dk personal_access_token GITLAB-API-TMP api,write_repository 1
+
+#     new_repo_name = 'tester'
+
+#     s = requests.Session()
+#     s.headers.update({'PRIVATE-TOKEN': '<token>'})
+#     url = f'{GITLAB_API_URL}/projects?name={new_repo_name}&namespace_id={GITLAB_GROUP}%2F{course_name}'
+#     r  = s.post(url, headers={ "Content-Type" : "application/json"})
+#     if not r.ok:
+#         r.raise_for_status()
+#     term.secho(f"New repository '{new_repo_name}' created for '{course_name}'.", fg='green')
+
+#     # populate repo from data/template/exercise
+
+#     # add commit push
+
+
+# @git.command("new")
+# @crash_report
+# def _new():
+#     """Create new exercise repository for a course.
+#     """
+#     git_new_exercise()
+
+
+
+
 ###########################################################
 # Group alias "exercise" the status, down and up  commands 
 # So users can do franklin exercise down / up / status
@@ -546,26 +587,26 @@ def exercise():
     """
     pass
 
-@exercise.command()
+@exercise.command('status')
 @crash_report
-def status():
+def _status():
     """Status of local repository.
     """
     git_status()
 
-@exercise.command()
+@exercise.command('down')
 @crash_report
-def down():
+def _down():
     """Get local copy of exercise from GitLab
     """
     git_down()
 
 
-@exercise.command()
+@exercise.command('up')
 @click.option('-d', '--directory', default=None)
 @click.option('--remove/--no-remove', default=True, show_default=True)
 @crash_report
-def up(directory, remove):
+def _up(directory, remove):
     """Sync local copy or exercise to GitLab
     """
     if directory is None:
@@ -573,3 +614,4 @@ def up(directory, remove):
     if utils.system() == 'Windows':
         directory = PureWindowsPath(directory)
     git_up(directory, remove)
+
