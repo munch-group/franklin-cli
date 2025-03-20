@@ -411,7 +411,7 @@ def check_free_disk_space():
         term.secho(f" {REQUIRED_GB_FREE_DISK:.1f} Gb", nl=False, bold=True)
         term.echo(f" of free disk space to run.")
         # fake progress bar to make the student aware that this check is important
-        with click.progressbar(length=100, label='Checking disk space:'.ljust(24), **PG_OPTIONS) as bar:
+        with click.progressbar(length=100, label='Checking disk space:', **PG_OPTIONS) as bar:
             for i in range(100):
                 time.sleep(0.01)
                 bar.update(1)

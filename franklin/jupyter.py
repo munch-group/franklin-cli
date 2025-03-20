@@ -79,7 +79,7 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
 
     image_url = select_image()
 
-    term.secho("Downloading/updating image:".ljust(23), fg='green')
+    term.secho("Downloading/updating image:", fg='green')
     _docker.pull(image_url)
     term.echo()    
 

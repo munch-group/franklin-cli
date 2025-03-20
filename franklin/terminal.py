@@ -36,7 +36,7 @@ def check_window_size() -> None:
     text = 'Please resize the window to at least fit this square'
 
 
-def dummy_progressbar(seconds: str, label: str='Hang on...', **kwargs: dict) -> None:
+def dummy_progressbar(seconds: str, label: str='Hang on...', ljust=25, **kwargs: dict) -> None:
     """
     Dummy progressbar that waits for `seconds` seconds
     and displays a progressbar with `label`.
@@ -50,7 +50,7 @@ def dummy_progressbar(seconds: str, label: str='Hang on...', **kwargs: dict) -> 
     """
     pg_options = PG_OPTIONS.copy()
     pg_options.update(kwargs)
-    with click.progressbar(length=100, label=label, **pg_options) as bar:
+    with click.progressbar(length=100, label=label.ljust(ljust), **pg_options) as bar:
         for i in range(100):
             time.sleep(seconds/100)
             bar.update(1)

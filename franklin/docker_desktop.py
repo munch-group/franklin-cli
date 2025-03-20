@@ -55,14 +55,14 @@ def install_docker_desktop() -> None:
     file_size = response.headers['Content-length']
     with open(installer, mode="wb") as file:
         nr_chunks = int(file_size) // (10 * 1024) + 1
-        with click.progressbar(length=nr_chunks, label='Downloading:', **PG_OPTIONS) as bar:
+        with click.progressbar(length=nr_chunks, label='Downloading:'.ljust(25), **PG_OPTIONS) as bar:
             for chunk in response.iter_content(chunk_size=10 * 1024):
                 file.write(chunk)
                 bar.update(1)
     
     if utils.system() == 'Windows':
 
-        kwargs = dict(subsequent_indent=5)
+        kwargs = dict(subsequent_indent=' '*5)
         term.echo()
         term.echo()
         term.secho(f"How to install Docker Desktop on Windows:", fg='green')
@@ -100,26 +100,35 @@ def install_docker_desktop() -> None:
         # Extract the mounted volume name from the output
         mounted_volume_name = re.search(r'/Volumes/([^ ]*)', output.strip()).group(1)
 
-        term.echo("Installing:")
-        term.echo()
-        term.secho('='*WRAP_WIDTH, fg='red')
-        term.echo('  Press Enter and then drag the Docker application to the Applications folder.', fg='red')
-        term.secho('='*WRAP_WIDTH, fg='red')
-        term.echo()
-        click.pause('Press Enter...')
+
+#        click.clear()
+        # term.boxed_text(f"Installing",
+        #                     [f'Press Enter and then drag the Docker application to the Applications folder.'],
+        #                     prompt='Press Enter to continue', fg='red')
+        
+        # term.echo("Installing:")
+        # term.echo()
+        # term.secho('='*WRAP_WIDTH, fg='red')
+        term.echo('\nPress Enter and then drag the Docker application to the Applications folder.', fg='red')
+        # term.secho('='*WRAP_WIDTH, fg='red')
+        # term.echo()
+        # click.pause('')
 
         check_output(utils.fmt_cmd(f'open /Volumes/{mounted_volume_name}')).decode().strip()
 
-        term.echo()
-        term.secho('='*WRAP_WIDTH, fg='red')
-        term.echo('  Did you drag the Docker application to the Applications folder? If so, press Press Enter to continue.', fg='red')
-        term.secho('='*WRAP_WIDTH, fg='red')
-        term.echo()
-        click.pause('Press Enter...')
+        # term.boxed_text(f"",
+        #                 [f'Did you drag the Docker application to the Applications folder? Make sure before you continue.'],
+        #                 prompt='Press Enter to continue', fg='red')
+        
+        # term.echo()
+        # term.secho('='*WRAP_WIDTH, fg='red')
+        term.echo('\nDid you drag the Docker application to the Applications folder? If you did, press Enter to continue.', fg='red')
+        # term.secho('='*WRAP_WIDTH, fg='red')
+        # term.echo()
+        # click.pause('Press Enter...')
 
 
-        term.echo(" - Copying to Applications...")
-        with click.progressbar(length=100, label='Copying to Applications:', **PG_OPTIONS) as bar:
+        with click.progressbar(length=100, label='Copying to Applications:'.ljust(25), **PG_OPTIONS) as bar:
             prev_size = 0
             for _ in range(1000):
                 cmd = f'du -s /Applications/Docker.app'
@@ -137,15 +146,14 @@ def install_docker_desktop() -> None:
 
         term.dummy_progressbar(seconds=10, label='Validating Docker Desktop:')
 
-        term.echo(" - Unmounting...")
-
+        logger.debug("Unmounting volume")
         if os.path.exists('/Volumes/{mounted_volume_name}'):
             utils.run_cmd(f'hdiutil detach /Volumes/{mounted_volume_name}/')
 
-        term.echo(" - Removing installer...")
+        logger.debug("Removing installer dmg")
         os.remove(installer)
 
-        kwargs = dict(subsequent_indent=5)
+        kwargs = dict(subsequent_indent=' '*5)
         term.echo()
         term.echo()
         term.secho(f"How to set up Docker Desktop on Mac:", fg='green')

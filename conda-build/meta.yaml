@@ -28,6 +28,7 @@ requirements:
     - packaging
     - yaml
     - git
+    - gitui
     # - wslu # [win]
 
 channels:  # channels for your library dependencies

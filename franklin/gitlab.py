@@ -301,7 +301,7 @@ def finish_any_merge_in_progress(repo_local_path):
             return
 
 
-def gitlab_down() -> None:
+def git_down() -> None:
     """
     "Downloads" an exercise from GitLab.
     """
@@ -350,7 +350,7 @@ def gitlab_down() -> None:
     config_local_repo(repo_local_path)
 
 
-def gitlab_up(repo_local_path: str, remove_tracked_files: bool) -> None:
+def git_up(repo_local_path: str, remove_tracked_files: bool) -> None:
     """
     "Uploads" an exercise to GitLab.
 
@@ -475,11 +475,62 @@ def gitlab_up(repo_local_path: str, remove_tracked_files: bool) -> None:
             return
     
 
-
-def gitlab_status() -> None:
+def git_status() -> None:
     """Displays the status of the local repository.
     """
     pass
+
+@click.group(cls=utils.AliasedGroup)
+def git():
+    """GitLab commands.
+    """
+    pass
+
+@git.command()
+@crash_report
+def status():
+    """Status of local repository.
+    """
+    git_status()
+
+@git.command()
+@crash_report
+def down():
+    """Safely git clone or pull from the remote repository.
+    
+    Convenience function for adding, committing, and pushing changes to the remote repository.    
+    """
+    git_down()
+
+
+@git.command()
+@click.option('-d', '--directory', default=None)
+@click.option('--remove/--no-remove', default=True, show_default=True)
+@crash_report
+def up(directory, remove):
+    """Safely add, commit, push and remove if possible.
+    """
+    if directory is None:
+        directory = os.getcwd()
+    if utils.system() == 'Windows':
+        directory = PureWindowsPath(directory)
+    git_up(directory, remove)
+
+@git.command()
+@crash_report
+def ui():
+    """GitUI for interactive git
+    
+    Git UI for interactive staging, committing and pushing changes to the remote repository.
+    """
+    subprocess.run(utils.fmt_cmd(f'gitui'), check=False)
+
+
+
+###########################################################
+# Group alias "exercise" the status, down and up  commands 
+# So users can do franklin exercise down / up / status
+###########################################################
 
 @click.group(cls=utils.AliasedGroup)
 def exercise():
@@ -492,13 +543,14 @@ def exercise():
 def status():
     """Status of local repository.
     """
-    gitlab_status()
+    git_status()
 
 @exercise.command()
 @crash_report
 def down():
-    """\"Download\" exercise from GitLab"""
-    gitlab_down()
+    """Get local copy of exercise from GitLab
+    """
+    git_down()
 
 
 @exercise.command()
@@ -506,9 +558,10 @@ def down():
 @click.option('--remove/--no-remove', default=True, show_default=True)
 @crash_report
 def up(directory, remove):
-    """\"Uploads\" exercise to GitLab"""
+    """Sync local copy or exercise to GitLab
+    """
     if directory is None:
         directory = os.getcwd()
     if utils.system() == 'Windows':
         directory = PureWindowsPath(directory)
-    gitlab_up(directory, remove)
+    git_up(directory, remove)
