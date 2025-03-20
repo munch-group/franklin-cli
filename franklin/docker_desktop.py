@@ -120,7 +120,7 @@ def install_docker_desktop() -> None:
 
         term.echo(" - Copying to Applications...")
         with click.progressbar(length=100, label='Copying to Applications:', **PG_OPTIONS) as bar:
-            prev_size = ''
+            prev_size = 0
             for _ in range(1000):
                 cmd = f'du -s /Applications/Docker.app'
                 logger.debug(cmd)
@@ -128,10 +128,10 @@ def install_docker_desktop() -> None:
                 cmd[0] = shutil.which(cmd[0])
                 output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, timeout=1, check=False).stdout.decode().strip()
                 if output:
-                    size = output.split()[0]
+                    size = int(output.split()[0])
                     if size == prev_size:
                         break
-                    bar.update(100*int(1 - (size - prev_size) / size))
+                    bar.update(int(100*(1 - (size - prev_size) / int(size))))
                     prev_size = size
                 time.sleep(5)
 
@@ -140,7 +140,7 @@ def install_docker_desktop() -> None:
         term.echo(" - Unmounting...")
 
         if os.path.exists('/Volumes/{mounted_volume_name}'):
-            run(f'hdiutil detach /Volumes/{mounted_volume_name}/')
+            utils.run_cmd(f'hdiutil detach /Volumes/{mounted_volume_name}/')
 
         term.echo(" - Removing installer...")
         os.remove(installer)

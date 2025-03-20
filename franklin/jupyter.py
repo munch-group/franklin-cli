@@ -65,15 +65,17 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
                 sys.exit(1)
 
     utils.check_internet_connection()
-    utils.logger.debug('Starting Docker Desktop')
-    _docker.failsafe_start_docker_desktop()
-    utils.check_free_disk_space()
-    time.sleep(2)
 
     if update:
         update_client()
     else:
         logger.debug('Update check skipped')
+
+    utils.check_free_disk_space()
+
+    utils.logger.debug('Starting Docker Desktop')
+    _docker.failsafe_start_docker_desktop()
+    time.sleep(2)
 
     image_url = select_image()
 
