@@ -55,5 +55,5 @@ jobs:
           # platform_osx-64: true
           user: munch-group
           # label: auto
-          token: ${{ secrets.ANACONDA_TOKEN }} \
+          token: ${{ secrets.ANACONDA_TOKEN }}
           overwrite: true
