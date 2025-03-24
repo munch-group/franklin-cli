@@ -10,7 +10,11 @@ from packaging.version import Version
 import subprocess
 from subprocess import Popen, PIPE, DEVNULL, STDOUT
 
-from .docker_desktop import docker_desktop_status, docker_desktop_start, docker_desktop_stop, docker_desktop_restart, update_docker_desktop, failsafe_start_docker_desktop, docker_desktop_version
+from .docker_desktop import (
+    docker_desktop_status, docker_desktop_start, docker_desktop_stop, 
+    docker_desktop_restart, update_docker_desktop, failsafe_start_docker_desktop, 
+    docker_desktop_version, docker_config, config_get, config_set, config_reset, config_fit
+)
 from . import terminal as term
 from . import utils
 from .utils import AliasedGroup, crash_report, fmt_cmd
@@ -965,53 +969,8 @@ def _remove_everything():
 # docker config subcommands
 ###########################################################
 
-class docker_config():
-    """
-    Contest manager for Docker Desktop settings.
-    """
-    home = Path.home()
-    if utils.system() == 'Darwin':
-        json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
-    elif utils.system() == 'Windows':
-        json_settings = home / 'AppData/Roaming/Docker/settings-store.json'
-    elif utils.system() == 'Linux':
-        json_settings = home / '.docker/desktop/settings-store.json'
 
-    def __enter__(self):
-        if os.path.exists(self.json_settings):
-            with open(self.json_settings, 'r') as f:
-                self.settings = json.load(f)
-        else:
-             self.settings = dict()
-        return self
 
-    def __exit__(self, type, value, traceback):
-        with open(self.json_settings, 'w') as f:
-            json.dump(self.settings, f)
-
-def as_type(s: str) -> Any:
-    """
-    Convert string to int, float or bool.
-
-    Parameters
-    ----------
-    s : 
-        String to be converted.
-
-    Returns
-    -------
-    :
-        Representation of the string as int, float or bool.
-    """
-    if s.lower() in ['true', 'false']:
-        return s.lower() == 'true'
-    try:
-        return float(s)        
-    except ValueError:
-        try:
-            return int(s)
-        except ValueError:
-            return s
 
 
 @docker.group(cls=AliasedGroup)
@@ -1022,26 +981,6 @@ def config():
     pass
 
 
-def config_get(variable: str=None) -> None:
-    """
-    Get Docker configuration for variable or all variables.
-
-    Parameters
-    ----------
-    variable : 
-        Variable name, by default None in which case all variables are shown.
-    """
-    with docker_config() as cfg:
-        if variable is not None:
-            if variable not in DOCKER_SETTINGS:
-                term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
-                return
-            term.echo(f'{variable}: {cfg.settings[variable]}')
-        else:
-            for variable in DOCKER_SETTINGS:
-                if variable in cfg.settings:
-                    term.echo(f'{str(variable).rjust(31)}: {cfg.settings[variable]}')
-
 @config.command('get')
 @click.argument("variable", required=False)
 @crash_report
@@ -1050,32 +989,6 @@ def _config_get(variable=None):
      """
      return config_get(variable=variable)
      
-
-def config_set(variable: str, value: Any) -> None:
-    """
-    Set value of Docker configuration variable.
-
-    Parameters
-    ----------
-    variable : 
-        Variable name.
-    value : 
-        Variable value.
-    """
-
-    if type(value) is str:
-        value = as_type(value)
-
-    if value == 'DiskSizeMiB':
-        # for some reason Docker Desktop only accepts values in multiples of 1024
-        value = int(value / 1024) * 1024
-
-    if variable not in DOCKER_SETTINGS:
-        term.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
-        return
-
-    with docker_config() as cfg:
-        cfg.settings[variable] = value
 
 @config.command('set')
 @click.argument("variable", required=True)
@@ -1087,25 +1000,6 @@ def _config_set(variable, value):
     return config_set(variable, value)
 
 
-def _config_reset(variable: str=None) -> None:
-    """
-    Resets Docker configuration to defaults set by Franklin.
-
-    Parameters
-    ----------
-    variable : 
-        Variable name, by default None in which case all variables are reset.
-    """
-    with docker_config() as cfg:
-        if variable is not None:
-            if variable not in DOCKER_SETTINGS:
-                term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
-                return
-            cfg.settings[variable] = DOCKER_SETTINGS[variable]
-        else:
-            for variable in DOCKER_SETTINGS:
-                cfg.settings[variable] = DOCKER_SETTINGS[variable]
-
 @config.command('reset')
 @click.argument("variable", required=False)
 @crash_report
@@ -1114,19 +1008,6 @@ def config_reset(variable):
     """
     return _config_reset(variable=variable)
 
-
-def config_fit():
-    """Set resource limits to reasonable values given available resources.
-    """
-
-    _config_reset()
-
-    nr_cpu = psutil.cpu_count(logical=True)
-    config_set('Cpus', nr_cpu // 2)
-
-    svmem = psutil.virtual_memory()
-    mem_mb = svmem.total // (1024 ** 2)
-    config_set('MemoryMiB', mem_mb // 2)
 
 @config.command('fit')
 @crash_report

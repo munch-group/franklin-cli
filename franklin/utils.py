@@ -20,6 +20,31 @@ from importlib.metadata import version as _version
 from . import terminal as term
 from typing import Tuple, List, Dict, Callable, Any
 
+
+def as_type(s: str) -> Any:
+    """
+    Convert string to int, float or bool.
+
+    Parameters
+    ----------
+    s : 
+        String to be converted.
+
+    Returns
+    -------
+    :
+        Representation of the string as int, float or bool.
+    """
+    if s.lower() in ['true', 'false']:
+        return s.lower() == 'true'
+    try:
+        return float(s)        
+    except ValueError:
+        try:
+            return int(s)
+        except ValueError:
+            return s
+        
 ###########################################################
 # Click
 ###########################################################
