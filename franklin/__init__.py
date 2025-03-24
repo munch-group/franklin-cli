@@ -20,6 +20,6 @@ franklin.add_command(_docker.docker)
 franklin.add_command(_tldr.tldr)
 franklin.add_command(_update.update)
 franklin.add_command(_gitlab.git)
-franklin.add_command(_gitlab.exercise) # Aliases for git commands
+# franklin.add_command(_gitlab.exercise) # Aliases for git commands
 
 

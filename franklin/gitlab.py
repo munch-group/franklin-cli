@@ -1,5 +1,5 @@
 import requests
-from .config import GITLAB_API_URL, GITLAB_GROUP, GITLAB_TOKEN
+from .config import GITLAB_API_URL, GITLAB_GROUP, GITLAB_TOKEN, GITLAB_DOMAIN
 from . import utils
 from . import cutie
 import time
@@ -12,7 +12,10 @@ import shutil
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from . import terminal as term
 from typing import Tuple, List, Dict, Callable, Any
-
+import webbrowser
+import pyperclip
+import platform
+from .logger import logger
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
 
 
@@ -21,6 +24,52 @@ from typing import Tuple, List, Dict, Callable, Any
 
 # # this will show the namespace details of the User with username my-username
 # curl --header "PRIVATE-TOKEN: ${TOKEN}" "https://gitlab.com/api/v4/namespace/my-username
+
+def check_ssh_set_up():
+    logger.debug(f"Checking if passwordless ssh authentication is set up.")
+    cmd = 'ssh -T git@gitlab.au.dk <<<yes'
+    logger.debug(cmd)
+    utils.run_cmd(cmd, check=False)
+    cmd = 'ssh -T git@gitlab.au.dk'
+    logger.debug(cmd)
+    cmd = f'ssh -T git@{GITLAB_DOMAIN}'
+    output = utils.run_cmd(cmd)
+    if output.startswith('Welcome to GitLab'):
+        return True
+    return False
+
+
+def ssh_keygen():
+    """
+    Generate an ssh key pair.
+    """
+    path = Path.home() / '.ssh/id_rsa'
+    if platform.system() == 'Windows':
+        path = PureWindowsPath(path)
+        
+    if not path.exists():
+        logger.debug(f"Generating ssh key pair at {path}")
+        utils.run_cmd(f"ssh-keygen -q -t rsa -N '' -f {path} <<<y")
+
+    with open(path.with_suffix('.pub')) as f:
+        public_key = f.read()
+    pyperclip.copy(public_key)
+
+    term.boxed_text("Add ssh key to GitLab", lines = [
+        "To allow authentication without password, you need to log into GitLab and add an ssh key to your account. When the GitLab website opens in your browser, complete the following steps:",
+        '1. Sign into GitLab using the white "UNI-AD" button',
+        '2. Click the "Add new key" button',
+        '3. The ssh key is already copied to your clipboard. Paste it into the'
+        '   "Key" text field',
+        '4. In the "Expiration date" field, remove the date by clicking the small'
+        '   black circle with a white x in it.',
+        '5. Click the blue "Add key" button',
+    ], prompt = "Press Enter to open the GitLab website.", fg='green')
+
+    webbrowser.open('https://gitlab.au.dk/-/user_settings/ssh_keys', new=1)
+
+    click.pause("Press Enter when you have added the ssh key to GitLab.")
+
 
 def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
     """
@@ -518,6 +567,8 @@ def down():
 def up(directory, remove):
     """Safely add, commit, push and remove if possible.
     """
+    if not check_ssh_set_up():
+        ssh_keygen()
     if directory is None:
         directory = os.getcwd()
     if utils.system() == 'Windows':
@@ -531,6 +582,8 @@ def ui():
     
     Git UI for interactive staging, committing and pushing changes to the remote repository.
     """
+    if not check_ssh_set_up():
+        ssh_keygen()
     subprocess.run(utils.fmt_cmd(f'gitui'), check=False)
 
 
@@ -576,42 +629,42 @@ def ui():
 
 
 
-###########################################################
-# Group alias "exercise" the status, down and up  commands 
-# So users can do franklin exercise down / up / status
-###########################################################
+# ###########################################################
+# # Group alias "exercise" the status, down and up  commands 
+# # So users can do franklin exercise down / up / status
+# ###########################################################
 
-@click.group(cls=utils.AliasedGroup)
-def exercise():
-    """GitLab commands.
-    """
-    pass
+# @click.group(cls=utils.AliasedGroup)
+# def exercise():
+#     """GitLab commands.
+#     """
+#     pass
 
-@exercise.command('status')
-@crash_report
-def _status():
-    """Status of local repository.
-    """
-    git_status()
+# @exercise.command('status')
+# @crash_report
+# def _status():
+#     """Status of local repository.
+#     """
+#     git_status()
 
-@exercise.command('down')
-@crash_report
-def _down():
-    """Get local copy of exercise from GitLab
-    """
-    git_down()
+# @exercise.command('down')
+# @crash_report
+# def _down():
+#     """Get local copy of exercise from GitLab
+#     """
+#     git_down()
 
 
-@exercise.command('up')
-@click.option('-d', '--directory', default=None)
-@click.option('--remove/--no-remove', default=True, show_default=True)
-@crash_report
-def _up(directory, remove):
-    """Sync local copy or exercise to GitLab
-    """
-    if directory is None:
-        directory = os.getcwd()
-    if utils.system() == 'Windows':
-        directory = PureWindowsPath(directory)
-    git_up(directory, remove)
+# @exercise.command('up')
+# @click.option('-d', '--directory', default=None)
+# @click.option('--remove/--no-remove', default=True, show_default=True)
+# @crash_report
+# def _up(directory, remove):
+#     """Sync local copy or exercise to GitLab
+#     """
+#     if directory is None:
+#         directory = os.getcwd()
+#     if utils.system() == 'Windows':
+#         directory = PureWindowsPath(directory)
+#     git_up(directory, remove)
 

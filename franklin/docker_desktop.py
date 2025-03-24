@@ -100,7 +100,7 @@ def config_set(variable: str, value: Any) -> None:
         cfg.settings[variable] = value
 
 
-def _config_reset(variable: str=None) -> None:
+def config_reset(variable: str=None) -> None:
     """
     Resets Docker configuration to defaults set by Franklin.
 
@@ -126,7 +126,7 @@ def config_fit():
     """Set resource limits to reasonable values given available resources.
     """
 
-    _config_reset()
+    config_reset()
 
     nr_cpu = psutil.cpu_count(logical=True)
     logger.debug(f"Fitting Cpus to {int(nr_cpu // 2)}")

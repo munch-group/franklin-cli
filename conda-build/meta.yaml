@@ -27,6 +27,7 @@ requirements:
     - jupyter
     - packaging
     - yaml
+    - pyperclip    
     - git
     - gitui
     # - wslu # [win]

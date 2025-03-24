@@ -1003,10 +1003,10 @@ def _config_set(variable, value):
 @config.command('reset')
 @click.argument("variable", required=False)
 @crash_report
-def config_reset(variable):
+def _config_reset(variable):
     """Reset Docker configuration variable
     """
-    return _config_reset(variable=variable)
+    return config_reset(variable=variable)
 
 
 @config.command('fit')
