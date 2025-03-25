@@ -61,7 +61,18 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
     if not allow_subdirs_at_your_own_risk:
         for x in os.listdir(os.getcwd()):
             if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
-                term.secho("\n  Please run the command in a directory without any sub-directories.\n", fg='red')
+                term.boxed_text("Franklin must run from a folder with no other folders inside it",
+                                [
+                                    "You can make an empty folder called 'exercise' with this command:",
+                                    "",
+                                    "    mkdir exercise",
+                                    "",
+                                    "and change to that folder with this command:",
+                                    "",                                    
+                                    "    cd exercise",
+                                    "",
+                                    "Then run your franklin command.",
+                                ], fg='magenta')
                 sys.exit(1)
 
     utils.check_internet_connection()

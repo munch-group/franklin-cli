@@ -208,8 +208,9 @@ def boxed_text(header: str, lines: list=[], prompt: str='', **kwargs: dict) -> N
     for line in lines:
         term.echo(f"  {line}")
     term.echo()
-    term.echo(f"  {prompt}")
-    term.echo()
+    if prompt:
+        term.echo(f"  {prompt}")
+        term.echo()
     term.secho('='*WRAP_WIDTH, **kwargs)
     term.echo()
     if prompt:

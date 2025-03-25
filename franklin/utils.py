@@ -157,8 +157,6 @@ def crash_email() -> None:
     """
     Open the email client with a prefilled email to the maintainer of Franklin.
     """
-    if os.environ.get('DEVEL', None):
-        return
 
     preamble = ("This email is prefilled with information of the crash you can send to the maintainer of Franklin.").upper()
 
@@ -202,6 +200,8 @@ def crash_report(func: Callable) -> Callable:
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
+        if os.environ.get('DEVEL', None):
+            return func(*args, **kwargs)
         try:
             ret = func(*args, **kwargs)
         except KeyboardInterrupt:
@@ -414,22 +414,14 @@ def check_free_disk_space():
         term.secho(f"Not enough free disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {gb_free:.2f} GB", fg='red')
         sys.exit(1)
     elif gb_free < 2 * REQUIRED_GB_FREE_DISK:
-        click.clear()
-        term.echo()
-        term.echo()
-        term.echo()
-        term.echo()
-        term.echo()
-        term.secho('='*75, fg='red')
-        term.echo()
-        term.secho(f"  You are running low on disk space. Franklin needs {REQUIRED_GB_FREE_DISK} GB of free disk space to run and you only have {gb_free:.2f} GB left.", fg='red', bold=True, blink=True)
-        term.echo()
-        term.echo(f'  You can use "franklin docker remove" to remove cached Docker content you no longer need. it automatically get downloaded if you should need it again')
-        term.echo()
-        term.secho('='*75, fg='red')
-        term.echo()
-        click.pause()
-        click.clear()
+
+        term.boxed_text('You are running low on disk space', [
+            f'You are running low on disk space. Franklin needs {REQUIRED_GB_FREE_DISK} GB of free disk space to run and you only have {gb_free:.2f} GB left.',
+            '',
+            'You can use "franklin docker remove" to remove cached Docker content you no longer need. it automatically get downloaded if you should need it again',
+            ], fg='magenta')        
+        if click.confirm("Do you want to stop to free up space?", default=False):
+            sys.exit(1)
     else:
         term.echo()
         term.echo(f"Franklin needs", nl=False)
