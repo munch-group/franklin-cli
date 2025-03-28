@@ -4,7 +4,7 @@
 #   name: franklin
 #   version: {{ data.get('version') }}  
 
-{% set pyproject = load_file_data('pyproject.toml') %}
+{% set pyproject = load_file_data('../pyproject.toml') %}
 {% set package = pyproject.get('package', {}) %}
 
 package:
