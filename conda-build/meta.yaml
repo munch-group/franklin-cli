@@ -23,6 +23,7 @@ requirements:
     - colorama>=0.4.6
     - readchar>=4.0.5
     - click
+    - click_plugins
     - psutil
     - jupyter
     - packaging

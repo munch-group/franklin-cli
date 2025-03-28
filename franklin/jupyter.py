@@ -19,6 +19,9 @@ from .logger import logger
 from .update import update_client
 from . import terminal as term
 
+from pkg_resources import iter_entry_points
+from click_plugins import with_plugins
+
 banner = """
         ▗▄▄▄▖▗▄▄▖  ▗▄▖ ▗▖  ▗▖▗▖ ▗▖▗▖   ▗▄▄▄▖▗▖  ▗▖
         ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌     █  ▐▛▚▖▐▌
@@ -27,6 +30,7 @@ banner = """
 """
 
 
+@with_plugins(iter_entry_points('franklin.jupyter.plugins'))
 @click.group(cls=AliasedGroup)
 def jupyter():
     """Jupyter commands"""

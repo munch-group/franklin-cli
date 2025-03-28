@@ -4,6 +4,10 @@ from . import utils
 from .utils import crash_report
 from . import terminal as term
 
+from pkg_resources import iter_entry_points
+from click_plugins import with_plugins
+
+@with_plugins(iter_entry_points('franklin.tldr.plugins'))
 @click.group()
 def tldr():
     """TLDRs on concepts in Franklin"""

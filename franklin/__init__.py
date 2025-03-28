@@ -7,6 +7,10 @@ from . import tldr as _tldr
 from . import update as _update
 from . import gitlab as _gitlab
 
+from pkg_resources import iter_entry_points
+from click_plugins import with_plugins
+
+@with_plugins(iter_entry_points('franklin.plugins'))
 @click.group(cls=AliasedGroup)
 def franklin():
     """

@@ -16,7 +16,12 @@ import webbrowser
 import pyperclip
 import platform
 from .logger import logger
+
+from pkg_resources import iter_entry_points
+from click_plugins import with_plugins
+
 # curl --header "PRIVATE-TOKEN: <myprivatetoken>" -X POST "https://gitlab.com/api/v4/projects?name=myexpectedrepo&namespace_id=38"
+
 
 
 # # this will show the namespace details of the Group with ID 54
@@ -537,6 +542,7 @@ def git_status() -> None:
     """
     pass
 
+@with_plugins(iter_entry_points('franklin.git.plugins'))
 @click.group(cls=utils.AliasedGroup)
 def git():
     """GitLab commands.
@@ -634,6 +640,7 @@ def ui():
 # # So users can do franklin exercise down / up / status
 # ###########################################################
 
+# @with_plugins(iter_entry_points('franklin.plugins'))
 # @click.group(cls=utils.AliasedGroup)
 # def exercise():
 #     """GitLab commands.

@@ -10,6 +10,9 @@ from packaging.version import Version
 import subprocess
 from subprocess import Popen, PIPE, DEVNULL, STDOUT
 
+from pkg_resources import iter_entry_points
+from click_plugins import with_plugins
+
 from .docker_desktop import (
     docker_desktop_status, docker_desktop_start, docker_desktop_stop, 
     docker_desktop_restart, update_docker_desktop, failsafe_start_docker_desktop, 
@@ -349,6 +352,7 @@ def image_list(callback: Callable=None):
 # docker subcommands
 ###########################################################
 
+@with_plugins(iter_entry_points('franklin.docker.plugins'))
 @click.group(cls=AliasedGroup)
 def docker():
     """Docker commands
