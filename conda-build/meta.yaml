@@ -1,8 +1,15 @@
-{% set data = load_setup_py_data() %}
+# {% set data = load_setup_py_data() %}
+
+# package:
+#   name: franklin
+#   version: {{ data.get('version') }}  
+
+{% set pyproject = load_file_data('pyproject.toml') %}
+# {% set poetry = pyproject.get('tool', {}).get('poetry') %}
 
 package:
   name: franklin
-  version: {{ data.get('version') }}  
+  version: {{ pyproject.get('version') }}
 
 source:
   git_url: https://github.com/munch-group/franklin.git
