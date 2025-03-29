@@ -4,21 +4,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = "0.17.18"
+version = "0.17.19"
 requires-python = ">= 3.9"
-dynamic = ["dependencies"]
-# dependencies = [
-#     'requests>=2.32.3',
-#     'colorama>=0.4.6',
-#     'readchar>=4.0.5',
-#     'click',
-#     'click-plugins',
-#     'psutil',
-#     'jupyter',
-#     'packaging',
-#     'pyyaml',
-#     'pyperclip',
-# ]
+# dynamic = ["dependencies"]
+dependencies = [
+    'requests>=2.32.3',
+    'colorama>=0.4.6',
+    'readchar>=4.0.5',
+    'click',
+    'click-plugins',
+    'psutil',
+    'jupyter',
+    'packaging',
+    'pyyaml',
+    'pyperclip',
+]
 authors = [
   {name = "Kasper Munch", email = "kaspermunch@birc.au.dk"},
 ]
@@ -26,8 +26,8 @@ maintainers = [
   {name = "Kasper Munch", email = "kaspermunch@birc.au.dk"},
 ]
 description = "Terminal client for Jupyter exercises"
+keywords = ["teaching", "jupyter", "docker", "gitlab"]
 readme = "README.md"
-# license = {text = "MIT License"}
 license = {file = "LICENSE"}
 
 [project.urls]
@@ -35,13 +35,12 @@ Homepage = "https://munch-group.org/franklin"
 Documentation = "https://munch-group.org/franklin"
 Repository = "https://github.com/munch-group/franklin.git"
 Issues = "https://github.com/munch-group/franklin/issues"
-# Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
 
 [project.scripts]
 franklin = "franklin:franklin"
 
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+# [tool.setuptools.dynamic]
+# dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
 where = ["src"]
