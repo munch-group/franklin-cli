@@ -4,12 +4,33 @@
 #   name: franklin
 #   version: {{ data.get('version') }}  
 
-{% set pyproject = load_file_data('../pyproject.toml') %}
-{% set package = pyproject.get('package', {}) %}
+# {% set pyproject = load_file_data('../pyproject.toml') %}
+# {% set package = pyproject.get('package', {}) %}
+
+# package:
+#   name: franklin
+#   version: {{ package.get('version') }}
+
+
+{% set pyproject = load_file_data("../pyproject.toml", from_recipe_dir=True) %}
+
+# requirements:
+#   host:
+#     {% for dep in pyproject["build-system"]["requires"] %}
+#     - {{ dep.lower() }}
+#     {% endfor %}
+#     {% for dep in requirements["dependencies"] %}
+#     - {{ dep.lower() }}
+#     {% endfor %}
+#   run:
+#     {% for dep in requirements["dependencies"] %}
+#     - {{ dep.lower() }}
+#     {% endfor %}
 
 package:
   name: franklin
-  version: {{ package.get('version') }}
+  version: {{ pyproject["project"]["version"] }}
+
 
 source:
   git_url: https://github.com/munch-group/franklin.git

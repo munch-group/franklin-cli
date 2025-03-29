@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
+# dynamic = ["version"]
 version = "0.17.9"
 requires-python = ">= 3.9"
 dependencies = [
@@ -37,6 +38,9 @@ Issues = "https://github.com/munch-group/franklin/issues"
 
 [project.scripts]
 franklin = "franklin:franklin"
+
+[tool.setuptools.dynamic]
+version = {attr = "franklin.__version__"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
