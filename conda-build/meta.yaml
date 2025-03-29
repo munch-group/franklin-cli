@@ -24,6 +24,7 @@ source:
 build:
   number: 0
   script: python -m pip install . -vv
+  python_version_independent: true
   entry_points:
     - franklin = franklin:franklin
 
