@@ -31,9 +31,9 @@ from click_plugins import with_plugins
 # curl --header "PRIVATE-TOKEN: ${TOKEN}" "https://gitlab.com/api/v4/namespace/my-username
 
 def check_ssh_set_up():
-    logger.debug(f"Checking if passwordless ssh authentication is set up.")
     cmd = 'ssh -T git@gitlab.au.dk <<<yes'
     logger.debug(cmd)
+    term.echo(f"Checking encrypted connection to GitLab")
     utils.run_cmd(cmd, check=False)
     cmd = 'ssh -T git@gitlab.au.dk'
     logger.debug(cmd)
@@ -584,7 +584,7 @@ def ui():
 
     if not check_ssh_set_up():
         ssh_keygen()
-        
+
     subprocess.run(utils.fmt_cmd(f'gitui'), check=False)
 
 

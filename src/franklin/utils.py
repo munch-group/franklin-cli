@@ -35,7 +35,8 @@ def config_gitui() -> None:
         
     if not os.path.exists(path):
         os.makedirs(path)       
-    for file in ['key_bindings.ron', 'key_symbols.toml', 'theme.ron']:     
+    for file in Path('data/gitui').glob('*'):
+        print(f'Copying {file} to {path}')
         shutil.copy(file, path)
 
 

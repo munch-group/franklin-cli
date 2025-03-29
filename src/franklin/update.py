@@ -15,8 +15,9 @@ def update_client() -> None:
     Update the Franklin client.
     """
     version = utils.franklin_version()
-    click.secho('Checking for Franklin update:', fg='green')
-    cmd = f"conda update -y -c conda-forge -c {ANACONDA_CHANNEL} franklin"
+    click.secho('Checking for updates to Franklin', fg='green')
+    # cmd = f"conda update -y -c conda-forge -c {ANACONDA_CHANNEL} franklin"
+    cmd = f"conda update -y munch-group::franklin"
     
     logger.debug(cmd)
     p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
