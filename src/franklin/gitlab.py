@@ -269,14 +269,6 @@ def config_local_repo(repo_local_path: str) -> None:
         subprocess.check_call(utils.fmt_cmd(f"git -C {repo_local_path} config diff.tool vscode"))
         subprocess.check_call(utils.fmt_cmd(f"git -C {repo_local_path} config difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'"))
 
-    # if utils.system() == 'Windows':
-    #     path = os.path.join(os.getenv('APPDATA'), 'gitui')
-    # else:
-    #     path = str(Path.home() / '.config/gitui')
-    # if not os.path.exists(path):
-    #     os.makedirs(path)       
-    # for file in ['key_bindings.ron', 'key_symbols.toml', 'theme.ron']:     
-    #     shutil.copy(file, path)
 
 def git_safe_pull(repo_local_path: str) -> bool:
     """

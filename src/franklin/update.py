@@ -1,5 +1,6 @@
 
 import sys
+import os
 import click
 from subprocess import Popen, PIPE
 from .utils import logger, crash_report
@@ -8,6 +9,25 @@ from . import utils
 from . import docker
 from . import terminal as term
 from typing import Tuple, List, Dict, Callable, Any
+from pathlib import Path
+import shutil
+
+
+def config_gitui() -> None:
+    """
+    Copies gitui config files to the user's config directory.
+    """
+
+    if utils.system() == 'Windows':
+        path = os.path.join(os.getenv('APPDATA'), 'gitui')
+    else:
+        path = str(Path.home() / '.config/gitui')
+        
+    if not os.path.exists(path):
+        os.makedirs(path)       
+    for file in ['key_bindings.ron', 'key_symbols.toml', 'theme.ron']:     
+        shutil.copy(file, path)
+
 
 def update_client() -> None:
     """
@@ -46,6 +66,7 @@ def update_client() -> None:
         click.echo(f"Please run your command again.")
         sys.exit()
 
+    config_gitui()
 
 @click.command('update')
 @crash_report

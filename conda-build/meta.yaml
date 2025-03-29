@@ -17,7 +17,6 @@ package:
   name: franklin
   version: {{ pyproject.get("project").get("version") }}
 
-
 source:
   git_url: https://github.com/munch-group/franklin.git
 
@@ -36,20 +35,6 @@ requirements:
     {% for dep in pyproject.get("project").get("dependencies") %}
     - {{ dep.lower() }}
     {% endfor %}  
-    # - python
-    # - requests>=2.32.3
-    # - colorama>=0.4.6
-    # - readchar>=4.0.5
-    # - click
-    # - click-plugins
-    # - psutil
-    # - jupyter
-    # - packaging
-    # - yaml
-    # - pyperclip    
-    # - git
-    # - gitui
-    # # - wslu # [win]
 
 channels:  # channels for your library dependencies
   - conda-forge
