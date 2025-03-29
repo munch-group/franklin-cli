@@ -4,20 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = "0.17.15"
+version = "0.17.16"
 requires-python = ">= 3.9"
-dependencies = [
-    'requests>=2.32.3',
-    'colorama>=0.4.6',
-    'readchar>=4.0.5',
-    'click',
-    'click-plugins',
-    'psutil',
-    'jupyter',
-    'packaging',
-    'pyyaml',
-    'pyperclip',
-]
+[project]
+dynamic = ["dependencies"]
 authors = [
   {name = "Kasper Munch", email = "kaspermunch@birc.au.dk"},
 ]
@@ -39,11 +29,24 @@ Issues = "https://github.com/munch-group/franklin/issues"
 franklin = "franklin:franklin"
 
 [tool.setuptools.dynamic]
-version = {attr = "franklin.__version__"}
+dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
 franklin = ["*.yaml", "data/gitui/*.ron"]
+
+# dependencies = [
+#     'requests>=2.32.3',
+#     'colorama>=0.4.6',
+#     'readchar>=4.0.5',
+#     'click',
+#     'click-plugins',
+#     'psutil',
+#     'jupyter',
+#     'packaging',
+#     'pyyaml',
+#     'pyperclip',
+# ]
 
