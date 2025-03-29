@@ -4,9 +4,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = "0.17.17"
+version = "0.17.18"
 requires-python = ">= 3.9"
 dynamic = ["dependencies"]
+# dependencies = [
+#     'requests>=2.32.3',
+#     'colorama>=0.4.6',
+#     'readchar>=4.0.5',
+#     'click',
+#     'click-plugins',
+#     'psutil',
+#     'jupyter',
+#     'packaging',
+#     'pyyaml',
+#     'pyperclip',
+# ]
 authors = [
   {name = "Kasper Munch", email = "kaspermunch@birc.au.dk"},
 ]
@@ -15,7 +27,8 @@ maintainers = [
 ]
 description = "Terminal client for Jupyter exercises"
 readme = "README.md"
-license = {text = "MIT License"}
+# license = {text = "MIT License"}
+license = {file = "LICENSE"}
 
 [project.urls]
 Homepage = "https://munch-group.org/franklin"
@@ -35,17 +48,4 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 franklin = ["*.yaml", "data/gitui/*.ron"]
-
-# dependencies = [
-#     'requests>=2.32.3',
-#     'colorama>=0.4.6',
-#     'readchar>=4.0.5',
-#     'click',
-#     'click-plugins',
-#     'psutil',
-#     'jupyter',
-#     'packaging',
-#     'pyyaml',
-#     'pyperclip',
-# ]
 
