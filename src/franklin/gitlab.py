@@ -4,7 +4,7 @@ from . import utils
 from . import cutie
 import time
 import click
-from .utils import crash_report
+from .utils import crash_report, config_gitui
 import subprocess
 from subprocess import DEVNULL, STDOUT, PIPE
 import os
@@ -580,8 +580,11 @@ def ui():
     
     Git UI for interactive staging, committing and pushing changes to the remote repository.
     """
+    config_gitui()
+
     if not check_ssh_set_up():
         ssh_keygen()
+        
     subprocess.run(utils.fmt_cmd(f'gitui'), check=False)
 
 

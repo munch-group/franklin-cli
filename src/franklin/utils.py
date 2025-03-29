@@ -19,6 +19,24 @@ import urllib
 from importlib.metadata import version as _version
 from . import terminal as term
 from typing import Tuple, List, Dict, Callable, Any
+from pathlib import Path
+import shutil
+
+
+def config_gitui() -> None:
+    """
+    Copies gitui config files to the user's config directory.
+    """
+
+    if utils.system() == 'Windows':
+        path = os.path.join(os.getenv('APPDATA'), 'gitui')
+    else:
+        path = str(Path.home() / '.config/gitui')
+        
+    if not os.path.exists(path):
+        os.makedirs(path)       
+    for file in ['key_bindings.ron', 'key_symbols.toml', 'theme.ron']:     
+        shutil.copy(file, path)
 
 
 def as_type(s: str) -> Any:
