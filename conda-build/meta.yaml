@@ -9,7 +9,7 @@
 #     - {{ dep.lower() }}
 #     {% endfor %}
 #   run:
-#     {% for dep in requirements["dependencies"] %}
+#     {% for dep in pyproject.get("project").get("dependencies") %}
 #     - {{ dep.lower() }}
 #     {% endfor %}
 
@@ -32,20 +32,23 @@ requirements:
     - python
     - pip
   run:  # your library dependencies
-    - python
-    - requests>=2.32.3
-    - colorama>=0.4.6
-    - readchar>=4.0.5
-    - click
-    - click-plugins
-    - psutil
-    - jupyter
-    - packaging
-    - yaml
-    - pyperclip    
-    - git
-    - gitui
-    # - wslu # [win]
+    {% for dep in pyproject.get("project").get("dependencies") %}
+    - {{ dep.lower() }}
+    {% endfor %}  
+    # - python
+    # - requests>=2.32.3
+    # - colorama>=0.4.6
+    # - readchar>=4.0.5
+    # - click
+    # - click-plugins
+    # - psutil
+    # - jupyter
+    # - packaging
+    # - yaml
+    # - pyperclip    
+    # - git
+    # - gitui
+    # # - wslu # [win]
 
 channels:  # channels for your library dependencies
   - conda-forge
