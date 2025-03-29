@@ -1,17 +1,3 @@
-# {% set data = load_setup_py_data() %}
-
-# package:
-#   name: franklin
-#   version: {{ data.get('version') }}  
-
-# {% set pyproject = load_file_data('../pyproject.toml') %}
-# {% set package = pyproject.get('package', {}) %}
-
-# package:
-#   name: franklin
-#   version: {{ package.get('version') }}
-
-
 {% set pyproject = load_file_data("../pyproject.toml", from_recipe_dir=True) %}
 
 # requirements:
@@ -29,7 +15,7 @@
 
 package:
   name: franklin
-  version: {{ pyproject["project"]["version"] }}
+  version: {{ pyproject.get("project").get("version") }}
 
 
 source:
