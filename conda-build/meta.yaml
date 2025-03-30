@@ -1,18 +1,5 @@
 {% set pyproject = load_file_data("../pyproject.toml", from_recipe_dir=True) %}
 
-# requirements:
-#   host:
-#     {% for dep in pyproject["build-system"]["requires"] %}
-#     - {{ dep.lower() }}
-#     {% endfor %}
-#     {% for dep in requirements["dependencies"] %}
-#     - {{ dep.lower() }}
-#     {% endfor %}
-#   run:
-#     {% for dep in pyproject.get("project").get("dependencies") %}
-#     - {{ dep.lower() }}
-#     {% endfor %}
-
 package:
   name: franklin
   version: {{ pyproject.get("project").get("version") }}
