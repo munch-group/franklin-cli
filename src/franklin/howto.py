@@ -7,13 +7,13 @@ from . import terminal as term
 from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
 
-@with_plugins(iter_entry_points('franklin.tldr.plugins'))
+@with_plugins(iter_entry_points('franklin.howto.plugins'))
 @click.group()
-def tldr():
-    """TLDRs on concepts in Franklin"""
+def howto():
+    """howtos on concepts in Franklin"""
     pass
 
-@tldr.command()
+@howto.command()
 @crash_report
 def docker():
     """What is docker?"""
@@ -28,7 +28,7 @@ alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la als
                ''', width=70)
 
 
-@tldr.command()
+@howto.command()
 @crash_report
 def image():
     """What is a docker image?"""
@@ -43,8 +43,7 @@ alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la als
                ''', width=70)
 
 
-
-@tldr.command()
+@howto.command()
 @crash_report
 def container():
     """What is a docker container?"""
@@ -59,8 +58,7 @@ alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la als
                ''', width=70)
 
 
-
-@tldr.command()
+@howto.command()
 @crash_report
 def terminal():
     """What is a terminal?"""
@@ -75,25 +73,7 @@ alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la als
                ''', width=70)
 
 
-
-
-@tldr.command()
-@crash_report
-def server():
-    """What is a server?"""
-
-    term.echo()
-    term.secho('Server', fg='green', center=True, width=70)
-
-    term.echo('''  \
-lakdj alksdjf alksdjf lkas dlfkajs dlfajs dlfkaj sldkjf alsdkjf alskdjf lakjsd flalsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la  alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la  akjs dflakjsd fasdlkf alskjdf alsdjkf asdf
-
-alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la  alsk fjlajs dflkjas dlfjas dlfkjas dflajsdf asldkfja sldfj alsfjk alskdjf la                
-               ''', width=70)
-
-
-
-@tldr.command()
+@howto.command()
 @crash_report
 def jupyter():
     """What is jupyter?"""

@@ -3,9 +3,9 @@ from . import docker as _docker
 from . import jupyter as _jupyter
 from .utils import AliasedGroup
 from .config import REQUIRED_GB_FREE_DISK
-from . import tldr as _tldr
+from . import howto as _howto
 from . import update as _update
-from . import gitlab as _gitlab
+# from . import gitlab as _gitlab
 
 from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
@@ -22,7 +22,7 @@ def franklin():
 franklin.add_command(_update.update)
 franklin.add_command(_docker.docker)
 franklin.add_command(_jupyter.jupyter)
-# franklin.add_command(_tldr.tldr)
+franklin.add_command(_howto.howto)
 # franklin.add_command(_gitlab.git)
 
 # franklin.add_command(_gitlab.exercise) # Aliases for git commands

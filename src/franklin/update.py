@@ -16,9 +16,10 @@ def update_client() -> None:
     """
     version = utils.franklin_version()
     click.secho('Checking for updates to Franklin', fg='green')
+
+    # Update franklin client
     # cmd = f"conda update -y -c conda-forge -c {ANACONDA_CHANNEL} franklin"
-    cmd = f"conda update -y munch-group::franklin"
-    
+    cmd = f"conda update -y munch-group::franklin"    
     logger.debug(cmd)
     p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
     stdout, stderr = p.communicate()
@@ -36,6 +37,22 @@ def update_client() -> None:
             term.echo("\n\nPlease install the package with the following command:")                
             term.echo(f"\n\n  conda install {ANACONDA_CHANNEL}::franklin\n\n")
         sys.exit()
+
+    # Update franklin-educator plugin
+    cmd = f"conda update -y munch-group::franklin-educator"    
+    logger.debug(cmd)
+    p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
+    stdout, stderr = p.communicate()
+    if stdout:
+        [logger.debug(x) for x in stdout.decode().splitlines()]
+    if stderr:
+        [logger.debug(x) for x in stderr.decode().splitlines()]
+    if p.returncode:
+        logger.debug(f"Updating failed with return code {p.returncode}")
+        if stderr and 'PackageNotInstalledError' in stderr.decode():
+            logger.debug("franklin-educator plugin not installed") 
+        else:
+            logger.debug(stderr.decode())
 
     term.secho(f"Resetting to default settings and fitting them to your machine.")
     docker.config_fit()
@@ -55,4 +72,4 @@ def update_client() -> None:
 def update():
     """Update the Franklin client.
     """    
-    update_client(update=True)
+    update_client()
