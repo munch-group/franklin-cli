@@ -201,7 +201,6 @@ def crash_email() -> None:
     body = urllib.parse.quote(f"{preamble}\n\n{info}\n{log}")
     webbrowser.open(f"mailto:?to={MAINTAINER_EMAIL}&subject={subject}&body={body}", new=1)
 
-# BROWSER=wslview
 
 def crash_report(func: Callable) -> Callable:
     """
