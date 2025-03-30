@@ -227,7 +227,6 @@ def select_image() -> str:
     :
         Image location.
     """
-
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
     exercises_images = get_registry_listing(registry)
 
@@ -241,7 +240,6 @@ def download() -> None:
     """
     "Downloads" an exercise from GitLab.
     """
-
     # get images for available exercises
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
     exercises_images = get_registry_listing(registry)
