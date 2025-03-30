@@ -147,8 +147,6 @@ def install_docker_desktop() -> None:
 
     operating_system = utils.system()
 
-
-
     if operating_system == 'Windows':
         if architecture == 'arm64':
             download_url = 'https://desktop.docker.com/win/main/arm64/Docker%20Desktop%20Installer.exe'
@@ -294,7 +292,6 @@ def install_docker_desktop() -> None:
 #  start /w "" "Docker Desktop Installer.exe" uninstall
 #  /Applications/Docker.app/Contents/MacOS/uninstall
 
-
 def failsafe_start_docker_desktop() -> None:
     """
     Starts Docker Desktop if it is not running, attempting to handle any errors.
@@ -368,8 +365,6 @@ def docker_desktop_status() -> str:
         'running' if Docker Desktop is running.
     """
 
-    # stdout = subprocess.run(utils._cmd('docker desktop status --format json'), 
-    #                         check=False, stderr=DEVNULL, stdout=PIPE).stdout.decode()
     stdout = utils.run_cmd('docker desktop status --format json', check=False)
     if not stdout:
         return 'not running'
@@ -434,8 +429,6 @@ def update_docker_desktop() -> None:
                             prompt='Press Enter to close Franklin.', fg='red')
             sys.exit(0)
     else:
-        # stdout = subprocess.check_output(utils.format_cmd('docker desktop update --check-only')).decode()
         stdout = utils.run_cmd('docker desktop update --check-only')
         if 'is already the latest version' not in stdout:
-            # subprocess.run(utils.format_cmd('docker desktop update --quiet'))
             utils.run_cmd('docker desktop update --quiet')
