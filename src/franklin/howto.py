@@ -10,7 +10,7 @@ from click_plugins import with_plugins
 @with_plugins(iter_entry_points('franklin.howto.plugins'))
 @click.group()
 def howto():
-    """howtos on concepts in Franklin"""
+    """How to ..."""
     pass
 
 @howto.command()

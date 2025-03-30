@@ -12,6 +12,7 @@ import pyperclip
 import platform
 from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
+import importlib_resources
 
 from .config import GITLAB_API_URL, GITLAB_GROUP, GITLAB_TOKEN, GITLAB_DOMAIN
 from . import utils
@@ -202,19 +203,19 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
         term.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
         time.sleep(2)
 
-    exercise_repo_names, exercise_danish_names = zip(*sorted(exercise_names.items()))
+    exercise_repo_names, listed_exercise_names = zip(*sorted(exercise_names.items()))
     term.secho(f'\nUse arrow keys to select exercise in "{danish_course_name}" and press Enter:', fg='green')
     captions = []
-    exercise_idx = cutie.select(exercise_danish_names, caption_indices=captions, selected_index=0)
+    exercise_idx = cutie.select(listed_exercise_names, caption_indices=captions, selected_index=0)
     exercise = exercise_repo_names[exercise_idx]
 
     term.secho(f"\nSelected:", fg='green')
     term.echo(f"Course: {danish_course_name}")
-    term.echo(f"Exercise: {exercise_danish_names[exercise_idx]}")
+    term.echo(f"Exercise: {listed_exercise_names[exercise_idx]}")
     term.echo()
     time.sleep(1)
 
-    return course, exercise
+    return (course, danish_course_name), (exercise, listed_exercise_names[exercise_idx])
 
 
 def select_image() -> str:
@@ -230,435 +231,47 @@ def select_image() -> str:
     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
     exercises_images = get_registry_listing(registry)
 
-    course, exercise = select_exercise(exercises_images)
+    (course, _), (exercise, _) = select_exercise(exercises_images)
 
     selected_image = exercises_images[(course, exercise)]
     return selected_image
 
 
-# def config_local_repo(repo_local_path: str) -> None:
-#     """
-#     Configures the local repository with the necessary settings for using vscode as the merge and diff tool.
-
-#     Parameters
-#     ----------
-#     repo_local_path : 
-#         Path to the local repository.
-#     """
-
-#     if utils.system() == 'Windows':
-#         subprocess.check_call(utils.fmt_cmd(f'git -C {PurePosixPath(repo_local_path)} config pull.rebase false'))
-#         subprocess.check_call(utils.fmt_cmd(f'git -C {PurePosixPath(repo_local_path)} config merge.tool vscode'))
-#         subprocess.check_call(utils.fmt_cmd(f'git -C {PurePosixPath(repo_local_path)} config mergetool.vscode.cmd "code --wait --merge $REMOTE $LOCAL $BASE $MERGED"'))
-#         subprocess.check_call(utils.fmt_cmd(f'git -C {PurePosixPath(repo_local_path)} config diff.tool vscode'))
-#         subprocess.check_call(utils.fmt_cmd(f'git -C {PurePosixPath(repo_local_path)} config difftool.vscode.cmd "code --wait --diff $LOCAL $REMOTE"'))
-#     else:
-#         subprocess.check_call(utils.fmt_cmd(f'git -C {repo_local_path} config pull.rebase false'))
-#         subprocess.check_call(utils.fmt_cmd(f"git -C {repo_local_path} config merge.tool vscode"))
-#         subprocess.check_call(utils.fmt_cmd(f"git -C {repo_local_path} config mergetool.vscode.cmd 'code --wait --merge $REMOTE $LOCAL $BASE $MERGED'"))
-#         subprocess.check_call(utils.fmt_cmd(f"git -C {repo_local_path} config diff.tool vscode"))
-#         subprocess.check_call(utils.fmt_cmd(f"git -C {repo_local_path} config difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'"))
-
-
-# def git_safe_pull(repo_local_path: str) -> bool:
-#     """
-#     Pulls changes from the remote repository and checks for merge conflicts.
-
-#     Parameters
-#     ----------
-#     repo_local_path : 
-#         Path to the local repository.
-
-#     Returns
-#     -------
-#     :
-#         True if there is a merge conflict, False otherwise.
-#     """
-
-#     merge_conflict = False
-#     try:
-#         # output = subprocess.check_output(utils._cmd(f'git -C {PurePosixPath(repo_local_path)} pull')).decode()
-#         subprocess.run(utils.fmt_cmd(f'git -C {PurePosixPath(repo_local_path)} diff --name-only --diff-filter=U --relative'), stdout=DEVNULL, stderr=STDOUT, check=True)
-#     except subprocess.CalledProcessError as e:        
-#         print(e.output.decode())
-
-#         # merge conflict
-#         output = subprocess.check_output(utils.fmt_cmd(f'git -C {PurePosixPath(repo_local_path)} diff --name-only --diff-filter=U --relative')).decode()
-
-#         term.echo('Changes to the following files conflict with changes to the gitlab versions of the same files:')
-#         term.echo(output)
-#         term.echo("Please resolve any conflicts and then run the command again.")
-#         term.echo("For more information on resolving conflicts, see:")
-#         term.echo("https://munch-group/franklin/git.html#resolving-conflicts", fg='blue')
-#         click.pause("Press Enter to launch vscode's mergetool")
-
-#         launch_mergetool(repo_local_path)
-
-#         merge_conflict = True
-
-#     return merge_conflict
-
-
-# def merge_in_progress(repo_local_path: str) -> bool:
-#     """
-#     Checks if a merge is in progress.
-
-#     Parameters
-#     ----------
-#     repo_local_path : 
-#         Path to the local repository.
-
-#     Returns
-#     -------
-#     :
-#         True if a merge is in progress, False otherwise.
-#     """
-#     return os.path.exists(os.path.join(repo_local_path, '.git/MERGE_HEAD'))
-#     # git merge HEAD
-
-
-# def launch_mergetool(repo_local_path: str) -> None:
-#     """
-#     Launches vscode's mergetool.
-
-#     Parameters
-#     ----------
-#     repo_local_path : 
-#         Path to the local repository
-#     """
-#     try:
-#         output = subprocess.check_output(utils.fmt_cmd(f'git -C {repo_local_path} mergetool')).decode()
-#     except subprocess.CalledProcessError as e:        
-#         print(e.output.decode())   
-
-
-# def finish_any_merge_in_progress(repo_local_path):
-#     if merge_in_progress(repo_local_path):
-#         try:
-#             output = subprocess.check_output(utils.fmt_cmd(f'git -C repo_local_path merge --continue --no-edit')).decode()
-#             term.secho("Merge continued.", fg='green')
-#         except subprocess.CalledProcessError as e:
-#             print(e.output.decode())
-#             term.secho("You have merge conflicts. Please resolve the conflicts and then run the command again.", fg='red')
-#             click.pause("Press Enter to launch vscode's mergetool")
-#             launch_mergetool(repo_local_path)
-#             return
-
-
-# def git_down() -> None:
-#     """
-#     "Downloads" an exercise from GitLab.
-#     """
-
-#     # get images for available exercises
-#     registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
-#     exercises_images = get_registry_listing(registry)
-
-#     # pick course and exercise
-#     course, exercise = select_exercise(exercises_images)
-
-#     # url for cloning the repository
-#     repo_name = exercise.split('/')[-1]
-#     clone_url = f'git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{repo_name}.git'
-#     repo_local_path = os.path.join(os.getcwd(), repo_name)
-#     if utils.system() == 'Windows':
-#         repo_local_path = PureWindowsPath(repo_local_path)
-
-#     # check if we are in an already cloned repo
-#     os.path.dirname(os.path.realpath(__file__))
-#     if os.path.basename(os.getcwd()) == repo_name and os.path.exists('.git'):
-#         repo_local_path = os.path.join(os.getcwd())
-
-#     # Finish any umcompleted merge
-#     finish_any_merge_in_progress(repo_local_path)
-
-#     # update or clone the repository
-#     if os.path.exists(repo_local_path):
-#         term.secho(f"The repository '{repo_name}' already exists at {repo_local_path}.")
-#         if click.confirm('\nDo you want to update the existing repository?', default=True):
-#             merge_conflict = git_safe_pull(repo_local_path)
-#             if merge_conflict:
-#                 return
-#             else:
-#                 term.secho(f"Local repository updated.", fg='green')
-#         else:
-#             raise click.Abort()
-#     else:
-#         try:
-#             output = subprocess.check_output(utils.fmt_cmd(f'git clone {clone_url}')).decode()
-#         except subprocess.CalledProcessError as e:
-#             term.secho(f"Failed to clone repository: {e.output.decode()}", fg='red')
-#             raise click.Abort()
-#         term.secho(f"Local repository updated.", fg='green')
-
-#     config_local_repo(repo_local_path)
-
-
-# def git_up(repo_local_path: str, remove_tracked_files: bool) -> None:
-#     """
-#     "Uploads" an exercise to GitLab.
-
-#     Parameters
-#     ----------
-#     repo_local_path : 
-#         Path to the local repository.
-#     remove_tracked_files : 
-#         Whether to remove the tracked files after uploading
-#     """
-
-#     if not os.path.exists(repo_local_path):
-#         term.secho(f"{repo_local_path} does not exist", fg='red')
-#         return
-#     if not os.path.exists(os.path.join(repo_local_path, '.git')):
-#         term.secho(f"{repo_local_path} is not a git repository", fg='red')
-#         return
-
-#     config_local_repo(repo_local_path)
-
-#     # Fetch the latest changes from the remote repository
-#     output = subprocess.check_output(utils.fmt_cmd(f'git -C {repo_local_path} fetch')).decode()
-
-#     # Finish any umcompleted merge
-#     finish_any_merge_in_progress(repo_local_path)
-
-#     # add
-#     try:
-#         output = subprocess.check_output(utils.fmt_cmd(f'git -C {repo_local_path} add -u')).decode()
-#     except subprocess.CalledProcessError as e:        
-#         print(e.output.decode())
-#         raise click.Abort()
-    
-#     try:
-#         staged_changes = subprocess.check_output(utils.fmt_cmd(f'git -C {repo_local_path} diff --cached')).decode()
-#     except subprocess.CalledProcessError as e:        
-#         print(e.output.decode())
-#         raise click.Abort()
-    
-#     if not staged_changes:
-#         term.secho("No changes to your local files.", fg='green')
-#     else:
-
-#         # commit
-#         msg = click.prompt("Enter short description of the nature of the changes", default="an update", show_default=True)
-#         try:
-#             output = subprocess.check_output(utils.fmt_cmd(f'git -C {repo_local_path} commit -m "{msg}"')).decode()
-#         except subprocess.CalledProcessError as e:        
-#             print(e.output.decode())
-#             raise click.Abort()
-        
-#         # pull
-#         term.echo("Pulling changes from the remote repository.")
-#         merge_conflict = git_safe_pull(repo_local_path)
-#         if merge_conflict:
-#             return
-        
-#         # push
-#         try:
-#             output = subprocess.check_output(utils.fmt_cmd(f'git -C {repo_local_path} push')).decode()
-#         except subprocess.CalledProcessError as e:        
-#             print(e.output.decode())
-#             raise click.Abort()
-
-#         term.secho(f"Changes uploaded to GitLab.", fg='green')
-
-#     # # Check the status to see if there are any upstream changes
-#     # status_output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} status')).decode()
-#     # if "Your branch is up to date" in status_output:
-#     #     term.secho("No changes to upload.", fg='green')
-#     #     return
-#     # else:
-
-
-#     if remove_tracked_files:
-
-#         try:
-#             # output = subprocess.check_output(utils._cmd(f'git -C {repo_local_path} diff-index --quiet HEAD')).decode()
-#             output = subprocess.check_output(utils.fmt_cmd(f'git -C {repo_local_path} status')).decode()
-#         except subprocess.CalledProcessError as e:        
-#             print(e.output.decode())
-#             raise click.Abort()
-
-#         if 'nothing to commit, working tree clean' in output:
-#             shutil.rmtree(repo_local_path)
-#             term.secho("Local repository removed.", fg='green')
-
-
-#         elif 'nothing added to commit but untracked files present' in output:
-
-#             if merge_in_progress(repo_local_path):
-#                 term.secho("A merge is in progress. Local repository will not be removed.", fg='red')
-#                 return
-
-#             # Instead of deleting the repository dir, we prune all tracked files and 
-#             # and resulting empty directories - in case there are 
-#             path = os.path.join(repo_local_path, 'franklin.log')
-#             if os.path.exists(path):
-#                 os.remove(path)
-#             output = subprocess.check_output(utils.fmt_cmd(f'git -C {repo_local_path} ls-files')).decode()
-#             tracked_dirs = set()
-#             for line in output.splitlines():
-#                 path = os.path.join(repo_local_path, *(line.split('/')))
-#                 tracked_dirs.add(os.path.dirname(path))
-#                 os.remove(path)
-#             # traverse repo bottom up and remove empty directories
-#             subdirs = reversed([x[0] for x in os.walk(repo_local_path) if os.path.isdir(x[0])])
-#             for subdir in subdirs:
-#                 if not os.listdir(subdir) and subdir in tracked_dirs:
-#                     os.rmdir(subdir)
-#             path = os.path.join(repo_local_path, '.git')
-#             if os.path.exists(path):
-#                 shutil.rmtree(path)
-#             if os.path.exists(repo_local_path) and not os.listdir(repo_local_path):
-#                 os.rmdir(repo_local_path)
-
-#             term.secho(f"Local files removed.", fg='green')
-
-#         else:
-#             # term.secho("There are uncommitted changes. Please commit or stash them before removing local files.", fg='red')
-#             term.secho("There are local changes to repository files. Local repository will not be removed.", fg='red')
-#             return
-    
-
-# def git_status() -> None:
-#     """Displays the status of the local repository.
-#     """
-#     pass
-
-# @with_plugins(iter_entry_points('franklin.git.plugins'))
-# @click.group(cls=utils.AliasedGroup)
-# def git():
-#     """GitLab commands.
-#     """
-#     pass
-
-# @git.command()
-# @utils.crash_report
-# def status():
-#     """Status of local repository.
-#     """
-#     git_status()
-
-# @git.command()
-# @utils.crash_report
-# def down():
-#     """Safely git clone or pull from the remote repository.
-    
-#     Convenience function for adding, committing, and pushing changes to the remote repository.    
-#     """
-#     git_down()
-
-
-# @git.command()
-# @click.option('-d', '--directory', default=None)
-# @click.option('--remove/--no-remove', default=True, show_default=True)
-# @utils.crash_report
-# def up(directory, remove):
-#     """Safely add, commit, push and remove if possible.
-#     """
-#     if not check_ssh_set_up():
-#         ssh_keygen()
-#     if directory is None:
-#         directory = os.getcwd()
-#     if utils.system() == 'Windows':
-#         directory = PureWindowsPath(directory)
-#     git_up(directory, remove)
-
-# @git.command()
-# @utils.crash_report
-# def ui():
-#     """GitUI for interactive git
-    
-#     Git UI for interactive staging, committing and pushing changes to the remote repository.
-#     """
-#     utils.config_gitui()
-
-#     if not check_ssh_set_up():
-#         ssh_keygen()
-
-#     subprocess.run(utils.fmt_cmd(f'gitui'), check=False)
-
-
-
-
-
-# def git_new_exercise():
-#     """
-#     Create a new exercise repository for a course.
-
-#     Parameters
-#     ----------
-#     course : 
-#         Course name.
-#     new_repo_name : 
-#         Name of the new repository.
-#     """
-
-#     course_name, danish_course_name = pick_course()
-
-#     # ssh git@gitlab.au.dk personal_access_token GITLAB-API-TMP api,write_repository 1
-
-#     new_repo_name = 'tester'
-
-#     s = requests.Session()
-#     s.headers.update({'PRIVATE-TOKEN': '<token>'})
-#     url = f'{GITLAB_API_URL}/projects?name={new_repo_name}&namespace_id={GITLAB_GROUP}%2F{course_name}'
-#     r  = s.post(url, headers={ "Content-Type" : "application/json"})
-#     if not r.ok:
-#         r.raise_for_status()
-#     term.secho(f"New repository '{new_repo_name}' created for '{course_name}'.", fg='green')
-
-#     # populate repo from data/template/exercise
-
-#     # add commit push
-
-
-# @git.command("new")
-# @utils.crash_report
-# def _new():
-#     """Create new exercise repository for a course.
-#     """
-#     git_new_exercise()
-
-
-
-
-# ###########################################################
-# # Group alias "exercise" the status, down and up  commands 
-# # So users can do franklin exercise down / up / status
-# ###########################################################
-
-# @with_plugins(iter_entry_points('franklin.plugins'))
-# @click.group(cls=utils.AliasedGroup)
-# def exercise():
-#     """GitLab commands.
-#     """
-#     pass
-
-# @exercise.command('status')
-# @utils.crash_report
-# def _status():
-#     """Status of local repository.
-#     """
-#     git_status()
-
-# @exercise.command('down')
-# @utils.crash_report
-# def _down():
-#     """Get local copy of exercise from GitLab
-#     """
-#     git_down()
-
-
-# @exercise.command('up')
-# @click.option('-d', '--directory', default=None)
-# @click.option('--remove/--no-remove', default=True, show_default=True)
-# @utils.crash_report
-# def _up(directory, remove):
-#     """Sync local copy or exercise to GitLab
-#     """
-#     if directory is None:
-#         directory = os.getcwd()
-#     if utils.system() == 'Windows':
-#         directory = PureWindowsPath(directory)
-#     git_up(directory, remove)
-
+def download() -> None:
+    """
+    "Downloads" an exercise from GitLab.
+    """
+
+    # get images for available exercises
+    registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
+    exercises_images = get_registry_listing(registry)
+
+    # pick course and exercise
+    (course, _), (exercise, listed_exercise_name) = select_exercise(exercises_images)
+    listed_exercise_name = listed_exercise_name.replace(' ', '-')
+
+    # url for cloning the repository
+    repo_name = exercise.split('/')[-1]
+    clone_url = f'git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{repo_name}.git'
+    repo_local_path = os.path.join(os.getcwd(), listed_exercise_name)
+
+    if utils.system() == 'Windows':
+        repo_local_path = PureWindowsPath(repo_local_path)
+
+    if os.path.exists(repo_local_path):
+        term.secho(f"The folder '{repo_name}' already exists at {repo_local_path}.")
+        raise click.Abort()
+
+    term.secho(f"Downloading to {repo_local_path}.")
+    output = utils.run_cmd(f'git clone {clone_url} {repo_local_path}')
+
+    # Reads contents with UTF-8 encoding and returns str.
+    # eml = importlib_resources.files('email.tests.data').joinpath('message.eml').read_text()
+    repo_template_files = [p.name for p in importlib_resources.files().joinpath('data/repo_templates/exercise').iterdir()]
+    dev_files = [p for p in repo_template_files if p != 'exercise.ipynb']
+
+    for path in dev_files:
+        path = os.path.join(repo_local_path, path)
+        if os.path.exists(path):
+            logger.debug(f"Removing {path}")
+            os.remove(path)

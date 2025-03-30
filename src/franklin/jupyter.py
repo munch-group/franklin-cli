@@ -93,6 +93,12 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
     time.sleep(2)
 
     image_url = select_image()
+    launch_jupyter(image_url)
+
+def launch_jupyter(image_url: str) -> None:
+    """
+    Launch Jupyter notebook in a Docker container.
+    """
 
     term.secho("Downloading/updating image:", fg='green')
     _docker.pull(image_url)
@@ -150,7 +156,7 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
             logging.shutdown()
             break
 
-    sys.exit()
+    # sys.exit()
 
 
 @jupyter.command('servers')
