@@ -20,7 +20,7 @@ on:
 jobs:
 
   create_changelog_and_release_with_new_tag:
-    
+
     runs-on: ubuntu-latest
     
     permissions:
@@ -38,6 +38,10 @@ jobs:
         with:
           token: ${{ github.token }}
           tag: ${{ github.ref_name }}
+          includeInvalidCommits: true
+          reverseOrder: true
+          useGitmojis: false
+          excludeTypes: build,other,style
 
       - name: Create Release
         uses: ncipollo/release-action@v1.12.0
