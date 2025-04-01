@@ -60,7 +60,7 @@ def config_get(variable: str=None) -> None:
     variable : 
         Variable name, by default None in which case all variables are shown.
     """
-    with docker_config() as cfg:
+    with docker_config() as config:
         if variable is not None:
             if variable not in cfg.docker_settings:
                 term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
@@ -68,8 +68,8 @@ def config_get(variable: str=None) -> None:
             term.echo(f'{variable}: {cfg.settings[variable]}')
         else:
             for variable in cfg.docker_settings:
-                if variable in cfg.settings:
-                    term.echo(f'{str(variable).rjust(31)}: {cfg.settings[variable]}')
+                if variable in config.settings:
+                    term.echo(f'{str(variable).rjust(31)}: {config.settings[variable]}')
 
 
 def config_set(variable: str, value: Any) -> None:
@@ -109,7 +109,7 @@ def config_reset(variable: str=None) -> None:
     variable : 
         Variable name, by default None in which case all variables are reset.
     """
-    with docker_config() as cfg:
+    with docker_config() as config:
         if variable is not None:
             if variable not in cfg.docker_settings:
                 term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
@@ -119,7 +119,7 @@ def config_reset(variable: str=None) -> None:
         else:
             for variable in cfg.docker_settings:
                 logger.debug(f"Resetting {variable} to {cfg.docker_settings[variable]}")
-                cfg.settings[variable] = cfg.docker_settings[variable]
+                config.settings[variable] = cfg.docker_settings[variable]
 
 
 def config_fit():
