@@ -7,7 +7,7 @@ import sys
 import requests
 import click
 import json
-from .config import WRAP_WIDTH, PG_OPTIONS, DOCKER_SETTINGS
+from . import config as cfg
 from subprocess import check_output, DEVNULL, TimeoutExpired
 from .logger import logger
 import subprocess
@@ -62,12 +62,12 @@ def config_get(variable: str=None) -> None:
     """
     with docker_config() as cfg:
         if variable is not None:
-            if variable not in DOCKER_SETTINGS:
+            if variable not in cfg.docker_settings:
                 term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
                 return
             term.echo(f'{variable}: {cfg.settings[variable]}')
         else:
-            for variable in DOCKER_SETTINGS:
+            for variable in cfg.docker_settings:
                 if variable in cfg.settings:
                     term.echo(f'{str(variable).rjust(31)}: {cfg.settings[variable]}')
 
@@ -91,7 +91,7 @@ def config_set(variable: str, value: Any) -> None:
         # for some reason Docker Desktop only accepts values in multiples of 1024
         value = int(value / 1024) * 1024
 
-    if variable not in DOCKER_SETTINGS:
+    if variable not in cfg.docker_settings:
         term.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
         return
 
@@ -111,15 +111,15 @@ def config_reset(variable: str=None) -> None:
     """
     with docker_config() as cfg:
         if variable is not None:
-            if variable not in DOCKER_SETTINGS:
+            if variable not in cfg.docker_settings:
                 term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
                 return
-            logger.debug(f"Resetting {variable} to {DOCKER_SETTINGS[variable]}")
-            cfg.settings[variable] = DOCKER_SETTINGS[variable]
+            logger.debug(f"Resetting {variable} to {cfg.docker_settings[variable]}")
+            cfg.settings[variable] = cfg.docker_settings[variable]
         else:
-            for variable in DOCKER_SETTINGS:
-                logger.debug(f"Resetting {variable} to {DOCKER_SETTINGS[variable]}")
-                cfg.settings[variable] = DOCKER_SETTINGS[variable]
+            for variable in cfg.docker_settings:
+                logger.debug(f"Resetting {variable} to {cfg.docker_settings[variable]}")
+                cfg.settings[variable] = cfg.docker_settings[variable]
 
 
 def config_fit():
@@ -134,7 +134,7 @@ def config_fit():
 
     svmem = psutil.virtual_memory()
     mem_mb = svmem.total // (1024 ** 2)
-    logger.debug(f"Fitting MemoryMiB to {int(mem_mb // 2)}")
+    logger.debug(f"Fitting MemoryMiB to {int(mem_mb * 0.7)}")
     config_set('MemoryMiB', int(mem_mb // 2))
 
 
@@ -188,7 +188,7 @@ def install_docker_desktop() -> None:
     file_size = response.headers['Content-length']
     with open(installer_path, mode="wb") as file:
         nr_chunks = int(file_size) // (10 * 1024) + 1
-        with click.progressbar(length=nr_chunks, label='Downloading:'.ljust(25), **PG_OPTIONS) as bar:
+        with click.progressbar(length=nr_chunks, label='Downloading:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
             for chunk in response.iter_content(chunk_size=10 * 1024):
                 file.write(chunk)
                 bar.update(1)
@@ -205,7 +205,7 @@ def install_docker_desktop() -> None:
         term.echo()
         term.echo()
         term.secho(f"How to install Docker Desktop on Windows:", fg='green')
-        term.secho('='*WRAP_WIDTH, fg='green')
+        term.secho('='*cfg.wrap_width, fg='green')
         term.echo()
         term.echo("  Please follow this exact sequence of steps:")
         term.echo()
@@ -222,7 +222,7 @@ def install_docker_desktop() -> None:
         term.echo()
         term.echo('  Press Enter to close Franklin.')
         term.echo()
-        term.echo('='*WRAP_WIDTH, fg='green')
+        term.echo('='*cfg.wrap_width, fg='green')
         click.pause('')
         sys.exit(0)
 
@@ -239,7 +239,7 @@ def install_docker_desktop() -> None:
 
         term.echo('\nDid you drag the Docker application to the Applications folder? If you did, press Enter to continue.', fg='red')
 
-        with click.progressbar(length=100, label='Copying to Applications:'.ljust(25), **PG_OPTIONS) as bar:
+        with click.progressbar(length=100, label='Copying to Applications:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
             prev_size = 0
             for _ in range(1000):
                 cmd = f'du -s /Applications/Docker.app'
@@ -268,7 +268,7 @@ def install_docker_desktop() -> None:
         term.echo()
         term.echo()
         term.secho(f"How to set up Docker Desktop on Mac:", fg='green')
-        term.secho('='*WRAP_WIDTH, fg='green')
+        term.secho('='*cfg.wrap_width, fg='green')
         term.echo()
         term.echo("  Please follow this exact sequence of steps:")
         term.echo()
@@ -285,7 +285,7 @@ def install_docker_desktop() -> None:
         term.echo()
         term.echo('  Press Enter now to close Franklin.')
         term.echo()
-        term.echo('='*WRAP_WIDTH, fg='green')
+        term.echo('='*cfg.wrap_width, fg='green')
         click.pause('')
         sys.exit(0)
 
@@ -431,4 +431,5 @@ def update_docker_desktop() -> None:
     else:
         stdout = utils.run_cmd('docker desktop update --check-only')
         if 'is already the latest version' not in stdout:
+            term.secho('Docker Desktop is updating, which may take a while. Do not interrupt the process. You may be prompted to allow Docker to update.', fg='red')
             utils.run_cmd('docker desktop update --quiet')

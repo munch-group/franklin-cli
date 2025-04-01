@@ -1,5 +1,5 @@
 import shutil
-from .config import WRAP_WIDTH, PG_OPTIONS, MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT, BOLD_TEXT_ON_WINDOWS
+from . import config as cfg
 import click
 import time
 from . import utils
@@ -9,24 +9,24 @@ from typing import Tuple, List, Dict, Callable, Any
 
 def check_window_size() -> None:
     """
-    Check if the window is at least MIN_WINDOW_WIDTH x MIN_WINDOW_HEIGHT
+    Check if the window is at least cfg.min_window_width x cfg.min_window_height
     If not, prompt the user to resize the window.
     """
 
     def _box(text):
         window_box = \
-            '|' + '-'*(MIN_WINDOW_WIDTH-2) + '|\n' + \
-        ('|' + ' '*(MIN_WINDOW_WIDTH-2) + '|\n') * (MIN_WINDOW_HEIGHT-3) + \
-            '| ' + text.ljust(MIN_WINDOW_WIDTH-3) + '|\n' + \
-            '|' + '-'*(MIN_WINDOW_WIDTH-2) + '|' 
+            '|' + '-'*(cfg.min_window_width-2) + '|\n' + \
+        ('|' + ' '*(cfg.min_window_width-2) + '|\n') * (cfg.min_window_height-3) + \
+            '| ' + text.ljust(cfg.min_window_width-3) + '|\n' + \
+            '|' + '-'*(cfg.min_window_width-2) + '|' 
         return '\n'*150 + window_box
 
 
     ts = shutil.get_terminal_size()
-    if ts.columns < MIN_WINDOW_WIDTH or ts.lines < MIN_WINDOW_HEIGHT:
+    if ts.columns < cfg.min_window_width or ts.lines < cfg.min_window_height:
         while True:
             ts = shutil.get_terminal_size()
-            if ts.columns >= MIN_WINDOW_WIDTH and ts.lines >= MIN_WINDOW_HEIGHT:
+            if ts.columns >= cfg.min_window_width and ts.lines >= cfg.min_window_height:
                 break
             click.secho(_box('Please resize the window to at least fit this square'), fg='red', bold=True)
             time.sleep(0.1)
@@ -36,7 +36,7 @@ def check_window_size() -> None:
     text = 'Please resize the window to at least fit this square'
 
 
-def dummy_progressbar(seconds: str, label: str='Hang on...', ljust=25, **kwargs: dict) -> None:
+def dummy_progressbar(seconds: str, label: str='Hang on...', ljust=None, **kwargs: dict) -> None:
     """
     Dummy progressbar that waits for `seconds` seconds
     and displays a progressbar with `label`.
@@ -48,7 +48,9 @@ def dummy_progressbar(seconds: str, label: str='Hang on...', ljust=25, **kwargs:
     label :     
         Label for progressbar, by default 'Hang on...'
     """
-    pg_options = PG_OPTIONS.copy()
+    pg_options = cfg.pg_options.copy()
+    if ljust is None:
+        ljust = max(len(label), cfg.pg_ljust)
     pg_options.update(kwargs)
     with click.progressbar(length=100, label=label.ljust(ljust), **pg_options) as bar:
         for i in range(100):
@@ -79,7 +81,7 @@ def wrap(text: str, width: int=None, indent: bool=True, initial_indent: str=None
         Wrapped text.
     """
     if width is None:
-        width = WRAP_WIDTH
+        width = cfg.wrap_width
 
     nr_leading_nl = len(text) - len(text.lstrip('\n'))
     text = text.lstrip('\n')
@@ -132,7 +134,7 @@ def secho(text: str='', width: int=None, center: bool=False, nowrap: bool=False,
         String to prepend to subsequent lines, by"
     """
     if width is None:
-        width = WRAP_WIDTH
+        width = cfg.wrap_width
     if not nowrap:
         text = wrap(text, width=width, 
                     indent=indent,
@@ -156,7 +158,7 @@ def secho(text: str='', width: int=None, center: bool=False, nowrap: bool=False,
                 
 
                 pass
-    if utils.system() == 'Windows' and not BOLD_TEXT_ON_WINDOWS:
+    if utils.system() == 'Windows' and not cfg.bold_text_on_windows:
         kwargs['bold'] = False
     click.secho(text, **kwargs)
 
@@ -203,7 +205,7 @@ def boxed_text(header: str, lines: list=[], prompt: str='', **kwargs: dict) -> N
     """
     term.echo()
     term.secho(f"{header}:", **kwargs)
-    term.secho('='*WRAP_WIDTH, **kwargs)
+    term.secho('='*cfg.wrap_width, **kwargs)
     term.echo()
     for line in lines:
         term.echo(f"  {line}")
@@ -211,7 +213,7 @@ def boxed_text(header: str, lines: list=[], prompt: str='', **kwargs: dict) -> N
     if prompt:
         term.echo(f"  {prompt}")
         term.echo()
-    term.secho('='*WRAP_WIDTH, **kwargs)
+    term.secho('='*cfg.wrap_width, **kwargs)
     term.echo()
     if prompt:
         click.pause('')

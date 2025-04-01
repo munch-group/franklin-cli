@@ -2,7 +2,7 @@ import click
 from . import docker as _docker
 from . import jupyter as _jupyter
 from .utils import AliasedGroup
-from .config import REQUIRED_GB_FREE_DISK
+from . import config as cfg
 from . import howto as _howto
 from . import update as _update
 from . import gitlab as _gitlab

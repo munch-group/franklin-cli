@@ -4,7 +4,7 @@ import os
 import click
 from subprocess import Popen, PIPE
 from .utils import logger, crash_report, config_gitui
-from .config import ANACONDA_CHANNEL
+from . import config as cfg
 from . import utils
 from . import docker
 from . import terminal as term
@@ -18,7 +18,7 @@ def update_client() -> None:
     click.secho('Checking for updates to Franklin', fg='green')
 
     # Update franklin client
-    # cmd = f"conda update -y -c conda-forge -c {ANACONDA_CHANNEL} franklin"
+    # cmd = f"conda update -y -c conda-forge -c {cfg.anaconda_channel} franklin"
     cmd = f"conda update -y munch-group::franklin"    
     logger.debug(cmd)
     p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
@@ -35,7 +35,7 @@ def update_client() -> None:
             The package is not installed as a conda package in this environment.
             """
             term.echo("\n\nPlease install the package with the following command:")                
-            term.echo(f"\n\n  conda install {ANACONDA_CHANNEL}::franklin\n\n")
+            term.echo(f"\n\n  conda install {cfg.anaconda_channel}::franklin\n\n")
         sys.exit()
 
     # Update franklin-educator plugin

@@ -21,7 +21,7 @@ from .docker_desktop import (
 from . import terminal as term
 from . import utils
 from .utils import AliasedGroup, crash_report, fmt_cmd
-from .config import REGISTRY_BASE_URL, GITLAB_GROUP, DOCKER_SETTINGS, CONTAINER_MEMORY_LIMIT
+from . import config as cfg
 from . import cutie
 from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
@@ -264,7 +264,7 @@ def container_list(callback: Callable=None) -> None:
     header = ['Course', 'Exercise', 'Started', 'Size']
     table = []
     ids = []
-    prefix = f'{REGISTRY_BASE_URL}/{GITLAB_GROUP}'
+    prefix = f'{cfg.registry_base_url}/{cfg.gitlab_group}'
     for cont in current_containers:
         if cont['Image'].startswith(prefix):
             rep = cont['Image'].replace(prefix, '')
@@ -319,7 +319,7 @@ def image_list(callback: Callable=None):
     header = ['Course', 'Exercise', 'Age', 'Size']
     table = []
     ids = []
-    prefix = f'{REGISTRY_BASE_URL}/{GITLAB_GROUP}'
+    prefix = f'{cfg.registry_base_url}/{cfg.gitlab_group}'
     for img in images(return_json=True):
         if img['Repository'].startswith(prefix):
 
@@ -512,16 +512,16 @@ def run(image_url :str) -> Tuple[Popen, str]:
         term.echo(f"Using port {port} instead.")
 
     # cmd = (
-    #     # rf"docker run --memory {CONTAINER_MEMORY_LIMIT} --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
-    #     rf"docker run --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
+    #     # rf"docker run --memory {cfg.container_mem_limit} --rm --label dk.au.gitlab.group={cfg.gitlab_group}"
+    #     rf"docker run --rm --label dk.au.gitlab.group={cfg.gitlab_group}"
     #     rf" --mount type=bind,source={ssh_mount},target=/tmp/.ssh"
     #     rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
     #     rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
     #     rf" -w {cwd_mount_target} -i -p 8050:8050 -p {port}:8888 {image_url}:latest"
     # )
     cmd = (
-        # rf"docker run --memory {CONTAINER_MEMORY_LIMIT} --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
-        rf"docker run --rm --label dk.au.gitlab.group={GITLAB_GROUP}"
+        # rf"docker run --memory {cfg.container_mem_limit} --rm --label dk.au.gitlab.group={cfg.gitlab_group}"
+        rf"docker run --rm --label dk.au.gitlab.group={cfg.gitlab_group}"
         rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
         rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
         rf" -w {cwd_mount_target} -i -p 8050:8050 -p {port}:8888 {image_url}:latest"
@@ -562,8 +562,8 @@ def prune():
 
 
 def prune_networks():
-    # _command(f'docker container prune --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"')
-    utils.run_cmd(f'docker network prune --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"')
+    # _command(f'docker container prune --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"')
+    utils.run_cmd(f'docker network prune --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"')
 
 @prune.command('networks')
 @crash_report
@@ -577,8 +577,8 @@ def prune_containers():
     """
     Prunes containers.
     """
-    # _command(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
-    utils.run_cmd(f'docker container prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
+    # _command(f'docker container prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', silent=True)
+    utils.run_cmd(f'docker container prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', check=False)
 
 @prune.command('containers')
 @crash_report
@@ -592,8 +592,8 @@ def prune_images():
     """
     Prunes images.
     """
-    # _command(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
-    utils.run_cmd(f'docker image prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
+    # _command(f'docker image prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', silent=True)
+    utils.run_cmd(f'docker image prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', check=False)
 
 @prune.command('images')
 @crash_report
@@ -603,7 +603,7 @@ def _prune_images():
     prune_images()
 
 # def _prune_cache():
-#     _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
+#     _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', silent=True)
 
 # @docker.command('cache')
 # def prune_cache():
@@ -617,8 +617,8 @@ def prune_all():
     """
     Prunes all Docker elements.
     """
-    # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
-    utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
+    # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', silent=True)
+    utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', check=False)
 
 @prune.command('all')
 @crash_report
@@ -959,8 +959,8 @@ def remove_selected_images(image_id=None):
     image_list(callback=rm_image)
 
 def remove_everything():
-    # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', silent=True)
-    utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={GITLAB_GROUP}"', check=False)
+    # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', silent=True)
+    utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', check=False)
 
 @remove.command('everything')
 @crash_report

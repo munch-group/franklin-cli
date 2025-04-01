@@ -95,9 +95,16 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
     image_url = select_image()
     launch_jupyter(image_url)
 
-def launch_jupyter(image_url: str) -> None:
+def launch_jupyter(image_url: str, cwd: str=None) -> None:
     """
     Launch Jupyter notebook in a Docker container.
+
+    Parameters
+    ----------
+    image_url : 
+        Image registry URL.
+    cwd : 
+        Launch jupyter in this directory (relative to dir where jupyter is launched), by default None
     """
 
     term.secho("Downloading/updating image:", fg='green')
@@ -129,6 +136,9 @@ def launch_jupyter(image_url: str) -> None:
             docker_log_p.terminate()
             docker_log_p.wait()
             break
+
+    if cwd is not None:
+        token_url = token_url.replace('/lab', f'/lab/tree/{cwd}')
 
     webbrowser.open(token_url, new=1)
 

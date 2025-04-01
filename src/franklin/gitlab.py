@@ -14,7 +14,7 @@ from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
 import importlib_resources
 
-from .config import GITLAB_API_URL, GITLAB_GROUP, GITLAB_TOKEN, GITLAB_DOMAIN
+from . import config as cfg
 from . import utils
 from . import cutie
 from . import terminal as term
@@ -28,7 +28,7 @@ from .logger import logger
 #     utils.run_cmd(cmd, check=False)
 #     cmd = 'ssh -T git@gitlab.au.dk'
 #     logger.debug(cmd)
-#     cmd = f'ssh -T git@{GITLAB_DOMAIN}'
+#     cmd = f'ssh -T git@{cfg.gitlab_domain}'
 #     output = utils.run_cmd(cmd)
 #     if output.startswith('Welcome to GitLab'):
 #         return True
@@ -83,7 +83,7 @@ def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
     """
     s = requests.Session()
     # s.auth = ('user', 'pass')
-    s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
+    s.headers.update({'PRIVATE-TOKEN': cfg.gitlab_token})
     # s.headers.update({'PRIVATE-TOKEN': 'glpat-BmHo-Fh5R\_TvsTHqojzz'})
     images = {}
     r  = s.get(registry,  headers={ "Content-Type" : "application/json"})
@@ -109,8 +109,8 @@ def get_course_names() -> Dict[str, str]:
         A dictionary with the course names and the Danish course names
     """
     s = requests.Session()
-    s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
-    url = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/subgroups'
+    s.headers.update({'PRIVATE-TOKEN': cfg.gitlab_token})
+    url = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}/subgroups'
 
     name_mapping = {}
     r  = s.get(url, headers={ "Content-Type" : "application/json"})
@@ -143,8 +143,8 @@ def get_exercise_names(course: str) -> Dict[str, str]:
         A dictionary with the exercise names and the Danish exercise names
     """
     s = requests.Session()
-    s.headers.update({'PRIVATE-TOKEN': GITLAB_TOKEN})
-    url = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}%2F{course}/projects'
+    s.headers.update({'PRIVATE-TOKEN': cfg.gitlab_token})
+    url = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}%2F{course}/projects'
 
     name_mapping = {}
     r  = s.get(url, headers={ "Content-Type" : "application/json"})
@@ -227,7 +227,7 @@ def select_image() -> str:
     :
         Image location.
     """
-    registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
+    registry = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}/registry/repositories'
     exercises_images = get_registry_listing(registry)
 
     (course, _), (exercise, _) = select_exercise(exercises_images)
@@ -241,7 +241,7 @@ def download() -> None:
     "Downloads" an exercise from GitLab.
     """
     # get images for available exercises
-    registry = f'{GITLAB_API_URL}/groups/{GITLAB_GROUP}/registry/repositories'
+    registry = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}/registry/repositories'
     exercises_images = get_registry_listing(registry)
 
     # pick course and exercise
@@ -250,7 +250,7 @@ def download() -> None:
 
     # url for cloning the repository
     repo_name = exercise.split('/')[-1]
-    clone_url = f'git@gitlab.au.dk:{GITLAB_GROUP}/{course}/{repo_name}.git'
+    clone_url = f'git@gitlab.au.dk:{cfg.gitlab_group}/{course}/{repo_name}.git'
     repo_local_path = os.path.join(os.getcwd(), listed_exercise_name)
 
     if utils.system() == 'Windows':

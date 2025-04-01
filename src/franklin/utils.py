@@ -7,10 +7,9 @@ import shutil
 import click
 import requests 
 import time
-from .config import REQUIRED_GB_FREE_DISK
 from . import utils
 from .logger import logger
-from .config import MAINTAINER_EMAIL, PG_OPTIONS
+from . import config as cfg
 import subprocess
 import platform
 from functools import wraps
@@ -199,7 +198,7 @@ def crash_email() -> None:
 
     subject = urllib.parse.quote("Franklin CRASH REPORT")
     body = urllib.parse.quote(f"{preamble}\n\n{info}\n{log}")
-    webbrowser.open(f"mailto:?to={MAINTAINER_EMAIL}&subject={subject}&body={body}", new=1)
+    webbrowser.open(f"mailto:?to={cfg.maintainer_email}&subject={subject}&body={body}", new=1)
 
 
 def crash_report(func: Callable) -> Callable:
@@ -229,7 +228,7 @@ def crash_report(func: Callable) -> Callable:
             logger.exception('Raised: Crash')
             term.secho(f"Franklin encountered an unexpected problem.")
             term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
-            term.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
+            term.secho(f"If it does not please send the email to  {cfg.maintainer_email}", fg='red')
             if utils.system() == 'Windows':
                 term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
             crash_email()
@@ -243,7 +242,7 @@ def crash_report(func: Callable) -> Callable:
             logger.exception('CRASH')
             term.secho(f"Franklin encountered an unexpected problem.")
             term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
-            term.secho(f"If it does not please send the email to  {MAINTAINER_EMAIL}", fg='red')
+            term.secho(f"If it does not please send the email to  {cfg.maintainer_email}", fg='red')
             if utils.system() == 'Windows':
                 term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
             crash_email()
@@ -428,13 +427,13 @@ def check_free_disk_space():
     """
 
     gb_free = utils.gb_free_disk()
-    if gb_free < REQUIRED_GB_FREE_DISK:
-        term.secho(f"Not enough free disk space. Required: {REQUIRED_GB_FREE_DISK} GB, Available: {gb_free:.2f} GB", fg='red')
+    if gb_free < cfg.required_gb_free_disk:
+        term.secho(f"Not enough free disk space. Required: {cfg.required_gb_free_disk} GB, Available: {gb_free:.2f} GB", fg='red')
         sys.exit(1)
-    elif gb_free < 2 * REQUIRED_GB_FREE_DISK:
+    elif gb_free < 2 * cfg.required_gb_free_disk:
 
         term.boxed_text('You are running low on disk space', [
-            f'You are running low on disk space. Franklin needs {REQUIRED_GB_FREE_DISK} GB of free disk space to run and you only have {gb_free:.2f} GB left.',
+            f'You are running low on disk space. Franklin needs {cfg.required_gb_free_disk} GB of free disk space to run and you only have {gb_free:.2f} GB left.',
             '',
             'You can use "franklin docker remove" to remove cached Docker content you no longer need. it automatically get downloaded if you should need it again',
             ], fg='magenta')        
@@ -443,10 +442,10 @@ def check_free_disk_space():
     else:
         term.echo()
         term.echo(f"Franklin needs", nl=False)
-        term.secho(f" {REQUIRED_GB_FREE_DISK:.1f} Gb", nl=False, bold=True)
+        term.secho(f" {cfg.required_gb_free_disk:.1f} Gb", nl=False, bold=True)
         term.echo(f" of free disk space to run.")
         # fake progress bar to make the student aware that this check is important
-        with click.progressbar(length=100, label='Checking disk space:', **PG_OPTIONS) as bar:
+        with click.progressbar(length=100, label='Checking disk space:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
             for i in range(100):
                 time.sleep(0.01)
                 bar.update(1)
