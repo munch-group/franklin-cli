@@ -19,7 +19,7 @@ def update_client() -> None:
 
     # Update franklin client
     # cmd = f"conda update -y -c conda-forge -c {cfg.anaconda_channel} franklin"
-    cmd = f"conda update -y munch-group::franklin"    
+    cmd = f"conda update -y -c conda-forge -x munch-group franklin"
     logger.debug(cmd)
     p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
     stdout, stderr = p.communicate()
@@ -39,7 +39,7 @@ def update_client() -> None:
         sys.exit()
 
     # Update franklin-educator plugin
-    cmd = f"conda update -y munch-group::franklin-educator"    
+    cmd = f"conda update -y -c conda-forge -c munch-group franklin-educator"    
     logger.debug(cmd)
     p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
     stdout, stderr = p.communicate()
