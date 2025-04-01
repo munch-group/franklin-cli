@@ -1,4 +1,9 @@
 
+## [v0.18.12] - 2025-04-01
+### Bug Fixes
+- [`8d9c349`](https://github.com/munch-group/franklin/commit/8d9c349dadc6dedb14becad14f2c370dd2647f87) - typo *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.18.11] - 2025-04-01
 ### Bug Fixes
 - [`9a14314`](https://github.com/munch-group/franklin/commit/9a14314886f4913bf8b5db30203d1b39e03136b9) - Fixed problem with automatic updating *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -13,3 +18,4 @@
 
 [v0.18.10]: https://github.com/munch-group/franklin/compare/v0.18.9...v0.18.10
 [v0.18.11]: https://github.com/munch-group/franklin/compare/v0.18.10...v0.18.11
+[v0.18.12]: https://github.com/munch-group/franklin/compare/v0.18.11...v0.18.12
