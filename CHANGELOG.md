@@ -1,4 +1,9 @@
 
+## [v0.19.3] - 2025-04-02
+### Bug Fixes
+- [`a86546e`](https://github.com/munch-group/franklin/commit/a86546e926ee7f297c9702c8896df7eb02e5d4bd) - fixed a bug with finding data files *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.19.2] - 2025-04-02
 ### Bug Fixes
 - [`94de416`](https://github.com/munch-group/franklin/commit/94de416b88cf246f218ea57d5e08cecd0e0dbb8e) - bug fix *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -38,3 +43,4 @@
 [v0.19.0]: https://github.com/munch-group/franklin/compare/v0.18.13...v0.19.0
 [v0.19.1]: https://github.com/munch-group/franklin/compare/v0.19.0...v0.19.1
 [v0.19.2]: https://github.com/munch-group/franklin/compare/v0.19.1...v0.19.2
+[v0.19.3]: https://github.com/munch-group/franklin/compare/v0.19.2...v0.19.3
