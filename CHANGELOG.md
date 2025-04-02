@@ -1,4 +1,10 @@
 
+## [v0.19.0] - 2025-04-02
+### Bug Fixes
+- [`8a6c0bc`](https://github.com/munch-group/franklin/commit/8a6c0bc9d9e33110723c989b8ce7e638eea735b8) - restructured error handling and made updating failsafe *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+- [`6db3aaa`](https://github.com/munch-group/franklin/commit/6db3aaae33969466f0f6974bd2a4f6bbdd50d60d) - Cleared template example notebook *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.18.12] - 2025-04-01
 ### Bug Fixes
 - [`8d9c349`](https://github.com/munch-group/franklin/commit/8d9c349dadc6dedb14becad14f2c370dd2647f87) - typo *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -19,3 +25,4 @@
 [v0.18.10]: https://github.com/munch-group/franklin/compare/v0.18.9...v0.18.10
 [v0.18.11]: https://github.com/munch-group/franklin/compare/v0.18.10...v0.18.11
 [v0.18.12]: https://github.com/munch-group/franklin/compare/v0.18.11...v0.18.12
+[v0.19.0]: https://github.com/munch-group/franklin/compare/v0.18.13...v0.19.0
