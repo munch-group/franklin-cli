@@ -1,7 +1,7 @@
 
 
 maintainer_email = 'kaspermunch@birc.au.dk'
-anaconda_channel = 'munch-group'
+conda_channel = 'munch-group'
 gitlab_domain = 'gitlab.au.dk'
 registry_base_url = 'registry.gitlab.au.dk'
 gitlab_group = 'franklin'

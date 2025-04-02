@@ -67,6 +67,11 @@ from .logger import logger
 #     click.pause("Press Enter when you have added the ssh key to GitLab.")
 
 
+def is_educator():
+    cmd = f'ssh -T git@{cfg.gitlab_domain}'
+    return utils.run_cmd(cmd).startswith('Welcome to GitLab')
+
+
 def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
     """
     Fetches the listing of images in the GitLab registry.
@@ -191,12 +196,13 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
     :
         A tuple of the course name and the exercise name.
     """
+    hide_hidden = not is_educator()
     while True:
         course, danish_course_name = pick_course()
         exercise_names = get_exercise_names(course)
-        # only use those with listed images
-        for key in list(exercise_names.keys()):
-            if (course, key) not in exercises_images:
+        # only use those with listed images and not with 'HIDDEN' in the name
+        for key, val in list(exercise_names.items()):
+            if (course, key) not in exercises_images or ('HIDDEN' in val and hide_hidden):
                 del exercise_names[key]
         if exercise_names:
             break

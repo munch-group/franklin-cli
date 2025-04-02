@@ -162,13 +162,16 @@ class SuppressedKeyboardInterrupt:
 
 class Crash(Exception):
     """
-    Package specific Exception raised when a crash is encountered.
+    Package dummy Exception raised when a crash is encountered.
     """
-    def __init__(self, message, errors):            
-        super().__init__(message)
-            
-        self.message = errors
-        self.errors = errors
+    pass
+
+class UpdateCrash(Crash):
+    """
+    Package dummy Exception raised when a crash during update.
+    """
+    pass
+
 
 
 def crash_email() -> None:
@@ -178,8 +181,9 @@ def crash_email() -> None:
 
     preamble = ("This email is prefilled with information of the crash you can send to the maintainer of Franklin.").upper()
 
-
-    info = f'Franklin version: {franklin_version()}\n'
+    info = f"Python: {sys.executable}\n"
+    info += f'Version of franklin: {package_version('franklin')}\n'    
+    info += f'Version of franklin-educator: {package_version('franklin-educator')}\n'
     for k, v in platform.uname()._asdict().items():
         info += f"{k}: {v}\n"
     info += f"Platform: {platform.platform()}\n"
@@ -224,6 +228,11 @@ def crash_report(func: Callable) -> Callable:
         except KeyboardInterrupt:
             logger.exception('KeyboardInterrupt')
             raise
+        except utils.UpdateCrash as e:
+            logger.exception('Raised: UpdateCrash')
+            for line in e.args:
+                term.secho(line, fg='red')
+            sys.exit(1)
         except utils.Crash as e:
             logger.exception('Raised: Crash')
             term.secho(f"Franklin encountered an unexpected problem.")
@@ -232,12 +241,16 @@ def crash_report(func: Callable) -> Callable:
             if utils.system() == 'Windows':
                 term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
             crash_email()
-            raise
-        except SystemExit:
-            raise
-        except click.Abort:
+            if 'DEVEL' in os.environ:
+                raise e
+            else:
+                term.secho(f"Franklin crashed, sorry!", fg='red')
+                sys.exit(1)                
+        except SystemExit as e:
+            raise e
+        except click.Abort as e:
             logger.exception('Raised: Abort')
-            raise        
+            raise e
         except:
             logger.exception('CRASH')
             term.secho(f"Franklin encountered an unexpected problem.")
@@ -246,7 +259,7 @@ def crash_report(func: Callable) -> Callable:
             if utils.system() == 'Windows':
                 term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
             crash_email()
-            raise 
+            raise
         return ret
     return wrapper
 
@@ -301,23 +314,23 @@ def run_cmd(cmd: str, check: bool=True, timeout: int=None) -> Any:
         output = p.stdout.decode()
     except subprocess.TimeoutExpired as e:
         logger.debug(f"Command timeout of {timeout} seconds exceeded.")
-        return False
+        raise e
     except subprocess.CalledProcessError as e:        
         logger.debug(e.output.decode())
         logger.exception('Command failed')
-        raise click.Abort()    
+        raise Crash
     return output
 
 ###########################################################
 # Checks
 ###########################################################
 
-def franklin_version() -> str:
+def package_version(pack) -> str:
     """
     Get the version of the locally installed franklin package.
     """
     try:
-        return _version('franklin')
+        return _version(pack)
     except:
         return None
     

@@ -65,7 +65,7 @@ def config_get(variable: str=None) -> None:
             if variable not in cfg.docker_settings:
                 term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
                 return
-            term.echo(f'{variable}: {cfg.settings[variable]}')
+            term.echo(f'{variable}: {config.settings[variable]}')
         else:
             for variable in cfg.docker_settings:
                 if variable in config.settings:
@@ -95,9 +95,12 @@ def config_set(variable: str, value: Any) -> None:
         term.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
         return
 
-    with docker_config() as cfg:
+    with docker_config() as config:
+        if variable == 'UseResourceSaver' and value == True:
+            term.echo('User variable not set: Franklin cannot operate with UseResourceSaver set to True')
+            return
         logger.debug(f"Setting {variable} to {value}")
-        cfg.settings[variable] = value
+        config.settings[variable] = value
 
 
 def config_reset(variable: str=None) -> None:
@@ -115,7 +118,7 @@ def config_reset(variable: str=None) -> None:
                 term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
                 return
             logger.debug(f"Resetting {variable} to {cfg.docker_settings[variable]}")
-            cfg.settings[variable] = cfg.docker_settings[variable]
+            config.settings[variable] = cfg.docker_settings[variable]
         else:
             for variable in cfg.docker_settings:
                 logger.debug(f"Resetting {variable} to {cfg.docker_settings[variable]}")
@@ -195,9 +198,9 @@ def install_docker_desktop() -> None:
 
     # if the user already has a user config file, we temporarily set OpenUIOnStartupDisabled 
     # to False so that the user can see the Dashboard under the install procedure
-    with docker_config() as cfg:
-        if cfg.user_config_file():            
-            cfg.settings['OpenUIOnStartupDisabled'] = False
+    with docker_config() as config:
+        if config.user_config_file():            
+            config.settings['OpenUIOnStartupDisabled'] = False
 
 
     if utils.system() == 'Windows':

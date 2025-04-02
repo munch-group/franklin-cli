@@ -18,6 +18,7 @@ from . import docker as _docker
 from .logger import logger
 from .update import update_client
 from . import terminal as term
+from . import options
 
 from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
@@ -36,12 +37,13 @@ def jupyter():
     """Jupyter commands"""
     pass
 
-
-@click.option("--allow-subdirs-at-your-own-risk/--no-allow-subdirs-at-your-own-risk",
-                default=False,
-                help="Allow subdirs in current directory mounted by Docker.")
-@click.option('--update/--no-update', default=True,
-                help="Override check for package updates")
+# @click.option("--allow-subdirs-at-your-own-risk/--no-allow-subdirs-at-your-own-risk",
+#                 default=False,
+#                 help="Allow subdirs in current directory mounted by Docker.")
+# @click.option('--update/--no-update', default=True,
+#                 help="Override check for package updates")
+@options.allow_subdirs
+@options.no_update
 @jupyter.command('run')
 @crash_report
 def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
