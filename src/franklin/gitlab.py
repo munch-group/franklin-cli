@@ -12,7 +12,7 @@ import pyperclip
 import platform
 from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
-import importlib.resources
+import importlib_resources
 
 from . import config as cfg
 from . import utils
@@ -224,7 +224,7 @@ def download() -> None:
 
     # Reads contents with UTF-8 encoding and returns str.
     # eml = importlib.resources.files('email.tests.data').joinpath('message.eml').read_text()
-    repo_template_files = [p.name for p in importlib.resources.files().joinpath('data/repo_templates/exercise').iterdir()]
+    repo_template_files = [p.name for p in importlib_resources.files().joinpath('data/repo_templates/exercise').iterdir()]
     dev_files = [p for p in repo_template_files if p != 'exercise.ipynb']
 
     for path in dev_files:

@@ -38,17 +38,18 @@ class docker_config():
         return None
 
     def __enter__(self):
-        if os.path.exists(self.json_settings):
-            with open(self.json_settings, 'r') as f:
-                self.settings = json.load(f)
-        else:
-             self.settings = dict()
+        if not os.path.exists(os.path.dirname(self.json_settings)):
+            raise utils.Crash("Docker Desktop is not installed. Please install Docker Desktop before proceeding.")
+        if not os.path.exists(self.json_settings):
+            with open(self.json_settings, 'w') as f:
+                pass
+        with open(self.json_settings, 'r') as f:
+            self.settings = json.load(f)
         return self
 
     def __exit__(self, type, value, traceback):
-        if self.settings:
-            with open(self.json_settings, 'w') as f:
-                json.dump(self.settings, f)
+        with open(self.json_settings, 'w') as f:
+            json.dump(self.settings, f)
 
 
 def config_get(variable: str=None) -> None:
@@ -442,6 +443,6 @@ def update_docker_desktop() -> None:
         if 'is already the latest version' not in stdout:
             term.secho('Docker Desktop is updating, which may take a while. Do not interrupt the process. You may be prompted to allow Docker to update.', fg='red')
             utils.run_cmd('docker desktop update --quiet')
-            term.dummy_progressbar(seconds=90, label='Docker Desktop is updating:')
+            term.dummy_progressbar(seconds=60, label='Docker Desktop is updating:')
 
 

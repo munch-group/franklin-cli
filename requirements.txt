@@ -8,3 +8,4 @@ jupyter
 packaging
 pyyaml
 pyperclip
+importlib_resources

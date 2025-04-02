@@ -225,9 +225,11 @@ def crash_report(func: Callable) -> Callable:
             return func(*args, **kwargs)
         try:
             ret = func(*args, **kwargs)
-        except KeyboardInterrupt:
+        except KeyboardInterrupt as e:
             logger.exception('KeyboardInterrupt')
-            raise
+            if 'DEVEL' in os.environ:
+                raise e
+            raise click.Abort()
         except utils.UpdateCrash as e:
             logger.exception('Raised: UpdateCrash')
             for line in e.args:
@@ -235,17 +237,18 @@ def crash_report(func: Callable) -> Callable:
             sys.exit(1)
         except utils.Crash as e:
             logger.exception('Raised: Crash')
-            term.secho(f"Franklin encountered an unexpected problem.")
+            if 'DEVEL' in os.environ:
+                raise e
+            logger.exception('Raised: UpdateCrash')
+            for line in e.args:
+                term.secho(line, fg='red')
+            term.secho(f"\nFranklin encountered an unexpected problem.")
             term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
             term.secho(f"If it does not please send the email to  {cfg.maintainer_email}", fg='red')
             if utils.system() == 'Windows':
                 term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
             crash_email()
-            if 'DEVEL' in os.environ:
-                raise e
-            else:
-                term.secho(f"Franklin crashed, sorry!", fg='red')
-                sys.exit(1)                
+            sys.exit(1)                
         except SystemExit as e:
             raise e
         except click.Abort as e:
@@ -253,7 +256,7 @@ def crash_report(func: Callable) -> Callable:
             raise e
         except:
             logger.exception('CRASH')
-            term.secho(f"Franklin encountered an unexpected problem.")
+            term.secho(f"\nFranklin encountered an unexpected problem.")
             term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
             term.secho(f"If it does not please send the email to  {cfg.maintainer_email}", fg='red')
             if utils.system() == 'Windows':
