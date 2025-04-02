@@ -75,14 +75,20 @@ def update_client() -> None:
             '',
             '  conda update -y -c conda-forge -c munch-group franklin-educator')
     
-    # update settings 
-    if franklin_version != utils.package_version('franklin') or franklin_educator_version != utils.package_version('franklin-educator'):
+    # # update settings 
+    # if franklin_version != utils.package_version('franklin') or franklin_educator_version != utils.package_version('franklin-educator'):
 
-        if click.confirm(f"Reset to recommended Docker settings fitted to your machine resources?", default=True):
-            docker.config_fit()
+    #     if click.confirm(f"Reset to recommended Docker settings fitted to your machine resources?", default=True):
+    #         docker.config_fit()
 
-        if click.confirm(f"Reset to recommended Git settings?", default=True):
-            config_gitui()
+    #     if click.confirm(f"Reset to recommended Git settings?", default=True):
+    #         config_gitui()
+
+    if click.confirm(f"Reset to recommended Docker settings fitted to your machine resources?", default=True):
+        docker.config_fit()
+
+    if click.confirm(f"Reset to recommended Git settings?", default=True):
+        config_gitui()
 
 
 @click.command('update')
