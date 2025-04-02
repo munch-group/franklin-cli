@@ -548,6 +548,19 @@ def _run(url):
     """
     run(url)
 
+@docker.command('uninstall')
+@ensure_docker_running
+@crash_report
+def _uninstall():
+    """Uninstall Docker Desktop.
+    """
+    if utils.system() == 'Windows':
+        term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and uninstall it there.')
+        return
+    elif utils.system() == 'Linux':
+        term.echo('This command is not available on Linux systems. Please open the Docker Desktop application and uninstall it there.')
+        return
+    print(utils.run_cmd('/Applications/Docker.app/Contents/MacOS/uninstall'))
 
 ###########################################################
 # docker prune subcommands
@@ -974,9 +987,6 @@ def _remove_everything():
 ###########################################################
 
 
-
-
-
 @docker.group(cls=AliasedGroup)
 @crash_report
 def config():
@@ -1018,5 +1028,3 @@ def _config_reset(variable):
 def _config_fit():
     return config_fit()
 
-# uninstall
-#/Applications/Docker.app/Contents/MacOS/uninstall

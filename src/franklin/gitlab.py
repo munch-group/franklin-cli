@@ -12,59 +12,13 @@ import pyperclip
 import platform
 from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
-import importlib_resources
+import importlib.resources
 
 from . import config as cfg
 from . import utils
 from . import cutie
 from . import terminal as term
 from .logger import logger
-
-
-# def check_ssh_set_up():
-#     cmd = 'ssh -T git@gitlab.au.dk <<<yes'
-#     logger.debug(cmd)
-#     term.echo(f"Checking encrypted connection to GitLab")
-#     utils.run_cmd(cmd, check=False)
-#     cmd = 'ssh -T git@gitlab.au.dk'
-#     logger.debug(cmd)
-#     cmd = f'ssh -T git@{cfg.gitlab_domain}'
-#     output = utils.run_cmd(cmd)
-#     if output.startswith('Welcome to GitLab'):
-#         return True
-#     return False
-
-
-# def ssh_keygen():
-#     """
-#     Generate an ssh key pair.
-#     """
-#     path = Path.home() / '.ssh/id_rsa'
-#     if platform.system() == 'Windows':
-#         path = PureWindowsPath(path)
-        
-#     if not path.exists():
-#         logger.debug(f"Generating ssh key pair at {path}")
-#         utils.run_cmd(f"ssh-keygen -q -t rsa -N '' -f {path} <<<y")
-
-#     with open(path.with_suffix('.pub')) as f:
-#         public_key = f.read()
-#     pyperclip.copy(public_key)
-
-#     term.boxed_text("Add ssh key to GitLab", lines = [
-#         "To allow authentication without password, you need to log into GitLab and add an ssh key to your account. When the GitLab website opens in your browser, complete the following steps:",
-#         '1. Sign into GitLab using the white "UNI-AD" button',
-#         '2. Click the "Add new key" button',
-#         '3. The ssh key is already copied to your clipboard. Paste it into the'
-#         '   "Key" text field',
-#         '4. In the "Expiration date" field, remove the date by clicking the small'
-#         '   black circle with a white x in it.',
-#         '5. Click the blue "Add key" button',
-#     ], prompt = "Press Enter to open the GitLab website.", fg='green')
-
-#     webbrowser.open('https://gitlab.au.dk/-/user_settings/ssh_keys', new=1)
-
-#     click.pause("Press Enter when you have added the ssh key to GitLab.")
 
 
 def is_educator():
@@ -266,12 +220,11 @@ def download() -> None:
         term.secho(f"The folder '{repo_name}' already exists at {repo_local_path}.")
         raise click.Abort()
 
-    term.secho(f"Downloading to {repo_local_path}.")
     output = utils.run_cmd(f'git clone {clone_url} {repo_local_path}')
 
     # Reads contents with UTF-8 encoding and returns str.
-    # eml = importlib_resources.files('email.tests.data').joinpath('message.eml').read_text()
-    repo_template_files = [p.name for p in importlib_resources.files().joinpath('data/repo_templates/exercise').iterdir()]
+    # eml = importlib.resources.files('email.tests.data').joinpath('message.eml').read_text()
+    repo_template_files = [p.name for p in importlib.resources.files().joinpath('data/repo_templates/exercise').iterdir()]
     dev_files = [p for p in repo_template_files if p != 'exercise.ipynb']
 
     for path in dev_files:
@@ -279,3 +232,5 @@ def download() -> None:
         if os.path.exists(path):
             logger.debug(f"Removing {path}")
             os.remove(path)
+
+    term.secho(f"Downloaded exercise to folder: {repo_local_path}")

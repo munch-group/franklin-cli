@@ -220,7 +220,7 @@ def install_docker_desktop() -> None:
         term.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
         term.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
         # term.echo('  8. Wait while it says "Starting the Docker Engine..."')
-        term.echo('  8. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
+        term.echo('  8. If it says "New version available" or "Update" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
         term.echo('  9. Quit the Docker application. Then return to this window and start Franklin the same way as you did before', **kwargs)
         term.echo()
         term.echo('  Press Enter to close Franklin.')
@@ -230,17 +230,23 @@ def install_docker_desktop() -> None:
         sys.exit(0)
 
     elif utils.system() == 'Darwin':
-        cmd = utils.fmt_cmd(f'hdiutil attach -nobrowse -readonly {installer}')
-        output = check_output(cmd).decode().strip()
+        output = utils.run_cmd(f'hdiutil attach -nobrowse -readonly {installer_path}')
+        # cmd = utils.fmt_cmd(f'hdiutil attach -nobrowse -readonly {installer_path}')
+        # output = check_output(cmd).decode().strip()
 
         # Extract the mounted volume name from the output
         mounted_volume_name = re.search(r'/Volumes/([^ ]*)', output.strip()).group(1)
 
-        term.echo('\nPress Enter and then drag the Docker application to the Applications folder.', fg='red')
+        term.secho('\nDid you drag the Docker application to the Applications folder?', fg='green')
+
+        while click.prompt('\nPress R and then Enter when you are ready?').strip().lower() != 'r':
+            pass
         
         check_output(utils.fmt_cmd(f'open /Volumes/{mounted_volume_name}')).decode().strip()
 
-        term.echo('\nDid you drag the Docker application to the Applications folder? If you did, press Enter to continue.', fg='red')
+        term.secho('Did you drag the Docker application to the Applications folder?', fg='red')
+        while click.prompt('\nIf you did, press R and then Enter to continue.').strip().lower() != 'r':
+            pass
 
         with click.progressbar(length=100, label='Copying to Applications:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
             prev_size = 0
@@ -265,7 +271,7 @@ def install_docker_desktop() -> None:
             utils.run_cmd(f'hdiutil detach /Volumes/{mounted_volume_name}/')
 
         logger.debug("Removing installer dmg")
-        os.remove(installer)
+        os.remove(installer_path)
 
         kwargs = dict(subsequent_indent=' '*5)
         term.echo()
@@ -282,7 +288,7 @@ def install_docker_desktop() -> None:
         term.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
         term.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
         # term.echo('  8. Wait while it says "Starting the Docker Engine..."')
-        term.echo('  8. If it says "New version available" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
+        term.echo('  8. If it says "New version available" or "Update" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
         term.echo('  9. Quit the Docker application.', **kwargs)
         term.echo('  10. Quit the Docker application. Then return to this window and start Franklin the same way as you did before', **kwargs)
         term.echo()
@@ -436,3 +442,6 @@ def update_docker_desktop() -> None:
         if 'is already the latest version' not in stdout:
             term.secho('Docker Desktop is updating, which may take a while. Do not interrupt the process. You may be prompted to allow Docker to update.', fg='red')
             utils.run_cmd('docker desktop update --quiet')
+            term.dummy_progressbar(seconds=90, label='Docker Desktop is updating:')
+
+
