@@ -1,4 +1,9 @@
 
+## [v0.19.2] - 2025-04-02
+### Bug Fixes
+- [`94de416`](https://github.com/munch-group/franklin/commit/94de416b88cf246f218ea57d5e08cecd0e0dbb8e) - bug fix *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.19.1] - 2025-04-02
 ### Bug Fixes
 - [`0e733aa`](https://github.com/munch-group/franklin/commit/0e733aaba7548678c7077fd2271d75b9f3aebf99) - Fixed bug in Docker install *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -32,3 +37,4 @@
 [v0.18.12]: https://github.com/munch-group/franklin/compare/v0.18.11...v0.18.12
 [v0.19.0]: https://github.com/munch-group/franklin/compare/v0.18.13...v0.19.0
 [v0.19.1]: https://github.com/munch-group/franklin/compare/v0.19.0...v0.19.1
+[v0.19.2]: https://github.com/munch-group/franklin/compare/v0.19.1...v0.19.2
