@@ -14,9 +14,11 @@ from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
 
 from .docker_desktop import (
+    install_docker_desktop,
     docker_desktop_status, docker_desktop_start, docker_desktop_stop, 
     docker_desktop_restart, update_docker_desktop, failsafe_start_docker_desktop, 
-    docker_desktop_version, docker_config, config_get, config_set, config_reset, config_fit
+    docker_desktop_version, #docker_config, 
+    config_get, config_set, config_reset, config_fit
 )
 from . import terminal as term
 from . import utils
@@ -359,6 +361,30 @@ def docker():
     """
     pass
 
+# @docker.command('install')
+# @crash_report
+# def _install():
+#     """Install Docker Desktop.
+#     """
+#     install_docker_desktop()
+
+
+# @docker.command('uninstall')
+# @crash_report
+# def _uninstall():
+#     """Uninstall Docker Desktop.
+#     """
+#     if utils.system() == 'Windows':
+#         term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and uninstall it there.')
+#         return
+#     elif utils.system() == 'Linux':
+#         term.echo('This command is not available on Linux systems. Please open the Docker Desktop application and uninstall it there.')
+#         return
+#     if not os.path.exists('/Applications/Docker.app/Contents/MacOS/uninstall'):
+#         term.echo('Docker Desktop is not installed.')
+#         return
+#     print(utils.run_cmd('/Applications/Docker.app/Contents/MacOS/uninstall'))
+
 
 def pull(image_url :str) -> None:
     """
@@ -547,20 +573,6 @@ def _run(url):
     Use for running locally built images.    
     """
     run(url)
-
-@docker.command('uninstall')
-@ensure_docker_running
-@crash_report
-def _uninstall():
-    """Uninstall Docker Desktop.
-    """
-    if utils.system() == 'Windows':
-        term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and uninstall it there.')
-        return
-    elif utils.system() == 'Linux':
-        term.echo('This command is not available on Linux systems. Please open the Docker Desktop application and uninstall it there.')
-        return
-    print(utils.run_cmd('/Applications/Docker.app/Contents/MacOS/uninstall'))
 
 ###########################################################
 # docker prune subcommands

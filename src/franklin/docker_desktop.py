@@ -19,37 +19,69 @@ from pathlib import Path
 from typing import Any
 
 
-class docker_config():
+def get_user_config_file() -> str:
     """
-    Contest manager for Docker Desktop settings.
+    Returns the path to the user configuration file for Docker Desktop.
     """
-    def __init__(self):
-        home = Path.home()
-        if utils.system() == 'Darwin':
-            self.json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
-        elif utils.system() == 'Windows':
-            self.json_settings = home / 'AppData/Roaming/Docker/settings-store.json'
-        elif utils.system() == 'Linux':
-            self.json_settings = home / '.docker/desktop/settings-store.json'
+    home = Path.home()
+    if utils.system() == 'Darwin':
+        json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
+    elif utils.system() == 'Windows':
+        json_settings = home / 'AppData/Roaming/Docker/settings-store.json'
+    elif utils.system() == 'Linux':
+        json_settings = home / '.docker/desktop/settings-store.json'
+    return json_settings
 
-    def user_config_file(self):
-        if os.path.exists(self.json_settings):
-            return self.json_settings
-        return None
 
-    def __enter__(self):
-        if not os.path.exists(os.path.dirname(self.json_settings)):
-            raise utils.Crash("Docker Desktop is not installed. Please install Docker Desktop before proceeding.")
-        if not os.path.exists(self.json_settings):
-            with open(self.json_settings, 'w') as f:
-                pass
-        with open(self.json_settings, 'r') as f:
-            self.settings = json.load(f)
-        return self
+def read_user_config() -> dict:
+    """
+    Reads the Docker Desktop configuration file and returns a dictionary with the settings.
+    """
+    json_settings = get_user_config_file()
+    if not os.path.exists(json_settings):
+        return dict()
+    with open(json_settings, 'r') as f:
+        settings = json.load(f)
+    return settings
 
-    def __exit__(self, type, value, traceback):
-        with open(self.json_settings, 'w') as f:
-            json.dump(self.settings, f)
+
+def write_user_config(settings: dict) -> None:
+    """
+    Writes the Docker Desktop configuration file with the settings.
+    """
+    json_settings = get_user_config_file()
+    with open(json_settings, 'w') as f:
+        json.dump(settings, f)
+
+
+# class docker_config():
+#     """
+#     Contest manager for Docker Desktop settings.
+#     """
+#     def __init__(self):
+#         home = Path.home()
+#         if utils.system() == 'Darwin':
+#             self.json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
+#         elif utils.system() == 'Windows':
+#             self.json_settings = home / 'AppData/Roaming/Docker/settings-store.json'
+#         elif utils.system() == 'Linux':
+#             self.json_settings = home / '.docker/desktop/settings-store.json'
+
+#     def user_config_file(self):
+#         if os.path.exists(self.json_settings):
+#             return self.json_settings
+#         return None
+
+#     def __enter__(self):
+#         if not os.path.exists(self.json_settings):
+#             return dict()
+#         with open(self.json_settings, 'r') as f:
+#             self.settings = json.load(f)
+#         return self
+
+#     def __exit__(self, type, value, traceback):
+#         with open(self.json_settings, 'w') as f:
+#             json.dump(self.settings, f)
 
 
 def config_get(variable: str=None) -> None:
@@ -61,16 +93,41 @@ def config_get(variable: str=None) -> None:
     variable : 
         Variable name, by default None in which case all variables are shown.
     """
-    with docker_config() as config:
-        if variable is not None:
-            if variable not in cfg.docker_settings:
-                term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
-                return
-            term.echo(f'{variable}: {config.settings[variable]}')
-        else:
-            for variable in cfg.docker_settings:
-                if variable in config.settings:
-                    term.echo(f'{str(variable).rjust(31)}: {config.settings[variable]}')
+    if not get_user_config_file().parent.exists():
+        term.echo('Docker installation not completed. No user configs.')
+        return
+
+    config = read_user_config()
+
+    if variable:
+        if variable not in cfg.docker_settings:
+            term.echo(f'Variable "{variable}" not controlled by Franklin.')
+            return
+        if variable not in config:
+            term.echo(f'Variable "{variable}" not set.')
+            return
+        term.echo(f'{variable}: {config[variable]}')
+        return
+    
+    for variable in cfg.docker_settings:
+        if variable in config:
+            term.echo(f'{str(variable).rjust(31)}: {config[variable]}')
+
+    write_user_config(config)
+
+
+
+
+    # with docker_config() as config:
+    #     if variable is not None:
+    #         if variable not in cfg.docker_settings:
+    #             term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
+    #             return
+    #         term.echo(f'{variable}: {config.settings[variable]}')
+    #     else:
+    #         for variable in cfg.docker_settings:
+    #             if variable in config.settings:
+    #                 term.echo(f'{str(variable).rjust(31)}: {config.settings[variable]}')
 
 
 def config_set(variable: str, value: Any) -> None:
@@ -84,24 +141,26 @@ def config_set(variable: str, value: Any) -> None:
     value : 
         Variable value.
     """
-
-    if type(value) is str:
-        value = utils.as_type(value)
-
-    if value == 'DiskSizeMiB':
-        # for some reason Docker Desktop only accepts values in multiples of 1024
-        value = int(value / 1024) * 1024
+    if not get_user_config_file().parent.exists():
+        term.echo('Docker installation not completed. No user configs.')
+        return
 
     if variable not in cfg.docker_settings:
         term.echo(f'Variable "{variable}" cannot be set/changed by Franklin.')
         return
+    
+    config = read_user_config()
 
-    with docker_config() as config:
-        if variable == 'UseResourceSaver' and value == True:
-            term.echo('User variable not set: Franklin cannot operate with UseResourceSaver set to True')
-            return
-        logger.debug(f"Setting {variable} to {value}")
-        config.settings[variable] = value
+    if type(value) is str:
+        value = utils.as_type(value)
+
+    if variable == 'DiskSizeMiB':
+        # for some reason Docker Desktop only accepts values in multiples of 1024
+        value = int(value / 1024) * 1024
+
+    logger.debug(f"Setting {variable} to {value}")
+    config[variable] = value
+    write_user_config(config)
 
 
 def config_reset(variable: str=None) -> None:
@@ -113,17 +172,15 @@ def config_reset(variable: str=None) -> None:
     variable : 
         Variable name, by default None in which case all variables are reset.
     """
-    with docker_config() as config:
-        if variable is not None:
-            if variable not in cfg.docker_settings:
-                term.echo(f'Variable "{variable}" cannot be accessed by Franklin.')
-                return
-            logger.debug(f"Resetting {variable} to {cfg.docker_settings[variable]}")
-            config.settings[variable] = cfg.docker_settings[variable]
-        else:
-            for variable in cfg.docker_settings:
+    if variable:
+        config_set(variable, cfg.docker_settings[variable])
+    else:
+        config = read_user_config()
+        for variable in cfg.docker_settings:
+            if variable in config:
                 logger.debug(f"Resetting {variable} to {cfg.docker_settings[variable]}")
-                config.settings[variable] = cfg.docker_settings[variable]
+                config[variable] = cfg.docker_settings[variable]
+        write_user_config(config)
 
 
 def config_fit():
@@ -164,8 +221,7 @@ def install_docker_desktop() -> None:
             download_url = 'https://desktop.docker.com/mac/main/amd64/Docker.dmg'
         installer = 'Docker.dmg'
     else:
-        url = 'https://docs.docker.com/desktop/linux/install/'
-        term.echo(f'Download from {url} and install before proceeding.')
+        term.echo("Please install Docker Desktop manually by visiting https://docs.docker.com/get-started/get-docker")
         sys.exit(1)
 
     if (Path.home() / 'Downloads').exists():
@@ -177,127 +233,43 @@ def install_docker_desktop() -> None:
 
     installer_path = os.path.join(installer_dir, installer)
 
-    term.boxed_text(f"Franklin needs Docker Desktop", 
-                     ['Franklin depends on a program called Docker Desktop and will download a Docker Desktop installer to your Downloads folder.'],
-                     prompt='Press Enter to start the download...', 
-                     fg='green')
-
     response = requests.get(download_url, stream=True)
     if not response.ok:
         term.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
         sys.exit(1)
     else:
-        term.echo(f"Will download installer to {installer_path}.")
+        term.echo(f"Will download installer to {installer_path}")
 
-    file_size = response.headers['Content-length']
-    with open(installer_path, mode="wb") as file:
-        nr_chunks = int(file_size) // (10 * 1024) + 1
-        with click.progressbar(length=nr_chunks, label='Downloading:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
-            for chunk in response.iter_content(chunk_size=10 * 1024):
-                file.write(chunk)
-                bar.update(1)
+    # file_size = response.headers['Content-length']
+    # with open(installer_path, mode="wb") as file:
+    #     nr_chunks = int(file_size) // (10 * 1024) + 1
+    #     with click.progressbar(length=nr_chunks, label='Downloading:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
+    #         for chunk in response.iter_content(chunk_size=10 * 1024):
+    #             file.write(chunk)
+    #             bar.update(1)
 
     # if the user already has a user config file, we temporarily set OpenUIOnStartupDisabled 
     # to False so that the user can see the Dashboard under the install procedure
-    with docker_config() as config:
-        if config.user_config_file():            
-            config.settings['OpenUIOnStartupDisabled'] = False
-
+    if get_user_config_file().exists():
+        config_set('OpenUIOnStartupDisabled', False)
 
     if utils.system() == 'Windows':
-        kwargs = dict(subsequent_indent=' '*5)
-        term.echo()
-        term.echo()
-        term.secho(f"How to install Docker Desktop on Windows:", fg='green')
-        term.secho('='*cfg.wrap_width, fg='green')
-        term.echo()
-        term.echo("  Please follow this exact sequence of steps:")
-        term.echo()
-        term.echo('  1. If you are a teacher, you must turn on admin privileges in Heimdal', **kwargs)
-        term.echo('  2. Double-click the "Docker Desktop Installer.exe" file.', **kwargs)
-        term.echo('  3. Follow the default installation procedure and accept/connect when prompted.', **kwargs)
-        term.echo('  4. When the installation is completed, open Docker Desktop.', **kwargs)
-        term.echo('  5. Accept the Docker Desktop license agreement')
-        term.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
-        term.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
-        # term.echo('  8. Wait while it says "Starting the Docker Engine..."')
-        term.echo('  8. If it says "New version available" or "Update" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
-        term.echo('  9. Quit the Docker application. Then return to this window and start Franklin the same way as you did before', **kwargs)
-        term.echo()
-        term.echo('  Press Enter to close Franklin.')
-        term.echo()
-        term.echo('='*cfg.wrap_width, fg='green')
-        click.pause('')
-        sys.exit(0)
+        click.launch(installer_path, wait=True)
+
+ 
 
     elif utils.system() == 'Darwin':
         output = utils.run_cmd(f'hdiutil attach -nobrowse -readonly {installer_path}')
-        # cmd = utils.fmt_cmd(f'hdiutil attach -nobrowse -readonly {installer_path}')
-        # output = check_output(cmd).decode().strip()
-
-        # Extract the mounted volume name from the output
-        mounted_volume_name = re.search(r'/Volumes/([^ ]*)', output.strip()).group(1)
-
-        term.secho('\nDid you drag the Docker application to the Applications folder?', fg='green')
-
-        while click.prompt('\nPress R and then Enter when you are ready?').strip().lower() != 'r':
-            pass
-        
-        check_output(utils.fmt_cmd(f'open /Volumes/{mounted_volume_name}')).decode().strip()
-
-        term.secho('Did you drag the Docker application to the Applications folder?', fg='red')
-        while click.prompt('\nIf you did, press R and then Enter to continue.').strip().lower() != 'r':
-            pass
-
-        with click.progressbar(length=100, label='Copying to Applications:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
-            prev_size = 0
-            for _ in range(1000):
-                cmd = f'du -s /Applications/Docker.app'
-                logger.debug(cmd)
-                cmd = cmd.split()
-                cmd[0] = shutil.which(cmd[0])
-                output = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, timeout=1, check=False).stdout.decode().strip()
-                if output:
-                    size = int(output.split()[0])
-                    if size == prev_size:
-                        break
-                    bar.update(int(100*(1 - (size - prev_size) / int(size))))
-                    prev_size = size
-                time.sleep(5)
-
-        term.dummy_progressbar(seconds=10, label='Validating Docker Desktop:')
-
-        logger.debug("Unmounting volume")
-        if os.path.exists('/Volumes/{mounted_volume_name}'):
-            utils.run_cmd(f'hdiutil detach /Volumes/{mounted_volume_name}/')
-
-        logger.debug("Removing installer dmg")
+        term.echo('To allow Docker to install, type your computer password and press Enter.')
+        output = utils.run_cmd(f'sudo cp -r /Volumes/Docker/Docker.app /Applications/')
+        output = utils.run_cmd(f'hdiutil detach /Volumes/Docker/')
         os.remove(installer_path)
 
-        kwargs = dict(subsequent_indent=' '*5)
-        term.echo()
-        term.echo()
-        term.secho(f"How to set up Docker Desktop on Mac:", fg='green')
-        term.secho('='*cfg.wrap_width, fg='green')
-        term.echo()
-        term.echo("  Please follow this exact sequence of steps:")
-        term.echo()
-        term.echo('  1. Open the Docker application from your Applications folder', **kwargs)
-        term.echo('  3. Follow the default installation procedure.', **kwargs)
-        term.echo('  4. When the installation is completed, open Docker Desktop.', **kwargs)
-        term.echo('  5. Accept the Docker Desktop license agreement')
-        term.echo('  6. When you are asked to log in or create an account, just click skip.', **kwargs)
-        term.echo('  7. When you are asked to take a survey, just click skip.', **kwargs)
-        # term.echo('  8. Wait while it says "Starting the Docker Engine..."')
-        term.echo('  8. If it says "New version available" or "Update" in the bottom right corner, click that to update (scroll to find the blue button)"', **kwargs)
-        term.echo('  9. Quit the Docker application.', **kwargs)
-        term.echo('  10. Quit the Docker application. Then return to this window and start Franklin the same way as you did before', **kwargs)
-        term.echo()
-        term.echo('  Press Enter now to close Franklin.')
-        term.echo()
-        term.echo('='*cfg.wrap_width, fg='green')
-        click.pause('')
-        sys.exit(0)
+        term.echo('Franklin will open Docker Desktop and so you accept the license agreement and setup. '
+                  'You can skip creating an account and the questionnaire. ')
+        click.pause('Press Enter to continue.')
+        
+        click.launch('/Applications/Docker.app')
 
 #  start /w "" "Docker Desktop Installer.exe" uninstall
 #  /Applications/Docker.app/Contents/MacOS/uninstall
@@ -307,7 +279,22 @@ def failsafe_start_docker_desktop() -> None:
     Starts Docker Desktop if it is not running, attempting to handle any errors.
     """
     if not shutil.which('docker'):
-         install_docker_desktop()    
+         
+        term.boxed_text(f"Franklin needs Docker Desktop", 
+                        ['Franklin depends on a program called Docker Desktop that needs '
+                        'to be installed on your computer. '
+                        'You can download it from ',
+                        'https://docs.docker.com/get-started/get-docker ',
+                        'and follow the default installation procedure.',
+                        # 'If you have a Mac you can use the command below to install it:',
+                        # '',
+                        # '  franklin docker install',
+                        # '',
+                        '(If you are a teacher, you must turn on admin privileges using Heimdal)'],
+                        fg='blue')
+        sys.exit(1)
+
+    config_set('OpenUIOnStartupDisabled', True)
 
     if not docker_desktop_status() == 'running':
         docker_desktop_start()

@@ -163,7 +163,7 @@ def secho(text: str='', width: int=None, center: bool=False, nowrap: bool=False,
     click.secho(text, **kwargs)
 
 
-def echo(text: str='', width: str=None, nowrap: bool=False, log: bool=True, indent: bool=True, 
+def echo(text: str='', width: int=None, nowrap: bool=False, log: bool=True, indent: bool=True, 
          initial_indent: str=None, subsequent_indent: str=None, **kwargs: dict) -> None:
     """
     Print text to the terminal with optional word wrapping.
@@ -208,7 +208,7 @@ def boxed_text(header: str, lines: list=[], prompt: str='', **kwargs: dict) -> N
     term.secho('='*cfg.wrap_width, **kwargs)
     term.echo()
     for line in lines:
-        term.echo(f"  {line}")
+        term.echo(f"  {line}", width=cfg.wrap_width)
     term.echo()
     if prompt:
         term.echo(f"  {prompt}")

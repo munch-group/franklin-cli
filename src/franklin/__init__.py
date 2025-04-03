@@ -11,6 +11,7 @@ from . import terminal as term
 from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
 
+@click.version_option(package_name='franklin')
 @with_plugins(iter_entry_points('franklin.plugins'))
 @click.group(cls=AliasedGroup)
 def franklin():
