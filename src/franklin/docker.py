@@ -361,29 +361,29 @@ def docker():
     """
     pass
 
-# @docker.command('install')
-# @crash_report
-# def _install():
-#     """Install Docker Desktop.
-#     """
-#     install_docker_desktop()
+@docker.command('install')
+@crash_report
+def _install():
+    """Install Docker Desktop.
+    """
+    install_docker_desktop()
 
 
-# @docker.command('uninstall')
-# @crash_report
-# def _uninstall():
-#     """Uninstall Docker Desktop.
-#     """
-#     if utils.system() == 'Windows':
-#         term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and uninstall it there.')
-#         return
-#     elif utils.system() == 'Linux':
-#         term.echo('This command is not available on Linux systems. Please open the Docker Desktop application and uninstall it there.')
-#         return
-#     if not os.path.exists('/Applications/Docker.app/Contents/MacOS/uninstall'):
-#         term.echo('Docker Desktop is not installed.')
-#         return
-#     print(utils.run_cmd('/Applications/Docker.app/Contents/MacOS/uninstall'))
+@docker.command('uninstall')
+@crash_report
+def _uninstall():
+    """Uninstall Docker Desktop.
+    """
+    if utils.system() == 'Windows':
+        term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and uninstall it there.')
+        return
+    elif utils.system() == 'Linux':
+        term.echo('This command is not available on Linux systems. Please open the Docker Desktop application and uninstall it there.')
+        return
+    if not os.path.exists('/Applications/Docker.app/Contents/MacOS/uninstall'):
+        term.echo('Docker Desktop is not installed.')
+        return
+    print(utils.run_cmd('/Applications/Docker.app/Contents/MacOS/uninstall'))
 
 
 def pull(image_url :str) -> None:

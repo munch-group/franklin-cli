@@ -208,6 +208,11 @@ def install_docker_desktop() -> None:
 
     operating_system = utils.system()
 
+    if operating_system == 'Darwin':
+        if os.path.exists('/Applications/Docker.app'):
+            term.echo('Docker Desktop is already installed. Try to open it and complete the setup procedure. Otherwise remove it and try again.')
+            sys.exit(1)
+
     if operating_system == 'Windows':
         if architecture == 'arm64':
             download_url = 'https://desktop.docker.com/win/main/arm64/Docker%20Desktop%20Installer.exe'
@@ -233,43 +238,90 @@ def install_docker_desktop() -> None:
 
     installer_path = os.path.join(installer_dir, installer)
 
-    response = requests.get(download_url, stream=True)
-    if not response.ok:
-        term.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
+    if os.path.exists(installer_path):
+        term.echo(f"An installer already exists at {installer_path}. Please remove it and run the command again.")
         sys.exit(1)
-    else:
-        term.echo(f"Will download installer to {installer_path}")
 
-    # file_size = response.headers['Content-length']
-    # with open(installer_path, mode="wb") as file:
-    #     nr_chunks = int(file_size) // (10 * 1024) + 1
-    #     with click.progressbar(length=nr_chunks, label='Downloading:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
-    #         for chunk in response.iter_content(chunk_size=10 * 1024):
-    #             file.write(chunk)
-    #             bar.update(1)
+
+    with requests.get(download_url, stream=True) as response:
+#        response = requests.get(download_url, stream=True)
+        if not response.ok:
+            term.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
+            sys.exit(1)
+        else:
+            term.echo(f"Will download installer to {installer_path}")
+
+        file_size = response.headers['Content-length']
+        with open(installer_path, mode="wb") as file:
+            nr_chunks = int(file_size) // (10 * 1024) + 1
+            with click.progressbar(length=nr_chunks, label='Downloading:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
+                for chunk in response.iter_content(chunk_size=10 * 1024):
+                    file.write(chunk)
+                    bar.update(1)
 
     # if the user already has a user config file, we temporarily set OpenUIOnStartupDisabled 
     # to False so that the user can see the Dashboard under the install procedure
-    if get_user_config_file().exists():
-        config_set('OpenUIOnStartupDisabled', False)
 
     if utils.system() == 'Windows':
         click.launch(installer_path, wait=True)
 
- 
+        click.launch('/Applications/Docker.app')
 
     elif utils.system() == 'Darwin':
-        output = utils.run_cmd(f'hdiutil attach -nobrowse -readonly {installer_path}')
-        term.echo('To allow Docker to install, type your computer password and press Enter.')
-        output = utils.run_cmd(f'sudo cp -r /Volumes/Docker/Docker.app /Applications/')
-        output = utils.run_cmd(f'hdiutil detach /Volumes/Docker/')
-        os.remove(installer_path)
+        term.echo('Installing:')
+        try:
+            output = utils.run_cmd(f'hdiutil detach /Volumes/Docker', check=False)
+            output = utils.run_cmd(f'hdiutil attach -nobrowse -readonly {installer_path}')
+            output = utils.run_cmd(f'cp -a /Volumes/Docker/Docker.app /Applications/')
+            output = utils.run_cmd(f'hdiutil detach /Volumes/Docker/')
+        except Exception as e:
+            raise e
+        finally:
+            os.remove(installer_path)
 
-        term.echo('Franklin will open Docker Desktop and so you accept the license agreement and setup. '
-                  'You can skip creating an account and the questionnaire. ')
-        click.pause('Press Enter to continue.')
+        if get_user_config_file().parent.exists():
+            config_reset()
+            # config_set('OpenUIOnStartupDisabled', False)
+
+        term.boxed_text(f"In Docker Desktop", 
+                        ['Franklin will open Docker Desktop. You must then:',
+                         '1. Accept the license agreement.',
+                         "2. Complete the setup procedure (you can click anywhere it says 'skip').",
+                         '3. Quit the Docker Desktop application.',
+                         '4. Come back here :)'
+                        ],
+                        prompt='Press Enter to continue.',
+                        fg='blue', subsequent_indent='   ')
         
-        click.launch('/Applications/Docker.app')
+        # term.echo('Franklin will open Docker Desktop. You must:'
+        #           '' so you can accept the license agreement. '
+        #           'Once you have completed the setup, Quick Docker Desktop and setup. '
+        #           'You can skip creating an account and the questionnaire. ')
+        # click.pause('Press Enter to continue.')
+        
+
+        click.launch('/Applications/Docker.app', wait=True)
+
+
+    if not shutil.which('docker'):
+        term.secho("Docker Desktop installation failed or is incomplete. Please install Docker Desktop manually.", fg='red')
+        sys.exit(1)
+
+    if not docker_desktop_status() == 'running':
+        docker_desktop_start()
+        term.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
+
+    if not docker_desktop_status() == 'running':
+        term.secho("Docker Desktop is not running. Please install Docker Desktop manually.", fg='red')
+        sys.exit(1)
+
+    config_reset()
+
+    if utils.system() == 'Darwin':
+        update_docker_desktop()
+
+
+
 
 #  start /w "" "Docker Desktop Installer.exe" uninstall
 #  /Applications/Docker.app/Contents/MacOS/uninstall

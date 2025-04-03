@@ -37,7 +37,7 @@ def update_client() -> None:
     try:
         franklin_version = utils.package_version('franklin')
         # Update franklin client
-        click.secho('Checking for updates to Franklin', fg='green')
+        click.secho('Checking for updates to franklin', fg='green')
         try:
             utils.run_cmd(f"conda update -y -c conda-forge -c munch-group franklin", timeout=120)
         except subprocess.TimeoutExpired:
@@ -58,7 +58,7 @@ def update_client() -> None:
         import franklin_educator 
 
         franklin_educator_version = utils.package_version('franklin-educator')
-        click.secho('Checking for updates to Franklin Educator', fg='green')
+        click.secho('Checking for updates to franklin-educator', fg='green')
         try:
             utils.run_cmd(f"conda update -y -c conda-forge -c munch-group franklin-educator", timeout=120)
         except subprocess.TimeoutExpired:
