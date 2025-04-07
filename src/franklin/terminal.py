@@ -204,8 +204,11 @@ def boxed_text(header: str, lines: list=[], prompt: str='', **kwargs: dict) -> N
         Prompt text at the bottom of the box.
     """
     term.echo()
-    term.secho(f"{header}:", **kwargs)
+    # term.secho(f"{header}:", **kwargs)
     term.secho('='*cfg.wrap_width, **kwargs)
+    term.echo()
+    term.echo(f"{header}:")
+    term.echo(f"{'-'*len(header)}-")
     term.echo()
     for line in lines:
         term.echo(f"  {line}", width=cfg.wrap_width)
