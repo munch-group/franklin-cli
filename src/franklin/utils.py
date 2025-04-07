@@ -26,11 +26,11 @@ def config_gitui() -> None:
     """
     Copies gitui config files to the user's config directory.
     """
-    if utils.system() == 'Windows':
-        path = os.path.join(os.getenv('APPDATA'), 'gitui')
-    else:
-        # path = str(Path.home() / '.config/gitui')
-        path = str(Path.home() / '.gitui')
+    # if utils.system() == 'Windows':
+    #     path = os.path.join(os.getenv('APPDATA'), 'gitui')
+    # else:
+    #     path = str(Path.home() / '.config/gitui')
+    path = str(Path.home() / '.gitui')
 
     if not os.path.exists(path):
         os.makedirs(path)       
