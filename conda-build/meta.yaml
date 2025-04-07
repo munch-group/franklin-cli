@@ -22,6 +22,8 @@ requirements:
     {% for dep in pyproject.get("project").get("dependencies") %}
     - {{ dep.lower() }}
     {% endfor %}  
+    - git
+    - gitui
 
 channels:  # channels for your library dependencies
   - conda-forge
