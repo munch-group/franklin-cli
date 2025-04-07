@@ -26,19 +26,17 @@ def config_gitui() -> None:
     """
     Copies gitui config files to the user's config directory.
     """
-    try:
-        if utils.system() == 'Windows':
-            path = os.path.join(os.getenv('APPDATA'), 'gitui')
-        else:
-            path = str(Path.home() / '.config/gitui')
-            
-        if not os.path.exists(path):
-            os.makedirs(path)       
-        for file in Path('data/gitui').glob('*'):
-            print(f'Copying {file} to {path}')
-            shutil.copy(file, path)
-    except Exception as e:
-        term.secho(f"Error copying gitui config files: {e}", fg='red')
+    if utils.system() == 'Windows':
+        path = os.path.join(os.getenv('APPDATA'), 'gitui')
+    else:
+        # path = str(Path.home() / '.config/gitui')
+        path = str(Path.home() / '.gitui')
+
+    if not os.path.exists(path):
+        os.makedirs(path)       
+    for file in Path('data/gitui').glob('*'):
+        print(f'Copying {file} to {path}')
+        shutil.copy(file, path)
 
 
 def as_type(s: str) -> Any:
@@ -293,7 +291,7 @@ def fmt_cmd(cmd: str) -> List[str]:
     return cmd
 
 
-def run_cmd(cmd: str, check: bool=True, timeout: int=None) -> Any:
+def run_cmd(cmd: str, check: bool=True, timeout: int=None, stderr2stdout=False) -> Any:
     """
     Runs a command.
 
@@ -305,17 +303,21 @@ def run_cmd(cmd: str, check: bool=True, timeout: int=None) -> Any:
         Whether to check for errors, by default True
     timeout : 
         Timeout in seconds, by default None
+    stderr2stdout : 
+        Whether to redirect stderr to stdout, by default False
 
     Returns
     -------
     :
         The output of the command.
     """
-
+    kwargs = {}
+    if stderr2stdout:
+        kwargs['stderr'] = subprocess.STDOUT
     cmd = fmt_cmd(cmd)
     try:
         p = subprocess.run(cmd, check=check, 
-                capture_output=True, timeout=timeout)
+                capture_output=True, timeout=timeout, **kwargs)
         output = p.stdout.decode()
     except subprocess.TimeoutExpired as e:
         logger.debug(f"Command timeout of {timeout} seconds exceeded.")

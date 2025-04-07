@@ -287,8 +287,9 @@ def install_docker_desktop() -> None:
                         ['Franklin will open Docker Desktop. You must then:',
                          '1. Accept the license agreement.',
                          "2. Complete the setup procedure (you can click anywhere it says 'skip').",
-                         '3. Quit the Docker Desktop application.',
-                         '4. Come back here :)'
+                         "3. Click bottom right corner to to update and click the blue button on the page that appears.",
+                         '4. Quit the Docker Desktop application.',
+                         '5. Come back here :)'
                         ],
                         prompt='Press Enter to continue.',
                         fg='blue', subsequent_indent='   ')
@@ -342,7 +343,6 @@ def failsafe_start_docker_desktop() -> None:
                         # '',
                         # '  franklin docker install',
                         # '',
-                        '(If you are a teacher, you must turn on admin privileges using Heimdal)'],
                         fg='blue')
         sys.exit(1)
 
