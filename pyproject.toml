@@ -29,6 +29,8 @@ dependencies = [
     'packaging',
     'pyyaml',
     'pyperclip',
+    'git',
+    'gitui',
     'importlib_resources',
 ]
 authors = [
