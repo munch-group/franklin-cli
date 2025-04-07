@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>launch_exercise – franklin</title>
+<title>Developing exercises – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -156,19 +122,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#franklin.jupyter.launch_exercise" id="toc-franklin.jupyter.launch_exercise" class="nav-link active" data-scroll-target="#franklin.jupyter.launch_exercise">launch_exercise</a></li>
+  <li><a href="#tldr" id="toc-tldr" class="nav-link active" data-scroll-target="#tldr">TLDR;</a></li>
+  <li><a href="#create-an-exercise-repository" id="toc-create-an-exercise-repository" class="nav-link" data-scroll-target="#create-an-exercise-repository">Create an exercise repository</a></li>
+  <li><a href="#developchange-a-new-exercise-on-gitlab" id="toc-developchange-a-new-exercise-on-gitlab" class="nav-link" data-scroll-target="#developchange-a-new-exercise-on-gitlab">Develop/change a new exercise on GitLab</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Developing exercises</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="franklin.jupyter.launch_exercise" class="level1">
-<h1>launch_exercise</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>franklin.jupyter.launch_exercise()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TLDR;</h2>
+<pre><code>conda create -n franklin -c conda-forge munch-group::franklin
+conda activate franklin
+
+franklin exercise down
+cd &lt;repo&gt;
+franklin jupyter run
+franklin up
+cd ..</code></pre>
+</section>
+<section id="create-an-exercise-repository" class="level2">
+<h2 class="anchored" data-anchor-id="create-an-exercise-repository">Create an exercise repository</h2>
+<p>A git repository is where an exercise lives</p>
+<ul>
+<li><strong>exercise.ipynb:</strong>: blah blah</li>
+<li><strong>Dockerfile:</strong> blah blah</li>
+<li><strong>README.md:</strong>: blah blah</li>
+<li><strong>docker-entrypoint.sh:</strong>: blah blah</li>
+<li><strong>tagged-release.sh:</strong>: blah blah</li>
+</ul>
+</section>
+<section id="developchange-a-new-exercise-on-gitlab" class="level2">
+<h2 class="anchored" data-anchor-id="developchange-a-new-exercise-on-gitlab">Develop/change a new exercise on GitLab</h2>
 
 
 </section>

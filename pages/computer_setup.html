@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>launch_exercise – franklin</title>
+<title>Computer setup – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -156,21 +156,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#franklin.jupyter.launch_exercise" id="toc-franklin.jupyter.launch_exercise" class="nav-link active" data-scroll-target="#franklin.jupyter.launch_exercise">launch_exercise</a></li>
+  <li><a href="#howto" id="toc-howto" class="nav-link active" data-scroll-target="#howto">HOWTO;</a></li>
+  <li><a href="#laptop-setup" id="toc-laptop-setup" class="nav-link" data-scroll-target="#laptop-setup">Laptop setup</a>
+  <ul class="collapse">
+  <li><a href="#install-python" id="toc-install-python" class="nav-link" data-scroll-target="#install-python">Install Python</a></li>
+  <li><a href="#the-terminal" id="toc-the-terminal" class="nav-link" data-scroll-target="#the-terminal">The Terminal</a></li>
+  <li><a href="#conda-environments" id="toc-conda-environments" class="nav-link" data-scroll-target="#conda-environments">Conda environments</a></li>
+  <li><a href="#create-a-conda-environment-on-your-local-machine" id="toc-create-a-conda-environment-on-your-local-machine" class="nav-link" data-scroll-target="#create-a-conda-environment-on-your-local-machine">Create a conda environment on your local machine</a></li>
+  <li><a href="#vpn" id="toc-vpn" class="nav-link" data-scroll-target="#vpn">VPN</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Computer setup</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="franklin.jupyter.launch_exercise" class="level1">
-<h1>launch_exercise</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>franklin.jupyter.launch_exercise()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+    
+  
+    
+  </div>
+  
 
 
+</header>
+
+
+<section id="howto" class="level2">
+<h2 class="anchored" data-anchor-id="howto">HOWTO;</h2>
+</section>
+<section id="laptop-setup" class="level1">
+<h1>Laptop setup</h1>
+<p>You will work on our computing cluster, but before we get there, we must get you properly set up on your machine.</p>
+<section id="install-python" class="level3">
+<h3 class="anchored" data-anchor-id="install-python">Install Python</h3>
+<p>If you have not done so already, you should install a distribution of Python called <em>Anaconda</em>. Anaconda is not only an easy way of installing Python on Windows, Mac, and Linux; it also comes with the conda package management system (more about that later). To install Anaconda, visit <a href="https://www.anaconda.com/download">this page</a>. When the download completes, you must follow the default installation.</p>
+</section>
+<section id="the-terminal" class="level3">
+<h3 class="anchored" data-anchor-id="the-terminal">The Terminal</h3>
+<p>The programs you will use in the project are command-line applications. I.e., programs executed by writing their name and any arguments in a “terminal” rather than clicking on an icon and using a graphical user interface. Many different programs can serve as a terminal.</p>
+<ul>
+<li>If you have a Windows machine, use the <em>Anaconda Powershell Prompt</em> (<em>not</em> the Anaconda Prompt and <em>not</em> the <code>CMD</code>). You installed Anaconda Powershell Prompt along with Anaconda Python.</li>
+<li>If you have a Mac, the terminal you will use is called <em>Terminal</em>. The Terminal application is pre-installed on Mac.</li>
+</ul>
+<p>From now on, whenever I refer to the terminal, I mean <em>Anaconda Powershell Prompt</em> on Windows and <em>Terminal</em> on Mac. I will assume some familiarity with using a terminal and executing commands on the command line. If you have not used a terminal before, or if you are a bit rusty, you should run through <a href="https://lifehacker.com/5633909/who-needs-a-mouse-learn-to-use-the-command-line-for-almost-anything">this primer</a> before you go on.</p>
+</section>
+<section id="conda-environments" class="level3">
+<h3 class="anchored" data-anchor-id="conda-environments">Conda environments</h3>
+<p><img src="https://docs.conda.io/en/latest/_images/conda_logo.svg" align="right" width="200" height="100"></p>
+<p>You must install packages and programs for your analyses and pipelines. Sometimes, however, the packages you need for one project conflict with the ones you need for other projects you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small world insulated from the rest of your Anaconda installation? Then, that small world would only contain the packages you needed for a single project. If each project had its isolated world, then there would be no such conflicts.</p>
+<p>Fortunately, a tool lets you do just that, and its name is Conda. Conda’s small worlds are called “environments,” and you can create as many as you like. You can then switch between them as you switch between your bioinformatics projects. Conda also downloads and installs the packages for you, ensuring that the packages you install in each environment are compatible. It even makes sure to install packages (dependencies) required by the packages you install. By creating an environment for each project, the libraries installed for each project do not interfere.</p>
+</section>
+<section id="create-a-conda-environment-on-your-local-machine" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-conda-environment-on-your-local-machine">Create a conda environment on your local machine</h3>
+<p>When you install Anaconda or Miniconda, Conda makes a single base environment. It is called “base,” and this is why it says “(base)” at your terminal prompt. You need a conda environment for your project on your local machine. You can call it anything you like, but if you call it <code>birc-project</code>, it will match the rest of this tutorial. So do that.</p>
+<p>The environment on your local machine only needs a few packages since it only connects you to the cluster. The command below creates a <code>birc-project</code> environment and installs the <code>slurm-jupyter</code> package from my conda channel:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-y</span> <span class="at">-n</span> birc-project <span class="at">-c</span> kaspermunch slurm-jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To activate the environment, use this command:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb2" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate birc-project</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note how the environment name at your terminal prompt changes from <code>(base)</code> to <code>(birc-project)</code>. To deactivate the environment, use this command:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and the terminal prompt changes back to <code>(base)</code>.</p>
+</section>
+<section id="vpn" class="level3">
+<h3 class="anchored" data-anchor-id="vpn">VPN</h3>
+<p>You can only connect to the cluster on the University’s internal network. So you must be physically on campus or use the University’s VPN. To install VPN, follow the instructions <a href="https://studerende.au.dk/it-support/vpn/">on this page</a>. Before you can use the VPN, you also need to enable two-step verification. You can see how to do that on the same page. If you are not physically on campus, you must activate your VPN before logging in to the cluster. Your password for the VPN is the same as the one you use to log on to access Blackboard.</p>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->
