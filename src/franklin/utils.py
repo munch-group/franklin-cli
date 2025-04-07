@@ -26,17 +26,19 @@ def config_gitui() -> None:
     """
     Copies gitui config files to the user's config directory.
     """
-
-    if utils.system() == 'Windows':
-        path = os.path.join(os.getenv('APPDATA'), 'gitui')
-    else:
-        path = str(Path.home() / '.config/gitui')
-        
-    if not os.path.exists(path):
-        os.makedirs(path)       
-    for file in Path('data/gitui').glob('*'):
-        print(f'Copying {file} to {path}')
-        shutil.copy(file, path)
+    try:
+        if utils.system() == 'Windows':
+            path = os.path.join(os.getenv('APPDATA'), 'gitui')
+        else:
+            path = str(Path.home() / '.config/gitui')
+            
+        if not os.path.exists(path):
+            os.makedirs(path)       
+        for file in Path('data/gitui').glob('*'):
+            print(f'Copying {file} to {path}')
+            shutil.copy(file, path)
+    except Exception as e:
+        term.secho(f"Error copying gitui config files: {e}", fg='red')
 
 
 def as_type(s: str) -> Any:
