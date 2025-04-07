@@ -343,6 +343,7 @@ def failsafe_start_docker_desktop() -> None:
                         # '',
                         # '  franklin docker install',
                         # '',
+                        ],
                         fg='blue')
         sys.exit(1)
 

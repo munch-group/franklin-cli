@@ -67,8 +67,10 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
     if not allow_subdirs_at_your_own_risk:
         for x in os.listdir(os.getcwd()):
             if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
-                term.boxed_text("Franklin must run from a folder with no other folders inside it",
+                term.boxed_text("You have subfolders in your current directory",
                                 [
+                                    "Franklin must run from a folder with no other folders inside it.",
+                                    "",
                                     "You can make an empty folder called 'exercise' with this command:",
                                     "",
                                     "    mkdir exercise",
