@@ -1,4 +1,9 @@
 
+## [v0.19.11] - 2025-04-24
+### Bug Fixes
+- [`7053afc`](https://github.com/munch-group/franklin/commit/7053afcbf5450fdedc0af01cdee989493363b6e2) - bug fix for teaching GT *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.19.3] - 2025-04-02
 ### Bug Fixes
 - [`a86546e`](https://github.com/munch-group/franklin/commit/a86546e926ee7f297c9702c8896df7eb02e5d4bd) - fixed a bug with finding data files *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -44,3 +49,4 @@
 [v0.19.1]: https://github.com/munch-group/franklin/compare/v0.19.0...v0.19.1
 [v0.19.2]: https://github.com/munch-group/franklin/compare/v0.19.1...v0.19.2
 [v0.19.3]: https://github.com/munch-group/franklin/compare/v0.19.2...v0.19.3
+[v0.19.11]: https://github.com/munch-group/franklin/compare/v0.19.10...v0.19.11
