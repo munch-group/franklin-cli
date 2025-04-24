@@ -22,9 +22,12 @@ from .logger import logger
 
 
 def is_educator():
-    cmd = f'ssh -T git@{cfg.gitlab_domain}'
-    return utils.run_cmd(cmd).startswith('Welcome to GitLab')
-
+    return False
+    # cmd = f'ssh -T git@{cfg.gitlab_domain}'
+    # p = subprocess.run(cmd, capture_output=True)
+    # if not p.returncode and p.stdout.decode().startswith('Welcome to GitLab'):
+    #     return False
+    # return True
 
 def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
     """
