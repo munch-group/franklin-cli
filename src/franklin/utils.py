@@ -20,6 +20,7 @@ from . import terminal as term
 from typing import Tuple, List, Dict, Callable, Any
 from pathlib import Path
 import shutil
+import pyperclip
 
 
 def config_gitui() -> None:
@@ -173,14 +174,10 @@ class UpdateCrash(Crash):
     pass
 
 
-
-def crash_email() -> None:
+def gather_crash_info(include_log=True) -> str:
     """
-    Open the email client with a prefilled email to the maintainer of Franklin.
+    Gathers information about the system and the crash.
     """
-
-    preamble = ("This email is prefilled with information of the crash you can send to the maintainer of Franklin.").upper()
-
     info = f"Python: {sys.executable}\n"
     info += f'Version of franklin: {package_version('franklin')}\n'    
     info += f'Version of franklin-educator: {package_version('franklin-educator')}\n'
@@ -193,6 +190,24 @@ def crash_email() -> None:
     info += f"Python Compiler: {platform.python_compiler()}\n"
     info += f"Python Build: {platform.python_build()}\n"
     info += f"Python Implementation: {platform.python_implementation()}\n"
+
+    if include_log:
+        if os.path.exists('franklin.log'):
+            with open('franklin.log', 'r') as f:
+                log = f.read()
+        info += f"\n\nFranklin log:\n{log}\n"
+
+    return info
+
+
+def crash_email() -> None:
+    """
+    Open the email client with a prefilled email to the maintainer of Franklin.
+    """
+
+    preamble = ("This email is prefilled with information of the crash you can send to the maintainer of Franklin.").upper()
+
+    info = gather_crash_info(include_log=False)
 
     log = ''
     if not utils.system() == 'Windows':
@@ -242,12 +257,15 @@ def crash_report(func: Callable) -> Callable:
             logger.exception('Raised: UpdateCrash')
             for line in e.args:
                 term.secho(line, fg='red')
-            term.secho(f"\nFranklin encountered an unexpected problem.")
-            term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
-            term.secho(f"If it does not please send the email to  {cfg.maintainer_email}", fg='red')
-            if utils.system() == 'Windows':
-                term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
-            crash_email()
+            term.secho(f"\nFranklin encountered an unexpected problem.", fg='red')
+            term.secho(f'\nPlease open an email to {cfg.maintainer_email} with subject "Franklin crash". The email body should contain the crash information.')
+            click.pause("Press Enter to copy the crash information to your clipboard.")
+            pyperclip.copy(gather_crash_info())
+            # term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
+            # term.secho(f"If it does not please send the email to  {cfg.maintainer_email}", fg='red')
+            # if utils.system() == 'Windows':
+            #     term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
+            # crash_email()
             sys.exit(1)                
         except SystemExit as e:
             raise e
@@ -257,11 +275,14 @@ def crash_report(func: Callable) -> Callable:
         except:
             logger.exception('CRASH')
             term.secho(f"\nFranklin encountered an unexpected problem.")
-            term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
-            term.secho(f"If it does not please send the email to  {cfg.maintainer_email}", fg='red')
-            if utils.system() == 'Windows':
-                term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
-            crash_email()
+            term.secho(f'\nPlease open an email to {cfg.maintainer_email} with subject "Franklin crash". The email body should contain the crash information.')
+            click.pause("Press Enter to copy the crash information to your clipboard.")
+            pyperclip.copy(gather_crash_info())
+            # term.secho(f"Your email client should open an email prefilled with relevant information you can send to the maintainer of Franklin")
+            # term.secho(f"If it does not please send the email to  {cfg.maintainer_email}", fg='red')
+            # if utils.system() == 'Windows':
+            #     term.secho(f'Please attach the the "franklin.log" file located in your working directory.') 
+            # crash_email()
             raise
         return ret
     return wrapper

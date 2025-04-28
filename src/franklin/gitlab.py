@@ -220,7 +220,7 @@ def download() -> None:
         repo_local_path = PureWindowsPath(repo_local_path)
 
     if os.path.exists(repo_local_path):
-        term.secho(f"The folder '{repo_name}' already exists at {repo_local_path}.")
+        term.secho(f"The exercise folder already exists: {repo_local_path}.")
         raise click.Abort()
 
     output = utils.run_cmd(f'git clone {clone_url} {repo_local_path}')

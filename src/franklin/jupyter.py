@@ -66,7 +66,7 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
 
     if not allow_subdirs_at_your_own_risk:
         for x in os.listdir(os.getcwd()):
-            if os.path.isdir(x) and x not in ['.git', '.ipynb_checkpoints']:
+            if os.path.isdir(x) and not os.path.basename(x).startswith('.'):
                 term.boxed_text("You have subfolders in your current directory",
                                 [
                                     "Franklin must run from a folder with no other folders inside it.",
@@ -144,7 +144,18 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     if cwd is not None:
         token_url = token_url.replace('/lab', f'/lab/tree/{cwd}')
 
+
+
+    # try:
+
+    #     chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+    #     webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path))
+    #     webbrowser.get('chrome').open(token_url, new=1)
+    # except:
+    #     webbrowser.open(token_url, new=1)
     webbrowser.open(token_url, new=1)
+
 
     term.secho(f'\nJupyter is running and should open in your default browser.', fg='green')
     term.echo(f'If not, you can access it at this URL:')

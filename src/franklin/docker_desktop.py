@@ -354,7 +354,7 @@ def failsafe_start_docker_desktop() -> None:
         term.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
 
     if not docker_desktop_status() == 'running':
-        term.secho("Could not start Docker Desktop. Please start Docker Desktop manually.", fg='red')
+        term.secho("Could not reach Docker Desktop. Please quit Docker Desktop manually.", fg='red')
         sys.exit(1)
 
     if utils.system() == 'Darwin':
