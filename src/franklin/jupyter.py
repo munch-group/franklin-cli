@@ -144,18 +144,18 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     if cwd is not None:
         token_url = token_url.replace('/lab', f'/lab/tree/{cwd}')
 
-
-
     # try:
-
-    #     chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-
+    #     if utils.system() == 'Windows':
+    #         chrome_path = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
+    #     elif utils.system() == 'Mac':
+    #         chrome_path = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+    #     elif utils.system() == 'Linux':
+    #         chrome_path = '/usr/bin/google-chrome'
     #     webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path))
-    #     webbrowser.get('chrome').open(token_url, new=1)
+    #     webbrowser.get('chrome').open(token_url, new=1, autoraise=True)
     # except:
     #     webbrowser.open(token_url, new=1)
     webbrowser.open(token_url, new=1)
-
 
     term.secho(f'\nJupyter is running and should open in your default browser.', fg='green')
     term.echo(f'If not, you can access it at this URL:')
