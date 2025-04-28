@@ -1,4 +1,9 @@
 
+## [v0.19.14] - 2025-04-28
+### Bug Fixes
+- [`e0107f3`](https://github.com/munch-group/franklin/commit/e0107f395b5eaf862a7558f1586613b1f8a4fb79) - now using https for repo download *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.19.13] - 2025-04-28
 ### Bug Fixes
 - [`ee53d9e`](https://github.com/munch-group/franklin/commit/ee53d9e805efe6afb06d46469df6e60f772bd5c4) - small fix *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -62,3 +67,4 @@
 [v0.19.11]: https://github.com/munch-group/franklin/compare/v0.19.10...v0.19.11
 [v0.19.12]: https://github.com/munch-group/franklin/compare/v0.19.11...v0.19.12
 [v0.19.13]: https://github.com/munch-group/franklin/compare/v0.19.12...v0.19.13
+[v0.19.14]: https://github.com/munch-group/franklin/compare/v0.19.13...v0.19.14
