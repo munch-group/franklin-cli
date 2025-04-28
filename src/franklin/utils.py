@@ -480,6 +480,12 @@ def check_free_disk_space():
             ], fg='magenta')        
         if click.confirm("Do you want to stop to free up space?", default=False):
             sys.exit(1)
+
+        # click.echo('Press Q if you want quit and free up space before you continue, or Enter otherwise')
+        # if click.getchar().upper() == 'Q':
+        #     click.Abort()            
+
+
     else:
         term.echo()
         term.echo(f"Franklin needs", nl=False)

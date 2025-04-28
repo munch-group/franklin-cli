@@ -17,6 +17,7 @@ from .gitlab import select_image
 from . import docker as _docker
 from .logger import logger
 from .update import update_client
+from .docker_desktop import config_fit
 from . import terminal as term
 from . import options
 
@@ -91,6 +92,9 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
         logger.debug('Update check skipped')
 
     utils.check_free_disk_space()
+
+    if shutil.which('docker'):
+        config_fit()
 
     utils.logger.debug('Starting Docker Desktop')
     _docker.failsafe_start_docker_desktop()

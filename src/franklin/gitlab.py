@@ -213,7 +213,7 @@ def download() -> None:
 
     # url for cloning the repository
     repo_name = exercise.split('/')[-1]
-    clone_url = f'git@gitlab.au.dk:{cfg.gitlab_group}/{course}/{repo_name}.git'
+    clone_url = f'https://gitlab.au.dk/{cfg.gitlab_group}/{course}/{repo_name}.git'
     repo_local_path = os.path.join(os.getcwd(), listed_exercise_name)
 
     if utils.system() == 'Windows':
