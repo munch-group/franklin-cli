@@ -1,4 +1,9 @@
 
+## [v0.19.12] - 2025-04-28
+### Bug Fixes
+- [`d50203e`](https://github.com/munch-group/franklin/commit/d50203e83e9f2940f8fba1afdba4889067895290) - email bug fix *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.19.11] - 2025-04-24
 ### Bug Fixes
 - [`7053afc`](https://github.com/munch-group/franklin/commit/7053afcbf5450fdedc0af01cdee989493363b6e2) - bug fix for teaching GT *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -50,3 +55,4 @@
 [v0.19.2]: https://github.com/munch-group/franklin/compare/v0.19.1...v0.19.2
 [v0.19.3]: https://github.com/munch-group/franklin/compare/v0.19.2...v0.19.3
 [v0.19.11]: https://github.com/munch-group/franklin/compare/v0.19.10...v0.19.11
+[v0.19.12]: https://github.com/munch-group/franklin/compare/v0.19.11...v0.19.12
