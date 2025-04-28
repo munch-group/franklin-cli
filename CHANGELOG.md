@@ -1,4 +1,9 @@
 
+## [v0.19.13] - 2025-04-28
+### Bug Fixes
+- [`ee53d9e`](https://github.com/munch-group/franklin/commit/ee53d9e805efe6afb06d46469df6e60f772bd5c4) - small fix *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.19.12] - 2025-04-28
 ### Bug Fixes
 - [`d50203e`](https://github.com/munch-group/franklin/commit/d50203e83e9f2940f8fba1afdba4889067895290) - email bug fix *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -56,3 +61,4 @@
 [v0.19.3]: https://github.com/munch-group/franklin/compare/v0.19.2...v0.19.3
 [v0.19.11]: https://github.com/munch-group/franklin/compare/v0.19.10...v0.19.11
 [v0.19.12]: https://github.com/munch-group/franklin/compare/v0.19.11...v0.19.12
+[v0.19.13]: https://github.com/munch-group/franklin/compare/v0.19.12...v0.19.13
