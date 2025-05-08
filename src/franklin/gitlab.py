@@ -22,7 +22,7 @@ from .logger import logger
 
 
 def is_educator():
-
+    print("Checking if user is educator...")
     cmd = f'ssh -T git@{cfg.gitlab_domain}'
     p = subprocess.run(cmd, capture_output=True)
     if not p.returncode and p.stdout.decode().startswith('Welcome to GitLab'):

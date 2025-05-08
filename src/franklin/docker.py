@@ -354,6 +354,7 @@ def image_list(callback: Callable=None):
 # docker subcommands
 ###########################################################
 
+
 @with_plugins(iter_entry_points('franklin.docker.plugins'))
 @click.group(cls=AliasedGroup)
 def docker():
@@ -361,7 +362,19 @@ def docker():
     """
     pass
 
-@docker.command('install')
+###########################################################
+# docker desktop subcommands
+###########################################################
+
+@docker.group(cls=AliasedGroup)
+@crash_report
+def desktop():
+    """Commands for Docker Desktop
+    """
+    pass
+
+
+@desktop.command('install')
 @crash_report
 def _install():
     """Install Docker Desktop.
@@ -369,7 +382,7 @@ def _install():
     install_docker_desktop()
 
 
-@docker.command('uninstall')
+@desktop.command('uninstall')
 @crash_report
 def _uninstall():
     """Uninstall Docker Desktop.
@@ -384,6 +397,60 @@ def _uninstall():
         term.echo('Docker Desktop is not installed.')
         return
     print(utils.run_cmd('/Applications/Docker.app/Contents/MacOS/uninstall'))
+
+
+@desktop.command('restart')
+@crash_report
+def _restart():
+    """Restart Docker Desktop.
+    """
+    docker_desktop_restart()
+
+
+@desktop.command('start')
+@crash_report
+def _start():
+    """Start Docker Desktop.
+    """
+    docker_desktop_start()
+
+
+@desktop.command('stop')
+@irrelevant_unless_docker_running
+@crash_report
+def _stop():
+    """Stop Docker Desktop.
+    """
+    docker_desktop_stop()
+
+
+@desktop.command('status')
+@crash_report
+def _status():
+    """Docker Desktop status.
+    """
+    s = docker_desktop_status()
+    fg = 'green' if s == 'running' else 'red'
+    term.secho(s, fg=fg, nowrap=True)
+
+
+@desktop.command('update')
+@crash_report
+def _update():
+    """Update Docker Desktop.
+    """
+    if utils.system() == 'Windows':
+        term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and check for updates there.')
+    else:
+        update_docker_desktop()
+
+
+@desktop.command('version')
+@crash_report
+def _version():
+    """Show Docker Desktop version
+    """
+    term.echo(docker_desktop_version())
 
 
 def pull(image_url :str) -> None:
@@ -429,70 +496,19 @@ def pull(image_url :str) -> None:
     # utils.run_cmd(f'docker pull {image_url}:latest', check=False)
 
 
-@click.argument("url")
-@docker.command('pull')
-@ensure_docker_running
-@crash_report
-def _pull(url):
-    """Pull docker image.
+## commented out to avoid confusion
+# @click.argument("url")
+# @docker.command('pull')
+# @ensure_docker_running
+# @crash_report
+# def _pull(url):
+#     """Pull docker image.
     
-    URL is the Docker image URL.
-    """
-    pull(url)
+#     URL is the Docker image URL.
+#     """
+#     pull(url)
 
 
-@docker.command('restart')
-@crash_report
-def _restart():
-    """Restart Docker Desktop.
-    """
-    docker_desktop_restart()
-
-
-@docker.command('start')
-@crash_report
-def _start():
-    """Start Docker Desktop.
-    """
-    docker_desktop_start()
-
-
-@docker.command('stop')
-@irrelevant_unless_docker_running
-@crash_report
-def _stop():
-    """Stop Docker Desktop.
-    """
-    docker_desktop_stop()
-
-
-@docker.command('status')
-@crash_report
-def _status():
-    """Docker Desktop status.
-    """
-    s = docker_desktop_status()
-    fg = 'green' if s == 'running' else 'red'
-    term.secho(s, fg=fg, nowrap=True)
-
-
-@docker.command('update')
-@crash_report
-def _update():
-    """Update Docker Desktop.
-    """
-    if utils.system() == 'Windows':
-        term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and check for updates there.')
-    else:
-        update_docker_desktop()
-
-
-@docker.command('version')
-@crash_report
-def _version():
-    """Show Docker Desktop version
-    """
-    term.echo(docker_desktop_version())
 
 
 def run(image_url :str) -> Tuple[Popen, str]:
@@ -563,16 +579,17 @@ def run(image_url :str) -> Tuple[Popen, str]:
         raise Exception('Failed to start container')
     return docker_run_p, port
 
-@click.argument("url")
-@docker.command('run')
-@ensure_docker_running
-@crash_report
-def _run(url):
-    """Run container from image.
+## Functionality now made availeble to avoid confusion
+# @click.argument("url")
+# @docker.command('run')
+# @ensure_docker_running
+# @crash_report
+# def _run(url):
+#     """Run container from image.
      
-    Use for running locally built images.    
-    """
-    run(url)
+#     Use for running locally built images.    
+#     """
+#     run(url)
 
 ###########################################################
 # docker prune subcommands
@@ -581,7 +598,7 @@ def _run(url):
 @docker.group(cls=AliasedGroup)
 @crash_report
 def prune():
-    """Docker pruning commands.
+    """Commands for cleaning up Docker's use of disk space.
     """
     pass
 
@@ -639,8 +656,7 @@ def _prune_images():
 
 
 def prune_all():
-    """
-    Prunes all Docker elements.
+    """Prunes all Docker elements.
     """
     # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', silent=True)
     utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', check=False)
@@ -695,13 +711,12 @@ def _prune_all():
 @docker.group(cls=AliasedGroup)
 @crash_report
 def kill():
-    """Docker kill commands.
+    """Commands for killing running containers.
     """
     pass
 
 def kill_container(container_id: str) -> None:
-    """
-    Kills a running container.
+    """Kills a running container.
 
     Parameters
     ----------
@@ -789,7 +804,7 @@ def kill_selected_containers(container_id: str=None) -> None:
 @docker.group(cls=AliasedGroup)
 @crash_report
 def show():
-    """Docker show commands
+    """Commands for showing Docker content.
     """
     pass
 
@@ -917,7 +932,7 @@ def _images():
 @ensure_docker_running
 @crash_report
 def remove():
-    """Remove Docker images and volumes
+    """Commands for removing images and containers.
     """
     pass
 
@@ -995,11 +1010,11 @@ def _remove_everything():
     remove_everything()             
 
 ###########################################################
-# docker config subcommands
+# docker desktop config subcommands
 ###########################################################
 
 
-@docker.group(cls=AliasedGroup)
+@desktop.group(cls=AliasedGroup)
 @crash_report
 def config():
     """Docker configuration.
