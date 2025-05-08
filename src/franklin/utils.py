@@ -179,7 +179,7 @@ def gather_crash_info(include_log=True) -> str:
     Gathers information about the system and the crash.
     """
     info = f"Python: {sys.executable}\n"
-    info += f'Version of franklin: {package_version('franklin')}\n'    
+    info += f'Version of franklin: {package_version("franklin")}\n'    
     info += f'Version of franklin-educator: {package_version('franklin-educator')}\n'
     for k, v in platform.uname()._asdict().items():
         info += f"{k}: {v}\n"
