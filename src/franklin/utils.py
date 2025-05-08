@@ -180,7 +180,7 @@ def gather_crash_info(include_log=True) -> str:
     """
     info = f"Python: {sys.executable}\n"
     info += f'Version of franklin: {package_version("franklin")}\n'    
-    info += f'Version of franklin-educator: {package_version('franklin-educator')}\n'
+    info += f'Version of franklin-educator: {package_version("franklin-educator")}\n'
     for k, v in platform.uname()._asdict().items():
         info += f"{k}: {v}\n"
     info += f"Platform: {platform.platform()}\n"
