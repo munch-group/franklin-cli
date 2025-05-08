@@ -1,4 +1,10 @@
 
+## [v0.19.15] - 2025-05-08
+### Bug Fixes
+- [`236d7de`](https://github.com/munch-group/franklin/commit/236d7de1dbcea1d017a79040c30c2e5296dce23b) - fix to release script *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+- [`a2b668b`](https://github.com/munch-group/franklin/commit/a2b668bd317016c8d8b3236481b31da29c6ff62d) - bug fix in is_educator *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.19.14] - 2025-04-28
 ### Bug Fixes
 - [`e0107f3`](https://github.com/munch-group/franklin/commit/e0107f395b5eaf862a7558f1586613b1f8a4fb79) - now using https for repo download *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -68,3 +74,4 @@
 [v0.19.12]: https://github.com/munch-group/franklin/compare/v0.19.11...v0.19.12
 [v0.19.13]: https://github.com/munch-group/franklin/compare/v0.19.12...v0.19.13
 [v0.19.14]: https://github.com/munch-group/franklin/compare/v0.19.13...v0.19.14
+[v0.19.15]: https://github.com/munch-group/franklin/compare/v0.19.14...v0.19.15
