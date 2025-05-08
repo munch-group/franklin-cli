@@ -23,6 +23,15 @@ import shutil
 import pyperclip
 
 
+def is_educator():
+    print("Checking if user is educator...")
+    cmd = f'ssh -T git@{cfg.gitlab_domain}'
+    p = subprocess.run(utils.fmt_cmd(cmd), capture_output=True)
+    if not p.returncode and p.stdout.decode().startswith('Welcome to GitLab'):
+        return True
+    return False
+
+
 def config_gitui() -> None:
     """
     Copies gitui config files to the user's config directory.

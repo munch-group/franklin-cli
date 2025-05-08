@@ -61,8 +61,8 @@ def _run(allow_subdirs_at_your_own_risk: bool, update: str) -> None:
         term.secho(line, nowrap=True, center=True, fg='green', log=False)
 
     term.echo()
-    term.echo('"Science and everyday life cannot and should not be separated"', center=True)
-    term.echo("Rosalind D. Franklin", center=True)
+    # term.echo('"Science and everyday life cannot and should not be separated"', center=True)
+    term.echo("Rosalind D.", center=True)
     term.echo()
 
     if not allow_subdirs_at_your_own_risk:

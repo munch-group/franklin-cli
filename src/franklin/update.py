@@ -45,6 +45,8 @@ def update_client() -> None:
         except utils.Crash:
             logger.debug("Update failed, trying to install latest version")
             install_latest_conda_version('franklin')
+    except KeyboardInterrupt:
+        raise click.Abort()
     except:
         raise utils.UpdateCrash(
             'Franklin update failed!',
@@ -81,10 +83,11 @@ def update_client() -> None:
     if (franklin_version is not None and franklin_version != utils.package_version('franklin')) or \
         (franklin_educator_version is not None and franklin_educator_version != utils.package_version('franklin-educator')):
 
-        if click.confirm(f"Reset to recommended Docker settings fitted to your machine resources?", default=True):
-            docker.config_fit()
+        if utils.is_educator():
+            if click.confirm(f"Reset to recommended Docker settings fitted to your machine resources?", default=True):
+                docker.config_fit()
 
-        if click.confirm(f"Reset to recommended Git settings?", default=True):
+#        if click.confirm(f"Reset to recommended Git settings?", default=True):
             config_gitui()
 
 

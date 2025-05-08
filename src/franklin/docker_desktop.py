@@ -481,7 +481,7 @@ def update_docker_desktop() -> None:
     else:
         stdout = utils.run_cmd('docker desktop update --check-only')
         if 'is already the latest version' not in stdout:
-            term.secho('Docker Desktop is updating, which may take a while. Do not interrupt the process. You may be prompted to allow Docker to update.', fg='red')
+            term.secho('Docker Desktop is updating, which may take a while. Do not interrupt the process. You may be prompted for your password to allow the update.', fg='red')
             utils.run_cmd('docker desktop update --quiet')
             term.dummy_progressbar(seconds=60, label='Docker Desktop is updating:')
 

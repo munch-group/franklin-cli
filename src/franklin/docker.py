@@ -358,7 +358,7 @@ def image_list(callback: Callable=None):
 @with_plugins(iter_entry_points('franklin.docker.plugins'))
 @click.group(cls=AliasedGroup)
 def docker():
-    """Docker commands
+    """Commands for Docker
     """
     pass
 
@@ -549,7 +549,7 @@ def run(image_url :str) -> Tuple[Popen, str]:
     port = '8888'
     occupied_ports = utils.jupyter_ports_in_use()
     if occupied_ports:
-        term.echo(f"Default host port {port} is in use.", nl=False)
+        term.echo(f"Default host port {port} is in use. ", nl=False)
         port = str(max(occupied_ports) + 1)
         term.echo(f"Using port {port} instead.")
 

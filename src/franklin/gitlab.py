@@ -19,15 +19,7 @@ from . import utils
 from . import cutie
 from . import terminal as term
 from .logger import logger
-
-
-def is_educator():
-    print("Checking if user is educator...")
-    cmd = f'ssh -T git@{cfg.gitlab_domain}'
-    p = subprocess.run(cmd, capture_output=True)
-    if not p.returncode and p.stdout.decode().startswith('Welcome to GitLab'):
-        return True
-    return False
+from .utils import is_educator
 
 def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
     """
