@@ -1,4 +1,11 @@
 
+## [v0.19.18] - 2025-05-09
+### Bug Fixes
+- [`50d3636`](https://github.com/munch-group/franklin/commit/50d36365923c17dd17a88770a341ab6eb25cc82c) - multiple bug fixes and action update *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+- [`fdfba7f`](https://github.com/munch-group/franklin/commit/fdfba7f2f93757040024f4382ff768a8832ba1cd) - typo *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+- [`c85f609`](https://github.com/munch-group/franklin/commit/c85f6092df1f4bcd873a28f2010804a48fd5606c) - typo *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.19.15] - 2025-05-08
 ### Bug Fixes
 - [`236d7de`](https://github.com/munch-group/franklin/commit/236d7de1dbcea1d017a79040c30c2e5296dce23b) - fix to release script *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -75,3 +82,4 @@
 [v0.19.13]: https://github.com/munch-group/franklin/compare/v0.19.12...v0.19.13
 [v0.19.14]: https://github.com/munch-group/franklin/compare/v0.19.13...v0.19.14
 [v0.19.15]: https://github.com/munch-group/franklin/compare/v0.19.14...v0.19.15
+[v0.19.18]: https://github.com/munch-group/franklin/compare/v0.19.16...v0.19.18
