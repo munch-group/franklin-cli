@@ -35,7 +35,8 @@ banner = """
 @with_plugins(iter_entry_points('franklin.jupyter.plugins'))
 @click.group(cls=AliasedGroup)
 def jupyter():
-    """Jupyter commands"""
+    """Commands for running Jupyter
+    """
     pass
 
 # @click.option("--allow-subdirs-at-your-own-risk/--no-allow-subdirs-at-your-own-risk",

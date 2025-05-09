@@ -24,12 +24,13 @@ def franklin():
 franklin.add_command(_update.update)
 franklin.add_command(_docker.docker)
 franklin.add_command(_jupyter.jupyter)
-franklin.add_command(_howto.howto)
+# franklin.add_command(_howto.howto)
 
 @with_plugins(iter_entry_points('franklin.exercise.plugins'))
 @click.group()
 def exercise():
-    """Franklin exercises"""
+    """Commands for accessing exercises
+    """
     pass
 
 @exercise.command('download')

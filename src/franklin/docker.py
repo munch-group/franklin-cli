@@ -358,7 +358,7 @@ def image_list(callback: Callable=None):
 @with_plugins(iter_entry_points('franklin.docker.plugins'))
 @click.group(cls=AliasedGroup)
 def docker():
-    """Commands for Docker
+    """Commands for managing Docker
     """
     pass
 

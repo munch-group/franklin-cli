@@ -96,6 +96,6 @@ def update_client() -> None:
 @click.command('update')
 @crash_report
 def update():
-    """Update the Franklin client.
+    """Updates Franklin
     """    
     update_client()
