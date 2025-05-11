@@ -2,7 +2,7 @@ import shutil
 from . import config as cfg
 import click
 import time
-from . import utils
+from . import system
 from .logger import logger
 from . import terminal as term
 from typing import Tuple, List, Dict, Callable, Any
@@ -12,7 +12,6 @@ def check_window_size() -> None:
     Check if the window is at least cfg.min_window_width x cfg.min_window_height
     If not, prompt the user to resize the window.
     """
-
     def _box(text):
         window_box = \
             '|' + '-'*(cfg.min_window_width-2) + '|\n' + \
@@ -20,7 +19,6 @@ def check_window_size() -> None:
             '| ' + text.ljust(cfg.min_window_width-3) + '|\n' + \
             '|' + '-'*(cfg.min_window_width-2) + '|' 
         return '\n'*150 + window_box
-
 
     ts = shutil.get_terminal_size()
     if ts.columns < cfg.min_window_width or ts.lines < cfg.min_window_height:
@@ -32,8 +30,6 @@ def check_window_size() -> None:
             time.sleep(0.1)
         click.secho(_box('Thanks!'), fg='green', bold=True)
         click.pause()
-
-    text = 'Please resize the window to at least fit this square'
 
 
 def dummy_progressbar(seconds: str, label: str='Hang on...', ljust=None, **kwargs: dict) -> None:
@@ -155,10 +151,8 @@ def secho(text: str='', width: int=None, center: bool=False, nowrap: bool=False,
             except UnicodeEncodeError:
                 line = str.decode('utf-8',errors='ignore')
                 logger.debug(line.strip())
-                
-
                 pass
-    if utils.system() == 'Windows' and not cfg.bold_text_on_windows:
+    if system.system() == 'Windows' and not cfg.bold_text_on_windows:
         kwargs['bold'] = False
     click.secho(text, **kwargs)
 
@@ -217,4 +211,3 @@ def boxed_text(header: str, lines: list=[], prompt: str='', **kwargs: dict) -> N
     term.echo()
     if prompt:
         click.pause('')
-

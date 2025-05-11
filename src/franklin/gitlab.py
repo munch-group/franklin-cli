@@ -4,22 +4,16 @@ import click
 import subprocess
 from subprocess import DEVNULL, STDOUT, PIPE
 import os
-import shutil
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Tuple, List, Dict, Callable, Any
-import webbrowser
-import pyperclip
-import platform
-from pkg_resources import iter_entry_points
-from click_plugins import with_plugins
 import importlib_resources
-
 from . import config as cfg
 from . import utils
 from . import cutie
 from . import terminal as term
 from .logger import logger
 from .utils import is_educator
+from . import system
 
 def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
     """
@@ -36,9 +30,7 @@ def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
         A dictionary with the course and exercise names as keys and the image locations
     """
     s = requests.Session()
-    # s.auth = ('user', 'pass')
     s.headers.update({'PRIVATE-TOKEN': cfg.gitlab_token})
-    # s.headers.update({'PRIVATE-TOKEN': 'glpat-BmHo-Fh5R\_TvsTHqojzz'})
     images = {}
     r  = s.get(registry,  headers={ "Content-Type" : "application/json"})
     if not r.ok:
@@ -151,8 +143,14 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
         exercise_names = get_exercise_names(course)
         # only use those with listed images and not with 'HIDDEN' in the name
         for key, val in list(exercise_names.items()):
-            if (course, key) not in exercises_images or ('HIDDEN' in val and hide_hidden):
+            if (course, key) not in exercises_images:
                 del exercise_names[key]
+            if 'HIDDEN' in val:
+                if hide_hidden:
+                    del exercise_names[key]
+                else:
+                    exercise_names[key] = val + ' (hidden from students)'
+                    
         if exercise_names:
             break
         term.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
@@ -191,10 +189,20 @@ def select_image() -> str:
     return selected_image
 
 
-def download() -> None:
+@click.command(epilog=f'See {cfg.documentation_url} for more details')
+def download():
+    """Download selected exercise from GitLab
     """
-    "Downloads" an exercise from GitLab.
-    """
+    try:
+        import franklin_educator
+        term.boxed_text("Are you an educator?",
+                        ['It seems you are an educator. If you intend upload to edit and '
+                         'upload changes to an exercise, you must use "franklin git down" instead.'],
+                        fg='red')
+        click.confirm("Continue?", default=False, abort=True)
+    except ImportError:
+        pass
+
     # get images for available exercises
     registry = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}/registry/repositories'
     exercises_images = get_registry_listing(registry)
@@ -208,11 +216,11 @@ def download() -> None:
     clone_url = f'https://gitlab.au.dk/{cfg.gitlab_group}/{course}/{repo_name}.git'
     repo_local_path = os.path.join(os.getcwd(), listed_exercise_name)
 
-    if utils.system() == 'Windows':
+    if system.system() == 'Windows':
         repo_local_path = PureWindowsPath(repo_local_path)
 
     if os.path.exists(repo_local_path):
-        term.secho(f"The exercise folder already exists: {repo_local_path}.")
+        term.secho(f"The exercise folder already exists:\n{repo_local_path}.")
         raise click.Abort()
 
     output = utils.run_cmd(f'git clone {clone_url} {repo_local_path}')

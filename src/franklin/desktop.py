@@ -10,13 +10,52 @@ import json
 from . import config as cfg
 from subprocess import check_output, DEVNULL, TimeoutExpired
 from .logger import logger
+from . import system
 import subprocess
 import time
 import shutil
 from packaging.version import Version, InvalidVersion
 import psutil
 from pathlib import Path
-from typing import Any
+from typing import Tuple, List, Dict, Callable, Any
+from functools import wraps
+from . import system
+
+
+def ensure_docker_installed(func: Callable) -> Callable:
+    """
+    Decorator for functions that require Docker Desktop to be installed.
+
+    Parameters
+    ----------
+    func : 
+        Function.
+
+    Returns
+    -------
+    :
+        Decorated function.
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+
+        if not shutil.which('docker'):
+            term.boxed_text(f"Franklin needs Docker Desktop", 
+                            ['Franklin depends on a program called Docker Desktop that needs '
+                            'to be installed on your computer. '
+                            'You can download it from ',
+                            'https://docs.docker.com/get-started/get-docker ',
+                            'and follow the default installation procedure.',
+                            # 'If you have a Mac you can use the command below to install it:',
+                            # '',
+                            # '  franklin docker install',
+                            # '',
+                            ],
+                            fg='blue')
+            sys.exit(1)
+
+        return func(*args, **kwargs)
+    return wrapper
 
 
 def get_user_config_file() -> str:
@@ -24,11 +63,11 @@ def get_user_config_file() -> str:
     Returns the path to the user configuration file for Docker Desktop.
     """
     home = Path.home()
-    if utils.system() == 'Darwin':
+    if system.system() == 'Darwin':
         json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
-    elif utils.system() == 'Windows':
+    elif system.system() == 'Windows':
         json_settings = home / 'AppData/Roaming/Docker/settings-store.json'
-    elif utils.system() == 'Linux':
+    elif system.system() == 'Linux':
         json_settings = home / '.docker/desktop/settings-store.json'
     return json_settings
 
@@ -60,11 +99,11 @@ def write_user_config(settings: dict) -> None:
 #     """
 #     def __init__(self):
 #         home = Path.home()
-#         if utils.system() == 'Darwin':
+#         if system.system() == 'Darwin':
 #             self.json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
-#         elif utils.system() == 'Windows':
+#         elif system.system() == 'Windows':
 #             self.json_settings = home / 'AppData/Roaming/Docker/settings-store.json'
-#         elif utils.system() == 'Linux':
+#         elif system.system() == 'Linux':
 #             self.json_settings = home / '.docker/desktop/settings-store.json'
 
 #     def user_config_file(self):
@@ -109,14 +148,11 @@ def config_get(variable: str=None) -> None:
         term.echo(f'{variable}: {config[variable]}')
         return
     
-    for variable in cfg.docker_settings:
+    for variable in sorted(cfg.docker_settings):
         if variable in config:
-            term.echo(f'{str(variable).rjust(31)}: {config[variable]}')
+            term.echo(f'{str(variable).rjust(31)}: {config[variable]}', nowrap=True)
 
     write_user_config(config)
-
-
-
 
     # with docker_config() as config:
     #     if variable is not None:
@@ -173,13 +209,13 @@ def config_reset(variable: str=None) -> None:
         Variable name, by default None in which case all variables are reset.
     """
     if variable:
+        logger.debug(f"Setting {variable} to {cfg.docker_settings[variable]}")
         config_set(variable, cfg.docker_settings[variable])
     else:
         config = read_user_config()
         for variable in cfg.docker_settings:
-            if variable in config:
-                logger.debug(f"Resetting {variable} to {cfg.docker_settings[variable]}")
-                config[variable] = cfg.docker_settings[variable]
+            logger.debug(f"Setting {variable} to {cfg.docker_settings[variable]}")
+            config[variable] = cfg.docker_settings[variable]
         write_user_config(config)
 
 
@@ -199,14 +235,14 @@ def config_fit():
     config_set('MemoryMiB', int(mem_mb // 2))
 
 
-def install_docker_desktop() -> None:
+def install_desktop() -> None:
     """
     Downloads and installs Docker Desktop on Windows or Mac.
     """
     architecture = sysconfig.get_platform().split('-')[-1]
     assert architecture
 
-    operating_system = utils.system()
+    operating_system = system.system()
 
     if operating_system == 'Darwin':
         if os.path.exists('/Applications/Docker.app'):
@@ -244,7 +280,6 @@ def install_docker_desktop() -> None:
 
 
     with requests.get(download_url, stream=True) as response:
-#        response = requests.get(download_url, stream=True)
         if not response.ok:
             term.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
             sys.exit(1)
@@ -262,12 +297,12 @@ def install_docker_desktop() -> None:
     # if the user already has a user config file, we temporarily set OpenUIOnStartupDisabled 
     # to False so that the user can see the Dashboard under the install procedure
 
-    if utils.system() == 'Windows':
+    if system.system() == 'Windows':
         click.launch(installer_path, wait=True)
 
         click.launch('/Applications/Docker.app')
 
-    elif utils.system() == 'Darwin':
+    elif system.system() == 'Darwin':
         term.echo('Installing:')
         try:
             output = utils.run_cmd(f'hdiutil detach /Volumes/Docker', check=False)
@@ -281,7 +316,6 @@ def install_docker_desktop() -> None:
 
         if get_user_config_file().parent.exists():
             config_reset()
-            # config_set('OpenUIOnStartupDisabled', False)
 
         term.boxed_text(f"In Docker Desktop", 
                         ['Franklin will open Docker Desktop. You must then:',
@@ -294,74 +328,53 @@ def install_docker_desktop() -> None:
                         prompt='Press Enter to continue.',
                         fg='blue', subsequent_indent='   ')
         
-        # term.echo('Franklin will open Docker Desktop. You must:'
-        #           '' so you can accept the license agreement. '
-        #           'Once you have completed the setup, Quick Docker Desktop and setup. '
-        #           'You can skip creating an account and the questionnaire. ')
-        # click.pause('Press Enter to continue.')
-        
-
         click.launch('/Applications/Docker.app', wait=True)
-
 
     if not shutil.which('docker'):
         term.secho("Docker Desktop installation failed or is incomplete. Please install Docker Desktop manually.", fg='red')
         sys.exit(1)
 
-    if not docker_desktop_status() == 'running':
-        docker_desktop_start()
+    if not desktop_status() == 'running':
+        desktop_start()
         term.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
 
-    if not docker_desktop_status() == 'running':
+    if not desktop_status() == 'running':
         term.secho("Docker Desktop is not running. Please install Docker Desktop manually.", fg='red')
         sys.exit(1)
 
     config_reset()
 
-    if utils.system() == 'Darwin':
-        update_docker_desktop()
+    if system.system() == 'Darwin':
+        update_desktop()
+
+    #  start /w "" "Docker Desktop Installer.exe" uninstall
+    #  /Applications/Docker.app/Contents/MacOS/uninstall
 
 
-
-
-#  start /w "" "Docker Desktop Installer.exe" uninstall
-#  /Applications/Docker.app/Contents/MacOS/uninstall
-
-def failsafe_start_docker_desktop() -> None:
+@ensure_docker_installed
+def failsafe_start_desktop() -> None:
     """
     Starts Docker Desktop if it is not running, attempting to handle any errors.
     """
-    if not shutil.which('docker'):
-         
-        term.boxed_text(f"Franklin needs Docker Desktop", 
-                        ['Franklin depends on a program called Docker Desktop that needs '
-                        'to be installed on your computer. '
-                        'You can download it from ',
-                        'https://docs.docker.com/get-started/get-docker ',
-                        'and follow the default installation procedure.',
-                        # 'If you have a Mac you can use the command below to install it:',
-                        # '',
-                        # '  franklin docker install',
-                        # '',
-                        ],
-                        fg='blue')
-        sys.exit(1)
+
+    logger.debug('Starting Docker Desktop')
 
     config_set('OpenUIOnStartupDisabled', True)
 
-    if not docker_desktop_status() == 'running':
-        docker_desktop_start()
+    if not desktop_status() == 'running':
+        desktop_restart()
+        term.echo('')
         term.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
 
-    if not docker_desktop_status() == 'running':
+    if not desktop_status() == 'running':
         term.secho("Could not reach Docker Desktop. Please quit Docker Desktop manually.", fg='red')
         sys.exit(1)
 
-    if utils.system() == 'Darwin':
-        update_docker_desktop()
+    if system.system() == 'Darwin':
+        update_desktop()
 
 
-def docker_desktop_restart() -> None:
+def desktop_restart() -> None:
     """
     Restart Docker Desktop.
     """
@@ -379,7 +392,7 @@ def docker_desktop_restart() -> None:
     return True
 
 
-def docker_desktop_start() -> None:
+def desktop_start() -> None:
     """
     Start Docker Desktop.
     """    
@@ -397,15 +410,14 @@ def docker_desktop_start() -> None:
     return True
 
 
-def docker_desktop_stop() -> None:
+def desktop_stop() -> None:
     """
     Stop Docker Desktop.
     """       
-    # _command('docker desktop stop', silent=True)
     utils.run_cmd('docker desktop stop', check=False)
 
 
-def docker_desktop_status() -> str:
+def desktop_status() -> str:
     """
     Status of Docker Desktop.
 
@@ -414,7 +426,6 @@ def docker_desktop_status() -> str:
     :
         'running' if Docker Desktop is running.
     """
-
     stdout = utils.run_cmd('docker desktop status --format json', check=False)
     if not stdout:
         return 'not running'
@@ -422,7 +433,7 @@ def docker_desktop_status() -> str:
     return data['Status']
 
 
-def docker_desktop_version() -> Version:
+def desktop_version() -> Version:
     """
     Docker Desktop version.
 
@@ -447,7 +458,6 @@ def get_latest_docker_version() -> Version:
         Docker Desktop version.
     """
     # A bit of a hack: gets version as tag of base docker image (which is for use with "docker in docker")
-
     s = requests.Session()
     url = 'https://registry.hub.docker.com/v2/namespaces/library/repositories/docker/tags'
     tags = []
@@ -465,12 +475,12 @@ def get_latest_docker_version() -> Version:
     return max(tags)
 
 
-def update_docker_desktop() -> None:
+def update_desktop() -> None:
     """
     Update Docker Desktop if a newer version is available.
     """
-    if utils.system() == 'Windows':
-        current_engine_version = docker_desktop_version()
+    if system.system() == 'Windows':
+        current_engine_version = desktop_version()
         most_recent_version = get_latest_docker_version()
         if current_engine_version < most_recent_version:
             term.boxed_text(f"Update Docker Desktop",

@@ -1,19 +1,12 @@
 name: Build and upload conda packages
 
-# # only run when a release tag is pushed to main
-# on:
+on:
+  push:
 #   release:
 #     types:
 #       - 'released'
-#   # push:
-#   #   branches:
-#   #     - 'main'    
-
-# # workflow_dispatch:        # Un comment line if you also want to trigger action manually
-
-
-on:
-  push:
+#   branches:
+#     - 'main'      
     tags:
       - v[0-9]+.[0-9]+.[0-9]+
 

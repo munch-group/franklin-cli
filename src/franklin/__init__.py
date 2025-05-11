@@ -1,51 +1,38 @@
 import click
+from pkg_resources import iter_entry_points
+from click_plugins import with_plugins
 from . import docker as _docker
-from . import jupyter as _jupyter
-from .utils import AliasedGroup
 from . import config as cfg
-from . import howto as _howto
 from . import update as _update
 from . import gitlab as _gitlab
 from . import terminal as term
+from . import desktop
+from . import config as cfg
+from . import options
+from . import jupyter as _jupyter
+from .utils import AliasedGroup
 
-from pkg_resources import iter_entry_points
-from click_plugins import with_plugins
 
-@click.version_option(package_name='franklin')
 @with_plugins(iter_entry_points('franklin.plugins'))
-@click.group(cls=AliasedGroup)
-def franklin():
+@click.group(cls=AliasedGroup, context_settings={"auto_envvar_prefix": "FRANKLIN"}, epilog=f'See {cfg.documentation_url} for more details')
+@click.version_option(package_name='franklin')
+@options.update
+def franklin(update: bool) -> None:
     """
-    Franklin is a tool for running Jupyter servers predefined as Docker containers. 
-    For more information relevant to students, instructors, and professors, see the
-    online at https://munch-group.org/franklin.
+    A tool to download notebook exercises and run jupyter in a way that fits each exercise.    
     """
+    term.check_window_size()
+    # utils.show_banner()
+    if update:
+        _update.update_client()
+    desktop.ensure_docker_installed(lambda _: None)
+    desktop.config_set('UseResourceSaver', False)
+
 
 franklin.add_command(_update.update)
-franklin.add_command(_docker.docker)
+
 franklin.add_command(_jupyter.jupyter)
-# franklin.add_command(_howto.howto)
 
-@with_plugins(iter_entry_points('franklin.exercise.plugins'))
-@click.group()
-def exercise():
-    """Commands for accessing exercises
-    """
-    pass
+franklin.add_command(_docker.docker)
 
-@exercise.command('download')
-def _download():
-    """Download selected exercise from GitLab"""
-    try:
-        import franklin_educator
-        term.boxed_text("Are you an educator?",
-                        ['It seems you are an educator. If you intend upload to edit and '
-                         'upload changes to an exercise, you must use "franklin git down" instead.'],
-                        fg='red')
-        click.confirm("Continue?", default=False, abort=True)
-    except ImportError:
-        pass
-    _gitlab.download()
-
-
-franklin.add_command(exercise)
+franklin.add_command(_gitlab.download)
