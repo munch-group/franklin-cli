@@ -193,6 +193,298 @@
     ]
   },
   {
+    "objectID": "pages/getting_started.html",
+    "href": "pages/getting_started.html",
+    "title": "Getting started",
+    "section": "",
+    "text": "These pages are under construction\nfranklin lets you …\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#installation",
+    "href": "pages/getting_started.html#installation",
+    "title": "Getting started",
+    "section": "Installation",
+    "text": "Installation\nconda install munch-group::franklin",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#basic-use",
+    "href": "pages/getting_started.html#basic-use",
+    "title": "Getting started",
+    "section": "Basic use",
+    "text": "Basic use\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#including-bibtex-references",
+    "href": "pages/getting_started.html#including-bibtex-references",
+    "title": "Getting started",
+    "section": "Including BibTex references",
+    "text": "Including BibTex references\nThere are many ways to manage BibTex references. In ReadCube Papers, you just right-click to select Copy...&gt;BibTex entry and paste it into your BibTex file (I also have a script that formats your entire Papers library for BibTex with meaningful labels).\nYou can render citations in different ways to accommodate their sentence. Skov et al. reported strong selection on the human X chromosome [-@Skov2023]. Lineages in small populations have shorter coalescence times [see @NielsenSlatkin2016, chap. 1]. The Neanderthal genome has been sequenced [@Prufer2012]. The X chromosome is subject to recurrent sweeps [@Nam2015; @Dutheil2015]. Following @Munch2014, we blah blah…",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#images",
+    "href": "pages/getting_started.html#images",
+    "title": "Getting started",
+    "section": "images",
+    "text": "images\nYou can see an elephant in Figure 1.\n\n\n\n\n\n\nFigure 1: Some caption for an illustration showing an elephant\n\n\n\nElephants are big (Figure 2):\n\n\n\n\n\n\nFigure 2\n\n\n\nThere are two elephants in Figure 3. The elephants in Figure 3 (a) and Figure 3 (b) look similar.\n\n\n\n\n\n\n\n\n\n\n\n(a)\n\n\n\n\n\n\n\n\n\n\n\n(b)\n\n\n\n\n\n\n\nFigure 3: Some caption you wrote for an illustration of two elephants.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#footnotes",
+    "href": "pages/getting_started.html#footnotes",
+    "title": "Getting started",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nElephants have long trunks and big ears if they are African. The one on the picture is Indian.↩︎",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#asides",
+    "href": "pages/getting_started.html#asides",
+    "title": "Getting started",
+    "section": "Asides",
+    "text": "Asides\nIf you like, you can make comments in the margin without footnote a reference.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#plot-included-from-notebook",
+    "href": "pages/getting_started.html#plot-included-from-notebook",
+    "title": "Getting started",
+    "section": "Plot included from notebook",
+    "text": "Plot included from notebook\nSee plot Figure 4 below.\n\n\n\n\n\n\n\n\n\nFigure 4: Figure legends are defined alongside the figure in the notebook. The figure size in the notebook is determines its size when embedded in a document 4x3 inches.\n\n\n\n\n\nSource: Workplace interaction\nOr this really wide plot below (Figure 5).\n\n\n\n\n\n\n\n\n\n\nFigure 5: Figure legends are defined alongside the figure in the notebook. The figure size in the notebook is determines its size when embedded in a document 4x3 inches.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#text-included-from-notebook",
+    "href": "pages/getting_started.html#text-included-from-notebook",
+    "title": "Getting started",
+    "section": "Text included from notebook",
+    "text": "Text included from notebook\n\n\n\nThe 24 subjects from workplaces in Denmark were interviewed …. blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#table-included-from-notebook",
+    "href": "pages/getting_started.html#table-included-from-notebook",
+    "title": "Getting started",
+    "section": "Table included from notebook",
+    "text": "Table included from notebook\nThese were selected to represent as many nationalities as possible (Table 1).\nyou can also allow the table to be wider\n\n\n\n\n\nTable 1: People included in the analysis.\n\n\n\n\n\n\n\n\nname\nage\nsex\nposition\nnationality\n\n\n\n\nJulie\n27\nF\nPhDstudent\nDK\n\n\nThomas\n33\nM\nPostdoc\nGB\n\n\nEmilie\n23\nF\nPhDstudent\nCH\n\n\nSofie\n31\nF\nPostdoc\nDK\n\n\nSara\n29\nF\nPostdoc\nUS\n\n\nCecilie\n34\nF\nPostdoc\nDK\n\n\nAnders\n32\nM\nPhDstudent\nUK\n\n\nEmma\n42\nF\nProfessor\nDK\n\n\nCaroline\n31\nF\nPhDstudent\nDK\n\n\nLaura\n30\nF\nPostdoc\nDK\n\n\nMikkel\n33\nM\nPostdoc\nNL\n\n\nJens\n27\nM\nPhDstudent\nDK\n\n\nAndreas\n29\nM\nPhDstudent\nDK\n\n\nJakob\n28\nM\nPhDstudent\nDK\n\n\nMathilde\n61\nF\nProfessor\nDK\n\n\nKatrine\n35\nF\nPostdoc\nDK\n\n\nPoul\n30\nM\nPostdoc\nDK\n\n\nAnna\n26\nF\nPhDstudent\nDK\n\n\nPeter\n42\nM\nProfessor\nGB\n\n\nIda\n53\nF\nPostdoc\nDK\n\n\nFreja\n30\nF\nPostdoc\nDK\n\n\nMaria\n39\nF\nProfessor\nUK\n\n\nAmalie\n29\nF\nPhDstudent\nDK\n\n\nCamilla\n35\nF\nPostdoc\nDK",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#margin-content",
+    "href": "pages/getting_started.html#margin-content",
+    "title": "Getting started",
+    "section": "Margin content",
+    "text": "Margin content\nYou can anything in the margin like Figure 6.\n\n\n\n\n\n\n\n\n\n\n\nFigure 6: Figure legends are defined alongside the figure in the notebook. The figure size in the notebook is determines its size when embedded in a document 4x3 inches.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#diagrams",
+    "href": "pages/getting_started.html#diagrams",
+    "title": "Getting started",
+    "section": "Diagrams",
+    "text": "Diagrams\nDiagram in Figure 7.\n\n\n\n\ngraph G {\n  layout=neato\n  run -- intr;\n  intr -- runbl;\n  runbl -- run;\n  run -- kernel;\n  kernel -- zombie;\n  kernel -- sleep;\n  kernel -- runmem;\n  sleep -- swap;\n  swap -- runswap;\n  runswap -- new;\n  runswap -- runmem;\n  new -- runmem;\n  sleep -- runmem;\n}\n\n\n\n\n\n\n\nG\n\n\n\nrun\n\nrun\n\n\n\nintr\n\nintr\n\n\n\nrun--intr\n\n\n\n\nkernel\n\nkernel\n\n\n\nrun--kernel\n\n\n\n\nrunbl\n\nrunbl\n\n\n\nintr--runbl\n\n\n\n\nrunbl--run\n\n\n\n\nzombie\n\nzombie\n\n\n\nkernel--zombie\n\n\n\n\nsleep\n\nsleep\n\n\n\nkernel--sleep\n\n\n\n\nrunmem\n\nrunmem\n\n\n\nkernel--runmem\n\n\n\n\nsleep--runmem\n\n\n\n\nswap\n\nswap\n\n\n\nsleep--swap\n\n\n\n\nrunswap\n\nrunswap\n\n\n\nswap--runswap\n\n\n\n\nrunswap--runmem\n\n\n\n\nnew\n\nnew\n\n\n\nrunswap--new\n\n\n\n\nnew--runmem\n\n\n\n\n\n\n\n(a) This is a simple graphviz graph.\n\n\n\n\n\n\n\nFigure 7\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\n\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\n\n\nThis is a flow chart.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#code",
+    "href": "pages/getting_started.html#code",
+    "title": "Getting started",
+    "section": "Code",
+    "text": "Code\nExecuted but hide code and any output:\nShow and execute Python code:\n\nx = 5\n\nValues can be embedded in the text, too. The value of x is 5.\nShown, not executed, Python code:\ny = 4\n\n\nA for loop:\nfor i in range(10):\n    print(i)\nShown, not executed, R code:\nz &lt;- 7",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#math",
+    "href": "pages/getting_started.html#math",
+    "title": "Getting started",
+    "section": "Math",
+    "text": "Math\nThis is calculated as \\(\\pi_k = \\prod_{i=1}^K x_i\\). You can crossref formulas (Equation 1).\n\\[\n\\lambda = \\sum_{k=1}^N \\pi_k\n\\tag{1}\\]\n\n\nWe know from the first fundamental theorem of calculus that for \\(x\\) in \\([a, b]\\):\n\\[\\frac{d}{dx}\\left( \\int_{a}^{x} f(u)\\,du\\right)=f(x).\\]",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#bold-and-italics",
+    "href": "pages/getting_started.html#bold-and-italics",
+    "title": "Getting started",
+    "section": "Bold and italics",
+    "text": "Bold and italics\nThis is bold, so is this. This is italics, so is this. This is both, so is this.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#section",
+    "href": "pages/getting_started.html#section",
+    "title": "Getting started",
+    "section": "Section",
+    "text": "Section\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nSubsection\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\n\nSubsubsection\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/docker.html",
+    "href": "pages/docker.html",
+    "title": "Docker",
+    "section": "",
+    "text": "This pages are under construction",
+    "crumbs": [
+      "Key concepts",
+      "Docker"
+    ]
+  },
+  {
+    "objectID": "pages/docker.html#tldr",
+    "href": "pages/docker.html#tldr",
+    "title": "Docker",
+    "section": "TLDR;",
+    "text": "TLDR;",
+    "crumbs": [
+      "Key concepts",
+      "Docker"
+    ]
+  },
+  {
+    "objectID": "pages/docker.html#what-is-docker",
+    "href": "pages/docker.html#what-is-docker",
+    "title": "Docker",
+    "section": "What is Docker",
+    "text": "What is Docker\n\nImages\n\n\nContainers",
+    "crumbs": [
+      "Key concepts",
+      "Docker"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#purpose",
+    "href": "pages/overview.html#purpose",
+    "title": "Franklin overview",
+    "section": "Purpose",
+    "text": "Purpose",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#git",
+    "href": "pages/overview.html#git",
+    "title": "Franklin overview",
+    "section": "Git",
+    "text": "Git",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#gitlab",
+    "href": "pages/overview.html#gitlab",
+    "title": "Franklin overview",
+    "section": "GitLab",
+    "text": "GitLab\n\nAU hosting\n\n\nGitLab Franklin group\n\n\nGitLab Course subgroups\n\n\nGitLab exercise repositories",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#authentication",
+    "href": "pages/overview.html#authentication",
+    "title": "Franklin overview",
+    "section": "Authentication",
+    "text": "Authentication\nWeb GUI: UNI-AD login\n\nAdmin\nKasper (and someone else for backup)\nssh keys\n\n\nVIP\nssh keys\n\n\nStudents\nRead-only token distributed with franklin.",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#docker",
+    "href": "pages/overview.html#docker",
+    "title": "Franklin overview",
+    "section": "Docker",
+    "text": "Docker\n\nImage hierarchy\n\nBase images maintained in the Base\nCourse base images only refer to a versioned base image\n\n\n\nTemplates\n\nEvery course has a repo template with a docker file that that refers to the course base image\nThese templates are forked from franklin/base-templates/base-template\n\n\n\nTag policy\n\nFranklin base images are versioned and must referred to with their version tag\nCourse base images are tagged latest so that courses always pulls updated version.\nExercise images are always tagged latest, which is the tag franklin pulls",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#container-registry",
+    "href": "pages/overview.html#container-registry",
+    "title": "Franklin overview",
+    "section": "Container registry",
+    "text": "Container registry",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/plotting.html",
+    "href": "pages/plotting.html",
+    "title": "Plots with matplotlib",
+    "section": "",
+    "text": "import matplotlib.pyplot as plt\nimport seaborn as sns\nsns.set_style(\"darkgrid\")\n\n# make graphics sharper on a good screen\nfrom matplotlib_inline.backend_inline import set_matplotlib_formats\nset_matplotlib_formats('retina', 'png')\nplt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm) ;  # semi colon makes last value None\nsns.set_style(\"ticks\")\n# sns.set_style(\"darkgrid\")\n# sns.set_style(\"whitegrid\")\n# sns.set_style(\"white\")\n# sns.set_style(\"dark\")\n\nplt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm)\nsns.despine()\nplt.hist(penguins.bill_length_mm) ;",
+    "crumbs": [
+      "Tutorials",
+      "Plots with matplotlib"
+    ]
+  },
+  {
+    "objectID": "pages/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
+    "href": "pages/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
+    "title": "Plots with matplotlib",
+    "section": "FacetGrid.map vs. FacetGrid.map_dataframe",
+    "text": "FacetGrid.map vs. FacetGrid.map_dataframe\nWhen you use FacetGrid.map(func, \"col1\", \"col2\", ...), the function func is passed the values of the columns \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …). In addition, the function always receives a keyword argument named color=.\n\ndef scatter(*args, **kwargs):\n    return plt.scatter(args[0], args[1], **kwargs)\n    \ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(scatter, \"bill_length_mm\", \"flipper_length_mm\") ;\n\n\n\n\n\n\n\n\nWhen you use FacetGrid.map_dataframe(func, \"col1\", \"col2\", ...), the function func is passed the names \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …), and the filtered dataframe as keyword argument data=. In addition, the function always receives a keyword argument named color=.\n\ndef scatterplot(*args, **kwargs):\n    return sns.scatterplot(x=args[0], y=args[1], **kwargs)\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map_dataframe(scatterplot, \"bill_length_mm\", \"flipper_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.histplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.kdeplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"species\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"sex\") ;",
+    "crumbs": [
+      "Tutorials",
+      "Plots with matplotlib"
+    ]
+  },
+  {
+    "objectID": "pages/terminal.html",
+    "href": "pages/terminal.html",
+    "title": "The terminal",
+    "section": "",
+    "text": "This pages are under construction",
+    "crumbs": [
+      "Key concepts",
+      "The terminal"
+    ]
+  },
+  {
     "objectID": "pages/jupyterlab.html",
     "href": "pages/jupyterlab.html",
     "title": "Jupyterlab",
@@ -355,419 +647,6 @@
     "crumbs": [
       "Tutorials",
       "Jupyterlab"
-    ]
-  },
-  {
-    "objectID": "pages/terminal.html",
-    "href": "pages/terminal.html",
-    "title": "The terminal",
-    "section": "",
-    "text": "This pages are under construction",
-    "crumbs": [
-      "Key concepts",
-      "The terminal"
-    ]
-  },
-  {
-    "objectID": "pages/gitlab.html",
-    "href": "pages/gitlab.html",
-    "title": "Gitlab",
-    "section": "",
-    "text": "This pages are under construction\n\n\n\n\n\n\n\n\n\nalt text\n\n\n\n\n\nalt text",
-    "crumbs": [
-      "Key concepts",
-      "Gitlab"
-    ]
-  },
-  {
-    "objectID": "pages/plotting.html",
-    "href": "pages/plotting.html",
-    "title": "Plots with matplotlib",
-    "section": "",
-    "text": "import matplotlib.pyplot as plt\nimport seaborn as sns\nsns.set_style(\"darkgrid\")\n\n# make graphics sharper on a good screen\nfrom matplotlib_inline.backend_inline import set_matplotlib_formats\nset_matplotlib_formats('retina', 'png')\nplt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm) ;  # semi colon makes last value None\nsns.set_style(\"ticks\")\n# sns.set_style(\"darkgrid\")\n# sns.set_style(\"whitegrid\")\n# sns.set_style(\"white\")\n# sns.set_style(\"dark\")\n\nplt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm)\nsns.despine()\nplt.hist(penguins.bill_length_mm) ;",
-    "crumbs": [
-      "Tutorials",
-      "Plots with matplotlib"
-    ]
-  },
-  {
-    "objectID": "pages/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
-    "href": "pages/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
-    "title": "Plots with matplotlib",
-    "section": "FacetGrid.map vs. FacetGrid.map_dataframe",
-    "text": "FacetGrid.map vs. FacetGrid.map_dataframe\nWhen you use FacetGrid.map(func, \"col1\", \"col2\", ...), the function func is passed the values of the columns \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …). In addition, the function always receives a keyword argument named color=.\n\ndef scatter(*args, **kwargs):\n    return plt.scatter(args[0], args[1], **kwargs)\n    \ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(scatter, \"bill_length_mm\", \"flipper_length_mm\") ;\n\n\n\n\n\n\n\n\nWhen you use FacetGrid.map_dataframe(func, \"col1\", \"col2\", ...), the function func is passed the names \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …), and the filtered dataframe as keyword argument data=. In addition, the function always receives a keyword argument named color=.\n\ndef scatterplot(*args, **kwargs):\n    return sns.scatterplot(x=args[0], y=args[1], **kwargs)\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map_dataframe(scatterplot, \"bill_length_mm\", \"flipper_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.histplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.kdeplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"species\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"sex\") ;",
-    "crumbs": [
-      "Tutorials",
-      "Plots with matplotlib"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#purpose",
-    "href": "pages/overview.html#purpose",
-    "title": "Franklin overview",
-    "section": "Purpose",
-    "text": "Purpose",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#git",
-    "href": "pages/overview.html#git",
-    "title": "Franklin overview",
-    "section": "Git",
-    "text": "Git",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#gitlab",
-    "href": "pages/overview.html#gitlab",
-    "title": "Franklin overview",
-    "section": "GitLab",
-    "text": "GitLab\n\nAU hosting\n\n\nGitLab Franklin group\n\n\nGitLab Course subgroups\n\n\nGitLab exercise repositories",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#authentication",
-    "href": "pages/overview.html#authentication",
-    "title": "Franklin overview",
-    "section": "Authentication",
-    "text": "Authentication\nWeb GUI: UNI-AD login\n\nAdmin\nKasper (and someone else for backup)\nssh keys\n\n\nVIP\nssh keys\n\n\nStudents\nRead-only token distributed with franklin.",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#docker",
-    "href": "pages/overview.html#docker",
-    "title": "Franklin overview",
-    "section": "Docker",
-    "text": "Docker\n\nImage hierarchy\n\nBase images maintained in the Base\nCourse base images only refer to a versioned base image\n\n\n\nTemplates\n\nEvery course has a repo template with a docker file that that refers to the course base image\nThese templates are forked from franklin/base-templates/base-template\n\n\n\nTag policy\n\nFranklin base images are versioned and must referred to with their version tag\nCourse base images are tagged latest so that courses always pulls updated version.\nExercise images are always tagged latest, which is the tag franklin pulls",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#container-registry",
-    "href": "pages/overview.html#container-registry",
-    "title": "Franklin overview",
-    "section": "Container registry",
-    "text": "Container registry",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/ssh.html",
-    "href": "pages/ssh.html",
-    "title": "SSH keys",
-    "section": "",
-    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
-    "crumbs": [
-      "Key concepts",
-      "SSH keys"
-    ]
-  },
-  {
-    "objectID": "pages/ssh.html#tldr",
-    "href": "pages/ssh.html#tldr",
-    "title": "SSH keys",
-    "section": "",
-    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
-    "crumbs": [
-      "Key concepts",
-      "SSH keys"
-    ]
-  },
-  {
-    "objectID": "pages/git.html",
-    "href": "pages/git.html",
-    "title": "Git",
-    "section": "",
-    "text": "This pages are under construction",
-    "crumbs": [
-      "Key concepts",
-      "Git"
-    ]
-  },
-  {
-    "objectID": "pages/git.html#tldr",
-    "href": "pages/git.html#tldr",
-    "title": "Git",
-    "section": "TLDR;",
-    "text": "TLDR;",
-    "crumbs": [
-      "Key concepts",
-      "Git"
-    ]
-  },
-  {
-    "objectID": "pages/git.html#git-as-journaled-backup",
-    "href": "pages/git.html#git-as-journaled-backup",
-    "title": "Git",
-    "section": "Git as journaled backup",
-    "text": "Git as journaled backup\nWhen you are in your &lt;repositoryname&gt; folder, you can run git commands to manage your files, record their changes and sync them to the repository on GitHub for safe keeping. These tutorials are good introductions to git.\nTo journal the creation or modification of a file, you need to add it to git:\n\n\nTerminal\n\ngit add &lt;the_changed_file&gt;\n\nThis “stages” the change. This adds the file to the a “group” of changes that represent some modification to your project. You can add more files to that “group” by running the command again with other files. If you run git status you can see that the files are now staged.\nSo maybe you added or changed two python files addressing some parcitular problem or advancing some part of your project. Now you want to store those of changes to the journal maintained by Git and associate it with a short message describing the changes. For that you use:\n\n\nTerminal\n\ngit commit -m '&lt;message&gt;'\n\nIf you added two python files, your description could be 'Added two python files for my analysis'. If you fixed a bug or added new code to the files, your message should reflect that.\nNow your changes are recorded in the version of the &lt;repositoryname&gt; on the cluster, but that does not serve as a backup in case you accidentally delete your entire folder or the cluster burns down. To backup your repository you need to synchronize your local &lt;repositoryname&gt; repository on the cluster with the &lt;repositoryname&gt; repository on GitHub. To du that use:\n\n\nTerminal\n\ngit push\n\nIn addition to keeping your precious files safe and backed up, your GitHub repository also serve as a journal documenting of your progress. Each commit is a snapshot if your project that can be retrieved at any time.",
-    "crumbs": [
-      "Key concepts",
-      "Git"
-    ]
-  },
-  {
-    "objectID": "pages/git.html#git",
-    "href": "pages/git.html#git",
-    "title": "Git",
-    "section": "Git",
-    "text": "Git\nThere is a cheat sheet here and some good visual guides here and here.\nThe three most important commands to learn are: git status, git add, git rm, git mv, git commit and git push.\n\nResolving conflicts\nBlah blah…",
-    "crumbs": [
-      "Key concepts",
-      "Git"
-    ]
-  },
-  {
-    "objectID": "pages/docker.html",
-    "href": "pages/docker.html",
-    "title": "Docker",
-    "section": "",
-    "text": "This pages are under construction",
-    "crumbs": [
-      "Key concepts",
-      "Docker"
-    ]
-  },
-  {
-    "objectID": "pages/docker.html#tldr",
-    "href": "pages/docker.html#tldr",
-    "title": "Docker",
-    "section": "TLDR;",
-    "text": "TLDR;",
-    "crumbs": [
-      "Key concepts",
-      "Docker"
-    ]
-  },
-  {
-    "objectID": "pages/docker.html#what-is-docker",
-    "href": "pages/docker.html#what-is-docker",
-    "title": "Docker",
-    "section": "What is Docker",
-    "text": "What is Docker\n\nImages\n\n\nContainers",
-    "crumbs": [
-      "Key concepts",
-      "Docker"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html",
-    "href": "pages/getting_started.html",
-    "title": "Getting started",
-    "section": "",
-    "text": "These pages are under construction\nfranklin lets you …\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#installation",
-    "href": "pages/getting_started.html#installation",
-    "title": "Getting started",
-    "section": "Installation",
-    "text": "Installation\nconda install munch-group::franklin",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#basic-use",
-    "href": "pages/getting_started.html#basic-use",
-    "title": "Getting started",
-    "section": "Basic use",
-    "text": "Basic use\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#including-bibtex-references",
-    "href": "pages/getting_started.html#including-bibtex-references",
-    "title": "Getting started",
-    "section": "Including BibTex references",
-    "text": "Including BibTex references\nThere are many ways to manage BibTex references. In ReadCube Papers, you just right-click to select Copy...&gt;BibTex entry and paste it into your BibTex file (I also have a script that formats your entire Papers library for BibTex with meaningful labels).\nYou can render citations in different ways to accommodate their sentence. Skov et al. reported strong selection on the human X chromosome [-@Skov2023]. Lineages in small populations have shorter coalescence times [see @NielsenSlatkin2016, chap. 1]. The Neanderthal genome has been sequenced [@Prufer2012]. The X chromosome is subject to recurrent sweeps [@Nam2015; @Dutheil2015]. Following @Munch2014, we blah blah…",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#images",
-    "href": "pages/getting_started.html#images",
-    "title": "Getting started",
-    "section": "images",
-    "text": "images\nYou can see an elephant in Figure 1.\n\n\n\n\n\n\nFigure 1: Some caption for an illustration showing an elephant\n\n\n\nElephants are big (Figure 2):\n\n\n\n\n\n\nFigure 2\n\n\n\nThere are two elephants in Figure 3. The elephants in Figure 3 (a) and Figure 3 (b) look similar.\n\n\n\n\n\n\n\n\n\n\n\n(a)\n\n\n\n\n\n\n\n\n\n\n\n(b)\n\n\n\n\n\n\n\nFigure 3: Some caption you wrote for an illustration of two elephants.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#footnotes",
-    "href": "pages/getting_started.html#footnotes",
-    "title": "Getting started",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nElephants have long trunks and big ears if they are African. The one on the picture is Indian.↩︎",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#asides",
-    "href": "pages/getting_started.html#asides",
-    "title": "Getting started",
-    "section": "Asides",
-    "text": "Asides\nIf you like, you can make comments in the margin without footnote a reference.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#plot-included-from-notebook",
-    "href": "pages/getting_started.html#plot-included-from-notebook",
-    "title": "Getting started",
-    "section": "Plot included from notebook",
-    "text": "Plot included from notebook\nSee plot Figure 4 below.\n\n\n\n\n\n\n\n\n\nFigure 4: Figure legends are defined alongside the figure in the notebook. The figure size in the notebook is determines its size when embedded in a document 4x3 inches.\n\n\n\n\n\nSource: Workplace interaction\nOr this really wide plot below (Figure 5).\n\n\n\n\n\n\n\n\n\n\nFigure 5: Figure legends are defined alongside the figure in the notebook. The figure size in the notebook is determines its size when embedded in a document 4x3 inches.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#text-included-from-notebook",
-    "href": "pages/getting_started.html#text-included-from-notebook",
-    "title": "Getting started",
-    "section": "Text included from notebook",
-    "text": "Text included from notebook\n\n\n\nThe 24 subjects from workplaces in Denmark were interviewed …. blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#table-included-from-notebook",
-    "href": "pages/getting_started.html#table-included-from-notebook",
-    "title": "Getting started",
-    "section": "Table included from notebook",
-    "text": "Table included from notebook\nThese were selected to represent as many nationalities as possible (Table 1).\nyou can also allow the table to be wider\n\n\n\n\n\nTable 1: People included in the analysis.\n\n\n\n\n\n\n\n\nname\nage\nsex\nposition\nnationality\n\n\n\n\nJulie\n27\nF\nPhDstudent\nDK\n\n\nThomas\n33\nM\nPostdoc\nGB\n\n\nEmilie\n23\nF\nPhDstudent\nCH\n\n\nSofie\n31\nF\nPostdoc\nDK\n\n\nSara\n29\nF\nPostdoc\nUS\n\n\nCecilie\n34\nF\nPostdoc\nDK\n\n\nAnders\n32\nM\nPhDstudent\nUK\n\n\nEmma\n42\nF\nProfessor\nDK\n\n\nCaroline\n31\nF\nPhDstudent\nDK\n\n\nLaura\n30\nF\nPostdoc\nDK\n\n\nMikkel\n33\nM\nPostdoc\nNL\n\n\nJens\n27\nM\nPhDstudent\nDK\n\n\nAndreas\n29\nM\nPhDstudent\nDK\n\n\nJakob\n28\nM\nPhDstudent\nDK\n\n\nMathilde\n61\nF\nProfessor\nDK\n\n\nKatrine\n35\nF\nPostdoc\nDK\n\n\nPoul\n30\nM\nPostdoc\nDK\n\n\nAnna\n26\nF\nPhDstudent\nDK\n\n\nPeter\n42\nM\nProfessor\nGB\n\n\nIda\n53\nF\nPostdoc\nDK\n\n\nFreja\n30\nF\nPostdoc\nDK\n\n\nMaria\n39\nF\nProfessor\nUK\n\n\nAmalie\n29\nF\nPhDstudent\nDK\n\n\nCamilla\n35\nF\nPostdoc\nDK",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#margin-content",
-    "href": "pages/getting_started.html#margin-content",
-    "title": "Getting started",
-    "section": "Margin content",
-    "text": "Margin content\nYou can anything in the margin like Figure 6.\n\n\n\n\n\n\n\n\n\n\n\nFigure 6: Figure legends are defined alongside the figure in the notebook. The figure size in the notebook is determines its size when embedded in a document 4x3 inches.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#diagrams",
-    "href": "pages/getting_started.html#diagrams",
-    "title": "Getting started",
-    "section": "Diagrams",
-    "text": "Diagrams\nDiagram in Figure 7.\n\n\n\n\ngraph G {\n  layout=neato\n  run -- intr;\n  intr -- runbl;\n  runbl -- run;\n  run -- kernel;\n  kernel -- zombie;\n  kernel -- sleep;\n  kernel -- runmem;\n  sleep -- swap;\n  swap -- runswap;\n  runswap -- new;\n  runswap -- runmem;\n  new -- runmem;\n  sleep -- runmem;\n}\n\n\n\n\n\n\n\nG\n\n\n\nrun\n\nrun\n\n\n\nintr\n\nintr\n\n\n\nrun--intr\n\n\n\n\nkernel\n\nkernel\n\n\n\nrun--kernel\n\n\n\n\nrunbl\n\nrunbl\n\n\n\nintr--runbl\n\n\n\n\nrunbl--run\n\n\n\n\nzombie\n\nzombie\n\n\n\nkernel--zombie\n\n\n\n\nsleep\n\nsleep\n\n\n\nkernel--sleep\n\n\n\n\nrunmem\n\nrunmem\n\n\n\nkernel--runmem\n\n\n\n\nsleep--runmem\n\n\n\n\nswap\n\nswap\n\n\n\nsleep--swap\n\n\n\n\nrunswap\n\nrunswap\n\n\n\nswap--runswap\n\n\n\n\nrunswap--runmem\n\n\n\n\nnew\n\nnew\n\n\n\nrunswap--new\n\n\n\n\nnew--runmem\n\n\n\n\n\n\n\n(a) This is a simple graphviz graph.\n\n\n\n\n\n\n\nFigure 7\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\n\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\n\n\nThis is a flow chart.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#code",
-    "href": "pages/getting_started.html#code",
-    "title": "Getting started",
-    "section": "Code",
-    "text": "Code\nExecuted but hide code and any output:\nShow and execute Python code:\n\nx = 5\n\nValues can be embedded in the text, too. The value of x is 5.\nShown, not executed, Python code:\ny = 4\n\n\nA for loop:\nfor i in range(10):\n    print(i)\nShown, not executed, R code:\nz &lt;- 7",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#math",
-    "href": "pages/getting_started.html#math",
-    "title": "Getting started",
-    "section": "Math",
-    "text": "Math\nThis is calculated as \\(\\pi_k = \\prod_{i=1}^K x_i\\). You can crossref formulas (Equation 1).\n\\[\n\\lambda = \\sum_{k=1}^N \\pi_k\n\\tag{1}\\]\n\n\nWe know from the first fundamental theorem of calculus that for \\(x\\) in \\([a, b]\\):\n\\[\\frac{d}{dx}\\left( \\int_{a}^{x} f(u)\\,du\\right)=f(x).\\]",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#bold-and-italics",
-    "href": "pages/getting_started.html#bold-and-italics",
-    "title": "Getting started",
-    "section": "Bold and italics",
-    "text": "Bold and italics\nThis is bold, so is this. This is italics, so is this. This is both, so is this.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#section",
-    "href": "pages/getting_started.html#section",
-    "title": "Getting started",
-    "section": "Section",
-    "text": "Section\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nSubsection\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\n\nSubsubsection\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/developing_exercises.html",
-    "href": "pages/developing_exercises.html",
-    "title": "Developing exercises",
-    "section": "",
-    "text": "conda create -n franklin -c conda-forge munch-group::franklin\nconda activate franklin\n\nfranklin exercise down\ncd &lt;repo&gt;\nfranklin jupyter run\nfranklin up\ncd ..",
-    "crumbs": [
-      "Tutorials",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/developing_exercises.html#tldr",
-    "href": "pages/developing_exercises.html#tldr",
-    "title": "Developing exercises",
-    "section": "",
-    "text": "conda create -n franklin -c conda-forge munch-group::franklin\nconda activate franklin\n\nfranklin exercise down\ncd &lt;repo&gt;\nfranklin jupyter run\nfranklin up\ncd ..",
-    "crumbs": [
-      "Tutorials",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/developing_exercises.html#create-an-exercise-repository",
-    "href": "pages/developing_exercises.html#create-an-exercise-repository",
-    "title": "Developing exercises",
-    "section": "Create an exercise repository",
-    "text": "Create an exercise repository\nA git repository is where an exercise lives\n\nexercise.ipynb:: blah blah\nDockerfile: blah blah\nREADME.md:: blah blah\ndocker-entrypoint.sh:: blah blah\ntagged-release.sh:: blah blah",
-    "crumbs": [
-      "Tutorials",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/developing_exercises.html#developchange-a-new-exercise-on-gitlab",
-    "href": "pages/developing_exercises.html#developchange-a-new-exercise-on-gitlab",
-    "title": "Developing exercises",
-    "section": "Develop/change a new exercise on GitLab",
-    "text": "Develop/change a new exercise on GitLab",
-    "crumbs": [
-      "Tutorials",
-      "Developing exercises"
     ]
   },
   {
