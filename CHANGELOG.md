@@ -1,4 +1,9 @@
 
+## [v0.20.0] - 2025-05-11
+### Bug Fixes
+- [`ca9665e`](https://github.com/munch-group/franklin/commit/ca9665e158c9d7361d5aeb896ad59b04b1efb381) - bug fixes and refactorization *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+
+
 ## [v0.19.19] - 2025-05-09
 ### Bug Fixes
 - [`1f7e87a`](https://github.com/munch-group/franklin/commit/1f7e87aaa14b97575a07d7a54b1a324260cb6604) - action fix *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -89,3 +94,4 @@
 [v0.19.15]: https://github.com/munch-group/franklin/compare/v0.19.14...v0.19.15
 [v0.19.18]: https://github.com/munch-group/franklin/compare/v0.19.16...v0.19.18
 [v0.19.19]: https://github.com/munch-group/franklin/compare/v0.19.18...v0.19.19
+[v0.20.0]: https://github.com/munch-group/franklin/compare/v0.19.19...v0.20.0
