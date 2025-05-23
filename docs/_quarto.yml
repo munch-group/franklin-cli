@@ -4,6 +4,10 @@ project:
   # resources:
     # - objects.txt
     # - objects-test.txt
+  post-render: 
+    # - quarto render --profile slides
+    - quarto render pages/student/
+    - quarto render pages/educator/
 
 execute:
   freeze: auto
