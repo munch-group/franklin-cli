@@ -1,3 +1,77 @@
+import sys, os
+import nbformat
+from nbconvert.preprocessors import ExecutePreprocessor
+from nbclient import NotebookClient
+
+from .utils import run_cmd
+
+source = '''
+import types
+def imports():
+    for name, val in globals().items():
+        if isinstance(val, types.ModuleType):
+            yield val.__name__
+        elif isinstance(val, types.FunctionType):
+            if hasattr(val, '__module__') and val.__module__ != 'builtins':
+                yield val.__module__
+        elif isinstance(val, types.BuiltinFunctionType):
+            if val.__module__ != 'builtins':
+                yield val.__module__
+        elif isinstance(val, types.BuiltinMethodType):
+            if val.__self__.__class__.__module__ != 'builtins':
+                yield val.__self__.__class__.__module__
+        # if isinstance(val, types.ModuleType) and val.__name__ != 'builtins':
+        #     yield val.__name__
+list(imports())
+'''
+
+def get_notebook_dependencies(filename: str) -> list:
+
+    with open(filename) as ff:
+        nb = nbformat.read(ff, nbformat.NO_CONVERT)
+        # nb = nbformat.read(ff, as_version=4)
+
+    d = {'cell_type': 'code', 'execution_count': None, 
+    'metadata': {}, 'outputs': [], 'source': source}
+
+    nb['cells'].append(nbformat.from_dict(d))
+
+    client = NotebookClient(nb, timeout=600, kernel_name='python3', resources={'metadata': {'path': '.'}})
+    client.execute()
+    # nbformat.write(nb, 'executed_notebook.ipynb')
+
+    names = eval(nb['cells'][-1]['outputs'][0]['data']['text/plain'])
+
+    modules = []
+    for n in names:
+        if n not in sys.builtin_module_names and not n.startswith('_'):
+            modules.append(n.split('.')[0])
+
+    return modules
+
+
+def update_pixi(modules: list):
+
+    if not os.path.exists('pixi.toml'):
+        run_cmd('pixi init')
+    run_cmd('pixi add ' + ' '.join(modules))
+
+
+def update_dependencies(filename: str):
+    modules = get_notebook_dependencies(filename)
+    update_pixi(modules)
+
+    # #print(type(nb_in['cells'][0]))    
+    # ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+
+    # nb_out = ep.preprocess(nb)
+
+    # print(nb_out)
+    # #print(nb_out['cells'][-1]['outputs'])
+
+
+
+
 import io, os, sys, types
 from IPython import get_ipython
 from nbformat import read
@@ -98,4 +172,4 @@ class NotebookFinder(object):
 #     for name, val in globals().items():
 #         if isinstance(val, types.ModuleType):
 #             yield val.__name__
-# list(imports())
+# list(imports())    
