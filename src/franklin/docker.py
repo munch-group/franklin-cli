@@ -159,7 +159,7 @@ def image_exists(image_url: str) -> bool:
     :
         True if image exists, False otherwise.
     """
-    for image in images(return_json=True):
+    for image in images():
         if image['Repository'].startswith(image_url):
             return True
     return False
@@ -208,7 +208,7 @@ def format_table(header: str, table: List[List[str]], ids: List[str], min_widths
 
     table_width = sum(col_widths) + 4 * len(col_widths) + 2
 
-    term.echo("Move: Arrow up/down, Toggle-select: Space, Confirm: Enter, Abort: Ctrl-C\n"*int(select))
+    term.echo("Toggle-select: Space, Move: Arrow up/down, Confirm: Enter, Abort: Ctrl-C\n"*int(select))
     term.echo('    '*int(select)+'| '+'| '.join([x[:w].ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
     click.echo('-'*(table_width-4*int(not select)))
     rows = []
@@ -299,7 +299,7 @@ def image_list(callback: Callable=None):
     :
         None
     """
-    img = images(return_json=True)
+    img = images()
     if not img:
         click.echo("\nNo images\n")
         return
@@ -311,7 +311,8 @@ def image_list(callback: Callable=None):
     table = []
     ids = []
     prefix = f'{cfg.registry_base_url}/{cfg.gitlab_group}'
-    for img in images(return_json=True):
+
+    for img in images():
         if img['Repository'].startswith(prefix):
 
             rep = img['Repository'].replace(prefix, '')
@@ -326,6 +327,9 @@ def image_list(callback: Callable=None):
             exercise_field = exercise_name
             ids.append(img['ID'])
             table.append((course_field, exercise_field , img['CreatedSince'].replace(' ago', ''), img['Size'].replace("GB", " GB")))
+
+    if not ids:
+        return
 
     if callback is None:
         for row in format_table(header, table, ids, min_widths=[None, None, 9, 9], select=False):
@@ -720,97 +724,6 @@ def _prune_all():
 
 
 ###########################################################
-# docker kill subcommands
-###########################################################
-
-@docker.group(cls=AliasedGroup)
-@crash_report
-def kill():
-    """Commands for killing running containers.
-    """
-    pass
-
-
-def kill_container(container_id: str) -> None:
-    """Kills a running container.
-
-    Parameters
-    ----------
-    container_id : 
-        Container ID.
-    """
-    cmd = fmt_cmd(f'docker kill {container_id}')
-    Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
-
-
-# @docker.command('kill')
-def kill_docker_processes() -> None:
-    """
-    Kills all docker-related processes using SIGTERM AND SIGKILL.
-    """
-    for process in psutil.process_iter():
-        name = process.name().lower()
-        if 'docker' in name and 'franklin' not in name:
-
-            def on_terminate(proc):
-                print("process {} terminated with exit code {}".format(proc, proc.returncode))
-
-            children = psutil.Process(process.pid).children(recursive=True)
-            for child in children:
-                child.terminate()  # friendly termination
-            _, still_alive = psutil.wait_procs(children, timeout=3, callback=on_terminate)
-            for child in still_alive:
-                child.kill()  # unfriendly termination
-
-
-def shutdown_wsl():
-    """
-    Shuts down WSL
-    """
-    if system.system() == 'Windows':
-        logger.debug('Restarting WSL Docker Desktop distribution.')
-        subprocess.check_call('wsl -t docker-desktop')
-        term.dummy_progressbar(10, label='Restarting.')
-        if desktop_status() == 'running':
-            return
-        
-
-def shutdown_wsl_docker_distribution():
-    """
-    Shuts down WSL Docker Desktop distribution
-    """
-    if system.system() == 'Windows':
-        logger.debug('Shutting down WSL Docker Desktop distribution.')
-        term.echo('WSL needs to restart.')
-        subprocess.check_call('wsl --shutdown')    
-        term.dummy_progressbar(10, label='Restarting.')
-        if desktop_status() == 'running':
-            return    
-
-
-@kill.command('containers')
-@click.argument("container_id", required=False)
-@irrelevant_unless_docker_running
-@crash_report
-def kill_selected_containers(container_id: str=None) -> None:
-    """
-    If a container ID is given as argument, this container is killed.
-    Otherwise kills containers selected from a list of running containers. 
-
-    Parameters
-    ----------
-    container_id : 
-        Container ID, by default None
-    """
-
-    if container_id:
-        kill_container(container_id)
-        return
-    
-    container_list(callback=kill_container)
-
-
-###########################################################
 # docker show subcommands
 ###########################################################
 
@@ -935,6 +848,128 @@ def _images():
     """
     # term.echo(_images(), nowrap=True)
     image_list()
+    
+
+###########################################################
+# docker kill subcommands
+###########################################################
+
+@docker.group(cls=AliasedGroup)
+@crash_report
+def kill():
+    """Commands for killing running containers.
+    """
+    pass
+
+
+def kill_container(container_id: str) -> None:
+    """Kills a running container.
+
+    Parameters
+    ----------
+    container_id : 
+        Container ID.
+    """
+    cmd = fmt_cmd(f'docker kill {container_id}')
+    Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
+
+
+# @docker.command('kill')
+def kill_docker_processes() -> None:
+    """
+    Kills all docker-related processes using SIGTERM AND SIGKILL.
+    """
+    for process in psutil.process_iter():
+        name = process.name().lower()
+        if 'docker' in name and 'franklin' not in name:
+
+            def on_terminate(proc):
+                print("process {} terminated with exit code {}".format(proc, proc.returncode))
+
+            children = psutil.Process(process.pid).children(recursive=True)
+            for child in children:
+                child.terminate()  # friendly termination
+            _, still_alive = psutil.wait_procs(children, timeout=3, callback=on_terminate)
+            for child in still_alive:
+                child.kill()  # unfriendly termination
+
+
+def shutdown_wsl():
+    """
+    Shuts down WSL
+    """
+    if system.system() == 'Windows':
+        logger.debug('Restarting WSL Docker Desktop distribution.')
+        subprocess.check_call('wsl -t docker-desktop')
+        term.dummy_progressbar(10, label='Restarting.')
+        if desktop_status() == 'running':
+            return
+        
+
+def shutdown_wsl_docker_distribution():
+    """
+    Shuts down WSL Docker Desktop distribution
+    """
+    if system.system() == 'Windows':
+        logger.debug('Shutting down WSL Docker Desktop distribution.')
+        term.echo('WSL needs to restart.')
+        subprocess.check_call('wsl --shutdown')    
+        term.dummy_progressbar(10, label='Restarting.')
+        if desktop_status() == 'running':
+            return    
+
+
+@kill.command('containers')
+@click.argument("container_id", required=False)
+@irrelevant_unless_docker_running
+@crash_report
+def kill_selected_containers(container_id: str=None) -> None:
+    """
+    If a container ID is given as argument, this container is killed.
+    Otherwise kills containers selected from a list of running containers. 
+
+    Parameters
+    ----------
+    container_id : 
+        Container ID, by default None
+    """
+    
+    if container_id:
+        kill_container(container_id)
+        return
+    
+    container_list(callback=kill_container)
+
+###########################################################
+# cleanup command
+###########################################################
+
+def cleanup_exercises(image_id: str, force=True) -> None:
+
+    for cont in containers():
+        if cont['Image'].startswith(image_id):
+            container_id = cont['ID']
+            logger.debug(f"Killing container: {container_id}")
+            kill_container(container_id, force=force)
+            logger.debug(f"Removing container: {container_id}")
+            rm_container(container_id, force=force)
+            break
+    logger.debug(f"Removing image: {image_id}")
+    rm_image(image_id)
+    
+    
+@click.command('cleanup')
+@click.argument("image_id", required=False)
+@ensure_docker_running
+@crash_report
+def cleanup(image_id=None):
+    """Cleanup after exercises
+    """
+    if image_id:
+        cleanup_exercises(image_id)
+        return
+    image_list(callback=cleanup_exercises)
+    prune_all()
 
 
 ###########################################################

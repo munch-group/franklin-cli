@@ -28,11 +28,12 @@ def franklin(update: bool) -> None:
     desktop.ensure_docker_installed(lambda _: None)
     desktop.config_set('UseResourceSaver', False)
 
-
 franklin.add_command(_update.update)
 
 franklin.add_command(_jupyter.jupyter)
 
-franklin.add_command(_docker.docker)
+# franklin.add_command(_docker.docker)
 
 franklin.add_command(_gitlab.download)
+
+franklin.add_command(_docker.cleanup)
