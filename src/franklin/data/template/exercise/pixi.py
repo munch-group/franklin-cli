@@ -171,7 +171,7 @@ if __name__ == '__main__':
                 shutil.copy(p, 'pixi.toml')
                 break
 
-    cmd = 'pixi add -f exercise ' + ' '.join(dependencies)
+    cmd = 'pixi add --feature exercise.target.linux-64 ' + ' '.join(dependencies)
     cmd = shlex.split(cmd)
     cmd[0] = shutil.which(cmd[0])
     subprocess.run(cmd, check=True)

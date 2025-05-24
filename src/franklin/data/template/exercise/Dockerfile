@@ -5,9 +5,8 @@ COPY . /app
 WORKDIR /app
 
 # extract deps using default env, install them in prod env, test that notebook runs
-RUN pixi run python pixi.py . \
-    && pixi run -e prod PYDEVD_DISABLE_FILE_VALIDATION=1 jupyter nbconvert --Application.log_level=50 --to notebook --execute exercise.ipynb \
-    && jupyter nbconvert --clear-output --inplace exercise.ipynb
+
+RUN pixi run python pixi.py . && pixi install -e prod 
 
 # Create the shell-hook bash script to activate the environment
 RUN pixi shell-hook -e prod > /shell-hook.sh
@@ -30,9 +29,9 @@ WORKDIR /app
 # send stdout and stderr straight to terminal
 ENV PYTHONUNBUFFERED=1
 
-# COPY test-notebook.sh /bin/test-notebook.sh
-# RUN chmod +x /bin/test-notebook.sh
-# COPY exercise.ipynb exercise.ipynb
+COPY test-notebook.sh /bin/test-notebook.sh
+RUN chmod +x /bin/test-notebook.sh
+COPY exercise.ipynb exercise.ipynb
 
 ENV NUMEXPR_MAX_THREADS=8
 

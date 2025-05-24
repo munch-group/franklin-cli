@@ -7,7 +7,8 @@ version = "0.1.0"
 
 [tasks]
 
-# default dependencies (user-added dependencies also go here)
+# default dependencies for building image
+# (user-added dependencies also go here)
 [dependencies]
 python = "*"
 git = "*"
@@ -15,21 +16,19 @@ jupyterlab = "*"
 notebook = "*"
 nodejs = "*"
 
-# extra dependencies for linux docker image
+# additional minimal dependencies in linux docker container
 [target.linux-64.dependencies]
 openssh = "*"
 zip = "*"
 nbdime = "*"
 nbformat = "*"
 ipynbname = "*"
+importlib_resources = "*"
 
-# for the automatically extracted dependencies
+# additional minimal container dependencies automatically
+# extracted from notebooks
 [feature.exercise.dependencies]
-biopython = ">=1.85,<2"
-scipy = ">=1.15.2,<2"
-matplotlib = ">=3.10.3,<4"
-scikit-learn = ">=1.6.1,<2"
-pandas = ">=2.2.3,<3"
+
 
 # docker enironment
 [environments]
@@ -60,6 +59,7 @@ prod = ["default", "exercise"]
 # nbdime = "*"
 # nbformat = "*"
 # ipynbname = "*"
+# importlib_resources = "*"
 
 # # for the automatically extracted dependencies
 # [feature.exercise.dependencies]
