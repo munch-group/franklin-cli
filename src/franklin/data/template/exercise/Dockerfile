@@ -4,10 +4,13 @@ FROM ghcr.io/prefix-dev/pixi:0.47.0-oracular AS build
 COPY . /app
 WORKDIR /app
 
-RUN pixi install -e default
+# extract deps using default env, install them in prod env, test that notebook runs
+RUN pixi run python pixi.py . \
+    && pixi run -e prod PYDEVD_DISABLE_FILE_VALIDATION=1 jupyter nbconvert --Application.log_level=50 --to notebook --execute exercise.ipynb \
+    && jupyter nbconvert --clear-output --inplace exercise.ipynb
 
 # Create the shell-hook bash script to activate the environment
-RUN pixi shell-hook -e default > /shell-hook.sh
+RUN pixi shell-hook -e prod > /shell-hook.sh
 
 # extend the shell-hook script to run the command passed to the container
 RUN echo 'exec "$@"' >> /shell-hook.sh
@@ -20,7 +23,7 @@ ENV PYTHONDONTWRITEBYTECODE=true
 
 # only copy the production environment into prod container
 # please note that the "prefix" (path) needs to stay the same as in the build container
-COPY --from=build /app/.pixi/envs/default /app/.pixi/envs/default
+COPY --from=build /app/.pixi/envs/prod /app/.pixi/envs/prod
 COPY --from=build /shell-hook.sh /shell-hook.sh
 WORKDIR /app
 

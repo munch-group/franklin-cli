@@ -227,8 +227,8 @@ def download():
 
     # Reads contents with UTF-8 encoding and returns str.
     # eml = importlib.resources.files('email.tests.data').joinpath('message.eml').read_text()
-    repo_template_files = [p.name for p in importlib_resources.files().joinpath('data/repo_templates/exercise').iterdir()]
-    dev_files = [p for p in repo_template_files if p != 'exercise.ipynb']
+    template_files = [p.name for p in importlib_resources.files().joinpath('data/templates/exercise').iterdir()]
+    dev_files = [p for p in template_files if p != 'exercise.ipynb']
 
     for path in dev_files:
         path = os.path.join(repo_local_path, path)
