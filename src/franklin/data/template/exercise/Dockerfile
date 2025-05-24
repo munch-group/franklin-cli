@@ -35,6 +35,11 @@ COPY exercise.ipynb exercise.ipynb
 
 ENV NUMEXPR_MAX_THREADS=8
 
+
+# COPY entrypoint.sh /bin/entrypoint.sh
+# RUN chmod +x /bin/entrypoint.sh
+# ENTRYPOINT ["/bin/entrypoint.sh"]
+
 # set the entrypoint to the shell-hook script (activate the environment and run the command)
 # no more pixi needed in the prod container
 ENTRYPOINT ["/bin/bash", "/shell-hook.sh"]
