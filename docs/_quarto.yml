@@ -49,6 +49,10 @@ website:
       #   text: Examples
       - href: api/
         text: API reference
+      - href: pages/student/
+        text: Students
+      - href: pages/educator/
+        text: Educators
     right:
       - icon: github
         href: https://github.com/munch-group/franklin/
