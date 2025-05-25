@@ -94,7 +94,7 @@ website:
             - pages/admin_components.qmd
         - section: "Source code"
           contents:
-            - docker.py
+            - ../src/franklin/docker.py
 
 comments:
   hypothesis: true
