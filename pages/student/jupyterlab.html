@@ -58,23 +58,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dde8d7229bfee0f8bb5efd37f0f9ae1e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-dde8d7229bfee0f8bb5efd37f0f9ae1e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -108,10 +111,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-<link rel="stylesheet" href="../api/_styles-quartodoc.css">
-<link rel="stylesheet" href="../styles.css">
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../api/_styles-quartodoc.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -121,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">franklin</span>
     </a>
   </div>
@@ -132,11 +167,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../api/"> 
+    <a class="nav-link" href="../../api/"> 
 <span class="menu-text">API reference</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../pages/student/"> 
+    <a class="nav-link" href="../../pages/student/"> 
 <span class="menu-text">Student site</span></a>
   </li>  
 </ul>
@@ -162,15 +197,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tldr" id="toc-tldr" class="nav-link active" data-scroll-target="#tldr">TLDR;</a></li>
-  <li><a href="#laptop-setup" id="toc-laptop-setup" class="nav-link" data-scroll-target="#laptop-setup">Laptop setup</a>
+  <li><a href="#starting-jupyter-lab" id="toc-starting-jupyter-lab" class="nav-link active" data-scroll-target="#starting-jupyter-lab">Starting jupyter lab</a></li>
+  <li><a href="#side-panes" id="toc-side-panes" class="nav-link" data-scroll-target="#side-panes">Side panes</a></li>
+  <li><a href="#lauching-a-new-notebook-or-terminal" id="toc-lauching-a-new-notebook-or-terminal" class="nav-link" data-scroll-target="#lauching-a-new-notebook-or-terminal">Lauching a new notebook or terminal</a></li>
+  <li><a href="#multiple-notebooks-or-terminal-views" id="toc-multiple-notebooks-or-terminal-views" class="nav-link" data-scroll-target="#multiple-notebooks-or-terminal-views">Multiple notebooks or terminal views</a></li>
+  <li><a href="#split-windows" id="toc-split-windows" class="nav-link" data-scroll-target="#split-windows">Split windows</a></li>
+  <li><a href="#controls" id="toc-controls" class="nav-link" data-scroll-target="#controls">Controls</a>
   <ul class="collapse">
-  <li><a href="#install-python" id="toc-install-python" class="nav-link" data-scroll-target="#install-python">Install Python</a></li>
-  <li><a href="#the-terminal" id="toc-the-terminal" class="nav-link" data-scroll-target="#the-terminal">The Terminal</a></li>
-  <li><a href="#conda-environments" id="toc-conda-environments" class="nav-link" data-scroll-target="#conda-environments">Conda environments</a></li>
-  <li><a href="#create-a-conda-environment-on-your-local-machine" id="toc-create-a-conda-environment-on-your-local-machine" class="nav-link" data-scroll-target="#create-a-conda-environment-on-your-local-machine">Create a conda environment on your local machine</a></li>
-  <li><a href="#vpn" id="toc-vpn" class="nav-link" data-scroll-target="#vpn">VPN</a></li>
+  <li><a href="#menu-toolbar-context-menu" id="toc-menu-toolbar-context-menu" class="nav-link" data-scroll-target="#menu-toolbar-context-menu">Menu, Toolbar, Context menu</a></li>
+  <li><a href="#command-palette-commandctrl-shift-c" id="toc-command-palette-commandctrl-shift-c" class="nav-link" data-scroll-target="#command-palette-commandctrl-shift-c">Command palette: <code>Command/Ctrl Shift C</code></a></li>
+  <li><a href="#keyboard-short-cuts-commandctrl-shift-h" id="toc-keyboard-short-cuts-commandctrl-shift-h" class="nav-link" data-scroll-target="#keyboard-short-cuts-commandctrl-shift-h">Keyboard short-cuts: <code>Command/Ctrl Shift H</code></a></li>
   </ul></li>
+  <li><a href="#three-kinds-of-cells" id="toc-three-kinds-of-cells" class="nav-link" data-scroll-target="#three-kinds-of-cells">Three kinds of cells</a></li>
+  <li><a href="#running-code-in-cells" id="toc-running-code-in-cells" class="nav-link" data-scroll-target="#running-code-in-cells">Running code in cells</a>
+  <ul class="collapse">
+  <li><a href="#code-blocks" id="toc-code-blocks" class="nav-link" data-scroll-target="#code-blocks">Code blocks</a></li>
+  <li><a href="#last-value-is-displayed" id="toc-last-value-is-displayed" class="nav-link" data-scroll-target="#last-value-is-displayed">Last value is displayed</a></li>
+  <li><a href="#everything-is-one-python-process" id="toc-everything-is-one-python-process" class="nav-link" data-scroll-target="#everything-is-one-python-process">Everything is one Python process</a></li>
+  <li><a href="#restarting-the-kernel" id="toc-restarting-the-kernel" class="nav-link" data-scroll-target="#restarting-the-kernel">Restarting the kernel</a></li>
+  </ul></li>
+  <li><a href="#two-kinds-of-undo" id="toc-two-kinds-of-undo" class="nav-link" data-scroll-target="#two-kinds-of-undo">Two kinds of “Undo”</a></li>
+  <li><a href="#moving-and-copypaste-cells" id="toc-moving-and-copypaste-cells" class="nav-link" data-scroll-target="#moving-and-copypaste-cells">Moving and copy/paste cells</a></li>
+  <li><a href="#split-and-merge-cells" id="toc-split-and-merge-cells" class="nav-link" data-scroll-target="#split-and-merge-cells">Split and merge cells</a></li>
+  <li><a href="#markdown-text" id="toc-markdown-text" class="nav-link" data-scroll-target="#markdown-text">Markdown text</a>
+  <ul class="collapse">
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">Lists</a></li>
+  <li><a href="#numbered-lists" id="toc-numbered-lists" class="nav-link" data-scroll-target="#numbered-lists">Numbered lists</a></li>
+  <li><a href="#quotes" id="toc-quotes" class="nav-link" data-scroll-target="#quotes">Quotes</a></li>
+  <li><a href="#formulas" id="toc-formulas" class="nav-link" data-scroll-target="#formulas">Formulas</a></li>
+  <li><a href="#header-2" id="toc-header-2" class="nav-link" data-scroll-target="#header-2">Header 2</a>
+  <ul class="collapse">
+  <li><a href="#header-3" id="toc-header-3" class="nav-link" data-scroll-target="#header-3">Header 3</a></li>
+  </ul></li>
+  <li><a href="#formulas-1" id="toc-formulas-1" class="nav-link" data-scroll-target="#formulas-1">Formulas</a></li>
+  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables">Tables</a></li>
+  </ul></li>
+  <li><a href="#html-magic" id="toc-html-magic" class="nav-link" data-scroll-target="#html-magic">HTML magic</a></li>
+  <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images">Images</a></li>
+  <li><a href="#table-of-content-and-cell-folding" id="toc-table-of-content-and-cell-folding" class="nav-link" data-scroll-target="#table-of-content-and-cell-folding">Table of content and cell folding</a></li>
+  <li><a href="#shell-commands" id="toc-shell-commands" class="nav-link" data-scroll-target="#shell-commands">Shell commands</a></li>
   </ul>
 </nav>
     </div>
@@ -196,63 +261,251 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="tldr" class="level2">
-<h2 class="anchored" data-anchor-id="tldr">TLDR;</h2>
+<p>JupyterLab is a highly extensible, feature-rich notebook authoring application and editing environment, and is a part of Project Jupyter, a large umbrella project centered around the goal of providing tools (and standards) for interactive computing with computational notebooks.</p>
+<p>A computational notebook is a shareable document that combines computer code, plain language descriptions, data, rich visualizations like 3D models, charts, graphs and figures, and interactive controls. A notebook, along with an editor like JupyterLab, provides a fast interactive environment for prototyping and explaining code, exploring and visualizing data, and sharing ideas with others.</p>
+<p>JupyterLab is a sibling to other notebook authoring applications under the Project Jupyter umbrella, like Jupyter Notebook and Jupyter Desktop. JupyterLab offers a more advanced, feature rich, customizable experience compared to Jupyter Notebook.MM</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="jupyterlab_files/figure-html/19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="image.png"><img src="jupyterlab_files/figure-html/19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png" class="img-fluid figure-img" alt="image.png"></a></p>
+<figcaption>image.png</figcaption>
+</figure>
+</div>
+<section id="starting-jupyter-lab" class="level1">
+<h1>Starting jupyter lab</h1>
+<p>Terminal commands:</p>
+<pre><code>conda activate ctib
+jupyter lab</code></pre>
+<p>It then appears in your default browser.|</p>
 </section>
-<section id="laptop-setup" class="level1">
-<h1>Laptop setup</h1>
-<p>You will work on our computing cluster, but before we get there, we must get you properly set up on your machine.</p>
-<section id="install-python" class="level3">
-<h3 class="anchored" data-anchor-id="install-python">Install Python</h3>
-<p>If you have not done so already, you should install a distribution of Python called <em>Anaconda</em>. Anaconda is not only an easy way of installing Python on Windows, Mac, and Linux; it also comes with the conda package management system (more about that later). To install Anaconda, visit <a href="https://www.anaconda.com/download">this page</a>. When the download completes, you must follow the default installation.</p>
+<section id="side-panes" class="level1">
+<h1>Side panes</h1>
+<p><img src="jupyterlab_files/figure-html/ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png" class="img-fluid" alt="Screenshot 2023-10-23 at 15.59.13.png"> - alks flaksjf laskjdf laskdfj</p>
+<p>asdflaksdfj</p>
 </section>
-<section id="the-terminal" class="level3">
-<h3 class="anchored" data-anchor-id="the-terminal">The Terminal</h3>
-<p>The programs you will use in the project are command-line applications. I.e., programs executed by writing their name and any arguments in a “terminal” rather than clicking on an icon and using a graphical user interface. Many different programs can serve as a terminal.</p>
+<section id="lauching-a-new-notebook-or-terminal" class="level1">
+<h1>Lauching a new notebook or terminal</h1>
+<p>Pick the folder icon in the side pane menu on the left, click the big blue button and launch a notebook</p>
+</section>
+<section id="multiple-notebooks-or-terminal-views" class="level1">
+<h1>Multiple notebooks or terminal views</h1>
+</section>
+<section id="split-windows" class="level1">
+<h1>Split windows</h1>
+</section>
+<section id="controls" class="level1">
+<h1>Controls</h1>
+<section id="menu-toolbar-context-menu" class="level2">
+<h2 class="anchored" data-anchor-id="menu-toolbar-context-menu">Menu, Toolbar, Context menu</h2>
+</section>
+<section id="command-palette-commandctrl-shift-c" class="level2">
+<h2 class="anchored" data-anchor-id="command-palette-commandctrl-shift-c">Command palette: <code>Command/Ctrl Shift C</code></h2>
+</section>
+<section id="keyboard-short-cuts-commandctrl-shift-h" class="level2">
+<h2 class="anchored" data-anchor-id="keyboard-short-cuts-commandctrl-shift-h">Keyboard short-cuts: <code>Command/Ctrl Shift H</code></h2>
+</section>
+</section>
+<section id="three-kinds-of-cells" class="level1">
+<h1>Three kinds of cells</h1>
+<div id="a5571281-a813-46bb-bd63-022503d99965" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'hello world'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>hello world</code></pre>
+</div>
+</div>
+<p>This is <em>formatted</em> markdown</p>
+<p>This is raw text</p>
+</section>
+<section id="running-code-in-cells" class="level1">
+<h1>Running code in cells</h1>
+<section id="code-blocks" class="level2">
+<h2 class="anchored" data-anchor-id="code-blocks">Code blocks</h2>
+<div id="be1824b7-da95-4cf4-a12f-348ae29bb183" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="last-value-is-displayed" class="level2">
+<h2 class="anchored" data-anchor-id="last-value-is-displayed">Last value is displayed</h2>
+<div id="0ee1c9c6-e3a5-49de-b400-35944262b98f" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>1</code></pre>
+</div>
+</div>
+</section>
+<section id="everything-is-one-python-process" class="level2">
+<h2 class="anchored" data-anchor-id="everything-is-one-python-process">Everything is one Python process</h2>
+<div id="716916e5-32d3-4103-875d-fcfc5e165c2c" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>2</code></pre>
+</div>
+</div>
+</section>
+<section id="restarting-the-kernel" class="level2">
+<h2 class="anchored" data-anchor-id="restarting-the-kernel">Restarting the kernel</h2>
+</section>
+</section>
+<section id="two-kinds-of-undo" class="level1">
+<h1>Two kinds of “Undo”</h1>
 <ul>
-<li>If you have a Windows machine, use the <em>Anaconda Powershell Prompt</em> (<em>not</em> the Anaconda Prompt and <em>not</em> the <code>CMD</code>). You installed Anaconda Powershell Prompt along with Anaconda Python.</li>
-<li>If you have a Mac, the terminal you will use is called <em>Terminal</em>. The Terminal application is pre-installed on Mac.</li>
+<li><code>Edit/Undo</code> to undo stuff in the current cell</li>
+<li><code>Edit/Undo Cell Operation</code> to undo deleting, moving, merging cells</li>
 </ul>
-<p>From now on, whenever I refer to the terminal, I mean <em>Anaconda Powershell Prompt</em> on Windows and <em>Terminal</em> on Mac. I will assume some familiarity with using a terminal and executing commands on the command line. If you have not used a terminal before, or if you are a bit rusty, you should run through <a href="https://lifehacker.com/5633909/who-needs-a-mouse-learn-to-use-the-command-line-for-almost-anything">this primer</a> before you go on.</p>
 </section>
-<section id="conda-environments" class="level3">
-<h3 class="anchored" data-anchor-id="conda-environments">Conda environments</h3>
-<p><img src="https://docs.conda.io/en/latest/_images/conda_logo.svg" align="right" width="200" height="100"></p>
-<p>You must install packages and programs for your analyses and pipelines. Sometimes, however, the packages you need for one project conflict with the ones you need for other projects you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small world insulated from the rest of your Anaconda installation? Then, that small world would only contain the packages you needed for a single project. If each project had its isolated world, then there would be no such conflicts.</p>
-<p>Fortunately, a tool lets you do just that, and its name is Conda. Conda’s small worlds are called “environments,” and you can create as many as you like. You can then switch between them as you switch between your bioinformatics projects. Conda also downloads and installs the packages for you, ensuring that the packages you install in each environment are compatible. It even makes sure to install packages (dependencies) required by the packages you install. By creating an environment for each project, the libraries installed for each project do not interfere.</p>
+<section id="moving-and-copypaste-cells" class="level1">
+<h1>Moving and copy/paste cells</h1>
+<div id="d15335e4-670b-48c2-ac3e-1eaea2451006" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Move this cell somewhere"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Move this cell somewhere</code></pre>
+</div>
+</div>
+<p>Some other cell</p>
 </section>
-<section id="create-a-conda-environment-on-your-local-machine" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-conda-environment-on-your-local-machine">Create a conda environment on your local machine</h3>
-<p>When you install Anaconda or Miniconda, Conda makes a single base environment. It is called “base,” and this is why it says “(base)” at your terminal prompt. You need a conda environment for your project on your local machine. You can call it anything you like, but if you call it <code>birc-project</code>, it will match the rest of this tutorial. So do that.</p>
-<p>The environment on your local machine only needs a few packages since it only connects you to the cluster. The command below creates a <code>birc-project</code> environment and installs the <code>slurm-jupyter</code> package from my conda channel:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-y</span> <span class="at">-n</span> birc-project <span class="at">-c</span> kaspermunch slurm-jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>To activate the environment, use this command:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb2" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate birc-project</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Note how the environment name at your terminal prompt changes from <code>(base)</code> to <code>(birc-project)</code>. To deactivate the environment, use this command:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>and the terminal prompt changes back to <code>(base)</code>.</p>
+<section id="split-and-merge-cells" class="level1">
+<h1>Split and merge cells</h1>
 </section>
-<section id="vpn" class="level3">
-<h3 class="anchored" data-anchor-id="vpn">VPN</h3>
-<p>You can only connect to the cluster on the University’s internal network. So you must be physically on campus or use the University’s VPN. To install VPN, follow the instructions <a href="https://studerende.au.dk/it-support/vpn/">on this page</a>. Before you can use the VPN, you also need to enable two-step verification. You can see how to do that on the same page. If you are not physically on campus, you must activate your VPN before logging in to the cluster. Your password for the VPN is the same as the one you use to log on to access Blackboard.</p>
+<section id="markdown-text" class="level1">
+<h1>Markdown text</h1>
+<p>https://quarto.org/docs/authoring/markdown-basics.html</p>
+<p>This is some more markdown with <strong>bold</strong> text and <em>italics</em> and showing that somthing is a code, like <code>x = 2 + 2</code>.</p>
+<section id="lists" class="level2">
+<h2 class="anchored" data-anchor-id="lists">Lists</h2>
+<ul>
+<li>foo</li>
+<li>bar</li>
+<li>baz</li>
+</ul>
+</section>
+<section id="numbered-lists" class="level2">
+<h2 class="anchored" data-anchor-id="numbered-lists">Numbered lists</h2>
+<ol type="1">
+<li>foo</li>
+<li>bar</li>
+<li>baz</li>
+</ol>
+</section>
+<section id="quotes" class="level2">
+<h2 class="anchored" data-anchor-id="quotes">Quotes</h2>
+<blockquote class="blockquote">
+<p>This is a quote</p>
+</blockquote>
+</section>
+<section id="formulas" class="level2">
+<h2 class="anchored" data-anchor-id="formulas">Formulas</h2>
+<p><span class="math inline">\(\sum_{i=0}^n i\)</span></p>
+<h3 class="anchored">
+HTML
+</h3>
+</section>
+<section id="header-2" class="level2">
+<h2 class="anchored" data-anchor-id="header-2">Header 2</h2>
+<section id="header-3" class="level3">
+<h3 class="anchored" data-anchor-id="header-3">Header 3</h3>
+<section id="header-4" class="level4">
+<h4 class="anchored" data-anchor-id="header-4">Header 4</h4>
+</section>
+</section>
+</section>
+<section id="formulas-1" class="level2">
+<h2 class="anchored" data-anchor-id="formulas-1">Formulas</h2>
+<p><span class="math inline">\(\sum_{i=0}^n i\)</span></p>
+</section>
+<section id="tables" class="level2">
+<h2 class="anchored" data-anchor-id="tables">Tables</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">foo</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bar</td>
+<td style="text-align: left;">3</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="html-magic" class="level1">
+<h1>HTML magic</h1>
+<div id="0f681e60-08d0-49f8-bdf6-745ac309f850" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>html</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>style<span class="op">&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>table {<span class="bu">float</span>:left}</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>style<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<style>
+table {float:left}
+</style>
+</div>
+</div>
+</section>
+<section id="images" class="level1">
+<h1>Images</h1>
+<p>Make markdown cell and then drag an image into it:</p>
+<p>Some other cell</p>
+</section>
+<section id="table-of-content-and-cell-folding" class="level1">
+<h1>Table of content and cell folding</h1>
+</section>
+<section id="shell-commands" class="level1">
+<h1>Shell commands</h1>
+<div id="969e9fca-1646-4d05-9b19-15d8a0382c71" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="ansi-escaped-output">
+<pre>BP TAs.md
+
+ERDA rollout 260923.pptx
+
+FemaleDEGall.pdf
+
+Harmonic mean.xlsx
+
+<span class="ansi-blue-fg">Marias plots</span>
+
+<span class="ansi-blue-fg">My Drive 08.10.50</span>
+
+<span class="ansi-blue-fg">Pictures</span>
+
+Screenshot 2023-09-28 at 14.03.06.png
+
+Screenshot 2023-10-23 at 15.59.13.png
+
+Training project.pdf
+
+Untitled.ipynb
+
+hc38_ECH_90%_regions.txt
+
+jupyter_walk_through.ipynb
+
+nb_20-updated_sweep_enrichments (3).html
+
+nn.png
+
+prob_of_nr_runs.ipynb
+
+<span class="ansi-blue-fg">rejsUd</span>
+
+runs_of_ones_paper.pdf
+
+timing_code.ipynb
+</pre>
+</div>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -656,6 +909,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
