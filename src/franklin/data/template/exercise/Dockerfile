@@ -32,8 +32,11 @@ WORKDIR /app
 ENV PYTHONUNBUFFERED=1
 
 
-RUN echo '#!/bin/sh\nPYDEVD_DISABLE_FILE_VALIDATION=1 jupyter nbconvert --Application.log_level=50 --to notebook --execute --inplace exercise.ipynb || exit 1\nexec "$@"' > /bin/test-notebook.sh
-#COPY test-notebook.sh /bin/test-notebook.sh
+# RUN echo '#!/bin/sh' > /bin/test-notebook.sh \
+#  && echo 'PYDEVD_DISABLE_FILE_VALIDATION=1 jupyter nbconvert --Application.log_level=50 --to notebook --execute --inplace exercise.ipynb || exit 1' >> /bin/test-notebook.sh\
+#  && echo 'exec "$@"' >> /bin/test-notebook.sh
+
+COPY test-notebook.sh /bin/test-notebook.sh
 RUN chmod +x /bin/test-notebook.sh
 
 COPY exercise.ipynb exercise.ipynb
@@ -54,3 +57,4 @@ CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-r
 # # docker build --platform linux/amd64 -t test .
 
 # # docker run --rm -w /app -i -p 8050:8050 -p 8888:8888  test
+
