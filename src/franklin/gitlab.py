@@ -27,7 +27,8 @@ def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
     Returns
     -------
     :
-        A dictionary with the course and exercise names as keys and the image locations
+        A dictionary with the course and exercise names as keys and 
+        the image locations
     """
     s = requests.Session()
     s.headers.update({'PRIVATE-TOKEN': cfg.gitlab_token})
@@ -116,10 +117,13 @@ def pick_course() -> Tuple[str, str]:
         The course name and the Danish name of the course.
     """
     course_names = get_course_names()
-    course_group_names, course_danish_names,  = zip(*sorted(course_names.items()))
-    term.secho("\nUse arrow keys to select course and press Enter:", fg='green')
+    course_group_names, course_danish_names, = \
+        zip(*sorted(course_names.items()))
+    term.echo()
+    term.secho("Use arrow keys to select course and press Enter:", fg='green')
     captions = []
-    course_idx = cutie.select(course_danish_names, caption_indices=captions, selected_idx=0)
+    course_idx = cutie.select(course_danish_names, 
+                              caption_indices=captions, selected_idx=0)
     return course_group_names[course_idx], course_danish_names[course_idx]
 
 
@@ -130,7 +134,8 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
     Parameters
     ----------
     exercises_images : 
-        A dictionary with the exercise and exercise names as keys and the image locations
+        A dictionary with the exercise and exercise names as keys and 
+        the image locations
 
     Returns
     -------
@@ -156,10 +161,13 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
         term.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
         time.sleep(2)
 
-    exercise_repo_names, listed_exercise_names = zip(*sorted(exercise_names.items()))
-    term.secho(f'\nUse arrow keys to select exercise in "{danish_course_name}" and press Enter:', fg='green')
+    exercise_repo_names, listed_exercise_names = \
+        zip(*sorted(exercise_names.items()))
+    term.secho(f'\nUse arrow keys to select exercise in '
+               f'"{danish_course_name}" and press Enter:', fg='green')
     captions = []
-    exercise_idx = cutie.select(listed_exercise_names, caption_indices=captions, selected_idx=0)
+    exercise_idx = cutie.select(listed_exercise_names, 
+                                caption_indices=captions, selected_idx=0)
     exercise = exercise_repo_names[exercise_idx]
 
     # term.secho(f"\nSelected: '{listed_exercise_names[exercise_idx]}'",
@@ -167,20 +175,23 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
     # term.echo()
     # time.sleep(1)
 
-    return (course, danish_course_name), (exercise, listed_exercise_names[exercise_idx])
+    return ((course, danish_course_name), 
+            (exercise, listed_exercise_names[exercise_idx]))
 
 
 def select_image() -> str:
     """
-    Prompts the user to select a course, then an exercise mapping to an image location.
+    Prompts the user to select a course, then an exercise mapping to an 
+    image location.
 
     Returns
     -------
     :
         Image location.
     """
-    registry = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}/registry/repositories'
-    exercises_images = get_registry_listing(registry)
+    url = \
+        f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}/registry/repositories'
+    exercises_images = get_registry_listing(url)
 
     (course, _), (exercise, _) = select_exercise(exercises_images)
 
@@ -203,16 +214,19 @@ def download():
         pass
 
     # get images for available exercises
-    registry = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}/registry/repositories'
-    exercises_images = get_registry_listing(registry)
+    url = \
+        f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}/registry/repositories'
+    exercises_images = get_registry_listing(url)
 
     # pick course and exercise
-    (course, _), (exercise, listed_exercise_name) = select_exercise(exercises_images)
+    (course, _), (exercise, listed_exercise_name) = \
+        select_exercise(exercises_images)
     listed_exercise_name = listed_exercise_name.replace(' ', '-')
 
     # url for cloning the repository
     repo_name = exercise.split('/')[-1]
-    clone_url = f'https://gitlab.au.dk/{cfg.gitlab_group}/{course}/{repo_name}.git'
+    clone_url = \
+        f'https://gitlab.au.dk/{cfg.gitlab_group}/{course}/{repo_name}.git'
     repo_local_path = Path().cwd() / listed_exercise_name
 
     if system.system() == 'Windows':
@@ -224,9 +238,12 @@ def download():
 
     output = utils.run_cmd(f'git clone {clone_url} {repo_local_path}')
 
-    # Reads contents with UTF-8 encoding and returns str.
-    # eml = importlib.resources.files('email.tests.data').joinpath('message.eml').read_text()
-    template_files = [p.name for p in importlib_resources.files().joinpath('data/templates/exercise').iterdir()]
+    iterdir = (importlib_resources
+               .files()
+               .joinpath('data/templates/exercise')
+               .iterdir()
+    )
+    template_files = [p.name for p in iterdir]
     dev_files = [p for p in template_files if p != 'exercise.ipynb']
 
     for path in dev_files:
