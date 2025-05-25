@@ -42,105 +42,105 @@
   {
     "objectID": "pages/student/jupyterlab.html",
     "href": "pages/student/jupyterlab.html",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "",
     "text": "JupyterLab is a highly extensible, feature-rich notebook authoring application and editing environment, and is a part of Project Jupyter, a large umbrella project centered around the goal of providing tools (and standards) for interactive computing with computational notebooks.\nA computational notebook is a shareable document that combines computer code, plain language descriptions, data, rich visualizations like 3D models, charts, graphs and figures, and interactive controls. A notebook, along with an editor like JupyterLab, provides a fast interactive environment for prototyping and explaining code, exploring and visualizing data, and sharing ideas with others.\nJupyterLab is a sibling to other notebook authoring applications under the Project Jupyter umbrella, like Jupyter Notebook and Jupyter Desktop. JupyterLab offers a more advanced, feature rich, customizable experience compared to Jupyter Notebook.MM"
   },
   {
     "objectID": "pages/student/jupyterlab.html#menu-toolbar-context-menu",
     "href": "pages/student/jupyterlab.html#menu-toolbar-context-menu",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Menu, Toolbar, Context menu",
     "text": "Menu, Toolbar, Context menu"
   },
   {
     "objectID": "pages/student/jupyterlab.html#command-palette-commandctrl-shift-c",
     "href": "pages/student/jupyterlab.html#command-palette-commandctrl-shift-c",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Command palette: Command/Ctrl Shift C",
     "text": "Command palette: Command/Ctrl Shift C"
   },
   {
     "objectID": "pages/student/jupyterlab.html#keyboard-short-cuts-commandctrl-shift-h",
     "href": "pages/student/jupyterlab.html#keyboard-short-cuts-commandctrl-shift-h",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Keyboard short-cuts: Command/Ctrl Shift H",
     "text": "Keyboard short-cuts: Command/Ctrl Shift H"
   },
   {
     "objectID": "pages/student/jupyterlab.html#code-blocks",
     "href": "pages/student/jupyterlab.html#code-blocks",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Code blocks",
     "text": "Code blocks\n\nx = 0"
   },
   {
     "objectID": "pages/student/jupyterlab.html#last-value-is-displayed",
     "href": "pages/student/jupyterlab.html#last-value-is-displayed",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Last value is displayed",
     "text": "Last value is displayed\n\nx = 1\nx\n\n1"
   },
   {
     "objectID": "pages/student/jupyterlab.html#everything-is-one-python-process",
     "href": "pages/student/jupyterlab.html#everything-is-one-python-process",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Everything is one Python process",
     "text": "Everything is one Python process\n\nx += 1\nx\n\n2"
   },
   {
     "objectID": "pages/student/jupyterlab.html#restarting-the-kernel",
     "href": "pages/student/jupyterlab.html#restarting-the-kernel",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Restarting the kernel",
     "text": "Restarting the kernel"
   },
   {
     "objectID": "pages/student/jupyterlab.html#lists",
     "href": "pages/student/jupyterlab.html#lists",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Lists",
     "text": "Lists\n\nfoo\nbar\nbaz"
   },
   {
     "objectID": "pages/student/jupyterlab.html#numbered-lists",
     "href": "pages/student/jupyterlab.html#numbered-lists",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Numbered lists",
     "text": "Numbered lists\n\nfoo\nbar\nbaz"
   },
   {
     "objectID": "pages/student/jupyterlab.html#quotes",
     "href": "pages/student/jupyterlab.html#quotes",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Quotes",
     "text": "Quotes\n\nThis is a quote"
   },
   {
     "objectID": "pages/student/jupyterlab.html#formulas",
     "href": "pages/student/jupyterlab.html#formulas",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Formulas",
     "text": "Formulas\n\\(\\sum_{i=0}^n i\\)\n\nHTML"
   },
   {
     "objectID": "pages/student/jupyterlab.html#header-2",
     "href": "pages/student/jupyterlab.html#header-2",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Header 2",
     "text": "Header 2\n\nHeader 3\n\nHeader 4"
   },
   {
     "objectID": "pages/student/jupyterlab.html#formulas-1",
     "href": "pages/student/jupyterlab.html#formulas-1",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Formulas",
     "text": "Formulas\n\\(\\sum_{i=0}^n i\\)"
   },
   {
     "objectID": "pages/student/jupyterlab.html#tables",
     "href": "pages/student/jupyterlab.html#tables",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Tables",
     "text": "Tables\n\n\n\nName\nValue\n\n\n\n\nfoo\n2\n\n\nbar\n3"
   },
@@ -245,34 +245,34 @@
   {
     "objectID": "pages/admin_gitlab.html#permissions",
     "href": "pages/admin_gitlab.html#permissions",
-    "title": "GitLab",
+    "title": "GitLab admin",
     "section": "Permissions",
     "text": "Permissions",
     "crumbs": [
       "Administration",
-      "GitLab"
+      "GitLab admin"
     ]
   },
   {
     "objectID": "pages/admin_gitlab.html#tokens",
     "href": "pages/admin_gitlab.html#tokens",
-    "title": "GitLab",
+    "title": "GitLab admin",
     "section": "Tokens",
     "text": "Tokens",
     "crumbs": [
       "Administration",
-      "GitLab"
+      "GitLab admin"
     ]
   },
   {
     "objectID": "pages/admin_gitlab.html#pipelines",
     "href": "pages/admin_gitlab.html#pipelines",
-    "title": "GitLab",
+    "title": "GitLab admin",
     "section": "Pipelines",
     "text": "Pipelines",
     "crumbs": [
       "Administration",
-      "GitLab"
+      "GitLab admin"
     ]
   },
   {
@@ -443,12 +443,12 @@
   {
     "objectID": "pages/admin_docker.html#running-docker-containers",
     "href": "pages/admin_docker.html#running-docker-containers",
-    "title": "Docker",
+    "title": "Docker admin",
     "section": "Running docker containers",
     "text": "Running docker containers",
     "crumbs": [
       "Administration",
-      "Docker"
+      "Docker admin"
     ]
   },
   {
@@ -498,166 +498,166 @@
   {
     "objectID": "pages/jupyterlab.html",
     "href": "pages/jupyterlab.html",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "",
     "text": "JupyterLab is a highly extensible, feature-rich notebook authoring application and editing environment, and is a part of Project Jupyter, a large umbrella project centered around the goal of providing tools (and standards) for interactive computing with computational notebooks.\nA computational notebook is a shareable document that combines computer code, plain language descriptions, data, rich visualizations like 3D models, charts, graphs and figures, and interactive controls. A notebook, along with an editor like JupyterLab, provides a fast interactive environment for prototyping and explaining code, exploring and visualizing data, and sharing ideas with others.\nJupyterLab is a sibling to other notebook authoring applications under the Project Jupyter umbrella, like Jupyter Notebook and Jupyter Desktop. JupyterLab offers a more advanced, feature rich, customizable experience compared to Jupyter Notebook.MM",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#menu-toolbar-context-menu",
     "href": "pages/jupyterlab.html#menu-toolbar-context-menu",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Menu, Toolbar, Context menu",
     "text": "Menu, Toolbar, Context menu",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#command-palette-commandctrl-shift-c",
     "href": "pages/jupyterlab.html#command-palette-commandctrl-shift-c",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Command palette: Command/Ctrl Shift C",
     "text": "Command palette: Command/Ctrl Shift C",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#keyboard-short-cuts-commandctrl-shift-h",
     "href": "pages/jupyterlab.html#keyboard-short-cuts-commandctrl-shift-h",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Keyboard short-cuts: Command/Ctrl Shift H",
     "text": "Keyboard short-cuts: Command/Ctrl Shift H",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#code-blocks",
     "href": "pages/jupyterlab.html#code-blocks",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Code blocks",
     "text": "Code blocks\n\nx = 0",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#last-value-is-displayed",
     "href": "pages/jupyterlab.html#last-value-is-displayed",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Last value is displayed",
     "text": "Last value is displayed\n\nx = 1\nx\n\n1",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#everything-is-one-python-process",
     "href": "pages/jupyterlab.html#everything-is-one-python-process",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Everything is one Python process",
     "text": "Everything is one Python process\n\nx += 1\nx\n\n2",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#restarting-the-kernel",
     "href": "pages/jupyterlab.html#restarting-the-kernel",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Restarting the kernel",
     "text": "Restarting the kernel",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#lists",
     "href": "pages/jupyterlab.html#lists",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Lists",
     "text": "Lists\n\nfoo\nbar\nbaz",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#numbered-lists",
     "href": "pages/jupyterlab.html#numbered-lists",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Numbered lists",
     "text": "Numbered lists\n\nfoo\nbar\nbaz",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#quotes",
     "href": "pages/jupyterlab.html#quotes",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Quotes",
     "text": "Quotes\n\nThis is a quote",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#formulas",
     "href": "pages/jupyterlab.html#formulas",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Formulas",
     "text": "Formulas\n\\(\\sum_{i=0}^n i\\)\n\nHTML",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#header-2",
     "href": "pages/jupyterlab.html#header-2",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Header 2",
     "text": "Header 2\n\nHeader 3\n\nHeader 4",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#formulas-1",
     "href": "pages/jupyterlab.html#formulas-1",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Formulas",
     "text": "Formulas\n\\(\\sum_{i=0}^n i\\)",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
     "objectID": "pages/jupyterlab.html#tables",
     "href": "pages/jupyterlab.html#tables",
-    "title": "Computer setup",
+    "title": "Jupyterlab",
     "section": "Tables",
     "text": "Tables\n\n\n\nName\nValue\n\n\n\n\nfoo\n2\n\n\nbar\n3",
     "crumbs": [
       "Tutorials",
-      "Computer setup"
+      "Jupyterlab"
     ]
   },
   {
