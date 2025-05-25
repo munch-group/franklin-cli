@@ -11,3 +11,19 @@ title: Gitlab
 ![alt text](images/pipeline_example.png)
 
 ![alt text](images/pipeline_example_nomenu.png)
+
+
+Introduction to GitLab
+
+GitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.
+
+GitLab enables individuals and teams to collaborate on code by providing:
+
+Git repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails.
+Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows.
+CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository.
+Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration.
+Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains.
+GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.
+
+In summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.

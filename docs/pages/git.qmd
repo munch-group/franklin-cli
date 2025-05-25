@@ -9,6 +9,20 @@ title: Git
 
 ## TLDR;
 
+Git is a distributed version control system designed to track changes in source code and facilitate collaboration among multiple developers. Originally created by Linus Torvalds in 2005 for managing the Linux kernel, Git has since become the dominant version control tool in software development, underpinning platforms such as GitHub, GitLab, and Bitbucket.
+
+In Git, every working copy of a repository is a full-fledged versioned archive, containing the entire history of the project. This distributed model enhances performance, enables offline work, and provides a robust foundation for branching and merging workflows. Changes are recorded as commits—snapshots of the project at specific points in time—organized in a directed acyclic graph (DAG).
+
+Key concepts include:
+
+Repository: A data structure containing all commits, branches, and tags for a project.
+Commit: A recorded state of the repository, with metadata about the author, timestamp, and parent commits.
+Branch: A movable pointer to a commit, enabling parallel development paths.
+Merge: The integration of changes from one branch into another, optionally involving conflict resolution.
+Remote: A reference to another copy of the repository, typically hosted on a server.
+Git supports advanced features such as rebasing, cherry-picking, and interactive staging. It also allows for fine-grained control of collaboration through pull requests, code reviews, and access control mechanisms.
+
+While Git has a steep learning curve, especially in conflict resolution and complex branching workflows, its efficiency, reliability, and flexibility make it an indispensable tool in modern software engineering and research computing.
 
 # Version control {#sec-git-101}
 
