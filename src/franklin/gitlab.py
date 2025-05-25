@@ -162,11 +162,10 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
     exercise_idx = cutie.select(listed_exercise_names, caption_indices=captions, selected_idx=0)
     exercise = exercise_repo_names[exercise_idx]
 
-    term.secho(f"\nSelected:", fg='green')
-    term.echo(f"Course: {danish_course_name}")
-    term.echo(f"Exercise: {listed_exercise_names[exercise_idx]}")
-    term.echo()
-    time.sleep(1)
+    # term.secho(f"\nSelected: '{listed_exercise_names[exercise_idx]}'",
+    #            f" in '{danish_course_name}'")
+    # term.echo()
+    # time.sleep(1)
 
     return (course, danish_course_name), (exercise, listed_exercise_names[exercise_idx])
 

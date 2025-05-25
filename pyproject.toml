@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = '0.24.2'
+version = '0.24.3'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -54,4 +54,9 @@ franklin = "franklin:franklin"
 where = ["src"]
 
 [tool.setuptools.package-data]
-franklin = ["data/*.yaml", "data/gitui/*", "data/templates/exercise/*", "data/templates/base/*"]
+franklin = [
+  "data/*.yaml", 
+  "data/gitui/*", 
+  "data/template/exercise/*", 
+  "data/template/base/*"
+  ]

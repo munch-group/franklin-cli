@@ -29,7 +29,8 @@ def jupyter(allow_subdirs_at_your_own_risk: bool) -> None:
     if not allow_subdirs_at_your_own_risk:
         for x in os.listdir(os.getcwd()):
             if os.path.isdir(x) and not os.path.basename(x).startswith('.'):
-                term.boxed_text('You have subfolders in your current directory',
+                term.boxed_text(
+                    'You have subfolders in your current directory',
                                 [
         'Franklin must run from a folder with no other folders inside it.',
         '',
@@ -72,11 +73,11 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
         launched), by default None
     """
 
-    term.secho("Downloading/updating image:", fg='green')
+    term.secho("Downloading/updating image:")
     _docker.pull(image_url)
     term.echo()    
 
-    term.secho('Starting container:', fg='green')
+    term.secho('Starting container')
     run_container_id, docker_run_p, port = \
         _docker.failsafe_run_container(image_url)
 
@@ -114,7 +115,7 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
         f'\nJupyter is running and should open in your default browser.', 
         fg='green')
     term.echo(f'If not, you can access it at this URL:')
-    term.echo(f'{token_url}', nowrap=True)
+    term.secho(f'{token_url}', nowrap=True, fg='blue')
 
     while True:
         term.secho('\nPress Q to shut down jupyter and close application', 
