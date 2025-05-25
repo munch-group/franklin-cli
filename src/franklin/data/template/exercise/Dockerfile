@@ -6,7 +6,7 @@ COPY . /app
 WORKDIR /app
 
 # extract deps using default env, install them in the prod env
-RUN pixi run python pixi.py . && pixi install -e prod 
+RUN pixi run python .pixi.py . && pixi install -e prod 
 
 # Create the shell-hook bash script to activate the environment
 RUN pixi shell-hook -e prod > /shell-hook.sh
@@ -34,9 +34,9 @@ ENV PYTHONUNBUFFERED=1
 
 # RUN echo '#!/bin/sh' > /bin/test-notebook.sh \
 #  && echo 'PYDEVD_DISABLE_FILE_VALIDATION=1 jupyter nbconvert --Application.log_level=50 --to notebook --execute --inplace exercise.ipynb || exit 1' >> /bin/test-notebook.sh\
-#  && echo 'exec "$@"' >> /bin/test-notebook.sh
-
-COPY test-notebook.sh /bin/test-notebook.sh
+#  && echo 'exec "$@"' >> /bin/test-notebook.sh \
+#  && chmod +x /bin/test-notebook.sh
+COPY .test-notebook.sh /bin/test-notebook.sh
 RUN chmod +x /bin/test-notebook.sh
 
 COPY exercise.ipynb exercise.ipynb
@@ -44,7 +44,7 @@ COPY exercise.ipynb exercise.ipynb
 ENV NUMEXPR_MAX_THREADS=8
 
 
-# COPY entrypoint.sh /bin/entrypoint.sh
+# COPY .entrypoint.sh /bin/entrypoint.sh
 # RUN chmod +x /bin/entrypoint.sh
 # ENTRYPOINT ["/bin/entrypoint.sh"]
 

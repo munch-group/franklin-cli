@@ -191,7 +191,7 @@ def select_image() -> str:
 
 @click.command(epilog=f'See {cfg.documentation_url} for more details')
 def download():
-    """Download selected exercise from GitLab
+    """Download an exercise
     """
     try:
         import franklin_educator

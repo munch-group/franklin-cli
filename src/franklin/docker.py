@@ -349,7 +349,7 @@ def image_list(callback: Callable=None):
 
 
 @with_plugins(iter_entry_points('franklin.docker.plugins'))
-@click.group(cls=AliasedGroup)
+@click.group(cls=AliasedGroup, hidden=True)
 def docker():
     """Commands for managing Docker
     """
@@ -963,7 +963,7 @@ def cleanup_exercises(image_id: str, force=True) -> None:
 @ensure_docker_running
 @crash_report
 def cleanup(image_id=None):
-    """Cleanup after exercises
+    """Cleanup Franklin storage
     """
     if image_id:
         cleanup_exercises(image_id)

@@ -37,3 +37,42 @@ franklin.add_command(_docker.docker)
 franklin.add_command(_gitlab.download)
 
 franklin.add_command(_docker.cleanup)
+
+
+
+@click.group(hidden=True)
+def press():
+    ...        
+
+franklin.add_command(press)
+
+@click.group()
+def big():
+    ...
+
+press.add_command(big)
+
+@click.group()
+def red():
+    ...
+
+big.add_command(red)
+
+@click.group()
+def self():
+    ...
+
+red.add_command(self)
+
+@click.group()
+def destruct():
+    ...
+
+self.add_command(destruct)
+
+@click.command()
+def button():
+    """A button command that does something."""
+    click.echo("Button pressed!")   
+
+destruct.add_command(button)

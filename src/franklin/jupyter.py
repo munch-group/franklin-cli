@@ -24,7 +24,7 @@ from . import system
 @click.command()
 @crash_report
 def jupyter(allow_subdirs_at_your_own_risk: bool) -> None:
-    """Run jupyter prepared for exercise
+    """Run jupyter for an exercise
     """
     if not allow_subdirs_at_your_own_risk:
         for x in os.listdir(os.getcwd()):
