@@ -50,9 +50,7 @@ website:
       - href: api/
         text: API reference
       - href: pages/student/
-        text: Students
-      - href: pages/educator/
-        text: Educators
+        text: Student site
     right:
       - icon: github
         href: https://github.com/munch-group/franklin/
@@ -81,6 +79,14 @@ website:
             - pages/ssh.qmd
             - pages/git.qmd
             - pages/gitlab.qmd
+        - section: "Administration"
+          contents:
+            - pages/admin_gitlab.qmd
+            - pages/admin_docker.qmd
+        - section: "Development"
+          contents:
+            - pages/admin_components.qmd
+
 
 comments:
   hypothesis: true

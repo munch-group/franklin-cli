@@ -2,7 +2,8 @@
 title: Computer setup
 ---
 
-## HOWTO;
+## TLDR;
+
 
 # Laptop setup
 
