@@ -119,7 +119,7 @@ def pick_course() -> Tuple[str, str]:
     course_group_names, course_danish_names,  = zip(*sorted(course_names.items()))
     term.secho("\nUse arrow keys to select course and press Enter:", fg='green')
     captions = []
-    course_idx = cutie.select(course_danish_names, caption_indices=captions, selected_index=0)
+    course_idx = cutie.select(course_danish_names, caption_indices=captions, selected_idx=0)
     return course_group_names[course_idx], course_danish_names[course_idx]
 
 
@@ -159,7 +159,7 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
     exercise_repo_names, listed_exercise_names = zip(*sorted(exercise_names.items()))
     term.secho(f'\nUse arrow keys to select exercise in "{danish_course_name}" and press Enter:', fg='green')
     captions = []
-    exercise_idx = cutie.select(listed_exercise_names, caption_indices=captions, selected_index=0)
+    exercise_idx = cutie.select(listed_exercise_names, caption_indices=captions, selected_idx=0)
     exercise = exercise_repo_names[exercise_idx]
 
     term.secho(f"\nSelected:", fg='green')

@@ -54,7 +54,7 @@ def show_banner():
     Displays the Franklin banner.
     """
     click.clear()
-    logger.debug('########################## FRANKLIN ##########################')
+    logger.debug('###################### FRANKLIN #######################')
     for line in _banner.splitlines():
         term.secho(line, nowrap=True, center=True, fg='green', log=False)
     term.echo()
@@ -218,7 +218,8 @@ def fmt_cmd(cmd: str) -> List[str]:
     return cmd
 
 
-def run_cmd(cmd: str, check: bool=True, timeout: int=None, stderr2stdout=False) -> Any:
+def run_cmd(cmd: str, check: bool=True, timeout: int=None, 
+            stderr2stdout=False) -> Any:
     """
     Runs a command.
 

@@ -14,12 +14,15 @@ from .utils import AliasedGroup
 
 
 @with_plugins(iter_entry_points('franklin.plugins'))
-@click.group(cls=AliasedGroup, context_settings={"auto_envvar_prefix": "FRANKLIN"}, epilog=f'See {cfg.documentation_url} for more details')
+@click.group(cls=AliasedGroup, 
+             context_settings={"auto_envvar_prefix": "FRANKLIN"}, 
+             epilog=f'See {cfg.documentation_url} for more details')
 @click.version_option(package_name='franklin')
 @options.update
 def franklin(update: bool) -> None:
     """
-    A tool to download notebook exercises and run jupyter in a way that fits each exercise.    
+    A tool to download notebook exercises and run jupyter 
+    in a way that fits each exercise.    
     """
     term.check_window_size()
     # utils.show_banner()
