@@ -1,6 +1,6 @@
 project:
   type: book
-  output-dir: ../../_build/pages/students
+  output-dir: ../../_build/pages/student
   # post-render: 
   #   - quarto render --to html --profile ta  
 
