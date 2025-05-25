@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Franklin overview – franklin</title>
+<title>Editing exercises – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/using.html" rel="next">
-<link href="../pages/getting_started.html" rel="prev">
+<link href="../pages/jupyterlab.html" rel="next">
+<link href="../pages/making.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -124,7 +124,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/overview.html">Overview</a></li><li class="breadcrumb-item"><a href="../pages/overview.html">Franklin overview</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/using.html">Educator</a></li><li class="breadcrumb-item"><a href="../pages/editing.html">Editing exercises</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -153,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link active">
+  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Franklin overview</span></a>
   </div>
 </li>
@@ -188,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/editing.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/editing.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Editing exercises</span></a>
   </div>
 </li>
@@ -330,43 +330,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#tldr" id="toc-tldr" class="nav-link active" data-scroll-target="#tldr">TLDR;</a></li>
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
-  <li><a href="#git" id="toc-git" class="nav-link" data-scroll-target="#git">Git</a></li>
-  <li><a href="#gitlab" id="toc-gitlab" class="nav-link" data-scroll-target="#gitlab">GitLab</a>
-  <ul class="collapse">
-  <li><a href="#au-hosting" id="toc-au-hosting" class="nav-link" data-scroll-target="#au-hosting">AU hosting</a></li>
-  <li><a href="#gitlab-franklin-group" id="toc-gitlab-franklin-group" class="nav-link" data-scroll-target="#gitlab-franklin-group">GitLab Franklin group</a></li>
-  <li><a href="#gitlab-course-subgroups" id="toc-gitlab-course-subgroups" class="nav-link" data-scroll-target="#gitlab-course-subgroups">GitLab Course subgroups</a></li>
-  <li><a href="#gitlab-exercise-repositories" id="toc-gitlab-exercise-repositories" class="nav-link" data-scroll-target="#gitlab-exercise-repositories">GitLab exercise repositories</a></li>
-  </ul></li>
-  <li><a href="#authentication" id="toc-authentication" class="nav-link" data-scroll-target="#authentication">Authentication</a>
-  <ul class="collapse">
-  <li><a href="#admin" id="toc-admin" class="nav-link" data-scroll-target="#admin">Admin</a></li>
-  <li><a href="#vip" id="toc-vip" class="nav-link" data-scroll-target="#vip">VIP</a></li>
-  <li><a href="#students" id="toc-students" class="nav-link" data-scroll-target="#students">Students</a></li>
-  </ul></li>
-  <li><a href="#docker" id="toc-docker" class="nav-link" data-scroll-target="#docker">Docker</a>
-  <ul class="collapse">
-  <li><a href="#image-hierarchy" id="toc-image-hierarchy" class="nav-link" data-scroll-target="#image-hierarchy">Image hierarchy</a></li>
-  <li><a href="#templates" id="toc-templates" class="nav-link" data-scroll-target="#templates">Templates</a></li>
-  <li><a href="#tag-policy" id="toc-tag-policy" class="nav-link" data-scroll-target="#tag-policy">Tag policy</a></li>
-  </ul></li>
-  <li><a href="#container-registry" id="toc-container-registry" class="nav-link" data-scroll-target="#container-registry">Container registry</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/overview.html">Overview</a></li><li class="breadcrumb-item"><a href="../pages/overview.html">Franklin overview</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/using.html">Educator</a></li><li class="breadcrumb-item"><a href="../pages/editing.html">Editing exercises</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Franklin overview</h1>
+<h1 class="title">Editing exercises</h1>
 </div>
 
 
@@ -383,77 +355,21 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="tldr" class="level2">
-<h2 class="anchored" data-anchor-id="tldr">TLDR;</h2>
-</section>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
-</section>
-<section id="git" class="level2">
-<h2 class="anchored" data-anchor-id="git">Git</h2>
-</section>
-<section id="gitlab" class="level2">
-<h2 class="anchored" data-anchor-id="gitlab">GitLab</h2>
-<section id="au-hosting" class="level3">
-<h3 class="anchored" data-anchor-id="au-hosting">AU hosting</h3>
-</section>
-<section id="gitlab-franklin-group" class="level3">
-<h3 class="anchored" data-anchor-id="gitlab-franklin-group">GitLab Franklin group</h3>
-</section>
-<section id="gitlab-course-subgroups" class="level3">
-<h3 class="anchored" data-anchor-id="gitlab-course-subgroups">GitLab Course subgroups</h3>
-</section>
-<section id="gitlab-exercise-repositories" class="level3">
-<h3 class="anchored" data-anchor-id="gitlab-exercise-repositories">GitLab exercise repositories</h3>
-</section>
-</section>
-<section id="authentication" class="level2">
-<h2 class="anchored" data-anchor-id="authentication">Authentication</h2>
-<p>Web GUI: UNI-AD login</p>
-<section id="admin" class="level3">
-<h3 class="anchored" data-anchor-id="admin">Admin</h3>
-<p>Kasper (and someone else for backup)</p>
-<p>ssh keys</p>
-</section>
-<section id="vip" class="level3">
-<h3 class="anchored" data-anchor-id="vip">VIP</h3>
-<p>ssh keys</p>
-</section>
-<section id="students" class="level3">
-<h3 class="anchored" data-anchor-id="students">Students</h3>
-<p>Read-only token distributed with franklin.</p>
-</section>
-</section>
-<section id="docker" class="level2">
-<h2 class="anchored" data-anchor-id="docker">Docker</h2>
-<section id="image-hierarchy" class="level3">
-<h3 class="anchored" data-anchor-id="image-hierarchy">Image hierarchy</h3>
-<ul>
-<li>Base images maintained in the Base</li>
-<li>Course base images only refer to a versioned base image</li>
-</ul>
-</section>
-<section id="templates" class="level3">
-<h3 class="anchored" data-anchor-id="templates">Templates</h3>
-<ul>
-<li>Every course has a repo template with a docker file that that refers to the course base image</li>
-<li>These templates are forked from franklin/base-templates/base-template</li>
-</ul>
-</section>
-<section id="tag-policy" class="level3">
-<h3 class="anchored" data-anchor-id="tag-policy">Tag policy</h3>
-<ul>
-<li>Franklin base images are versioned and must referred to with their version tag</li>
-<li>Course base images are tagged latest so that courses always pulls updated version.</li>
-<li>Exercise images are always tagged latest, which is the tag franklin pulls</li>
-</ul>
-</section>
-</section>
-<section id="container-registry" class="level2">
-<h2 class="anchored" data-anchor-id="container-registry">Container registry</h2>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+This pages are under construction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -857,13 +773,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/getting_started.html" class="pagination-link" aria-label="Getting started">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Getting started</span>
+      <a href="../pages/making.html" class="pagination-link" aria-label="Making exercises">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Making exercises</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/using.html" class="pagination-link" aria-label="Using Franklin">
-        <span class="nav-page-text">Using Franklin</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/jupyterlab.html" class="pagination-link" aria-label="Jupyterlab">
+        <span class="nav-page-text">Jupyterlab</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
