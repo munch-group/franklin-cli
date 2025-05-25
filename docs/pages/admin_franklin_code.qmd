@@ -1,0 +1,70 @@
+---
+title: Code
+---
+
+```{python}
+import os
+
+def print_tree(dir_path, prefix=''):
+    entries = sorted(
+        [e for e in os.listdir(dir_path) if not e.startswith('.')]
+    )
+    last_index = len(entries) - 1
+
+    for i, entry in enumerate(entries):
+        path = os.path.join(dir_path, entry)
+        is_last = (i == last_index)
+        connector = '└── ' if is_last else '├── '
+        print(f"{prefix}{connector}{entry}")
+
+        if os.path.isdir(path):
+            extension = '    ' if is_last else '│   '
+            print_tree(path, prefix + extension)
+
+# Example usage:
+print_tree(".")
+```
+
+src/franklin
+```
+franklin
+|-- __init__.py
+|-- config.py
+|-- crash.py
+|-- cutie.py
+|-- data
+|-- desktop.py
+|-- docker.py
+|-- gitlab.py
+|-- jupyter.py
+|-- logger.py
+|-- options.py
+|-- system.py
+|-- terminal.py
+|-- update.py
+`-- utils.py
+```
+
+
+```
+-- data
+   |-- default_user_settings.json
+   |-- gitui
+   |   |-- key_bindings.ron
+   |   |-- key_symbols.ron
+   |   `-- theme.ron
+   |-- README.md
+   `-- template
+       |-- base
+       |   |-- Dockerfile
+       |   |-- entrypoint.sh
+       |   |-- README.md
+       |   `-- tagged-release.sh
+       `-- exercise
+           |-- Dockerfile
+           |-- exercise.ipynb
+           |-- franklin.log
+           |-- pixi.toml
+           `-- README.md
+
+```
