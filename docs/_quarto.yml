@@ -7,7 +7,6 @@ project:
   post-render: 
     # - quarto render --profile slides
     - quarto render pages/student/
-    - quarto render pages/educator/
 
 execute:
   freeze: auto
@@ -93,7 +92,9 @@ website:
         - section: "Development"
           contents:
             - pages/admin_components.qmd
-
+        - section: "Source code"
+          contents:
+            - docker.py
 
 comments:
   hypothesis: true
@@ -107,6 +108,9 @@ format:
       - api/_styles-quartodoc.css
       - styles.css
     toc: true
+    sidebar:
+      collapse-level: 1
+      search: true  
     mermaid:
       theme: neutral     
 
