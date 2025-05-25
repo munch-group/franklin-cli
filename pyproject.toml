@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = '0.23.4'
+version = '0.24.0'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -39,7 +39,7 @@ maintainers = [
 description = "Terminal client for Jupyter exercises"
 keywords = ["teaching", "jupyter", "docker", "gitlab"]
 readme = "README.md"
-license = {file = "LICENSE"}
+license = "MIT"
 
 [project.urls]
 Homepage = "https://munch-group.org/franklin"
