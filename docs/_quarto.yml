@@ -64,10 +64,16 @@ website:
         - section: "Overview"
           contents:
             - pages/overview.qmd
+            - pages/using.qmd
+        - section: "Educator"
+          contents:
+            - pages/using.qmd
+            - pages/making.qmd
+            - pages/editing.qmd
         - section: "Tutorials"
           contents:
-            - pages/developing_exercises.qmd
             - pages/jupyterlab.ipynb
+            - pages/developing_exercises.qmd
             - pages/r_to_python.ipynb
             - pages/numpy_pandas.ipynb
             - pages/plotting.ipynb
@@ -76,6 +82,7 @@ website:
             - pages/terminal.qmd
             - pages/docker.qmd
             - pages/jupyter.qmd
+            - pages/jupyterlab.qmd
             - pages/ssh.qmd
             - pages/git.qmd
             - pages/gitlab.qmd
