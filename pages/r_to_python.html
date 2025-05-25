@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -341,8 +376,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#notes" id="toc-notes" class="nav-link active" data-scroll-target="#notes">Notes:</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -366,8 +407,488 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 36%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th><code>pandas</code> (Python)</th>
+<th><code>tidyverse</code> (R)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Select columns</strong></td>
+<td><code>df[['col1', 'col2']]</code></td>
+<td><code>df %&gt;% select(col1, col2)</code></td>
+</tr>
+<tr class="even">
+<td><strong>2. Filter rows</strong></td>
+<td><code>df[df['col'] &gt; 10]</code></td>
+<td><code>df %&gt;% filter(col &gt; 10)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>3. Create new column</strong></td>
+<td><code>df['new'] = df['col1'] + df['col2']</code></td>
+<td><code>df %&gt;% mutate(new = col1 + col2)</code></td>
+</tr>
+<tr class="even">
+<td><strong>4. Group by and summarize</strong></td>
+<td><code>df.groupby('group').agg({'value': 'mean'})</code></td>
+<td><code>df %&gt;% group_by(group) %&gt;% summarize(mean_val = mean(value))</code></td>
+</tr>
+<tr class="odd">
+<td><strong>5. Sort rows</strong></td>
+<td><code>df.sort_values('col', ascending=False)</code></td>
+<td><code>df %&gt;% arrange(desc(col))</code></td>
+</tr>
+<tr class="even">
+<td><strong>6. Drop missing values</strong></td>
+<td><code>df.dropna()</code></td>
+<td><code>df %&gt;% drop_na()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>7. Fill missing values</strong></td>
+<td><code>df.fillna(0)</code></td>
+<td><code>df %&gt;% replace_na(list(col = 0))</code></td>
+</tr>
+<tr class="even">
+<td><strong>8. Reshape from wide to long</strong></td>
+<td><code>df.melt(id_vars='id')</code></td>
+<td><code>df %&gt;% pivot_longer(-id, names_to='key', values_to='value')</code></td>
+</tr>
+<tr class="odd">
+<td><strong>9. Reshape from long to wide</strong></td>
+<td><code>df.pivot(index='id', columns='key', values='value')</code></td>
+<td><code>df %&gt;% pivot_wider(names_from='key', values_from='value')</code></td>
+</tr>
+<tr class="even">
+<td><strong>10. Join tables</strong></td>
+<td><code>pd.merge(df1, df2, on='id')</code></td>
+<td><code>left_join(df1, df2, by='id')</code></td>
+</tr>
+</tbody>
+</table>
+<p>Below is an expanded list of 20 common data manipulation tasks, comparing syntax in Python using pandas and in R using the tidyverse (primarily dplyr and tidyr).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 35%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th><code>pandas</code> (Python)</th>
+<th><code>tidyverse</code> (R)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Select columns</strong></td>
+<td><code>df[['col1', 'col2']]</code></td>
+<td><code>df %&gt;% select(col1, col2)</code></td>
+</tr>
+<tr class="even">
+<td><strong>2. Filter rows</strong></td>
+<td><code>df[df['col'] &gt; 10]</code></td>
+<td><code>df %&gt;% filter(col &gt; 10)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>3. Create new column</strong></td>
+<td><code>df['new'] = df['col1'] + df['col2']</code></td>
+<td><code>df %&gt;% mutate(new = col1 + col2)</code></td>
+</tr>
+<tr class="even">
+<td><strong>4. Group by and summarize</strong></td>
+<td><code>df.groupby('group').agg({'val': 'mean'})</code></td>
+<td><code>df %&gt;% group_by(group) %&gt;% summarize(mean_val = mean(val))</code></td>
+</tr>
+<tr class="odd">
+<td><strong>5. Sort rows</strong></td>
+<td><code>df.sort_values('col', ascending=False)</code></td>
+<td><code>df %&gt;% arrange(desc(col))</code></td>
+</tr>
+<tr class="even">
+<td><strong>6. Drop missing values</strong></td>
+<td><code>df.dropna()</code></td>
+<td><code>df %&gt;% drop_na()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>7. Fill missing values</strong></td>
+<td><code>df.fillna(0)</code></td>
+<td><code>df %&gt;% replace_na(list(col = 0))</code></td>
+</tr>
+<tr class="even">
+<td><strong>8. Rename columns</strong></td>
+<td><code>df.rename(columns={'old': 'new'})</code></td>
+<td><code>df %&gt;% rename(new = old)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>9. Reshape wide to long</strong></td>
+<td><code>df.melt(id_vars='id')</code></td>
+<td><code>df %&gt;% pivot_longer(-id, names_to='key', values_to='value')</code></td>
+</tr>
+<tr class="even">
+<td><strong>10. Reshape long to wide</strong></td>
+<td><code>df.pivot(index='id', columns='key', values='value')</code></td>
+<td><code>df %&gt;% pivot_wider(names_from=key, values_from=value)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>11. Remove columns</strong></td>
+<td><code>df.drop(['col1', 'col2'], axis=1)</code></td>
+<td><code>df %&gt;% select(-col1, -col2)</code></td>
+</tr>
+<tr class="even">
+<td><strong>12. Sample rows</strong></td>
+<td><code>df.sample(n=5)</code></td>
+<td><code>df %&gt;% sample_n(5)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>13. Count unique values</strong></td>
+<td><code>df['col'].nunique()</code></td>
+<td><code>df %&gt;% summarize(n_distinct(col))</code></td>
+</tr>
+<tr class="even">
+<td><strong>14. Count frequency of values</strong></td>
+<td><code>df['col'].value_counts()</code></td>
+<td><code>df %&gt;% count(col)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>15. Conditional column creation</strong></td>
+<td><code>df['new'] = np.where(df['col'] &gt; 0, 'yes', 'no')</code></td>
+<td><code>df %&gt;% mutate(new = if_else(col &gt; 0, 'yes', 'no'))</code></td>
+</tr>
+<tr class="even">
+<td><strong>16. String operations</strong></td>
+<td><code>df['col'].str.lower()</code></td>
+<td><code>df %&gt;% mutate(col = str_to_lower(col))</code></td>
+</tr>
+<tr class="odd">
+<td><strong>17. Filter by multiple conditions</strong></td>
+<td><code>df[(df['x'] &gt; 0) &amp; (df['y'] &lt; 10)]</code></td>
+<td><code>df %&gt;% filter(x &gt; 0, y &lt; 10)</code></td>
+</tr>
+<tr class="even">
+<td><strong>18. Cumulative sum</strong></td>
+<td><code>df['cumsum'] = df['val'].cumsum()</code></td>
+<td><code>df %&gt;% mutate(cumsum = cumsum(val))</code></td>
+</tr>
+<tr class="odd">
+<td><strong>19. Windowed ranking</strong></td>
+<td><code>df['rank'] = df['val'].rank()</code></td>
+<td><code>df %&gt;% mutate(rank = rank(val))</code></td>
+</tr>
+<tr class="even">
+<td><strong>20. Left join two tables</strong></td>
+<td><code>pd.merge(df1, df2, on='id', how='left')</code></td>
+<td><code>df1 %&gt;% left_join(df2, by='id')</code></td>
+</tr>
+</tbody>
+</table>
+<p>Give 20 examples of plots using seaborn and ggplot2</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 36%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Plot Type</th>
+<th><strong>Seaborn (Python)</strong></th>
+<th><strong>ggplot2 (R)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Scatter plot</strong></td>
+<td><code>sns.scatterplot(x='x', y='y', data=df)</code></td>
+<td><code>ggplot(df, aes(x, y)) + geom_point()</code></td>
+</tr>
+<tr class="even">
+<td><strong>2. Line plot</strong></td>
+<td><code>sns.lineplot(x='x', y='y', data=df)</code></td>
+<td><code>ggplot(df, aes(x, y)) + geom_line()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>3. Histogram</strong></td>
+<td><code>sns.histplot(x='x', data=df)</code></td>
+<td><code>ggplot(df, aes(x)) + geom_histogram()</code></td>
+</tr>
+<tr class="even">
+<td><strong>4. KDE plot</strong></td>
+<td><code>sns.kdeplot(x='x', data=df)</code></td>
+<td><code>ggplot(df, aes(x)) + geom_density()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>5. Box plot</strong></td>
+<td><code>sns.boxplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_boxplot()</code></td>
+</tr>
+<tr class="even">
+<td><strong>6. Violin plot</strong></td>
+<td><code>sns.violinplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_violin()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>7. Bar plot (categorical)</strong></td>
+<td><code>sns.barplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_bar(stat='identity')</code></td>
+</tr>
+<tr class="even">
+<td><strong>8. Count plot</strong></td>
+<td><code>sns.countplot(x='category', data=df)</code></td>
+<td><code>ggplot(df, aes(category)) + geom_bar()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>9. Heatmap</strong></td>
+<td><code>sns.heatmap(data=corr_matrix)</code></td>
+<td><code>ggplot(melt(corr_matrix), aes(Var1, Var2, fill=value)) + geom_tile()</code></td>
+</tr>
+<tr class="even">
+<td><strong>10. Pair plot</strong></td>
+<td><code>sns.pairplot(df)</code></td>
+<td><code>GGally::ggpairs(df)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>11. Swarm plot</strong></td>
+<td><code>sns.swarmplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_jitter(width=0.1)</code></td>
+</tr>
+<tr class="even">
+<td><strong>12. Strip plot</strong></td>
+<td><code>sns.stripplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_jitter()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>13. Regression plot</strong></td>
+<td><code>sns.regplot(x='x', y='y', data=df)</code></td>
+<td><code>ggplot(df, aes(x, y)) + geom_smooth(method='lm') + geom_point()</code></td>
+</tr>
+<tr class="even">
+<td><strong>14. Residual plot</strong></td>
+<td><code>sns.residplot(x='x', y='y', data=df)</code></td>
+<td>Not directly available; simulate with <code>augment()</code> from <code>broom</code></td>
+</tr>
+<tr class="odd">
+<td><strong>15. Facet grid</strong></td>
+<td><code>sns.FacetGrid(df, col='var').map(sns.histplot, 'x')</code></td>
+<td><code>ggplot(df, aes(x)) + geom_histogram() + facet_wrap(~var)</code></td>
+</tr>
+<tr class="even">
+<td><strong>16. Joint plot</strong></td>
+<td><code>sns.jointplot(x='x', y='y', data=df)</code></td>
+<td><code>ggExtra::ggMarginal(p, type='histogram')</code></td>
+</tr>
+<tr class="odd">
+<td><strong>17. Time series plot</strong></td>
+<td><code>sns.lineplot(x='date', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(date, value)) + geom_line()</code></td>
+</tr>
+<tr class="even">
+<td><strong>18. Error bars (CI)</strong></td>
+<td><code>sns.pointplot(x='x', y='y', data=df, ci='sd')</code></td>
+<td><code>ggplot(df, aes(x, y)) + stat_summary(fun.data=mean_sdl, geom='pointrange')</code></td>
+</tr>
+<tr class="odd">
+<td><strong>19. Categorical dot plot</strong></td>
+<td><code>sns.catplot(x='group', y='value', kind='strip', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_jitter()</code></td>
+</tr>
+<tr class="even">
+<td><strong>20. Multi-plot layout</strong></td>
+<td><code>sns.catplot(x='x', y='y', col='facet', kind='box', data=df)</code></td>
+<td><code>ggplot(df, aes(x, y)) + geom_boxplot() + facet_wrap(~facet)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Below is a comparative list of <strong>20 common plot types</strong> using Python’s <strong>Seaborn</strong> and R’s <strong>ggplot2</strong>. Each entry includes the plot type and the canonical syntax in both libraries, assuming a data frame <code>df</code> with appropriate columns.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 36%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Plot Type</th>
+<th><strong>Seaborn (Python)</strong></th>
+<th><strong>ggplot2 (R)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. Scatter plot</strong></td>
+<td><code>sns.scatterplot(x='x', y='y', data=df)</code></td>
+<td><code>ggplot(df, aes(x, y)) + geom_point()</code></td>
+</tr>
+<tr class="even">
+<td><strong>2. Line plot</strong></td>
+<td><code>sns.lineplot(x='x', y='y', data=df)</code></td>
+<td><code>ggplot(df, aes(x, y)) + geom_line()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>3. Histogram</strong></td>
+<td><code>sns.histplot(x='x', data=df)</code></td>
+<td><code>ggplot(df, aes(x)) + geom_histogram()</code></td>
+</tr>
+<tr class="even">
+<td><strong>4. KDE plot</strong></td>
+<td><code>sns.kdeplot(x='x', data=df)</code></td>
+<td><code>ggplot(df, aes(x)) + geom_density()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>5. Box plot</strong></td>
+<td><code>sns.boxplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_boxplot()</code></td>
+</tr>
+<tr class="even">
+<td><strong>6. Violin plot</strong></td>
+<td><code>sns.violinplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_violin()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>7. Bar plot (categorical)</strong></td>
+<td><code>sns.barplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_bar(stat='identity')</code></td>
+</tr>
+<tr class="even">
+<td><strong>8. Count plot</strong></td>
+<td><code>sns.countplot(x='category', data=df)</code></td>
+<td><code>ggplot(df, aes(category)) + geom_bar()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>9. Heatmap</strong></td>
+<td><code>sns.heatmap(data=corr_matrix)</code></td>
+<td><code>ggplot(melt(corr_matrix), aes(Var1, Var2, fill=value)) + geom_tile()</code></td>
+</tr>
+<tr class="even">
+<td><strong>10. Pair plot</strong></td>
+<td><code>sns.pairplot(df)</code></td>
+<td><code>GGally::ggpairs(df)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>11. Swarm plot</strong></td>
+<td><code>sns.swarmplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_jitter(width=0.1)</code></td>
+</tr>
+<tr class="even">
+<td><strong>12. Strip plot</strong></td>
+<td><code>sns.stripplot(x='group', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_jitter()</code></td>
+</tr>
+<tr class="odd">
+<td><strong>13. Regression plot</strong></td>
+<td><code>sns.regplot(x='x', y='y', data=df)</code></td>
+<td><code>ggplot(df, aes(x, y)) + geom_smooth(method='lm') + geom_point()</code></td>
+</tr>
+<tr class="even">
+<td><strong>14. Residual plot</strong></td>
+<td><code>sns.residplot(x='x', y='y', data=df)</code></td>
+<td>Not directly available; simulate with <code>augment()</code> from <code>broom</code></td>
+</tr>
+<tr class="odd">
+<td><strong>15. Facet grid</strong></td>
+<td><code>sns.FacetGrid(df, col='var').map(sns.histplot, 'x')</code></td>
+<td><code>ggplot(df, aes(x)) + geom_histogram() + facet_wrap(~var)</code></td>
+</tr>
+<tr class="even">
+<td><strong>16. Joint plot</strong></td>
+<td><code>sns.jointplot(x='x', y='y', data=df)</code></td>
+<td><code>ggExtra::ggMarginal(p, type='histogram')</code></td>
+</tr>
+<tr class="odd">
+<td><strong>17. Time series plot</strong></td>
+<td><code>sns.lineplot(x='date', y='value', data=df)</code></td>
+<td><code>ggplot(df, aes(date, value)) + geom_line()</code></td>
+</tr>
+<tr class="even">
+<td><strong>18. Error bars (CI)</strong></td>
+<td><code>sns.pointplot(x='x', y='y', data=df, ci='sd')</code></td>
+<td><code>ggplot(df, aes(x, y)) + stat_summary(fun.data=mean_sdl, geom='pointrange')</code></td>
+</tr>
+<tr class="odd">
+<td><strong>19. Categorical dot plot</strong></td>
+<td><code>sns.catplot(x='group', y='value', kind='strip', data=df)</code></td>
+<td><code>ggplot(df, aes(group, value)) + geom_jitter()</code></td>
+</tr>
+<tr class="even">
+<td><strong>20. Multi-plot layout</strong></td>
+<td><code>sns.catplot(x='x', y='y', col='facet', kind='box', data=df)</code></td>
+<td><code>ggplot(df, aes(x, y)) + geom_boxplot() + facet_wrap(~facet)</code></td>
+</tr>
+</tbody>
+</table>
+<section id="notes" class="level3">
+<h3 class="anchored" data-anchor-id="notes">Notes:</h3>
+<ul>
+<li><code>sns</code> stands for <code>seaborn</code>.</li>
+<li>In ggplot2, <code>stat='identity'</code> must be specified when y-values are given (not counts).</li>
+<li><code>ggExtra</code>, <code>GGally</code>, and <code>broom</code> are part of the broader tidyverse ecosystem but may require additional installation.</li>
+</ul>
+<p>This comparison covers common visualization tasks across exploratory data analysis and statistical modeling workflows.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="language">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content" data-group="language">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fizz_buzz <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">fbnums =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    fbnums <span class="sc">%%</span> <span class="dv">15</span> <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"FizzBuzz"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    fbnums <span class="sc">%%</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Fizz"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    fbnums <span class="sc">%%</span> <span class="dv">5</span> <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Buzz"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">as.character</span>(fbnums)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(output)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fizz_buzz(num):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> num <span class="op">%</span> <span class="dv">15</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"FizzBuzz"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">elif</span> num <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Buzz"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">elif</span> num <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fizz"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset" data-group="language">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content" data-group="language">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fizz_buzz <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">fbnums =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    fbnums <span class="sc">%%</span> <span class="dv">15</span> <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"FizzBuzz"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    fbnums <span class="sc">%%</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Fizz"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    fbnums <span class="sc">%%</span> <span class="dv">5</span> <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"Buzz"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">as.character</span>(fbnums)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(output)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fizz_buzz(num):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> num <span class="op">%</span> <span class="dv">15</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"FizzBuzz"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">elif</span> num <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Buzz"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">elif</span> num <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Fizz"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
