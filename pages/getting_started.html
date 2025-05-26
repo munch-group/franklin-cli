@@ -76,9 +76,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-dde8d7229bfee0f8bb5efd37f0f9ae1e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -112,46 +109,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
-<meta name="mermaid-theme" content="neutral">
-<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../api/_styles-quartodoc.css">
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating nav-fixed slimcontent quarto-light">
+<body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -428,28 +392,17 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#install-python" id="toc-install-python" class="nav-link" data-scroll-target="#install-python">Install Python</a></li>
-  <li><a href="#basic-use" id="toc-basic-use" class="nav-link" data-scroll-target="#basic-use">Basic use</a></li>
-  <li><a href="#including-bibtex-references" id="toc-including-bibtex-references" class="nav-link" data-scroll-target="#including-bibtex-references">Including BibTex references</a></li>
-  <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images">images</a></li>
-  <li><a href="#footnotes" id="toc-footnotes" class="nav-link" data-scroll-target="#footnotes">Footnotes</a></li>
-  <li><a href="#asides" id="toc-asides" class="nav-link" data-scroll-target="#asides">Asides</a></li>
-  <li><a href="#diagrams" id="toc-diagrams" class="nav-link" data-scroll-target="#diagrams">Diagrams</a></li>
-  <li><a href="#margin-content" id="toc-margin-content" class="nav-link" data-scroll-target="#margin-content">Margin content</a></li>
-  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
-  <li><a href="#math" id="toc-math" class="nav-link" data-scroll-target="#math">Math</a></li>
-  <li><a href="#bold-and-italics" id="toc-bold-and-italics" class="nav-link" data-scroll-target="#bold-and-italics">Bold and italics</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">Section</a>
-  <ul class="collapse">
-  <li><a href="#subsection" id="toc-subsection" class="nav-link" data-scroll-target="#subsection">Subsection</a></li>
-  <li><a href="#subsubsection" id="toc-subsubsection" class="nav-link" data-scroll-target="#subsubsection">Subsubsection</a></li>
-  </ul></li>
+  <li><a href="#the-student-experience" id="toc-the-student-experience" class="nav-link active" data-scroll-target="#the-student-experience">The student experience</a></li>
+  <li><a href="#the-educator-experience" id="toc-the-educator-experience" class="nav-link" data-scroll-target="#the-educator-experience">The educator experience</a></li>
+  <li><a href="#key-features" id="toc-key-features" class="nav-link" data-scroll-target="#key-features">Key Features</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#gitlab-administrator-setup" id="toc-gitlab-administrator-setup" class="nav-link" data-scroll-target="#gitlab-administrator-setup">GitLab administrator setup</a></li>
+  <li><a href="#feedback-to-the-documentation" id="toc-feedback-to-the-documentation" class="nav-link" data-scroll-target="#feedback-to-the-documentation">Feedback to the documentation</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -470,410 +423,86 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>Franklin is an open source tool developed to allow students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.</p>
+<section id="the-student-experience" class="level2">
+<h2 class="anchored" data-anchor-id="the-student-experience">The student experience</h2>
+<p>Students run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies.</p>
+<p>On both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
 </div>
-<div class="callout-title-container flex-fill">
-These pages are under construction
+<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>After moving to that directory, the students runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student’s computer with all required dependencies preinstalled.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
 </div>
-<div class="callout-body-container callout-body">
-
+<div class="sourceCode" id="cb2" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.</p>
+</section>
+<section id="the-educator-experience" class="level2">
+<h2 class="anchored" data-anchor-id="the-educator-experience">The educator experience</h2>
+<p>Educators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.</p>
+<p>Running the following command prompts the educator for course and exercise name and creates a new exercise.</p>
+<p>Plugin <code>exercise</code> from franklin-jupyter</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise new</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-Feedback to the documentation
+<p>The following command command prompts the educator for course and exercise. It then retrieves the exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
 </div>
+<div class="sourceCode" id="cb4" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-body-container callout-body">
-<p>These pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click “Sign up” to create a Hypothes.is account. Once you are logged in to that, you click <a href="https://hypothes.is/groups/99akKdQZ/franklin">this invite link</a> to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click “Annotate” to add your suggestion/comment.</p>
-</div>
-</div>
-<p><strong>franklin</strong> lets you …</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+</section>
+<section id="key-features" class="level2">
+<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
+<ul>
+<li>GitLab hosting of repositories for exercises grouped by course, allowing for nested authentication priviliges.</li>
+<li>Docker Integration: Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.</li>
+<li>Conda Package Management: The tool supports building and publishing Conda packages, enabling automatic management of dependencies.</li>
+<li>Release Automation: Franklin uses continuous integration on through GitLab to automate workflows for building, testing, and publishing docker images.</li>
+<li>Plugin Architecture: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.</li>
+<li>Conventional Commits: Franklin adheres to the Conventional Commits specification, promoting a standardized commit history that aligns with Semantic Versioning principles.</li>
+</ul>
+</section>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install munch-group::franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Using Conda, students install franklin like this:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Educators also install the <code>franklin-educator</code> plugin:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb6" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin franklin-educator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Courses using <a href="https://pixi.sh/latest/">Pixi</a> simply replace <code>conda install</code> with <code>pixi add</code>.</p>
 </section>
-<section id="install-python" class="level2">
-<h2 class="anchored" data-anchor-id="install-python">Install Python</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Install miniforge not miniconda
-</div>
-</div>
-<div class="callout-body-container callout-body">
-
-</div>
-</div>
+<section id="gitlab-administrator-setup" class="level2">
+<h2 class="anchored" data-anchor-id="gitlab-administrator-setup">GitLab administrator setup</h2>
+<p>Franklin only requires a GitLab group named ‘Franklin’, with subgroups for each course holding the exercise repositories.</p>
 </section>
-<section id="basic-use" class="level2">
-<h2 class="anchored" data-anchor-id="basic-use">Basic use</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-<!-- 
-## Some use case
-
-The [functionname function](`franklin.modulename.functionname`) does ... [](`franklin.modulename.functionname`) does ... [](`~franklin.modulename.functionname`) does ...
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-
---- -->
-</section>
-<section id="including-bibtex-references" class="level2">
-<h2 class="anchored" data-anchor-id="including-bibtex-references">Including BibTex references</h2>
-<p>There are many ways to manage BibTex references. In <a href="https://www.papersapp.com/">ReadCube Papers</a>, you just right-click to select <code>Copy...&gt;BibTex entry</code> and paste it into your BibTex file (I also have a script that formats your entire Papers library for BibTex with meaningful labels).</p>
-<p>You can render citations in different ways to accommodate their sentence. Skov et al.&nbsp;reported strong selection on the human X chromosome <span class="citation" data-cites="Skov2023">[-@Skov2023]</span>. Lineages in small populations have shorter coalescence times <span class="citation" data-cites="NielsenSlatkin2016">[see @NielsenSlatkin2016, chap. 1]</span>. The Neanderthal genome has been sequenced <span class="citation" data-cites="Prufer2012">[@Prufer2012]</span>. The X chromosome is subject to recurrent sweeps <span class="citation" data-cites="Nam2015 Dutheil2015">[@Nam2015; @Dutheil2015]</span>. Following <span class="citation" data-cites="Munch2014">@Munch2014</span>, we blah blah…</p>
-</section>
-<section id="images" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="images">images</h2>
-<p>You can see an elephant in <a href="#fig-elephant" class="quarto-xref">Figure&nbsp;1</a>.</p>
-<div id="fig-elephant" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-elephant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/elephant.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Some caption for an illustration showing an elephant"><img src="images/elephant.png" class="img-fluid figure-img" style="width:50.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-elephant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Some caption for an illustration showing an elephant
-</figcaption>
-</figure>
-</div>
-<p>Elephants are big (<a href="#fig-bigelephant" class="quarto-xref">Figure&nbsp;2</a>):</p>
-<div id="fig-bigelephant" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
-<figure class="quarto-float quarto-float-fig figure page-columns page-full">
-<div aria-describedby="fig-bigelephant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
-<a href="images/elephant.png" class="lightbox page-columns page-full" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: "><img src="images/elephant.png" class="img-fluid figure-img column-screen-inset-right"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-bigelephant-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2
-</figcaption>
-</figure>
-</div>
-<p>There are two elephants in <a href="#fig-twoelephants" class="quarto-xref">Figure&nbsp;3</a>. The elephants in <a href="#fig-surus" class="quarto-xref">Figure&nbsp;3 (a)</a> and <a href="#fig-hanno" class="quarto-xref">Figure&nbsp;3 (b)</a> look similar.</p>
-<div id="fig-twoelephants" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-twoelephants-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-twoelephants" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-surus" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-surus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/elephant.png" class="lightbox" data-gallery="fig-twoelephants" title="Figure&nbsp;3&nbsp;(a): "><img src="images/elephant.png" id="fig-surus" class="img-fluid figure-img" data-ref-parent="fig-twoelephants"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-surus-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a)
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-twoelephants" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-hanno" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-hanno-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/elephant.png" class="lightbox" data-gallery="fig-twoelephants" title="Figure&nbsp;3&nbsp;(b): "><img src="images/elephant.png" id="fig-hanno" class="img-fluid figure-img" data-ref-parent="fig-twoelephants"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hanno-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b)
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-twoelephants-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Some caption you wrote for an illustration of two elephants.
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="footnotes" class="level2">
-<h2 class="anchored" data-anchor-id="footnotes">Footnotes</h2>
-<p>Here is a footnote reference<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> so you can read about elephants in the margin too.</p>
-</section>
-<section id="asides" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="asides">Asides</h2>
-<div class="page-columns page-full"><p>If you like, </p><div class="no-row-height column-margin column-container"><span class="margin-aside">you can make comments in the margin without footnote a reference.</span></div></div>
-</section>
-<section id="diagrams" class="level2">
-<h2 class="anchored" data-anchor-id="diagrams">Diagrams</h2>
-<p>Diagram in <a href="#fig-diag" class="quarto-xref">Figure&nbsp;4</a>.</p>
-<div id="fig-diag" class="quarto-float quarto-figure quarto-figure-center anchored" width="10%">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode dot code-with-copy"><code class="sourceCode dot"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">graph</span> <span class="va">G</span> <span class="ot">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">layout</span><span class="ot">=</span><span class="va">neato</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">run</span><span class="co"> -- </span><span class="va">intr</span><span class="ot">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">intr</span><span class="co"> -- </span><span class="va">runbl</span><span class="ot">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">runbl</span><span class="co"> -- </span><span class="va">run</span><span class="ot">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">run</span><span class="co"> -- </span><span class="va">kernel</span><span class="ot">;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">kernel</span><span class="co"> -- </span><span class="va">zombie</span><span class="ot">;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">kernel</span><span class="co"> -- </span><span class="va">sleep</span><span class="ot">;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">kernel</span><span class="co"> -- </span><span class="va">runmem</span><span class="ot">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">sleep</span><span class="co"> -- </span><span class="va">swap</span><span class="ot">;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">swap</span><span class="co"> -- </span><span class="va">runswap</span><span class="ot">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">runswap</span><span class="co"> -- </span><span class="va">new</span><span class="ot">;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">runswap</span><span class="co"> -- </span><span class="va">runmem</span><span class="ot">;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">new</span><span class="co"> -- </span><span class="va">runmem</span><span class="ot">;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">sleep</span><span class="co"> -- </span><span class="va">runmem</span><span class="ot">;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ot">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-graphviz" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-graphviz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div>
-<svg width="672" height="480" viewbox="0.00 0.00 370.99 246.71" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 242.71)">
-<title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-242.71 366.99,-242.71 366.99,4 -4,4"></polygon>
-<!-- run -->
-<g id="node1" class="node">
-<title>run</title>
-<ellipse fill="none" stroke="black" cx="105.22" cy="-110.03" rx="27" ry="18"></ellipse>
-<text text-anchor="middle" x="105.22" y="-105.83" font-family="Times,serif" font-size="14.00">run</text>
-</g>
-<!-- intr -->
-<g id="node2" class="node">
-<title>intr</title>
-<ellipse fill="none" stroke="black" cx="48.11" cy="-59.71" rx="27" ry="18"></ellipse>
-<text text-anchor="middle" x="48.11" y="-55.51" font-family="Times,serif" font-size="14.00">intr</text>
-</g>
-<!-- run&#45;&#45;intr -->
-<g id="edge1" class="edge">
-<title>run--intr</title>
-<path fill="none" stroke="black" d="M88.7,-95.48C81.19,-88.86 72.32,-81.04 64.79,-74.4"></path>
-</g>
-<!-- kernel -->
-<g id="node4" class="node">
-<title>kernel</title>
-<ellipse fill="none" stroke="black" cx="180.95" cy="-137.54" rx="35.33" ry="18"></ellipse>
-<text text-anchor="middle" x="180.95" y="-133.34" font-family="Times,serif" font-size="14.00">kernel</text>
-</g>
-<!-- run&#45;&#45;kernel -->
-<g id="edge4" class="edge">
-<title>run--kernel</title>
-<path fill="none" stroke="black" d="M129.18,-118.73C136.46,-121.38 144.54,-124.31 152.1,-127.06"></path>
-</g>
-<!-- runbl -->
-<g id="node3" class="node">
-<title>runbl</title>
-<ellipse fill="none" stroke="black" cx="31.42" cy="-126.16" rx="31.34" ry="18"></ellipse>
-<text text-anchor="middle" x="31.42" y="-121.96" font-family="Times,serif" font-size="14.00">runbl</text>
-</g>
-<!-- intr&#45;&#45;runbl -->
-<g id="edge2" class="edge">
-<title>intr--runbl</title>
-<path fill="none" stroke="black" d="M43.64,-77.51C41.25,-87.05 38.3,-98.76 35.91,-108.3"></path>
-</g>
-<!-- runbl&#45;&#45;run -->
-<g id="edge3" class="edge">
-<title>runbl--run</title>
-<path fill="none" stroke="black" d="M61.01,-119.7C67.11,-118.36 73.48,-116.97 79.43,-115.67"></path>
-</g>
-<!-- zombie -->
-<g id="node5" class="node">
-<title>zombie</title>
-<ellipse fill="none" stroke="black" cx="168.31" cy="-220.71" rx="39.42" ry="18"></ellipse>
-<text text-anchor="middle" x="168.31" y="-216.51" font-family="Times,serif" font-size="14.00">zombie</text>
-</g>
-<!-- kernel&#45;&#45;zombie -->
-<g id="edge5" class="edge">
-<title>kernel--zombie</title>
-<path fill="none" stroke="black" d="M178.21,-155.58C176.09,-169.54 173.17,-188.76 171.05,-202.7"></path>
-</g>
-<!-- sleep -->
-<g id="node6" class="node">
-<title>sleep</title>
-<ellipse fill="none" stroke="black" cx="253.25" cy="-154.97" rx="30.76" ry="18"></ellipse>
-<text text-anchor="middle" x="253.25" y="-150.77" font-family="Times,serif" font-size="14.00">sleep</text>
-</g>
-<!-- kernel&#45;&#45;sleep -->
-<g id="edge6" class="edge">
-<title>kernel--sleep</title>
-<path fill="none" stroke="black" d="M212.87,-145.23C216.81,-146.18 220.81,-147.15 224.69,-148.08"></path>
-</g>
-<!-- runmem -->
-<g id="node7" class="node">
-<title>runmem</title>
-<ellipse fill="none" stroke="black" cx="240.17" cy="-83.36" rx="43.44" ry="18"></ellipse>
-<text text-anchor="middle" x="240.17" y="-79.16" font-family="Times,serif" font-size="14.00">runmem</text>
-</g>
-<!-- kernel&#45;&#45;runmem -->
-<g id="edge7" class="edge">
-<title>kernel--runmem</title>
-<path fill="none" stroke="black" d="M198.4,-121.57C205.9,-114.71 214.67,-106.69 222.23,-99.77"></path>
-</g>
-<!-- sleep&#45;&#45;runmem -->
-<g id="edge13" class="edge">
-<title>sleep--runmem</title>
-<path fill="none" stroke="black" d="M249.95,-136.9C247.98,-126.13 245.49,-112.49 243.51,-101.67"></path>
-</g>
-<!-- swap -->
-<g id="node8" class="node">
-<title>swap</title>
-<ellipse fill="none" stroke="black" cx="330.95" cy="-148.25" rx="30.77" ry="18"></ellipse>
-<text text-anchor="middle" x="330.95" y="-144.05" font-family="Times,serif" font-size="14.00">swap</text>
-</g>
-<!-- sleep&#45;&#45;swap -->
-<g id="edge8" class="edge">
-<title>sleep--swap</title>
-<path fill="none" stroke="black" d="M283.96,-152.31C289.3,-151.85 294.86,-151.37 300.21,-150.91"></path>
-</g>
-<!-- runswap -->
-<g id="node9" class="node">
-<title>runswap</title>
-<ellipse fill="none" stroke="black" cx="319.23" cy="-73.46" rx="43.51" ry="18"></ellipse>
-<text text-anchor="middle" x="319.23" y="-69.26" font-family="Times,serif" font-size="14.00">runswap</text>
-</g>
-<!-- swap&#45;&#45;runswap -->
-<g id="edge9" class="edge">
-<title>swap--runswap</title>
-<path fill="none" stroke="black" d="M328.11,-130.15C326.28,-118.47 323.91,-103.35 322.08,-91.66"></path>
-</g>
-<!-- runswap&#45;&#45;runmem -->
-<g id="edge11" class="edge">
-<title>runswap--runmem</title>
-<path fill="none" stroke="black" d="M276.92,-78.76C276.78,-78.77 276.63,-78.79 276.48,-78.81"></path>
-</g>
-<!-- new -->
-<g id="node10" class="node">
-<title>new</title>
-<ellipse fill="none" stroke="black" cx="278.31" cy="-18" rx="27.25" ry="18"></ellipse>
-<text text-anchor="middle" x="278.31" y="-13.8" font-family="Times,serif" font-size="14.00">new</text>
-</g>
-<!-- runswap&#45;&#45;new -->
-<g id="edge10" class="edge">
-<title>runswap--new</title>
-<path fill="none" stroke="black" d="M306.51,-56.21C301.35,-49.22 295.42,-41.18 290.33,-34.29"></path>
-</g>
-<!-- new&#45;&#45;runmem -->
-<g id="edge12" class="edge">
-<title>new--runmem</title>
-<path fill="none" stroke="black" d="M268.49,-34.83C263.01,-44.21 256.2,-55.89 250.62,-65.44"></path>
-</g>
-</g>
-</svg>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-graphviz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) This is a simple graphviz graph.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-diag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4
-</figcaption>
-</figure>
-</div>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  A[Beginning] --&gt; B[Middle]</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  B --&gt; C[End]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A[Beginning] --&gt; B[Middle]
-  B --&gt; C[End]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="margin-content" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="margin-content">Margin content</h2>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  A[Beginning] --&gt; B[Middle]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  B --&gt; C[End]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A[Beginning] --&gt; B[Middle]
-  B --&gt; C[End]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>This is a flow chart.</p>
-</div></div></section>
-<section id="code" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="code">Code</h2>
-<p>Executed but hide code and any output:</p>
-<p>Show and execute Python code:</p>
-<div id="ee9bf79e" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Values can be embedded in the text, too. The value of <code>x</code> is 5.</p>
-<p>Shown, not executed, Python code:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>A for loop:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div><p>Shown, not executed, R code:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="math" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="math">Math</h2>
-<p>This is calculated as <span class="math inline">\(\pi_k = \prod_{i=1}^K x_i\)</span>. You can crossref formulas (<a href="#eq-definition" class="quarto-xref">Equation&nbsp;1</a>).</p>
-<p><span id="eq-definition"><span class="math display">\[
-\lambda = \sum_{k=1}^N \pi_k
-\tag{1}\]</span></span></p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>We know from <em>the first fundamental theorem of calculus</em> that for <span class="math inline">\(x\)</span> in <span class="math inline">\([a, b]\)</span>:</p>
-<p><span class="math display">\[\frac{d}{dx}\left( \int_{a}^{x} f(u)\,du\right)=f(x).\]</span></p>
-</div></div></section>
-<section id="bold-and-italics" class="level2">
-<h2 class="anchored" data-anchor-id="bold-and-italics">Bold and italics</h2>
-<p><strong>This is bold</strong>, <strong>so is this</strong>. <em>This is italics</em>, <em>so is this</em>. <strong><em>This is both</em></strong>, <strong><em>so is this</em></strong>.</p>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section">Section</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-<section id="subsection" class="level3">
-<h3 class="anchored" data-anchor-id="subsection">Subsection</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-</section>
-<section id="subsubsection" class="level3">
-<h3 class="anchored" data-anchor-id="subsubsection">Subsubsection</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+<section id="feedback-to-the-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="feedback-to-the-documentation">Feedback to the documentation</h2>
+<p>These pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click “Sign up” to create a Hypothes.is account. Once you are logged in to that, you click <a href="https://hypothes.is/groups/99akKdQZ/franklin">this invite link</a> to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click “Annotate” to add your suggestion/comment.</p>
 
 
 </section>
-</section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Elephants have long trunks and big ears if they are African. The one on the picture is Indian.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1283,38 +912,6 @@ Figure&nbsp;4
   </div>
 </nav>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

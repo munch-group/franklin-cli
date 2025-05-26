@@ -856,7 +856,37 @@
     "href": "pages/getting_started.html",
     "title": "Getting started",
     "section": "",
-    "text": "These pages are under construction\nfranklin lets you …\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+    "text": "Franklin is an open source tool developed to allow students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#the-student-experience",
+    "href": "pages/getting_started.html#the-student-experience",
+    "title": "Getting started",
+    "section": "The student experience",
+    "text": "The student experience\nStudents run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies.\nOn both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.\n\n\nTerminal\n\nfranklin download\n\nAfter moving to that directory, the students runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student’s computer with all required dependencies preinstalled.\n\n\nTerminal\n\nfranklin jupyter\n\nThe environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#the-educator-experience",
+    "href": "pages/getting_started.html#the-educator-experience",
+    "title": "Getting started",
+    "section": "The educator experience",
+    "text": "The educator experience\nEducators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.\nRunning the following command prompts the educator for course and exercise name and creates a new exercise.\nPlugin exercise from franklin-jupyter\n\n\nTerminal\n\nfranklin exercise new\n\nThe following command command prompts the educator for course and exercise. It then retrieves the exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.\n\n\nTerminal\n\nfranklin exercise edit",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#key-features",
+    "href": "pages/getting_started.html#key-features",
+    "title": "Getting started",
+    "section": "Key Features",
+    "text": "Key Features\n\nGitLab hosting of repositories for exercises grouped by course, allowing for nested authentication priviliges.\nDocker Integration: Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.\nConda Package Management: The tool supports building and publishing Conda packages, enabling automatic management of dependencies.\nRelease Automation: Franklin uses continuous integration on through GitLab to automate workflows for building, testing, and publishing docker images.\nPlugin Architecture: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.\nConventional Commits: Franklin adheres to the Conventional Commits specification, promoting a standardized commit history that aligns with Semantic Versioning principles.",
     "crumbs": [
       "Getting started"
     ]
@@ -866,127 +896,27 @@
     "href": "pages/getting_started.html#installation",
     "title": "Getting started",
     "section": "Installation",
-    "text": "Installation\nconda install munch-group::franklin",
+    "text": "Installation\nUsing Conda, students install franklin like this:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin\n\nEducators also install the franklin-educator plugin:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin franklin-educator\n\nCourses using Pixi simply replace conda install with pixi add.",
     "crumbs": [
       "Getting started"
     ]
   },
   {
-    "objectID": "pages/getting_started.html#install-python",
-    "href": "pages/getting_started.html#install-python",
+    "objectID": "pages/getting_started.html#gitlab-administrator-setup",
+    "href": "pages/getting_started.html#gitlab-administrator-setup",
     "title": "Getting started",
-    "section": "Install Python",
-    "text": "Install Python\n\n\n\n\n\n\nInstall miniforge not miniconda",
+    "section": "GitLab administrator setup",
+    "text": "GitLab administrator setup\nFranklin only requires a GitLab group named ‘Franklin’, with subgroups for each course holding the exercise repositories.",
     "crumbs": [
       "Getting started"
     ]
   },
   {
-    "objectID": "pages/getting_started.html#basic-use",
-    "href": "pages/getting_started.html#basic-use",
+    "objectID": "pages/getting_started.html#feedback-to-the-documentation",
+    "href": "pages/getting_started.html#feedback-to-the-documentation",
     "title": "Getting started",
-    "section": "Basic use",
-    "text": "Basic use\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#including-bibtex-references",
-    "href": "pages/getting_started.html#including-bibtex-references",
-    "title": "Getting started",
-    "section": "Including BibTex references",
-    "text": "Including BibTex references\nThere are many ways to manage BibTex references. In ReadCube Papers, you just right-click to select Copy...&gt;BibTex entry and paste it into your BibTex file (I also have a script that formats your entire Papers library for BibTex with meaningful labels).\nYou can render citations in different ways to accommodate their sentence. Skov et al. reported strong selection on the human X chromosome [-@Skov2023]. Lineages in small populations have shorter coalescence times [see @NielsenSlatkin2016, chap. 1]. The Neanderthal genome has been sequenced [@Prufer2012]. The X chromosome is subject to recurrent sweeps [@Nam2015; @Dutheil2015]. Following @Munch2014, we blah blah…",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#images",
-    "href": "pages/getting_started.html#images",
-    "title": "Getting started",
-    "section": "images",
-    "text": "images\nYou can see an elephant in Figure 1.\n\n\n\n\n\n\nFigure 1: Some caption for an illustration showing an elephant\n\n\n\nElephants are big (Figure 2):\n\n\n\n\n\n\nFigure 2\n\n\n\nThere are two elephants in Figure 3. The elephants in Figure 3 (a) and Figure 3 (b) look similar.\n\n\n\n\n\n\n\n\n\n\n\n(a)\n\n\n\n\n\n\n\n\n\n\n\n(b)\n\n\n\n\n\n\n\nFigure 3: Some caption you wrote for an illustration of two elephants.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#footnotes",
-    "href": "pages/getting_started.html#footnotes",
-    "title": "Getting started",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nElephants have long trunks and big ears if they are African. The one on the picture is Indian.↩︎",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#asides",
-    "href": "pages/getting_started.html#asides",
-    "title": "Getting started",
-    "section": "Asides",
-    "text": "Asides\nIf you like, you can make comments in the margin without footnote a reference.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#diagrams",
-    "href": "pages/getting_started.html#diagrams",
-    "title": "Getting started",
-    "section": "Diagrams",
-    "text": "Diagrams\nDiagram in Figure 4.\n\n\n\n\ngraph G {\n  layout=neato\n  run -- intr;\n  intr -- runbl;\n  runbl -- run;\n  run -- kernel;\n  kernel -- zombie;\n  kernel -- sleep;\n  kernel -- runmem;\n  sleep -- swap;\n  swap -- runswap;\n  runswap -- new;\n  runswap -- runmem;\n  new -- runmem;\n  sleep -- runmem;\n}\n\n\n\n\n\n\n\nG\n\n\n\nrun\n\nrun\n\n\n\nintr\n\nintr\n\n\n\nrun--intr\n\n\n\n\nkernel\n\nkernel\n\n\n\nrun--kernel\n\n\n\n\nrunbl\n\nrunbl\n\n\n\nintr--runbl\n\n\n\n\nrunbl--run\n\n\n\n\nzombie\n\nzombie\n\n\n\nkernel--zombie\n\n\n\n\nsleep\n\nsleep\n\n\n\nkernel--sleep\n\n\n\n\nrunmem\n\nrunmem\n\n\n\nkernel--runmem\n\n\n\n\nsleep--runmem\n\n\n\n\nswap\n\nswap\n\n\n\nsleep--swap\n\n\n\n\nrunswap\n\nrunswap\n\n\n\nswap--runswap\n\n\n\n\nrunswap--runmem\n\n\n\n\nnew\n\nnew\n\n\n\nrunswap--new\n\n\n\n\nnew--runmem\n\n\n\n\n\n\n\n(a) This is a simple graphviz graph.\n\n\n\n\n\n\n\nFigure 4\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#margin-content",
-    "href": "pages/getting_started.html#margin-content",
-    "title": "Getting started",
-    "section": "Margin content",
-    "text": "Margin content\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\nflowchart LR\n  A[Beginning] --&gt; B[Middle]\n  B --&gt; C[End]\n\n\n\n\n\n\nThis is a flow chart.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#code",
-    "href": "pages/getting_started.html#code",
-    "title": "Getting started",
-    "section": "Code",
-    "text": "Code\nExecuted but hide code and any output:\nShow and execute Python code:\n\nx = 5\n\nValues can be embedded in the text, too. The value of x is 5.\nShown, not executed, Python code:\ny = 4\n\n\nA for loop:\nfor i in range(10):\n    print(i)\nShown, not executed, R code:\nz &lt;- 7",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#math",
-    "href": "pages/getting_started.html#math",
-    "title": "Getting started",
-    "section": "Math",
-    "text": "Math\nThis is calculated as \\(\\pi_k = \\prod_{i=1}^K x_i\\). You can crossref formulas (Equation 1).\n\\[\n\\lambda = \\sum_{k=1}^N \\pi_k\n\\tag{1}\\]\n\n\nWe know from the first fundamental theorem of calculus that for \\(x\\) in \\([a, b]\\):\n\\[\\frac{d}{dx}\\left( \\int_{a}^{x} f(u)\\,du\\right)=f(x).\\]",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#bold-and-italics",
-    "href": "pages/getting_started.html#bold-and-italics",
-    "title": "Getting started",
-    "section": "Bold and italics",
-    "text": "Bold and italics\nThis is bold, so is this. This is italics, so is this. This is both, so is this.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#section",
-    "href": "pages/getting_started.html#section",
-    "title": "Getting started",
-    "section": "Section",
-    "text": "Section\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\nSubsection\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n\n\nSubsubsection\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit amet lacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu sem laoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet, auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia. Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus non fringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, at luctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+    "section": "Feedback to the documentation",
+    "text": "Feedback to the documentation\nThese pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click “Sign up” to create a Hypothes.is account. Once you are logged in to that, you click this invite link to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click “Annotate” to add your suggestion/comment.",
     "crumbs": [
       "Getting started"
     ]
