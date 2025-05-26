@@ -206,9 +206,9 @@ def download():
     try:
         import franklin_educator
         term.boxed_text("Are you an educator?",
-                        ['It seems you are an educator. If you intend upload to edit and '
-                         'upload changes to an exercise, you must use "franklin git down" instead.'],
-                        fg='red')
+                        ['You want to edit the version available to students, '
+                         'you must use "franklin exercise edit" instead.'],
+                        fg='magenta')
         click.confirm("Continue?", default=False, abort=True)
     except ImportError:
         pass

@@ -72,7 +72,7 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
         Launch jupyter in this directory (relative to dir where jupyter is 
         launched), by default None
     """
-
+    term.secho()
     term.secho("Downloading/updating image:")
     _docker.pull(image_url)
     term.echo()    

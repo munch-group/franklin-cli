@@ -35,7 +35,7 @@ def update_client() -> None:
         pkg = 'franklin'
         latest = latest_version(pkg)
         if latest > system.package_version(pkg):
-            term.secho(f'{pkg} is updating to {latest}', fg='green')
+            term.secho(f'{pkg} is updating to {latest}')
             cmd = f'conda install -y -c conda-forge {channel}::{pkg}={latest}'
             utils.run_cmd(cmd)
         docker.config_fit()
@@ -55,7 +55,7 @@ def update_client() -> None:
         pkg = 'franklin-educator'
         latest = latest_version(pkg)
         if latest > system.package_version(pkg):
-            term.secho(f'{pkg} is updating to {latest}', fg='green')
+            term.secho(f'{pkg} is updating to {latest}')
             utils.run_cmd(
                 f'conda install -y -c conda-forge {channel}::{pkg}={latest}')
         docker.config_fit()
