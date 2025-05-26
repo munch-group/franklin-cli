@@ -5,7 +5,7 @@ project:
   #   - quarto render --to html --profile ta  
 
 book:
-  title: "Franklin for students"
+  title: "Franklin"
   # title: "<br>"
   subtitle: "The MBG jupyter exercise tool"
   # description: 'A course in bioinformatics and programming'

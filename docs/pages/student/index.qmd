@@ -25,6 +25,10 @@ title-block-banner-color: "#FFFFFF"
   height: 100%;
   background-color: "#36B24A";
 } */
+
+.quarto-title-banner {
+  font-family:  Peto;
+}
 </style>
 
 
@@ -35,31 +39,4 @@ title-block-banner-color: "#FFFFFF"
 } 
 </style>
  -->
-
-**[Download the HTML course website for offline viewing at the exam](https://brightspace.au.dk/d2l/common/dialogs/quickLink/quickLink.d2l?ou={orgUnitId}&type=coursefile&fileId=course_page_html.zip) (unzip once downloaded and double-click index.html).**
-
-**[Download the HTML Python documentation for offline viewing at the exam](https://brightspace.au.dk/d2l/common/dialogs/quickLink/quickLink.d2l?ou={orgUnitId}&type=coursefile&fileId=python-3.9.21-docs-html.zip) (unzip once downloaded and double-click index.html).**
-
-
-# Welcome {.unnumbered}
-
-[brightspace_2024]: (https://brightspace.au.dk/d2l/home/145685)
-
-This is the homepage for the AU course Bioinformatics and programming (Bioinformatik og programmering). You will find all course content here. The [Brightspace course page][brightspace_2024] is only used for communication, and assignments.
-
-## Course description {.unnumbered}
-After the course, the participants will have basic knowledge of computer methods and applications for analyzing biological sequence data and insight into principles and techniques for constructing simple programs. Participants will acquire practical experience with analyzing problems in bioinformatics and related fields and implementing programs to solve such problems using the Python programming language.
-
-The participants must, at the end of the course, be able to:
-
-* Apply fundamental constructs of a programming language.
-* Analyse data and construct data structures for the representation of data.
-* Analyse simple computational problems and construct programs for their solution.
-* Describe and relate essential methods in bioinformatics analysis.
-* Apply bioinformatics software to biological data.
-* Judge the reliability of results obtained using Bioinformatics software.
-
-## Course contents {.unnumbered}
-The course introduces programming and its practical applications in bioinformatics. The course also outlines and discusses bioinformatics algorithms, and the most common tools for bioinformatics analysis of sequence data are presented and demo
-nstrated. The participant will acquire and train basic programming skills during the first seven weeks. The last seven weeks introduce key topics in bioinformatics, focusing on applying bioinformatical software and developing programming skills. Subjects for lectures and exercises include bioinformatics databases, sequence alignment, genome annotation, sequence evolution, and phylogenetic analysis.
 
