@@ -103,8 +103,9 @@ def crash_report(func: Callable) -> Callable:
                 f"\nFranklin encountered an unexpected problem.", fg='red')
             term.secho(
                 f'\nPlease open an email to {cfg.maintainer_email} with '
-                'subject "Franklin crash". The email body should contain '
-                'the crash information.')
+                'subject "Franklin crash". When you press Enter in this '
+                'window, the crash information is copied to your clipboard '
+                'So you can paste it into the email body before sending it')
             click.pause("Press Enter to copy the crash information to your "
                         "clipboard.")
             pyperclip.copy(gather_crash_info())

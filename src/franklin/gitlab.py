@@ -205,10 +205,10 @@ def download():
     """
     try:
         import franklin_educator
-        term.boxed_text("Are you an educator?",
-                        ['You want to edit the version available to students, '
-                         'you must use "franklin exercise edit" instead.'],
-                        fg='magenta')
+
+        term.secho("Are you an educator?",fg='magenta')
+        term.echo('If you want to edit the version available to students, '
+                  'you must use "franklin exercise edit" instead.')
         click.confirm("Continue?", default=False, abort=True)
     except ImportError:
         pass
