@@ -59,7 +59,7 @@
     "href": "pages/admin_franklin_code.html",
     "title": "Code",
     "section": "",
-    "text": "import os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── admin_components.html\n├── admin_components.qmd\n├── admin_docker.html\n├── admin_docker.qmd\n├── admin_franklin_code.qmd\n├── admin_franklin_code.quarto_ipynb\n├── admin_gitlab.html\n├── admin_gitlab.qmd\n├── computer_setup.html\n├── computer_setup.qmd\n├── developing_exercises.qmd\n├── docker.html\n├── docker.qmd\n├── editing.html\n├── editing.qmd\n├── getting_started.html\n├── getting_started.qmd\n├── git.html\n├── git.qmd\n├── gitlab.html\n├── gitlab.qmd\n├── images\n│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png\n│   ├── elephant.png\n│   ├── pipeline_example.png\n│   └── pipeline_example_nomenu.png\n├── intalling.qmd\n├── jupyter.html\n├── jupyter.qmd\n├── jupyterlab.html\n├── jupyterlab.ipynb\n├── jupyterlab_files\n│   └── figure-html\n│       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n├── making.html\n├── making.qmd\n├── numpy_pandas.html\n├── numpy_pandas.ipynb\n├── overview.html\n├── overview.qmd\n├── plotting.ipynb\n├── r_to_python.html\n├── r_to_python.ipynb\n├── running.html\n├── running.qmd\n├── sascha_tester.html\n├── sascha_tester.md\n├── ssh.qmd\n├── student\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── docker.html\n│   ├── docker.qmd\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   ├── index.html\n│   ├── index.qmd\n│   ├── jupyter.html\n│   ├── jupyter.qmd\n│   ├── jupyterlab.html\n│   ├── jupyterlab.ipynb\n│   ├── jupyterlab_files\n│   │   └── figure-html\n│   │       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│   │       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n│   ├── terminal.html\n│   └── terminal.qmd\n├── terminal.qmd\n└── using.qmd\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md",
+    "text": "import os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── admin_components.html\n├── admin_components.qmd\n├── admin_docker.html\n├── admin_docker.qmd\n├── admin_franklin_code.qmd\n├── admin_franklin_code.quarto_ipynb\n├── admin_gitlab.html\n├── admin_gitlab.qmd\n├── computer_setup.html\n├── computer_setup.qmd\n├── developing_exercises.qmd\n├── docker.html\n├── docker.qmd\n├── editing.html\n├── editing.qmd\n├── getting_started.html\n├── getting_started.qmd\n├── git.html\n├── git.qmd\n├── gitlab.html\n├── gitlab.qmd\n├── images\n│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png\n│   ├── elephant.png\n│   ├── pipeline_example.png\n│   └── pipeline_example_nomenu.png\n├── intalling.qmd\n├── jupyter.html\n├── jupyter.qmd\n├── jupyterlab.html\n├── jupyterlab.ipynb\n├── jupyterlab_files\n│   └── figure-html\n│       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n├── making.html\n├── making.qmd\n├── numpy_pandas.html\n├── numpy_pandas.ipynb\n├── overview.html\n├── overview.qmd\n├── plotting.ipynb\n├── r_to_python.html\n├── r_to_python.ipynb\n├── running.html\n├── running.qmd\n├── ssh.qmd\n├── student\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── docker.html\n│   ├── docker.qmd\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   ├── index.html\n│   ├── index.qmd\n│   ├── jupyter.html\n│   ├── jupyter.qmd\n│   ├── jupyterlab.html\n│   ├── jupyterlab.ipynb\n│   ├── jupyterlab_files\n│   │   └── figure-html\n│   │       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│   │       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n│   ├── terminal.html\n│   └── terminal.qmd\n├── terminal.qmd\n└── using.qmd\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md",
     "crumbs": [
       "Source code",
       "Code"
@@ -379,66 +379,11 @@
     ]
   },
   {
-    "objectID": "api/run.html",
-    "href": "api/run.html",
-    "title": "run",
+    "objectID": "notebooks/example.html",
+    "href": "notebooks/example.html",
+    "title": "Workplace interaction",
     "section": "",
-    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#parameters",
-    "href": "api/run.html#parameters",
-    "title": "run",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#returns",
-    "href": "api/run.html#returns",
-    "title": "run",
-    "section": "",
-    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/pull.html",
-    "href": "api/pull.html",
-    "title": "pull",
-    "section": "",
-    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/pull.html#parameters",
-    "href": "api/pull.html#parameters",
-    "title": "pull",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/launch_exercise.html",
-    "href": "api/launch_exercise.html",
-    "title": "launch_exercise",
-    "section": "",
-    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
+    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
   },
   {
     "objectID": "api/index.html",
@@ -471,11 +416,66 @@
     ]
   },
   {
-    "objectID": "notebooks/example.html",
-    "href": "notebooks/example.html",
-    "title": "Workplace interaction",
+    "objectID": "api/launch_exercise.html",
+    "href": "api/launch_exercise.html",
+    "title": "launch_exercise",
     "section": "",
-    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
+    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
+  },
+  {
+    "objectID": "api/pull.html",
+    "href": "api/pull.html",
+    "title": "pull",
+    "section": "",
+    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/pull.html#parameters",
+    "href": "api/pull.html#parameters",
+    "title": "pull",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/run.html",
+    "href": "api/run.html",
+    "title": "run",
+    "section": "",
+    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#parameters",
+    "href": "api/run.html#parameters",
+    "title": "run",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#returns",
+    "href": "api/run.html#returns",
+    "title": "run",
+    "section": "",
+    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
   },
   {
     "objectID": "pages/admin_docker.html#running-docker-containers",
