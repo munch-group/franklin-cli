@@ -89,11 +89,13 @@ website:
           contents:
             - pages/admin_gitlab.qmd
             - pages/admin_docker.qmd
+            - pages/admin_components.qmd
         - section: "Development"
           contents:
             - pages/admin_components.qmd
         - section: "Source code"
           contents:
+            - pages/admin_franklin_code.qmd
             - ../src/franklin/docker.py
 
 comments:
