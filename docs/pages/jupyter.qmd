@@ -7,7 +7,12 @@ title: Jupyter
 
 :::
 
-Jupyter Notebooks are an interactive computing environment that allow users to create and share documents containing live code, equations, visualizations, and narrative text. Originally developed as part of the IPython project, Jupyter (short for Julia, Python, R) now supports over 100 programming languages and has become a standard tool in data science, scientific computing, and education.
+
+```markdown
+lak sdflkasj dlfkj asldfj alskdj flaksdj flaksjd flkja sdlfkj alsdkjf laksdj flaksdf jlaksdjf alsdkfj lsdkfj asldkfj 
+```
+
+Jupyter Notebooks are an interactive computing environment that allow users to create and share documents containing live code, equations, visualizations, and narrative text. Originally developed as part of the IPython project, Jupyter (short for Julia, Python, R) now supports over 100 programming languages and has become a standard tool in data science, scientific computing, and education. 
 
 At the core of a Jupyter Notebook is a web-based interface that organizes content into "cells." These cells can contain code (typically in Python, but also in other languages via kernels), formatted text using Markdown, LaTeX for equations, and embedded multimedia elements. Users execute code in-place, and outputs such as plots or tables appear directly below the corresponding cells. This structure enables exploratory data analysis and facilitates reproducibility by interleaving code and its results with documentation.
 
