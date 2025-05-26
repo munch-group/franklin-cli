@@ -30,6 +30,21 @@ These pages are linked to Hypothes.is, that lets you suggest changes or addition
 conda install munch-group::franklin
 ```
 
+
+## Install Python
+
+
+::: {.callout-warning }
+
+## Install miniforge not miniconda
+
+:::
+
+
+
+
+
+
 ## Basic use
 
 {{< lipsum 1 >}}
