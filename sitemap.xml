@@ -2,142 +2,138 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://munch-group.github.io/franklin/pages/plotting.html</loc>
-    <lastmod>2025-05-26T07:37:48.806Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.431Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/terminal.html</loc>
-    <lastmod>2025-05-26T07:37:48.809Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.434Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/ssh.html</loc>
-    <lastmod>2025-05-26T07:37:48.807Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.432Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/admin_franklin_code.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/student/jupyter.html</loc>
-    <lastmod>2025-05-26T07:37:48.789Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.414Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/student/jupyterlab.html</loc>
-    <lastmod>2025-05-26T07:37:48.791Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.416Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/admin_components.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/gitlab.html</loc>
-    <lastmod>2025-05-26T07:37:48.782Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.407Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/jupyter.html</loc>
-    <lastmod>2025-05-26T07:37:48.789Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/jupyterlab.html</loc>
-    <lastmod>2025-05-26T07:37:48.791Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/git.html</loc>
-    <lastmod>2025-05-26T07:37:48.782Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/computer_setup.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/editing.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/making.html</loc>
-    <lastmod>2025-05-26T07:37:48.791Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/admin_docker.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/notebooks/example.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/api/index.html</loc>
-    <lastmod>2025-05-26T07:37:48.778Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/api/launch_exercise.html</loc>
-    <lastmod>2025-05-26T07:37:48.778Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/api/pull.html</loc>
-    <lastmod>2025-05-26T07:37:48.778Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/api/run.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/sascha_tester.html</loc>
-    <lastmod>2025-05-26T07:37:48.807Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/r_to_python.html</loc>
-    <lastmod>2025-05-26T07:37:48.807Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/overview.html</loc>
-    <lastmod>2025-05-26T07:37:48.792Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/running.html</loc>
-    <lastmod>2025-05-26T07:37:48.807Z</lastmod>
-  </url>
-  <url>
-    <loc>https://munch-group.github.io/franklin/pages/admin_gitlab.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.414Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/docker.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
   </url>
   <url>
-    <loc>https://munch-group.github.io/franklin/pages/educator/index.html</loc>
-    <lastmod>2025-05-26T07:37:48.781Z</lastmod>
+    <loc>https://munch-group.github.io/franklin/pages/admin_gitlab.html</loc>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/running.html</loc>
+    <lastmod>2025-05-26T10:00:52.432Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/overview.html</loc>
+    <lastmod>2025-05-26T10:00:52.417Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/r_to_python.html</loc>
+    <lastmod>2025-05-26T10:00:52.432Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/sascha_tester.html</loc>
+    <lastmod>2025-05-26T10:00:52.432Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/api/run.html</loc>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/api/pull.html</loc>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/api/launch_exercise.html</loc>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/api/index.html</loc>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/notebooks/example.html</loc>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/admin_docker.html</loc>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/making.html</loc>
+    <lastmod>2025-05-26T10:00:52.416Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/editing.html</loc>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/computer_setup.html</loc>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/git.html</loc>
+    <lastmod>2025-05-26T10:00:52.407Z</lastmod>
+  </url>
+  <url>
+    <loc>https://munch-group.github.io/franklin/pages/jupyterlab.html</loc>
+    <lastmod>2025-05-26T10:00:52.416Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/numpy_pandas.html</loc>
-    <lastmod>2025-05-26T07:37:48.792Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.417Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/getting_started.html</loc>
-    <lastmod>2025-05-26T07:37:48.781Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.407Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/student/docker.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/student/index.html</loc>
-    <lastmod>2025-05-26T07:37:48.809Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.434Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/student/terminal.html</loc>
-    <lastmod>2025-05-26T07:37:48.809Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.434Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/using.html</loc>
-    <lastmod>2025-05-26T07:37:48.809Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.434Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/developing_exercises.html</loc>
-    <lastmod>2025-05-26T07:37:48.779Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.406Z</lastmod>
   </url>
   <url>
     <loc>https://munch-group.github.io/franklin/pages/intalling.html</loc>
-    <lastmod>2025-05-26T07:37:48.789Z</lastmod>
+    <lastmod>2025-05-26T10:00:52.414Z</lastmod>
   </url>
 </urlset>

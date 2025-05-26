@@ -59,7 +59,7 @@
     "href": "pages/admin_franklin_code.html",
     "title": "Code",
     "section": "",
-    "text": "import os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── admin_components.html\n├── admin_components.qmd\n├── admin_docker.html\n├── admin_docker.qmd\n├── admin_franklin_code.qmd\n├── admin_franklin_code.quarto_ipynb\n├── admin_gitlab.html\n├── admin_gitlab.qmd\n├── computer_setup.html\n├── computer_setup.qmd\n├── developing_exercises.qmd\n├── docker.html\n├── docker.qmd\n├── editing.html\n├── editing.qmd\n├── educator\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   ├── index.html\n│   ├── index.qmd\n│   └── jupyter.html\n├── getting_started.html\n├── getting_started.qmd\n├── git.html\n├── git.qmd\n├── gitlab.html\n├── gitlab.qmd\n├── images\n│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png\n│   ├── elephant.png\n│   ├── pipeline_example.png\n│   └── pipeline_example_nomenu.png\n├── intalling.qmd\n├── jupyter.html\n├── jupyter.qmd\n├── jupyterlab.html\n├── jupyterlab.ipynb\n├── jupyterlab_files\n│   └── figure-html\n│       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n├── making.html\n├── making.qmd\n├── numpy_pandas.html\n├── numpy_pandas.ipynb\n├── overview.html\n├── overview.qmd\n├── plotting.ipynb\n├── r_to_python.html\n├── r_to_python.ipynb\n├── running.html\n├── running.qmd\n├── sascha_tester.html\n├── sascha_tester.md\n├── ssh.qmd\n├── student\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── docker.html\n│   ├── docker.qmd\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   ├── index.html\n│   ├── index.qmd\n│   ├── jupyter.html\n│   ├── jupyter.qmd\n│   ├── jupyterlab.html\n│   ├── jupyterlab.ipynb\n│   ├── jupyterlab_files\n│   │   └── figure-html\n│   │       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│   │       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n│   ├── terminal.html\n│   └── terminal.qmd\n├── terminal.qmd\n└── using.qmd\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md"
+    "text": "import os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── admin_components.html\n├── admin_components.qmd\n├── admin_docker.html\n├── admin_docker.qmd\n├── admin_franklin_code.qmd\n├── admin_franklin_code.quarto_ipynb\n├── admin_gitlab.html\n├── admin_gitlab.qmd\n├── computer_setup.html\n├── computer_setup.qmd\n├── developing_exercises.qmd\n├── docker.html\n├── docker.qmd\n├── editing.html\n├── editing.qmd\n├── getting_started.html\n├── getting_started.qmd\n├── git.html\n├── git.qmd\n├── gitlab.html\n├── gitlab.qmd\n├── images\n│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png\n│   ├── elephant.png\n│   ├── pipeline_example.png\n│   └── pipeline_example_nomenu.png\n├── intalling.qmd\n├── jupyter.html\n├── jupyter.qmd\n├── jupyterlab.html\n├── jupyterlab.ipynb\n├── jupyterlab_files\n│   └── figure-html\n│       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n├── making.html\n├── making.qmd\n├── numpy_pandas.html\n├── numpy_pandas.ipynb\n├── overview.html\n├── overview.qmd\n├── plotting.ipynb\n├── r_to_python.html\n├── r_to_python.ipynb\n├── running.html\n├── running.qmd\n├── sascha_tester.html\n├── sascha_tester.md\n├── ssh.qmd\n├── student\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── docker.html\n│   ├── docker.qmd\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   ├── index.html\n│   ├── index.qmd\n│   ├── jupyter.html\n│   ├── jupyter.qmd\n│   ├── jupyterlab.html\n│   ├── jupyterlab.ipynb\n│   ├── jupyterlab_files\n│   │   └── figure-html\n│   │       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│   │       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n│   ├── terminal.html\n│   └── terminal.qmd\n├── terminal.qmd\n└── using.qmd\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md"
   },
   {
     "objectID": "pages/student/jupyter.html",
@@ -229,6 +229,310 @@
     ]
   },
   {
+    "objectID": "pages/docker.html",
+    "href": "pages/docker.html",
+    "title": "Docker",
+    "section": "",
+    "text": "This pages are under construction\n\n\n\n\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.",
+    "crumbs": [
+      "Key concepts",
+      "Docker"
+    ]
+  },
+  {
+    "objectID": "pages/admin_gitlab.html#permissions",
+    "href": "pages/admin_gitlab.html#permissions",
+    "title": "GitLab admin",
+    "section": "Permissions",
+    "text": "Permissions",
+    "crumbs": [
+      "Administration",
+      "GitLab admin"
+    ]
+  },
+  {
+    "objectID": "pages/admin_gitlab.html#tokens",
+    "href": "pages/admin_gitlab.html#tokens",
+    "title": "GitLab admin",
+    "section": "Tokens",
+    "text": "Tokens",
+    "crumbs": [
+      "Administration",
+      "GitLab admin"
+    ]
+  },
+  {
+    "objectID": "pages/admin_gitlab.html#pipelines",
+    "href": "pages/admin_gitlab.html#pipelines",
+    "title": "GitLab admin",
+    "section": "Pipelines",
+    "text": "Pipelines",
+    "crumbs": [
+      "Administration",
+      "GitLab admin"
+    ]
+  },
+  {
+    "objectID": "pages/running.html",
+    "href": "pages/running.html",
+    "title": "Running exercises",
+    "section": "",
+    "text": "This pages are under construction"
+  },
+  {
+    "objectID": "pages/overview.html#purpose",
+    "href": "pages/overview.html#purpose",
+    "title": "Franklin overview",
+    "section": "Purpose",
+    "text": "Purpose",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#git",
+    "href": "pages/overview.html#git",
+    "title": "Franklin overview",
+    "section": "Git",
+    "text": "Git",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#gitlab",
+    "href": "pages/overview.html#gitlab",
+    "title": "Franklin overview",
+    "section": "GitLab",
+    "text": "GitLab\n\nAU hosting\n\n\nGitLab Franklin group\n\n\nGitLab Course subgroups\n\n\nGitLab exercise repositories",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#authentication",
+    "href": "pages/overview.html#authentication",
+    "title": "Franklin overview",
+    "section": "Authentication",
+    "text": "Authentication\nWeb GUI: UNI-AD login\n\nAdmin\nKasper (and someone else for backup)\nssh keys\n\n\nVIP\nssh keys\n\n\nStudents\nRead-only token distributed with franklin.",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#docker",
+    "href": "pages/overview.html#docker",
+    "title": "Franklin overview",
+    "section": "Docker",
+    "text": "Docker\n\nImage hierarchy\n\nBase images maintained in the Base\nCourse base images only refer to a versioned base image\n\n\n\nTemplates\n\nEvery course has a repo template with a docker file that that refers to the course base image\nThese templates are forked from franklin/base-templates/base-template\n\n\n\nTag policy\n\nFranklin base images are versioned and must referred to with their version tag\nCourse base images are tagged latest so that courses always pulls updated version.\nExercise images are always tagged latest, which is the tag franklin pulls",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#container-registry",
+    "href": "pages/overview.html#container-registry",
+    "title": "Franklin overview",
+    "section": "Container registry",
+    "text": "Container registry",
+    "crumbs": [
+      "Overview",
+      "Franklin overview"
+    ]
+  },
+  {
+    "objectID": "pages/r_to_python.html",
+    "href": "pages/r_to_python.html",
+    "title": "R to Python",
+    "section": "",
+    "text": "Task\npandas (Python)\ntidyverse (R)\n\n\n\n\n1. Select columns\ndf[['col1', 'col2']]\ndf %&gt;% select(col1, col2)\n\n\n2. Filter rows\ndf[df['col'] &gt; 10]\ndf %&gt;% filter(col &gt; 10)\n\n\n3. Create new column\ndf['new'] = df['col1'] + df['col2']\ndf %&gt;% mutate(new = col1 + col2)\n\n\n4. Group by and summarize\ndf.groupby('group').agg({'value': 'mean'})\ndf %&gt;% group_by(group) %&gt;% summarize(mean_val = mean(value))\n\n\n5. Sort rows\ndf.sort_values('col', ascending=False)\ndf %&gt;% arrange(desc(col))\n\n\n6. Drop missing values\ndf.dropna()\ndf %&gt;% drop_na()\n\n\n7. Fill missing values\ndf.fillna(0)\ndf %&gt;% replace_na(list(col = 0))\n\n\n8. Reshape from wide to long\ndf.melt(id_vars='id')\ndf %&gt;% pivot_longer(-id, names_to='key', values_to='value')\n\n\n9. Reshape from long to wide\ndf.pivot(index='id', columns='key', values='value')\ndf %&gt;% pivot_wider(names_from='key', values_from='value')\n\n\n10. Join tables\npd.merge(df1, df2, on='id')\nleft_join(df1, df2, by='id')\n\n\n\nBelow is an expanded list of 20 common data manipulation tasks, comparing syntax in Python using pandas and in R using the tidyverse (primarily dplyr and tidyr).\n\n\n\n\n\n\n\n\nTask\npandas (Python)\ntidyverse (R)\n\n\n\n\n1. Select columns\ndf[['col1', 'col2']]\ndf %&gt;% select(col1, col2)\n\n\n2. Filter rows\ndf[df['col'] &gt; 10]\ndf %&gt;% filter(col &gt; 10)\n\n\n3. Create new column\ndf['new'] = df['col1'] + df['col2']\ndf %&gt;% mutate(new = col1 + col2)\n\n\n4. Group by and summarize\ndf.groupby('group').agg({'val': 'mean'})\ndf %&gt;% group_by(group) %&gt;% summarize(mean_val = mean(val))\n\n\n5. Sort rows\ndf.sort_values('col', ascending=False)\ndf %&gt;% arrange(desc(col))\n\n\n6. Drop missing values\ndf.dropna()\ndf %&gt;% drop_na()\n\n\n7. Fill missing values\ndf.fillna(0)\ndf %&gt;% replace_na(list(col = 0))\n\n\n8. Rename columns\ndf.rename(columns={'old': 'new'})\ndf %&gt;% rename(new = old)\n\n\n9. Reshape wide to long\ndf.melt(id_vars='id')\ndf %&gt;% pivot_longer(-id, names_to='key', values_to='value')\n\n\n10. Reshape long to wide\ndf.pivot(index='id', columns='key', values='value')\ndf %&gt;% pivot_wider(names_from=key, values_from=value)\n\n\n11. Remove columns\ndf.drop(['col1', 'col2'], axis=1)\ndf %&gt;% select(-col1, -col2)\n\n\n12. Sample rows\ndf.sample(n=5)\ndf %&gt;% sample_n(5)\n\n\n13. Count unique values\ndf['col'].nunique()\ndf %&gt;% summarize(n_distinct(col))\n\n\n14. Count frequency of values\ndf['col'].value_counts()\ndf %&gt;% count(col)\n\n\n15. Conditional column creation\ndf['new'] = np.where(df['col'] &gt; 0, 'yes', 'no')\ndf %&gt;% mutate(new = if_else(col &gt; 0, 'yes', 'no'))\n\n\n16. String operations\ndf['col'].str.lower()\ndf %&gt;% mutate(col = str_to_lower(col))\n\n\n17. Filter by multiple conditions\ndf[(df['x'] &gt; 0) & (df['y'] &lt; 10)]\ndf %&gt;% filter(x &gt; 0, y &lt; 10)\n\n\n18. Cumulative sum\ndf['cumsum'] = df['val'].cumsum()\ndf %&gt;% mutate(cumsum = cumsum(val))\n\n\n19. Windowed ranking\ndf['rank'] = df['val'].rank()\ndf %&gt;% mutate(rank = rank(val))\n\n\n20. Left join two tables\npd.merge(df1, df2, on='id', how='left')\ndf1 %&gt;% left_join(df2, by='id')\n\n\n\nGive 20 examples of plots using seaborn and ggplot2\n\n\n\n\n\n\n\n\nPlot Type\nSeaborn (Python)\nggplot2 (R)\n\n\n\n\n1. Scatter plot\nsns.scatterplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_point()\n\n\n2. Line plot\nsns.lineplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_line()\n\n\n3. Histogram\nsns.histplot(x='x', data=df)\nggplot(df, aes(x)) + geom_histogram()\n\n\n4. KDE plot\nsns.kdeplot(x='x', data=df)\nggplot(df, aes(x)) + geom_density()\n\n\n5. Box plot\nsns.boxplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_boxplot()\n\n\n6. Violin plot\nsns.violinplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_violin()\n\n\n7. Bar plot (categorical)\nsns.barplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_bar(stat='identity')\n\n\n8. Count plot\nsns.countplot(x='category', data=df)\nggplot(df, aes(category)) + geom_bar()\n\n\n9. Heatmap\nsns.heatmap(data=corr_matrix)\nggplot(melt(corr_matrix), aes(Var1, Var2, fill=value)) + geom_tile()\n\n\n10. Pair plot\nsns.pairplot(df)\nGGally::ggpairs(df)\n\n\n11. Swarm plot\nsns.swarmplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_jitter(width=0.1)\n\n\n12. Strip plot\nsns.stripplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_jitter()\n\n\n13. Regression plot\nsns.regplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_smooth(method='lm') + geom_point()\n\n\n14. Residual plot\nsns.residplot(x='x', y='y', data=df)\nNot directly available; simulate with augment() from broom\n\n\n15. Facet grid\nsns.FacetGrid(df, col='var').map(sns.histplot, 'x')\nggplot(df, aes(x)) + geom_histogram() + facet_wrap(~var)\n\n\n16. Joint plot\nsns.jointplot(x='x', y='y', data=df)\nggExtra::ggMarginal(p, type='histogram')\n\n\n17. Time series plot\nsns.lineplot(x='date', y='value', data=df)\nggplot(df, aes(date, value)) + geom_line()\n\n\n18. Error bars (CI)\nsns.pointplot(x='x', y='y', data=df, ci='sd')\nggplot(df, aes(x, y)) + stat_summary(fun.data=mean_sdl, geom='pointrange')\n\n\n19. Categorical dot plot\nsns.catplot(x='group', y='value', kind='strip', data=df)\nggplot(df, aes(group, value)) + geom_jitter()\n\n\n20. Multi-plot layout\nsns.catplot(x='x', y='y', col='facet', kind='box', data=df)\nggplot(df, aes(x, y)) + geom_boxplot() + facet_wrap(~facet)\n\n\n\nBelow is a comparative list of 20 common plot types using Python’s Seaborn and R’s ggplot2. Each entry includes the plot type and the canonical syntax in both libraries, assuming a data frame df with appropriate columns.\n\n\n\n\n\n\n\n\nPlot Type\nSeaborn (Python)\nggplot2 (R)\n\n\n\n\n1. Scatter plot\nsns.scatterplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_point()\n\n\n2. Line plot\nsns.lineplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_line()\n\n\n3. Histogram\nsns.histplot(x='x', data=df)\nggplot(df, aes(x)) + geom_histogram()\n\n\n4. KDE plot\nsns.kdeplot(x='x', data=df)\nggplot(df, aes(x)) + geom_density()\n\n\n5. Box plot\nsns.boxplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_boxplot()\n\n\n6. Violin plot\nsns.violinplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_violin()\n\n\n7. Bar plot (categorical)\nsns.barplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_bar(stat='identity')\n\n\n8. Count plot\nsns.countplot(x='category', data=df)\nggplot(df, aes(category)) + geom_bar()\n\n\n9. Heatmap\nsns.heatmap(data=corr_matrix)\nggplot(melt(corr_matrix), aes(Var1, Var2, fill=value)) + geom_tile()\n\n\n10. Pair plot\nsns.pairplot(df)\nGGally::ggpairs(df)\n\n\n11. Swarm plot\nsns.swarmplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_jitter(width=0.1)\n\n\n12. Strip plot\nsns.stripplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_jitter()\n\n\n13. Regression plot\nsns.regplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_smooth(method='lm') + geom_point()\n\n\n14. Residual plot\nsns.residplot(x='x', y='y', data=df)\nNot directly available; simulate with augment() from broom\n\n\n15. Facet grid\nsns.FacetGrid(df, col='var').map(sns.histplot, 'x')\nggplot(df, aes(x)) + geom_histogram() + facet_wrap(~var)\n\n\n16. Joint plot\nsns.jointplot(x='x', y='y', data=df)\nggExtra::ggMarginal(p, type='histogram')\n\n\n17. Time series plot\nsns.lineplot(x='date', y='value', data=df)\nggplot(df, aes(date, value)) + geom_line()\n\n\n18. Error bars (CI)\nsns.pointplot(x='x', y='y', data=df, ci='sd')\nggplot(df, aes(x, y)) + stat_summary(fun.data=mean_sdl, geom='pointrange')\n\n\n19. Categorical dot plot\nsns.catplot(x='group', y='value', kind='strip', data=df)\nggplot(df, aes(group, value)) + geom_jitter()\n\n\n20. Multi-plot layout\nsns.catplot(x='x', y='y', col='facet', kind='box', data=df)\nggplot(df, aes(x, y)) + geom_boxplot() + facet_wrap(~facet)\n\n\n\n\nNotes:\n\nsns stands for seaborn.\nIn ggplot2, stat='identity' must be specified when y-values are given (not counts).\nggExtra, GGally, and broom are part of the broader tidyverse ecosystem but may require additional installation.\n\nThis comparison covers common visualization tasks across exploratory data analysis and statistical modeling workflows.\n\nRPython\n\n\nfizz_buzz &lt;- function(fbnums = 1:50) {\n  output &lt;- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)\n\n\n\n\nRPython\n\n\nfizz_buzz &lt;- function(fbnums = 1:50) {\n  output &lt;- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)",
+    "crumbs": [
+      "Tutorials",
+      "R to Python"
+    ]
+  },
+  {
+    "objectID": "api/run.html",
+    "href": "api/run.html",
+    "title": "run",
+    "section": "",
+    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#parameters",
+    "href": "api/run.html#parameters",
+    "title": "run",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#returns",
+    "href": "api/run.html#returns",
+    "title": "run",
+    "section": "",
+    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/pull.html",
+    "href": "api/pull.html",
+    "title": "pull",
+    "section": "",
+    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/pull.html#parameters",
+    "href": "api/pull.html#parameters",
+    "title": "pull",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/launch_exercise.html",
+    "href": "api/launch_exercise.html",
+    "title": "launch_exercise",
+    "section": "",
+    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
+  },
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\n_run\n\n\n\n\n\n\n\nSome description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#jupyter",
+    "href": "api/index.html#jupyter",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\n_run",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#docker",
+    "href": "api/index.html#docker",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "notebooks/example.html",
+    "href": "notebooks/example.html",
+    "title": "Workplace interaction",
+    "section": "",
+    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
+  },
+  {
+    "objectID": "pages/admin_docker.html#running-docker-containers",
+    "href": "pages/admin_docker.html#running-docker-containers",
+    "title": "Docker admin",
+    "section": "Running docker containers",
+    "text": "Running docker containers",
+    "crumbs": [
+      "Administration",
+      "Docker admin"
+    ]
+  },
+  {
+    "objectID": "pages/making.html",
+    "href": "pages/making.html",
+    "title": "Making exercises",
+    "section": "",
+    "text": "This pages are under construction",
+    "crumbs": [
+      "Educator",
+      "Making exercises"
+    ]
+  },
+  {
+    "objectID": "pages/editing.html",
+    "href": "pages/editing.html",
+    "title": "Editing exercises",
+    "section": "",
+    "text": "This pages are under construction",
+    "crumbs": [
+      "Educator",
+      "Editing exercises"
+    ]
+  },
+  {
+    "objectID": "pages/git.html",
+    "href": "pages/git.html",
+    "title": "Git",
+    "section": "",
+    "text": "This pages are under construction",
+    "crumbs": [
+      "Key concepts",
+      "Git"
+    ]
+  },
+  {
+    "objectID": "pages/git.html#tldr",
+    "href": "pages/git.html#tldr",
+    "title": "Git",
+    "section": "TLDR;",
+    "text": "TLDR;\nGit is a distributed version control system designed to track changes in source code and facilitate collaboration among multiple developers. Originally created by Linus Torvalds in 2005 for managing the Linux kernel, Git has since become the dominant version control tool in software development, underpinning platforms such as GitHub, GitLab, and Bitbucket.\nIn Git, every working copy of a repository is a full-fledged versioned archive, containing the entire history of the project. This distributed model enhances performance, enables offline work, and provides a robust foundation for branching and merging workflows. Changes are recorded as commits—snapshots of the project at specific points in time—organized in a directed acyclic graph (DAG).\nKey concepts include:\nRepository: A data structure containing all commits, branches, and tags for a project. Commit: A recorded state of the repository, with metadata about the author, timestamp, and parent commits. Branch: A movable pointer to a commit, enabling parallel development paths. Merge: The integration of changes from one branch into another, optionally involving conflict resolution. Remote: A reference to another copy of the repository, typically hosted on a server. Git supports advanced features such as rebasing, cherry-picking, and interactive staging. It also allows for fine-grained control of collaboration through pull requests, code reviews, and access control mechanisms.\nWhile Git has a steep learning curve, especially in conflict resolution and complex branching workflows, its efficiency, reliability, and flexibility make it an indispensable tool in modern software engineering and research computing.",
+    "crumbs": [
+      "Key concepts",
+      "Git"
+    ]
+  },
+  {
+    "objectID": "pages/git.html#git-as-journaled-backup",
+    "href": "pages/git.html#git-as-journaled-backup",
+    "title": "Git",
+    "section": "Git as journaled backup",
+    "text": "Git as journaled backup\nWhen you are in your &lt;repositoryname&gt; folder, you can run git commands to manage your files, record their changes and sync them to the repository on GitHub for safe keeping. These tutorials are good introductions to git.\nTo journal the creation or modification of a file, you need to add it to git:\n\n\nTerminal\n\ngit add &lt;the_changed_file&gt;\n\nThis “stages” the change. This adds the file to the a “group” of changes that represent some modification to your project. You can add more files to that “group” by running the command again with other files. If you run git status you can see that the files are now staged.\nSo maybe you added or changed two python files addressing some parcitular problem or advancing some part of your project. Now you want to store those of changes to the journal maintained by Git and associate it with a short message describing the changes. For that you use:\n\n\nTerminal\n\ngit commit -m '&lt;message&gt;'\n\nIf you added two python files, your description could be 'Added two python files for my analysis'. If you fixed a bug or added new code to the files, your message should reflect that.\nNow your changes are recorded in the version of the &lt;repositoryname&gt; on the cluster, but that does not serve as a backup in case you accidentally delete your entire folder or the cluster burns down. To backup your repository you need to synchronize your local &lt;repositoryname&gt; repository on the cluster with the &lt;repositoryname&gt; repository on GitHub. To du that use:\n\n\nTerminal\n\ngit push\n\nIn addition to keeping your precious files safe and backed up, your GitHub repository also serve as a journal documenting of your progress. Each commit is a snapshot if your project that can be retrieved at any time.",
+    "crumbs": [
+      "Key concepts",
+      "Git"
+    ]
+  },
+  {
+    "objectID": "pages/git.html#git",
+    "href": "pages/git.html#git",
+    "title": "Git",
+    "section": "Git",
+    "text": "Git\nThere is a cheat sheet here and some good visual guides here and here.\nThe three most important commands to learn are: git status, git add, git rm, git mv, git commit and git push.\n\nResolving conflicts\nBlah blah…",
+    "crumbs": [
+      "Key concepts",
+      "Git"
+    ]
+  },
+  {
     "objectID": "pages/jupyterlab.html",
     "href": "pages/jupyterlab.html",
     "title": "Jupyterlab",
@@ -392,331 +696,6 @@
       "Tutorials",
       "Jupyterlab"
     ]
-  },
-  {
-    "objectID": "pages/git.html",
-    "href": "pages/git.html",
-    "title": "Git",
-    "section": "",
-    "text": "This pages are under construction",
-    "crumbs": [
-      "Key concepts",
-      "Git"
-    ]
-  },
-  {
-    "objectID": "pages/git.html#tldr",
-    "href": "pages/git.html#tldr",
-    "title": "Git",
-    "section": "TLDR;",
-    "text": "TLDR;\nGit is a distributed version control system designed to track changes in source code and facilitate collaboration among multiple developers. Originally created by Linus Torvalds in 2005 for managing the Linux kernel, Git has since become the dominant version control tool in software development, underpinning platforms such as GitHub, GitLab, and Bitbucket.\nIn Git, every working copy of a repository is a full-fledged versioned archive, containing the entire history of the project. This distributed model enhances performance, enables offline work, and provides a robust foundation for branching and merging workflows. Changes are recorded as commits—snapshots of the project at specific points in time—organized in a directed acyclic graph (DAG).\nKey concepts include:\nRepository: A data structure containing all commits, branches, and tags for a project. Commit: A recorded state of the repository, with metadata about the author, timestamp, and parent commits. Branch: A movable pointer to a commit, enabling parallel development paths. Merge: The integration of changes from one branch into another, optionally involving conflict resolution. Remote: A reference to another copy of the repository, typically hosted on a server. Git supports advanced features such as rebasing, cherry-picking, and interactive staging. It also allows for fine-grained control of collaboration through pull requests, code reviews, and access control mechanisms.\nWhile Git has a steep learning curve, especially in conflict resolution and complex branching workflows, its efficiency, reliability, and flexibility make it an indispensable tool in modern software engineering and research computing.",
-    "crumbs": [
-      "Key concepts",
-      "Git"
-    ]
-  },
-  {
-    "objectID": "pages/git.html#git-as-journaled-backup",
-    "href": "pages/git.html#git-as-journaled-backup",
-    "title": "Git",
-    "section": "Git as journaled backup",
-    "text": "Git as journaled backup\nWhen you are in your &lt;repositoryname&gt; folder, you can run git commands to manage your files, record their changes and sync them to the repository on GitHub for safe keeping. These tutorials are good introductions to git.\nTo journal the creation or modification of a file, you need to add it to git:\n\n\nTerminal\n\ngit add &lt;the_changed_file&gt;\n\nThis “stages” the change. This adds the file to the a “group” of changes that represent some modification to your project. You can add more files to that “group” by running the command again with other files. If you run git status you can see that the files are now staged.\nSo maybe you added or changed two python files addressing some parcitular problem or advancing some part of your project. Now you want to store those of changes to the journal maintained by Git and associate it with a short message describing the changes. For that you use:\n\n\nTerminal\n\ngit commit -m '&lt;message&gt;'\n\nIf you added two python files, your description could be 'Added two python files for my analysis'. If you fixed a bug or added new code to the files, your message should reflect that.\nNow your changes are recorded in the version of the &lt;repositoryname&gt; on the cluster, but that does not serve as a backup in case you accidentally delete your entire folder or the cluster burns down. To backup your repository you need to synchronize your local &lt;repositoryname&gt; repository on the cluster with the &lt;repositoryname&gt; repository on GitHub. To du that use:\n\n\nTerminal\n\ngit push\n\nIn addition to keeping your precious files safe and backed up, your GitHub repository also serve as a journal documenting of your progress. Each commit is a snapshot if your project that can be retrieved at any time.",
-    "crumbs": [
-      "Key concepts",
-      "Git"
-    ]
-  },
-  {
-    "objectID": "pages/git.html#git",
-    "href": "pages/git.html#git",
-    "title": "Git",
-    "section": "Git",
-    "text": "Git\nThere is a cheat sheet here and some good visual guides here and here.\nThe three most important commands to learn are: git status, git add, git rm, git mv, git commit and git push.\n\nResolving conflicts\nBlah blah…",
-    "crumbs": [
-      "Key concepts",
-      "Git"
-    ]
-  },
-  {
-    "objectID": "pages/editing.html",
-    "href": "pages/editing.html",
-    "title": "Editing exercises",
-    "section": "",
-    "text": "This pages are under construction",
-    "crumbs": [
-      "Educator",
-      "Editing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/making.html",
-    "href": "pages/making.html",
-    "title": "Making exercises",
-    "section": "",
-    "text": "This pages are under construction",
-    "crumbs": [
-      "Educator",
-      "Making exercises"
-    ]
-  },
-  {
-    "objectID": "pages/admin_docker.html#running-docker-containers",
-    "href": "pages/admin_docker.html#running-docker-containers",
-    "title": "Docker admin",
-    "section": "Running docker containers",
-    "text": "Running docker containers",
-    "crumbs": [
-      "Administration",
-      "Docker admin"
-    ]
-  },
-  {
-    "objectID": "notebooks/example.html",
-    "href": "notebooks/example.html",
-    "title": "Workplace interaction",
-    "section": "",
-    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
-  },
-  {
-    "objectID": "api/index.html",
-    "href": "api/index.html",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\n_run\n\n\n\n\n\n\n\nSome description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/index.html#jupyter",
-    "href": "api/index.html#jupyter",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\n_run",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/index.html#docker",
-    "href": "api/index.html#docker",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/launch_exercise.html",
-    "href": "api/launch_exercise.html",
-    "title": "launch_exercise",
-    "section": "",
-    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
-  },
-  {
-    "objectID": "api/pull.html",
-    "href": "api/pull.html",
-    "title": "pull",
-    "section": "",
-    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/pull.html#parameters",
-    "href": "api/pull.html#parameters",
-    "title": "pull",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/run.html",
-    "href": "api/run.html",
-    "title": "run",
-    "section": "",
-    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#parameters",
-    "href": "api/run.html#parameters",
-    "title": "run",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#returns",
-    "href": "api/run.html#returns",
-    "title": "run",
-    "section": "",
-    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "pages/r_to_python.html",
-    "href": "pages/r_to_python.html",
-    "title": "R to Python",
-    "section": "",
-    "text": "Task\npandas (Python)\ntidyverse (R)\n\n\n\n\n1. Select columns\ndf[['col1', 'col2']]\ndf %&gt;% select(col1, col2)\n\n\n2. Filter rows\ndf[df['col'] &gt; 10]\ndf %&gt;% filter(col &gt; 10)\n\n\n3. Create new column\ndf['new'] = df['col1'] + df['col2']\ndf %&gt;% mutate(new = col1 + col2)\n\n\n4. Group by and summarize\ndf.groupby('group').agg({'value': 'mean'})\ndf %&gt;% group_by(group) %&gt;% summarize(mean_val = mean(value))\n\n\n5. Sort rows\ndf.sort_values('col', ascending=False)\ndf %&gt;% arrange(desc(col))\n\n\n6. Drop missing values\ndf.dropna()\ndf %&gt;% drop_na()\n\n\n7. Fill missing values\ndf.fillna(0)\ndf %&gt;% replace_na(list(col = 0))\n\n\n8. Reshape from wide to long\ndf.melt(id_vars='id')\ndf %&gt;% pivot_longer(-id, names_to='key', values_to='value')\n\n\n9. Reshape from long to wide\ndf.pivot(index='id', columns='key', values='value')\ndf %&gt;% pivot_wider(names_from='key', values_from='value')\n\n\n10. Join tables\npd.merge(df1, df2, on='id')\nleft_join(df1, df2, by='id')\n\n\n\nBelow is an expanded list of 20 common data manipulation tasks, comparing syntax in Python using pandas and in R using the tidyverse (primarily dplyr and tidyr).\n\n\n\n\n\n\n\n\nTask\npandas (Python)\ntidyverse (R)\n\n\n\n\n1. Select columns\ndf[['col1', 'col2']]\ndf %&gt;% select(col1, col2)\n\n\n2. Filter rows\ndf[df['col'] &gt; 10]\ndf %&gt;% filter(col &gt; 10)\n\n\n3. Create new column\ndf['new'] = df['col1'] + df['col2']\ndf %&gt;% mutate(new = col1 + col2)\n\n\n4. Group by and summarize\ndf.groupby('group').agg({'val': 'mean'})\ndf %&gt;% group_by(group) %&gt;% summarize(mean_val = mean(val))\n\n\n5. Sort rows\ndf.sort_values('col', ascending=False)\ndf %&gt;% arrange(desc(col))\n\n\n6. Drop missing values\ndf.dropna()\ndf %&gt;% drop_na()\n\n\n7. Fill missing values\ndf.fillna(0)\ndf %&gt;% replace_na(list(col = 0))\n\n\n8. Rename columns\ndf.rename(columns={'old': 'new'})\ndf %&gt;% rename(new = old)\n\n\n9. Reshape wide to long\ndf.melt(id_vars='id')\ndf %&gt;% pivot_longer(-id, names_to='key', values_to='value')\n\n\n10. Reshape long to wide\ndf.pivot(index='id', columns='key', values='value')\ndf %&gt;% pivot_wider(names_from=key, values_from=value)\n\n\n11. Remove columns\ndf.drop(['col1', 'col2'], axis=1)\ndf %&gt;% select(-col1, -col2)\n\n\n12. Sample rows\ndf.sample(n=5)\ndf %&gt;% sample_n(5)\n\n\n13. Count unique values\ndf['col'].nunique()\ndf %&gt;% summarize(n_distinct(col))\n\n\n14. Count frequency of values\ndf['col'].value_counts()\ndf %&gt;% count(col)\n\n\n15. Conditional column creation\ndf['new'] = np.where(df['col'] &gt; 0, 'yes', 'no')\ndf %&gt;% mutate(new = if_else(col &gt; 0, 'yes', 'no'))\n\n\n16. String operations\ndf['col'].str.lower()\ndf %&gt;% mutate(col = str_to_lower(col))\n\n\n17. Filter by multiple conditions\ndf[(df['x'] &gt; 0) & (df['y'] &lt; 10)]\ndf %&gt;% filter(x &gt; 0, y &lt; 10)\n\n\n18. Cumulative sum\ndf['cumsum'] = df['val'].cumsum()\ndf %&gt;% mutate(cumsum = cumsum(val))\n\n\n19. Windowed ranking\ndf['rank'] = df['val'].rank()\ndf %&gt;% mutate(rank = rank(val))\n\n\n20. Left join two tables\npd.merge(df1, df2, on='id', how='left')\ndf1 %&gt;% left_join(df2, by='id')\n\n\n\nGive 20 examples of plots using seaborn and ggplot2\n\n\n\n\n\n\n\n\nPlot Type\nSeaborn (Python)\nggplot2 (R)\n\n\n\n\n1. Scatter plot\nsns.scatterplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_point()\n\n\n2. Line plot\nsns.lineplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_line()\n\n\n3. Histogram\nsns.histplot(x='x', data=df)\nggplot(df, aes(x)) + geom_histogram()\n\n\n4. KDE plot\nsns.kdeplot(x='x', data=df)\nggplot(df, aes(x)) + geom_density()\n\n\n5. Box plot\nsns.boxplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_boxplot()\n\n\n6. Violin plot\nsns.violinplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_violin()\n\n\n7. Bar plot (categorical)\nsns.barplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_bar(stat='identity')\n\n\n8. Count plot\nsns.countplot(x='category', data=df)\nggplot(df, aes(category)) + geom_bar()\n\n\n9. Heatmap\nsns.heatmap(data=corr_matrix)\nggplot(melt(corr_matrix), aes(Var1, Var2, fill=value)) + geom_tile()\n\n\n10. Pair plot\nsns.pairplot(df)\nGGally::ggpairs(df)\n\n\n11. Swarm plot\nsns.swarmplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_jitter(width=0.1)\n\n\n12. Strip plot\nsns.stripplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_jitter()\n\n\n13. Regression plot\nsns.regplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_smooth(method='lm') + geom_point()\n\n\n14. Residual plot\nsns.residplot(x='x', y='y', data=df)\nNot directly available; simulate with augment() from broom\n\n\n15. Facet grid\nsns.FacetGrid(df, col='var').map(sns.histplot, 'x')\nggplot(df, aes(x)) + geom_histogram() + facet_wrap(~var)\n\n\n16. Joint plot\nsns.jointplot(x='x', y='y', data=df)\nggExtra::ggMarginal(p, type='histogram')\n\n\n17. Time series plot\nsns.lineplot(x='date', y='value', data=df)\nggplot(df, aes(date, value)) + geom_line()\n\n\n18. Error bars (CI)\nsns.pointplot(x='x', y='y', data=df, ci='sd')\nggplot(df, aes(x, y)) + stat_summary(fun.data=mean_sdl, geom='pointrange')\n\n\n19. Categorical dot plot\nsns.catplot(x='group', y='value', kind='strip', data=df)\nggplot(df, aes(group, value)) + geom_jitter()\n\n\n20. Multi-plot layout\nsns.catplot(x='x', y='y', col='facet', kind='box', data=df)\nggplot(df, aes(x, y)) + geom_boxplot() + facet_wrap(~facet)\n\n\n\nBelow is a comparative list of 20 common plot types using Python’s Seaborn and R’s ggplot2. Each entry includes the plot type and the canonical syntax in both libraries, assuming a data frame df with appropriate columns.\n\n\n\n\n\n\n\n\nPlot Type\nSeaborn (Python)\nggplot2 (R)\n\n\n\n\n1. Scatter plot\nsns.scatterplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_point()\n\n\n2. Line plot\nsns.lineplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_line()\n\n\n3. Histogram\nsns.histplot(x='x', data=df)\nggplot(df, aes(x)) + geom_histogram()\n\n\n4. KDE plot\nsns.kdeplot(x='x', data=df)\nggplot(df, aes(x)) + geom_density()\n\n\n5. Box plot\nsns.boxplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_boxplot()\n\n\n6. Violin plot\nsns.violinplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_violin()\n\n\n7. Bar plot (categorical)\nsns.barplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_bar(stat='identity')\n\n\n8. Count plot\nsns.countplot(x='category', data=df)\nggplot(df, aes(category)) + geom_bar()\n\n\n9. Heatmap\nsns.heatmap(data=corr_matrix)\nggplot(melt(corr_matrix), aes(Var1, Var2, fill=value)) + geom_tile()\n\n\n10. Pair plot\nsns.pairplot(df)\nGGally::ggpairs(df)\n\n\n11. Swarm plot\nsns.swarmplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_jitter(width=0.1)\n\n\n12. Strip plot\nsns.stripplot(x='group', y='value', data=df)\nggplot(df, aes(group, value)) + geom_jitter()\n\n\n13. Regression plot\nsns.regplot(x='x', y='y', data=df)\nggplot(df, aes(x, y)) + geom_smooth(method='lm') + geom_point()\n\n\n14. Residual plot\nsns.residplot(x='x', y='y', data=df)\nNot directly available; simulate with augment() from broom\n\n\n15. Facet grid\nsns.FacetGrid(df, col='var').map(sns.histplot, 'x')\nggplot(df, aes(x)) + geom_histogram() + facet_wrap(~var)\n\n\n16. Joint plot\nsns.jointplot(x='x', y='y', data=df)\nggExtra::ggMarginal(p, type='histogram')\n\n\n17. Time series plot\nsns.lineplot(x='date', y='value', data=df)\nggplot(df, aes(date, value)) + geom_line()\n\n\n18. Error bars (CI)\nsns.pointplot(x='x', y='y', data=df, ci='sd')\nggplot(df, aes(x, y)) + stat_summary(fun.data=mean_sdl, geom='pointrange')\n\n\n19. Categorical dot plot\nsns.catplot(x='group', y='value', kind='strip', data=df)\nggplot(df, aes(group, value)) + geom_jitter()\n\n\n20. Multi-plot layout\nsns.catplot(x='x', y='y', col='facet', kind='box', data=df)\nggplot(df, aes(x, y)) + geom_boxplot() + facet_wrap(~facet)\n\n\n\n\nNotes:\n\nsns stands for seaborn.\nIn ggplot2, stat='identity' must be specified when y-values are given (not counts).\nggExtra, GGally, and broom are part of the broader tidyverse ecosystem but may require additional installation.\n\nThis comparison covers common visualization tasks across exploratory data analysis and statistical modeling workflows.\n\nRPython\n\n\nfizz_buzz &lt;- function(fbnums = 1:50) {\n  output &lt;- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)\n\n\n\n\nRPython\n\n\nfizz_buzz &lt;- function(fbnums = 1:50) {\n  output &lt;- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)",
-    "crumbs": [
-      "Tutorials",
-      "R to Python"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#purpose",
-    "href": "pages/overview.html#purpose",
-    "title": "Franklin overview",
-    "section": "Purpose",
-    "text": "Purpose",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#git",
-    "href": "pages/overview.html#git",
-    "title": "Franklin overview",
-    "section": "Git",
-    "text": "Git",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#gitlab",
-    "href": "pages/overview.html#gitlab",
-    "title": "Franklin overview",
-    "section": "GitLab",
-    "text": "GitLab\n\nAU hosting\n\n\nGitLab Franklin group\n\n\nGitLab Course subgroups\n\n\nGitLab exercise repositories",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#authentication",
-    "href": "pages/overview.html#authentication",
-    "title": "Franklin overview",
-    "section": "Authentication",
-    "text": "Authentication\nWeb GUI: UNI-AD login\n\nAdmin\nKasper (and someone else for backup)\nssh keys\n\n\nVIP\nssh keys\n\n\nStudents\nRead-only token distributed with franklin.",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#docker",
-    "href": "pages/overview.html#docker",
-    "title": "Franklin overview",
-    "section": "Docker",
-    "text": "Docker\n\nImage hierarchy\n\nBase images maintained in the Base\nCourse base images only refer to a versioned base image\n\n\n\nTemplates\n\nEvery course has a repo template with a docker file that that refers to the course base image\nThese templates are forked from franklin/base-templates/base-template\n\n\n\nTag policy\n\nFranklin base images are versioned and must referred to with their version tag\nCourse base images are tagged latest so that courses always pulls updated version.\nExercise images are always tagged latest, which is the tag franklin pulls",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#container-registry",
-    "href": "pages/overview.html#container-registry",
-    "title": "Franklin overview",
-    "section": "Container registry",
-    "text": "Container registry",
-    "crumbs": [
-      "Overview",
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/running.html",
-    "href": "pages/running.html",
-    "title": "Running exercises",
-    "section": "",
-    "text": "This pages are under construction"
-  },
-  {
-    "objectID": "pages/admin_gitlab.html#permissions",
-    "href": "pages/admin_gitlab.html#permissions",
-    "title": "GitLab admin",
-    "section": "Permissions",
-    "text": "Permissions",
-    "crumbs": [
-      "Administration",
-      "GitLab admin"
-    ]
-  },
-  {
-    "objectID": "pages/admin_gitlab.html#tokens",
-    "href": "pages/admin_gitlab.html#tokens",
-    "title": "GitLab admin",
-    "section": "Tokens",
-    "text": "Tokens",
-    "crumbs": [
-      "Administration",
-      "GitLab admin"
-    ]
-  },
-  {
-    "objectID": "pages/admin_gitlab.html#pipelines",
-    "href": "pages/admin_gitlab.html#pipelines",
-    "title": "GitLab admin",
-    "section": "Pipelines",
-    "text": "Pipelines",
-    "crumbs": [
-      "Administration",
-      "GitLab admin"
-    ]
-  },
-  {
-    "objectID": "pages/docker.html",
-    "href": "pages/docker.html",
-    "title": "Docker",
-    "section": "",
-    "text": "This pages are under construction\n\n\n\n\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.",
-    "crumbs": [
-      "Key concepts",
-      "Docker"
-    ]
-  },
-  {
-    "objectID": "pages/educator/index.html",
-    "href": "pages/educator/index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "Download the HTML course website for offline viewing at the exam (unzip once downloaded and double-click index.html).\nDownload the HTML Python documentation for offline viewing at the exam (unzip once downloaded and double-click index.html)."
-  },
-  {
-    "objectID": "pages/educator/index.html#course-description",
-    "href": "pages/educator/index.html#course-description",
-    "title": "Welcome",
-    "section": "Course description",
-    "text": "Course description\nAfter the course, the participants will have basic knowledge of computer methods and applications for analyzing biological sequence data and insight into principles and techniques for constructing simple programs. Participants will acquire practical experience with analyzing problems in bioinformatics and related fields and implementing programs to solve such problems using the Python programming language.\nThe participants must, at the end of the course, be able to:\n\nApply fundamental constructs of a programming language.\nAnalyse data and construct data structures for the representation of data.\nAnalyse simple computational problems and construct programs for their solution.\nDescribe and relate essential methods in bioinformatics analysis.\nApply bioinformatics software to biological data.\nJudge the reliability of results obtained using Bioinformatics software."
-  },
-  {
-    "objectID": "pages/educator/index.html#course-contents",
-    "href": "pages/educator/index.html#course-contents",
-    "title": "Welcome",
-    "section": "Course contents",
-    "text": "Course contents\nThe course introduces programming and its practical applications in bioinformatics. The course also outlines and discusses bioinformatics algorithms, and the most common tools for bioinformatics analysis of sequence data are presented and demo nstrated. The participant will acquire and train basic programming skills during the first seven weeks. The last seven weeks introduce key topics in bioinformatics, focusing on applying bioinformatical software and developing programming skills. Subjects for lectures and exercises include bioinformatics databases, sequence alignment, genome annotation, sequence evolution, and phylogenetic analysis."
   },
   {
     "objectID": "pages/numpy_pandas.html",
@@ -996,27 +975,6 @@
     "title": "Docker",
     "section": "",
     "text": "This pages are under construction\n\n\n\n\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms."
-  },
-  {
-    "objectID": "pages/student/index.html",
-    "href": "pages/student/index.html",
-    "title": "Welcome",
-    "section": "",
-    "text": "Download the HTML course website for offline viewing at the exam (unzip once downloaded and double-click index.html).\nDownload the HTML Python documentation for offline viewing at the exam (unzip once downloaded and double-click index.html)."
-  },
-  {
-    "objectID": "pages/student/index.html#course-description",
-    "href": "pages/student/index.html#course-description",
-    "title": "Welcome",
-    "section": "Course description",
-    "text": "Course description\nAfter the course, the participants will have basic knowledge of computer methods and applications for analyzing biological sequence data and insight into principles and techniques for constructing simple programs. Participants will acquire practical experience with analyzing problems in bioinformatics and related fields and implementing programs to solve such problems using the Python programming language.\nThe participants must, at the end of the course, be able to:\n\nApply fundamental constructs of a programming language.\nAnalyse data and construct data structures for the representation of data.\nAnalyse simple computational problems and construct programs for their solution.\nDescribe and relate essential methods in bioinformatics analysis.\nApply bioinformatics software to biological data.\nJudge the reliability of results obtained using Bioinformatics software."
-  },
-  {
-    "objectID": "pages/student/index.html#course-contents",
-    "href": "pages/student/index.html#course-contents",
-    "title": "Welcome",
-    "section": "Course contents",
-    "text": "Course contents\nThe course introduces programming and its practical applications in bioinformatics. The course also outlines and discusses bioinformatics algorithms, and the most common tools for bioinformatics analysis of sequence data are presented and demo nstrated. The participant will acquire and train basic programming skills during the first seven weeks. The last seven weeks introduce key topics in bioinformatics, focusing on applying bioinformatical software and developing programming skills. Subjects for lectures and exercises include bioinformatics databases, sequence alignment, genome annotation, sequence evolution, and phylogenetic analysis."
   },
   {
     "objectID": "pages/student/terminal.html",
