@@ -4,11 +4,13 @@ aliases:
   - ../index.html
 ---
 
-Franklin is an open source tool developed to allow students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.
+Franklin is an open source project witth the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.
+
+The tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.
 
 ## The student experience
 
-Students run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies. 
+The student run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies. 
 
 On both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.
 
@@ -16,7 +18,7 @@ On both Mac and Windows, running the following command, prompts the student to s
 franklin download
 ```
 
-After moving to that directory, the students runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student's computer with all required dependencies preinstalled.
+The student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student's computer with all required dependencies preinstalled.
 
 ```{.bash filename="Terminal"}
 franklin jupyter
