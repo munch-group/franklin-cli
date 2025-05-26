@@ -112,8 +112,7 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     webbrowser.open(token_url, new=1)
 
     term.secho(
-        f'\nJupyter is running and should open in your default browser.', 
-        fg='green')
+        f'\nJupyter is running and should open in your default browser.')
     term.echo(f'If not, you can access it at this URL:')
     term.secho(f'{token_url}', nowrap=True, fg='blue')
 
