@@ -63,23 +63,25 @@ website:
         - section: "Overview"
           contents:
             - pages/using.qmd
+        - section: "Student"
+          contents:
+            - 
         - section: "Educator"
           contents:
             - pages/create_edit.qmd
         - section: "Tutorials"
           contents:
+            - pages/tutorials/terminal.qmd
             - pages/tutorials/jupyterlab.ipynb
             - pages/tutorials/developing_exercises.qmd
-            - pages/tutorials/r_to_python.ipynb
-            - pages/tutorials/numpy_pandas.ipynb
+            - pages/tutorials/data_analysis.ipynb
             - pages/tutorials/plotting.ipynb
-            - pages/terminal.qmd
-            - pages/docker.qmd
-            - pages/jupyter.qmd
-            - pages/jupyterlab.qmd
-            - pages/ssh.qmd
-            - pages/git.qmd
-            - pages/gitlab.qmd
+        - section: "About"
+          contents:
+            - pages/about/ssh.qmd
+            - pages/about/git.qmd
+            - pages/about/gitlab.qmd
+            - pages/about/docker.qmd
           contents:
         - section: "Administration"
           contents:

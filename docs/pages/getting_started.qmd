@@ -77,7 +77,9 @@ Courses using [Pixi](https://pixi.sh/latest/) simply replace `conda install` wit
 
 Franklin only requires a GitLab group named 'Franklin', with subgroups for each course holding the exercise repositories.
 
-## Feedback to the documentation
+## About this documentation
+
+These pages serve as documentation for educators, administrators and developers. To provide a 
 
 These pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click "Sign up" to create a Hypothes.is account. Once you are logged in to that, you click [this invite link](https://hypothes.is/groups/99akKdQZ/franklin) to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click "Annotate" to add your suggestion/comment. 
 
