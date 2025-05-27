@@ -26,7 +26,7 @@
     "href": "pages/terminal.html",
     "title": "The terminal",
     "section": "",
-    "text": "This pages are under construction\n\n\n\n\n\n\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.",
+    "text": "This pages are under construction\n\n\n\n\n\n\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.\nCtrl-C for abort",
     "crumbs": [
       "Key concepts",
       "The terminal"
@@ -892,11 +892,21 @@
     ]
   },
   {
-    "objectID": "pages/getting_started.html#installation",
-    "href": "pages/getting_started.html#installation",
+    "objectID": "pages/getting_started.html#installing-miniforge-python",
+    "href": "pages/getting_started.html#installing-miniforge-python",
     "title": "Getting started",
-    "section": "Installation",
-    "text": "Installation\nUsing Conda, students install franklin like this:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin\n\nEducators also install the franklin-educator plugin:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin franklin-educator\n\nCourses using Pixi simply replace conda install with pixi add.",
+    "section": "Installing Miniforge Python",
+    "text": "Installing Miniforge Python\nMiniforge is a community Python distribution with the license requirements for large companies imposed by Anaconda.",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
+    "objectID": "pages/getting_started.html#installing-franklin",
+    "href": "pages/getting_started.html#installing-franklin",
+    "title": "Getting started",
+    "section": "Installing Franklin",
+    "text": "Installing Franklin\nUsing Conda, students install franklin like this:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin\n\nEducators also install the franklin-educator plugin:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin franklin-educator\n\nCourses using Pixi simply replace conda install with pixi add.",
     "crumbs": [
       "Getting started"
     ]
@@ -933,7 +943,7 @@
     "href": "pages/student/terminal.html",
     "title": "The terminal",
     "section": "",
-    "text": "This pages are under construction\n\n\n\n\n\n\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces."
+    "text": "This pages are under construction\n\n\n\n\n\n\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.\nCtrl-C for abort"
   },
   {
     "objectID": "pages/using.html",
