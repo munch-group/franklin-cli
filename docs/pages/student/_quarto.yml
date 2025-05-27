@@ -16,12 +16,12 @@ book:
     background: "white"      
   chapters:
     - index.qmd
-    - part: "Jupyter"
+    - part: "Terminal"
       chapters:
-      - ../jupyter.qmd
-    - part: "Docker"
+      - ../tutorials/terminal.qmd
+    - part: "Jupyter"
       chapters: 
-      - ../jupyter.qmd
+      - ../tutorials/jupyterlab.ipynb
   downloads: [pdf]
 
 #bibliography: references.bib
