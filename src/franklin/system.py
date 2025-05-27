@@ -108,8 +108,12 @@ def jupyter_ports_in_use():
     cmd = shlex.split(cmd)
     cmd[0] = shutil.which(cmd[0])
     output = subprocess.check_output(cmd).decode()
-    occupied_ports = [int(x) for x in re.findall(r'(?<=->)\d+', output, re.MULTILINE)]
-    occupied_ports = [int(x) for x in re.findall(r'(?<=localhost:)\d+', output, re.MULTILINE)]
+    occupied_ports = [
+        int(x) for x in re.findall(r'(?<=->)\d+', output, re.MULTILINE)
+        ]
+    occupied_ports = [
+        int(x) for x in re.findall(r'(?<=localhost:)\d+', output, re.MULTILINE)
+        ]
     return occupied_ports
 
 
@@ -127,7 +131,8 @@ def check_internet_connection():
         logger.debug("Internet connection OK.")
         return True
     except (requests.ConnectionError, requests.Timeout) as exception:
-        term.secho("No internet connection. Please check your network.", fg='red')
+        term.secho(
+            "No internet connection. Please check your network.", fg='red')
         sys.exit(1)
         return False
 
@@ -146,29 +151,37 @@ def gb_free_disk():
 
 def fake_progress_bar(label):
         label = label.ljust(cfg.pg_ljust)
-        with click.progressbar(label=label, length=100, **cfg.pg_options) as bar:
+        with click.progressbar(label=label, length=100, **cfg.pg_options) as b:
             for i in range(100):
                 time.sleep(0.01)
-                bar.update(1)
+                b.update(1)
 
 
 def check_free_disk_space():
     """
-    Checks if there is enough free disk space to run Franklin, and exits if there is not.
+    Checks if there is enough free disk space to run Franklin, and exits if 
+    there is not.
     """
 
     gb_free = gb_free_disk()
     if gb_free < cfg.required_gb_free_disk:
-        term.secho(f"Not enough free disk space. Required: {cfg.required_gb_free_disk} GB, Available: {gb_free:.2f} GB", fg='red')
+        term.secho(f"Not enough free disk space. Required: "
+                   f"{cfg.required_gb_free_disk} GB,"
+                   f"Available: {gb_free:.2f} GB", fg='red')
         sys.exit(1)
     elif gb_free < 2 * cfg.required_gb_free_disk:
 
         term.boxed_text('You are running low on disk space', [
-            f'You are running low on disk space. Franklin needs {cfg.required_gb_free_disk} GB of free disk space to run and you only have {gb_free:.2f} GB left.',
+            f'You are running low on disk space. Franklin needs '
+            f'{cfg.required_gb_free_disk} GB of free disk space to run and '
+            f'you only have {gb_free:.2f} GB left.',
             '',
-            'You can use "franklin docker remove" to remove cached Docker content you no longer need. it automatically get downloaded if you should need it again',
+            'You can use "franklin docker remove" to remove cached Docker '
+            'content you no longer need. it automatically get downloaded '
+            'if you should need it again',
             ], fg='magenta')        
-        if click.confirm("Do you want to stop to free up space?", default=False):
+        if click.confirm(
+            "Do you want to stop to free up space?", default=False):
             sys.exit(1)
 
     else:

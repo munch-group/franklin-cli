@@ -1,0 +1,39 @@
+---
+title: Editing exercises
+---
+
+::: {.callout-caution }
+## This pages are under construction
+
+:::
+
+
+## The automated way
+
+### Creating
+
+
+### Editing
+
+
+### Additional channels or dependencies not found
+
+
+
+
+## The manual way
+
+
+### Git clone
+
+
+### GitUI
+
+
+### Git add
+
+
+### Git commit
+
+
+### Git push

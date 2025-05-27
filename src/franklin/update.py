@@ -30,12 +30,13 @@ def update_client() -> None:
     """
     Update the Franklin client.
     """
+    channel = cfg.conda_channel
     try:
-        package = 'franklin'
-        latest = latest_version(package)
-        if latest > system.package_version(package):
-            term.secho(f'{package} is updating to {latest}', fg='green')
-            cmd = f'conda install -y -c conda-forge {cfg.conda_channel}::{package}={latest}'
+        pkg = 'franklin'
+        latest = latest_version(pkg)
+        if latest > system.package_version(pkg):
+            term.secho(f'{pkg} is updating to version {latest}')
+            cmd = f'conda install -y -c conda-forge {channel}::{pkg}={latest}'
             utils.run_cmd(cmd)
         docker.config_fit()
     except:
@@ -51,23 +52,25 @@ def update_client() -> None:
         return
 
     try:
-        package = 'franklin-educator'
-        latest = latest_version(package)
-        if latest > system.package_version(package):
-            term.secho(f'{package} is updating to {latest}', fg='green')
-            utils.run_cmd(f'conda install -y -c conda-forge {cfg.conda_channel}::{package}={latest}')
+        pkg = 'franklin-educator'
+        latest = latest_version(pkg)
+        if latest > system.package_version(pkg):
+            term.secho(f'{pkg} is updating to version {latest}')
+            utils.run_cmd(
+                f'conda install -y -c conda-forge {channel}::{pkg}={latest}')
         docker.config_fit()
     except:
         raise crash.UpdateCrash(
             'Franklin update failed!',
             'Please run the following command to update manually:',
             '',
-            '  conda update -y -c conda-forge -c munch-group franklin-educator')
+            '  conda update -y -c conda-forge -c munch-group franklin-educator'
+            )
     
 
 @click.command('update')
 @crash_report
 def update():
-    """Updates Franklin
+    """Update Franklin
     """    
     update_client()

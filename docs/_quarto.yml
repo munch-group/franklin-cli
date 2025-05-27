@@ -4,6 +4,9 @@ project:
   # resources:
     # - objects.txt
     # - objects-test.txt
+  post-render: 
+    # - quarto render --profile slides
+    - quarto render pages/student/
 
 execute:
   freeze: auto
@@ -45,6 +48,8 @@ website:
       #   text: Examples
       - href: api/
         text: API reference
+      - href: pages/student/
+        text: Student site
     right:
       - icon: github
         href: https://github.com/munch-group/franklin/
@@ -57,22 +62,37 @@ website:
         - pages/getting_started.qmd       
         - section: "Overview"
           contents:
-            - pages/overview.qmd
+            - pages/using.qmd
+        - section: "Student"
+          contents:
+            - 
+        - section: "Educator"
+          contents:
+            - pages/create_edit.qmd
         - section: "Tutorials"
           contents:
-            - pages/developing_exercises.qmd
-            - pages/jupyterlab.ipynb
-            - pages/r_to_python.ipynb
-            - pages/numpy_pandas.ipynb
-            - pages/plotting.ipynb
-        - section: "Key concepts"
+            - pages/tutorials/terminal.qmd
+            - pages/tutorials/jupyterlab.ipynb
+            - pages/tutorials/developing_exercises.qmd
+            - pages/tutorials/data_analysis.ipynb
+            - pages/tutorials/plotting.ipynb
+        - section: "About"
           contents:
-            - pages/terminal.qmd
-            - pages/docker.qmd
-            - pages/jupyter.qmd
-            - pages/ssh.qmd
-            - pages/git.qmd
-            - pages/gitlab.qmd
+            - pages/about/ssh.qmd
+            - pages/about/git.qmd
+            - pages/about/gitlab.qmd
+            - pages/about/docker.qmd
+          contents:
+        - section: "Administration"
+          contents:
+            - pages/admin/overview.qmd
+            - pages/admin/gitlab.qmd
+            - pages/admin/docker.qmd
+            - pages/admin/components.qmd
+        - section: "Source code"
+          contents:
+            - pages/admin/source.qmd
+            - ../src/franklin/docker.py
 
 comments:
   hypothesis: true
@@ -86,6 +106,9 @@ format:
       - api/_styles-quartodoc.css
       - styles.css
     toc: true
+    sidebar:
+      collapse-level: 1
+      search: true  
     mermaid:
       theme: neutral     
 

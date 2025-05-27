@@ -34,18 +34,18 @@ def gather_crash_info(include_log=True) -> str:
     """
     Gathers information about the system and the crash.
     """
-    info = f"Python: {sys.executable}\n"
-    info += f'Version of franklin: {package_version("franklin")}\n'    
-    info += f'Version of franklin-educator: {package_version("franklin-educator")}\n'
+    info = f"python: {sys.executable}\n"
+    info += f'franklin: {package_version("franklin")}\n'    
+    info += f'franklin-educator: {package_version("franklin-educator")}\n'
     for k, v in platform.uname()._asdict().items():
         info += f"{k}: {v}\n"
-    info += f"Platform: {platform.platform()}\n"
-    info += f"Machine: {platform.machine()}\n"
-    info += f"Processor: {platform.processor()}\n"
-    info += f"Python Version: {platform.python_version()}\n"
-    info += f"Python Compiler: {platform.python_compiler()}\n"
-    info += f"Python Build: {platform.python_build()}\n"
-    info += f"Python Implementation: {platform.python_implementation()}\n"
+    info += f"platform: {platform.platform()}\n"
+    info += f"machine: {platform.machine()}\n"
+    info += f"processor: {platform.processor()}\n"
+    info += f"python version: {platform.python_version()}\n"
+    info += f"python compiler: {platform.python_compiler()}\n"
+    info += f"python build: {platform.python_build()}\n"
+    info += f"python implementation: {platform.python_implementation()}\n"
 
     if include_log:
         if os.path.exists('franklin.log'):
@@ -61,7 +61,8 @@ def crash_email() -> None:
     Open the email client with a prefilled email to the maintainer of Franklin.
     """
 
-    preamble = ("This email is prefilled with information of the crash you can send to the maintainer of Franklin.").upper()
+    preamble = ("This email is prefilled with information of the crash you can"
+    "send to the maintainer of Franklin.").upper()
 
     info = gather_crash_info(include_log=False)
 
@@ -73,12 +74,15 @@ def crash_email() -> None:
 
     subject = urllib.parse.quote("Franklin CRASH REPORT")
     body = urllib.parse.quote(f"{preamble}\n\n{info}\n{log}")
-    webbrowser.open(f"mailto:?to={cfg.maintainer_email}&subject={subject}&body={body}", new=1)
+    webbrowser.open(
+        f"mailto:?to={cfg.maintainer_email}&subject={subject}&body={body}", 
+        new=1)
 
 
 def crash_report(func: Callable) -> Callable:
     """
-    Decorator to handle crashes and open an email client with a prefilled email to the maintainer of Franklin.
+    Decorator to handle crashes and open an email client with a prefilled email
+    to the maintainer of Franklin.
 
     Parameters
     ----------
@@ -95,9 +99,15 @@ def crash_report(func: Callable) -> Callable:
 
 
         def msg_and_exit():
-            term.secho(f"\nFranklin encountered an unexpected problem.", fg='red')
-            term.secho(f'\nPlease open an email to {cfg.maintainer_email} with subject "Franklin crash". The email body should contain the crash information.')
-            click.pause("Press Enter to copy the crash information to your clipboard.")
+            term.secho(
+                f"\nFranklin encountered an unexpected problem.", fg='red')
+            term.secho(
+                f'\nPlease open an email to {cfg.maintainer_email} with '
+                'subject "Franklin crash". When you press Enter in this '
+                'window, the crash information is copied to your clipboard '
+                'So you can paste it into the email body before sending it')
+            click.pause("Press Enter to copy the crash information to your "
+                        "clipboard.")
             pyperclip.copy(gather_crash_info())
             sys.exit(1)   
 

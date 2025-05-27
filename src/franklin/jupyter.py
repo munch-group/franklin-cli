@@ -24,24 +24,25 @@ from . import system
 @click.command()
 @crash_report
 def jupyter(allow_subdirs_at_your_own_risk: bool) -> None:
-    """Run jupyter prepared for exercise
+    """Run jupyter for an exercise
     """
     if not allow_subdirs_at_your_own_risk:
         for x in os.listdir(os.getcwd()):
             if os.path.isdir(x) and not os.path.basename(x).startswith('.'):
-                term.boxed_text('You have subfolders in your current directory',
+                term.boxed_text(
+                    'You have subfolders in your current directory',
                                 [
-                                    'Franklin must run from a folder with no other folders inside it.',
-                                    '',
-                                    'You can make an empty folder called "exercise" with this command:',
-                                    '',
-                                    '    mkdir exercise',
-                                    '',
-                                    'and change to that folder with this command:',
-                                    '',                                    
-                                    '    cd exercise',
-                                    '',
-                                    'Then run your franklin command.',
+        'Franklin must run from a folder with no other folders inside it.',
+        '',
+        'You can make an empty folder called "exercise" with this command:',
+        '',
+        '    mkdir exercise',
+        '',
+        'and change to that folder with this command:',
+        '',                                    
+        '    cd exercise',
+        '',
+        'Then run your franklin command.',
                                 ], fg='magenta')
                 sys.exit(1)
 
@@ -68,22 +69,27 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     image_url : 
         Image registry URL.
     cwd : 
-        Launch jupyter in this directory (relative to dir where jupyter is launched), by default None
+        Launch jupyter in this directory (relative to dir where jupyter is 
+        launched), by default None
     """
-
-    term.secho("Downloading/updating image:", fg='green')
+    term.secho()
+    term.secho("Downloading/updating image:")
     _docker.pull(image_url)
     term.echo()    
 
-    term.secho('Starting container:', fg='green')
-    run_container_id, docker_run_p, port = _docker.failsafe_run_container(image_url)
+    term.secho('Starting container')
+    run_container_id, docker_run_p, port = \
+        _docker.failsafe_run_container(image_url)
 
     cmd = f"docker logs --follow {run_container_id}"
     if system.system() == "Windows":
-        popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
+        popen_kwargs = dict(
+            creationflags = subprocess.DETACHED_PROCESS \
+                | subprocess.CREATE_NEW_PROCESS_GROUP)
     else:
         popen_kwargs = dict(start_new_session = True)
-    docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, bufsize=1, universal_newlines=True, **popen_kwargs)
+    docker_log_p = Popen(shlex.split(cmd), stdout=PIPE, stderr=STDOUT, 
+                         bufsize=1, universal_newlines=True, **popen_kwargs)
 
     while True:
         time.sleep(0.1)
@@ -105,12 +111,14 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
 
     webbrowser.open(token_url, new=1)
 
-    term.secho(f'\nJupyter is running and should open in your default browser.', fg='green')
+    term.secho(
+        f'\nJupyter is running and should open in your default browser.')
     term.echo(f'If not, you can access it at this URL:')
-    term.echo(f'{token_url}', nowrap=True)
+    term.secho(f'{token_url}', nowrap=True, fg='blue')
 
     while True:
-        term.secho('\nPress Q to shut down jupyter and close application', fg='green')
+        term.secho('\nPress Q to shut down jupyter and close application', 
+                   fg='green')
         c = click.getchar()
         click.echo()
         if c.upper() == 'Q':
@@ -125,6 +133,7 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
             _docker.desktop_stop()
             term.secho('Service has stopped.', fg='green')
             term.echo()
-            term.secho('Jupyter is no longer running and you can close the tab in your browser.')
+            term.secho('Jupyter is no longer running and you can close '
+                       'the tab in your browser.')
             logging.shutdown()
             break

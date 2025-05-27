@@ -40,18 +40,15 @@ def ensure_docker_installed(func: Callable) -> Callable:
     def wrapper(*args, **kwargs):
 
         if not shutil.which('docker'):
-            term.boxed_text(f"Franklin needs Docker Desktop", 
-                            ['Franklin depends on a program called Docker Desktop that needs '
-                            'to be installed on your computer. '
-                            'You can download it from ',
-                            'https://docs.docker.com/get-started/get-docker ',
-                            'and follow the default installation procedure.',
-                            # 'If you have a Mac you can use the command below to install it:',
-                            # '',
-                            # '  franklin docker install',
-                            # '',
-                            ],
-                            fg='blue')
+            term.boxed_text(
+                f"Franklin needs Docker Desktop", 
+                ['Franklin depends on a program called Docker Desktop that '
+                 'needs to be installed on your computer. You can download '
+                 'it from ',
+                'https://docs.docker.com/get-started/get-docker ',
+                'and follow the default installation procedure.',
+                ],
+                fg='blue')
             sys.exit(1)
 
         return func(*args, **kwargs)
@@ -64,17 +61,21 @@ def get_user_config_file() -> str:
     """
     home = Path.home()
     if system.system() == 'Darwin':
-        json_settings = home / 'Library/Group Containers/group.com.docker/settings-store.json'
+        path = 'Library/Group Containers/group.com.docker/settings-store.json'
+        json_settings = home / path
     elif system.system() == 'Windows':
-        json_settings = home / 'AppData/Roaming/Docker/settings-store.json'
+        path = 'AppData/Roaming/Docker/settings-store.json'
+        json_settings = home / path
     elif system.system() == 'Linux':
-        json_settings = home / '.docker/desktop/settings-store.json'
+        path = '.docker/desktop/settings-store.json'
+        json_settings = home / path
     return json_settings
 
 
 def read_user_config() -> dict:
     """
-    Reads the Docker Desktop configuration file and returns a dictionary with the settings.
+    Reads the Docker Desktop configuration file and returns a dictionary 
+    with the settings.
     """
     json_settings = get_user_config_file()
     if not os.path.exists(json_settings):
@@ -150,7 +151,8 @@ def config_get(variable: str=None) -> None:
     
     for variable in sorted(cfg.docker_settings):
         if variable in config:
-            term.echo(f'{str(variable).rjust(31)}: {config[variable]}', nowrap=True)
+            term.echo(f'{str(variable).rjust(31)}: {config[variable]}', 
+                      nowrap=True)
 
     write_user_config(config)
 
@@ -209,12 +211,14 @@ def config_reset(variable: str=None) -> None:
         Variable name, by default None in which case all variables are reset.
     """
     if variable:
-        logger.debug(f"Setting {variable} to {cfg.docker_settings[variable]}")
+        logger.debug(
+            f"Setting {variable} to {cfg.docker_settings[variable]}")
         config_set(variable, cfg.docker_settings[variable])
     else:
         config = read_user_config()
         for variable in cfg.docker_settings:
-            logger.debug(f"Setting {variable} to {cfg.docker_settings[variable]}")
+            logger.debug(
+                f"Setting {variable} to {cfg.docker_settings[variable]}")
             config[variable] = cfg.docker_settings[variable]
         write_user_config(config)
 
@@ -246,23 +250,30 @@ def install_desktop() -> None:
 
     if operating_system == 'Darwin':
         if os.path.exists('/Applications/Docker.app'):
-            term.echo('Docker Desktop is already installed. Try to open it and complete the setup procedure. Otherwise remove it and try again.')
+            term.echo('Docker Desktop is already installed. Try to open it '
+                      'and complete the setup procedure. Otherwise remove it '
+                      'and try again.')
             sys.exit(1)
 
+    url = 'https://desktop.docker.com/'
+    win = 'win/main/{}/Docker%20Desktop%20Installer.exe'
+    mac = 'mac/main/{}/Docker.dmg'
     if operating_system == 'Windows':
+       
         if architecture == 'arm64':
-            download_url = 'https://desktop.docker.com/win/main/arm64/Docker%20Desktop%20Installer.exe'
+            download_url = url + win.format('arm64')
         else:
-            download_url = 'https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe'
+            download_url = url + win.format('amd64')
         installer = 'Docker Desktop Installer.exe'
     elif operating_system == 'Darwin':
         if architecture == 'arm64':
-            download_url = 'https://desktop.docker.com/mac/main/arm64/Docker.dmg'
+            download_url =  url + mac.format('arm64')
         else:
-            download_url = 'https://desktop.docker.com/mac/main/amd64/Docker.dmg'
+            download_url =  url + mac.format('arm64')
         installer = 'Docker.dmg'
     else:
-        term.echo("Please install Docker Desktop manually by visiting https://docs.docker.com/get-started/get-docker")
+        term.echo("Please install Docker Desktop manually by "
+                  "visiting https://docs.docker.com/get-started/get-docker")
         sys.exit(1)
 
     if (Path.home() / 'Downloads').exists():
@@ -275,13 +286,15 @@ def install_desktop() -> None:
     installer_path = os.path.join(installer_dir, installer)
 
     if os.path.exists(installer_path):
-        term.echo(f"An installer already exists at {installer_path}. Please remove it and run the command again.")
+        term.echo(f"An installer already exists at {installer_path}. "
+                  "Please remove it and run the command again.")
         sys.exit(1)
 
 
     with requests.get(download_url, stream=True) as response:
         if not response.ok:
-            term.echo(f"Could not download Docker Desktop. Please download from {download_url} and install before proceeding.")
+            term.echo(f"Could not download Docker Desktop. Please download "
+                      "from {download_url} and install before proceeding.")
             sys.exit(1)
         else:
             term.echo(f"Will download installer to {installer_path}")
@@ -289,7 +302,9 @@ def install_desktop() -> None:
         file_size = response.headers['Content-length']
         with open(installer_path, mode="wb") as file:
             nr_chunks = int(file_size) // (10 * 1024) + 1
-            with click.progressbar(length=nr_chunks, label='Downloading:'.ljust(cfg.pg_ljust), **cfg.pg_options) as bar:
+            with click.progressbar(
+                length=nr_chunks, label='Downloading:'.ljust(cfg.pg_ljust), 
+                **cfg.pg_options) as bar:
                 for chunk in response.iter_content(chunk_size=10 * 1024):
                     file.write(chunk)
                     bar.update(1)
@@ -305,10 +320,14 @@ def install_desktop() -> None:
     elif system.system() == 'Darwin':
         term.echo('Installing:')
         try:
-            output = utils.run_cmd(f'hdiutil detach /Volumes/Docker', check=False)
-            output = utils.run_cmd(f'hdiutil attach -nobrowse -readonly {installer_path}')
-            output = utils.run_cmd(f'cp -a /Volumes/Docker/Docker.app /Applications/')
-            output = utils.run_cmd(f'hdiutil detach /Volumes/Docker/')
+            output = utils.run_cmd(
+                f'hdiutil detach /Volumes/Docker', check=False)
+            output = utils.run_cmd(
+                f'hdiutil attach -nobrowse -readonly {installer_path}')
+            output = utils.run_cmd(
+                f'cp -a /Volumes/Docker/Docker.app /Applications/')
+            output = utils.run_cmd(
+                f'hdiutil detach /Volumes/Docker/')
         except Exception as e:
             raise e
         finally:
@@ -320,8 +339,10 @@ def install_desktop() -> None:
         term.boxed_text(f"In Docker Desktop", 
                         ['Franklin will open Docker Desktop. You must then:',
                          '1. Accept the license agreement.',
-                         "2. Complete the setup procedure (you can click anywhere it says 'skip').",
-                         "3. Click bottom right corner to to update and click the blue button on the page that appears.",
+                         "2. Complete the setup procedure (you can click "
+                         "anywhere it says 'skip').",
+                         "3. Click bottom right corner to to update and click "
+                         "the blue button on the page that appears.",
                          '4. Quit the Docker Desktop application.',
                          '5. Come back here :)'
                         ],
@@ -331,7 +352,8 @@ def install_desktop() -> None:
         click.launch('/Applications/Docker.app', wait=True)
 
     if not shutil.which('docker'):
-        term.secho("Docker Desktop installation failed or is incomplete. Please install Docker Desktop manually.", fg='red')
+        term.secho("Docker Desktop installation failed or is incomplete. "
+                   "Please install Docker Desktop manually.", fg='red')
         sys.exit(1)
 
     if not desktop_status() == 'running':
@@ -339,7 +361,8 @@ def install_desktop() -> None:
         term.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
 
     if not desktop_status() == 'running':
-        term.secho("Docker Desktop is not running. Please install Docker Desktop manually.", fg='red')
+        term.secho("Docker Desktop is not running. "
+                   "Please install Docker Desktop manually.", fg='red')
         sys.exit(1)
 
     config_reset()
@@ -354,7 +377,8 @@ def install_desktop() -> None:
 @ensure_docker_installed
 def failsafe_start_desktop() -> None:
     """
-    Starts Docker Desktop if it is not running, attempting to handle any errors.
+    Starts Docker Desktop if it is not running, attempting to handle any 
+    errors.
     """
 
     logger.debug('Starting Docker Desktop')
@@ -367,7 +391,8 @@ def failsafe_start_desktop() -> None:
         term.dummy_progressbar(seconds=10, label='Starting Docker Desktop:')
 
     if not desktop_status() == 'running':
-        term.secho("Could not reach Docker Desktop. Please quit Docker Desktop manually.", fg='red')
+        term.secho("Could not reach Docker Desktop. "
+                   "Please quit Docker Desktop manually.", fg='red')
         sys.exit(1)
 
     if system.system() == 'Darwin':
@@ -442,7 +467,8 @@ def desktop_version() -> Version:
     :
         Docker Desktop version.
     """
-    stdout = subprocess.check_output(utils.fmt_cmd('docker version --format json'))
+    stdout = subprocess.check_output(
+        utils.fmt_cmd('docker version --format json'))
     data = json.loads(stdout.decode())
     cmp = data['Server']['Components']
     vers = [c['Version'] for c in cmp if c['Name'] == 'Engine'][0]
@@ -457,9 +483,11 @@ def get_latest_docker_version() -> Version:
     :
         Docker Desktop version.
     """
-    # A bit of a hack: gets version as tag of base docker image (which is for use with "docker in docker")
+    # A bit of a hack: gets version as tag of base docker image 
+    # (which is for use with "docker in docker")
     s = requests.Session()
-    url = 'https://registry.hub.docker.com/v2/namespaces/library/repositories/docker/tags'
+    url = 'https://registry.hub.docker.com'
+    '/v2/namespaces/library/repositories/docker/tags'
     tags = []
     r  = s.get(url, headers={ "Content-Type" : "application/json"})
     if not r.ok:
@@ -483,16 +511,22 @@ def update_desktop() -> None:
         current_engine_version = desktop_version()
         most_recent_version = get_latest_docker_version()
         if current_engine_version < most_recent_version:
-            term.boxed_text(f"Update Docker Desktop",
-                             [f'Please open the "Docker Desktop" application and and click where it says "New version available" in the bottom right corner.', 
-                              'Then scroll down and click the blue button to update'],
-                            prompt='Press Enter to close Franklin.', fg='red')
+            term.boxed_text(
+                f"Update Docker Desktop",
+                [f'Please open the "Docker Desktop" application and and click '
+                 'where it says "New version available" in the bottom right '
+                 'corner.', 
+                'Then scroll down and click the blue button to update'],
+            prompt='Press Enter to close Franklin.', fg='red')
             sys.exit(0)
     else:
         stdout = utils.run_cmd('docker desktop update --check-only')
         if 'is already the latest version' not in stdout:
-            term.secho('Docker Desktop is updating, which may take a while. Do not interrupt the process. You may be prompted for your password to allow the update.', fg='red')
+            term.secho('Docker Desktop is updating, which may take a while. '
+                       'Do not interrupt the process. You may be prompted '
+                       'for your password to allow the update.', fg='red')
             utils.run_cmd('docker desktop update --quiet')
-            term.dummy_progressbar(seconds=60, label='Docker Desktop is updating:')
+            term.dummy_progressbar(
+                seconds=60, label='Docker Desktop is updating:')
 
 

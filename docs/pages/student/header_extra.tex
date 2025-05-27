@@ -1,0 +1,181 @@
+%% Palatino font:
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{palatino}
+
+
+\usepackage{pifont}
+% \DeclareUnicodeCharacter{2730}{\ding{80}}
+% \DeclareUnicodeCharacter{2605}{\ding{72}}
+% \DeclareUnicodeCharacter{2055}{\ding{105}}  
+
+% % \DeclareUnicodeCharacter{274D}{\ding{114}}
+% % \DeclareUnicodeCharacter{2730}{\ding{80}}
+% \DeclareUnicodeCharacter{274D}{\ding{96}}
+
+% for correct quotes in verbatim
+\usepackage{upquote}
+
+\pagestyle{plain} % no running header
+
+% \usepackage{tcolorbox}
+%\newtcolorbox{myquote}{colback=black!10!white, colframe=black!40!white}
+% \newtcolorbox{myquote}{colback=Goldenrod!20!white, colframe=Goldenrod!60!white, arc=1.0mm, boxrule=0.5mm}
+
+
+\usepackage[many]{tcolorbox}
+\definecolor{quotegray}{HTML}{505050}
+\newtcolorbox{myquote}{%
+    enhanced jigsaw, 
+    breakable,      % allow page breaks
+    frame hidden,   % hide the default frame
+    left=1cm,       % left margin
+    right=1cm,      % right margin
+    colback=white,
+    fontupper=\color{quotegray},
+    overlay={%
+        \node [scale=4,
+            text=lightgray,
+            inner sep=0pt,] at ([xshift=0.5cm,yshift=-0.7cm]frame.north west){``}; 
+        \node [scale=4,
+            text=lightgray,
+            inner sep=0pt,] at ([xshift=-0.5cm]frame.south east){''};  
+            },
+        % paragraph skips obeyed within tcolorbox
+                parbox=false,
+}
+
+% redefine the 'quote' environment to use this 'myquote' environment
+\renewenvironment{quote}{\begin{myquote}}{\end{myquote}}
+
+
+
+
+
+
+
+\usepackage{framed} % not sure i need this anymore
+
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+% \usepackage{ascii}
+
+% \definecolor{myshade}{rgb}{1.0 1.0 1.0}
+% % \definecolor{myshade}{rgb}{0.655, 0.498, 0.161}
+% \newtcolorbox{mybox}{colback=myshade!100!white, colframe=myshade!100!white, arc=0.3mm, boxrule=0.1mm, left=1mm}
+
+% % \newtcolorbox{mybox}{colback=myshade!100!white, colframe=myshade!100!white, arc=0.3mm, boxrule=0.1mm, left=1mm}
+% \newtcolorbox{mybox}{colback=\textcolor[rgb]{0.655, 0.498, 0.161}, colframe=\textcolor[rgb]{0.655, 0.498, 0.161}, arc=0.3mm, boxrule=0.1mm, left=1mm}
+
+% I have to only define Shaded if it is already defined.
+% The reason is that pandoc does not define the macro if there are not code blocks in the a markdown file.
+\ifx \@Shaded \@empty
+
+% \renewenvironment{Shaded}{\begin{mybox}}{\end{mybox}}
+
+% \definecolor{codecolor}{RGB}{0, 0, 0}
+
+% % background color for code blocks
+% \let\OldTexttt\texttt
+% \renewcommand{\texttt}[1]{\OldTexttt{\colorbox{myshade}{\textcolor[rgb]{0, 0, 0}{{\small #1}}}}}
+
+\renewcommand{\KeywordTok}[1]{\textcolor[rgb]{0, 0, 0}{\textbf{{#1}}}} % def and or not reg
+\renewcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.373, 0.298, 0.580}{\textbf{{#1}}}} % print open 
+%\renewcommand{\VariableTok}[1]{\textcolor[rgb]{0.500, 0.500, 0.500}{\textbf{{#1}}}} % print open 
+\renewcommand{\VariableTok}[1]{\textcolor[rgb]{0.141, 0.392, 0.824}{\textbf{{#1}}}}
+\renewcommand{\OperatorTok}[1]{\textcolor[rgb]{0, 0, 0}{{#1}}} % def and or not reg
+\renewcommand{\DataTypeTok}[1]{\textcolor[rgb]{1.0,0.13,0.00}{{#1}}}
+\renewcommand{\DecValTok}[1]{\textcolor[rgb]{0.655, 0.498, 0.161}{{#1}}}
+\renewcommand{\BaseNTok}[1]{\textcolor[rgb]{0.259, 0.592, 0.596}{{#1}}}
+\renewcommand{\FloatTok}[1]{\textcolor[rgb]{0.655, 0.498, 0.161}{{#1}}}
+%\renewcommand{\CharTok}[1]{\textcolor[rgb]{0.259, 0.592, 0.596}{{#1}}}
+\renewcommand{\CharTok}[1]{\textcolor[rgb]{0.678,0.141,0.098}{{#1}}}
+\renewcommand{\StringTok}[1]{\textcolor[rgb]{0.678,0.141,0.098}{{#1}}}
+\renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.135, 0.134, 0.133}{{#1}}}
+%\renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.796,0.188,0.282}{{#1}}} % made comments same color as strings, so they are not colored differently when used as comments.
+\renewcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\renewcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\renewcommand{\FunctionTok}[1]{\textcolor[rgb]{0.549, 0.102, 0.063}{\textbf{{#1}}}}  % function name
+\renewcommand{\RegionMarkerTok}[1]{{#1}}
+\renewcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+%\renewcommand{\NormalTok}[1]{\textcolor[rgb]{0.361,0.451,0.502}{\textbf{{#1}}}}
+%\renewcommand{\NormalTok}[1]{\textcolor[rgb]{0.361,0.451,0.502}{{#1}}}
+
+% \renewcommand{\NormalTok}[1]{\textcolor[rgb]{0, 0, 0}{{\fontsize{8}{9} \selectfont #1}}}
+\renewcommand{\NormalTok}[1]{\textcolor[rgb]{0, 0, 0}{{#1}}}
+
+
+\else
+  % no code blocks with markup...
+\fi
+
+
+
+\usepackage{etoolbox}
+\makeatletter
+\g@addto@macro{\appendix}{%
+  \patchcmd{\@@makechapterhead}% <cmd>
+    {\endgraf\nobreak\vskip.5\baselineskip}% <search>
+    {\hspace*{-.5em}:\space}% <replace>
+    {}{}% <success><failure>
+  \patchcmd{\@chapter}% <cmd>
+    {\addchaptertocentry{\thechapter}}% <search>
+    {\addchaptertocentry{Appendix~\thechapter:}}% <replace>
+    {}{}% <success><failure>
+  \addtocontents{toc}{%
+    \protect\patchcmd{\protect\l@chapter}% <cmd>
+      {1.5em}% <search>
+      {6.5em}% <replace>
+      {}{}}% <success><failure>
+}
+\renewcommand{\autodot}{}% Remove all end-of-counter dots
+\makeatother
+
+
+
+
+\usepackage{chngcntr}
+\counterwithin*{subsubsection}{chapter}
+\counterwithout*{subsubsection}{section}
+\counterwithout*{subsubsection}{subsection}
+
+%  % KMT only use subsubsection number (this increments though the book 
+%  % when we supress numbering with  {.unnumbered} after each header except Exerisices
+\renewcommand\thesubsubsection{\arabic{section}}
+\renewcommand\thesubsubsection{\arabic{subsection}}
+\renewcommand\thesubsubsection{\arabic{chapter}-\arabic{subsubsection}}
+
+% put number after subsubsection title
+\makeatletter
+\renewcommand\sectionlinesformat[4]{%
+  \Ifstr{#1}{subsubsection}
+    {\@hangfrom{\hskip #2}{#4 #3}}
+    {\@hangfrom{\hskip #2#3}{#4}}% original definition for other section levels
+}
+\makeatother
+\renewcommand\sectionformat{\enskip\thesection\autodot}
+
+
+\renewcommand*{\chapterformat}{%
+  \textcolor[rgb]{0.8, 0.8, 0.8}{\thechapter}\autodot\enskip%
+}
+% \renewcommand*{\sectionformat}{%
+%   \textcolor[rgb]{0.655, 0.498, 0.161}{\thesection}\autodot\enskip%
+% }
+% \renewcommand*{\subsectionformat}{%
+%   \textcolor[rgb]{0.655, 0.498, 0.161}{\thesubsection}\autodot\enskip%
+% }
+\renewcommand*{\subsubsectionformat}{%
+  \textcolor[rgb]{0.8, 0.8, 0.8}{\thesubsubsection}\autodot\enskip%
+}
+
+
+% % prevent latex from "floating" the figures
+% \usepackage{float}
+% \let\origfigure\figure
+% \let\endorigfigure\endfigure
+% \renewenvironment{figure}[1][2] {
+%     \expandafter\origfigure\expandafter[H]
+% } {
+%     \endorigfigure
+% }

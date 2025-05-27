@@ -4,12 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = "0.20.0"
+version = '0.24.22'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
   "Topic :: Software Development :: Build Tools",
-  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
@@ -40,7 +39,7 @@ maintainers = [
 description = "Terminal client for Jupyter exercises"
 keywords = ["teaching", "jupyter", "docker", "gitlab"]
 readme = "README.md"
-license = {file = "LICENSE"}
+# license = "MIT"
 
 [project.urls]
 Homepage = "https://munch-group.org/franklin"
@@ -55,4 +54,9 @@ franklin = "franklin:franklin"
 where = ["src"]
 
 [tool.setuptools.package-data]
-franklin = ["data/*.yaml", "data/gitui/*", "data/repo_templates/exercise/*", "data/repo_templates/base/*"]
+franklin = [
+  "data/*.yaml", 
+  "data/gitui/*", 
+  "data/templates/exercise/*", 
+  "data/templates/base/*"
+  ]

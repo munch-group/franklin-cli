@@ -1,3 +1,20 @@
+# %% [markdown]
+# ---
+# title: GWF workflow
+# execute:
+#   eval: false
+# ---
+
+# %% [markdown]
+"""
+## Docker commands
+
+Blah blah blah
+"""
+    
+# %%
+
+
 import json
 import os
 import click
@@ -57,7 +74,8 @@ def run_container(image_url: str) -> Tuple[str, Popen, str]:
     Raises
     ------
     :
-        Exception if container if a container id for the running container is not retrieved.
+        Exception if container if a container id for the running container 
+        is not retrieved.
     """
     docker_run_p, port = run(image_url)
     run_container_id = None
@@ -74,7 +92,8 @@ def run_container(image_url: str) -> Tuple[str, Popen, str]:
 
 def failsafe_run_container(image_url: str) -> Tuple[str, Popen, str]:
     """
-    Run container from image. Upon Exception is raised by run_container, it does a docker system prune and a docker desktop restart.
+    Run container from image. Upon Exception is raised by run_container, 
+    it does a docker system prune and a docker desktop restart.
 
     Parameters
     ----------
@@ -89,7 +108,8 @@ def failsafe_run_container(image_url: str) -> Tuple[str, Popen, str]:
     Raises
     ------
     :
-        Exception if container if a container id for the running container is not retrieved.
+        Exception if container if a container id for the running container 
+        is not retrieved.
     """
 
     try:
@@ -123,8 +143,9 @@ def ensure_docker_running(func: Callable) -> Callable:
 
 def irrelevant_unless_docker_running(func: Callable) -> Callable:
     """
-    Decorator for click command functions that are irrelevant unless Docker Desktop is running.
-    If users use command when Docker Desktop is not running, they will be informed.
+    Decorator for click command functions that are irrelevant unless Docker 
+    Desktop is running. If users use command when Docker Desktop is not 
+    running, they will be informed.
 
     Parameters
     ----------
@@ -159,13 +180,14 @@ def image_exists(image_url: str) -> bool:
     :
         True if image exists, False otherwise.
     """
-    for image in images(return_json=True):
+    for image in images():
         if image['Repository'].startswith(image_url):
             return True
     return False
 
 
-def format_table(header: str, table: List[List[str]], ids: List[str], min_widths: List[int]=None, select: bool=True) -> List[str]:
+def format_table(header: str, table: List[List[str]], ids: List[str], 
+                 min_widths: List[int]=None, select: bool=True) -> List[str]:
     """
     Called by *_list functions to format a table for display in the terminal.
 
@@ -193,27 +215,39 @@ def format_table(header: str, table: List[List[str]], ids: List[str], min_widths
     """
     col_widths = [max(len(x) for x in col) for col in zip(*table)]
 
-    max_width = shutil.get_terminal_size().columns - 4 * len(col_widths) - 4 * int(select) - 2
+    max_width = shutil.get_terminal_size().columns \
+        - 4 * len(col_widths) - 4 * int(select) - 2
 
     if min_widths is None:
         min_widths = [15] * len(col_widths)
     elif None in min_widths:
         non_col_widths = sum(c for c, m in zip(col_widths, min_widths) if m is None)
         leeway = (max_width - sum(x for x in min_widths if x is not None))
-        col_widths = [int(c / non_col_widths * leeway) if m is None else m for c, m in zip(col_widths, min_widths)]
+        col_widths = [
+            int(c / non_col_widths * leeway) if m is None else m 
+                for c, m in zip(col_widths, min_widths)
+            ]
     elif sum(col_widths) > max_width:
         leeway = max_width - sum(min_widths)
         if leeway > 0:
-            col_widths =  [min_widths[i] + int((w/sum(col_widths)*leeway)) for i, w in enumerate(col_widths)]
+            col_widths =  [
+                min_widths[i] + int((w/sum(col_widths)*leeway)) 
+                for i, w in enumerate(col_widths)
+                ]
 
     table_width = sum(col_widths) + 4 * len(col_widths) + 2
 
-    term.echo("Move: Arrow up/down, Toggle-select: Space, Confirm: Enter, Abort: Ctrl-C\n"*int(select))
-    term.echo('    '*int(select)+'| '+'| '.join([x[:w].ljust(w+2) for x, w in zip(header, col_widths)]), nowrap=True)
+    term.echo("Toggle-select: Space, Move: Arrow up/down, "
+              "Confirm: Enter, Abort: Ctrl-C\n"*int(select))
+    term.echo('    '*int(select)+'| '+'| '.join(
+        [x[:w].ljust(w+2) for x, w in zip(header, col_widths)]
+        ), nowrap=True)
     click.echo('-'*(table_width-4*int(not select)))
     rows = []
     for row in table:
-        rows.append('| '+'| '.join([x[:w].ljust(w+2) for x, w in zip(row, col_widths)]))
+        rows.append('| '+'| '.join(
+            [x[:w].ljust(w+2) for x, w in zip(row, col_widths)]
+            ))
 
     if not select:
         return rows
@@ -237,7 +271,8 @@ def container_list(callback: Callable=None) -> None:
     Parameters
     ----------
     callback : 
-        _description_, Callback function taking a container ID as argument, by default None
+        _description_, Callback function taking a container ID as argument, 
+        by default None
 
     Returns
     -------
@@ -269,17 +304,22 @@ def container_list(callback: Callable=None) -> None:
             course_name = course_names[course_label]
             exercise_name = exercise_names[exercise_label]
             ids.append(cont['ID'])
-            table.append((course_name, exercise_name , cont['RunningFor'].replace(' ago', ''), cont['Size']))
+            table.append(
+                (course_name, exercise_name, 
+                 cont['RunningFor'].replace(' ago', ''), cont['Size'])
+                 )
 
     if callback is None:
-        for row in format_table(header, table, ids, min_widths=[None, None, 20, 25], select=False):
+        for row in format_table(
+            header, table, ids, min_widths=[None, None, 20, 25], select=False):
             term.echo(row, nowrap=True)
         term.echo()
         return
     
     term.secho("Select containers:", fg='green')
 
-    for cont_id in format_table(header, table, ids, min_widths=[None, None, 20, 25], select=True):
+    for cont_id in format_table(
+        header, table, ids, min_widths=[None, None, 20, 25], select=True):
         callback(cont_id, force=True)
 
 
@@ -299,7 +339,7 @@ def image_list(callback: Callable=None):
     :
         None
     """
-    img = images(return_json=True)
+    img = images()
     if not img:
         click.echo("\nNo images\n")
         return
@@ -311,7 +351,8 @@ def image_list(callback: Callable=None):
     table = []
     ids = []
     prefix = f'{cfg.registry_base_url}/{cfg.gitlab_group}'
-    for img in images(return_json=True):
+
+    for img in images():
         if img['Repository'].startswith(prefix):
 
             rep = img['Repository'].replace(prefix, '')
@@ -325,17 +366,26 @@ def image_list(callback: Callable=None):
             course_field = course_name
             exercise_field = exercise_name
             ids.append(img['ID'])
-            table.append((course_field, exercise_field , img['CreatedSince'].replace(' ago', ''), img['Size'].replace("GB", " GB")))
+            table.append(
+                (course_field, exercise_field, 
+                 img['CreatedSince'].replace(' ago', ''), 
+                 img['Size'].replace("GB", " GB"))
+                 )
+
+    if not ids:
+        return
 
     if callback is None:
-        for row in format_table(header, table, ids, min_widths=[None, None, 9, 9], select=False):
+        for row in format_table(
+            header, table, ids, min_widths=[None, None, 9, 9], select=False):
             term.echo(row, nowrap=True)
         term.echo()
         return
 
     term.secho("\nSelect images:", fg='green')
 
-    for img_id in format_table(header, table, ids, min_widths=[None, None, 9, 9], select=True):
+    for img_id in format_table(
+        header, table, ids, min_widths=[None, None, 9, 9], select=True):
         callback(img_id, force=True)
 
 
@@ -345,7 +395,7 @@ def image_list(callback: Callable=None):
 
 
 @with_plugins(iter_entry_points('franklin.docker.plugins'))
-@click.group(cls=AliasedGroup)
+@click.group(cls=AliasedGroup, hidden=True)
 def docker():
     """Commands for managing Docker
     """
@@ -377,10 +427,14 @@ def _uninstall():
     """Uninstall Docker Desktop.
     """
     if system.system() == 'Windows':
-        term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and uninstall it there.')
+        term.echo('This command is not available on Windows systems. Please '
+                  'open the Docker Desktop application and uninstall '
+                  'it there.')
         return
     elif system.system() == 'Linux':
-        term.echo('This command is not available on Linux systems. Please open the Docker Desktop application and uninstall it there.')
+        term.echo('This command is not available on Linux systems. Please '
+                  'open the Docker Desktop application and uninstall '
+                  'it there.')
         return
     if not os.path.exists('/Applications/Docker.app/Contents/MacOS/uninstall'):
         term.echo('Docker Desktop is not installed.')
@@ -429,7 +483,9 @@ def _update():
     """Update Docker Desktop.
     """
     if system.system() == 'Windows':
-        term.echo('This command is not available on Windows systems. Please open the Docker Desktop application and check for updates there.')
+        term.echo('This command is not available on Windows systems. Please '
+                  'open the Docker Desktop application and check for '
+                  'updates there.')
     else:
         update_desktop()
 
@@ -509,11 +565,15 @@ def run(image_url :str) -> Tuple[Popen, str]:
     Returns
     -------
     :
-        Tuple of subprocess handle for 'docker run' and host port used for jupyter display.
+        Tuple of subprocess handle for 'docker run' and host port used for 
+        jupyter display.
     """
 
     if system.system() == "Windows":
-        popen_kwargs = dict(creationflags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
+        popen_kwargs = dict(
+            creationflags = \
+                subprocess.DETACHED_PROCESS \
+                    | subprocess.CREATE_NEW_PROCESS_GROUP)
     else:
         popen_kwargs = dict(start_new_session = True)
 
@@ -621,8 +681,8 @@ def prune():
 
 
 def prune_networks():
-    # _command(f'docker container prune --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"')
-    utils.run_cmd(f'docker network prune --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"')
+    utils.run_cmd(f'docker network prune --force '
+                  f'--filter="dk.au.gitlab.group={cfg.gitlab_group}"')
 
 
 @prune.command('networks')
@@ -637,8 +697,9 @@ def prune_containers():
     """
     Prunes containers.
     """
-    # _command(f'docker container prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', silent=True)
-    utils.run_cmd(f'docker container prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', check=False)
+    utils.run_cmd(f'docker container prune --all --force '
+                  f'--filter="dk.au.gitlab.group={cfg.gitlab_group}"', 
+                  check=False)
 
 
 @prune.command('containers')
@@ -653,8 +714,9 @@ def prune_images():
     """
     Prunes images.
     """
-    # _command(f'docker image prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', silent=True)
-    utils.run_cmd(f'docker image prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', check=False)
+    utils.run_cmd(f'docker image prune --all --force '
+                  f'--filter="dk.au.gitlab.group={cfg.gitlab_group}"', 
+                  check=False)
 
 
 @prune.command('images')
@@ -680,8 +742,9 @@ def _prune_images():
 def prune_all():
     """Prunes all Docker elements.
     """
-    # _command(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', silent=True)
-    utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', check=False)
+    utils.run_cmd(f'docker system prune --all --force '
+                  f'--filter="dk.au.gitlab.group={cfg.gitlab_group}"', 
+                  check=False)
 
 
 @prune.command('all')
@@ -717,97 +780,6 @@ def _prune_all():
 #     Build image from Dockerfile. Use for testing that the image builds correctly.
 #     """
 #     _build(directory, tag)
-
-
-###########################################################
-# docker kill subcommands
-###########################################################
-
-@docker.group(cls=AliasedGroup)
-@crash_report
-def kill():
-    """Commands for killing running containers.
-    """
-    pass
-
-
-def kill_container(container_id: str) -> None:
-    """Kills a running container.
-
-    Parameters
-    ----------
-    container_id : 
-        Container ID.
-    """
-    cmd = fmt_cmd(f'docker kill {container_id}')
-    Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
-
-
-# @docker.command('kill')
-def kill_docker_processes() -> None:
-    """
-    Kills all docker-related processes using SIGTERM AND SIGKILL.
-    """
-    for process in psutil.process_iter():
-        name = process.name().lower()
-        if 'docker' in name and 'franklin' not in name:
-
-            def on_terminate(proc):
-                print("process {} terminated with exit code {}".format(proc, proc.returncode))
-
-            children = psutil.Process(process.pid).children(recursive=True)
-            for child in children:
-                child.terminate()  # friendly termination
-            _, still_alive = psutil.wait_procs(children, timeout=3, callback=on_terminate)
-            for child in still_alive:
-                child.kill()  # unfriendly termination
-
-
-def shutdown_wsl():
-    """
-    Shuts down WSL
-    """
-    if system.system() == 'Windows':
-        logger.debug('Restarting WSL Docker Desktop distribution.')
-        subprocess.check_call('wsl -t docker-desktop')
-        term.dummy_progressbar(10, label='Restarting.')
-        if desktop_status() == 'running':
-            return
-        
-
-def shutdown_wsl_docker_distribution():
-    """
-    Shuts down WSL Docker Desktop distribution
-    """
-    if system.system() == 'Windows':
-        logger.debug('Shutting down WSL Docker Desktop distribution.')
-        term.echo('WSL needs to restart.')
-        subprocess.check_call('wsl --shutdown')    
-        term.dummy_progressbar(10, label='Restarting.')
-        if desktop_status() == 'running':
-            return    
-
-
-@kill.command('containers')
-@click.argument("container_id", required=False)
-@irrelevant_unless_docker_running
-@crash_report
-def kill_selected_containers(container_id: str=None) -> None:
-    """
-    If a container ID is given as argument, this container is killed.
-    Otherwise kills containers selected from a list of running containers. 
-
-    Parameters
-    ----------
-    container_id : 
-        Container ID, by default None
-    """
-
-    if container_id:
-        kill_container(container_id)
-        return
-    
-    container_list(callback=kill_container)
 
 
 ###########################################################
@@ -856,7 +828,8 @@ def storage(verbose=False):
     return utils.run_cmd(f'docker system df')
 
 
-@click.option("--verbose/--no-verbose", default=False, help="More detailed output")
+@click.option("--verbose/--no-verbose", default=False, 
+              help="More detailed output")
 @show.command('storage')
 @ensure_docker_running
 @crash_report
@@ -935,6 +908,131 @@ def _images():
     """
     # term.echo(_images(), nowrap=True)
     image_list()
+    
+
+###########################################################
+# docker kill subcommands
+###########################################################
+
+@docker.group(cls=AliasedGroup)
+@crash_report
+def kill():
+    """Commands for killing running containers.
+    """
+    pass
+
+
+def kill_container(container_id: str) -> None:
+    """Kills a running container.
+
+    Parameters
+    ----------
+    container_id : 
+        Container ID.
+    """
+    cmd = fmt_cmd(f'docker kill {container_id}')
+    Popen(cmd, stderr=DEVNULL, stdout=DEVNULL)
+
+
+# @docker.command('kill')
+def kill_docker_processes() -> None:
+    """
+    Kills all docker-related processes using SIGTERM AND SIGKILL.
+    """
+    for process in psutil.process_iter():
+        name = process.name().lower()
+        if 'docker' in name and 'franklin' not in name:
+
+            def on_terminate(proc):
+                print("process {} terminated with exit code {}".format(
+                    proc, proc.returncode)
+                    )
+
+            children = psutil.Process(process.pid).children(recursive=True)
+            for child in children:
+                child.terminate()  # friendly termination
+            _, still_alive = psutil.wait_procs(children, timeout=3, 
+                                               callback=on_terminate)
+            for child in still_alive:
+                child.kill()  # unfriendly termination
+
+
+def shutdown_wsl():
+    """
+    Shuts down WSL
+    """
+    if system.system() == 'Windows':
+        logger.debug('Restarting WSL Docker Desktop distribution.')
+        subprocess.check_call('wsl -t docker-desktop')
+        term.dummy_progressbar(10, label='Restarting.')
+        if desktop_status() == 'running':
+            return
+        
+
+def shutdown_wsl_docker_distribution():
+    """
+    Shuts down WSL Docker Desktop distribution
+    """
+    if system.system() == 'Windows':
+        logger.debug('Shutting down WSL Docker Desktop distribution.')
+        term.echo('WSL needs to restart.')
+        subprocess.check_call('wsl --shutdown')    
+        term.dummy_progressbar(10, label='Restarting.')
+        if desktop_status() == 'running':
+            return    
+
+
+@kill.command('containers')
+@click.argument("container_id", required=False)
+@irrelevant_unless_docker_running
+@crash_report
+def kill_selected_containers(container_id: str=None) -> None:
+    """
+    If a container ID is given as argument, this container is killed.
+    Otherwise kills containers selected from a list of running containers. 
+
+    Parameters
+    ----------
+    container_id : 
+        Container ID, by default None
+    """
+    
+    if container_id:
+        kill_container(container_id)
+        return
+    
+    container_list(callback=kill_container)
+
+###########################################################
+# cleanup command
+###########################################################
+
+def cleanup_exercises(image_id: str, force=True) -> None:
+
+    for cont in containers():
+        if cont['Image'].startswith(image_id):
+            container_id = cont['ID']
+            logger.debug(f"Killing container: {container_id}")
+            kill_container(container_id, force=force)
+            logger.debug(f"Removing container: {container_id}")
+            rm_container(container_id, force=force)
+            break
+    logger.debug(f"Removing image: {image_id}")
+    rm_image(image_id)
+    
+    
+@click.command('cleanup')
+@click.argument("image_id", required=False)
+@ensure_docker_running
+@crash_report
+def cleanup(image_id=None):
+    """Cleanup Franklin storage
+    """
+    if image_id:
+        cleanup_exercises(image_id)
+        return
+    image_list(callback=cleanup_exercises)
+    prune_all()
 
 
 ###########################################################
@@ -1011,7 +1109,9 @@ def remove_selected_images(image_id=None):
 
 
 def remove_everything():
-    utils.run_cmd(f'docker system prune --all --force --filter="dk.au.gitlab.group={cfg.gitlab_group}"', check=False)
+    utils.run_cmd(f'docker system prune --all --force '
+                  f'--filter="dk.au.gitlab.group={cfg.gitlab_group}"', 
+                  check=False)
 
 
 @remove.command('everything')

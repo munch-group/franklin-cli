@@ -24,7 +24,7 @@ test_notebooks_with_image:
     - docker:20.10.16-dind
   script:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
-    - docker run --entrypoint /bin/test-notebook.sh $CI_REGISTRY_IMAGE
+    - docker run --rm -w /app $CI_REGISTRY_IMAGE /bin/test-notebook.sh
 
 push_image_to_registry:
   stage: push
