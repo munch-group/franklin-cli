@@ -123,17 +123,20 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
         click.echo()
         if c.upper() == 'Q':
 
-            term.secho('Shutting down container', fg='red') 
+            term.secho('Shutting everything down') 
             sys.stdout.flush()
+
+            # term.secho('Shutting down container', fg='red') 
+            # sys.stdout.flush()
             _docker.kill_container(run_container_id)
             docker_run_p.terminate()
             docker_run_p.wait()
-            term.secho('Shutting down Docker Desktop', fg='yellow') 
-            sys.stdout.flush()
+            # term.secho('Shutting down Docker Desktop', fg='yellow') 
+            # sys.stdout.flush()
             _docker.desktop_stop()
-            term.secho('Service has stopped.', fg='green')
-            term.echo()
+            # term.secho('Service has stopped.', fg='green')
+            # term.echo()
             term.secho('Jupyter is no longer running and you can close '
-                       'the tab in your browser.')
+                       'the tab in your browser.', fg='green')
             logging.shutdown()
             break
