@@ -6,7 +6,7 @@ import importlib_resources
 import subprocess, shlex, shutil
 
 
-module_to_conda_package = {
+py_to_conda_package_map = {
     "sklearn": "scikit-learn",
     "cv2": "opencv",
     "PIL": "pillow",
@@ -114,18 +114,138 @@ module_to_conda_package = {
     "muon._core": "muon"
 }
 
+r_to_conda_package_map = {
+    "ggplot2": "r-ggplot2",
+    "dplyr": "r-dplyr",
+    "tidyr": "r-tidyr",
+    "readr": "r-readr",
+    "purrr": "r-purrr",
+    "tibble": "r-tibble",
+    "stringr": "r-stringr",
+    "forcats": "r-forcats",
+    "lubridate": "r-lubridate",
+    "magrittr": "r-magrittr",
+    "rlang": "r-rlang",
+    "glue": "r-glue",
+    "broom": "r-broom",
+    "readxl": "r-readxl",
+    "haven": "r-haven",
+    "httr": "r-httr",
+    "xml2": "r-xml2",
+    "jsonlite": "r-jsonlite",
+    "rvest": "r-rvest",
+    "shiny": "r-shiny",
+    "shinydashboard": "r-shinydashboard",
+    "plotly": "r-plotly",
+    "leaflet": "r-leaflet",
+    "DT": "r-dt",
+    "data.table": "r-data.table",
+    "sf": "r-sf",
+    "sp": "r-sp",
+    "rgdal": "r-rgdal",
+    "rgeos": "r-rgeos",
+    "maptools": "r-maptools",
+    "maps": "r-maps",
+    "ggmap": "r-ggmap",
+    "ggthemes": "r-ggthemes",
+    "ggrepel": "r-ggrepel",
+    "scales": "r-scales",
+    "cowplot": "r-cowplot",
+    "gridExtra": "r-gridextra",
+    "ggridges": "r-ggridges",
+    "viridis": "r-viridis",
+    "RColorBrewer": "r-rcolorbrewer",
+    "reshape2": "r-reshape2",
+    "janitor": "r-janitor",
+    "skimr": "r-skimr",
+    "knitr": "r-knitr",
+    "rmarkdown": "r-rmarkdown",
+    "bookdown": "r-bookdown",
+    "blogdown": "r-blogdown",
+    "tinytex": "r-tinytex",
+    "kableExtra": "r-kableextra",
+    "xtable": "r-xtable",
+    "officer": "r-officer",
+    "flextable": "r-flextable",
+    "survival": "r-survival",
+    "caret": "r-caret",
+    "randomForest": "r-randomforest",
+    "xgboost": "r-xgboost",
+    "e1071": "r-e1071",
+    "nnet": "r-nnet",
+    "glmnet": "r-glmnet",
+    "mlr": "r-mlr",
+    "mlr3": "r-mlr3",
+    "lme4": "r-lme4",
+    "nlme": "r-nlme",
+    "MASS": "r-mass",
+    "car": "r-car",
+    "multcomp": "r-multcomp",
+    "AER": "r-aer",
+    "zoo": "r-zoo",
+    "xts": "r-xts",
+    "forecast": "r-forecast",
+    "tseries": "r-tseries",
+    "quantmod": "r-quantmod",
+    "timeDate": "r-timedate",
+    "lubridate": "r-lubridate",
+    "tsibble": "r-tsibble",
+    "fable": "r-fable",
+    "prophet": "r-prophet",
+    "igraph": "r-igraph",
+    "ggraph": "r-ggraph",
+    "networkD3": "r-networkd3",
+    "visNetwork": "r-visnetwork",
+    "DiagrammeR": "r-diagrammer",
+    "gplots": "r-gplots",
+    "corrplot": "r-corrplot",
+    "pheatmap": "r-pheatmap",
+    "ComplexHeatmap": "r-complexheatmap",
+    "VennDiagram": "r-venndiagram",
+    "UpSetR": "r-upsetr",
+    "ggpubr": "r-ggpubr",
+    "ggfortify": "r-ggfortify",
+    "factoextra": "r-factoextra",
+    "FactoMineR": "r-factominer",
+    "psych": "r-psych",
+    "Hmisc": "r-hmisc",
+    "corrgram": "r-corrgram",
+    "PerformanceAnalytics": "r-performanceanalytics",
+    "stargazer": "r-stargazer",
+    "texreg": "r-texreg",
+    "plm": "r-plm",
+    "sandwich": "r-sandwich",
+    "lmtest": "r-lmtest",
+    "AICcmodavg": "r-aiccmodavg",
+    "MuMIn": "r-mumin",
+    "boot": "r-boot",
+    "survey": "r-survey",
+    "weights": "r-weights",
+    "srvyr": "r-srvyr",
+    "gmodels": "r-gmodels",
+    "vcd": "r-vcd",
+    "MCMCpack": "r-mcmcpack",
+    "coda": "r-coda"
+}
+
 
 def get_notebook_dependencies(filename: Path) -> list:
 
     with open(filename) as ff:
         nb = nbformat.read(ff, nbformat.NO_CONVERT)
 
-    modules = []
+    py_modules = []
+    r_modules = []
     for cell in nb['cells']:
-
         if cell['cell_type'] == 'code':
             if not cell['source'].strip() or cell['source'].startswith('%'):
                 continue
+        # R
+        r_modules.extend(
+            re.findall(r'''library\s*\(['"]([a-zA-Z0-9_.]+)['"]\)''', 
+                       cell['source']))
+
+        # Python
         for line in cell['source'].split('\n'):
             line = line.strip()
             if line.startswith('#'):
@@ -133,21 +253,23 @@ def get_notebook_dependencies(filename: Path) -> list:
             words = re.split(r'(?<!,)\s+(?!,)', line)
             if len(words) >= 2:
                 if words[0] == 'from':                    
-                    modules.append(words[1].split('.')[0])
+                    py_modules.append(words[1].split('.')[0])
                 elif words[0] == 'import':
                     if ',' not in words[1]:
-                        modules.append(words[1].split('.')[0])
+                        py_modules.append(words[1].split('.')[0])
                     else:
                         for x in re.split(r'\s*,\s*', line):
                             if x:
-                                modules.append(x.split('.')[0])
+                                py_modules.append(x.split('.')[0])
+    
     dependencies = []
-    for m in modules:
+    for m in py_modules:
         if m not in sys.stdlib_module_names and not m.startswith('_'):
-            dependencies.append(module_to_conda_package.get(m, m))
+            dependencies.append(py_to_conda_package_map.get(m, m))
+    for m in r_modules:
+        dependencies.append(r_to_conda_package_map.get(m, m))
 
     return dependencies
-
 
 if __name__ == '__main__':
 
@@ -170,6 +292,12 @@ if __name__ == '__main__':
             if p.name == 'pixi.toml':
                 shutil.copy(p, 'pixi.toml')
                 break
+
+    if any(x.startswith('r-') for x in dependencies):
+        cmd = 'pixi workspace channel add r'
+        cmd = shlex.split(cmd)
+        cmd[0] = shutil.which(cmd[0])
+        subprocess.run(cmd, check=True)
 
     cmd = 'pixi add --feature exercise.target.linux-64 ' + ' '.join(dependencies)
     cmd = shlex.split(cmd)

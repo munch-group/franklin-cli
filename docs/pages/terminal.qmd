@@ -18,3 +18,6 @@ Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interp
 Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, >, etc.).
 Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming.
 The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.
+
+
+Ctrl-C for abort

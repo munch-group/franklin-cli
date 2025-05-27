@@ -6,11 +6,18 @@ platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
 version = "0.1.0"
 
 [tasks]
+# Commands as lists so you can also add documentation in between.
+configure = { cmd = [
+    "python", 
+    "-m",
+    "franklin.pixi_deps.py",
+] }
 
 # default dependencies for building image
 # (user-added dependencies also go here)
 [dependencies]
 python = "*"
+franklin = "*"
 git = "*"
 jupyterlab = "*"
 notebook = "*"

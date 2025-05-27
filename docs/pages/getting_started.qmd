@@ -53,7 +53,11 @@ franklin exercise edit
 - Plugin Architecture: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.
 - Conventional Commits: Franklin adheres to the Conventional Commits specification, promoting a standardized commit history that aligns with Semantic Versioning principles.
 
-## Installation
+## Installing Miniforge Python
+
+Miniforge is a community Python distribution with the license requirements for large companies imposed by Anaconda. 
+
+## Installing Franklin
 
 Using Conda, students install franklin like this:
 
