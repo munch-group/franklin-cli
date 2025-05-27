@@ -60,9 +60,6 @@ website:
       align: left
       contents:
         - pages/getting_started.qmd       
-        - section: "Overview"
-          contents:
-            - pages/using.qmd
         - section: "Student"
           contents:
             - pages/student/index.qmd
@@ -82,12 +79,11 @@ website:
             - pages/about/git.qmd
             - pages/about/gitlab.qmd
             - pages/about/docker.qmd
-        - section: "Administration"
+        - section: "Infrastructure"
           contents:
             - pages/admin/overview.qmd
             - pages/admin/gitlab.qmd
             - pages/admin/docker.qmd
-            - pages/admin/components.qmd
         # - section: "Source code"
         #   contents:
         #     - pages/admin/source.qmd
