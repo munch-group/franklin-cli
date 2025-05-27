@@ -99,7 +99,7 @@ format:
     # mainfont: "Passata"
     theme: 
       - cosmo
-      - custom.scss
+      # - custom.scss
 
   # theme:
   #   light: [cosmo]  # or flatly, darkly, etc.
