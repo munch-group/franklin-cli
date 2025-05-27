@@ -1,8 +1,5 @@
 ## Get started with jupyter note book
 
-### What is a jupyter notebook and what can you do in it?
-Kort intro til jupyter og et overblik - detaljerne om jupyter kommer efter installationen"### ÆNDRES
-
 ### Install Anaconda Navigator
 To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to [this](https://www.anaconda.com/download) site. Click "Download". When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.
 
