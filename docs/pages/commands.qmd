@@ -2,7 +2,60 @@
 title: Using Franklin
 ---
 
-::: {.callout-caution }
-## This pages are under construction
+**franklin** uses the [click](https://click.palletsprojects.com/en/stable/) library to define a hierachy of commands and subcommands. `franklin` is the main command and has the subcommands `download`, `jupyter`, `update`, and `cleanup`. Should you forget, you can always run the `franklin` command like this:
 
-:::
+```{.bash filename="Terminal"}
+franklin
+```
+
+to print the following help message:
+
+```txt
+Usage: franklin [OPTIONS] COMMAND [ARGS]...
+
+  A tool to download notebook exercises and run jupyter  in a way that fits
+  each exercise.
+
+Options:
+  --version  Show the version and exit.
+  --help     Show this message and exit.
+
+Commands:
+  cleanup   Cleanup Franklin storage
+  download  Download an exercise
+  jupyter   Run jupyter for an exercise
+  update    Update Franklin
+
+  See https://munch-group.org/franklin for more details
+```
+
+To run each subcommand, you simply append it to `franklin`, E.g. `franklin jupyter`. The following sections explain what each subcommand do.
+
+## franklin download
+
+```{.bash filename="Terminal"}
+franklin download
+```
+
+The command presents you with menus to select the course and exercise you 
+
+## franklin jupyter
+
+```{.bash filename="Terminal"}
+franklin jupyter
+```
+
+
+## franklin update
+
+```{.bash filename="Terminal"}
+franklin update
+```
+
+
+## franklin cleanup
+
+```{.bash filename="Terminal"}
+franklin cleanup
+```
+
