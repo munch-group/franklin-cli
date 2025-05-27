@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Jupyterlab – franklin</title>
+<title>3&nbsp; Jupyterlab – Franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,34 +58,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../pages/developing_exercises.html" rel="next">
-<link href="../pages/editing.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dde8d7229bfee0f8bb5efd37f0f9ae1e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../student/site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../student/site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../student/site_libs/clipboard/clipboard.min.js"></script>
+<script src="../student/site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../student/site_libs/quarto-search/fuse.min.js"></script>
+<script src="../student/site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../student/">
+<link href="../student/../tutorials/terminal.html" rel="prev">
+<script src="../student/site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../student/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../student/site_libs/quarto-html/popper.min.js"></script>
+<script src="../student/site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../student/site_libs/quarto-html/anchor.min.js"></script>
+<link href="../student/site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../student/site_libs/quarto-html/quarto-syntax-highlighting-f1f3b3fd89b16212fde59a2af78f1759.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../student/site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../student/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../student/site_libs/bootstrap/bootstrap-9d9332f6ab11428db7ee07599d82622f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -107,12 +103,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://hypothes.is/embed.js"></script>
-<script>
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    document.body.classList.add('hypothesis-enabled');
-  });
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -147,90 +137,64 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../api/_styles-quartodoc.css">
-<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating nav-fixed quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">franklin</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../api/"> 
-<span class="menu-text">API reference</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../pages/student/"> 
-<span class="menu-text">Student site</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/munch-group/franklin/"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/jupyterlab.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../pages/jupyterlab.html">Jupyterlab</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../student/../tutorials/jupyterlab.html">Jupyter</a></li><li class="breadcrumb-item"><a href="../student/../tutorials/jupyterlab.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyterlab</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../student/">Content</a> 
+        <div class="sidebar-tools-main">
+    <a href="../student/Franklin.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started</span></a>
+  <a href="../student/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Overview</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Terminal</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/using.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using Franklin</span></a>
+  <a href="../student/../tutorials/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The terminal</span></span></a>
   </div>
 </li>
       </ul>
@@ -238,7 +202,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Educator</span></a>
+ <span class="menu-text">Jupyter</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -246,174 +210,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/using.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using Franklin</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/making.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Making exercises</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/editing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Editing exercises</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Jupyterlab</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/developing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Developing exercises</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/r_to_python.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R to Python</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/numpy_pandas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Numpy and Pandas</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/plotting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Plots with matplotlib</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Key concepts</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The terminal</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/docker.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Docker</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/jupyter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jupyter</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
- <span class="menu-text">pages/jupyterlab.qmd</span>
-  </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/ssh.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSH keys</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/git.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Git</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gitlab</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Administration</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/admin_gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">GitLab admin</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/admin_docker.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Docker admin</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/admin_components.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Components</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Development</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/admin_components.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Components</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Source code</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/admin_franklin_code.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Code</span></a>
+  <a href="../student/../tutorials/jupyterlab.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyterlab</span></span></a>
   </div>
 </li>
       </ul>
@@ -425,57 +223,64 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#starting-jupyter-lab" id="toc-starting-jupyter-lab" class="nav-link active" data-scroll-target="#starting-jupyter-lab">Starting jupyter lab</a></li>
-  <li><a href="#side-panes" id="toc-side-panes" class="nav-link" data-scroll-target="#side-panes">Side panes</a></li>
-  <li><a href="#lauching-a-new-notebook-or-terminal" id="toc-lauching-a-new-notebook-or-terminal" class="nav-link" data-scroll-target="#lauching-a-new-notebook-or-terminal">Lauching a new notebook or terminal</a></li>
-  <li><a href="#multiple-notebooks-or-terminal-views" id="toc-multiple-notebooks-or-terminal-views" class="nav-link" data-scroll-target="#multiple-notebooks-or-terminal-views">Multiple notebooks or terminal views</a></li>
-  <li><a href="#split-windows" id="toc-split-windows" class="nav-link" data-scroll-target="#split-windows">Split windows</a></li>
-  <li><a href="#controls" id="toc-controls" class="nav-link" data-scroll-target="#controls">Controls</a>
+  <li><a href="#starting-jupyter-lab" id="toc-starting-jupyter-lab" class="nav-link active" data-scroll-target="#starting-jupyter-lab"><span class="header-section-number">4</span> Starting jupyter lab</a></li>
+  <li><a href="#side-panes" id="toc-side-panes" class="nav-link" data-scroll-target="#side-panes"><span class="header-section-number">5</span> Side panes</a>
   <ul class="collapse">
-  <li><a href="#menu-toolbar-context-menu" id="toc-menu-toolbar-context-menu" class="nav-link" data-scroll-target="#menu-toolbar-context-menu">Menu, Toolbar, Context menu</a></li>
-  <li><a href="#command-palette-commandctrl-shift-c" id="toc-command-palette-commandctrl-shift-c" class="nav-link" data-scroll-target="#command-palette-commandctrl-shift-c">Command palette: <code>Command/Ctrl Shift C</code></a></li>
-  <li><a href="#keyboard-short-cuts-commandctrl-shift-h" id="toc-keyboard-short-cuts-commandctrl-shift-h" class="nav-link" data-scroll-target="#keyboard-short-cuts-commandctrl-shift-h">Keyboard short-cuts: <code>Command/Ctrl Shift H</code></a></li>
-  </ul></li>
-  <li><a href="#three-kinds-of-cells" id="toc-three-kinds-of-cells" class="nav-link" data-scroll-target="#three-kinds-of-cells">Three kinds of cells</a></li>
-  <li><a href="#running-code-in-cells" id="toc-running-code-in-cells" class="nav-link" data-scroll-target="#running-code-in-cells">Running code in cells</a>
+  <li><a href="#keyboard-shortcuts" id="toc-keyboard-shortcuts" class="nav-link" data-scroll-target="#keyboard-shortcuts"><span class="header-section-number">5.1</span> Keyboard shortcuts</a>
   <ul class="collapse">
-  <li><a href="#code-blocks" id="toc-code-blocks" class="nav-link" data-scroll-target="#code-blocks">Code blocks</a></li>
-  <li><a href="#last-value-is-displayed" id="toc-last-value-is-displayed" class="nav-link" data-scroll-target="#last-value-is-displayed">Last value is displayed</a></li>
-  <li><a href="#everything-is-one-python-process" id="toc-everything-is-one-python-process" class="nav-link" data-scroll-target="#everything-is-one-python-process">Everything is one Python process</a></li>
-  <li><a href="#restarting-the-kernel" id="toc-restarting-the-kernel" class="nav-link" data-scroll-target="#restarting-the-kernel">Restarting the kernel</a></li>
+  <li><a href="#command-mode-in-jupyter-notebooks" id="toc-command-mode-in-jupyter-notebooks" class="nav-link" data-scroll-target="#command-mode-in-jupyter-notebooks"><span class="header-section-number">5.1.1</span> Command Mode in Jupyter Notebooks</a></li>
+  <li><a href="#edit-mode-in-jupyter-notebooks" id="toc-edit-mode-in-jupyter-notebooks" class="nav-link" data-scroll-target="#edit-mode-in-jupyter-notebooks"><span class="header-section-number">5.1.2</span> Edit Mode in Jupyter Notebooks</a></li>
   </ul></li>
-  <li><a href="#two-kinds-of-undo" id="toc-two-kinds-of-undo" class="nav-link" data-scroll-target="#two-kinds-of-undo">Two kinds of “Undo”</a></li>
-  <li><a href="#moving-and-copypaste-cells" id="toc-moving-and-copypaste-cells" class="nav-link" data-scroll-target="#moving-and-copypaste-cells">Moving and copy/paste cells</a></li>
-  <li><a href="#split-and-merge-cells" id="toc-split-and-merge-cells" class="nav-link" data-scroll-target="#split-and-merge-cells">Split and merge cells</a></li>
-  <li><a href="#markdown-text" id="toc-markdown-text" class="nav-link" data-scroll-target="#markdown-text">Markdown text</a>
+  </ul></li>
+  <li><a href="#lauching-a-new-notebook-or-terminal" id="toc-lauching-a-new-notebook-or-terminal" class="nav-link" data-scroll-target="#lauching-a-new-notebook-or-terminal"><span class="header-section-number">6</span> Lauching a new notebook or terminal</a></li>
+  <li><a href="#multiple-notebooks-or-terminal-views" id="toc-multiple-notebooks-or-terminal-views" class="nav-link" data-scroll-target="#multiple-notebooks-or-terminal-views"><span class="header-section-number">7</span> Multiple notebooks or terminal views</a></li>
+  <li><a href="#split-windows" id="toc-split-windows" class="nav-link" data-scroll-target="#split-windows"><span class="header-section-number">8</span> Split windows</a></li>
+  <li><a href="#controls" id="toc-controls" class="nav-link" data-scroll-target="#controls"><span class="header-section-number">9</span> Controls</a>
   <ul class="collapse">
-  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">Lists</a></li>
-  <li><a href="#numbered-lists" id="toc-numbered-lists" class="nav-link" data-scroll-target="#numbered-lists">Numbered lists</a></li>
-  <li><a href="#quotes" id="toc-quotes" class="nav-link" data-scroll-target="#quotes">Quotes</a></li>
-  <li><a href="#formulas" id="toc-formulas" class="nav-link" data-scroll-target="#formulas">Formulas</a></li>
-  <li><a href="#header-2" id="toc-header-2" class="nav-link" data-scroll-target="#header-2">Header 2</a>
+  <li><a href="#menu-toolbar-context-menu" id="toc-menu-toolbar-context-menu" class="nav-link" data-scroll-target="#menu-toolbar-context-menu"><span class="header-section-number">9.1</span> Menu, Toolbar, Context menu</a></li>
+  <li><a href="#command-palette-commandctrl-shift-c" id="toc-command-palette-commandctrl-shift-c" class="nav-link" data-scroll-target="#command-palette-commandctrl-shift-c"><span class="header-section-number">9.2</span> Command palette: <code>Command/Ctrl Shift C</code></a></li>
+  <li><a href="#keyboard-short-cuts-commandctrl-shift-h" id="toc-keyboard-short-cuts-commandctrl-shift-h" class="nav-link" data-scroll-target="#keyboard-short-cuts-commandctrl-shift-h"><span class="header-section-number">9.3</span> Keyboard short-cuts: <code>Command/Ctrl Shift H</code></a></li>
+  </ul></li>
+  <li><a href="#three-kinds-of-cells" id="toc-three-kinds-of-cells" class="nav-link" data-scroll-target="#three-kinds-of-cells"><span class="header-section-number">10</span> Three kinds of cells</a></li>
+  <li><a href="#running-code-in-cells" id="toc-running-code-in-cells" class="nav-link" data-scroll-target="#running-code-in-cells"><span class="header-section-number">11</span> Running code in cells</a>
   <ul class="collapse">
-  <li><a href="#header-3" id="toc-header-3" class="nav-link" data-scroll-target="#header-3">Header 3</a></li>
+  <li><a href="#code-blocks" id="toc-code-blocks" class="nav-link" data-scroll-target="#code-blocks"><span class="header-section-number">11.1</span> Code blocks</a></li>
+  <li><a href="#last-value-is-displayed" id="toc-last-value-is-displayed" class="nav-link" data-scroll-target="#last-value-is-displayed"><span class="header-section-number">11.2</span> Last value is displayed</a></li>
+  <li><a href="#everything-is-one-python-process" id="toc-everything-is-one-python-process" class="nav-link" data-scroll-target="#everything-is-one-python-process"><span class="header-section-number">11.3</span> Everything is one Python process</a></li>
+  <li><a href="#restarting-the-kernel" id="toc-restarting-the-kernel" class="nav-link" data-scroll-target="#restarting-the-kernel"><span class="header-section-number">11.4</span> Restarting the kernel</a></li>
   </ul></li>
-  <li><a href="#formulas-1" id="toc-formulas-1" class="nav-link" data-scroll-target="#formulas-1">Formulas</a></li>
-  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables">Tables</a></li>
+  <li><a href="#two-kinds-of-undo" id="toc-two-kinds-of-undo" class="nav-link" data-scroll-target="#two-kinds-of-undo"><span class="header-section-number">12</span> Two kinds of “Undo”</a></li>
+  <li><a href="#moving-and-copypaste-cells" id="toc-moving-and-copypaste-cells" class="nav-link" data-scroll-target="#moving-and-copypaste-cells"><span class="header-section-number">13</span> Moving and copy/paste cells</a></li>
+  <li><a href="#split-and-merge-cells" id="toc-split-and-merge-cells" class="nav-link" data-scroll-target="#split-and-merge-cells"><span class="header-section-number">14</span> Split and merge cells</a></li>
+  <li><a href="#markdown-text" id="toc-markdown-text" class="nav-link" data-scroll-target="#markdown-text"><span class="header-section-number">15</span> Markdown text</a>
+  <ul class="collapse">
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists"><span class="header-section-number">15.1</span> Lists</a></li>
+  <li><a href="#numbered-lists" id="toc-numbered-lists" class="nav-link" data-scroll-target="#numbered-lists"><span class="header-section-number">15.2</span> Numbered lists</a></li>
+  <li><a href="#quotes" id="toc-quotes" class="nav-link" data-scroll-target="#quotes"><span class="header-section-number">15.3</span> Quotes</a></li>
+  <li><a href="#formulas" id="toc-formulas" class="nav-link" data-scroll-target="#formulas"><span class="header-section-number">15.4</span> Formulas</a></li>
+  <li><a href="#header-2" id="toc-header-2" class="nav-link" data-scroll-target="#header-2"><span class="header-section-number">15.5</span> Header 2</a>
+  <ul class="collapse">
+  <li><a href="#header-3" id="toc-header-3" class="nav-link" data-scroll-target="#header-3"><span class="header-section-number">15.5.1</span> Header 3</a></li>
   </ul></li>
-  <li><a href="#html-magic" id="toc-html-magic" class="nav-link" data-scroll-target="#html-magic">HTML magic</a></li>
-  <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images">Images</a></li>
-  <li><a href="#table-of-content-and-cell-folding" id="toc-table-of-content-and-cell-folding" class="nav-link" data-scroll-target="#table-of-content-and-cell-folding">Table of content and cell folding</a></li>
-  <li><a href="#shell-commands" id="toc-shell-commands" class="nav-link" data-scroll-target="#shell-commands">Shell commands</a></li>
+  <li><a href="#formulas-1" id="toc-formulas-1" class="nav-link" data-scroll-target="#formulas-1"><span class="header-section-number">15.6</span> Formulas</a></li>
+  <li><a href="#tables" id="toc-tables" class="nav-link" data-scroll-target="#tables"><span class="header-section-number">15.7</span> Tables</a></li>
+  </ul></li>
+  <li><a href="#html-magic" id="toc-html-magic" class="nav-link" data-scroll-target="#html-magic"><span class="header-section-number">16</span> HTML magic</a></li>
+  <li><a href="#images" id="toc-images" class="nav-link" data-scroll-target="#images"><span class="header-section-number">17</span> Images</a></li>
+  <li><a href="#table-of-content-and-cell-folding" id="toc-table-of-content-and-cell-folding" class="nav-link" data-scroll-target="#table-of-content-and-cell-folding"><span class="header-section-number">18</span> Table of content and cell folding</a></li>
+  <li><a href="#shell-commands" id="toc-shell-commands" class="nav-link" data-scroll-target="#shell-commands"><span class="header-section-number">19</span> Shell commands</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/jupyterlab.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../pages/jupyterlab.html">Jupyterlab</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../student/../tutorials/jupyterlab.html">Jupyter</a></li><li class="breadcrumb-item"><a href="../student/../tutorials/jupyterlab.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyterlab</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Jupyterlab</h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyterlab</span></h1>
 </div>
 
 
@@ -502,46 +307,222 @@ window.Quarto = {
 <p>JupyterLab is a sibling to other notebook authoring applications under the Project Jupyter umbrella, like Jupyter Notebook and Jupyter Desktop. JupyterLab offers a more advanced, feature rich, customizable experience compared to Jupyter Notebook.MM</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="jupyterlab_files/figure-html/19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="image.png"><img src="jupyterlab_files/figure-html/19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png" class="img-fluid figure-img" alt="image.png"></a></p>
+<p><img src="jupyterlab_files/figure-html/19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png" class="img-fluid figure-img"></p>
 <figcaption>image.png</figcaption>
 </figure>
 </div>
-<section id="starting-jupyter-lab" class="level1">
-<h1>Starting jupyter lab</h1>
+<section id="starting-jupyter-lab" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Starting jupyter lab</h1>
 <p>Terminal commands:</p>
 <pre><code>conda activate ctib
 jupyter lab</code></pre>
 <p>It then appears in your default browser.|</p>
 </section>
-<section id="side-panes" class="level1">
-<h1>Side panes</h1>
+<section id="side-panes" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Side panes</h1>
 <p><img src="jupyterlab_files/figure-html/ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png" class="img-fluid" alt="Screenshot 2023-10-23 at 15.59.13.png"> - alks flaksjf laskjdf laskdfj</p>
 <p>asdflaksdfj</p>
+<p>Jupyter Notebooks are an interactive computing environment that allow users to create and share documents containing live code, equations, visualizations, and narrative text. Originally developed as part of the IPython project, Jupyter (short for Julia, Python, R) now supports over 100 programming languages and has become a standard tool in data science, scientific computing, and education.</p>
+<p>At the core of a Jupyter Notebook is a web-based interface that organizes content into “cells.” These cells can contain code (typically in Python, but also in other languages via kernels), formatted text using Markdown, LaTeX for equations, and embedded multimedia elements. Users execute code in-place, and outputs such as plots or tables appear directly below the corresponding cells. This structure enables exploratory data analysis and facilitates reproducibility by interleaving code and its results with documentation.</p>
+<p>Notebooks are stored in .ipynb files (JSON format), which preserve the code, outputs, and formatting. They can be run locally using the Jupyter server or hosted in cloud environments such as Google Colab or Binder. For scientific workflows, notebooks can integrate with tools for version control, containerization, and workflow management, making them a flexible instrument for open and reproducible research.</p>
+<p>Despite their strengths, Jupyter Notebooks are not without limitations. Version control can be challenging due to the JSON-based format, and improper use (e.g., out-of-order execution) can compromise reproducibility. Nevertheless, their advantages in accessibility, interactivity, and communication have made them central to modern computational work.</p>
+<section id="keyboard-shortcuts" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="keyboard-shortcuts"><span class="header-section-number">5.1</span> Keyboard shortcuts</h2>
+<section id="command-mode-in-jupyter-notebooks" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="command-mode-in-jupyter-notebooks"><span class="header-section-number">5.1.1</span> Command Mode in Jupyter Notebooks</h3>
+<p>In Jupyter Notebooks, <strong>Command Mode</strong> is one of the two main interaction modes—the other being <strong>Edit Mode</strong>. Command Mode is active when the cell border is <strong>blue</strong>, indicating that keyboard commands will be interpreted as notebook-level operations rather than editing the cell’s content.</p>
+<p>Command Mode allows users to manage cells and perform structural modifications without using the mouse. This enhances efficiency, especially when working with large notebooks. Pressing <code>Esc</code> while in a cell activates Command Mode.</p>
+<section id="common-keyboard-shortcuts-in-command-mode" class="level4" data-number="5.1.1.1">
+<h4 data-number="5.1.1.1" class="anchored" data-anchor-id="common-keyboard-shortcuts-in-command-mode"><strong>Common 5.1.1.1</strong></h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Enter</code></td>
+<td>Switch to Edit Mode in the selected cell</td>
+</tr>
+<tr class="even">
+<td><code>A</code></td>
+<td>Insert a new cell <strong>above</strong> the current cell</td>
+</tr>
+<tr class="odd">
+<td><code>B</code></td>
+<td>Insert a new cell <strong>below</strong> the current cell</td>
+</tr>
+<tr class="even">
+<td><code>D, D</code></td>
+<td>Delete the selected cell (press <code>D</code> twice quickly)</td>
+</tr>
+<tr class="odd">
+<td><code>Z</code></td>
+<td>Undo the last cell deletion</td>
+</tr>
+<tr class="even">
+<td><code>Y</code></td>
+<td>Change cell type to <strong>code</strong></td>
+</tr>
+<tr class="odd">
+<td><code>M</code></td>
+<td>Change cell type to <strong>Markdown</strong></td>
+</tr>
+<tr class="even">
+<td><code>C</code></td>
+<td>Copy the selected cell</td>
+</tr>
+<tr class="odd">
+<td><code>X</code></td>
+<td>Cut the selected cell</td>
+</tr>
+<tr class="even">
+<td><code>V</code></td>
+<td>Paste cell <strong>below</strong></td>
+</tr>
+<tr class="odd">
+<td><code>Shift + V</code></td>
+<td>Paste cell <strong>above</strong></td>
+</tr>
+<tr class="even">
+<td><code>Shift + Up/Down</code></td>
+<td>Extend selection to multiple cells</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + S</code> (or <code>Cmd + S</code> on macOS)</td>
+<td>Save the notebook</td>
+</tr>
+<tr class="even">
+<td><code>H</code></td>
+<td>Show all keyboard shortcuts</td>
+</tr>
+<tr class="odd">
+<td><code>0, 0</code></td>
+<td>Restart the kernel (press <code>0</code> twice quickly)</td>
+</tr>
+<tr class="even">
+<td><code>Shift + M</code> (in Command Mode)</td>
+<td><strong>Merge</strong> selected cells</td>
+</tr>
+</tbody>
+</table>
+<p>These shortcuts make navigation and cell management significantly faster, enabling an efficient coding and documentation workflow within Jupyter Notebooks.</p>
 </section>
-<section id="lauching-a-new-notebook-or-terminal" class="level1">
-<h1>Lauching a new notebook or terminal</h1>
+</section>
+<section id="edit-mode-in-jupyter-notebooks" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="edit-mode-in-jupyter-notebooks"><span class="header-section-number">5.1.2</span> Edit Mode in Jupyter Notebooks</h3>
+<p><strong>Edit Mode</strong> is activated when a cell’s border turns <strong>green</strong>, allowing the user to directly modify the contents of the cell. You can enter Edit Mode by pressing <code>Enter</code> while a cell is selected in Command Mode. This mode is primarily used for writing and editing code or Markdown content within cells.</p>
+<section id="common-keyboard-shortcuts-in-edit-mode" class="level4" data-number="5.1.2.1">
+<h4 data-number="5.1.2.1" class="anchored" data-anchor-id="common-keyboard-shortcuts-in-edit-mode"><strong>Common 5.1.2.1</strong></h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 69%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Ctrl + Enter</code></td>
+<td>Run the current cell and remain in Edit Mode</td>
+</tr>
+<tr class="even">
+<td><code>Shift + Enter</code></td>
+<td>Run the current cell and move to the next cell</td>
+</tr>
+<tr class="odd">
+<td><code>Alt + Enter</code></td>
+<td>Run the current cell and insert a new cell below</td>
+</tr>
+<tr class="even">
+<td><code>Esc</code></td>
+<td>Switch to Command Mode</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + /</code></td>
+<td>Toggle comment on selected lines (code cells only)</td>
+</tr>
+<tr class="even">
+<td><code>Tab</code></td>
+<td>Code completion or indent</td>
+</tr>
+<tr class="odd">
+<td><code>Shift + Tab</code></td>
+<td>Show tooltip/help for the object under cursor</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl + ]</code></td>
+<td>Indent the current line or selection</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + [</code></td>
+<td>Dedent the current line or selection</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl + A</code></td>
+<td>Select all content in the cell</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + Z</code></td>
+<td>Undo the last change</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl + Y</code></td>
+<td>Redo the last undone change</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + Shift + -</code></td>
+<td>Split the current cell at cursor position into two cells</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl + S</code> (or <code>Cmd + S</code>)</td>
+<td>Save the notebook</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + Shift + -</code></td>
+<td>Split the cell at the current cursor position</td>
+</tr>
+</tbody>
+</table>
+<p>These shortcuts are optimized for efficient coding and content editing, significantly reducing reliance on the mouse and improving productivity within Jupyter Notebooks.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="lauching-a-new-notebook-or-terminal" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Lauching a new notebook or terminal</h1>
 <p>Pick the folder icon in the side pane menu on the left, click the big blue button and launch a notebook</p>
 </section>
-<section id="multiple-notebooks-or-terminal-views" class="level1">
-<h1>Multiple notebooks or terminal views</h1>
+<section id="multiple-notebooks-or-terminal-views" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Multiple notebooks or terminal views</h1>
 </section>
-<section id="split-windows" class="level1">
-<h1>Split windows</h1>
+<section id="split-windows" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Split windows</h1>
 </section>
-<section id="controls" class="level1">
-<h1>Controls</h1>
-<section id="menu-toolbar-context-menu" class="level2">
-<h2 class="anchored" data-anchor-id="menu-toolbar-context-menu">Menu, Toolbar, Context menu</h2>
+<section id="controls" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Controls</h1>
+<section id="menu-toolbar-context-menu" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="menu-toolbar-context-menu"><span class="header-section-number">9.1</span> Menu, Toolbar, Context menu</h2>
 </section>
-<section id="command-palette-commandctrl-shift-c" class="level2">
-<h2 class="anchored" data-anchor-id="command-palette-commandctrl-shift-c">Command palette: <code>Command/Ctrl Shift C</code></h2>
+<section id="command-palette-commandctrl-shift-c" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="command-palette-commandctrl-shift-c"><span class="header-section-number">9.2</span> Command palette: <code>Command/Ctrl Shift C</code></h2>
 </section>
-<section id="keyboard-short-cuts-commandctrl-shift-h" class="level2">
-<h2 class="anchored" data-anchor-id="keyboard-short-cuts-commandctrl-shift-h">Keyboard short-cuts: <code>Command/Ctrl Shift H</code></h2>
+<section id="keyboard-short-cuts-commandctrl-shift-h" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="keyboard-short-cuts-commandctrl-shift-h"><span class="header-section-number">9.3</span> Keyboard short-cuts: <code>Command/Ctrl Shift H</code></h2>
 </section>
 </section>
-<section id="three-kinds-of-cells" class="level1">
-<h1>Three kinds of cells</h1>
+<section id="three-kinds-of-cells" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Three kinds of cells</h1>
 <div id="a5571281-a813-46bb-bd63-022503d99965" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'hello world'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -551,16 +532,16 @@ jupyter lab</code></pre>
 <p>This is <em>formatted</em> markdown</p>
 <p>This is raw text</p>
 </section>
-<section id="running-code-in-cells" class="level1">
-<h1>Running code in cells</h1>
-<section id="code-blocks" class="level2">
-<h2 class="anchored" data-anchor-id="code-blocks">Code blocks</h2>
+<section id="running-code-in-cells" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Running code in cells</h1>
+<section id="code-blocks" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="code-blocks"><span class="header-section-number">11.1</span> Code blocks</h2>
 <div id="be1824b7-da95-4cf4-a12f-348ae29bb183" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="last-value-is-displayed" class="level2">
-<h2 class="anchored" data-anchor-id="last-value-is-displayed">Last value is displayed</h2>
+<section id="last-value-is-displayed" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="last-value-is-displayed"><span class="header-section-number">11.2</span> Last value is displayed</h2>
 <div id="0ee1c9c6-e3a5-49de-b400-35944262b98f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -569,8 +550,8 @@ jupyter lab</code></pre>
 </div>
 </div>
 </section>
-<section id="everything-is-one-python-process" class="level2">
-<h2 class="anchored" data-anchor-id="everything-is-one-python-process">Everything is one Python process</h2>
+<section id="everything-is-one-python-process" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="everything-is-one-python-process"><span class="header-section-number">11.3</span> Everything is one Python process</h2>
 <div id="716916e5-32d3-4103-875d-fcfc5e165c2c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -579,19 +560,19 @@ jupyter lab</code></pre>
 </div>
 </div>
 </section>
-<section id="restarting-the-kernel" class="level2">
-<h2 class="anchored" data-anchor-id="restarting-the-kernel">Restarting the kernel</h2>
+<section id="restarting-the-kernel" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="restarting-the-kernel"><span class="header-section-number">11.4</span> Restarting the kernel</h2>
 </section>
 </section>
-<section id="two-kinds-of-undo" class="level1">
-<h1>Two kinds of “Undo”</h1>
+<section id="two-kinds-of-undo" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Two kinds of “Undo”</h1>
 <ul>
 <li><code>Edit/Undo</code> to undo stuff in the current cell</li>
 <li><code>Edit/Undo Cell Operation</code> to undo deleting, moving, merging cells</li>
 </ul>
 </section>
-<section id="moving-and-copypaste-cells" class="level1">
-<h1>Moving and copy/paste cells</h1>
+<section id="moving-and-copypaste-cells" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Moving and copy/paste cells</h1>
 <div id="d15335e4-670b-48c2-ac3e-1eaea2451006" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Move this cell somewhere"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -600,57 +581,57 @@ jupyter lab</code></pre>
 </div>
 <p>Some other cell</p>
 </section>
-<section id="split-and-merge-cells" class="level1">
-<h1>Split and merge cells</h1>
+<section id="split-and-merge-cells" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Split and merge cells</h1>
 </section>
-<section id="markdown-text" class="level1">
-<h1>Markdown text</h1>
+<section id="markdown-text" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Markdown text</h1>
 <p>https://quarto.org/docs/authoring/markdown-basics.html</p>
 <p>This is some more markdown with <strong>bold</strong> text and <em>italics</em> and showing that somthing is a code, like <code>x = 2 + 2</code>.</p>
-<section id="lists" class="level2">
-<h2 class="anchored" data-anchor-id="lists">Lists</h2>
+<section id="lists" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="lists"><span class="header-section-number">15.1</span> Lists</h2>
 <ul>
 <li>foo</li>
 <li>bar</li>
 <li>baz</li>
 </ul>
 </section>
-<section id="numbered-lists" class="level2">
-<h2 class="anchored" data-anchor-id="numbered-lists">Numbered lists</h2>
+<section id="numbered-lists" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="numbered-lists"><span class="header-section-number">15.2</span> Numbered lists</h2>
 <ol type="1">
 <li>foo</li>
 <li>bar</li>
 <li>baz</li>
 </ol>
 </section>
-<section id="quotes" class="level2">
-<h2 class="anchored" data-anchor-id="quotes">Quotes</h2>
+<section id="quotes" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="quotes"><span class="header-section-number">15.3</span> Quotes</h2>
 <blockquote class="blockquote">
 <p>This is a quote</p>
 </blockquote>
 </section>
-<section id="formulas" class="level2">
-<h2 class="anchored" data-anchor-id="formulas">Formulas</h2>
+<section id="formulas" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="formulas"><span class="header-section-number">15.4</span> Formulas</h2>
 <p><span class="math inline">\(\sum_{i=0}^n i\)</span></p>
 <h3 class="anchored">
 HTML
 </h3>
 </section>
-<section id="header-2" class="level2">
-<h2 class="anchored" data-anchor-id="header-2">Header 2</h2>
-<section id="header-3" class="level3">
-<h3 class="anchored" data-anchor-id="header-3">Header 3</h3>
-<section id="header-4" class="level4">
-<h4 class="anchored" data-anchor-id="header-4">Header 4</h4>
+<section id="header-2" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="header-2"><span class="header-section-number">15.5</span> Header 2</h2>
+<section id="header-3" class="level3" data-number="15.5.1">
+<h3 data-number="15.5.1" class="anchored" data-anchor-id="header-3"><span class="header-section-number">15.5.1</span> Header 3</h3>
+<section id="header-4" class="level4" data-number="15.5.1.1">
+<h4 data-number="15.5.1.1" class="anchored" data-anchor-id="header-4"><strong>Header 15.5.1.1</strong></h4>
 </section>
 </section>
 </section>
-<section id="formulas-1" class="level2">
-<h2 class="anchored" data-anchor-id="formulas-1">Formulas</h2>
+<section id="formulas-1" class="level2" data-number="15.6">
+<h2 data-number="15.6" class="anchored" data-anchor-id="formulas-1"><span class="header-section-number">15.6</span> Formulas</h2>
 <p><span class="math inline">\(\sum_{i=0}^n i\)</span></p>
 </section>
-<section id="tables" class="level2">
-<h2 class="anchored" data-anchor-id="tables">Tables</h2>
+<section id="tables" class="level2" data-number="15.7">
+<h2 data-number="15.7" class="anchored" data-anchor-id="tables"><span class="header-section-number">15.7</span> Tables</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -671,8 +652,8 @@ HTML
 </table>
 </section>
 </section>
-<section id="html-magic" class="level1">
-<h1>HTML magic</h1>
+<section id="html-magic" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> HTML magic</h1>
 <div id="0f681e60-08d0-49f8-bdf6-745ac309f850" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>html</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>style<span class="op">&gt;</span></span>
@@ -685,16 +666,16 @@ table {float:left}
 </div>
 </div>
 </section>
-<section id="images" class="level1">
-<h1>Images</h1>
+<section id="images" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Images</h1>
 <p>Make markdown cell and then drag an image into it:</p>
 <p>Some other cell</p>
 </section>
-<section id="table-of-content-and-cell-folding" class="level1">
-<h1>Table of content and cell folding</h1>
+<section id="table-of-content-and-cell-folding" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Table of content and cell folding</h1>
 </section>
-<section id="shell-commands" class="level1">
-<h1>Shell commands</h1>
+<section id="shell-commands" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Shell commands</h1>
 <div id="969e9fca-1646-4d05-9b19-15d8a0382c71" class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -817,7 +798,7 @@ timing_code.ipynb
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/munch-group\.github\.io\/franklin\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1146,49 +1127,14 @@ timing_code.ipynb
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/editing.html" class="pagination-link" aria-label="Editing exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Editing exercises</span>
+      <a href="../student/../tutorials/terminal.html" class="pagination-link" aria-label="The terminal">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The terminal</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/developing_exercises.html" class="pagination-link" aria-label="Developing exercises">
-        <span class="nav-page-text">Developing exercises</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

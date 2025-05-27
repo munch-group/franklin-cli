@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>SSH keys – franklin</title>
+<title>Franklin overview – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,63 +20,28 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../pages/git.html" rel="next">
-<link href="../pages/jupyter.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-dde8d7229bfee0f8bb5efd37f0f9ae1e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../pages/admin/gitlab.html" rel="next">
+<link href="../../pages/about/docker.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-dde8d7229bfee0f8bb5efd37f0f9ae1e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -112,8 +77,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </script>
 
 
-<link rel="stylesheet" href="../api/_styles-quartodoc.css">
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../api/_styles-quartodoc.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -123,7 +88,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">franklin</span>
     </a>
   </div>
@@ -134,11 +99,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../api/"> 
+    <a class="nav-link" href="../../api/"> 
 <span class="menu-text">API reference</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../pages/student/"> 
+    <a class="nav-link" href="../../pages/student/"> 
 <span class="menu-text">Student site</span></a>
   </li>  
 </ul>
@@ -159,7 +124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/terminal.html">Key concepts</a></li><li class="breadcrumb-item"><a href="../pages/ssh.html">SSH keys</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pages/admin/overview.html">Administration</a></li><li class="breadcrumb-item"><a href="../../pages/admin/overview.html">Franklin overview</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -173,7 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
+  <a href="../../pages/getting_started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started</span></a>
   </div>
 </li>
@@ -187,23 +152,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/using.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using Franklin</span></a>
-  </div>
-</li>
+ <span class="menu-text">pages/using.qmd</span>
+  </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Educator</span></a>
+ <span class="menu-text">Student</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -211,20 +167,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/using.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using Franklin</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/making.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Making exercises</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/editing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Editing exercises</span></a>
+  <a href="../../pages/student/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">index.html</span></a>
   </div>
 </li>
       </ul>
@@ -232,7 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Tutorials</span></a>
+ <span class="menu-text">Educator</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -240,32 +184,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jupyterlab</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/developing_exercises.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Developing exercises</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/r_to_python.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">R to Python</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/numpy_pandas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Numpy and Pandas</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/plotting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Plots with matplotlib</span></a>
+  <a href="../../pages/create_edit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Editing exercises</span></a>
   </div>
 </li>
       </ul>
@@ -273,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Key concepts</span></a>
+ <span class="menu-text">Tutorials</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -281,41 +201,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
+  <a href="../../pages/tutorials/terminal.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/docker.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Docker</span></a>
+  <a href="../../pages/tutorials/jupyterlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Jupyterlab</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/jupyter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jupyter</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
- <span class="menu-text">pages/jupyterlab.qmd</span>
-  </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/ssh.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">SSH keys</span></a>
+  <a href="../../pages/tutorials/developing_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Developing exercises</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/git.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Git</span></a>
+  <a href="../../pages/tutorials/data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gitlab</span></a>
+  <a href="../../pages/tutorials/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plots with matplotlib</span></a>
   </div>
 </li>
       </ul>
@@ -323,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Administration</span></a>
+ <span class="menu-text">About</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -331,20 +242,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/admin_gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">GitLab admin</span></a>
+  <a href="../../pages/about/ssh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SSH authentication</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/admin_docker.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Docker admin</span></a>
+  <a href="../../pages/about/git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Git version control</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/admin_components.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Components</span></a>
+  <a href="../../pages/about/gitlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gitlab server</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pages/about/docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Docker virtualization</span></a>
   </div>
 </li>
       </ul>
@@ -352,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Development</span></a>
+ <span class="menu-text">Administration</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -360,27 +277,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/admin_components.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Components</span></a>
+  <a href="../../pages/admin/overview.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Franklin overview</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Source code</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/admin_franklin_code.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Code</span></a>
+  <a href="../../pages/admin/gitlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GitLab admin</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pages/admin/docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Docker admin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">pages/admin/components.qmd</span>
+  </li>
       </ul>
   </li>
     </ul>
@@ -393,16 +308,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tldr" id="toc-tldr" class="nav-link active" data-scroll-target="#tldr">TLDR;</a></li>
+  <li><a href="#click" id="toc-click" class="nav-link active" data-scroll-target="#click">Click</a></li>
+  <li><a href="#docker" id="toc-docker" class="nav-link" data-scroll-target="#docker">Docker</a></li>
+  <li><a href="#pixi" id="toc-pixi" class="nav-link" data-scroll-target="#pixi">Pixi</a></li>
+  <li><a href="#gitlab" id="toc-gitlab" class="nav-link" data-scroll-target="#gitlab">Gitlab</a></li>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  <li><a href="#git" id="toc-git" class="nav-link" data-scroll-target="#git">Git</a></li>
+  <li><a href="#gitlab-1" id="toc-gitlab-1" class="nav-link" data-scroll-target="#gitlab-1">GitLab</a>
+  <ul class="collapse">
+  <li><a href="#au-hosting" id="toc-au-hosting" class="nav-link" data-scroll-target="#au-hosting">AU hosting</a></li>
+  <li><a href="#gitlab-franklin-group" id="toc-gitlab-franklin-group" class="nav-link" data-scroll-target="#gitlab-franklin-group">GitLab Franklin group</a></li>
+  <li><a href="#gitlab-course-subgroups" id="toc-gitlab-course-subgroups" class="nav-link" data-scroll-target="#gitlab-course-subgroups">GitLab Course subgroups</a></li>
+  <li><a href="#gitlab-exercise-repositories" id="toc-gitlab-exercise-repositories" class="nav-link" data-scroll-target="#gitlab-exercise-repositories">GitLab exercise repositories</a></li>
+  </ul></li>
+  <li><a href="#authentication" id="toc-authentication" class="nav-link" data-scroll-target="#authentication">Authentication</a>
+  <ul class="collapse">
+  <li><a href="#admin" id="toc-admin" class="nav-link" data-scroll-target="#admin">Admin</a></li>
+  <li><a href="#vip" id="toc-vip" class="nav-link" data-scroll-target="#vip">VIP</a></li>
+  <li><a href="#students" id="toc-students" class="nav-link" data-scroll-target="#students">Students</a></li>
+  </ul></li>
+  <li><a href="#docker-1" id="toc-docker-1" class="nav-link" data-scroll-target="#docker-1">Docker</a>
+  <ul class="collapse">
+  <li><a href="#image-hierarchy" id="toc-image-hierarchy" class="nav-link" data-scroll-target="#image-hierarchy">Image hierarchy</a></li>
+  <li><a href="#templates" id="toc-templates" class="nav-link" data-scroll-target="#templates">Templates</a></li>
+  <li><a href="#tag-policy" id="toc-tag-policy" class="nav-link" data-scroll-target="#tag-policy">Tag policy</a></li>
+  </ul></li>
+  <li><a href="#container-registry" id="toc-container-registry" class="nav-link" data-scroll-target="#container-registry">Container registry</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/terminal.html">Key concepts</a></li><li class="breadcrumb-item"><a href="../pages/ssh.html">SSH keys</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pages/admin/overview.html">Administration</a></li><li class="breadcrumb-item"><a href="../../pages/admin/overview.html">Franklin overview</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">SSH keys</h1>
+<h1 class="title">Franklin overview</h1>
 </div>
 
 
@@ -419,51 +359,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="tldr" class="level2">
-<h2 class="anchored" data-anchor-id="tldr">TLDR;</h2>
-<p>Firstly, you have to understand what public/private encryption keys are. A <em>private</em> key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A <em>public</em> key is another string of bits that is a derivative of the private key.</p>
-<p>You can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.</p>
-<p>So, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.</p>
-<p>First, check if you have these two authentication files on your local machine:</p>
-<pre><code>~/.ssh/id_rsa
-~/.ssh/id_rsa.pub</code></pre>
-<p>You can do so using the <code>ls</code> commmand:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb2" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-a</span> ~/.ssh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>You most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> rsa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now use <code>ssh</code> to create a directory <code>~/.ssh</code> on the cluster (assuming your username on the cluster is <code>&lt;cluster user name&gt;</code>). SSH will prompt you for your password.</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb4" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="op">&lt;</span>cluster user name<span class="op">&gt;</span>@login.genome.au.dk mkdir <span class="at">-p</span> .ssh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Finally, append the public <code>ssh</code> key on your local machine to the file <code>.ssh/authorized_keys</code> on the cluster and enter your password (replace <code>&lt;cluster user name&gt;</code> with your cluster user name):</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> ~/.ssh/id_rsa.pub <span class="kw">|</span> <span class="fu">ssh</span> username@login.genome.au.dk <span class="st">'cat &gt;&gt; .ssh/authorized_keys'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>From now on, you can log into the cluster from your local machine without being prompted for a password.</p>
-<p>Try it:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb6" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="op">&lt;</span>cluster user name<span class="op">&gt;</span>@login.genome.au.dk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>(see, no password).</p>
+<section id="click" class="level2">
+<h2 class="anchored" data-anchor-id="click">Click</h2>
+</section>
+<section id="docker" class="level2">
+<h2 class="anchored" data-anchor-id="docker">Docker</h2>
+</section>
+<section id="pixi" class="level2">
+<h2 class="anchored" data-anchor-id="pixi">Pixi</h2>
+</section>
+<section id="gitlab" class="level2">
+<h2 class="anchored" data-anchor-id="gitlab">Gitlab</h2>
+</section>
+<section id="purpose" class="level2">
+<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
+</section>
+<section id="git" class="level2">
+<h2 class="anchored" data-anchor-id="git">Git</h2>
+</section>
+<section id="gitlab-1" class="level2">
+<h2 class="anchored" data-anchor-id="gitlab-1">GitLab</h2>
+<section id="au-hosting" class="level3">
+<h3 class="anchored" data-anchor-id="au-hosting">AU hosting</h3>
+</section>
+<section id="gitlab-franklin-group" class="level3">
+<h3 class="anchored" data-anchor-id="gitlab-franklin-group">GitLab Franklin group</h3>
+</section>
+<section id="gitlab-course-subgroups" class="level3">
+<h3 class="anchored" data-anchor-id="gitlab-course-subgroups">GitLab Course subgroups</h3>
+</section>
+<section id="gitlab-exercise-repositories" class="level3">
+<h3 class="anchored" data-anchor-id="gitlab-exercise-repositories">GitLab exercise repositories</h3>
+</section>
+</section>
+<section id="authentication" class="level2">
+<h2 class="anchored" data-anchor-id="authentication">Authentication</h2>
+<p>Web GUI: UNI-AD login</p>
+<section id="admin" class="level3">
+<h3 class="anchored" data-anchor-id="admin">Admin</h3>
+<p>Kasper (and someone else for backup)</p>
+<p>ssh keys</p>
+</section>
+<section id="vip" class="level3">
+<h3 class="anchored" data-anchor-id="vip">VIP</h3>
+<p>ssh keys</p>
+</section>
+<section id="students" class="level3">
+<h3 class="anchored" data-anchor-id="students">Students</h3>
+<p>Read-only token distributed with franklin.</p>
+</section>
+</section>
+<section id="docker-1" class="level2">
+<h2 class="anchored" data-anchor-id="docker-1">Docker</h2>
+<section id="image-hierarchy" class="level3">
+<h3 class="anchored" data-anchor-id="image-hierarchy">Image hierarchy</h3>
+<ul>
+<li>Base images maintained in the Base</li>
+<li>Course base images only refer to a versioned base image</li>
+</ul>
+</section>
+<section id="templates" class="level3">
+<h3 class="anchored" data-anchor-id="templates">Templates</h3>
+<ul>
+<li>Every course has a repo template with a docker file that that refers to the course base image</li>
+<li>These templates are forked from franklin/base-templates/base-template</li>
+</ul>
+</section>
+<section id="tag-policy" class="level3">
+<h3 class="anchored" data-anchor-id="tag-policy">Tag policy</h3>
+<ul>
+<li>Franklin base images are versioned and must referred to with their version tag</li>
+<li>Course base images are tagged latest so that courses always pulls updated version.</li>
+<li>Exercise images are always tagged latest, which is the tag franklin pulls</li>
+</ul>
+</section>
+</section>
+<section id="container-registry" class="level2">
+<h2 class="anchored" data-anchor-id="container-registry">Container registry</h2>
 
 
 </section>
@@ -870,13 +842,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/jupyter.html" class="pagination-link" aria-label="Jupyter">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Jupyter</span>
+      <a href="../../pages/about/docker.html" class="pagination-link" aria-label="Docker virtualization">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Docker virtualization</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/git.html" class="pagination-link" aria-label="Git">
-        <span class="nav-page-text">Git</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../pages/admin/gitlab.html" class="pagination-link" aria-label="GitLab admin">
+        <span class="nav-page-text">GitLab admin</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

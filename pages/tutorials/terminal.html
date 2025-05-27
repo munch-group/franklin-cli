@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Jupyter – Franklin</title>
+<title>2&nbsp; The terminal – Franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,62 +20,28 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="student/site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="student/site_libs/quarto-nav/headroom.min.js"></script>
-<script src="student/site_libs/clipboard/clipboard.min.js"></script>
-<script src="student/site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="student/site_libs/quarto-search/fuse.min.js"></script>
-<script src="student/site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="student/">
-<link href="student/index.html" rel="prev">
-<script src="student/site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="student/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="student/site_libs/quarto-html/popper.min.js"></script>
-<script src="student/site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="student/site_libs/quarto-html/anchor.min.js"></script>
-<link href="student/site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="student/site_libs/quarto-html/quarto-syntax-highlighting-f1f3b3fd89b16212fde59a2af78f1759.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="student/site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="student/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="student/site_libs/bootstrap/bootstrap-9d9332f6ab11428db7ee07599d82622f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../student/site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../student/site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../student/site_libs/clipboard/clipboard.min.js"></script>
+<script src="../student/site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../student/site_libs/quarto-search/fuse.min.js"></script>
+<script src="../student/site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../student/">
+<link href="../student/../tutorials/jupyterlab.html" rel="next">
+<link href="../student/index.html" rel="prev">
+<script src="../student/site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../student/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../student/site_libs/quarto-html/popper.min.js"></script>
+<script src="../student/site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../student/site_libs/quarto-html/anchor.min.js"></script>
+<link href="../student/site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../student/site_libs/quarto-html/quarto-syntax-highlighting-f1f3b3fd89b16212fde59a2af78f1759.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../student/site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../student/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../student/site_libs/bootstrap/bootstrap-9d9332f6ab11428db7ee07599d82622f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -116,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../jupyter.html">Jupyter</a></li><li class="breadcrumb-item"><a href="student/../jupyter.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Jupyter</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../student/../tutorials/terminal.html">Terminal</a></li><li class="breadcrumb-item"><a href="../student/../tutorials/terminal.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The terminal</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -131,9 +97,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="student/">Content</a> 
+      <a href="../student/">Content</a> 
         <div class="sidebar-tools-main">
-    <a href="student/Franklin.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="../student/Franklin.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -146,14 +112,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../student/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Jupyter</span></a>
+ <span class="menu-text">Terminal</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -161,8 +127,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../jupyter.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Jupyter</span></span></a>
+  <a href="../student/../tutorials/terminal.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The terminal</span></span></a>
   </div>
 </li>
       </ul>
@@ -170,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Docker</span></a>
+ <span class="menu-text">Jupyter</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -178,8 +144,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../jupyter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Jupyter</span></span></a>
+  <a href="../student/../tutorials/jupyterlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyterlab</span></span></a>
   </div>
 </li>
       </ul>
@@ -189,25 +155,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#keyboard-shortcuts" id="toc-keyboard-shortcuts" class="nav-link active" data-scroll-target="#keyboard-shortcuts"><span class="header-section-number">2.1</span> Keyboard shortcuts</a>
-  <ul class="collapse">
-  <li><a href="#command-mode-in-jupyter-notebooks" id="toc-command-mode-in-jupyter-notebooks" class="nav-link" data-scroll-target="#command-mode-in-jupyter-notebooks"><span class="header-section-number">2.1.1</span> Command Mode in Jupyter Notebooks</a></li>
-  <li><a href="#edit-mode-in-jupyter-notebooks" id="toc-edit-mode-in-jupyter-notebooks" class="nav-link" data-scroll-target="#edit-mode-in-jupyter-notebooks"><span class="header-section-number">2.1.2</span> Edit Mode in Jupyter Notebooks</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../jupyter.html">Jupyter</a></li><li class="breadcrumb-item"><a href="student/../jupyter.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Jupyter</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../student/../tutorials/terminal.html">Terminal</a></li><li class="breadcrumb-item"><a href="../student/../tutorials/terminal.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The terminal</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Jupyter</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The terminal</span></h1>
 </div>
 
 
@@ -237,185 +193,13 @@ This pages are under construction
 
 </div>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>lak sdflkasj dlfkj asldfj alskdj flaksdj flaksjd flkja sdlfkj alsdkjf laksdj flaksdf jlaksdjf alsdkfj lsdkfj asldkfj </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Jupyter Notebooks are an interactive computing environment that allow users to create and share documents containing live code, equations, visualizations, and narrative text. Originally developed as part of the IPython project, Jupyter (short for Julia, Python, R) now supports over 100 programming languages and has become a standard tool in data science, scientific computing, and education.</p>
-<p>At the core of a Jupyter Notebook is a web-based interface that organizes content into “cells.” These cells can contain code (typically in Python, but also in other languages via kernels), formatted text using Markdown, LaTeX for equations, and embedded multimedia elements. Users execute code in-place, and outputs such as plots or tables appear directly below the corresponding cells. This structure enables exploratory data analysis and facilitates reproducibility by interleaving code and its results with documentation.</p>
-<p>Notebooks are stored in .ipynb files (JSON format), which preserve the code, outputs, and formatting. They can be run locally using the Jupyter server or hosted in cloud environments such as Google Colab or Binder. For scientific workflows, notebooks can integrate with tools for version control, containerization, and workflow management, making them a flexible instrument for open and reproducible research.</p>
-<p>Despite their strengths, Jupyter Notebooks are not without limitations. Version control can be challenging due to the JSON-based format, and improper use (e.g., out-of-order execution) can compromise reproducibility. Nevertheless, their advantages in accessibility, interactivity, and communication have made them central to modern computational work.</p>
-<section id="keyboard-shortcuts" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="keyboard-shortcuts"><span class="header-section-number">2.1</span> Keyboard shortcuts</h2>
-<section id="command-mode-in-jupyter-notebooks" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="command-mode-in-jupyter-notebooks"><span class="header-section-number">2.1.1</span> Command Mode in Jupyter Notebooks</h3>
-<p>In Jupyter Notebooks, <strong>Command Mode</strong> is one of the two main interaction modes—the other being <strong>Edit Mode</strong>. Command Mode is active when the cell border is <strong>blue</strong>, indicating that keyboard commands will be interpreted as notebook-level operations rather than editing the cell’s content.</p>
-<p>Command Mode allows users to manage cells and perform structural modifications without using the mouse. This enhances efficiency, especially when working with large notebooks. Pressing <code>Esc</code> while in a cell activates Command Mode.</p>
-<section id="common-keyboard-shortcuts-in-command-mode" class="level4" data-number="2.1.1.1">
-<h4 data-number="2.1.1.1" class="anchored" data-anchor-id="common-keyboard-shortcuts-in-command-mode"><strong>Common 2.1.1.1</strong></h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 40%">
-<col style="width: 59%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Shortcut</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>Enter</code></td>
-<td>Switch to Edit Mode in the selected cell</td>
-</tr>
-<tr class="even">
-<td><code>A</code></td>
-<td>Insert a new cell <strong>above</strong> the current cell</td>
-</tr>
-<tr class="odd">
-<td><code>B</code></td>
-<td>Insert a new cell <strong>below</strong> the current cell</td>
-</tr>
-<tr class="even">
-<td><code>D, D</code></td>
-<td>Delete the selected cell (press <code>D</code> twice quickly)</td>
-</tr>
-<tr class="odd">
-<td><code>Z</code></td>
-<td>Undo the last cell deletion</td>
-</tr>
-<tr class="even">
-<td><code>Y</code></td>
-<td>Change cell type to <strong>code</strong></td>
-</tr>
-<tr class="odd">
-<td><code>M</code></td>
-<td>Change cell type to <strong>Markdown</strong></td>
-</tr>
-<tr class="even">
-<td><code>C</code></td>
-<td>Copy the selected cell</td>
-</tr>
-<tr class="odd">
-<td><code>X</code></td>
-<td>Cut the selected cell</td>
-</tr>
-<tr class="even">
-<td><code>V</code></td>
-<td>Paste cell <strong>below</strong></td>
-</tr>
-<tr class="odd">
-<td><code>Shift + V</code></td>
-<td>Paste cell <strong>above</strong></td>
-</tr>
-<tr class="even">
-<td><code>Shift + Up/Down</code></td>
-<td>Extend selection to multiple cells</td>
-</tr>
-<tr class="odd">
-<td><code>Ctrl + S</code> (or <code>Cmd + S</code> on macOS)</td>
-<td>Save the notebook</td>
-</tr>
-<tr class="even">
-<td><code>H</code></td>
-<td>Show all keyboard shortcuts</td>
-</tr>
-<tr class="odd">
-<td><code>0, 0</code></td>
-<td>Restart the kernel (press <code>0</code> twice quickly)</td>
-</tr>
-<tr class="even">
-<td><code>Shift + M</code> (in Command Mode)</td>
-<td><strong>Merge</strong> selected cells</td>
-</tr>
-</tbody>
-</table>
-<p>These shortcuts make navigation and cell management significantly faster, enabling an efficient coding and documentation workflow within Jupyter Notebooks.</p>
-</section>
-</section>
-<section id="edit-mode-in-jupyter-notebooks" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="edit-mode-in-jupyter-notebooks"><span class="header-section-number">2.1.2</span> Edit Mode in Jupyter Notebooks</h3>
-<p><strong>Edit Mode</strong> is activated when a cell’s border turns <strong>green</strong>, allowing the user to directly modify the contents of the cell. You can enter Edit Mode by pressing <code>Enter</code> while a cell is selected in Command Mode. This mode is primarily used for writing and editing code or Markdown content within cells.</p>
-<section id="common-keyboard-shortcuts-in-edit-mode" class="level4" data-number="2.1.2.1">
-<h4 data-number="2.1.2.1" class="anchored" data-anchor-id="common-keyboard-shortcuts-in-edit-mode"><strong>Common 2.1.2.1</strong></h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 69%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Shortcut</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>Ctrl + Enter</code></td>
-<td>Run the current cell and remain in Edit Mode</td>
-</tr>
-<tr class="even">
-<td><code>Shift + Enter</code></td>
-<td>Run the current cell and move to the next cell</td>
-</tr>
-<tr class="odd">
-<td><code>Alt + Enter</code></td>
-<td>Run the current cell and insert a new cell below</td>
-</tr>
-<tr class="even">
-<td><code>Esc</code></td>
-<td>Switch to Command Mode</td>
-</tr>
-<tr class="odd">
-<td><code>Ctrl + /</code></td>
-<td>Toggle comment on selected lines (code cells only)</td>
-</tr>
-<tr class="even">
-<td><code>Tab</code></td>
-<td>Code completion or indent</td>
-</tr>
-<tr class="odd">
-<td><code>Shift + Tab</code></td>
-<td>Show tooltip/help for the object under cursor</td>
-</tr>
-<tr class="even">
-<td><code>Ctrl + ]</code></td>
-<td>Indent the current line or selection</td>
-</tr>
-<tr class="odd">
-<td><code>Ctrl + [</code></td>
-<td>Dedent the current line or selection</td>
-</tr>
-<tr class="even">
-<td><code>Ctrl + A</code></td>
-<td>Select all content in the cell</td>
-</tr>
-<tr class="odd">
-<td><code>Ctrl + Z</code></td>
-<td>Undo the last change</td>
-</tr>
-<tr class="even">
-<td><code>Ctrl + Y</code></td>
-<td>Redo the last undone change</td>
-</tr>
-<tr class="odd">
-<td><code>Ctrl + Shift + -</code></td>
-<td>Split the current cell at cursor position into two cells</td>
-</tr>
-<tr class="even">
-<td><code>Ctrl + S</code> (or <code>Cmd + S</code>)</td>
-<td>Save the notebook</td>
-</tr>
-<tr class="odd">
-<td><code>Ctrl + Shift + -</code></td>
-<td>Split the cell at the current cursor position</td>
-</tr>
-</tbody>
-</table>
-<p>These shortcuts are optimized for efficient coding and content editing, significantly reducing reliance on the mouse and improving productivity within Jupyter Notebooks.</p>
+<p>A terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.</p>
+<p>Historically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.</p>
+<p>Key characteristics of a terminal include:</p>
+<p>Command-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &amp;&amp;, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.</p>
+<p>Ctrl-C for abort</p>
 
 
-</section>
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -819,11 +603,14 @@ This pages are under construction
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="student/index.html" class="pagination-link" aria-label="index.html">
+      <a href="../student/index.html" class="pagination-link" aria-label="index.html">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">index.html</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../student/../tutorials/jupyterlab.html" class="pagination-link" aria-label="Jupyterlab">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Jupyterlab</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
