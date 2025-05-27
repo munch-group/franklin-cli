@@ -7,10 +7,11 @@ version = "0.1.0"
 
 [tasks]
 # Commands as lists so you can also add documentation in between.
-configure = { cmd = [
+deps = { cmd = [
     "python", 
     "-m",
-    "franklin.pixi_deps.py",
+    "franklin.pixi_deps",
+    ".",
 ] }
 
 # default dependencies for building image

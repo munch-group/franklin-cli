@@ -40,3 +40,19 @@ title-block-banner-color: "#FFFFFF"
 </style>
  -->
 
+
+The student runs a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies. 
+
+On both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.
+
+```{.bash filename="Terminal"}
+franklin download
+```
+
+The student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student's computer with all required dependencies preinstalled.
+
+```{.bash filename="Terminal"}
+franklin jupyter
+```
+
+The environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.

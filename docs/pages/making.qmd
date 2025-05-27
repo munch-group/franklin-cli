@@ -1,8 +1,0 @@
----
-title: Making exercises
----
-
-::: {.callout-caution }
-## This pages are under construction
-
-:::

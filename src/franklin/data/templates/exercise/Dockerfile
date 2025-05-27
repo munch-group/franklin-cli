@@ -6,7 +6,7 @@ COPY . /app
 WORKDIR /app
 
 # extract deps using default env, install them in the prod env
-RUN pixi run python .pixi.py . && pixi install -e prod 
+RUN pixi task deps && pixi install -e prod 
 
 # Create the shell-hook bash script to activate the environment
 RUN pixi shell-hook -e prod > /shell-hook.sh

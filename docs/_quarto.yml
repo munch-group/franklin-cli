@@ -62,22 +62,17 @@ website:
         - pages/getting_started.qmd       
         - section: "Overview"
           contents:
-            - pages/overview.qmd
             - pages/using.qmd
         - section: "Educator"
           contents:
-            - pages/using.qmd
-            - pages/making.qmd
-            - pages/editing.qmd
+            - pages/create_edit.qmd
         - section: "Tutorials"
           contents:
-            - pages/jupyterlab.ipynb
-            - pages/developing_exercises.qmd
-            - pages/r_to_python.ipynb
-            - pages/numpy_pandas.ipynb
-            - pages/plotting.ipynb
-        - section: "Key concepts"
-          contents:
+            - pages/tutorials/jupyterlab.ipynb
+            - pages/tutorials/developing_exercises.qmd
+            - pages/tutorials/r_to_python.ipynb
+            - pages/tutorials/numpy_pandas.ipynb
+            - pages/tutorials/plotting.ipynb
             - pages/terminal.qmd
             - pages/docker.qmd
             - pages/jupyter.qmd
@@ -85,17 +80,16 @@ website:
             - pages/ssh.qmd
             - pages/git.qmd
             - pages/gitlab.qmd
+          contents:
         - section: "Administration"
           contents:
-            - pages/admin_gitlab.qmd
-            - pages/admin_docker.qmd
-            - pages/admin_components.qmd
-        - section: "Development"
-          contents:
-            - pages/admin_components.qmd
+            - pages/admin/overview.qmd
+            - pages/admin/gitlab.qmd
+            - pages/admin/docker.qmd
+            - pages/admin/components.qmd
         - section: "Source code"
           contents:
-            - pages/admin_franklin_code.qmd
+            - pages/admin/source.qmd
             - ../src/franklin/docker.py
 
 comments:
