@@ -142,19 +142,23 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
     :
         A tuple of the course name and the exercise name.
     """
-    hide_hidden = not is_educator()
+    # hide_hidden = not is_educator()
+    is_edu = is_educator()
     while True:
         course, danish_course_name = pick_course()
         exercise_names = get_exercise_names(course)
         # only use those with listed images and not with 'HIDDEN' in the name
-        for key, val in list(exercise_names.items()):
+        for key, val in list(exercise_names.items()):            
             if (course, key) not in exercises_images:
-                del exercise_names[key]
-            if 'HIDDEN' in val:
-                if hide_hidden:
-                    del exercise_names[key]
+                if is_edu:
+                    exercise_names[key] = val + ' (no docker image)'
                 else:
+                    del exercise_names[key]                
+            if 'HIDDEN' in val:
+                if is_edu:
                     exercise_names[key] = val + ' (hidden from students)'
+                else:
+                    del exercise_names[key]
                     
         if exercise_names:
             break
