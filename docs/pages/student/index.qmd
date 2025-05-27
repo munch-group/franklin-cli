@@ -1,7 +1,5 @@
 ---
 # title-block-banner: images/banner3.png
-title-block-banner: "#003257"
-title-block-banner-color: "#FFFFFF"
 # aliases:
 #   - ../../student.html
 ---

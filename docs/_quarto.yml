@@ -96,7 +96,21 @@ lightbox: true
 
 format:
   html:
-    theme: cosmo
+    # mainfont: "Passata"
+    theme: 
+      - cosmo
+      - custom.scss
+
+  # theme:
+  #   light: [cosmo]  # or flatly, darkly, etc.
+  #   dark: [darkly]
+  #   # Customize Bootstrap variables
+  #   custom:
+  #     navbar-bg: "#004080"     # background color
+  #     navbar-fg: "#ffffff"     # foreground (text) color
+  #     navbar-hover-color: "#cccccc"  # hover text color
+                
+    # theme: cosmo
     css:
       - api/_styles-quartodoc.css
       - styles.css

@@ -1,14 +1,16 @@
 ---
 title: Getting started
+# title-block-banner: "#003257"
+# title-block-banner-color: "#FFFFFF"
 aliases:
   - ../index.html
 ---
 
-Franklin is an open source project witth the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.
+**franklin** is an open source project witth the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.
 
 The tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.
 
-## The student experience
+## The student interface
 
 The student run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies. 
 
@@ -26,7 +28,7 @@ franklin jupyter
 
 The environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.
 
-## The educator experience
+## The educator interface
 
 Educators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.
 
