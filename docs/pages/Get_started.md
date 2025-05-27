@@ -95,12 +95,12 @@ After you have run the command cat ~/.ssh/id_rsa.pub in your terminal  a long li
 Now copy it and go back to the [gitlab webpage](https://gitlab.au.dk) 
 
 Then press the icon on the top beside the picture that represent your profile and find the option called "edit profile" in the dropdown menu
-It should look like this:![alt text](<images/Skærmbillede 2025-05-26 kl. 10.35.27.png>)
+It should look like this: ![alt text](<images/Skærmbillede 2025-05-27 kl. 13.42.11.png>)
 
 Now you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.
 
 The page should look something like the figure below:
-![alt text](<images/Skærmbillede 2025-05-26 kl. 10.36.19.png>)
+![alt text](<images/Skærmbillede 2025-05-27 kl. 13.40.10.png>)
 
 In the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this. 
 
@@ -126,6 +126,6 @@ In order to make a new cell in markdown press the + icon on the right side of th
 
 ### create a new cell 
 When you have a new cell you can choose whether you want it to be a markdown cell or a code cell by using the menu bar at the top of the page. In the example below, the current cell type is code. If you wanted to change it, you click where it says code, and then chooses markdown in the drop down menu: 
-![alt text](<images/Skærmbillede 2025-05-27 kl. 12.44.57.png>)
+![alt text](<images/Skærmbillede 2025-05-27 kl. 13.39.22.png>)
 
 You can also use the shortcut esc + m to change a code cell to a markdown cell, and esc+ y to change a markdown cell to a code cell. 
