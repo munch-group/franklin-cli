@@ -10,8 +10,8 @@
     ]
   },
   {
-    "objectID": "../tutorials/terminal.html",
-    "href": "../tutorials/terminal.html",
+    "objectID": "terminal.html",
+    "href": "terminal.html",
     "title": "2  The terminal",
     "section": "",
     "text": "This pages are under construction\n\n\n\n\n\n\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.\nCtrl-C for abort",
@@ -27,7 +27,7 @@
     "section": "",
     "text": "4 Starting jupyter lab\nIntroduction to JupyterLab\nJupyterLab is the next-generation web-based user interface for Project Jupyter, designed to offer a flexible and extensible environment for interactive computing. It builds upon the classic Jupyter Notebook interface by integrating a wide range of tools—code consoles, terminals, text editors, data file viewers, and notebooks—into a unified workspace.\nThe JupyterLab interface is organized into a multi-tab layout, resembling an integrated development environment (IDE). Users can open multiple documents side by side (e.g., a Python script next to a Markdown file and a terminal), drag-and-drop tabs, and link interactive views of the same dataset. It supports live code execution, output rendering (including plots and LaTeX equations), and seamless integration with kernels for many languages, though Python is most common.\nKey features of JupyterLab include:\nNotebook authoring: Full support for .ipynb notebooks with executable code cells, Markdown, and rich outputs. Code consoles: Interactive REPLs connected to notebooks or scripts for testing code snippets. Text and code editing: Built-in editor with syntax highlighting, version control integration, and support for many file types. Terminal access: Direct command-line interface within the browser for shell-level operations. Extensibility: Modular architecture that supports plugins for additional language kernels, visualizations, or custom workflows. JupyterLab preserves all the functionality of the classic notebook interface while offering a more powerful and customizable platform suitable for complex data science workflows, scientific research, and reproducible computing. It is widely used in academia, industry, and education due to its interactive nature and support for literate programming principles.\nJupyterLab is a highly extensible, feature-rich notebook authoring application and editing environment, and is a part of Project Jupyter, a large umbrella project centered around the goal of providing tools (and standards) for interactive computing with computational notebooks.\nA computational notebook is a shareable document that combines computer code, plain language descriptions, data, rich visualizations like 3D models, charts, graphs and figures, and interactive controls. A notebook, along with an editor like JupyterLab, provides a fast interactive environment for prototyping and explaining code, exploring and visualizing data, and sharing ideas with others.\nJupyterLab is a sibling to other notebook authoring applications under the Project Jupyter umbrella, like Jupyter Notebook and Jupyter Desktop. JupyterLab offers a more advanced, feature rich, customizable experience compared to Jupyter Notebook.MM\nTerminal commands:\nIt then appears in your default browser.|",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -38,7 +38,7 @@
     "section": "5.1 Keyboard shortcuts",
     "text": "5.1 Keyboard shortcuts\n\n5.1.1 Command Mode in Jupyter Notebooks\nIn Jupyter Notebooks, Command Mode is one of the two main interaction modes—the other being Edit Mode. Command Mode is active when the cell border is blue, indicating that keyboard commands will be interpreted as notebook-level operations rather than editing the cell’s content.\nCommand Mode allows users to manage cells and perform structural modifications without using the mouse. This enhances efficiency, especially when working with large notebooks. Pressing Esc while in a cell activates Command Mode.\n\nCommon 5.1.1.1\n\n\n\n\n\n\n\nShortcut\nDescription\n\n\n\n\nEnter\nSwitch to Edit Mode in the selected cell\n\n\nA\nInsert a new cell above the current cell\n\n\nB\nInsert a new cell below the current cell\n\n\nD, D\nDelete the selected cell (press D twice quickly)\n\n\nZ\nUndo the last cell deletion\n\n\nY\nChange cell type to code\n\n\nM\nChange cell type to Markdown\n\n\nC\nCopy the selected cell\n\n\nX\nCut the selected cell\n\n\nV\nPaste cell below\n\n\nShift + V\nPaste cell above\n\n\nShift + Up/Down\nExtend selection to multiple cells\n\n\nCtrl + S (or Cmd + S on macOS)\nSave the notebook\n\n\nH\nShow all keyboard shortcuts\n\n\n0, 0\nRestart the kernel (press 0 twice quickly)\n\n\nShift + M (in Command Mode)\nMerge selected cells\n\n\n\nThese shortcuts make navigation and cell management significantly faster, enabling an efficient coding and documentation workflow within Jupyter Notebooks.\n\n\n\n5.1.2 Edit Mode in Jupyter Notebooks\nEdit Mode is activated when a cell’s border turns green, allowing the user to directly modify the contents of the cell. You can enter Edit Mode by pressing Enter while a cell is selected in Command Mode. This mode is primarily used for writing and editing code or Markdown content within cells.\n\nCommon 5.1.2.1\n\n\n\n\n\n\n\nShortcut\nDescription\n\n\n\n\nCtrl + Enter\nRun the current cell and remain in Edit Mode\n\n\nShift + Enter\nRun the current cell and move to the next cell\n\n\nAlt + Enter\nRun the current cell and insert a new cell below\n\n\nEsc\nSwitch to Command Mode\n\n\nCtrl + /\nToggle comment on selected lines (code cells only)\n\n\nTab\nCode completion or indent\n\n\nShift + Tab\nShow tooltip/help for the object under cursor\n\n\nCtrl + ]\nIndent the current line or selection\n\n\nCtrl + [\nDedent the current line or selection\n\n\nCtrl + A\nSelect all content in the cell\n\n\nCtrl + Z\nUndo the last change\n\n\nCtrl + Y\nRedo the last undone change\n\n\nCtrl + Shift + -\nSplit the current cell at cursor position into two cells\n\n\nCtrl + S (or Cmd + S)\nSave the notebook\n\n\nCtrl + Shift + -\nSplit the cell at the current cursor position\n\n\n\nThese shortcuts are optimized for efficient coding and content editing, significantly reducing reliance on the mouse and improving productivity within Jupyter Notebooks.",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -49,7 +49,7 @@
     "section": "9.1 Menu, Toolbar, Context menu",
     "text": "9.1 Menu, Toolbar, Context menu",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -60,7 +60,7 @@
     "section": "9.2 Command palette: Command/Ctrl Shift C",
     "text": "9.2 Command palette: Command/Ctrl Shift C",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -71,7 +71,7 @@
     "section": "9.3 Keyboard short-cuts: Command/Ctrl Shift H",
     "text": "9.3 Keyboard short-cuts: Command/Ctrl Shift H",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -82,7 +82,7 @@
     "section": "11.1 Code blocks",
     "text": "11.1 Code blocks\n\nx = 0",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -93,7 +93,7 @@
     "section": "11.2 Last value is displayed",
     "text": "11.2 Last value is displayed\n\nx = 1\nx\n\n1",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -104,7 +104,7 @@
     "section": "11.3 Everything is one Python process",
     "text": "11.3 Everything is one Python process\n\nx += 1\nx\n\n2",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -115,7 +115,7 @@
     "section": "11.4 Restarting the kernel",
     "text": "11.4 Restarting the kernel",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -126,7 +126,7 @@
     "section": "15.1 Lists",
     "text": "15.1 Lists\n\nfoo\nbar\nbaz",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -137,7 +137,7 @@
     "section": "15.2 Numbered lists",
     "text": "15.2 Numbered lists\n\nfoo\nbar\nbaz",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -148,7 +148,7 @@
     "section": "15.3 Quotes",
     "text": "15.3 Quotes\n\nThis is a quote",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -159,7 +159,7 @@
     "section": "15.4 Formulas",
     "text": "15.4 Formulas\n\\(\\sum_{i=0}^n i\\)\n\nHTML",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -170,7 +170,7 @@
     "section": "15.5 Header 2",
     "text": "15.5 Header 2\n\n15.5.1 Header 3\n\nHeader 15.5.1.1",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -181,7 +181,7 @@
     "section": "15.6 Formulas",
     "text": "15.6 Formulas\n\\(\\sum_{i=0}^n i\\)",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
     ]
   },
@@ -192,8 +192,206 @@
     "section": "15.7 Tables",
     "text": "15.7 Tables\n\n\n\nName\nValue\n\n\n\n\nfoo\n2\n\n\nbar\n3",
     "crumbs": [
-      "Jupyter",
+      "Terminal",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Jupyterlab</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/developing_exercises.html",
+    "href": "../tutorials/developing_exercises.html",
+    "title": "4  Developing exercises",
+    "section": "",
+    "text": "4.1 TLDR;",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Developing exercises</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/developing_exercises.html#tldr",
+    "href": "../tutorials/developing_exercises.html#tldr",
+    "title": "4  Developing exercises",
+    "section": "",
+    "text": "conda create -n franklin -c conda-forge munch-group::franklin\nconda activate franklin\n\nfranklin exercise down\ncd &lt;repo&gt;\nfranklin jupyter run\nfranklin up\ncd ..",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Developing exercises</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/developing_exercises.html#create-an-exercise-repository",
+    "href": "../tutorials/developing_exercises.html#create-an-exercise-repository",
+    "title": "4  Developing exercises",
+    "section": "4.2 Create an exercise repository",
+    "text": "4.2 Create an exercise repository\nA git repository is where an exercise lives\n\nexercise.ipynb:: blah blah\nDockerfile: blah blah\nREADME.md:: blah blah\ndocker-entrypoint.sh:: blah blah\ntagged-release.sh:: blah blah",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Developing exercises</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/developing_exercises.html#developchange-a-new-exercise-on-gitlab",
+    "href": "../tutorials/developing_exercises.html#developchange-a-new-exercise-on-gitlab",
+    "title": "4  Developing exercises",
+    "section": "4.3 Develop/change a new exercise on GitLab",
+    "text": "4.3 Develop/change a new exercise on GitLab",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Developing exercises</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html",
+    "href": "../tutorials/data_analysis.html",
+    "title": "5  Data analysis in Python and R",
+    "section": "",
+    "text": "6 Numpy and Pandas\nFast computation using vectors and matrices\nlist1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\nlist2 = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]\n\nsummed = []\nfor i in range(len(list1)):\n    summed.append(list1[i] + list2[i])\nsummed\n\n[9, 9, 9, 9, 9, 9, 9, 9, 9, 9]",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#arrays",
+    "href": "../tutorials/data_analysis.html#arrays",
+    "title": "5  Data analysis in Python and R",
+    "section": "6.1 Arrays",
+    "text": "6.1 Arrays\n\nimport numpy as np\n\n\na = np.array(list1)\nb = np.array(list2)\na, b\n\n(array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#broadcasting",
+    "href": "../tutorials/data_analysis.html#broadcasting",
+    "title": "5  Data analysis in Python and R",
+    "section": "6.2 Broadcasting",
+    "text": "6.2 Broadcasting\n\na + b\n\narray([9, 9, 9, 9, 9, 9, 9, 9, 9, 9])\n\n\n\na * b\n\narray([ 0,  8, 14, 18, 20, 20, 18, 14,  8,  0])\n\n\n\na - 10\n\narray([-10,  -9,  -8,  -7,  -6,  -5,  -4,  -3,  -2,  -1])\n\n\n\na.sum()\n\n45\n\n\n\na.mean()\n\n4.5",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#multidimentional-arrays",
+    "href": "../tutorials/data_analysis.html#multidimentional-arrays",
+    "title": "5  Data analysis in Python and R",
+    "section": "6.3 Multidimentional arrays",
+    "text": "6.3 Multidimentional arrays\n\nlist_of_lists = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nlist_of_lists\n\n[[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n\n\n\nlist_of_lists[1][1]\n\n5\n\n\n\nmatrix = np.array(list_of_lists)\nmatrix\n\narray([[1, 2, 3],\n       [4, 5, 6],\n       [7, 8, 9]])\n\n\n\nmatrix[1][1] # not efficient\n\n5\n\n\n\nmatrix[1, 1] # efficient\n\n5\n\n\n\nmatrix - 10\n\narray([[-9, -8, -7],\n       [-6, -5, -4],\n       [-3, -2, -1]])\n\n\n\nmatrix.sum()\n\n45\n\n\n\nlist_of_lists_of_lists = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\nlist_of_lists_of_lists\n\n[[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\n\n\n\ntensor = np.array(list_of_lists_of_lists)\ntensor\n\narray([[[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]],\n\n       [[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]]])\n\n\n\ntensor[1, 1, 1]\n\n5",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#dataframe",
+    "href": "../tutorials/data_analysis.html#dataframe",
+    "title": "5  Data analysis in Python and R",
+    "section": "7.1 DataFrame",
+    "text": "7.1 DataFrame\n\ndf = pd.DataFrame({'name': ['Mike', 'Mia', 'Jake'], 'weight': [82, 62, 75]})\ndf\n\n\n\n\n\n\n\n\nname\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\ntype(df)\n\npandas.core.frame.DataFrame\n\n\n\ndf = pd.DataFrame(dict(name=['Mike', 'Mia', 'Jake'], weight=[82, 62, 75]))\ndf\n\n\n\n\n\n\n\n\nname\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\nrecords = [('Mike', 82), ('Mia', 62), ('Jake', 75)]\n\ndf = pd.DataFrame().from_records(records, columns=['age', 'weight'])\ndf\n\n\n\n\n\n\n\n\nage\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\ndf.index\n\nRangeIndex(start=0, stop=3, step=1)\n\n\n\ndf.index.values\n\narray([0, 1, 2])\n\n\n\ndf.columns\n\nIndex(['age', 'weight'], dtype='object')\n\n\n\ndf.dtypes\n\nage       object\nweight     int64\ndtype: object\n\n\nAdd a column to an existing dataframe:\n\ndf['height'] = [182.5, 173.0, 192.5]\ndf\n\n\n\n\n\n\n\n\nage\nweight\nheight\n\n\n\n\n0\nMike\n82\n182.5\n\n\n1\nMia\n62\n173.0\n\n\n2\nJake\n75\n192.5\n\n\n\n\n\n\n\nAdd another, categorical, column:\n\ndf['sex'] = pd.Categorical(['male', 'female', 'male'], categories=['female', 'male'], ordered=True)\ndf\n\n\n\n\n\n\n\n\nage\nweight\nheight\nsex\n\n\n\n\n0\nMike\n82\n182.5\nmale\n\n\n1\nMia\n62\n173.0\nfemale\n\n\n2\nJake\n75\n192.5\nmale\n\n\n\n\n\n\n\n\ndf.dtypes\n\nage         object\nweight       int64\nheight     float64\nsex       category\ndtype: object\n\n\nA Series just wraps an array:\n\ndf.height.to_numpy()\n\narray([182.5, 173. , 192.5])",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#example-penguin-data-set",
+    "href": "../tutorials/data_analysis.html#example-penguin-data-set",
+    "title": "5  Data analysis in Python and R",
+    "section": "7.2 Example penguin data set",
+    "text": "7.2 Example penguin data set\n\nimport seaborn as sns\n\npenguins = sns.load_dataset('penguins')\n\n\npenguins\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n344 rows × 7 columns\n\n\n\n\npenguins.dtypes\n\nspecies               object\nisland                object\nbill_length_mm       float64\nbill_depth_mm        float64\nflipper_length_mm    float64\nbody_mass_g          float64\nsex                   object\ndtype: object\n\n\n\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n\n\n\n\n\n\npenguins.tail()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#series",
+    "href": "../tutorials/data_analysis.html#series",
+    "title": "5  Data analysis in Python and R",
+    "section": "7.3 Series",
+    "text": "7.3 Series\n\npenguins['flipper_length_mm']\n\n0      181.0\n1      186.0\n2      195.0\n3        NaN\n4      193.0\n       ...  \n339      NaN\n340    215.0\n341    222.0\n342    212.0\n343    213.0\nName: flipper_length_mm, Length: 344, dtype: float64\n\n\n\npenguins.flipper_length_mm\n\n0      181.0\n1      186.0\n2      195.0\n3        NaN\n4      193.0\n       ...  \n339      NaN\n340    215.0\n341    222.0\n342    212.0\n343    213.0\nName: flipper_length_mm, Length: 344, dtype: float64\n\n\n\ntype(penguins.flipper_length_mm)\n\npandas.core.series.Series",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#broadcasting-1",
+    "href": "../tutorials/data_analysis.html#broadcasting-1",
+    "title": "5  Data analysis in Python and R",
+    "section": "7.4 Broadcasting",
+    "text": "7.4 Broadcasting\n\npenguins.bill_depth_mm - 1000\n\n0     -981.3\n1     -982.6\n2     -982.0\n3        NaN\n4     -980.7\n       ...  \n339      NaN\n340   -985.7\n341   -984.3\n342   -985.2\n343   -983.9\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\npenguins.bill_depth_mm * penguins.flipper_length_mm\n\n0      3384.7\n1      3236.4\n2      3510.0\n3         NaN\n4      3724.9\n        ...  \n339       NaN\n340    3074.5\n341    3485.4\n342    3137.6\n343    3429.3\nLength: 344, dtype: float64",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#indexing",
+    "href": "../tutorials/data_analysis.html#indexing",
+    "title": "5  Data analysis in Python and R",
+    "section": "7.5 Indexing",
+    "text": "7.5 Indexing\n\n7.5.1 Get a cell\n\npenguins.loc[4, 'island']\n\n'Torgersen'\n\n\n\n\n7.5.2 Get a row\n\npenguins.loc[4]\n\nspecies                 Adelie\nisland               Torgersen\nbill_length_mm            36.7\nbill_depth_mm             19.3\nflipper_length_mm        193.0\nbody_mass_g             3450.0\nsex                     Female\nName: 4, dtype: object\n\n\n\n\n7.5.3 Get a column\n\npenguins['bill_depth_mm']\n\n0      18.7\n1      17.4\n2      18.0\n3       NaN\n4      19.3\n       ... \n339     NaN\n340    14.3\n341    15.7\n342    14.8\n343    16.1\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\npenguins.bill_depth_mm\n\n0      18.7\n1      17.4\n2      18.0\n3       NaN\n4      19.3\n       ... \n339     NaN\n340    14.3\n341    15.7\n342    14.8\n343    16.1\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\n\n7.5.4 Get a range of rows and multiple columns\n\npenguins.loc[40:45, ['island', 'body_mass_g']]\n\n\n\n\n\n\n\n\nisland\nbody_mass_g\n\n\n\n\n40\nDream\n3150.0\n\n\n41\nDream\n3900.0\n\n\n42\nDream\n3100.0\n\n\n43\nDream\n4400.0\n\n\n44\nDream\n3000.0\n\n\n45\nDream\n4600.0\n\n\n\n\n\n\n\n\n\n7.5.5 Use boolean series as index to subset data\n\nidx = penguins.bill_length_mm &gt; 55\nidx\n\n0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n339    False\n340    False\n341    False\n342    False\n343    False\nName: bill_length_mm, Length: 344, dtype: bool\n\n\n\npenguins.loc[idx]\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n169\nChinstrap\nDream\n58.0\n17.8\n181.0\n3700.0\nFemale\n\n\n215\nChinstrap\nDream\n55.8\n19.8\n207.0\n4000.0\nMale\n\n\n253\nGentoo\nBiscoe\n59.6\n17.0\n230.0\n6050.0\nMale\n\n\n321\nGentoo\nBiscoe\n55.9\n17.0\n228.0\n5600.0\nMale\n\n\n335\nGentoo\nBiscoe\n55.1\n16.0\n230.0\n5850.0\nMale\n\n\n\n\n\n\n\n\npenguins.loc[(penguins.bill_length_mm &gt; 55) & (penguins.sex == 'Female')]\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n169\nChinstrap\nDream\n58.0\n17.8\n181.0\n3700.0\nFemale\n\n\n\n\n\n\n\n\n\n7.5.6 Setting and resetting the index\n\npenguins\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n344 rows × 7 columns\n\n\n\n\ndf = penguins.set_index(['species', 'sex', 'island'])\ndf.head(10)\n\n\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nspecies\nsex\nisland\n\n\n\n\n\n\n\n\nAdelie\nMale\nTorgersen\n39.1\n18.7\n181.0\n3750.0\n\n\nFemale\nTorgersen\n39.5\n17.4\n186.0\n3800.0\n\n\nTorgersen\n40.3\n18.0\n195.0\n3250.0\n\n\nNaN\nTorgersen\nNaN\nNaN\nNaN\nNaN\n\n\nFemale\nTorgersen\n36.7\n19.3\n193.0\n3450.0\n\n\nMale\nTorgersen\n39.3\n20.6\n190.0\n3650.0\n\n\nFemale\nTorgersen\n38.9\n17.8\n181.0\n3625.0\n\n\nMale\nTorgersen\n39.2\n19.6\n195.0\n4675.0\n\n\nNaN\nTorgersen\n34.1\n18.1\n193.0\n3475.0\n\n\nTorgersen\n42.0\n20.2\n190.0\n4250.0\n\n\n\n\n\n\n\n\ndf.reset_index()\n\n\n\n\n\n\n\n\nspecies\nsex\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\n\n\n0\nAdelie\nMale\nTorgersen\n39.1\n18.7\n181.0\n3750.0\n\n\n1\nAdelie\nFemale\nTorgersen\n39.5\n17.4\n186.0\n3800.0\n\n\n2\nAdelie\nFemale\nTorgersen\n40.3\n18.0\n195.0\n3250.0\n\n\n3\nAdelie\nNaN\nTorgersen\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nFemale\nTorgersen\n36.7\n19.3\n193.0\n3450.0\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nNaN\nBiscoe\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nFemale\nBiscoe\n46.8\n14.3\n215.0\n4850.0\n\n\n341\nGentoo\nMale\nBiscoe\n50.4\n15.7\n222.0\n5750.0\n\n\n342\nGentoo\nFemale\nBiscoe\n45.2\n14.8\n212.0\n5200.0\n\n\n343\nGentoo\nMale\nBiscoe\n49.9\n16.1\n213.0\n5400.0\n\n\n\n\n344 rows × 7 columns",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#sorting-rows",
+    "href": "../tutorials/data_analysis.html#sorting-rows",
+    "title": "5  Data analysis in Python and R",
+    "section": "7.6 Sorting rows",
+    "text": "7.6 Sorting rows\n\nsorted_df = penguins.sort_values(by=\"bill_length_mm\")\nsorted_df.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n142\nAdelie\nDream\n32.1\n15.5\n188.0\n3050.0\nFemale\n\n\n98\nAdelie\nDream\n33.1\n16.1\n178.0\n2900.0\nFemale\n\n\n70\nAdelie\nTorgersen\n33.5\n19.0\n190.0\n3600.0\nFemale\n\n\n92\nAdelie\nDream\n34.0\n17.1\n185.0\n3400.0\nFemale\n\n\n8\nAdelie\nTorgersen\n34.1\n18.1\n193.0\n3475.0\nNaN\n\n\n\n\n\n\n\n\nsorted_df.index.values\n\narray([142,  98,  70,  92,   8,  18,  54,  80,  14, 100,  52,  83, 124,\n        25,  66,  74, 136,  60,  90, 118,  68,  22,  42,  48, 150, 148,\n        78,  94, 120,  86,  34,  64,  58,  40,  15, 147,   4,  82, 132,\n        87,  44, 138,  77,  31, 144, 117,  84,  47, 133,  62,  38,  59,\n        21, 121, 102, 103,  10,  20,  11, 149, 104,  28,  96, 108, 134,\n       110, 107,  23,  88, 130,  13, 106, 116,  16,  24, 126,  36,  89,\n         6, 128, 145,  56,   0,  35, 146,   7,   5,  30,   1,  32, 114,\n        45,  50,  72,  93, 112, 105, 139,  71,  39,  51, 137, 140, 122,\n        97,   2,  27,  29, 125, 141,  26,  57, 143,  95,  41, 230, 182,\n        33,  76, 101, 135, 119,  46,  63,  91,  67,  12,  61,  85, 123,\n        55, 127, 151,  65, 326,  69, 236,  53,   9,  79, 113,  37,  49,\n       172, 184, 206,  17, 256, 115, 260,  75, 251,  81, 244, 131, 278,\n       109, 174,  99, 228, 328, 306, 216, 332, 288, 265, 276, 258, 129,\n        43, 257, 246, 336, 314, 268, 304, 275, 241, 252, 272, 208, 298,\n       299, 269, 342, 157, 280, 262, 226, 155, 232, 277, 195, 312, 266,\n       111, 211, 214, 204, 282,  73, 284, 234, 166, 160,  19, 158, 245,\n       220, 286, 238, 334, 281, 193, 243, 170, 180, 291, 294, 293, 225,\n       274, 152, 242, 162, 270, 227, 176, 325, 229, 340, 213, 317, 190,\n       164, 338, 322, 324, 250, 302, 310, 296, 187, 308, 188, 224, 290,\n       247, 329, 202, 248, 292, 318, 233, 255, 271, 173, 320, 295, 259,\n       239, 222, 337, 192, 199, 231, 300, 323, 254, 171, 237, 235, 209,\n       316, 313, 179, 287, 263, 261, 217, 186, 331, 201, 285, 343, 303,\n       153, 221, 223, 249, 198, 273, 210, 219, 240, 168, 279, 341, 267,\n       330, 167, 178, 264, 175, 289, 205, 305, 218, 197, 315, 196, 194,\n       185, 297, 319, 154, 159, 161, 307, 203, 333, 200, 163, 212, 165,\n       177, 189, 309, 207, 311, 301, 156, 181, 327, 191, 183, 283, 335,\n       215, 321, 169, 253,   3, 339])\n\n\nClick to the left of an output cell to enable/disable scrolling of the output (usefull for large amounts of output).\n\nsorted_df.loc[0]\n\nspecies                 Adelie\nisland               Torgersen\nbill_length_mm            39.1\nbill_depth_mm             18.7\nflipper_length_mm        181.0\nbody_mass_g             3750.0\nsex                       Male\nName: 0, dtype: object\n\n\n\nsorted_df.flipper_length_mm[0]\n\n181.0\n\n\n\nsorted_df.iloc[0] # iloc !!!\n\nspecies              Adelie\nisland                Dream\nbill_length_mm         32.1\nbill_depth_mm          15.5\nflipper_length_mm     188.0\nbody_mass_g          3050.0\nsex                  Female\nName: 142, dtype: object\n\n\n\nsorted_df.flipper_length_mm.iloc[0]\n\n188.0",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#summary-stats",
+    "href": "../tutorials/data_analysis.html#summary-stats",
+    "title": "5  Data analysis in Python and R",
+    "section": "7.7 Summary stats",
+    "text": "7.7 Summary stats\n\npenguins.describe()\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\n\n\ncount\n342.000000\n342.000000\n342.000000\n342.000000\n\n\nmean\n43.921930\n17.151170\n200.915205\n4201.754386\n\n\nstd\n5.459584\n1.974793\n14.061714\n801.954536\n\n\nmin\n32.100000\n13.100000\n172.000000\n2700.000000\n\n\n25%\n39.225000\n15.600000\n190.000000\n3550.000000\n\n\n50%\n44.450000\n17.300000\n197.000000\n4050.000000\n\n\n75%\n48.500000\n18.700000\n213.000000\n4750.000000\n\n\nmax\n59.600000\n21.500000\n231.000000\n6300.000000\n\n\n\n\n\n\n\n\npenguins.bill_length_mm.mean()\n\n43.9219298245614\n\n\n\npenguins.bill_length_mm.count()\n\n342",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/data_analysis.html#grouping",
+    "href": "../tutorials/data_analysis.html#grouping",
+    "title": "5  Data analysis in Python and R",
+    "section": "7.8 Grouping",
+    "text": "7.8 Grouping\n\npenguins.groupby('island')\n\n&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x15cc9e5e0&gt;\n\n\n\n7.8.1 Aggregate\nAggregating produces a single value for each variable in each group:\nMeans for all numeric variables for each island:\n\npenguins.groupby('island').aggregate(\"mean\", numeric_only=True)\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nisland\n\n\n\n\n\n\n\n\nBiscoe\n45.257485\n15.874850\n209.706587\n4716.017964\n\n\nDream\n44.167742\n18.344355\n193.072581\n3712.903226\n\n\nTorgersen\n38.950980\n18.429412\n191.196078\n3706.372549\n\n\n\n\n\n\n\n\npenguins.groupby('island').mean(numeric_only=True)\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nisland\n\n\n\n\n\n\n\n\nBiscoe\n45.257485\n15.874850\n209.706587\n4716.017964\n\n\nDream\n44.167742\n18.344355\n193.072581\n3712.903226\n\n\nTorgersen\n38.950980\n18.429412\n191.196078\n3706.372549\n\n\n\n\n\n\n\nMeans for bill_length_mm and flipper_length_mm:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].mean()\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\nisland\n\n\n\n\n\n\nBiscoe\n45.257485\n209.706587\n\n\nDream\n44.167742\n193.072581\n\n\nTorgersen\n38.950980\n191.196078\n\n\n\n\n\n\n\nJust for flipper_length_mm:\n\npenguins.groupby('island').flipper_length_mm.mean()\n\nisland\nBiscoe       209.706587\nDream        193.072581\nTorgersen    191.196078\nName: flipper_length_mm, dtype: float64\n\n\n\n\n7.8.2 Transform\nTransforming produces new colums with the same length as the input:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(\"mean\")\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\n\n\n0\n38.950980\n191.196078\n\n\n1\n38.950980\n191.196078\n\n\n2\n38.950980\n191.196078\n\n\n3\n38.950980\n191.196078\n\n\n4\n38.950980\n191.196078\n\n\n...\n...\n...\n\n\n339\n45.257485\n209.706587\n\n\n340\n45.257485\n209.706587\n\n\n341\n45.257485\n209.706587\n\n\n342\n45.257485\n209.706587\n\n\n343\n45.257485\n209.706587\n\n\n\n\n344 rows × 2 columns\n\n\n\n\ndef z_value(sr):\n    return (sr - sr.mean()) / sr.std()\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(z_value)\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\n\n\n0\n0.049258\n-1.636022\n\n\n1\n0.181475\n-0.833742\n\n\n2\n0.445910\n0.610362\n\n\n3\nNaN\nNaN\n\n\n4\n-0.744048\n0.289450\n\n\n...\n...\n...\n\n\n339\nNaN\nNaN\n\n\n340\n0.323193\n0.374297\n\n\n341\n1.077478\n0.869267\n\n\n342\n-0.012044\n0.162167\n\n\n343\n0.972717\n0.232877\n\n\n\n\n344 rows × 2 columns\n\n\n\n\n\n7.8.3 Apply\nFlexible method allowing any operation on grouped data.\nReturn a single value:\n\ndef fun(df):\n    return df.bill_length_mm + df.flipper_length_mm.mean() / df.body_mass_g\n\npenguins.groupby('island').apply(fun)#.to_frame('my_stat')\n\nisland        \nBiscoe     20     37.861678\n           21     37.758252\n           22     35.955186\n           23     38.253090\n           24     38.855186\n                    ...    \nTorgersen  127    41.544464\n           128    39.062687\n           129    44.147799\n           130    38.557503\n           131    43.154627\nLength: 344, dtype: float64\n\n\nReturn a dataframe:\n\ndef fun(df):\n    return pd.DataFrame({'sqrt_bill': np.sqrt(df.bill_length_mm),\n                         'bill_squared': df.bill_length_mm**2})\n\npenguins.groupby('island').apply(fun)\n\n\n\n\n\n\n\n\n\nsqrt_bill\nbill_squared\n\n\nisland\n\n\n\n\n\n\n\nBiscoe\n20\n6.148170\n1428.84\n\n\n21\n6.140033\n1421.29\n\n\n22\n5.991661\n1288.81\n\n\n23\n6.180615\n1459.24\n\n\n24\n6.228965\n1505.44\n\n\n...\n...\n...\n...\n\n\nTorgersen\n127\n6.442049\n1722.25\n\n\n128\n6.244998\n1521.00\n\n\n129\n6.640783\n1944.81\n\n\n130\n6.204837\n1482.25\n\n\n131\n6.565059\n1857.61\n\n\n\n\n344 rows × 2 columns",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Data analysis in Python and R</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/plotting.html",
+    "href": "../tutorials/plotting.html",
+    "title": "6  Plots with matplotlib",
+    "section": "",
+    "text": "7 Better plotting with seaborn (on top of matplotlib)\nsns.scatterplot(data=penguins, x=\"bill_length_mm\", y=\"flipper_length_mm\") ;\nsns.scatterplot(data=penguins, x=\"bill_length_mm\", y=\"flipper_length_mm\", hue=\"species\") ;\nsns.scatterplot(data=penguins, x=\"bill_length_mm\", y=\"flipper_length_mm\", hue=\"species\", style=\"sex\") ;\nsns.scatterplot(data=penguins, x=\"bill_length_mm\", y=\"flipper_length_mm\", hue=\"species\", \n                style=\"sex\", size=\"body_mass_g\") ;\ndef legend_outside():\n    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0)\nsns.scatterplot(data=penguins, x=\"bill_length_mm\", y=\"flipper_length_mm\", hue=\"species\", style=\"sex\", size=\"body_mass_g\") ;\n\nlegend_outside()\n\nplt.title(\"Penguin measurements\")\nplt.ylabel(\"flipper length (mm)\")\nplt.xlabel(\"bill length in (mm)\") ;",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Plots with matplotlib</span>"
+    ]
+  },
+  {
+    "objectID": "../tutorials/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
+    "href": "../tutorials/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
+    "title": "6  Plots with matplotlib",
+    "section": "9.1 FacetGrid.map vs. FacetGrid.map_dataframe",
+    "text": "9.1 FacetGrid.map vs. FacetGrid.map_dataframe\nWhen you use FacetGrid.map(func, \"col1\", \"col2\", ...), the function func is passed the values of the columns \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …). In addition, the function always receives a keyword argument named color=.\n\ndef scatter(*args, **kwargs):\n    return plt.scatter(args[0], args[1], **kwargs)\n    \ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(scatter, \"bill_length_mm\", \"flipper_length_mm\") ;\n\nWhen you use FacetGrid.map_dataframe(func, \"col1\", \"col2\", ...), the function func is passed the names \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …), and the filtered dataframe as keyword argument data=. In addition, the function always receives a keyword argument named color=.\n\ndef scatterplot(*args, **kwargs):\n    return sns.scatterplot(x=args[0], y=args[1], **kwargs)\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map_dataframe(scatterplot, \"bill_length_mm\", \"flipper_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.histplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.kdeplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"species\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"sex\") ;",
+    "crumbs": [
+      "Terminal",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Plots with matplotlib</span>"
     ]
   }
 ]
