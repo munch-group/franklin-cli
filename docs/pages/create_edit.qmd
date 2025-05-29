@@ -21,14 +21,30 @@ title: Editing exercises
 
 
 
+
 ## The manual way
 
 
 ### Git clone
 
 
+
 ### GitUI
 
+    git clone git@github.com:munch-group/arg-dashboard.git
+
+    code arg-dashboard
+
+Cmd-Shift-P, "Reopen in container"
+
+To add dependencies (e.g. scipy), open terminal in vscode and install pixi:
+
+    ./install_pixi.sh
+
+Then add the package:
+
+    pixi add --feature exercise --platform linux-64 scipy
+ 
 
 ### Git add
 

@@ -16,7 +16,9 @@ RUN pixi install -e prod
 # Create the shell-hook bash script to activate the environment
 RUN pixi shell-hook -e prod > /shell-hook.sh
 
-RUN echo 'eval "$(pixi completion -s bash)"' >> /home/vscode/.bashrc
+# # set pixi_exe to a 
+# # location we can install pixi to again in the container if needed.
+# export PIXI_EXE="/usr/local/bin/pixi"
 
 # extend the shell-hook script to run the command passed to the container
 RUN echo 'exec "$@"' >> /shell-hook.sh
