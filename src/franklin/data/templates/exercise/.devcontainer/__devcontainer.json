@@ -1,0 +1,4 @@
+{
+    "name": "Remote Image Container For Exercise",
+    "image": "registry.gitlab.au.dk/franklin/genomic-thinking/arg-dashboard:latest"
+}

@@ -639,7 +639,7 @@ def run(image_url :str) -> Tuple[Popen, str]:
     #     rf" -w {cwd_mount_target} -i -p 8050:8050 -p {port}:8888 {image_url}:latest"
     # )
     cmd = (
-        rf"docker run --rm --label dk.au.gitlab.group={cfg.gitlab_group}"
+        rf"docker run --rm --platform linux/amd64 --label dk.au.gitlab.group={cfg.gitlab_group}"
         rf" --mount type=bind,source={anaconda_mount},target=/root/.anaconda"
         rf" --mount type=bind,source={cwd_mount_source},target={cwd_mount_target}"
         rf" -w {cwd_mount_target} -i -p 8050:8050 -p {port}:8888 {image_url}:latest"

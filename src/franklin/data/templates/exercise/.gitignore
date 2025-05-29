@@ -1,0 +1,6 @@
+
+franklin.log
+
+# pixi environments
+.pixi
+*.egg-info
