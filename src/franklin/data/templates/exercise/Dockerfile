@@ -5,7 +5,7 @@ FROM registry.gitlab.au.dk/franklin/base-images/franklin-build-base:latest AS bu
 # copy source code, pixi.toml and pixi.lock to the container
 COPY . /home/vscode
 WORKDIR /home/vscode
-RUN chmod +x .test-notebook.sh
+# RUN chmod +x .test-notebook.sh
 
 # extract deps using default env
 RUN pixi run python .pixi.py .
@@ -16,18 +16,15 @@ RUN pixi install -e prod
 # Create the shell-hook bash script to activate the environment
 RUN pixi shell-hook -e prod > /shell-hook.sh
 
-# extend the shell-hook script to run the command passed to the container
-RUN echo 'exec "$@"' >> /shell-hook.sh
-
 RUN echo 'eval "$(pixi completion -s bash)"' >> /home/vscode/.bashrc
 
+# extend the shell-hook script to run the command passed to the container
+RUN echo 'exec "$@"' >> /shell-hook.sh
 
 # # production image for running jupyter
 # FROM ubuntu:24.04 AS production
 # FROM mcr.microsoft.com/devcontainers/base:jammy AS production
 FROM registry.gitlab.au.dk/franklin/base-images/franklin-production-base:latest AS production
-
-
 
 # ARG PIXI_VERSION=v0.46.0
 
@@ -41,18 +38,21 @@ LABEL maintainer="Kasper Munch <kaspermunch@birc.au.dk>"
 LABEL dk.au.gitlab.group=franklin
 ENV PYTHONDONTWRITEBYTECODE=true
 
-# only copy the production environment into prod container
-# please note that the "prefix" (path) needs to stay the same as in the build container
-COPY --from=build /home/vscode/.pixi/envs/prod /home/vscode/.pixi/envs/prod
-COPY --from=build /shell-hook.sh /shell-hook.sh
-
-# copy the test script and exercise notebook
-COPY --from=build /home/vscode/.test-notebook.sh /home/vscode/test-notebook.sh
-COPY --from=build /home/vscode/exercise.ipynb /home/vscode/exercise.ipynb
-
 # set some user and workdir settings to work nicely with vscode
 USER vscode
 WORKDIR /home/vscode
+
+# only copy the production environment into prod container
+# please note that the "prefix" (path) needs to stay the same as in the build container
+COPY --from=build --chown=vscode:vscode /home/vscode/.pixi/envs/prod /home/vscode/.pixi/envs/prod
+COPY --from=build --chown=vscode:vscode /shell-hook.sh /shell-hook.sh
+
+RUN cat /shell-hook.sh >> /home/vscode/.bashrc
+
+# copy the test script and exercise notebook
+COPY --from=build --chown=vscode:vscode /home/vscode/.test-notebook.sh /home/vscode/test-notebook.sh
+COPY --from=build --chown=vscode:vscode /home/vscode/exercise.ipynb /home/vscode/exercise.ipynb
+
 
 # send stdout and stderr straight to terminal
 ENV PYTHONUNBUFFERED=1

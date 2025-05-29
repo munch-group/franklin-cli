@@ -26,6 +26,8 @@ jupyterlab = "*"
 jupyter = "*"
 notebook = "*"
 nodejs = "*"
+pip = "*"
+ipykernel = "*"
 
 # extra dependencies for linux docker image
 [feature.exercise.target.linux-64.dependencies]
