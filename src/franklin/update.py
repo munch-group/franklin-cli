@@ -63,7 +63,7 @@ def pixi_update(package: str) -> None:
     Update the package using Pixi.
     """
     try:
-        cmd = f'pixi update {package}'
+        cmd = f'pixi update {package} && pixi install'
         utils.run_cmd(cmd)
     except:
         raise crash.UpdateCrash(
