@@ -105,8 +105,9 @@ Note: If the message below pops up, the folder you started franklin in was eithe
 
 franklin exercise gitui lances git GUI 
 
-.....som er
+Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.
 
+Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment
 
 ### Clean up old docker containers
 In order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these. 
@@ -133,6 +134,9 @@ franklin --version
 
 
 ## Make a new exercise directly in gitlab
+
+You can also edit and make new exercises directly in gitlab
+To do this go to the gitlab website and find the repository with your course. This can be done by clicking on your profile and then choosing "my repositories" in the selection menu. Then choose tbe course you want to create and assignment for and click on new re
 
 Hvordan får man det så ind i franklin?
 
