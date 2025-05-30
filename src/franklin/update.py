@@ -32,8 +32,8 @@ def conda_update(package) -> None:
     """
     channel = cfg.conda_channel
     try:
-        latest = conda_latest_version(pkg)
-        if latest > system.package_version(pkg):
+        latest = conda_latest_version(package)
+        if latest > system.package_version(package):
             term.secho(f'{package} is updating to version {latest}')
             cmd = f'conda install -y -c conda-forge {channel}::{package}={latest}'
             utils.run_cmd(cmd)
