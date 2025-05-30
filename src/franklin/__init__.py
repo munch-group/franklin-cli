@@ -48,33 +48,23 @@ franklin.add_command(_docker.show)
 def press():
     ...        
 
-franklin.add_command(press)
-
-@click.group()
+@press.group()
 def big():
     ...
 
-press.add_command(big)
-
-@click.group()
+@big.group()
 def red():
     ...
 
-big.add_command(red)
-
-@click.group()
+@red.group()
 def self():
     ...
 
-red.add_command(self)
-
-@click.group()
+@self.group()
 def destruct():
     ...
 
-self.add_command(destruct)
-
-@click.command()
+@destruct.command()
 def button():
     """A button command that does something."""
     import time
