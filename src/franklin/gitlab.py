@@ -4,6 +4,7 @@ import click
 import subprocess
 from subprocess import DEVNULL, STDOUT, PIPE
 import os
+import shutil
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Tuple, List, Dict, Callable, Any
 import importlib_resources
@@ -255,7 +256,7 @@ def download():
         if os.path.exists(path):
             logger.debug(f"Removing {path}")
             if os.path.isdir(path):
-                os.rmdir(path)
+                shutil.rmtree(path)
             else:
                 os.remove(path)
 
