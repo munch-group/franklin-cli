@@ -27,7 +27,7 @@ def franklin(update: bool) -> None:
     term.check_window_size()
     # utils.show_banner()
     if update:
-        _update.update_client()
+        _update.update()
     desktop.ensure_docker_installed(lambda _: None)
     desktop.config_set('UseResourceSaver', False)
 

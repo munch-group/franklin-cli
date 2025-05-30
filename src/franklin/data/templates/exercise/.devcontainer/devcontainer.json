@@ -27,15 +27,17 @@
 				"ms-toolsai.jupyter",
 				"REditorSupport.r",
 				"eamodio.gitlens",
-				"yzhang.markdown-all-in-one"				
+				"yzhang.markdown-all-in-one",
+				"tamasfe.even-better-toml"				
 			],
-			"overrideCommand": false,
-			"entrypoint": [
-				"/bin/bash",
-				"/shell-hook.sh",
-				"sleep",
-				"inf"
-			]
+			// "overrideCommand": false,
+			// "entrypoint": [
+			// 	"/bin/bash",
+			// 	"/shell-hook.sh",
+			// 	"sleep",
+			// 	"inf"
+			// ],
+			"postStartCommand": "/bin/bash /home/vscode/install_pixi.sh"
 		}
 	}
 

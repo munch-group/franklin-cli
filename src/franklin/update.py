@@ -20,57 +20,78 @@ from . import config as cfg
 from . import utils
 
 
-def latest_version(package) -> Version:
+def conda_latest_version(package) -> Version:
     output = utils.run_cmd(f'conda search munch-group::{package} --json')
     latest = max(Version(x['version']) for x in json.loads(output)[package])    
     return latest
 
 
-def update_client() -> None:
+def conda_update(package) -> None:
     """
-    Update the Franklin client.
+    Update the package.
     """
     channel = cfg.conda_channel
     try:
-        pkg = 'franklin'
-        latest = latest_version(pkg)
+        latest = conda_latest_version(pkg)
         if latest > system.package_version(pkg):
-            term.secho(f'{pkg} is updating to version {latest}')
-            cmd = f'conda install -y -c conda-forge {channel}::{pkg}={latest}'
+            term.secho(f'{package} is updating to version {latest}')
+            cmd = f'conda install -y -c conda-forge {channel}::{package}={latest}'
             utils.run_cmd(cmd)
         docker.config_fit()
     except:
         raise crash.UpdateCrash(
-            'Franklin update failed!',
+            f'{package} update failed!',
             'Please run the following command to update manually:',
             '',
-            '  conda update -y -c conda-forge -c munch-group franklin')        
+            f'  conda update -y -c conda-forge -c munch-group {package}')  
+    
 
+
+def conda_update_client() -> None:
+    """
+    Update the Franklin client.
+    """
+    conda_update('franklin')
     try:
         import franklin_educator 
     except ModuleNotFoundError:
         return
+    conda_update('franklin-educator')
+    
 
+def pixi_update(package: str) -> None:
+    """
+    Update the package using Pixi.
+    """
     try:
-        pkg = 'franklin-educator'
-        latest = latest_version(pkg)
-        if latest > system.package_version(pkg):
-            term.secho(f'{pkg} is updating to version {latest}')
-            utils.run_cmd(
-                f'conda install -y -c conda-forge {channel}::{pkg}={latest}')
-        docker.config_fit()
+        cmd = f'pixi update {package}'
+        utils.run_cmd(cmd)
     except:
         raise crash.UpdateCrash(
-            'Franklin update failed!',
+            f'{package} update failed!',
             'Please run the following command to update manually:',
             '',
-            '  conda update -y -c conda-forge -c munch-group franklin-educator'
-            )
-    
+            f'  pixi update {package}')  
+
+
+def pixi_update_client() -> None:
+    """
+    Update the Franklin client.
+    """
+    pixi_update('franklin')
+    try:
+        import franklin_educator 
+    except ModuleNotFoundError:
+        return
+    pixi_update('franklin-educator')
+
 
 @click.command('update')
 @crash_report
 def update():
     """Update Franklin
     """    
-    update_client()
+    if '.pixi' in sys.executable:
+        pixi_update_client()
+    else:
+        conda_update_client()

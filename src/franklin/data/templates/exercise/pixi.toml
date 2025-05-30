@@ -2,120 +2,30 @@
 authors = ["Kasper Munch <kaspermunch@birc.au.dk>"]
 channels = ["conda-forge", "munch-group"]
 name = "exercise"
-platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
-# platforms = ["linux-64"]
-version = "0.1.0"
+platforms = ["linux-64"]
+version = "1.0.0"
 
 [tasks]
 
-# default dependencies (user-added dependencies also go here)
+# default
+# (user-added dependencies will also end up here - where they do no damage)
 [dependencies]
 python = "*"
-git = "*"
-jupyterlab = "*"
-jupyter = "*"
-notebook = "*"
-nodejs = "*"
-
-
-# minimum dependencies for linux docker image
-[target.linux-64.dependencies]
-python = "*"
-git = "*"
-jupyterlab = "*"
-jupyter = "*"
-notebook = "*"
-nodejs = "*"
-pip = "*"
-ipykernel = "*"
-
-# extra dependencies for linux docker image
-[feature.exercise.target.linux-64.dependencies]
-openssh = "*"
-# zip = "*"
-nbdime = "*"
 nbformat = "*"
-# ipynbname = "*"
-nbconvert = "*"
+
+# for the build stage of Dockerfile
+[feature.build.target.linux-64.dependencies]
+python = "*"
+
+# for the production stage of Dockerfile
+[feature.prod.target.linux-64.dependencies]
+python = "*"
 jupyter = "*"
-importlib_resources = "*"
-argdash = "*"
+jupyterlab = "*"
+nbconvert = "*"
+nodejs = "*"
+git = "*"
 
-# # for the automatically extracted dependencies
-# [feature.exercise.dependencies]
-# argdash = ">=1.2.1,<2"
-
-# docker enironment
 [environments]
-prod = ["default", "exercise"]
-
-
-# [workspace]
-# authors = ["Kasper Munch <kaspermunch@birc.au.dk>"]
-# channels = ["conda-forge", "munch-group"]
-# name = "exercise"
-# # platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
-# platforms = ["linux-64"]
-# version = "0.1.0"
-
-# [tasks]
-
-# # default dependencies (user-added dependencies also go here)
-# [dependencies]
-
-# # minimum dependencies for linux docker image
-# [target.linux-64.dependencies]
-# python = "*"
-# git = "*"
-# jupyterlab = "*"
-# jupyter = "*"
-# notebook = "*"
-# nodejs = "*"
-
-# # extra dependencies for linux docker image
-# [feature.exercise.target.linux-64.dependencies]
-# openssh = "*"
-# # zip = "*"
-# nbdime = "*"
-# nbformat = "*"
-# # ipynbname = "*"
-# nbconvert = "*"
-# jupyter = "*"
-# importlib_resources = "*"
-# argdash = "*"
-
-# # # for the automatically extracted dependencies
-# # [feature.exercise.dependencies]
-# # argdash = ">=1.2.1,<2"
-
-# # docker enironment
-# [environments]
-# prod = ["default", "exercise"]
-
-
-
-
-# [workspace]
-# authors = ["Kasper Munch <kaspermunch@birc.au.dk>"]
-# channels = ["conda-forge", "munch-group"]
-# name = "arg-dashboard"
-# platforms = ["linux-64"]
-# version = "0.1.0"
-
-# [tasks]
-
-# [dependencies]
-# nomkl = ">=1.0,<2"
-# git = ">=2.49.0,<3"
-# gh = ">=2.73.0,<3"
-# conda-build = ">=25.4.2,<26"
-# openssh = ">=10.0p1,<11"
-# zip = ">=3.0,<4"
-# nbdime = ">=4.0.2,<5"
-# nbformat = ">=5.10.4,<6"
-# jupyterlab = ">=4.4.2,<5"
-# notebook = ">=7.4.2,<8"
-# nodejs = ">=22.13.0,<22.14"
-# ipynbname = ">=2023.2.0.0,<2024"
-# jupyter-dash = ">=0.4.2,<0.5"
-# argdash = ">=1.2.1,<2"
+build = ["build"]
+prod = ["prod"]

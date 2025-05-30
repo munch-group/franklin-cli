@@ -1,11 +1,11 @@
+## build: ###################################################################
+
 # pixi image for building dependencies
-# FROM ghcr.io/prefix-dev/pixi:0.47.0-oracular AS build
 FROM registry.gitlab.au.dk/franklin/base-images/franklin-build-base:latest AS build
 
 # copy source code, pixi.toml and pixi.lock to the container
 COPY . /home/vscode
 WORKDIR /home/vscode
-# RUN chmod +x .test-notebook.sh
 
 # extract deps using default env
 RUN pixi run python .pixi.py .
@@ -23,10 +23,22 @@ RUN pixi shell-hook -e prod > /shell-hook.sh
 # extend the shell-hook script to run the command passed to the container
 RUN echo 'exec "$@"' >> /shell-hook.sh
 
+
+## production: ##############################################################
 # # production image for running jupyter
+
 # FROM ubuntu:24.04 AS production
-# FROM mcr.microsoft.com/devcontainers/base:jammy AS production
+# USER root
+# RUN useradd -ms /bin/bash vscode
+# RUN mkdir -p /home/vscode && chown vscode /home/vscode
+# USER vscode
+# WORKDIR /home/vscode
+
 FROM registry.gitlab.au.dk/franklin/base-images/franklin-production-base:latest AS production
+
+
+
+
 
 # ARG PIXI_VERSION=v0.46.0
 
@@ -40,6 +52,8 @@ LABEL maintainer="Kasper Munch <kaspermunch@birc.au.dk>"
 LABEL dk.au.gitlab.group=franklin
 ENV PYTHONDONTWRITEBYTECODE=true
 
+
+
 # set some user and workdir settings to work nicely with vscode
 USER vscode
 WORKDIR /home/vscode
@@ -49,7 +63,7 @@ WORKDIR /home/vscode
 COPY --from=build --chown=vscode:vscode /home/vscode/.pixi/envs/prod /home/vscode/.pixi/envs/prod
 COPY --from=build --chown=vscode:vscode /shell-hook.sh /shell-hook.sh
 
-RUN cat /shell-hook.sh >> /home/vscode/.bashrc
+# RUN cat /shell-hook.sh >> /home/vscode/.bashrc
 
 # copy the test script and exercise notebook
 COPY --from=build --chown=vscode:vscode /home/vscode/.test-notebook.sh /home/vscode/test-notebook.sh
