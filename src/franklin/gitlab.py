@@ -254,6 +254,9 @@ def download():
         path = os.path.join(repo_local_path, path)
         if os.path.exists(path):
             logger.debug(f"Removing {path}")
-            os.remove(path)
+            if os.path.isdir(path):
+                os.rmdir(path)
+            else:
+                os.remove(path)
 
     term.secho(f"Downloaded exercise to folder: {repo_local_path}")
