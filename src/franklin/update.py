@@ -35,7 +35,7 @@ def conda_update(package) -> None:
     try:
         latest = conda_latest_version(package)
         if latest > system.package_version(package):
-            term.secho(f'{package} is updating to version {latest}')
+            # term.secho(f'{package} is updating to version {latest}')
             cmd = f'conda install -y -c conda-forge {channel}::{package}={latest}'
             utils.run_cmd(cmd)
             updated = True
@@ -122,8 +122,7 @@ def _update():
     else:
         updated = conda_update_client()
     if updated:
-        term.secho('Franklin updated to the newest version.')
-        term.secho('Please run your command again', fg='green')
+        term.secho('Franklin was updated - Please run your command again', fg='green')
         sys.exit()
 
 
