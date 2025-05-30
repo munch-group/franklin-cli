@@ -46,7 +46,6 @@ def conda_update(package) -> None:
             f'  conda update -y -c conda-forge -c munch-group {package}')  
     
 
-
 def conda_update_client() -> None:
     """
     Update the Franklin client.
@@ -86,12 +85,18 @@ def pixi_update_client() -> None:
     pixi_update('franklin-educator')
 
 
-@click.command('update')
-@crash_report
-def update():
+def _update():
     """Update Franklin
     """    
     if '.pixi' in sys.executable:
         pixi_update_client()
     else:
         conda_update_client()
+
+
+@click.command()
+@crash_report
+def update():
+    """Update Franklin
+    """    
+    _update()

@@ -786,7 +786,8 @@ def _prune_all():
 # docker show subcommands
 ###########################################################
 
-@docker.group(cls=AliasedGroup)
+# @docker.group(cls=AliasedGroup)
+@click.group(cls=AliasedGroup, invoke_without_command=True)
 @crash_report
 def show():
     """Commands for showing Docker content.
