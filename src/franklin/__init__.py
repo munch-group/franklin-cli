@@ -41,6 +41,7 @@ franklin.add_command(_gitlab.download)
 
 franklin.add_command(_docker.cleanup)
 
+franklin.add_command(_docker.show)
 
 
 @click.group(hidden=True)
@@ -76,6 +77,11 @@ self.add_command(destruct)
 @click.command()
 def button():
     """A button command that does something."""
-    click.echo("Button pressed!")   
+    import time
+    click.echo("Self destruct will commence in ...")   
+    for i in range(10, 0, -1):
+        term.secho(f"\r{i} ", end='', fg='red', flush=True)
+        time.sleep(1)
+
 
 destruct.add_command(button)
