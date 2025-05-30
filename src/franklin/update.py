@@ -62,7 +62,7 @@ def conda_update_client() -> None:
     
 
 def pixi_installed_version(package) -> Version:
-    output = utils.check_output(f'pixi list --json').decode('utf-8')
+    output = subprocess.check_output(f'pixi list --json').decode('utf-8')
     for x in json.loads(output):
         if x['name'] == package:
             return Version(x['version'])
@@ -115,7 +115,17 @@ def pixi_update_client() -> None:
 
 
 def _update():
-    """Update Franklin
+    """Update Franklindef pixi_installed_version(package) -> Version:
+    output = utils.check_output(f'pixi list --json').decode('utf-8')
+    for x in json.loads(output):
+        if x['name'] == package:
+            return Version(x['version'])
+    else:
+        raise crash.UpdateCrash(
+            f'{package} is not installed.',
+            'Please run the following command to install it:',
+            '',
+            f'  pixi install {package}')
     """    
     if '.pixi' in sys.executable:
         updated = pixi_update_client()
