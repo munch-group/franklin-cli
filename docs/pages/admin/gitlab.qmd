@@ -5,7 +5,13 @@ title: GitLab admin
 ## Group/Subgroup layout
 
 
-## Permissions
+## Users / Permissions / Authentication
+
+### The franklin-admin plugin
+
+Install the `franklin-admin` to administer users and course infrastructure.
+
+TODO
 
 
 ## Tokens

@@ -84,6 +84,8 @@ website:
             - pages/admin/overview.qmd
             - pages/admin/gitlab.qmd
             - pages/admin/docker.qmd
+            - pages/admin/set_up_your_own.qmd
+
         # - section: "Source code"
         #   contents:
         #     - pages/admin/source.qmd
