@@ -235,10 +235,12 @@ def download():
         f'https://gitlab.au.dk/{cfg.gitlab_group}/{course}/{repo_name}.git'
     repo_local_path = Path().cwd() / listed_exercise_name
 
-    if system.system() == 'Windows':
-        repo_local_path = PureWindowsPath(repo_local_path)
+    # if system.system() == 'Windows':
+    #     repo_local_path = PureWindowsPath(repo_local_path)
 
     if repo_local_path.exists():
+        if system.system() == 'Windows':
+            repo_local_path = PureWindowsPath(repo_local_path)
         term.secho(f"The exercise folder already exists:\n{repo_local_path}.")
         raise click.Abort()
 
