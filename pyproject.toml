@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = '0.24.45'
+version = '0.24.46'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -58,12 +58,16 @@ franklin = [
   "data/*.yaml", 
   "data/gitui/*", 
   "data/templates/exercise/.devcontainer/devcontainer.json",
+  "data/templates/exercise/.git",
+  "data/templates/exercise/.gitattributes",
   "data/templates/exercise/.gitignore",
-  "data/templates/exercise/.entrypoint.sh",
   "data/templates/exercise/.gitlab-ci.yml",
+  "data/templates/exercise/.pixi.py",
   "data/templates/exercise/.test-notebook.sh",
+  "data/templates/exercise/.vscode/settings.json",
   "data/templates/exercise/Dockerfile",
   "data/templates/exercise/exercise.ipynb",
+  "data/templates/exercise/install_pixi.sh",
   "data/templates/exercise/pixi.toml",
   "data/templates/exercise/README.md",
   ]
