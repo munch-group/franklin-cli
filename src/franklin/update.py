@@ -48,6 +48,31 @@ def conda_update(package) -> None:
             f'  conda update -y -c conda-forge -c munch-group {package}')  
     return updated
 
+
+def conda_reinstall(package) -> None:
+    """
+    Reinstall the package.
+    """
+    channel = cfg.conda_channel
+    updated = False
+    try:
+        # term.secho(f'{package} is updating to version {latest}')
+        cmd = f'conda install -y -c conda-forge {channel}::{package}={latest}'
+        utils.run_cmd(cmd)
+        updated = True
+        docker.config_fit()
+    except:
+        raise crash.UpdateCrash(
+            f'{package} reinstall failed!',
+            'Please run the following command to update manually:',
+            '',
+            f'  conda uninstall -y {package}'
+            'and then',
+            f'  conda install -y -c conda-forge -c munch-group {package}'
+            )  
+    return updated
+
+
 def conda_update_client() -> None:
     """
     Update the Franklin client.
@@ -57,7 +82,7 @@ def conda_update_client() -> None:
         import franklin_educator 
     except ModuleNotFoundError:
         return updated
-    updated += conda_update('franklin-educator')
+    updated += conda_reinstall('franklin-educator')
     return updated
     
 
@@ -97,6 +122,35 @@ def pixi_update(package: str) -> None:
             f'  pixi update {package}')  
 
 
+def pixi_reinstall(package: str) -> None:
+    """
+    Reinstall the package using Pixi.
+    """
+    updated = False
+    try:
+        before = system.package_version(package)
+        cmd = f'pixi remove {package}'
+        utils.run_cmd(cmd, shell=True)
+        cmd = f'pixi add {package}'
+        utils.run_cmd(cmd, shell=True)
+        cmd = 'pixi install'
+        utils.run_cmd(cmd, shell=True)
+
+        before = system.package_version(package)
+
+    except:
+        raise crash.UpdateCrash(
+            f'{package} reinstall failed!',
+            'Please run the following three commands to update manually:',
+            '',
+            f'  pixi remove {package}'
+            '',
+            f'  pixi add {package}'
+            '',
+            f'  pixi install {package}'
+            )  
+
+
 def pixi_update_client() -> None:
     """
     Update the Franklin client.
@@ -110,7 +164,7 @@ def pixi_update_client() -> None:
     except ModuleNotFoundError:
         return
     before = pixi_installed_version('franklin-educator')
-    pixi_update('franklin-educator')
+    pixi_reinstall('franklin-educator')
     updated += before == pixi_installed_version('franklin-educator')
     return updated
 

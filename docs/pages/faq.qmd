@@ -38,3 +38,7 @@ The blue Docker Desktop window is the Docker dashboard. Closing that window will
 #### What happens if I delete an exercise in franklin
 
 
+
+#### How do I rename an exercise
+
+Changes the display name using franklin exercise rename. Do not change the repository name on GitLab.

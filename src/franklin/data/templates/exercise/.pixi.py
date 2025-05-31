@@ -1,7 +1,7 @@
 import sys, os, re
 import nbformat
 from pathlib import Path
-import importlib_resources
+# import importlib_resources
 import subprocess, shlex, shutil
 
 

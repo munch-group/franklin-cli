@@ -4,10 +4,11 @@ import click
 import subprocess
 from subprocess import DEVNULL, STDOUT, PIPE
 import os
+import sys
 import shutil
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Tuple, List, Dict, Callable, Any
-import importlib_resources
+# import importlib_resources
 from . import config as cfg
 from . import utils
 from . import cutie
@@ -243,12 +244,14 @@ def download():
 
     output = utils.run_cmd(f'git clone {clone_url} {repo_local_path}')
 
-    iterdir = (importlib_resources
-               .files()
-               .joinpath('data/templates/exercise')
-               .iterdir()
-    )
-    template_files = [p.name for p in iterdir]
+    # iterdir = (importlib_resources
+    #            .files()
+    #            .joinpath('data/templates/exercise')
+    #            .iterdir()
+    # )
+    # template_files = [p.name for p in iterdir]
+    template_files = list(Path(os.path.dirname(sys.modules['franklin'].__file__) + '/data/templates/exercise').glob('*'))
+
     dev_files = [p for p in template_files if p != 'exercise.ipynb']
 
     for path in dev_files:

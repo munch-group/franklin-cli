@@ -28,6 +28,51 @@ title: Editing exercises
 ### Git clone
 
 
+This command below clones an exercise git repository into a folder with the same name as the repository. 
+
+```{.bash filename="Terminal"}
+franklin exercise clone
+```
+
+if the repository is called `data-exercise`, you can open it in vscode like this:
+
+```{.bash filename="Terminal"}
+code data-exercise
+```
+
+::: callout-important
+
+## For Mac users
+
+On Macs, the `code` command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type 'shell command', select  "Shell Command: Install 'code' command in PATH command" and hit Enter.
+
+![alt text](images/shell-command.png)
+
+Restart the terminal for the change to take effect. 
+
+:::
+
+
+::: callout-tip
+
+You can run `code` followed by a folder name to edit files in that folder. To edit files in your current folder, run
+
+in any folder to start editing files in that folder.
+
+```{.bash filename="Terminal"}
+code data-exercise
+```
+
+'''
+
+Once you have opened the folder with the repository in vscode, you need to reopen it in the linux container used for the exercise. To do that, you open the Command Palette (Cmd+Shift+P) and type "reopen" to find "Reopen in container":
+
+![alt text](<images/Screenshot 2025-05-31 at 11.05.53.png>)
+
+When you select that and hit Enter, vscode builds the container (which takes a while). 
+
+<!-- FIXME: make sure docker images built this way are also visible and cleaned up by franklin cleanup  -->
+
 
 ### GitUI
 

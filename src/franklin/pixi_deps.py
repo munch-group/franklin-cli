@@ -2,7 +2,7 @@ import sys, os, re
 import nbformat
 import nbformat
 from pathlib import Path
-import importlib_resources
+# import importlib_resources
 import subprocess, shlex, shutil
 
 
@@ -288,10 +288,13 @@ if __name__ == '__main__':
     os.chdir(args.root)
 
     if not Path('pixi.toml').exists():
-        for p in importlib_resources.files().joinpath('data/templates/exercise').iterdir():
-            if p.name == 'pixi.toml':
-                shutil.copy(p, 'pixi.toml')
-                break
+        path = os.path.dirname(sys.modules['franklin'].__file__) + '/data/templates/exercise/pixi.toml'
+        shutil.copy(path, 'pixi.toml')
+
+        # for p in importlib_resources.files().joinpath('data/templates/exercise').iterdir():
+        #     if p.name == 'pixi.toml':
+        #         shutil.copy(p, 'pixi.toml')
+        #         break
 
     if any(x.startswith('r-') for x in dependencies):
         cmd = 'pixi workspace channel add r'
