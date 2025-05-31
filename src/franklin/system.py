@@ -11,7 +11,8 @@ import shlex
 import subprocess
 import time
 import requests
-from typing import List, Dict, Any
+from functools import wraps
+from typing import List, Dict, Any, Callable
 
 from .logger import logger
 from . import config as cfg
@@ -135,6 +136,40 @@ def check_internet_connection():
             "No internet connection. Please check your network.", fg='red')
         sys.exit(1)
         return False
+
+
+def internet_ok(func: Callable) -> Callable:
+    """
+    Decorator for functions that require internet.
+
+    Parameters
+    ----------
+    func : 
+        Function.
+
+    Returns
+    -------
+    :
+        Decorated function.
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+
+        try:
+            request = requests.get("https://hub.docker.com/", timeout=10)    
+            logger.debug("Internet connection OK.")
+            return True
+        except (requests.ConnectionError, requests.Timeout) as exception:
+            term.boxed_text(
+                f"No internet", 
+                ['Franklin needs an internet connection to update'],
+                fg='blue')
+            sys.exit(1)
+            return False
+
+        return func(*args, **kwargs)
+    return wrapper
+
 
 
 def gb_free_disk():

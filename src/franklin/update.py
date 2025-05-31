@@ -62,7 +62,8 @@ def conda_update_client() -> None:
     
 
 def pixi_installed_version(package) -> Version:
-    output = subprocess.check_output(f'pixi list --json').decode('utf-8')
+    output = subprocess.check_output(f'pixi list --json', shell=True)
+    output = output.decode('utf-8')
     for x in json.loads(output):
         if x['name'] == package:
             return Version(x['version'])
@@ -82,9 +83,9 @@ def pixi_update(package: str) -> None:
     try:
         before = system.package_version(package)
         cmd = f'pixi update {package}'
-        utils.run_cmd(cmd)
+        utils.run_cmd(cmd, shell=True)
         cmd = 'pixi install'
-        utils.run_cmd(cmd)
+        utils.run_cmd(cmd, shell=True)
 
         before = system.package_version(package)
 
@@ -113,26 +114,18 @@ def pixi_update_client() -> None:
     updated += before == pixi_installed_version('franklin-educator')
     return updated
 
-
+@system.internet_ok
 def _update():
-    """Update Franklindef pixi_installed_version(package) -> Version:
-    output = utils.check_output(f'pixi list --json').decode('utf-8')
-    for x in json.loads(output):
-        if x['name'] == package:
-            return Version(x['version'])
-    else:
-        raise crash.UpdateCrash(
-            f'{package} is not installed.',
-            'Please run the following command to install it:',
-            '',
-            f'  pixi install {package}')
+    """Update Franklin
     """    
     if '.pixi' in sys.executable:
         updated = pixi_update_client()
     else:
         updated = conda_update_client()
     if updated:
+        term.echo()
         term.secho('Franklin was updated - Please run your command again', fg='green')
+        term.echo()
         sys.exit()
 
 
