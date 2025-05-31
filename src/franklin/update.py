@@ -18,6 +18,7 @@ import json
 
 from . import config as cfg
 from . import utils
+from .logger import logger
 
 
 def conda_latest_version(package) -> Version:
@@ -32,6 +33,7 @@ def conda_update(package) -> None:
     """
     channel = cfg.conda_channel
     updated = False
+    logger.debug(f'Checking for updates to {package}')
     try:
         latest = conda_latest_version(package)
         if latest > system.package_version(package):
@@ -39,6 +41,7 @@ def conda_update(package) -> None:
             cmd = f'conda install -y -c conda-forge {channel}::{package}={latest}'
             utils.run_cmd(cmd)
             updated = True
+            logger.debug(f'Updated {package}')
         docker.config_fit()
     except:
         raise crash.UpdateCrash(
@@ -55,20 +58,20 @@ def conda_reinstall(package) -> None:
     """
     channel = cfg.conda_channel
     updated = False
+    logger.debug(f'Checking for updates to {package}')
     try:
         # term.secho(f'{package} is updating to version {latest}')
-        cmd = f'conda install -y -c conda-forge {channel}::{package}={latest}'
+        cmd = f'conda install -y -c conda-forge -c munch-group --force-reinstall {package}'
         utils.run_cmd(cmd)
         updated = True
+        logger.debug(f'Reinstalled {package}')
         docker.config_fit()
     except:
         raise crash.UpdateCrash(
             f'{package} reinstall failed!',
             'Please run the following command to update manually:',
             '',
-            f'  conda uninstall -y {package}'
-            'and then',
-            f'  conda install -y -c conda-forge -c munch-group {package}'
+            f'  conda install -y -c conda-forge -c munch-group --force-reinstall {package}'
             )  
     return updated
 
@@ -105,6 +108,7 @@ def pixi_update(package: str) -> None:
     Update the package using Pixi.
     """
     updated = False
+    logger.debug(f'Checking for updates to {package}')
     try:
         before = system.package_version(package)
         cmd = f'pixi update {package}'
@@ -112,7 +116,9 @@ def pixi_update(package: str) -> None:
         cmd = 'pixi install'
         utils.run_cmd(cmd, shell=True)
 
-        before = system.package_version(package)
+        if before != pixi_installed_version(package):
+            updated = True
+            logger.debug(f'Updated {package}')
 
     except:
         raise crash.UpdateCrash(
@@ -121,6 +127,7 @@ def pixi_update(package: str) -> None:
             '',
             f'  pixi update {package}')  
 
+    return updated
 
 def pixi_reinstall(package: str) -> None:
     """
@@ -136,8 +143,9 @@ def pixi_reinstall(package: str) -> None:
         cmd = 'pixi install'
         utils.run_cmd(cmd, shell=True)
 
-        before = system.package_version(package)
-
+        if before != pixi_installed_version(package):
+            updated = True
+            logger.debug(f'Reinstalled {package}')
     except:
         raise crash.UpdateCrash(
             f'{package} reinstall failed!',
