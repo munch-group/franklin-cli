@@ -231,14 +231,43 @@
     ]
   },
   {
-    "objectID": "pages/admin/docker.html#running-docker-containers",
-    "href": "pages/admin/docker.html#running-docker-containers",
-    "title": "Docker admin",
-    "section": "Running docker containers",
-    "text": "Running docker containers",
+    "objectID": "pages/faq.html",
+    "href": "pages/faq.html",
+    "title": "FAQ",
+    "section": "",
+    "text": "franklin-educator is installed in my environemnt but I cannot see the exercise commands\nTry reinstalling franklin-educator:\n\n\nTerminal\n\nconda uninstall franklin-educator\n\nand then\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin-educator\n\n\n\nDocker is installed but franklin keeps complaining it is not\nWhen Docker Desktop is in Eco mode, franklin cannot get to it. If Docker Desktop is not running, franklin can start it for you. So Quit Docker Desktop and try running franklin again.\n\n\nI quit Docker Desktop but it is still running\nThe blue Docker Desktop window is the Docker dashboard. Closing that window will not close Docker Desktop. To close Docker Desktop find the small docker icon in the menu bar on Mac or in the bottom right taskbar on Windows. Look for a tiny whale with containers on its back.\n\n\nHow much space is frankling taking up on my hard disk?\n\n\nHow do I free up disk space used by franklin\n\n\nWhat happens if I delete an exercise in franklin"
+  },
+  {
+    "objectID": "pages/admin/gitlab.html#users-permissions-authentication",
+    "href": "pages/admin/gitlab.html#users-permissions-authentication",
+    "title": "GitLab admin",
+    "section": "Users / Permissions / Authentication",
+    "text": "Users / Permissions / Authentication\n\nThe franklin-admin plugin\nInstall the franklin-admin to administer users and course infrastructure.\nTODO",
     "crumbs": [
       "Infrastructure",
-      "Docker admin"
+      "GitLab admin"
+    ]
+  },
+  {
+    "objectID": "pages/admin/gitlab.html#tokens",
+    "href": "pages/admin/gitlab.html#tokens",
+    "title": "GitLab admin",
+    "section": "Tokens",
+    "text": "Tokens",
+    "crumbs": [
+      "Infrastructure",
+      "GitLab admin"
+    ]
+  },
+  {
+    "objectID": "pages/admin/gitlab.html#pipelines",
+    "href": "pages/admin/gitlab.html#pipelines",
+    "title": "GitLab admin",
+    "section": "Pipelines",
+    "text": "Pipelines",
+    "crumbs": [
+      "Infrastructure",
+      "GitLab admin"
     ]
   },
   {
@@ -663,39 +692,17 @@
     "href": "pages/admin/source.html",
     "title": "Code",
     "section": "",
-    "text": "import os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── conda_package.qmd\n├── docker.qmd\n├── gitlab.qmd\n├── overview.html\n├── overview.qmd\n├── source.qmd\n└── source.quarto_ipynb\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md"
+    "text": "import os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── conda_package.qmd\n├── docker.qmd\n├── gitlab.qmd\n├── overview.html\n├── overview.qmd\n├── set_up_your_own.qmd\n├── source.qmd\n└── source.quarto_ipynb\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md"
   },
   {
-    "objectID": "pages/admin/gitlab.html#users-permissions-authentication",
-    "href": "pages/admin/gitlab.html#users-permissions-authentication",
-    "title": "GitLab admin",
-    "section": "Users / Permissions / Authentication",
-    "text": "Users / Permissions / Authentication\n\nThe franklin-admin plugin\nInstall the franklin-admin to administer users and course infrastructure.\nTODO",
+    "objectID": "pages/admin/docker.html#running-docker-containers",
+    "href": "pages/admin/docker.html#running-docker-containers",
+    "title": "Docker admin",
+    "section": "Running docker containers",
+    "text": "Running docker containers",
     "crumbs": [
       "Infrastructure",
-      "GitLab admin"
-    ]
-  },
-  {
-    "objectID": "pages/admin/gitlab.html#tokens",
-    "href": "pages/admin/gitlab.html#tokens",
-    "title": "GitLab admin",
-    "section": "Tokens",
-    "text": "Tokens",
-    "crumbs": [
-      "Infrastructure",
-      "GitLab admin"
-    ]
-  },
-  {
-    "objectID": "pages/admin/gitlab.html#pipelines",
-    "href": "pages/admin/gitlab.html#pipelines",
-    "title": "GitLab admin",
-    "section": "Pipelines",
-    "text": "Pipelines",
-    "crumbs": [
-      "Infrastructure",
-      "GitLab admin"
+      "Docker admin"
     ]
   },
   {
