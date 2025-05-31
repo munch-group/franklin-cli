@@ -1,0 +1,40 @@
+---
+title: FAQ
+---
+
+
+#### franklin-educator is installed in my environemnt but I cannot see the exercise commands
+
+Try reinstalling `franklin-educator`:
+
+
+```{.bash filename="Terminal"}
+conda uninstall franklin-educator
+```
+
+and then 
+
+
+```{.bash filename="Terminal"}
+conda install -c conda-forge -c munch-group franklin-educator
+```
+
+#### Docker is installed but franklin keeps complaining it is not
+
+When Docker Desktop is in Eco mode, franklin cannot get to it. If Docker Desktop is not running, franklin can start it for you. So Quit Docker Desktop and try running franklin again.
+
+
+#### I quit Docker Desktop but it is still running
+
+The blue Docker Desktop window is the Docker dashboard. Closing that window will not close Docker Desktop. To close Docker Desktop find the small docker icon in the menu bar on Mac or in the bottom right taskbar on Windows. Look for a tiny whale with containers on its back.
+
+#### How much space is frankling taking up on my hard disk?
+
+
+#### How do I free up disk space used by franklin
+
+
+
+#### What happens if I delete an exercise in franklin
+
+
