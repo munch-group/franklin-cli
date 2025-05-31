@@ -666,11 +666,11 @@
     "text": "import os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── conda_package.qmd\n├── docker.qmd\n├── gitlab.qmd\n├── overview.html\n├── overview.qmd\n├── source.qmd\n└── source.quarto_ipynb\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md"
   },
   {
-    "objectID": "pages/admin/gitlab.html#permissions",
-    "href": "pages/admin/gitlab.html#permissions",
+    "objectID": "pages/admin/gitlab.html#users-permissions-authentication",
+    "href": "pages/admin/gitlab.html#users-permissions-authentication",
     "title": "GitLab admin",
-    "section": "Permissions",
-    "text": "Permissions",
+    "section": "Users / Permissions / Authentication",
+    "text": "Users / Permissions / Authentication\n\nThe franklin-admin plugin\nInstall the franklin-admin to administer users and course infrastructure.\nTODO",
     "crumbs": [
       "Infrastructure",
       "GitLab admin"
