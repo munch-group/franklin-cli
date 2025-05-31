@@ -37,7 +37,6 @@ def conda_update(package) -> None:
     try:
         latest = conda_latest_version(package)
         if latest > system.package_version(package):
-            # term.secho(f'{package} is updating to version {latest}')
             cmd = f'conda install -y -c conda-forge {channel}::{package}={latest}'
             utils.run_cmd(cmd)
             updated = True
@@ -60,11 +59,13 @@ def conda_reinstall(package) -> None:
     updated = False
     logger.debug(f'Checking for updates to {package}')
     try:
-        # term.secho(f'{package} is updating to version {latest}')
-        cmd = f'conda install -y -c conda-forge -c munch-group --force-reinstall {package}'
-        utils.run_cmd(cmd)
-        updated = True
-        logger.debug(f'Reinstalled {package}')
+
+        latest = conda_latest_version(package)
+        if latest > system.package_version(package):        
+            cmd = f'conda install -y -c conda-forge -c munch-group --force-reinstall {package}'
+            utils.run_cmd(cmd)
+            updated = True
+            logger.debug(f'Reinstalled {package}')
         docker.config_fit()
     except:
         raise crash.UpdateCrash(
