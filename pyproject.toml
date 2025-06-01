@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = '0.24.58'
+version = '0.24.59'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -16,7 +16,7 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
 ]
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 dependencies = [
     'requests>=2.32.3',
     'colorama>=0.4.6',

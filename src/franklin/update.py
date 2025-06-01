@@ -192,7 +192,6 @@ def _update():
         logger.debug('Franklin was updated')
 
 
-@click.command()
 def update():
     """Update Franklin
     """ 
@@ -208,3 +207,9 @@ def update():
         term.secho('No updates available')
         term.echo()
         sys.exit(0)
+
+@click.command("update")
+def update_command() -> None:
+    """Update Franklin
+    """
+    update()
