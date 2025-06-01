@@ -182,14 +182,19 @@ def _update():
     """Update Franklin
     """    
     if '.pixi' in sys.executable:
+        logger.debug('Using pixi for update check')
         updated = pixi_update_client()
     else:
+        logger.debug('Using conda for update check')
         updated = conda_update_client()
     if updated:
+        logger.debug('Using conda for update check')
         term.echo()
         term.secho('Franklin was updated - Please run your command again', fg='green')
-        term.echo()
+        term.echo()        
         sys.exit()
+    logger.debug('No updates found')
+
 
 
 @click.command()
