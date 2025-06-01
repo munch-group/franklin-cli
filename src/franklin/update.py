@@ -188,13 +188,7 @@ def _update():
         logger.debug('Using conda for update check')
         updated = conda_update_client()
     if updated:
-        logger.debug('Using conda for update check')
-        term.echo()
-        term.secho('Franklin was updated - Please run your command again', fg='green')
-        term.echo()        
-        sys.exit()
-    logger.debug('No updates found')
-
+        logger.debug('Franklin was updated')
 
 
 @click.command()
@@ -202,4 +196,15 @@ def _update():
 def update():
     """Update Franklin
     """ 
-    _update()
+    if _update():
+        logger.debug('Franklin was updated')
+        term.echo()
+        term.secho('Franklin was updated - Please run your command again', fg='green')
+        term.echo()        
+        sys.exit()
+    else:
+        logger.debug('No updates available')
+        term.echo()
+        term.secho('No updates available')
+        term.echo()
+        sys.exit(0)
