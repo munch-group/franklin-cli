@@ -1,4 +1,6 @@
+#############################################################################
 ## build: ###################################################################
+#############################################################################
 
 # pixi image for building dependencies
 FROM registry.gitlab.au.dk/franklin/base-images/franklin-build-base:latest AS build
@@ -7,18 +9,14 @@ FROM registry.gitlab.au.dk/franklin/base-images/franklin-build-base:latest AS bu
 COPY . /home/vscode
 WORKDIR /home/vscode
 
-# extract deps using default env
-RUN pixi run python .pixi.py .
+# # extract deps using default env
+# RUN pixi run python .pixi.py .
 
 # install them in the prod env
 RUN pixi install -e prod 
 
 # Create the shell-hook bash script to activate the environment
 RUN pixi shell-hook -e prod > /shell-hook.sh
-
-# # set pixi_exe to a 
-# # location we can install pixi to again in the container if needed.
-# export PIXI_EXE="/usr/local/bin/pixi"
 
 # extend the shell-hook script to run the command passed to the container
 RUN echo 'exec "$@"' >> /shell-hook.sh
@@ -34,15 +32,10 @@ curl -fsSL https://pixi.sh/install.sh | bash \n\
 ' > /install_pixi.sh
 RUN chmod 755 /install_pixi.sh
 
-# RUN echo '#!/usr/bin/env bash \n\
-#     export PIXI_HOME="/home/vscode" \n\
-#     echo "export PIXI_HOME=$WORKSPACE_FOLDER" >> /home/vscode/.bashrc \n\
-#     export PIXI_PROJECT_MANIFEST="$PWD/pixi.toml" \n\
-#     echo "export PIXI_PROJECT_MANIFEST="$WORKSPACE_FOLDER/pixi.toml"" >> /home/vscode/.bashrc \n\
-#     curl -fsSL https://pixi.sh/install.sh | bash' > /install_pixi.sh
-# RUN chmod 755 /install_pixi.sh
-
+#############################################################################
 ## production: ##############################################################
+#############################################################################
+
 # # production image for running jupyter
 
 # FROM ubuntu:24.04 AS production
@@ -54,49 +47,27 @@ RUN chmod 755 /install_pixi.sh
 
 FROM registry.gitlab.au.dk/franklin/base-images/franklin-production-base:latest AS production
 
-
-
-
-
-# ARG PIXI_VERSION=v0.46.0
-
-# RUN curl -L -o /usr/local/bin/pixi -fsSL --compressed "https://github.com/prefix-dev/pixi/releases/download/${PIXI_VERSION}/pixi-$(uname -m)-unknown-linux-musl" \
-#     && chmod +x /usr/local/bin/pixi \
-#     && pixi info
-
-# 
-# maintainer SHOULD BE TEACHERS EMAIL. Maybe from git config --global user.email
 LABEL maintainer="Kasper Munch <kaspermunch@birc.au.dk>"
 LABEL dk.au.gitlab.group=franklin
 ENV PYTHONDONTWRITEBYTECODE=true
-
-
 
 # set some user and workdir settings to work nicely with vscode
 USER vscode
 WORKDIR /home/vscode
 
 # only copy the production environment into prod container
-# please note that the "prefix" (path) needs to stay the same as in the build container
+# note that the "prefix" (path) needs to stay the same as in the build container
 COPY --from=build --chown=vscode:vscode /home/vscode/.pixi/envs/prod /home/vscode/.pixi/envs/prod
+
+# copy scripts (should be at root)
 COPY --from=build --chown=vscode:vscode /shell-hook.sh /shell-hook.sh
 COPY --from=build --chown=vscode:vscode /install_pixi.sh /install_pixi.sh
 
-#COPY --from=build --chown=vscode:vscode /usr/local/bin/pixi /usr/local/bin/pixi
-
-#RUN cat /shell-hook.sh >> /home/vscode/.bashrc
-
-# copy the test script and exercise notebook
-COPY --from=build --chown=vscode:vscode /home/vscode/.test-notebook.sh /home/vscode/test-notebook.sh
+# copy the exercise notebook
 COPY --from=build --chown=vscode:vscode /home/vscode/exercise.ipynb /home/vscode/exercise.ipynb
 
-
-
-
-
-
-
-
+# copy the script to test-run exercise notebook
+COPY --from=build --chown=vscode:vscode /home/vscode/.test-notebook.sh /home/vscode/test-notebook.sh
 
 # send stdout and stderr straight to terminal
 ENV PYTHONUNBUFFERED=1
