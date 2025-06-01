@@ -1,5 +1,6 @@
 import click
-from pkg_resources import iter_entry_points
+# from pkg_resources import iter_entry_points
+from importlib.metadata import entry_points
 from click_plugins import with_plugins
 from . import docker as _docker
 from . import config as cfg
@@ -14,7 +15,8 @@ from .utils import AliasedGroup
 from .crash import crash_report
 
 @crash_report
-@with_plugins(iter_entry_points('franklin.plugins'))
+# @with_plugins(iter_entry_points('franklin.plugins'))
+@with_plugins(entry_points().select(group='franklin.plugins'))
 @click.group(cls=AliasedGroup, 
              context_settings={"auto_envvar_prefix": "FRANKLIN"}, 
              epilog=f'See {cfg.documentation_url} for more details')

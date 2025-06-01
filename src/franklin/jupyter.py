@@ -124,6 +124,7 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
         if c.upper() == 'Q':
 
             term.secho('Shutting everything down') 
+            term.echo()
             sys.stdout.flush()
 
             # term.secho('Shutting down container', fg='red') 
