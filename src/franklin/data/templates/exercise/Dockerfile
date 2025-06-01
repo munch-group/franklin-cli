@@ -23,6 +23,24 @@ RUN pixi shell-hook -e prod > /shell-hook.sh
 # extend the shell-hook script to run the command passed to the container
 RUN echo 'exec "$@"' >> /shell-hook.sh
 
+RUN echo '#!/usr/bin/env bash \n\
+WORKSPACE_FOLDER="${1:-$PWD}" \n\
+ENVIRONMENT="prod" \n\
+echo "export PIXI_HOME=/home/vscode" >> /home/vscode/.bashrc \n\
+echo "export PIXI_PROJECT_MANIFEST="$WORKSPACE_FOLDER/pixi.toml"" >> /home/vscode/.bashrc \n\
+curl -fsSL https://pixi.sh/install.sh | bash \n\
+/bin/bash -i -c "pixi run python -m ipykernel install --user --name prod --display-name Franklin" \n\
+/bin/bash -i -c "pixi shell-hook --manifest-path $WORKSPACE_FOLDER --environment $ENVIRONMENT >> /home/vscode/.bashrc" \n\
+' > /install_pixi.sh
+RUN chmod 755 /install_pixi.sh
+
+# RUN echo '#!/usr/bin/env bash \n\
+#     export PIXI_HOME="/home/vscode" \n\
+#     echo "export PIXI_HOME=$WORKSPACE_FOLDER" >> /home/vscode/.bashrc \n\
+#     export PIXI_PROJECT_MANIFEST="$PWD/pixi.toml" \n\
+#     echo "export PIXI_PROJECT_MANIFEST="$WORKSPACE_FOLDER/pixi.toml"" >> /home/vscode/.bashrc \n\
+#     curl -fsSL https://pixi.sh/install.sh | bash' > /install_pixi.sh
+# RUN chmod 755 /install_pixi.sh
 
 ## production: ##############################################################
 # # production image for running jupyter
@@ -62,12 +80,22 @@ WORKDIR /home/vscode
 # please note that the "prefix" (path) needs to stay the same as in the build container
 COPY --from=build --chown=vscode:vscode /home/vscode/.pixi/envs/prod /home/vscode/.pixi/envs/prod
 COPY --from=build --chown=vscode:vscode /shell-hook.sh /shell-hook.sh
+COPY --from=build --chown=vscode:vscode /install_pixi.sh /install_pixi.sh
 
-# RUN cat /shell-hook.sh >> /home/vscode/.bashrc
+#COPY --from=build --chown=vscode:vscode /usr/local/bin/pixi /usr/local/bin/pixi
+
+#RUN cat /shell-hook.sh >> /home/vscode/.bashrc
 
 # copy the test script and exercise notebook
 COPY --from=build --chown=vscode:vscode /home/vscode/.test-notebook.sh /home/vscode/test-notebook.sh
 COPY --from=build --chown=vscode:vscode /home/vscode/exercise.ipynb /home/vscode/exercise.ipynb
+
+
+
+
+
+
+
 
 
 # send stdout and stderr straight to terminal

@@ -17,6 +17,14 @@
 
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "cat /etc/os-release",
+	"postCreateCommand": "/install_pixi.sh ${containerWorkspaceFolder}",
+
+	"containerEnv": {
+		"WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
+	},
+	// "postStartCommand": "/home/vscode/.pixi/envs/prod/bin/python -m ipykernel install --user --name prod --display-name 'Franklin kernel'",
+	"remote.containers.reopenInContainer": true,
+
 
 	// Configure tool-specific properties.
 	"customizations": {
@@ -37,7 +45,11 @@
 			// 	"sleep",
 			// 	"inf"
 			// ],
-			"postStartCommand": "/bin/bash /home/vscode/install_pixi.sh"
+			"settings": {
+				"python.defaultInterpreterPath": "${containerWorkspaceFolder}/.pixi/envs/prod/bin/python",
+				"jupyter.jupyterServerType": "local",
+				// "jupyter.kernels.filter": ["prod"]
+			}
 		}
 	}
 

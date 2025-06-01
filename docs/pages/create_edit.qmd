@@ -91,6 +91,8 @@ Then add the package:
     pixi add --feature exercise --platform linux-64 scipy
  
 
+[Using notebooks in vscode]https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
+
 ### Git add
 
 
