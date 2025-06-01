@@ -46,6 +46,7 @@ RUN chmod 755 /install_pixi.sh
 # WORKDIR /home/vscode
 
 FROM registry.gitlab.au.dk/franklin/base-images/franklin-production-base:latest AS production
+# FROM mcr.microsoft.com/devcontainers/base:alpine:latest AS production
 
 LABEL maintainer="Kasper Munch <kaspermunch@birc.au.dk>"
 LABEL dk.au.gitlab.group=franklin
