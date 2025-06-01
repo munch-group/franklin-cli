@@ -178,6 +178,7 @@ def pixi_update_client() -> None:
     return updated
 
 @system.internet_ok
+@crash_report
 def _update():
     """Update Franklin
     """    
@@ -192,7 +193,6 @@ def _update():
 
 
 @click.command()
-@crash_report
 def update():
     """Update Franklin
     """ 

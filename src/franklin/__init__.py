@@ -11,8 +11,9 @@ from . import config as cfg
 from . import options
 from . import jupyter as _jupyter
 from .utils import AliasedGroup
+from .crash import crash_report
 
-
+@crash_report
 @with_plugins(iter_entry_points('franklin.plugins'))
 @click.group(cls=AliasedGroup, 
              context_settings={"auto_envvar_prefix": "FRANKLIN"}, 
