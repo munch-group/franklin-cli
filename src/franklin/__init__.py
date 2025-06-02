@@ -14,7 +14,6 @@ from . import jupyter as _jupyter
 from .utils import AliasedGroup
 from .crash import crash_report
 
-@crash_report
 # @with_plugins(iter_entry_points('franklin.plugins'))
 @with_plugins(entry_points().select(group='franklin.plugins'))
 @click.group(cls=AliasedGroup, 
@@ -22,6 +21,7 @@ from .crash import crash_report
              epilog=f'See {cfg.documentation_url} for more details')
 @click.version_option(package_name='franklin')
 @options.update
+@crash_report
 def franklin(update: bool) -> None:
     """
     A tool to download notebook exercises and run jupyter 
