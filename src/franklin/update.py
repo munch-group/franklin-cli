@@ -112,7 +112,7 @@ def pixi_update(package: str) -> None:
     logger.debug(f'Checking for updates to {package}')
     try:
         before = system.package_version(package)
-        cmd = f'pixi update {package}'
+        cmd = f'pixi upgrade {package}'
         utils.run_cmd(cmd, shell=True)
         cmd = 'pixi install'
         utils.run_cmd(cmd, shell=True)
@@ -188,7 +188,7 @@ def _update():
         updated = conda_update_client()
     if updated:
         logger.debug('Franklin was updated')
-
+    return updated
 
 @crash_report
 @system.internet_ok
