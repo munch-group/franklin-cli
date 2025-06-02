@@ -6,10 +6,10 @@ import urllib.parse
 import pyperclip
 import click
 from functools import wraps
-import subprocess
+from subprocess import CalledProcessError
 
 from .logger import logger
-from . import crash
+#from . import crash
 from . import config as cfg
 from .system import package_version
 from . import terminal as term
@@ -123,27 +123,27 @@ def crash_report(func: Callable) -> Callable:
                 raise e
             raise click.Abort()
         
-        except subprocess.CalledProcessError as e:
-            logger.exception('Raised: CalledProcessError')
+        except (CalledProcessError, Crash, UpdateCrash) as e:
+            logger.exception(f'Raised: {e.__class__.__name__}')
             if 'DEVEL' in os.environ:
                 raise e            
             for line in e.args:
                 term.secho(line, fg='red')
             sys.exit(1)
-        except crash.UpdateCrash as e:
-            logger.exception('Raised: UpdateCrash')
-            for line in e.args:
-                term.secho(line, fg='red')
-            sys.exit(1)
 
-        except crash.Crash as e:
-            logger.exception('Raised: Crash')
-            if 'DEVEL' in os.environ:
-                raise e
-            # logger.exception('Raised: UpdateCrash')
-            for line in e.args:
-                term.secho(line, fg='red')
-            msg_and_exit()         
+        # except crash.UpdateCrash as e:
+        #     logger.exception('Raised: UpdateCrash')
+        #     for line in e.args:
+        #         term.secho(line, fg='red')
+        #     sys.exit(1)
+
+        # except crash.Crash as e:
+        #     logger.exception('Raised: Crash')
+        #     if 'DEVEL' in os.environ:
+        #         raise e
+        #     for line in e.args:
+        #         term.secho(line, fg='red')
+        #     msg_and_exit()         
 
         except SystemExit as e:
             raise e
