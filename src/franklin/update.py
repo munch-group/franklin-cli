@@ -195,6 +195,7 @@ def _update():
 def update_packages():
     """Update Franklin
     """ 
+    term.secho('Checking for updates', fg='green')
     if _update():
         logger.debug('Franklin was updated')
         term.echo()
