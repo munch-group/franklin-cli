@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Code – franklin</title>
+<title>use_franklin – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,61 +20,29 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,8 +78,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </script>
 
 
-<link rel="stylesheet" href="../../api/_styles-quartodoc.css">
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../api/_styles-quartodoc.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -121,7 +89,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">franklin</span>
     </a>
   </div>
@@ -132,11 +100,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../api/"> 
+    <a class="nav-link" href="../api/"> 
 <span class="menu-text">API reference</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../pages/student/"> 
+    <a class="nav-link" href="../pages/student/"> 
 <span class="menu-text">Student site</span></a>
   </li>  
 </ul>
@@ -157,102 +125,150 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#franklin-commands--students-version" id="toc-franklin-commands--students-version" class="nav-link active" data-scroll-target="#franklin-commands--students-version">Franklin commands- Students version</a>
+  <ul class="collapse">
+  <li><a href="#activate-franklin" id="toc-activate-franklin" class="nav-link" data-scroll-target="#activate-franklin">Activate franklin</a></li>
+  <li><a href="#download-and-open-exercises" id="toc-download-and-open-exercises" class="nav-link" data-scroll-target="#download-and-open-exercises">Download and open exercises</a></li>
+  <li><a href="#clean-up-old-docker-containers" id="toc-clean-up-old-docker-containers" class="nav-link" data-scroll-target="#clean-up-old-docker-containers">Clean up old docker containers</a></li>
+  <li><a href="#update-franklin" id="toc-update-franklin" class="nav-link" data-scroll-target="#update-franklin">Update franklin</a></li>
+  </ul></li>
+  <li><a href="#educators-version" id="toc-educators-version" class="nav-link" data-scroll-target="#educators-version">Educators version</a>
+  <ul class="collapse">
+  <li><a href="#make-a-new-exercise-via-franklin" id="toc-make-a-new-exercise-via-franklin" class="nav-link" data-scroll-target="#make-a-new-exercise-via-franklin">Make a new exercise via franklin</a></li>
+  <li><a href="#edit-an-already-existing-exercise" id="toc-edit-an-already-existing-exercise" class="nav-link" data-scroll-target="#edit-an-already-existing-exercise">Edit an already existing exercise</a></li>
+  <li><a href="#download-an-exercise-without-editing." id="toc-download-an-exercise-without-editing." class="nav-link" data-scroll-target="#download-an-exercise-without-editing.">download an exercise without editing.</a></li>
+  <li><a href="#rename-an-exercise" id="toc-rename-an-exercise" class="nav-link" data-scroll-target="#rename-an-exercise">Rename an exercise</a></li>
+  <li><a href="#gitui" id="toc-gitui" class="nav-link" data-scroll-target="#gitui">Gitui</a></li>
+  <li><a href="#clean-up-old-docker-containers-1" id="toc-clean-up-old-docker-containers-1" class="nav-link" data-scroll-target="#clean-up-old-docker-containers-1">Clean up old docker containers</a></li>
+  <li><a href="#update-franklin-1" id="toc-update-franklin-1" class="nav-link" data-scroll-target="#update-franklin-1">Update franklin</a></li>
+  </ul></li>
+  <li><a href="#make-a-new-exercise-directly-in-gitlab" id="toc-make-a-new-exercise-directly-in-gitlab" class="nav-link" data-scroll-target="#make-a-new-exercise-directly-in-gitlab">Make a new exercise directly in gitlab</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Code</h1>
+
+
+
+<section id="franklin-commands--students-version" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-commands--students-version">Franklin commands- Students version</h2>
+<section id="activate-franklin" class="level3">
+<h3 class="anchored" data-anchor-id="activate-franklin">Activate franklin</h3>
+<p>To use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:</p>
+<p>conda activate franklin</p>
+<p>Then navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)</p>
+<p>After activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this: <img src="images/Skærmbillede 2025-05-28 kl. 14.37.28.png" class="img-fluid" alt="alt text"></p>
+</section>
+<section id="download-and-open-exercises" class="level3">
+<h3 class="anchored" data-anchor-id="download-and-open-exercises">Download and open exercises</h3>
+<p>In order to use the commands listed you will first have to type franklin. Thats means if you want to use the download command you will in your terminal write</p>
+<p>franklin download</p>
+<p>You will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. <img src="images/Skærmbillede 2025-05-28 kl. 14.52.02.png" class="img-fluid" alt="alt text"></p>
+<p>You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to do. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)</p>
+<p>Then in order to make sure can run code in the exercise you run the command:</p>
+<p>franklin jupyter</p>
+<p>A new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!</p>
+<p>Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder<img src="images/Skærmbillede 2025-05-28 kl. 15.22.07.png" class="img-fluid" alt="alt text"></p>
+</section>
+<section id="clean-up-old-docker-containers" class="level3">
+<h3 class="anchored" data-anchor-id="clean-up-old-docker-containers">Clean up old docker containers</h3>
+<p>In order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.</p>
+<p>You can easily do this by using the command franklin cleanup</p>
+<p>run the command: franklin cleanup</p>
+<p>A seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Skærmbillede 2025-05-28 kl. 15.32.16.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/Skærmbillede 2025-05-28 kl. 15.32.16.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
+</figure>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div id="218f1fec" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_tree(dir_path, prefix<span class="op">=</span><span class="st">''</span>):</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    entries <span class="op">=</span> <span class="bu">sorted</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        [e <span class="cf">for</span> e <span class="kw">in</span> os.listdir(dir_path) <span class="cf">if</span> <span class="kw">not</span> e.startswith(<span class="st">'.'</span>)]</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    last_index <span class="op">=</span> <span class="bu">len</span>(entries) <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, entry <span class="kw">in</span> <span class="bu">enumerate</span>(entries):</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        path <span class="op">=</span> os.path.join(dir_path, entry)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        is_last <span class="op">=</span> (i <span class="op">==</span> last_index)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        connector <span class="op">=</span> <span class="st">'└── '</span> <span class="cf">if</span> is_last <span class="cf">else</span> <span class="st">'├── '</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>prefix<span class="sc">}{</span>connector<span class="sc">}{</span>entry<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.isdir(path):</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            extension <span class="op">=</span> <span class="st">'    '</span> <span class="cf">if</span> is_last <span class="cf">else</span> <span class="st">'│   '</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            print_tree(path, prefix <span class="op">+</span> extension)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage:</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>print_tree(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>├── conda_package.qmd
-├── docker.qmd
-├── gitlab.qmd
-├── overview.html
-├── overview.qmd
-├── set_up_your_own.qmd
-├── source.qmd
-└── source.quarto_ipynb</code></pre>
+<p>Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.</p>
+</section>
+<section id="update-franklin" class="level3">
+<h3 class="anchored" data-anchor-id="update-franklin">Update franklin</h3>
+<p>Franklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command</p>
+<p>franklin update</p>
+<p>You can also check out which version of franklin you have installed by using the command</p>
+<p>franklin –version</p>
+</section>
+</section>
+<section id="educators-version" class="level2">
+<h2 class="anchored" data-anchor-id="educators-version">Educators version</h2>
+<p>The educators version of franklin looks a lot like the student version with extra features for creating and editing exercises.</p>
+<section id="make-a-new-exercise-via-franklin" class="level3">
+<h3 class="anchored" data-anchor-id="make-a-new-exercise-via-franklin">Make a new exercise via franklin</h3>
+<p>To create a new exercise you will need to use the command</p>
+<p>franklin exercise</p>
+<p>When you run this command a new page of commands will show. <img src="images/Skærmbillede 2025-05-29 kl. 16.19.09.png" class="img-fluid" alt="alt text"></p>
+<p>In order to create a new exercise you use the command</p>
+<p>franklin exercise new</p>
+<p>A selection menu then appears and you choose the course you want to make an exercise for. Franklin then asks you to make make a short descriptive label of your exercise. This will be the title of the exercise. When you have named your exercise press enter</p>
+<p>…… MANGLER</p>
+</section>
+<section id="edit-an-already-existing-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="edit-an-already-existing-exercise">Edit an already existing exercise</h3>
+<p>To edit an exercise use the command</p>
+<p>franklin exercise edit</p>
+<p>and choose your course and exercise you want to edit in the selection menu.</p>
+<p>…..MANGLER</p>
+</section>
+<section id="download-an-exercise-without-editing." class="level3">
+<h3 class="anchored" data-anchor-id="download-an-exercise-without-editing.">download an exercise without editing.</h3>
+<p>If you want to download an exercise the same way the students does it, you can use the command</p>
+<p>franklin download</p>
+<p>After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. <img src="images/Skærmbillede 2025-05-28 kl. 14.52.02.png" class="img-fluid" alt="alt text"></p>
+<p>You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)</p>
+<p>Then in order to make sure can run code in the exercise you run the command:</p>
+<p>franklin jupyter</p>
+<p>A new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!</p>
+<p>Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder<img src="images/Skærmbillede 2025-05-28 kl. 15.22.07.png" class="img-fluid" alt="alt text"></p>
+</section>
+<section id="rename-an-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="rename-an-exercise">Rename an exercise</h3>
+</section>
+<section id="gitui" class="level3">
+<h3 class="anchored" data-anchor-id="gitui">Gitui</h3>
+<p>franklin exercise gitui lances git GUI</p>
+<p>Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.</p>
+<p>Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment</p>
+</section>
+<section id="clean-up-old-docker-containers-1" class="level3">
+<h3 class="anchored" data-anchor-id="clean-up-old-docker-containers-1">Clean up old docker containers</h3>
+<p>In order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.</p>
+<p>You can easily do this by using the command franklin cleanup</p>
+<p>run the command: franklin cleanup</p>
+<p>A seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Skærmbillede 2025-05-28 kl. 15.32.16.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="alt text"><img src="images/Skærmbillede 2025-05-28 kl. 15.32.16.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
+</figure>
 </div>
-</div>
-<p>src/franklin</p>
-<pre><code>franklin
-|-- __init__.py
-|-- config.py
-|-- crash.py
-|-- cutie.py
-|-- data
-|-- desktop.py
-|-- docker.py
-|-- gitlab.py
-|-- jupyter.py
-|-- logger.py
-|-- options.py
-|-- system.py
-|-- terminal.py
-|-- update.py
-`-- utils.py</code></pre>
-<pre><code>-- data
-   |-- default_user_settings.json
-   |-- gitui
-   |   |-- key_bindings.ron
-   |   |-- key_symbols.ron
-   |   `-- theme.ron
-   |-- README.md
-   `-- template
-       |-- base
-       |   |-- Dockerfile
-       |   |-- entrypoint.sh
-       |   |-- README.md
-       |   `-- tagged-release.sh
-       `-- exercise
-           |-- Dockerfile
-           |-- exercise.ipynb
-           |-- franklin.log
-           |-- pixi.toml
-           `-- README.md
-</code></pre>
+<p>Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.</p>
+</section>
+<section id="update-franklin-1" class="level3">
+<h3 class="anchored" data-anchor-id="update-franklin-1">Update franklin</h3>
+<p>Franklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command</p>
+<p>franklin update</p>
+<p>You can also check out which version of franklin you have installed by using the command</p>
+<p>franklin –version</p>
+</section>
+</section>
+<section id="make-a-new-exercise-directly-in-gitlab" class="level2">
+<h2 class="anchored" data-anchor-id="make-a-new-exercise-directly-in-gitlab">Make a new exercise directly in gitlab</h2>
+<p>You can also edit and make new exercises directly in gitlab To do this go to the gitlab website and find the repository with your course. This can be done by clicking on your profile and then choosing “my repositories” in the selection menu. Then choose tbe course you want to create and assignment for and click on new re</p>
+<p>Hvordan får man det så ind i franklin?</p>
+<p>Hvad gør man med de pakker med gerne vil bruge? - Var det det med templates hvor vi så bare laver basic pakker de henter ned og så</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -655,6 +671,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
