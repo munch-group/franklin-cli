@@ -30,7 +30,7 @@ def franklin(update: bool) -> None:
     term.check_window_size()
     # utils.show_banner()
     if update:
-        _update._update()
+        _update.update_packages()
     desktop.ensure_docker_installed(lambda _: None)
     desktop.config_set('UseResourceSaver', False)
 

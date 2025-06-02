@@ -177,8 +177,6 @@ def pixi_update_client() -> None:
     updated += before == pixi_installed_version('franklin-educator')
     return updated
 
-@system.internet_ok
-@crash_report
 def _update():
     """Update Franklin
     """    
@@ -192,6 +190,8 @@ def _update():
         logger.debug('Franklin was updated')
 
 
+@crash_report
+@system.internet_ok
 def update_packages():
     """Update Franklin
     """ 
