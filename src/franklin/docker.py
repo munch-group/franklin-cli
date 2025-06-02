@@ -27,6 +27,8 @@ import subprocess
 from subprocess import Popen, PIPE, DEVNULL, STDOUT
 
 #from pkg_resources import iter_entry_points
+from importlib.metadata import entry_points
+
 from click_plugins import with_plugins
 
 from .desktop import (
@@ -394,7 +396,8 @@ def image_list(callback: Callable=None):
 ###########################################################
 
 
-@with_plugins(iter_entry_points('franklin.docker.plugins'))
+# @with_plugins(iter_entry_points('franklin.docker.plugins'))
+@with_plugins(entry_points().select(group='franklin.docker.plugins'))
 @click.group(cls=AliasedGroup, hidden=True)
 def docker():
     """Commands for managing Docker
