@@ -197,18 +197,17 @@ def update_packages():
     """ 
     term.secho('Checking for updates')
     if _update():
-        logger.debug('Franklin was updated')
         term.echo()
         term.secho('Franklin was updated - Please run your command again', fg='green')
         term.echo()        
         sys.exit(1)
     else:
-        logger.debug('No updates available')
-        term.echo()
         term.secho('No updates available')
 
 @click.command()
 def update() -> None:
     """Update Franklin
     """
-    update_packages()
+    # Just a dummy to make franklin do nothing other than the update through
+    # main franklin commmand
+#    update_packages()
