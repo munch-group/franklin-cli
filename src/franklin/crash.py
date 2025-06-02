@@ -6,6 +6,7 @@ import urllib.parse
 import pyperclip
 import click
 from functools import wraps
+import subprocess
 
 from .logger import logger
 from . import crash
@@ -115,32 +116,46 @@ def crash_report(func: Callable) -> Callable:
             return func(*args, **kwargs)
         try:
             ret = func(*args, **kwargs)
+
         except KeyboardInterrupt as e:
             logger.exception('KeyboardInterrupt')
             if 'DEVEL' in os.environ:
                 raise e
             raise click.Abort()
+        
+        except subprocess.CalledProcessError as e:
+            logger.exception('Raised: CalledProcessError')
+            if 'DEVEL' in os.environ:
+                raise e            
+            for line in e.args:
+                term.secho(line, fg='red')
+            sys.exit(1)
         except crash.UpdateCrash as e:
             logger.exception('Raised: UpdateCrash')
             for line in e.args:
                 term.secho(line, fg='red')
             sys.exit(1)
+
         except crash.Crash as e:
             logger.exception('Raised: Crash')
             if 'DEVEL' in os.environ:
                 raise e
-            logger.exception('Raised: UpdateCrash')
+            # logger.exception('Raised: UpdateCrash')
             for line in e.args:
                 term.secho(line, fg='red')
             msg_and_exit()         
+
         except SystemExit as e:
             raise e
+
         except click.Abort as e:
             logger.exception('Raised: Abort')
             raise e
+
         except:
             logger.exception('CRASH')
             msg_and_exit()
             raise
+
         return ret
     return wrapper
