@@ -126,7 +126,7 @@ def pixi_update(package: str) -> None:
             f'{package} update failed!',
             'Please run the following command to update manually:',
             '',
-            f'  pixi update {package}')  
+            f'  pixi upgrade {package}')  
 
     return updated
 
@@ -195,7 +195,7 @@ def _update():
 def update_packages():
     """Update Franklin
     """ 
-    term.secho('Checking for updates', fg='green')
+    term.secho('Checking for updates')
     if _update():
         logger.debug('Franklin was updated')
         term.echo()
@@ -206,7 +206,6 @@ def update_packages():
         logger.debug('No updates available')
         term.echo()
         term.secho('No updates available')
-        term.echo()
 
 @click.command()
 def update() -> None:
