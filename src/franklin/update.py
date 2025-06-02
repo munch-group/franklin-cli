@@ -192,7 +192,7 @@ def _update():
         logger.debug('Franklin was updated')
 
 
-def update():
+def update_packages():
     """Update Franklin
     """ 
     if _update():
@@ -208,8 +208,8 @@ def update():
         term.echo()
         sys.exit(0)
 
-@click.command("update")
-def update_command() -> None:
+@click.command()
+def update() -> None:
     """Update Franklin
     """
-    update()
+    update_packages()
