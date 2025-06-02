@@ -26,7 +26,7 @@ from pathlib import Path, PureWindowsPath, PurePosixPath
 import subprocess
 from subprocess import Popen, PIPE, DEVNULL, STDOUT
 
-from pkg_resources import iter_entry_points
+#from pkg_resources import iter_entry_points
 from click_plugins import with_plugins
 
 from .desktop import (
