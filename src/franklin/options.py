@@ -9,6 +9,7 @@ subdirs_allowed = click.option(
 
 update = click.option(
     '--update/--no-update', 
+    envvar='FRANKLIN_UPDATE',
     default=True,
     help="Override check for package updates",
     hidden=True,
