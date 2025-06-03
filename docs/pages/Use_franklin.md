@@ -132,15 +132,3 @@ You can also check out which version of franklin you have installed by using the
 
 franklin --version
 
-
-## Make a new exercise directly in gitlab
-
-You can also edit and make new exercises directly in gitlab
-To do this go to the gitlab website and find the repository with your course. This can be done by clicking on your profile and then choosing "my repositories" in the selection menu. Then choose tbe course you want to create and assignment for and click on new re
-
-Hvordan får man det så ind i franklin?
-
-Hvad gør man med de pakker med gerne vil bruge?
-- Var det det med templates hvor vi så bare laver basic pakker de henter ned og så 
-
-
