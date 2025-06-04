@@ -40,10 +40,15 @@ pwd
 /Users/kasper/programming/notes
 
 
-## Install docker
+## Install docker and franklin
 
-## What do i need docker for?
-::::::SKRIV TIL
+### What do i need franklin and docker for?
+
+Docker is a tool that makes sure everyone runs the exact same version of a program, no matter what kind of computer they have. When students work on coding assignments, things can sometimes break if they have different versions of Python or other software installed. Docker solves this by creating a special “container” that holds everything the assignment needs — like a mini computer inside your computer. For teachers, this means you don’t have to worry about installing the right packages on every student’s device or assignments suddenly breaking because something got updated. Installing Docker is the first step to making sure your assignments work the same for everyone, every time.
+
+Franklin helps you navigate these containers so that the right "mini computer" is activated when the student works on the exercises that needs that particular enviroment to run
+
+### Install Docker Desktop
 
 In order for franklin to work you also have to download docker desktop
 
@@ -108,13 +113,9 @@ conda activate franklin
 
 conda install -c conda-forge -c munch-group franklin franklin-educator
 
-## What do i need franklin for?
-
-## What do i need gitlab for?
-
-### Set up on gitlab
-
 ## set up gitlab
+### What do i need gitlab for?
+GitLab is a website where you can store and share your code and teaching materials — kind of like Google Drive, but built for programming. When you put your exercises on GitLab, you always have a clear and organized version of your work that others (like students) can access. When using Docker, GitLab becomes especially useful because you can keep everything in one place: the exercise instructions, the Docker setup, and the files students need. This makes it easy to update, reuse, and share your assignments
 
 ### sign in
 Go to gitlab by following [this link](https://gitlab.au.dk)
@@ -167,27 +168,10 @@ In the bottom of the page, you can write an expiration date of your SSH key. In 
 
 You are now ready to use gitlab!
 
+## Guide to create exercises in franklin
 
-
-
-Guide til magdalena og ditlev
-Hvorfor skal jeg installere docker og franklin -mangler
-Terminal -yes
-Opret mig på gitlab (de skal så have adgang til franklin som maintainer) + lav liste over hvilke roller folk skal have - yes
-SSH nøgler - yes
-Installering af anaconda navigator
-Installering af docker - yes
-- husk at lukke docker helt efter det er blevet installeret
-- tryk skip til alt + du behøver ikke logge ind/lave en bruger
-- docker ikonet findes på mac øverst i højre hjørne (den ligner et skib)- tryk på den og klik slut
-- docker på windows kommer hvorhenne??
-  - denne skal lukkes via task manager!
-Lav øvelse via franklin
-Hvad kan de forskellige kommandoer i franklin
-
-
-## What is docker? Why do i need it?
-
-## What is franlin? Why do i need it?
-
-## The terminal
+1. activate franklin
+2. franklin exercise new
+3. follow instructions
+4. franklin exercise edit
+5. choose the exercise you just created
