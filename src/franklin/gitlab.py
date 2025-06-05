@@ -129,7 +129,7 @@ def pick_course() -> Tuple[str, str]:
     return course_group_names[course_idx], course_danish_names[course_idx]
 
 
-def select_exercise(exercises_images: str) -> Tuple[str, str]:
+def select_exercise(exercises_images:list=None) -> Tuple[str, str]:
     """
     Prompts the user to select an exercise.
 
@@ -150,17 +150,36 @@ def select_exercise(exercises_images: str) -> Tuple[str, str]:
         course, danish_course_name = pick_course()
         exercise_names = get_exercise_names(course)
         # only use those with listed images and not with 'HIDDEN' in the name
+
         for key, val in list(exercise_names.items()):            
-            if (course, key) not in exercises_images:
-                if is_edu:
-                    exercise_names[key] = val + ' (no docker image)'
+            hidden_to_students = 'HIDDEN' in val
+            only_with_image = exercises_images is not None
+            has_image = (course, key) in exercises_images
+
+            if is_edu:
+                if only_with_image and not has_image:
+                     del exercise_names[key]
                 else:
-                    del exercise_names[key]                
-            if 'HIDDEN' in val:
-                if is_edu:
-                    exercise_names[key] = val + ' (hidden from students)'
-                else:
+                    if hidden_to_students:
+                        exercise_names[key] = val + ' (hidden from students)'
+                    if not has_image:
+                        exercise_names[key] = val + ' (no docker image)'
+            else:
+                # student
+                if not has_image or hidden_to_students:
                     del exercise_names[key]
+
+        # for key, val in list(exercise_names.items()):            
+        #     if (course, key) not in exercises_images:
+        #         if is_edu and exercises_images is None:
+        #             exercise_names[key] = val + ' (no docker image)'
+        #         else:
+        #             del exercise_names[key]                
+        #     if 'HIDDEN' in val:
+        #         if is_edu:
+        #             exercise_names[key] = val + ' (hidden from students)'
+        #         else:
+        #             del exercise_names[key]
                     
         if exercise_names:
             break
