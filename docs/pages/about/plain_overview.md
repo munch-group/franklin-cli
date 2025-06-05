@@ -170,8 +170,58 @@ You are now ready to use gitlab!
 
 ## Guide to create exercises in franklin
 
-1. activate franklin
-2. franklin exercise new
-3. follow instructions
-4. franklin exercise edit
-5. choose the exercise you just created
+Educators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.
+
+Running the following command prompts the educator for course and exercise name and creates a new exercise.
+
+franklin exercise new
+
+When you have used this command the terminal will guide you thorugh how you make a new exercise. It will first ask you to write a name of your exercise in the terminal and then open gitlab where you can make a description. The you will go back to your terminal when it tells you to and run the commands
+
+franklin exercise edit
+
+This command lets you edit your new exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.
+
+## Other franklin commands
+
+### download an exercise without editing.
+
+If you want to download an exercise the same way the students does it, you can use the command
+
+franklin download
+
+After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses.
+![alt text](<images/Skærmbillede 2025-05-28 kl. 14.52.02.png>)
+
+You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)
+
+Then in order to make sure can run code in the exercise you run the command:
+
+franklin jupyter 
+
+A new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!
+
+Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder![alt text](<images/Skærmbillede 2025-05-28 kl. 15.22.07.png>)
+
+### Clean up old docker containers
+In order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these. 
+
+You can easily do this by using the command franklin cleanup
+
+run the command: 
+franklin cleanup
+
+A seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use. 
+
+![alt text](<images/Skærmbillede 2025-05-28 kl. 15.32.16.png>)
+
+Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.
+
+### Update franklin
+Franklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command 
+
+franklin update
+
+You can also check out which version of franklin you have installed by using the command 
+
+franklin --version
