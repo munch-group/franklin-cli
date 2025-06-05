@@ -153,11 +153,11 @@ def select_exercise(exercises_images:list=None) -> Tuple[str, str]:
 
         for key, val in list(exercise_names.items()):            
             hidden_to_students = 'HIDDEN' in val
-            only_with_image = exercises_images is not None
-            has_image = (course, key) in exercises_images
+            image_required = exercises_images is not None
+            has_image = exercises_images and (course, key) in exercises_images
 
             if is_edu:
-                if only_with_image and not has_image:
+                if image_required and not has_image:
                      del exercise_names[key]
                 else:
                     if hidden_to_students:
