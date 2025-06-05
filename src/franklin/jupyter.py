@@ -152,19 +152,22 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     #     'and franklin.', fg='green')
     # click.pause("press Enter to continue")
 
-    with DelayedKeyboardInterrupt():
+    try:
         wait_for_chrome(token_url)
-    
-        term.secho('Shutting everything down') 
-        term.echo()
-        sys.stdout.flush()
-        _docker.kill_container(run_container_id)
-        docker_run_p.terminate()
-        docker_run_p.wait()
-        _docker.desktop_stop()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        with DelayedKeyboardInterrupt():
+            term.secho('Shutting everything down') 
+            term.echo()
+            sys.stdout.flush()
+            _docker.kill_container(run_container_id)
+            docker_run_p.terminate()
+            docker_run_p.wait()
+            _docker.desktop_stop()
 
-        term.secho('Jupyter is no longer running', fg='green')
-        logging.shutdown()
+            term.secho('Jupyter is no longer running', fg='green')
+            logging.shutdown()
 
     ##########################
 
