@@ -9,5 +9,5 @@ packaging
 pyyaml
 pyperclip
 selenium
-webdriver_manager
+webdriver-manager
 # importlib_resources

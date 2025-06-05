@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = '0.24.82'
+version = '0.24.83'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -29,7 +29,7 @@ dependencies = [
     'pyyaml',
     'pyperclip',
     'selenium',
-    'webdriver_manager',
+    'webdriver-manager',
     # 'importlib_resources',
 ]
 authors = [
