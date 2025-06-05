@@ -19,45 +19,62 @@ from .desktop import config_fit
 from . import terminal as term
 from . import options
 from . import system
+from .utils import DelayedKeyboardInterrupt
 
-@options.subdirs_allowed
-@click.command()
-@crash_report
-def jupyter(allow_subdirs_at_your_own_risk: bool) -> None:
-    """Run jupyter for an exercise
-    """
-    if not allow_subdirs_at_your_own_risk:
-        for x in os.listdir(os.getcwd()):
-            if os.path.isdir(x) and not os.path.basename(x).startswith('.'):
-                term.boxed_text(
-                    'You have subfolders in your current directory',
-                                [
-        'Franklin must run from a folder with no other folders inside it.',
-        '',
-        'You can make an empty folder called "exercise" with this command:',
-        '',
-        '    mkdir exercise',
-        '',
-        'and change to that folder with this command:',
-        '',                                    
-        '    cd exercise',
-        '',
-        'Then run your franklin command.',
-                                ], fg='magenta')
-                sys.exit(1)
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import WebDriverException
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.common.exceptions import NoSuchWindowException
+from selenium.webdriver.chrome.options import Options
 
-    system.check_internet_connection()
 
-    system.check_free_disk_space()
+def wait_for_chrome(token_url: str) -> None:
+    options = Options()
+    options.add_argument("--disable-infobars")  # suppresses the "Chrome is being controlled..." message
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_experimental_option("useAutomationExtension", False)
 
-    if shutil.which('docker'):
-        config_fit()
+    # Set up the WebDriver with the correct version of ChromeDriver
+    driver = webdriver.Chrome(
+        service=ChromeService(
+            ChromeDriverManager().install()
+            ),
+            options=options
+        )
+    # Open the Jupyter Notebook in the Chrome controlled by Selenium
+    driver.get(token_url)
+    driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+        "source": """
+            Object.defineProperty(navigator, 'webdriver', {
+                get: () => undefined
+            });
+        """
+    })
+    shutdown = False
+    try:
+        # Wait until the Jupyter main page loads
+        WebDriverWait(driver, 60).until(
+            # EC.presence_of_element_located((By.CLASS_NAME, "jp-Notebook"))
+            lambda d: shutdown or d.current_url and "lab/tree" in d.current_url       
+            )
+        # Polling loop to detect when the tab is closed
+        while True:
+            if len(driver.window_handles) == 0:
+                break
+            time.sleep(1)
 
-    _docker.failsafe_start_desktop()
-    time.sleep(2)
-
-    image_url = select_image()
-    launch_jupyter(image_url)
+    except NoSuchWindowException as e:
+        pass
+    finally:
+        # Close the browser if it's still open
+        try:
+            driver.quit()
+        except NoSuchWindowException:
+            pass
 
 
 def launch_jupyter(image_url: str, cwd: str=None) -> None:
@@ -109,35 +126,117 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     if cwd is not None:
         token_url = token_url.replace('/lab', f'/lab/tree/{cwd}')
 
-    webbrowser.open(token_url, new=1)
+    ##########################
 
-    term.secho(
-        f'\nJupyter is running and should open in your default browser.')
-    term.echo(f'If not, you can access it at this URL:')
-    term.secho(f'{token_url}', nowrap=True, fg='blue')
+    # term.boxed_text(
+    #     'Jupyter is running',
+    #     [
+    #         'Jupyter lab will open in your the Chrome browser.',
+    #         '',
+    #         f'Do NOT close the terminal window to end the exercise ',
+    #         '',
+    #         'If you have not installed the Chrome browser, please do so.',
+    #         'It is available at https://www.google.com/chrome/',
+    #         '',
+    #         'If you have installed the Chrome browser, it will open automatically.',
+    #     ], fg='green')
 
-    while True:
-        term.secho('\nPress Q to shut down jupyter and close application', 
-                   fg='green')
-        c = click.getchar()
-        click.echo()
-        if c.upper() == 'Q':
+    # term.secho(
+    #     f'\nJupyter is running and will open in your the Chrome browser.')
+    # term.secho(
+    #     f'\nDo NOT close this window. Instead, close the browser tab '
+    #     'when you are done with the exercise.', fg='green')
 
-            term.secho('Shutting everything down') 
-            term.echo()
-            sys.stdout.flush()
+    # term.secho(
+    #     f'\nThat will shutdown jupyter, docker, '
+    #     'and franklin.', fg='green')
+    # click.pause("press Enter to continue")
 
-            # term.secho('Shutting down container', fg='red') 
-            # sys.stdout.flush()
-            _docker.kill_container(run_container_id)
-            docker_run_p.terminate()
-            docker_run_p.wait()
-            # term.secho('Shutting down Docker Desktop', fg='yellow') 
-            # sys.stdout.flush()
-            _docker.desktop_stop()
-            # term.secho('Service has stopped.', fg='green')
-            # term.echo()
-            term.secho('Jupyter is no longer running and you can close '
-                       'the tab in your browser.', fg='green')
-            logging.shutdown()
-            break
+    with DelayedKeyboardInterrupt():
+        wait_for_chrome(token_url)
+    
+        term.secho('Shutting everything down') 
+        term.echo()
+        sys.stdout.flush()
+        _docker.kill_container(run_container_id)
+        docker_run_p.terminate()
+        docker_run_p.wait()
+        _docker.desktop_stop()
+
+        term.secho('Jupyter is no longer running', fg='green')
+        logging.shutdown()
+
+    ##########################
+
+    # webbrowser.open(token_url, new=1)
+
+    # term.secho(
+    #     f'\nJupyter is running and should open in your default browser.')
+    # term.echo(f'If not, you can access it at this URL:')
+    # term.secho(f'{token_url}', nowrap=True, fg='blue')
+
+    # while True:
+    #     term.secho('\nPress Q to shut down jupyter and close application', 
+    #                fg='green')
+    #     c = click.getchar()
+    #     click.echo()
+    #     if c.upper() == 'Q':
+
+    #         term.secho('Shutting everything down') 
+    #         term.echo()
+    #         sys.stdout.flush()
+
+    #         # term.secho('Shutting down container', fg='red') 
+    #         # sys.stdout.flush()
+    #         _docker.kill_container(run_container_id)
+    #         docker_run_p.terminate()
+    #         docker_run_p.wait()
+    #         # term.secho('Shutting down Docker Desktop', fg='yellow') 
+    #         # sys.stdout.flush()
+    #         _docker.desktop_stop()
+    #         # term.secho('Service has stopped.', fg='green')
+    #         # term.echo()
+    #         term.secho('Jupyter is no longer running and you can close '
+    #                    'the tab in your browser.', fg='green')
+    #         logging.shutdown()
+    #         break
+
+
+@options.subdirs_allowed
+@click.command()
+@crash_report
+def jupyter(allow_subdirs_at_your_own_risk: bool) -> None:
+    """Run jupyter for an exercise
+    """
+    if not allow_subdirs_at_your_own_risk:
+        for x in os.listdir(os.getcwd()):
+            if os.path.isdir(x) and not os.path.basename(x).startswith('.'):
+                term.boxed_text(
+                    'You have subfolders in your current directory',
+                                [
+        'Franklin must run from a folder with no other folders inside it.',
+        '',
+        'You can make an empty folder called "exercise" with this command:',
+        '',
+        '    mkdir exercise',
+        '',
+        'and change to that folder with this command:',
+        '',                                    
+        '    cd exercise',
+        '',
+        'Then run your franklin command.',
+                                ], fg='magenta')
+                sys.exit(1)
+
+    system.check_internet_connection()
+
+    system.check_free_disk_space()
+
+    if shutil.which('docker'):
+        config_fit()
+
+    _docker.failsafe_start_desktop()
+    time.sleep(2)
+
+    image_url = select_image()
+    launch_jupyter(image_url)

@@ -8,4 +8,6 @@ jupyter
 packaging
 pyyaml
 pyperclip
+selenium
+webdriver_manager
 # importlib_resources
