@@ -19,63 +19,63 @@ from .desktop import config_fit
 from . import terminal as term
 from . import options
 from . import system
-from . import chrome
 from .utils import DelayedKeyboardInterrupt
+from . import chrome
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import WebDriverException
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.common.exceptions import NoSuchWindowException
-from selenium.webdriver.chrome.options import Options
+# from selenium import webdriver
+# from selenium.webdriver.chrome.service import Service as ChromeService
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.common.exceptions import WebDriverException
+# from webdriver_manager.chrome import ChromeDriverManager
+# from selenium.common.exceptions import NoSuchWindowException
+# from selenium.webdriver.chrome.options import Options
 
 
-def wait_for_chrome(token_url: str) -> None:
-    options = Options()
-    options.add_argument("--disable-infobars")  # suppresses the "Chrome is being controlled..." message
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_experimental_option("useAutomationExtension", False)
+# def wait_for_chrome(token_url: str) -> None:
+#     options = Options()
+#     options.add_argument("--disable-infobars")  # suppresses the "Chrome is being controlled..." message
+#     options.add_experimental_option("excludeSwitches", ["enable-automation"])
+#     options.add_experimental_option("useAutomationExtension", False)
 
-    # Set up the WebDriver with the correct version of ChromeDriver
-    driver = webdriver.Chrome(
-        service=ChromeService(
-            ChromeDriverManager().install()
-            ),
-            options=options
-        )
-    # Open the Jupyter Notebook in the Chrome controlled by Selenium
-    driver.get(token_url)
-    driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-        "source": """
-            Object.defineProperty(navigator, 'webdriver', {
-                get: () => undefined
-            });
-        """
-    })
-    shutdown = False
-    try:
-        # Wait until the Jupyter main page loads
-        WebDriverWait(driver, 60).until(
-            # EC.presence_of_element_located((By.CLASS_NAME, "jp-Notebook"))
-            lambda d: shutdown or d.current_url and "lab/tree" in d.current_url       
-            )
-        # Polling loop to detect when the tab is closed
-        while True:
-            if len(driver.window_handles) == 0:
-                break
-            time.sleep(1)
+#     # Set up the WebDriver with the correct version of ChromeDriver
+#     driver = webdriver.Chrome(
+#         service=ChromeService(
+#             ChromeDriverManager().install()
+#             ),
+#             options=options
+#         )
+#     # Open the Jupyter Notebook in the Chrome controlled by Selenium
+#     driver.get(token_url)
+#     driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+#         "source": """
+#             Object.defineProperty(navigator, 'webdriver', {
+#                 get: () => undefined
+#             });
+#         """
+#     })
+#     shutdown = False
+#     try:
+#         # Wait until the Jupyter main page loads
+#         WebDriverWait(driver, 60).until(
+#             # EC.presence_of_element_located((By.CLASS_NAME, "jp-Notebook"))
+#             lambda d: shutdown or d.current_url and "lab/tree" in d.current_url       
+#             )
+#         # Polling loop to detect when the tab is closed
+#         while True:
+#             if len(driver.window_handles) == 0:
+#                 break
+#             time.sleep(1)
 
-    except NoSuchWindowException as e:
-        pass
-    finally:
-        # Close the browser if it's still open
-        try:
-            driver.quit()
-        except NoSuchWindowException:
-            pass
+#     except NoSuchWindowException as e:
+#         pass
+#     finally:
+#         # Close the browser if it's still open
+#         try:
+#             driver.quit()
+#         except NoSuchWindowException:
+#             pass
 
 
 def launch_jupyter(image_url: str, cwd: str=None) -> None:
@@ -138,8 +138,9 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
             'If you have not installed the Chrome browser, please do so now.',
             'It is available at https://www.google.com/chrome/',
             '',
-            'If you have installed the Chrome browser, it will open automatically.',
+            'Press Enter to open the browser window'
         ], fg='green')
+    click.pause()
 
     # term.secho(
     #     f'\nJupyter is running and will open in your the Chrome browser.')
@@ -153,12 +154,18 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     # click.pause("press Enter to continue")
 
     try:
-        chrome.wait_for_chrome(token_url)
+        chrome.chrome_open_and_wait(token_url)
     except KeyboardInterrupt:
         pass
     finally:
         with DelayedKeyboardInterrupt():
 
+            term.echo()
+            term.secho('Closed browser window.') 
+            sys.stdout.flush()
+            time.sleep(0.5)
+
+            term.echo()
             term.secho('Stopping Docker container') 
             sys.stdout.flush()
             time.sleep(0.5)
@@ -166,11 +173,14 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
             docker_run_p.terminate()
             docker_run_p.wait()
 
+            term.echo()
             term.secho('Stopping Docker Desktop') 
             sys.stdout.flush()
             _docker.desktop_stop()
 
+            term.echo()
             term.secho('You can now safely close this window', fg='green')
+            term.echo()
             logging.shutdown()
 
     ##########################
