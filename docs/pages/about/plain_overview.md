@@ -33,7 +33,6 @@ It seems that there are two other folders, one called notes and another called p
 
 cd notes
 
-
 It seems that nothing really happened, but if I run the pwd command  now to see which folder I am in, I get:
 
 pwd
@@ -113,6 +112,10 @@ conda activate franklin
 
 conda install -c conda-forge -c munch-group franklin franklin-educator
 
+Every time you want to start franklin you use the command 
+
+conda activate franklin
+
 ## set up gitlab
 ### What do i need gitlab for?
 GitLab is a website where you can store and share your code and teaching materials — kind of like Google Drive, but built for programming. When you put your exercises on GitLab, you always have a clear and organized version of your work that others (like students) can access. When using Docker, GitLab becomes especially useful because you can keep everything in one place: the exercise instructions, the Docker setup, and the files students need. This makes it easy to update, reuse, and share your assignments
@@ -167,6 +170,18 @@ The page should look something like the figure below:
 In the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this. 
 
 You are now ready to use gitlab!
+
+
+## Start franklin
+To use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:
+
+conda activate franklin
+
+Then navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)
+
+After activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this: 
+![alt text](<images/Skærmbillede 2025-05-28 kl. 14.37.28.png>)
+
 
 ## Guide to create exercises in franklin
 
