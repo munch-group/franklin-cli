@@ -242,7 +242,7 @@ def jupyter(allow_subdirs_at_your_own_risk: bool) -> None:
         '    cd exercise',
         '',
         'Then run your franklin command.',
-                                ], fg='magenta')
+                                ], fg='blue')
                 sys.exit(1)
 
     system.check_internet_connection()

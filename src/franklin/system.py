@@ -210,7 +210,7 @@ def check_free_disk_space():
             'You can use "franklin docker remove" to remove cached Docker '
             'content you no longer need. it automatically get downloaded '
             'if you should need it again',
-            ], fg='magenta')        
+            ], fg='blue')        
         if click.confirm(
             "Do you want to stop to free up space?", default=False):
             sys.exit(1)

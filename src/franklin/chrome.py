@@ -17,6 +17,7 @@ from selenium.webdriver.chrome.options import Options
 import click
 from . import terminal as term
 from . import config as cfg
+from .logger import logger
 
 def chrome_installed(required=True):
     def decorator(func):
@@ -146,8 +147,10 @@ class InifiniteBouncingBar:
 
 def chrome_open_and_wait(token_url: str) -> None:
 
+    logger.debug('Getting Chrome driver')
     driver = get_chrome_driver()
 
+    logger.debug(f'Opening Chrome with URL: {token_url}')
     open_chrome(driver, token_url)
 
     inf_prog = InifiniteBouncingBar(**cfg.pg_options)
@@ -157,14 +160,15 @@ def chrome_open_and_wait(token_url: str) -> None:
         return d.current_url and "lab/tree" in d.current_url
 
     try:
-        # Wait until the Jupyter main page loads
+        logger.debug(f'Waiting for Jupyter to load in Chrome '
+                     'and then to close')
         WebDriverWait(driver, 600).until(
             # EC.presence_of_element_located((By.CLASS_NAME, "jp-Notebook"))
             # lambda d: shutdown or d.current_url and "lab/tree" in d.current_url       
             # lambda d: d.current_url and "lab/tree" in d.current_url       
             callback
             )
-        # Polling loop to detect when the tab is closed
+        logger.debug('Polling loop to detect when the tab is closed')
         while True:
             if len(driver.window_handles) == 0:
                 break
