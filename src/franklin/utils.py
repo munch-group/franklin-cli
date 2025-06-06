@@ -68,19 +68,6 @@ def is_educator():
     return False
 
 
-def config_gitui() -> None:
-    """
-    Copies gitui config files to the user's config directory.
-    """
-    path = str(Path.home() / '.gitui')
-
-    if not os.path.exists(path):
-        os.makedirs(path)       
-    for file in Path('data/gitui').glob('*'):
-        print(f'Copying {file} to {path}')
-        shutil.copy(file, path)
-
-
 def as_type(s: str) -> Any:
     """
     Convert string to int, float or bool.

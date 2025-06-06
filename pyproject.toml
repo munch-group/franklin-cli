@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = '0.24.91'
+version = '0.24.92'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -60,7 +60,6 @@ where = ["src"]
 franklin = [
   "data/*.yaml", 
   "data/gitui/*", 
-  "data/admin/*.enc", 
   "data/templates/exercise/.devcontainer/devcontainer.json",
   "data/templates/exercise/.git",
   "data/templates/exercise/.gitattributes",
