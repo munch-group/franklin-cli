@@ -137,10 +137,10 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
             '',
             'If you have not installed the Chrome browser, please do so now.',
             'It is available at https://www.google.com/chrome/',
-            '',
-            'Press Enter to open the browser window'
         ], fg='green')
-    click.pause('')
+    click.pause()
+
+    term.secho('Launching Chrome browser', fg='green') 
 
     # term.secho(
     #     f'\nJupyter is running and will open in your the Chrome browser.')
@@ -160,6 +160,7 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     finally:
         with DelayedKeyboardInterrupt():
 
+            term.echo()
             term.echo()
             term.secho('Closed browser window.') 
             sys.stdout.flush()
