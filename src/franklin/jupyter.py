@@ -140,7 +140,7 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
             '',
             'Press Enter to open the browser window'
         ], fg='green')
-    click.pause()
+    click.pause('')
 
     # term.secho(
     #     f'\nJupyter is running and will open in your the Chrome browser.')

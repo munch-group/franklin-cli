@@ -123,7 +123,7 @@ class InifiniteBouncingBar:
     def step(self):
         bar = [self.empty_char] * self.length
         bar[self.pos] = self.fill_char
-        sys.stdout.write('\r', 'Jupyter is running:'.ljust(self.pg_ljust),'[' + ''.join(bar) + ']')
+        sys.stdout.write('\r' + 'Jupyter is running:'.ljust(self.pg_ljust) + '[' + ''.join(bar) + ']')
         sys.stdout.flush()
         self.pos += self.direction
         if self.pos == 0 or self.pos == self.length - 1:
@@ -158,7 +158,7 @@ def chrome_open_and_wait(token_url: str) -> None:
 
     try:
         # Wait until the Jupyter main page loads
-        WebDriverWait(driver, 60).until(
+        WebDriverWait(driver, 600).until(
             # EC.presence_of_element_located((By.CLASS_NAME, "jp-Notebook"))
             # lambda d: shutdown or d.current_url and "lab/tree" in d.current_url       
             # lambda d: d.current_url and "lab/tree" in d.current_url       
