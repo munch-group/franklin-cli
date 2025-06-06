@@ -19,6 +19,7 @@ from .desktop import config_fit
 from . import terminal as term
 from . import options
 from . import system
+from . import chrome
 from .utils import DelayedKeyboardInterrupt
 
 from selenium import webdriver
@@ -126,20 +127,19 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     if cwd is not None:
         token_url = token_url.replace('/lab', f'/lab/tree/{cwd}')
 
-    ##########################
-
-    # term.boxed_text(
-    #     'Jupyter is running',
-    #     [
-    #         'Jupyter lab will open in your the Chrome browser.',
-    #         '',
-    #         f'Do NOT close the terminal window to end the exercise ',
-    #         '',
-    #         'If you have not installed the Chrome browser, please do so.',
-    #         'It is available at https://www.google.com/chrome/',
-    #         '',
-    #         'If you have installed the Chrome browser, it will open automatically.',
-    #     ], fg='green')
+    term.boxed_text(
+        'Jupyter is running',
+        [
+            'JupyterLab lab will open in your the Chrome browser.',
+            '',
+            'To quit jupyter, you an either close the Chrome browser window '
+            'or Press Ctrl-C in this terminal. Do NOT close this terminal window.',
+            '',
+            'If you have not installed the Chrome browser, please do so now.',
+            'It is available at https://www.google.com/chrome/',
+            '',
+            'If you have installed the Chrome browser, it will open automatically.',
+        ], fg='green')
 
     # term.secho(
     #     f'\nJupyter is running and will open in your the Chrome browser.')
@@ -153,20 +153,24 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     # click.pause("press Enter to continue")
 
     try:
-        wait_for_chrome(token_url)
+        chrome.wait_for_chrome(token_url)
     except KeyboardInterrupt:
         pass
     finally:
         with DelayedKeyboardInterrupt():
-            term.secho('Shutting everything down') 
-            term.echo()
+
+            term.secho('Stopping Docker container') 
             sys.stdout.flush()
+            time.sleep(0.5)
             _docker.kill_container(run_container_id)
             docker_run_p.terminate()
             docker_run_p.wait()
+
+            term.secho('Stopping Docker Desktop') 
+            sys.stdout.flush()
             _docker.desktop_stop()
 
-            term.secho('Jupyter is no longer running', fg='green')
+            term.secho('You can now safely close this window', fg='green')
             logging.shutdown()
 
     ##########################
