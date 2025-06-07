@@ -790,7 +790,7 @@ def _prune_all():
 ###########################################################
 
 # @docker.group(cls=AliasedGroup)
-@click.group(cls=AliasedGroup, invoke_without_command=True)
+@click.group(cls=AliasedGroup)
 @crash_report
 def show():
     """Commands for showing Docker content.

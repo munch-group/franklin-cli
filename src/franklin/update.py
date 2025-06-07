@@ -203,8 +203,8 @@ def update_packages():
         term.secho('Franklin was updated - Please run your command again', fg='green')
         term.echo()        
         sys.exit(1)
-    else:
-        term.secho('No updates available')
+    # else:
+    #     term.secho('No updates available')
 
 @click.command()
 def update() -> None:
