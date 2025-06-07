@@ -130,6 +130,7 @@ def pixi_update(package: str) -> None:
 
     return updated
 
+
 def pixi_reinstall(package: str) -> None:
     """
     Reinstall the package using Pixi.
@@ -158,6 +159,7 @@ def pixi_reinstall(package: str) -> None:
             '',
             f'  pixi install {package}'
             )  
+    return updated
 
 
 def pixi_update_client() -> None:

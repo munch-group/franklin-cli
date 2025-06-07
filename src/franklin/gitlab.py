@@ -128,26 +128,11 @@ def pick_course() -> Tuple[str, str]:
                               caption_indices=captions, selected_idx=0)
     return course_group_names[course_idx], course_danish_names[course_idx]
 
+def pick_exercise(course: str, danish_course_name, exercises_images) -> Tuple[str, str]:
 
-def select_exercise(exercises_images:list=None) -> Tuple[str, str]:
-    """
-    Prompts the user to select an exercise.
-
-    Parameters
-    ----------
-    exercises_images : 
-        A dictionary with the exercise and exercise names as keys and 
-        the image locations
-
-    Returns
-    -------
-    :
-        A tuple of the course name and the exercise name.
-    """
     # hide_hidden = not is_educator()
     is_edu = is_educator()
     while True:
-        course, danish_course_name = pick_course()
         exercise_names = get_exercise_names(course)
         # only use those with listed images and not with 'HIDDEN' in the name
 
@@ -169,18 +154,6 @@ def select_exercise(exercises_images:list=None) -> Tuple[str, str]:
                 if not has_image or hidden_to_students:
                     del exercise_names[key]
 
-        # for key, val in list(exercise_names.items()):            
-        #     if (course, key) not in exercises_images:
-        #         if is_edu and exercises_images is None:
-        #             exercise_names[key] = val + ' (no docker image)'
-        #         else:
-        #             del exercise_names[key]                
-        #     if 'HIDDEN' in val:
-        #         if is_edu:
-        #             exercise_names[key] = val + ' (hidden from students)'
-        #         else:
-        #             del exercise_names[key]
-                    
         if exercise_names:
             break
         term.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
@@ -195,13 +168,75 @@ def select_exercise(exercises_images:list=None) -> Tuple[str, str]:
                                 caption_indices=captions, selected_idx=0)
     exercise = exercise_repo_names[exercise_idx]
 
-    # term.secho(f"\nSelected: '{listed_exercise_names[exercise_idx]}'",
-    #            f" in '{danish_course_name}'")
-    # term.echo()
-    # time.sleep(1)
+    return exercise, listed_exercise_names[exercise_idx]
 
+
+def select_exercise(exercises_images:list=None) -> Tuple[str, str]:
+    """
+    Prompts the user to select an exercise.
+
+    Parameters
+    ----------
+    exercises_images : 
+        A dictionary with the exercise and exercise names as keys and 
+        the image locations
+
+    Returns
+    -------
+    :
+        A tuple of the course name and the exercise name.
+    """
+    # # hide_hidden = not is_educator()
+    # is_edu = is_educator()
+    course, danish_course_name = pick_course()
+    exercise, listed_exercise_name = pick_exercise(course, danish_course_name, 
+                                                   exercises_images)
     return ((course, danish_course_name), 
-            (exercise, listed_exercise_names[exercise_idx]))
+            (exercise, listed_exercise_name))
+
+    # while True:
+    #     exercise_names = get_exercise_names(course)
+    #     # only use those with listed images and not with 'HIDDEN' in the name
+
+    #     for key, val in list(exercise_names.items()):            
+    #         hidden_to_students = 'HIDDEN' in val
+    #         image_required = exercises_images is not None
+    #         has_image = exercises_images and (course, key) in exercises_images
+
+    #         if is_edu:
+    #             if image_required and not has_image:
+    #                  del exercise_names[key]
+    #             else:
+    #                 if hidden_to_students:
+    #                     exercise_names[key] = val + ' (hidden from students)'
+    #                 if not has_image:
+    #                     exercise_names[key] = val + ' (no docker image)'
+    #         else:
+    #             # student
+    #             if not has_image or hidden_to_students:
+    #                 del exercise_names[key]
+
+    #     if exercise_names:
+    #         break
+    #     term.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
+    #     time.sleep(2)
+
+    # exercise_repo_names, listed_exercise_names = \
+    #     zip(*sorted(exercise_names.items()))
+    # term.secho(f'\nUse arrow keys to select exercise in '
+    #            f'"{danish_course_name}" and press Enter:', fg='green')
+    # captions = []
+    # exercise_idx = cutie.select(listed_exercise_names, 
+    #                             caption_indices=captions, selected_idx=0)
+    # exercise = exercise_repo_names[exercise_idx]
+
+    # # term.secho(f"\nSelected: '{listed_exercise_names[exercise_idx]}'",
+    # #            f" in '{danish_course_name}'")
+    # # term.echo()
+    # # time.sleep(1)
+
+    # return ((course, danish_course_name), 
+    #         (exercise, listed_exercise_names[exercise_idx]))
 
 
 def select_image() -> str:
@@ -231,9 +266,12 @@ def download():
     try:
         import franklin_educator
 
-        term.secho("Are you an educator?",fg='blue')
-        term.echo('If you want to edit the version available to students, '
-                  'you must use "franklin exercise edit" instead.')
+        term.boxed_text("Are you an educator?",
+                        ['If you want to edit the version available to students, '
+                        'you must use "franklin exercise edit" instead.'],                        
+                        fg='blue')
+        # term.echo('If you want to edit the version available to students, '
+        #           'you must use "franklin exercise edit" instead.')
         click.confirm("Continue?", default=False, abort=True)
     except ImportError:
         pass

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = '0.24.93'
+version = '0.24.94'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -31,6 +31,7 @@ dependencies = [
     'selenium',
     'webdriver-manager',
     'cryptography',
+    'rapidfuzz',
     # 'importlib_resources',
 ]
 authors = [
@@ -75,3 +76,16 @@ franklin = [
   "data/templates/exercise/README.md",
   ]
   
+[tool.pixi.workspace]
+channels = ["conda-forge", "munch-group"]
+platforms = ["osx-arm64"]
+
+[tool.pixi.pypi-dependencies]
+franklin = { path = ".", editable = true }
+franklin-educator = { path = "../franklin-educator", editable = true }
+
+[tool.pixi.tasks]
+
+[tool.pixi.dependencies]
+rapidfuzz = ">=3.13.0,<4"
+
