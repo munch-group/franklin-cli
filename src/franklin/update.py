@@ -112,10 +112,10 @@ def pixi_update(package: str) -> None:
     logger.debug(f'Checking for updates to {package}')
     try:
         before = system.package_version(package)
-        cmd = f'pixi upgrade {package}'
-        utils.run_cmd(cmd, shell=True)
+        cmd = f'pixi upgrade "{package}"'
+        subprocess.run(cmd, check=True, shell=True)
         cmd = 'pixi install'
-        utils.run_cmd(cmd, shell=True)
+        subprocess.run(cmd, check=True, shell=True)
 
         if before != pixi_installed_version(package):
             updated = True
@@ -137,12 +137,12 @@ def pixi_reinstall(package: str) -> None:
     updated = False
     try:
         before = system.package_version(package)
-        cmd = f'pixi remove {package}'
-        utils.run_cmd(cmd, shell=True)
-        cmd = f'pixi add {package}'
-        utils.run_cmd(cmd, shell=True)
+        cmd = f'pixi remove "{package}"'
+        subprocess.run(cmd, check=True, shell=True)
+        cmd = f'pixi add "{package}"'
+        subprocess.run(cmd, check=True, shell=True)
         cmd = 'pixi install'
-        utils.run_cmd(cmd, shell=True)
+        subprocess.run(cmd, check=True, shell=True)
 
         if before != pixi_installed_version(package):
             updated = True
