@@ -1,12 +1,26 @@
-name: Build and Deploy
+name: Build and Deploy jupyterlite
 
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - '*'
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - '*'
+    branches: [main]
+
+      
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 
 jobs:
   build:
@@ -24,7 +38,7 @@ jobs:
       - name: Build the JupyterLite site
         run: |
           cp README.md content
-          jupyter lite build --contents content --output-dir jupyterlite/dist --lite-dir jupyterlite
+          jupyter lite build --contents content --output-dir dist --lite-dir jupyterlite
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
