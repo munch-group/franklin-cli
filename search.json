@@ -252,13 +252,6 @@
     "text": "Educators version\nThe educators version of franklin looks a lot like the student version with extra features for creating and editing exercises.\n\nMake a new exercise via franklin\nTo create a new exercise you will need to use the command\nfranklin exercise\nWhen you run this command a new page of commands will show. \nIn order to create a new exercise you use the command\nfranklin exercise new\nA selection menu then appears and you choose the course you want to make an exercise for. Franklin then asks you to make make a short descriptive label of your exercise. This will be the title of the exercise. When you have named your exercise press enter\n…… MANGLER\n\n\nEdit an already existing exercise\nTo edit an exercise use the command\nfranklin exercise edit\nand choose your course and exercise you want to edit in the selection menu.\n…..MANGLER\n\n\ndownload an exercise without editing.\nIf you want to download an exercise the same way the students does it, you can use the command\nfranklin download\nAfter running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\nRename an exercise\n\n\nGitui\nfranklin exercise gitui lances git GUI\nGit gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.\nGit gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment\n\n\nClean up old docker containers\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\nUpdate franklin\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version"
   },
   {
-    "objectID": "pages/Use_franklin.html#make-a-new-exercise-directly-in-gitlab",
-    "href": "pages/Use_franklin.html#make-a-new-exercise-directly-in-gitlab",
-    "title": "franklin",
-    "section": "Make a new exercise directly in gitlab",
-    "text": "Make a new exercise directly in gitlab\nYou can also edit and make new exercises directly in gitlab To do this go to the gitlab website and find the repository with your course. This can be done by clicking on your profile and then choosing “my repositories” in the selection menu. Then choose tbe course you want to create and assignment for and click on new re\nHvordan får man det så ind i franklin?\nHvad gør man med de pakker med gerne vil bruge? - Var det det med templates hvor vi så bare laver basic pakker de henter ned og så"
-  },
-  {
     "objectID": "pages/admin/docker.html#running-docker-containers",
     "href": "pages/admin/docker.html#running-docker-containers",
     "title": "Docker admin",
@@ -370,6 +363,205 @@
     ]
   },
   {
+    "objectID": "pages/Installationguide_get_started.html",
+    "href": "pages/Installationguide_get_started.html",
+    "title": "franklin",
+    "section": "",
+    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes"
+  },
+  {
+    "objectID": "pages/Installationguide_get_started.html#get-started-with-jupyter-note-book",
+    "href": "pages/Installationguide_get_started.html#get-started-with-jupyter-note-book",
+    "title": "franklin",
+    "section": "",
+    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes"
+  },
+  {
+    "objectID": "pages/Installationguide_get_started.html#install-docker-and-franklin",
+    "href": "pages/Installationguide_get_started.html#install-docker-and-franklin",
+    "title": "franklin",
+    "section": "Install docker and franklin",
+    "text": "Install docker and franklin\n\nWhat do i need franklin and docker for?\nDocker is a tool that makes sure everyone runs the exact same version of a program, no matter what kind of computer they have. When students work on coding assignments, things can sometimes break if they have different versions of Python or other software installed. Docker solves this by creating a special “container” that holds everything the assignment needs — like a mini computer inside your computer. For teachers, this means you don’t have to worry about installing the right packages on every student’s device or assignments suddenly breaking because something got updated. Installing Docker is the first step to making sure your assignments work the same for everyone, every time.\nFranklin helps you navigate these containers so that the right “mini computer” is activated when the student works on the exercises that needs that particular enviroment to run\n\n\nInstall Docker Desktop\nIn order for franklin to work you also have to download docker desktop\nBefore you try to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac.\nIf you are downloading docker on a AU computer remember to activate admin priviliges by activating heimdal.\nIf you are unsure of how to activate Heimdal follow the instructions given on this page\n\n\nDownload Docker Desktop on a mac\nGo to this page and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. If you do not know, you can find the name of your chip by clicking the apple icon in the upper left corner and choose “about this mac” in the dropdown menu \nApple silicon chips include M1, M2 and M3. Apple intel chips are named intel.\nBack on the docker desktop download page you choose the one that matches your computer chip and follows the instruction on your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens a window pops up and asks if you want to sign in or create and account. You can just press skip on these. An account is not necessary for using docker in franklin.\nWhen docker desktop is done downloading shut down the program. Make sure that it has been compleately shut down by checking the top right corner of your device. If there is an icon that looks like a small cargo ship click on it and choose “Quit Docker Desktop” in the dropdown menu \n\n\nDownload Docker Desktop on a Windows\nGo to this page and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. If you do not know, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip\nBack on the docker desktop download page you choose the one that matches your computer chip and follows the instruction on your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens a window pops up and asks if you want to sign in or create and account. You can just press skip on these. An account is not necessary for using docker in franklin.\nWhen docker desktop is done installing make sure the program is compleately shut down. You do this by going to “Taskmanager” and search for “docker” in the search bar in taskmanager. If there is any tasks open where docker is involved click “End task”\nIf docker desktop comes with the error message “WSL 2 is required” Install WSL via copying the following command into your terminal:\nwsl –install"
+  },
+  {
+    "objectID": "pages/Installationguide_get_started.html#enviroments",
+    "href": "pages/Installationguide_get_started.html#enviroments",
+    "title": "franklin",
+    "section": "Enviroments",
+    "text": "Enviroments\nIn bioinformatics, we install packages and programs so we can use them in our analyses and pipelines. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small insulated world for each project, which then only contained the packages you needed for that particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there is a tool that lets you do just that, and its name is Conda.\n“Conda is an open source package management system and environment management system for installing multiple versions of software packages and their dependencies and switching easily between them.”\nThe small worlds that Conda creates are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else. Conda also downloads and installs the packages for you and it makes sure that the software packages you install in each environment are compatible. It even makes sure that packages needed by packages (dependencies) are also installed. Conda is truly awesome.\nIn this case you need to create a new enviroment where you install franklin\nYou will need franklin for downloading assignments. You will also be able to choose a enviroment in franklin that specifially fits the assignment you want to make.\n\nCreate Franklin enviroment and install franklin\nIn order to download franklin and install an enviroment called franklin you have to write the code below into your terminal\nconda create -y -n franklin -c conda-forge -c munch-group franklin\nThis commands runs the Conda program and tells it to create a new enviroment with the name franklin and to install franklin in that enviroment. Once you have ran the command, your terminal output should look something like this:\noutput\n\n\nFranklin for educators\nYou will then also need to download franklin educator Before you insert the code below, activate your franklin enviroment in your terminal\nconda activate franklin\nconda install -c conda-forge -c munch-group franklin franklin-educator\nEvery time you want to start franklin you use the command\nconda activate franklin"
+  },
+  {
+    "objectID": "pages/Installationguide_get_started.html#set-up-gitlab",
+    "href": "pages/Installationguide_get_started.html#set-up-gitlab",
+    "title": "franklin",
+    "section": "set up gitlab",
+    "text": "set up gitlab\n\nWhat do i need gitlab for?\nGitLab is a website where you can store and share your code and teaching materials — kind of like Google Drive, but built for programming. When you put your exercises on GitLab, you always have a clear and organized version of your work that others (like students) can access. When using Docker, GitLab becomes especially useful because you can keep everything in one place: the exercise instructions, the Docker setup, and the files students need. This makes it easy to update, reuse, and share your assignments\n\n\nsign in\nGo to gitlab by following this link On the sign-in page, choose the login option called login with Uni-add.\n\n\nSSH keys - what is that and why do i need it?\nSSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.\n\n\nHow do i get a SSH key?\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa ~/.ssh/id_rsa.pub You can do so using the ls commmand:\nls -a ~/.ssh\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\nssh-keygen -t rsa\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is ). SSH will prompt you for your password.\nssh @login.genome.au.dk mkdir -p .ssh\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace  with your cluster user name):\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk ‘cat &gt;&gt; .ssh/authorized_keys’\n\n\ninsert SSH key to gitlab\nTo access your SSH keys you use the command:\ncat ~/.ssh/id_rsa.pub\nIt is very important that you choose the rsa.pub version.\nAfter you have run the command cat ~/.ssh/id_rsa.pub in your terminal a long line of letters and number will appear in your terminal. This is your SSH key. Now copy it and go back to the gitlab webpage\nThen press the icon on the top beside the picture that represent your profile and find the option called “edit profile” in the dropdown menu It should look like this: \nNow you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.\nThe page should look something like the figure below: \nIn the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this.\nYou are now ready to use gitlab!"
+  },
+  {
+    "objectID": "pages/Installationguide_get_started.html#start-franklin",
+    "href": "pages/Installationguide_get_started.html#start-franklin",
+    "title": "franklin",
+    "section": "Start franklin",
+    "text": "Start franklin\nTo use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:\nconda activate franklin\nThen navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)\nAfter activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this:"
+  },
+  {
+    "objectID": "pages/Installationguide_get_started.html#guide-to-create-exercises-in-franklin",
+    "href": "pages/Installationguide_get_started.html#guide-to-create-exercises-in-franklin",
+    "title": "franklin",
+    "section": "Guide to create exercises in franklin",
+    "text": "Guide to create exercises in franklin\nEducators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.\nRunning the following command prompts the educator for course and exercise name and creates a new exercise.\nfranklin exercise new\nWhen you have used this command the terminal will guide you thorugh how you make a new exercise. It will first ask you to write a name of your exercise in the terminal and then open gitlab where you can make a description. The you will go back to your terminal when it tells you to and run the commands\nfranklin exercise edit\nThis command lets you edit your new exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook."
+  },
+  {
+    "objectID": "pages/Installationguide_get_started.html#other-franklin-commands",
+    "href": "pages/Installationguide_get_started.html#other-franklin-commands",
+    "title": "franklin",
+    "section": "Other franklin commands",
+    "text": "Other franklin commands\n\ndownload an exercise without editing.\nIf you want to download an exercise the same way the students does it, you can use the command\nfranklin download\nAfter running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\nClean up old docker containers\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\nUpdate franklin\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version"
+  },
+  {
+    "objectID": "pages/about/gitlab.html",
+    "href": "pages/about/gitlab.html",
+    "title": "Gitlab server",
+    "section": "",
+    "text": "This pages are under construction\n\n\n\n\n\n\n\n\n\nalt text\n\n\n\n\n\nalt text\n\n\nIntroduction to GitLab\nGitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.\nGitLab enables individuals and teams to collaborate on code by providing:\nGit repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails. Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows. CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository. Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration. Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains. GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.\nIn summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.",
+    "crumbs": [
+      "About",
+      "Gitlab server"
+    ]
+  },
+  {
+    "objectID": "pages/about/ssh.html",
+    "href": "pages/about/ssh.html",
+    "title": "SSH authentication",
+    "section": "",
+    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
+    "crumbs": [
+      "About",
+      "SSH authentication"
+    ]
+  },
+  {
+    "objectID": "pages/about/ssh.html#tldr",
+    "href": "pages/about/ssh.html#tldr",
+    "title": "SSH authentication",
+    "section": "",
+    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
+    "crumbs": [
+      "About",
+      "SSH authentication"
+    ]
+  },
+  {
+    "objectID": "api/run.html",
+    "href": "api/run.html",
+    "title": "run",
+    "section": "",
+    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#parameters",
+    "href": "api/run.html#parameters",
+    "title": "run",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#returns",
+    "href": "api/run.html#returns",
+    "title": "run",
+    "section": "",
+    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/pull.html",
+    "href": "api/pull.html",
+    "title": "pull",
+    "section": "",
+    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/pull.html#parameters",
+    "href": "api/pull.html#parameters",
+    "title": "pull",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/launch_exercise.html",
+    "href": "api/launch_exercise.html",
+    "title": "launch_exercise",
+    "section": "",
+    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
+  },
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\n_run\n\n\n\n\n\n\n\nSome description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#jupyter",
+    "href": "api/index.html#jupyter",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\n_run",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#docker",
+    "href": "api/index.html#docker",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "notebooks/example.html",
+    "href": "notebooks/example.html",
+    "title": "Workplace interaction",
+    "section": "",
+    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
+  },
+  {
+    "objectID": "pages/about/docker.html",
+    "href": "pages/about/docker.html",
+    "title": "Docker virtualization",
+    "section": "",
+    "text": "This pages are under construction\n\n\n\n\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.",
+    "crumbs": [
+      "About",
+      "Docker virtualization"
+    ]
+  },
+  {
     "objectID": "pages/about/git.html",
     "href": "pages/about/git.html",
     "title": "Git version control",
@@ -411,149 +603,6 @@
     "crumbs": [
       "About",
       "Git version control"
-    ]
-  },
-  {
-    "objectID": "pages/about/docker.html",
-    "href": "pages/about/docker.html",
-    "title": "Docker virtualization",
-    "section": "",
-    "text": "This pages are under construction\n\n\n\n\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.",
-    "crumbs": [
-      "About",
-      "Docker virtualization"
-    ]
-  },
-  {
-    "objectID": "notebooks/example.html",
-    "href": "notebooks/example.html",
-    "title": "Workplace interaction",
-    "section": "",
-    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
-  },
-  {
-    "objectID": "api/index.html",
-    "href": "api/index.html",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\n_run\n\n\n\n\n\n\n\nSome description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/index.html#jupyter",
-    "href": "api/index.html#jupyter",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\n_run",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/index.html#docker",
-    "href": "api/index.html#docker",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/launch_exercise.html",
-    "href": "api/launch_exercise.html",
-    "title": "launch_exercise",
-    "section": "",
-    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
-  },
-  {
-    "objectID": "api/pull.html",
-    "href": "api/pull.html",
-    "title": "pull",
-    "section": "",
-    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/pull.html#parameters",
-    "href": "api/pull.html#parameters",
-    "title": "pull",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/run.html",
-    "href": "api/run.html",
-    "title": "run",
-    "section": "",
-    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#parameters",
-    "href": "api/run.html#parameters",
-    "title": "run",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#returns",
-    "href": "api/run.html#returns",
-    "title": "run",
-    "section": "",
-    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "pages/about/ssh.html",
-    "href": "pages/about/ssh.html",
-    "title": "SSH authentication",
-    "section": "",
-    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
-    "crumbs": [
-      "About",
-      "SSH authentication"
-    ]
-  },
-  {
-    "objectID": "pages/about/ssh.html#tldr",
-    "href": "pages/about/ssh.html#tldr",
-    "title": "SSH authentication",
-    "section": "",
-    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
-    "crumbs": [
-      "About",
-      "SSH authentication"
-    ]
-  },
-  {
-    "objectID": "pages/about/gitlab.html",
-    "href": "pages/about/gitlab.html",
-    "title": "Gitlab server",
-    "section": "",
-    "text": "This pages are under construction\n\n\n\n\n\n\n\n\n\nalt text\n\n\n\n\n\nalt text\n\n\nIntroduction to GitLab\nGitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.\nGitLab enables individuals and teams to collaborate on code by providing:\nGit repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails. Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows. CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository. Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration. Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains. GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.\nIn summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.",
-    "crumbs": [
-      "About",
-      "Gitlab server"
     ]
   },
   {
