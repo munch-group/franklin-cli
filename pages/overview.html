@@ -388,6 +388,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><strong>GitLab hosting:</strong> of repositories for exercises grouped by course, allowing for nested authentication privileges.</p>
+<p><strong>Docker Integration:</strong> Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.</p>
+<p><strong>Conda and Pixi package Management:</strong> The tool supports building and publishing Conda packages, enabling automatic management of dependencies.</p>
+<p><strong>Continuous integration:</strong> Franklin uses GitLab pipelines for continuous integration automating workflows for building, testing, and publishing docker images.</p>
+<p><strong>Nested plugin APIs:</strong> The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.</p>
+<p><strong>Auto update:</strong> Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.</p>
+<p><strong>Automated workflows:</strong> To accommodate educators with different computational skill levels, franklin supports three levels of automation to support exercise development.</p>
+<p><strong>User management:</strong> The admin API allow easy management of users and assigning rules as either guest, teaching assistant, professor, or administrator.</p>
 <section id="click" class="level2">
 <h2 class="anchored" data-anchor-id="click">Click</h2>
 </section>
@@ -479,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="container-registry" class="level2">
 <h2 class="anchored" data-anchor-id="container-registry">Container registry</h2>
-<div id="9ac17938" class="cell" data-execution_count="1">
+<div id="4e530191" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_tree(dir_path, prefix<span class="op">=</span><span class="st">''</span>):</span>
