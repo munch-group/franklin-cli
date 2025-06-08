@@ -50,6 +50,8 @@ website:
         text: API reference
       - href: pages/student/
         text: Student site
+      - href: ../sandbox/
+        text: Sandbox
     right:
       - icon: github
         href: https://github.com/munch-group/franklin/
