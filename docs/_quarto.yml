@@ -50,8 +50,8 @@ website:
         text: API reference
       - href: pages/student/
         text: Student site
-      - href: http://munch-group.org/jupyterlite
-        text: Sandbox
+      # - href: http://munch-group.org/jupyterlite
+      #   text: Sandbox
     right:
       - icon: github
         href: https://github.com/munch-group/franklin/
@@ -61,7 +61,7 @@ website:
       style: floating
       align: left
       contents:
-        # - pages/getting_started.qmd 
+        - pages/getting_started.qmd 
         - pages/overview.qmd
         - section: "Setting up"
           contents:
