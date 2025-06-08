@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = '0.24.97'
+version = '0.24.98'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -32,7 +32,6 @@ dependencies = [
     'webdriver-manager',
     'cryptography',
     'rapidfuzz',
-    # 'importlib_resources',
 ]
 authors = [
   {name = "Kasper Munch", email = "kaspermunch@birc.au.dk"},
@@ -43,7 +42,6 @@ maintainers = [
 description = "Terminal client for Jupyter exercises"
 keywords = ["teaching", "jupyter", "docker", "gitlab"]
 readme = "README.md"
-# license = "MIT"
 
 [project.urls]
 Homepage = "https://munch-group.org/franklin"
