@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Set up for your own school – franklin</title>
+<title>Franklin overview – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../pages/admin/docker.html" rel="prev">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../pages/student/index.html" rel="next">
+<link href="../pages/getting_started.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,8 +112,8 @@ ul.task-list li input[type="checkbox"] {
 </script>
 
 
-<link rel="stylesheet" href="../../api/_styles-quartodoc.css">
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../api/_styles-quartodoc.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
@@ -87,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">franklin</span>
     </a>
   </div>
@@ -98,11 +134,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../api/"> 
+    <a class="nav-link" href="../api/"> 
 <span class="menu-text">API reference</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../pages/student/"> 
+    <a class="nav-link" href="../pages/student/"> 
 <span class="menu-text">Student site</span></a>
   </li>  
 </ul>
@@ -123,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pages/admin/overview.html">Infrastructure</a></li><li class="breadcrumb-item"><a href="../../pages/admin/set_up_your_own.html">Set up for your own school</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/overview.html">Franklin overview</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -137,8 +173,14 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/getting_started.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Franklin overview</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -152,7 +194,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/student/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/student/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">index.html</span></a>
   </div>
 </li>
@@ -169,8 +211,44 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/create_edit.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/create_edit.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Editing exercises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The hieraki of gitlab</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/commands.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using Franklin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/computer_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/sascha_get_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get started with jupyter note book</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/sascha_installation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get started with jupyter note book</span></a>
   </div>
 </li>
       </ul>
@@ -186,31 +264,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/tutorials/terminal.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/tutorials/terminal.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/tutorials/jupyterlab.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/tutorials/jupyterlab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Jupyterlab</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/tutorials/developing_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/tutorials/developing_exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Developing exercises</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/tutorials/data_analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/tutorials/data_analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data analysis in Python and R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/tutorials/plotting.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/tutorials/plotting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Plots with matplotlib</span></a>
   </div>
 </li>
@@ -227,61 +305,26 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/about/ssh.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/about/ssh.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SSH authentication</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/about/git.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/about/git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Git version control</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/about/gitlab.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/about/gitlab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gitlab server</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pages/about/docker.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/about/docker.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Docker virtualization</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Infrastructure</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../pages/admin/overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin overview</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../pages/admin/gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">GitLab admin</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../pages/admin/docker.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Docker admin</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../pages/admin/set_up_your_own.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Set up for your own school</span></a>
   </div>
 </li>
       </ul>
@@ -291,15 +334,52 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#click" id="toc-click" class="nav-link active" data-scroll-target="#click">Click</a></li>
+  <li><a href="#docker" id="toc-docker" class="nav-link" data-scroll-target="#docker">Docker</a></li>
+  <li><a href="#pixi" id="toc-pixi" class="nav-link" data-scroll-target="#pixi">Pixi</a></li>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  <li><a href="#git" id="toc-git" class="nav-link" data-scroll-target="#git">Git</a></li>
+  <li><a href="#gitlab" id="toc-gitlab" class="nav-link" data-scroll-target="#gitlab">GitLab</a></li>
+  <li><a href="#groupsubgroup-layout" id="toc-groupsubgroup-layout" class="nav-link" data-scroll-target="#groupsubgroup-layout">Group/Subgroup layout</a></li>
+  <li><a href="#users-permissions-authentication" id="toc-users-permissions-authentication" class="nav-link" data-scroll-target="#users-permissions-authentication">Users / Permissions / Authentication</a>
+  <ul class="collapse">
+  <li><a href="#the-franklin-admin-plugin" id="toc-the-franklin-admin-plugin" class="nav-link" data-scroll-target="#the-franklin-admin-plugin">The franklin-admin plugin</a></li>
+  </ul></li>
+  <li><a href="#tokens" id="toc-tokens" class="nav-link" data-scroll-target="#tokens">Tokens</a></li>
+  <li><a href="#pipelines" id="toc-pipelines" class="nav-link" data-scroll-target="#pipelines">Pipelines</a>
+  <ul class="collapse">
+  <li><a href="#au-hosting" id="toc-au-hosting" class="nav-link" data-scroll-target="#au-hosting">AU hosting</a></li>
+  <li><a href="#gitlab-franklin-group" id="toc-gitlab-franklin-group" class="nav-link" data-scroll-target="#gitlab-franklin-group">GitLab Franklin group</a></li>
+  <li><a href="#gitlab-course-subgroups" id="toc-gitlab-course-subgroups" class="nav-link" data-scroll-target="#gitlab-course-subgroups">GitLab Course subgroups</a></li>
+  <li><a href="#gitlab-exercise-repositories" id="toc-gitlab-exercise-repositories" class="nav-link" data-scroll-target="#gitlab-exercise-repositories">GitLab exercise repositories</a></li>
+  </ul></li>
+  <li><a href="#authentication" id="toc-authentication" class="nav-link" data-scroll-target="#authentication">Authentication</a>
+  <ul class="collapse">
+  <li><a href="#admin" id="toc-admin" class="nav-link" data-scroll-target="#admin">Admin</a></li>
+  <li><a href="#vip" id="toc-vip" class="nav-link" data-scroll-target="#vip">VIP</a></li>
+  <li><a href="#students" id="toc-students" class="nav-link" data-scroll-target="#students">Students</a></li>
+  </ul></li>
+  <li><a href="#docker-1" id="toc-docker-1" class="nav-link" data-scroll-target="#docker-1">Docker</a>
+  <ul class="collapse">
+  <li><a href="#image-hierarchy" id="toc-image-hierarchy" class="nav-link" data-scroll-target="#image-hierarchy">Image hierarchy</a></li>
+  <li><a href="#templates" id="toc-templates" class="nav-link" data-scroll-target="#templates">Templates</a></li>
+  <li><a href="#tag-policy" id="toc-tag-policy" class="nav-link" data-scroll-target="#tag-policy">Tag policy</a></li>
+  </ul></li>
+  <li><a href="#container-registry" id="toc-container-registry" class="nav-link" data-scroll-target="#container-registry">Container registry</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../pages/admin/overview.html">Infrastructure</a></li><li class="breadcrumb-item"><a href="../../pages/admin/set_up_your_own.html">Set up for your own school</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Set up for your own school</h1>
+<h1 class="title">Franklin overview</h1>
 </div>
 
 
@@ -316,8 +396,219 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="click" class="level2">
+<h2 class="anchored" data-anchor-id="click">Click</h2>
+</section>
+<section id="docker" class="level2">
+<h2 class="anchored" data-anchor-id="docker">Docker</h2>
+</section>
+<section id="pixi" class="level2">
+<h2 class="anchored" data-anchor-id="pixi">Pixi</h2>
+</section>
+<section id="purpose" class="level2">
+<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
+</section>
+<section id="git" class="level2">
+<h2 class="anchored" data-anchor-id="git">Git</h2>
+</section>
+<section id="gitlab" class="level2">
+<h2 class="anchored" data-anchor-id="gitlab">GitLab</h2>
+</section>
+<section id="groupsubgroup-layout" class="level2">
+<h2 class="anchored" data-anchor-id="groupsubgroup-layout">Group/Subgroup layout</h2>
+</section>
+<section id="users-permissions-authentication" class="level2">
+<h2 class="anchored" data-anchor-id="users-permissions-authentication">Users / Permissions / Authentication</h2>
+<section id="the-franklin-admin-plugin" class="level3">
+<h3 class="anchored" data-anchor-id="the-franklin-admin-plugin">The franklin-admin plugin</h3>
+<p>Install the <code>franklin-admin</code> to administer users and course infrastructure.</p>
+<p>TODO</p>
+</section>
+</section>
+<section id="tokens" class="level2">
+<h2 class="anchored" data-anchor-id="tokens">Tokens</h2>
+</section>
+<section id="pipelines" class="level2">
+<h2 class="anchored" data-anchor-id="pipelines">Pipelines</h2>
+<section id="au-hosting" class="level3">
+<h3 class="anchored" data-anchor-id="au-hosting">AU hosting</h3>
+</section>
+<section id="gitlab-franklin-group" class="level3">
+<h3 class="anchored" data-anchor-id="gitlab-franklin-group">GitLab Franklin group</h3>
+</section>
+<section id="gitlab-course-subgroups" class="level3">
+<h3 class="anchored" data-anchor-id="gitlab-course-subgroups">GitLab Course subgroups</h3>
+</section>
+<section id="gitlab-exercise-repositories" class="level3">
+<h3 class="anchored" data-anchor-id="gitlab-exercise-repositories">GitLab exercise repositories</h3>
+</section>
+</section>
+<section id="authentication" class="level2">
+<h2 class="anchored" data-anchor-id="authentication">Authentication</h2>
+<p>Web GUI: UNI-AD login</p>
+<section id="admin" class="level3">
+<h3 class="anchored" data-anchor-id="admin">Admin</h3>
+<p>Kasper (and someone else for backup)</p>
+<p>ssh keys</p>
+</section>
+<section id="vip" class="level3">
+<h3 class="anchored" data-anchor-id="vip">VIP</h3>
+<p>ssh keys</p>
+</section>
+<section id="students" class="level3">
+<h3 class="anchored" data-anchor-id="students">Students</h3>
+<p>Read-only token distributed with franklin.</p>
+</section>
+</section>
+<section id="docker-1" class="level2">
+<h2 class="anchored" data-anchor-id="docker-1">Docker</h2>
+<section id="image-hierarchy" class="level3">
+<h3 class="anchored" data-anchor-id="image-hierarchy">Image hierarchy</h3>
+<ul>
+<li>Base images maintained in the Base</li>
+<li>Course base images only refer to a versioned base image</li>
+</ul>
+</section>
+<section id="templates" class="level3">
+<h3 class="anchored" data-anchor-id="templates">Templates</h3>
+<ul>
+<li>Every course has a repo template with a docker file that that refers to the course base image</li>
+<li>These templates are forked from franklin/base-templates/base-template</li>
+</ul>
+</section>
+<section id="tag-policy" class="level3">
+<h3 class="anchored" data-anchor-id="tag-policy">Tag policy</h3>
+<ul>
+<li>Franklin base images are versioned and must referred to with their version tag</li>
+<li>Course base images are tagged latest so that courses always pulls updated version.</li>
+<li>Exercise images are always tagged latest, which is the tag franklin pulls</li>
+</ul>
+</section>
+</section>
+<section id="container-registry" class="level2">
+<h2 class="anchored" data-anchor-id="container-registry">Container registry</h2>
+<div id="e2dcd525" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_tree(dir_path, prefix<span class="op">=</span><span class="st">''</span>):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    entries <span class="op">=</span> <span class="bu">sorted</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        [e <span class="cf">for</span> e <span class="kw">in</span> os.listdir(dir_path) <span class="cf">if</span> <span class="kw">not</span> e.startswith(<span class="st">'.'</span>)]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    last_index <span class="op">=</span> <span class="bu">len</span>(entries) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, entry <span class="kw">in</span> <span class="bu">enumerate</span>(entries):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        path <span class="op">=</span> os.path.join(dir_path, entry)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        is_last <span class="op">=</span> (i <span class="op">==</span> last_index)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        connector <span class="op">=</span> <span class="st">'└── '</span> <span class="cf">if</span> is_last <span class="cf">else</span> <span class="st">'├── '</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>prefix<span class="sc">}{</span>connector<span class="sc">}{</span>entry<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> os.path.isdir(path):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            extension <span class="op">=</span> <span class="st">'    '</span> <span class="cf">if</span> is_last <span class="cf">else</span> <span class="st">'│   '</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            print_tree(path, prefix <span class="op">+</span> extension)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage:</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>print_tree(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>├── Use_franklin.md
+├── about
+│   ├── docker.qmd
+│   ├── git.qmd
+│   ├── gitlab.qmd
+│   ├── images
+│   │   ├── Skærmbillede 2025-06-03 kl. 13.28.40.png
+│   │   ├── Skærmbillede 2025-06-03 kl. 14.25.30.png
+│   │   └── Skærmbillede 2025-06-03 kl. 14.27.12.png
+│   └── ssh.qmd
+├── access.qmd
+├── commands.qmd
+├── computer_setup.qmd
+├── create_edit.qmd
+├── faq.qmd
+├── getting_started.qmd
+├── images
+│   ├── Screenshot 2025-05-31 at 11.05.53.png
+│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png
+│   ├── Skærmbillede 2025-05-22 kl. 16.44.43.png
+│   ├── Skærmbillede 2025-05-22 kl. 16.45.05.png
+│   ├── Skærmbillede 2025-05-27 kl. 13.39.22.png
+│   ├── Skærmbillede 2025-05-27 kl. 13.40.10.png
+│   ├── Skærmbillede 2025-05-27 kl. 13.42.11.png
+│   ├── Skærmbillede 2025-05-28 kl. 14.37.28.png
+│   ├── Skærmbillede 2025-05-28 kl. 14.52.02.png
+│   ├── Skærmbillede 2025-05-28 kl. 15.22.07.png
+│   ├── Skærmbillede 2025-05-28 kl. 15.32.16.png
+│   ├── Skærmbillede 2025-05-29 kl. 16.19.09.png
+│   ├── elephant.png
+│   ├── pipeline_example.png
+│   ├── pipeline_example_nomenu.png
+│   └── shell-command.png
+├── overview.qmd
+├── overview.quarto_ipynb
+├── sascha_get_started.qmd
+├── sascha_installation.qmd
+├── source.qmd
+├── student
+│   ├── _quarto.yml
+│   ├── au_fonts
+│   │   ├── AULogoBold.ttf
+│   │   ├── AULogoReg.ttf
+│   │   ├── AUPassata_Bold.ttf
+│   │   ├── AUPassata_Light.ttf
+│   │   ├── AUPassata_Rg.ttf
+│   │   └── AU_Peto.ttf
+│   ├── custom.scss
+│   ├── header_extra.tex
+│   ├── headers.lua
+│   ├── index.qmd
+│   └── terminal.qmd
+└── tutorials
+    ├── data_analysis.ipynb
+    ├── developing_exercises.qmd
+    ├── jupyterlab.ipynb
+    ├── plotting.ipynb
+    └── terminal.qmd</code></pre>
+</div>
+</div>
+<p>src/franklin</p>
+<pre><code>franklin
+|-- __init__.py
+|-- config.py
+|-- crash.py
+|-- cutie.py
+|-- data
+|-- desktop.py
+|-- docker.py
+|-- gitlab.py
+|-- jupyter.py
+|-- logger.py
+|-- options.py
+|-- system.py
+|-- terminal.py
+|-- update.py
+`-- utils.py</code></pre>
+<pre><code>-- data
+   |-- default_user_settings.json
+   |-- gitui
+   |   |-- key_bindings.ron
+   |   |-- key_symbols.ron
+   |   `-- theme.ron
+   |-- README.md
+   `-- template
+       |-- base
+       |   |-- Dockerfile
+       |   |-- entrypoint.sh
+       |   |-- README.md
+       |   `-- tagged-release.sh
+       `-- exercise
+           |-- Dockerfile
+           |-- exercise.ipynb
+           |-- franklin.log
+           |-- pixi.toml
+           `-- README.md
+</code></pre>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -721,11 +1012,14 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../pages/admin/docker.html" class="pagination-link" aria-label="Docker admin">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Docker admin</span>
+      <a href="../pages/getting_started.html" class="pagination-link" aria-label="Getting started">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Getting started</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../pages/student/index.html" class="pagination-link" aria-label="index.html">
+        <span class="nav-page-text">index.html</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
