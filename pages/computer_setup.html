@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/sascha_get_started.html" rel="next">
+<link href="../pages/commands_core.html" rel="next">
 <link href="../pages/overview.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -77,6 +77,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -173,12 +176,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Outline and infrastructure</span></a>
   </div>
@@ -196,18 +193,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../pages/computer_setup.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Computer setup</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/sascha_get_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Get started with jupyter note book</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/sascha_installation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Get started with jupyter note book</span></a>
   </div>
 </li>
       </ul>
@@ -252,31 +237,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/tutorials/terminal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The terminal</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/tutorials/jupyterlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jupyterlab</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/tutorials/developing_exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Developing exercises</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/tutorials/data_analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/data_analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data analysis in Python and R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/tutorials/plotting.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/plotting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Plots with matplotlib</span></a>
   </div>
 </li>
@@ -293,25 +266,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/about/ssh.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The terminal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Jupyterlab</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/ssh.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SSH authentication</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/about/git.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Git version control</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/about/gitlab.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/conda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conda</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gitlab server</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/about/docker.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/docker.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Docker virtualization</span></a>
   </div>
 </li>
@@ -333,15 +324,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tldr" id="toc-tldr" class="nav-link active" data-scroll-target="#tldr">TLDR;</a></li>
-  <li><a href="#laptop-setup" id="toc-laptop-setup" class="nav-link" data-scroll-target="#laptop-setup">Laptop setup</a>
+  <li><a href="#install-python" id="toc-install-python" class="nav-link active" data-scroll-target="#install-python">Install Python</a></li>
+  <li><a href="#install-chrome" id="toc-install-chrome" class="nav-link" data-scroll-target="#install-chrome">Install Chrome</a></li>
+  <li><a href="#install-docker-desktop" id="toc-install-docker-desktop" class="nav-link" data-scroll-target="#install-docker-desktop">Install Docker Desktop</a>
   <ul class="collapse">
-  <li><a href="#install-python" id="toc-install-python" class="nav-link" data-scroll-target="#install-python">Install Python</a></li>
   <li><a href="#the-terminal" id="toc-the-terminal" class="nav-link" data-scroll-target="#the-terminal">The Terminal</a></li>
-  <li><a href="#conda-environments" id="toc-conda-environments" class="nav-link" data-scroll-target="#conda-environments">Conda environments</a></li>
-  <li><a href="#create-a-conda-environment-on-your-local-machine" id="toc-create-a-conda-environment-on-your-local-machine" class="nav-link" data-scroll-target="#create-a-conda-environment-on-your-local-machine">Create a conda environment on your local machine</a></li>
-  <li><a href="#vpn" id="toc-vpn" class="nav-link" data-scroll-target="#vpn">VPN</a></li>
+  <li><a href="#create-a-conda-environment-for-franklin" id="toc-create-a-conda-environment-for-franklin" class="nav-link" data-scroll-target="#create-a-conda-environment-for-franklin">Create a conda environment for Franklin</a></li>
   </ul></li>
+  <li><a href="#test-your-setup" id="toc-test-your-setup" class="nav-link" data-scroll-target="#test-your-setup">Test your setup</a></li>
   </ul>
 </nav>
     </div>
@@ -367,63 +357,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="tldr" class="level2">
-<h2 class="anchored" data-anchor-id="tldr">TLDR;</h2>
-</section>
-<section id="laptop-setup" class="level1">
-<h1>Laptop setup</h1>
-<p>You will work on our computing cluster, but before we get there, we must get you properly set up on your machine.</p>
-<section id="install-python" class="level3">
-<h3 class="anchored" data-anchor-id="install-python">Install Python</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+TLDR
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To use franklin, you need to install Python, Chrome and Docker Desktop. You also need to sign into the University hosted <a href="https://gitlab.au.dk">GitLab</a>, using the “UNI-AD”, and add an SSH key to allow ssh login from your computer without password.</p>
+</div>
+</div>
+<section id="install-python" class="level2">
+<h2 class="anchored" data-anchor-id="install-python">Install Python</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To be decided if we use miniforge, miniconda or anaconda…</p>
+</div>
+</div>
 <p>If you have not done so already, you should install a distribution of Python called <em>Anaconda</em>. Anaconda is not only an easy way of installing Python on Windows, Mac, and Linux; it also comes with the conda package management system (more about that later). To install Anaconda, visit <a href="https://www.anaconda.com/download">this page</a>. When the download completes, you must follow the default installation.</p>
 </section>
+<section id="install-chrome" class="level2">
+<h2 class="anchored" data-anchor-id="install-chrome">Install Chrome</h2>
+<p>Franklin is built to interact with the Chrome browser. So you need to make sure that is installed on your computer. If not, you can download it <a href="https://www.google.com/intl/en_uk/chrome/">here</a>.</p>
+</section>
+<section id="install-docker-desktop" class="level2">
+<h2 class="anchored" data-anchor-id="install-docker-desktop">Install Docker Desktop</h2>
+<p>Docker is a tool that can run a small linux world in your computer. Franklin uses it to make sure Jupyter runs your exercise in exactly the same way, no matter which kind of computer you have. You do not need to known anything about Docker. Franklin will take care of the whole thing for you. If you are interested, though, you can have a look at this <a href="docker.html">brief introduction to Docker</a>.</p>
+<p>Before you to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac. If you are downloading docker on a AU computer remember to activate admin privileges by activating Heimdal.</p>
+<p>If you are unsure of how to activate Heimdal, follow the instructions given on <a href="https://medarbejdere.au.dk/administration/it/vejledninger/sikkerhed/aktiver-administratorrettigheder-paa-medarbejdercomputer-heimdal">this page</a></p>
+<p>Go to <a href="https://www.docker.com/products/docker-desktop/">this page</a> and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. On a Mac, you can find the name of your chip by clicking the apple icon in the upper left corner and choose “about this mac” in the dropdown menu. Apple silicon chips include M1, M2 and M3. Apple intel chips are named intel.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Skærmbillede 2025-06-03 kl. 13.28.40.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/Skærmbillede 2025-06-03 kl. 13.28.40.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
+</figure>
+</div>
+<p>On Windows, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip.</p>
+<p>Download the version of Docker Desktop that matches your operating system and computer chip. Once downloaded, follow the installation instructions for your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens, a window pops up and asks if you want to sign in or create and account. An account is not necessary for using docker with franklin, so you can just click “skip” when prompted.</p>
+<p>When the installation procedure is complete and Docker is done starting up, you must it down. Just closing the blue Docker Dashboard window does not shut down Docker. You need to explicitly quit the program. To make sure it has quit, you can look for the little docker whale icon. In Mac is it in the menu bar. On Windows it is in the small popup menu at the right end of you task bar. If you see a small whale, Docker is still running. Click the whale icon and quit Docker.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Skærmbillede 2025-06-03 kl. 14.27.12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="alt text"><img src="images/Skærmbillede 2025-06-03 kl. 14.27.12.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+WSL
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>On Windows, Docker Desktop may give you an error message saying “WSL 2 is required”. In that case, install WSL by running the following command into your terminal:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">wsl</span> <span class="at">--install</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 <section id="the-terminal" class="level3">
 <h3 class="anchored" data-anchor-id="the-terminal">The Terminal</h3>
-<p>The programs you will use in the project are command-line applications. I.e., programs executed by writing their name and any arguments in a “terminal” rather than clicking on an icon and using a graphical user interface. Many different programs can serve as a terminal.</p>
-<ul>
-<li>If you have a Windows machine, use the <em>Anaconda Powershell Prompt</em> (<em>not</em> the Anaconda Prompt and <em>not</em> the <code>CMD</code>). You installed Anaconda Powershell Prompt along with Anaconda Python.</li>
-<li>If you have a Mac, the terminal you will use is called <em>Terminal</em>. The Terminal application is pre-installed on Mac.</li>
-</ul>
-<p>From now on, whenever I refer to the terminal, I mean <em>Anaconda Powershell Prompt</em> on Windows and <em>Terminal</em> on Mac. I will assume some familiarity with using a terminal and executing commands on the command line. If you have not used a terminal before, or if you are a bit rusty, you should run through <a href="https://lifehacker.com/5633909/who-needs-a-mouse-learn-to-use-the-command-line-for-almost-anything">this primer</a> before you go on.</p>
+<p>Franklin is a command-line application. That means it is executed by writing its name and any arguments in a “terminal” rather than clicking on an icon and using a graphical user interface. Many different programs can serve as a terminal.If you have a Windows machine, use the <em>Anaconda Powershell Prompt</em> (<em>not</em> the Anaconda Prompt and <em>not</em> the <code>CMD</code>). You installed Anaconda Powershell Prompt along with Anaconda Python. If you have a Mac, the terminal you will use is called <em>Terminal</em>. The Terminal application is pre-installed on Mac. From now on, whenever I refer to the terminal, I mean <em>Anaconda Powershell Prompt</em> on Windows and <em>Terminal</em> on Mac.</p>
+<p>I will will assume some familiarity with using a terminal and executing commands on the command line. If you have not used a terminal before, or if you are a bit rusty, you should run through <a href="terminal.html">this introduction</a> before you go on.</p>
 </section>
-<section id="conda-environments" class="level3">
-<h3 class="anchored" data-anchor-id="conda-environments">Conda environments</h3>
+<section id="create-a-conda-environment-for-franklin" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-conda-environment-for-franklin">Create a conda environment for Franklin</h3>
 <p><img src="https://docs.conda.io/en/latest/_images/conda_logo.svg" align="right" width="200" height="100"></p>
 <p>You must install packages and programs for your analyses and pipelines. Sometimes, however, the packages you need for one project conflict with the ones you need for other projects you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small world insulated from the rest of your Anaconda installation? Then, that small world would only contain the packages you needed for a single project. If each project had its isolated world, then there would be no such conflicts.</p>
-<p>Fortunately, a tool lets you do just that, and its name is Conda. Conda’s small worlds are called “environments,” and you can create as many as you like. You can then switch between them as you switch between your bioinformatics projects. Conda also downloads and installs the packages for you, ensuring that the packages you install in each environment are compatible. It even makes sure to install packages (dependencies) required by the packages you install. By creating an environment for each project, the libraries installed for each project do not interfere.</p>
+<p>Fortunately, a tool lets you do just that, and its name is Conda. Conda’s small worlds are called “environments,” and you can create as many as you like. You can then switch between them as you switch between your bioinformatics projects. Conda also downloads and installs the packages for you, ensuring that the packages you install in each environment are compatible. It even makes sure to install packages (dependencies) required by the packages you install. By creating an environment for each project, the libraries installed for each project do not interfere. You can read more about conda environments and how to use them in <a href="conda.html">this introduction</a>.</p>
+<p>Create an environment called franklin with franklin installed.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb2" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-y</span> <span class="at">-n</span> franklin <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+For educators
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Educators should also install <code>franklin-educator</code> like this:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-y</span> <span class="at">-n</span> franklin <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin franklin-educator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="create-a-conda-environment-on-your-local-machine" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-conda-environment-on-your-local-machine">Create a conda environment on your local machine</h3>
-<p>When you install Anaconda or Miniconda, Conda makes a single base environment. It is called “base,” and this is why it says “(base)” at your terminal prompt. You need a conda environment for your project on your local machine. You can call it anything you like, but if you call it <code>birc-project</code>, it will match the rest of this tutorial. So do that.</p>
-<p>The environment on your local machine only needs a few packages since it only connects you to the cluster. The command below creates a <code>birc-project</code> environment and installs the <code>slurm-jupyter</code> package from my conda channel:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-y</span> <span class="at">-n</span> birc-project <span class="at">-c</span> kaspermunch slurm-jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>To activate the environment, use this command:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb2" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate birc-project</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Note how the environment name at your terminal prompt changes from <code>(base)</code> to <code>(birc-project)</code>. To deactivate the environment, use this command:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>and the terminal prompt changes back to <code>(base)</code>.</p>
 </section>
-<section id="vpn" class="level3">
-<h3 class="anchored" data-anchor-id="vpn">VPN</h3>
-<p>You can only connect to the cluster on the University’s internal network. So you must be physically on campus or use the University’s VPN. To install VPN, follow the instructions <a href="https://studerende.au.dk/it-support/vpn/">on this page</a>. Before you can use the VPN, you also need to enable two-step verification. You can see how to do that on the same page. If you are not physically on campus, you must activate your VPN before logging in to the cluster. Your password for the VPN is the same as the one you use to log on to access Blackboard.</p>
+<section id="test-your-setup" class="level2">
+<h2 class="anchored" data-anchor-id="test-your-setup">Test your setup</h2>
+<p>If you succesfully completed all the above steps, you should now be able to activate your franklin environment:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb4" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and run this command to update franklin to its newest version:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> update</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can learn about how to use franklin on <a href="commands_core.html">this page</a>.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -833,12 +897,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/sascha_get_started.html" class="pagination-link" aria-label="Get started with jupyter note book">
-        <span class="nav-page-text">Get started with jupyter note book</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/commands_core.html" class="pagination-link" aria-label="Running exercises">
+        <span class="nav-page-text">Running exercises</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

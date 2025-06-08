@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>use_franklin – franklin</title>
+<title>Gitlab server – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../pages/docker.html" rel="next">
+<link href="../pages/conda.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -120,144 +122,259 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/terminal.html">About</a></li><li class="breadcrumb-item"><a href="../pages/gitlab.html">Gitlab server</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Outline and infrastructure</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Setting up</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/computer_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Using Franklin</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/commands_core.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Running exercises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/commands_edu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Developing exercises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/commands_admin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Admin tools</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Developing exercises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/data_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data analysis in Python and R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plots with matplotlib</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">About</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The terminal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Jupyterlab</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/ssh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SSH authentication</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Git version control</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/conda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conda</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Gitlab server</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Docker virtualization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#franklin-commands--students-version" id="toc-franklin-commands--students-version" class="nav-link active" data-scroll-target="#franklin-commands--students-version">Franklin commands- Students version</a>
+  <li><a href="#set-up-gitlab" id="toc-set-up-gitlab" class="nav-link active" data-scroll-target="#set-up-gitlab">set up gitlab</a>
   <ul class="collapse">
-  <li><a href="#activate-franklin" id="toc-activate-franklin" class="nav-link" data-scroll-target="#activate-franklin">Activate franklin</a></li>
-  <li><a href="#download-and-open-exercises" id="toc-download-and-open-exercises" class="nav-link" data-scroll-target="#download-and-open-exercises">Download and open exercises</a></li>
-  <li><a href="#clean-up-old-docker-containers" id="toc-clean-up-old-docker-containers" class="nav-link" data-scroll-target="#clean-up-old-docker-containers">Clean up old docker containers</a></li>
-  <li><a href="#update-franklin" id="toc-update-franklin" class="nav-link" data-scroll-target="#update-franklin">Update franklin</a></li>
-  </ul></li>
-  <li><a href="#educators-version" id="toc-educators-version" class="nav-link" data-scroll-target="#educators-version">Educators version</a>
-  <ul class="collapse">
-  <li><a href="#make-a-new-exercise-via-franklin" id="toc-make-a-new-exercise-via-franklin" class="nav-link" data-scroll-target="#make-a-new-exercise-via-franklin">Make a new exercise via franklin</a></li>
-  <li><a href="#edit-an-already-existing-exercise" id="toc-edit-an-already-existing-exercise" class="nav-link" data-scroll-target="#edit-an-already-existing-exercise">Edit an already existing exercise</a></li>
-  <li><a href="#download-an-exercise-without-editing." id="toc-download-an-exercise-without-editing." class="nav-link" data-scroll-target="#download-an-exercise-without-editing.">download an exercise without editing.</a></li>
-  <li><a href="#rename-an-exercise" id="toc-rename-an-exercise" class="nav-link" data-scroll-target="#rename-an-exercise">Rename an exercise</a></li>
-  <li><a href="#gitui" id="toc-gitui" class="nav-link" data-scroll-target="#gitui">Gitui</a></li>
-  <li><a href="#clean-up-old-docker-containers-1" id="toc-clean-up-old-docker-containers-1" class="nav-link" data-scroll-target="#clean-up-old-docker-containers-1">Clean up old docker containers</a></li>
-  <li><a href="#update-franklin-1" id="toc-update-franklin-1" class="nav-link" data-scroll-target="#update-franklin-1">Update franklin</a></li>
+  <li><a href="#sign-in" id="toc-sign-in" class="nav-link" data-scroll-target="#sign-in">sign in</a></li>
+  <li><a href="#ssh-keys---what-is-that-and-why-do-i-need-it" id="toc-ssh-keys---what-is-that-and-why-do-i-need-it" class="nav-link" data-scroll-target="#ssh-keys---what-is-that-and-why-do-i-need-it">SSH keys - what is that and why do i need it?</a></li>
+  <li><a href="#how-do-i-get-a-ssh-key" id="toc-how-do-i-get-a-ssh-key" class="nav-link" data-scroll-target="#how-do-i-get-a-ssh-key">How do i get a SSH key?</a></li>
+  <li><a href="#insert-ssh-key-to-gitlab" id="toc-insert-ssh-key-to-gitlab" class="nav-link" data-scroll-target="#insert-ssh-key-to-gitlab">insert SSH key to gitlab</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/terminal.html">About</a></li><li class="breadcrumb-item"><a href="../pages/gitlab.html">Gitlab server</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Gitlab server</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="franklin-commands--students-version" class="level2">
-<h2 class="anchored" data-anchor-id="franklin-commands--students-version">Franklin commands- Students version</h2>
-<section id="activate-franklin" class="level3">
-<h3 class="anchored" data-anchor-id="activate-franklin">Activate franklin</h3>
-<p>To use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:</p>
-<p>conda activate franklin</p>
-<p>Then navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)</p>
-<p>After activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this: <img src="images/Skærmbillede 2025-05-28 kl. 14.37.28.png" class="img-fluid" alt="alt text"></p>
-</section>
-<section id="download-and-open-exercises" class="level3">
-<h3 class="anchored" data-anchor-id="download-and-open-exercises">Download and open exercises</h3>
-<p>In order to use the commands listed you will first have to type franklin. Thats means if you want to use the download command you will in your terminal write</p>
-<p>franklin download</p>
-<p>You will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. <img src="images/Skærmbillede 2025-05-28 kl. 14.52.02.png" class="img-fluid" alt="alt text"></p>
-<p>You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to do. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)</p>
-<p>Then in order to make sure can run code in the exercise you run the command:</p>
-<p>franklin jupyter</p>
-<p>A new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!</p>
-<p>Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder<img src="images/Skærmbillede 2025-05-28 kl. 15.22.07.png" class="img-fluid" alt="alt text"></p>
-</section>
-<section id="clean-up-old-docker-containers" class="level3">
-<h3 class="anchored" data-anchor-id="clean-up-old-docker-containers">Clean up old docker containers</h3>
-<p>In order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.</p>
-<p>You can easily do this by using the command franklin cleanup</p>
-<p>run the command: franklin cleanup</p>
-<p>A seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.</p>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+This pages are under construction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/Skærmbillede 2025-05-28 kl. 15.32.16.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/Skærmbillede 2025-05-28 kl. 15.32.16.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<p><a href="images/pipeline_example.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/pipeline_example.png" class="img-fluid figure-img" alt="alt text"></a></p>
 <figcaption>alt text</figcaption>
 </figure>
 </div>
-<p>Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.</p>
-</section>
-<section id="update-franklin" class="level3">
-<h3 class="anchored" data-anchor-id="update-franklin">Update franklin</h3>
-<p>Franklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command</p>
-<p>franklin update</p>
-<p>You can also check out which version of franklin you have installed by using the command</p>
-<p>franklin –version</p>
-</section>
-</section>
-<section id="educators-version" class="level2">
-<h2 class="anchored" data-anchor-id="educators-version">Educators version</h2>
-<p>The educators version of franklin looks a lot like the student version with extra features for creating and editing exercises.</p>
-<section id="make-a-new-exercise-via-franklin" class="level3">
-<h3 class="anchored" data-anchor-id="make-a-new-exercise-via-franklin">Make a new exercise via franklin</h3>
-<p>To create a new exercise you will need to use the command</p>
-<p>franklin exercise</p>
-<p>When you run this command a new page of commands will show. <img src="images/Skærmbillede 2025-05-29 kl. 16.19.09.png" class="img-fluid" alt="alt text"></p>
-<p>In order to create a new exercise you use the command</p>
-<p>franklin exercise new</p>
-<p>A selection menu then appears and you choose the course you want to make an exercise for. Franklin then asks you to make make a short descriptive label of your exercise. This will be the title of the exercise. When you have named your exercise press enter</p>
-<p>…… MANGLER</p>
-</section>
-<section id="edit-an-already-existing-exercise" class="level3">
-<h3 class="anchored" data-anchor-id="edit-an-already-existing-exercise">Edit an already existing exercise</h3>
-<p>To edit an exercise use the command</p>
-<p>franklin exercise edit</p>
-<p>and choose your course and exercise you want to edit in the selection menu.</p>
-<p>…..MANGLER</p>
-</section>
-<section id="download-an-exercise-without-editing." class="level3">
-<h3 class="anchored" data-anchor-id="download-an-exercise-without-editing.">download an exercise without editing.</h3>
-<p>If you want to download an exercise the same way the students does it, you can use the command</p>
-<p>franklin download</p>
-<p>After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. <img src="images/Skærmbillede 2025-05-28 kl. 14.52.02.png" class="img-fluid" alt="alt text"></p>
-<p>You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)</p>
-<p>Then in order to make sure can run code in the exercise you run the command:</p>
-<p>franklin jupyter</p>
-<p>A new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!</p>
-<p>Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder<img src="images/Skærmbillede 2025-05-28 kl. 15.22.07.png" class="img-fluid" alt="alt text"></p>
-</section>
-<section id="rename-an-exercise" class="level3">
-<h3 class="anchored" data-anchor-id="rename-an-exercise">Rename an exercise</h3>
-</section>
-<section id="gitui" class="level3">
-<h3 class="anchored" data-anchor-id="gitui">Gitui</h3>
-<p>franklin exercise gitui lances git GUI</p>
-<p>Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.</p>
-<p>Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment</p>
-</section>
-<section id="clean-up-old-docker-containers-1" class="level3">
-<h3 class="anchored" data-anchor-id="clean-up-old-docker-containers-1">Clean up old docker containers</h3>
-<p>In order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.</p>
-<p>You can easily do this by using the command franklin cleanup</p>
-<p>run the command: franklin cleanup</p>
-<p>A seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/Skærmbillede 2025-05-28 kl. 15.32.16.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="alt text"><img src="images/Skærmbillede 2025-05-28 kl. 15.32.16.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<p><a href="images/pipeline_example_nomenu.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="alt text"><img src="images/pipeline_example_nomenu.png" class="img-fluid figure-img" alt="alt text"></a></p>
 <figcaption>alt text</figcaption>
 </figure>
 </div>
-<p>Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.</p>
+<p>Introduction to GitLab</p>
+<p>GitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.</p>
+<p>GitLab enables individuals and teams to collaborate on code by providing:</p>
+<p>Git repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails. Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows. CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository. Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration. Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains. GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.</p>
+<p>In summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.</p>
+<section id="set-up-gitlab" class="level2">
+<h2 class="anchored" data-anchor-id="set-up-gitlab">set up gitlab</h2>
+<section id="sign-in" class="level3">
+<h3 class="anchored" data-anchor-id="sign-in">sign in</h3>
+<p>Go to gitlab by following <a href="https://gitlab.au.dk">this link</a> On the sign-in page, choose the login option called login with Uni-add.</p>
 </section>
-<section id="update-franklin-1" class="level3">
-<h3 class="anchored" data-anchor-id="update-franklin-1">Update franklin</h3>
-<p>Franklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command</p>
-<p>franklin update</p>
-<p>You can also check out which version of franklin you have installed by using the command</p>
-<p>franklin –version</p>
+<section id="ssh-keys---what-is-that-and-why-do-i-need-it" class="level3">
+<h3 class="anchored" data-anchor-id="ssh-keys---what-is-that-and-why-do-i-need-it">SSH keys - what is that and why do i need it?</h3>
+<p>SSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.</p>
+</section>
+<section id="how-do-i-get-a-ssh-key" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-i-get-a-ssh-key">How do i get a SSH key?</h3>
+<p>kaspers guide</p>
+</section>
+<section id="insert-ssh-key-to-gitlab" class="level3">
+<h3 class="anchored" data-anchor-id="insert-ssh-key-to-gitlab">insert SSH key to gitlab</h3>
+<p>To access your SSH keys you use the command: cat ~/.ssh/id_rsa.pub</p>
+<p>It is very important that you choose the rsa.pub version.</p>
+<p>After you have run the command cat ~/.ssh/id_rsa.pub in your terminal a long line of letters and number will appear in your terminal. This is your SSH key. Now copy it and go back to the <a href="https://gitlab.au.dk">gitlab webpage</a></p>
+<p>Then press the icon on the top beside the picture that represent your profile and find the option called “edit profile” in the dropdown menu It should look like this: <img src="images/Skærmbillede 2025-05-27 kl. 13.42.11.png" class="img-fluid" alt="alt text"></p>
+<p>Now you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.</p>
+<p>The page should look something like the figure below: <img src="images/Skærmbillede 2025-05-27 kl. 13.40.10.png" class="img-fluid" alt="alt text"></p>
+<p>In the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this.</p>
+<p>You are now ready to use gitlab!</p>
 
 
 </section>
@@ -663,6 +780,18 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../pages/conda.html" class="pagination-link" aria-label="Conda">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Conda</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../pages/docker.html" class="pagination-link" aria-label="Docker virtualization">
+        <span class="nav-page-text">Docker virtualization</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
 (function() {
