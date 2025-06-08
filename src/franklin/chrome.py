@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import WebDriverException, InvalidSessionIdException
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import NoSuchWindowException
 from selenium.webdriver.chrome.options import Options
@@ -174,8 +174,12 @@ def chrome_open_and_wait(token_url: str) -> None:
                 break
             time.sleep(1)
 
+    except WebDriverException as e:
+        logger.debug(f'WebDriverException occurred: {e}')
+    except InvalidSessionIdException as e:
+        logger.debug(f'InvalidSessionIdException occurred: {e}')
     except NoSuchWindowException as e:
-        pass
+        logger.debug(f'NoSuchWindowException occurred: {e}')
     finally:
         # Close the browser if it's still open
         try:
