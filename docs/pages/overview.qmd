@@ -1,0 +1,170 @@
+---
+title: Franklin overview
+---
+
+
+## Click
+
+
+## Docker
+
+
+
+## Pixi
+
+
+
+
+
+## Purpose
+
+
+## Git
+
+
+
+## GitLab
+
+
+## Group/Subgroup layout
+
+
+## Users / Permissions / Authentication
+
+### The franklin-admin plugin
+
+Install the `franklin-admin` to administer users and course infrastructure.
+
+TODO
+
+
+## Tokens
+
+
+## Pipelines
+
+
+
+### AU hosting
+
+
+### GitLab Franklin group
+
+
+### GitLab Course subgroups
+
+
+### GitLab exercise repositories
+
+
+## Authentication
+
+Web GUI: UNI-AD login
+
+### Admin
+
+Kasper (and someone else for backup) 
+
+ssh keys
+
+
+### VIP
+
+ssh keys
+
+
+### Students
+
+Read-only token distributed with franklin.
+
+
+## Docker
+
+### Image hierarchy
+
+- Base images maintained in the Base
+- Course base images only refer to a versioned base image
+
+### Templates
+
+- Every course has a repo template with a docker file that that refers to the course base image
+- These templates are forked from franklin/base-templates/base-template
+
+### Tag policy
+
+- Franklin base images are versioned and must referred to with their version tag
+- Course base images are tagged latest so that courses always pulls updated version.
+- Exercise images are always tagged latest, which is the tag franklin pulls
+
+
+## Container registry
+
+
+
+
+```{python}
+import os
+
+def print_tree(dir_path, prefix=''):
+    entries = sorted(
+        [e for e in os.listdir(dir_path) if not e.startswith('.')]
+    )
+    last_index = len(entries) - 1
+
+    for i, entry in enumerate(entries):
+        path = os.path.join(dir_path, entry)
+        is_last = (i == last_index)
+        connector = '└── ' if is_last else '├── '
+        print(f"{prefix}{connector}{entry}")
+
+        if os.path.isdir(path):
+            extension = '    ' if is_last else '│   '
+            print_tree(path, prefix + extension)
+
+# Example usage:
+print_tree(".")
+```
+
+src/franklin
+```
+franklin
+|-- __init__.py
+|-- config.py
+|-- crash.py
+|-- cutie.py
+|-- data
+|-- desktop.py
+|-- docker.py
+|-- gitlab.py
+|-- jupyter.py
+|-- logger.py
+|-- options.py
+|-- system.py
+|-- terminal.py
+|-- update.py
+`-- utils.py
+```
+
+
+```
+-- data
+   |-- default_user_settings.json
+   |-- gitui
+   |   |-- key_bindings.ron
+   |   |-- key_symbols.ron
+   |   `-- theme.ron
+   |-- README.md
+   `-- template
+       |-- base
+       |   |-- Dockerfile
+       |   |-- entrypoint.sh
+       |   |-- README.md
+       |   `-- tagged-release.sh
+       `-- exercise
+           |-- Dockerfile
+           |-- exercise.ipynb
+           |-- franklin.log
+           |-- pixi.toml
+           `-- README.md
+
+```

@@ -105,6 +105,10 @@ You are now ready to use gitlab!
 
 ## How do i create a new assignment
 
+
+## How do I add my TAs to the course?
+
+
 ## jupyter lab
 
 ### What can i do in jupyter lab?

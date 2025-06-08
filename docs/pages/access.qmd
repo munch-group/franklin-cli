@@ -1,0 +1,34 @@
+## The hieraki of gitlab
+
+Guest: Can view the project/group and can create issues, comment and see public content.
+Guests cannot push code, create merge requests or edit settings
+
+Reporter: Can do the same as guest plus clone repositories, view issues, merge requests and pipelines. 
+Reportes cannot push code.
+
+Developer: Can do the same things as the reporter and also push code, create branges and create merge requests.
+They can also run and retry pipelines and creates and edit issues.
+
+Maintainer: Can do the same as the developer plus merge merge requests, manage project settings, invite other users with lower roles
+
+Owner: Has full access to everything. They can delete and transfer projects, manage group settings, and add or remove owners
+
+Summary:
+
+| Role       | View Code | Push Code | Merge MR | Manage CI/CD | Delete Project | Manage Members |
+| ---------- | --------- | --------- | -------- | ------------ | -------------- | -------------- |
+| Guest      | ❌         | ❌         | ❌        | ❌            | ❌              | ❌              |
+| Reporter   | ✅         | ❌         | ❌        | ❌            | ❌              | ❌              |
+| Developer  | ✅         | ✅         | ❌        | ✅            | ❌              | ❌              |
+| Maintainer | ✅         | ✅         | ✅        | ✅            | ❌              | ✅ (some)       |
+| Owner      | ✅         | ✅         | ✅        | ✅            | ✅              | ✅              |
+
+
+In order to grant permission to delete and create project you will have to be a owner of that subgroup. This is done by first inviting the person you want to own a subgroup to the main group as a reader. Then you add them to the subgroup once more and choose them as a owner of the particular subgroup.
+
+The course coordinater should be the owner of the subgroup of their course. 
+
+TØ instructors should be maintainers on the subgroup
+
+Both instructors and course coordinators should only have guest or reporter privalleges on the main group (franklin)
+

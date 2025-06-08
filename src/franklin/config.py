@@ -4,7 +4,7 @@ name = 'franklin'
 maintainer_email = 'kaspermunch@birc.au.dk'
 
 gitlab_domain = 'gitlab.au.dk'
-gitlab_group = name
+gitlab_group = 'franklin'
 gitlab_api_url = f'https://{gitlab_domain}/api/v4'
 gitlab_token = 'glpat-8F4yGmS6v_xZyqzyyoUM'
 registry_base_url = f'registry.{gitlab_domain}'

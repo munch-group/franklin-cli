@@ -1017,10 +1017,12 @@ def cleanup_exercises(image_id: str, force=True) -> None:
         if cont['Image'].startswith(image_id):
             container_id = cont['ID']
             logger.debug(f"Killing container: {container_id}")
-            kill_container(container_id, force=force)
+            kill_container(container_id, force=force)   
+            time.sleep(1)         
             logger.debug(f"Removing container: {container_id}")
             rm_container(container_id, force=force)
             break
+    time.sleep(2)
     logger.debug(f"Removing image: {image_id}")
     rm_image(image_id)
     

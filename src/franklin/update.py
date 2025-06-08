@@ -197,7 +197,7 @@ def _update():
 def update_packages():
     """Update Franklin
     """ 
-    term.secho('Checking for updates')
+    # term.secho('Checking for updates')
     if _update():
         term.echo()
         term.secho('Franklin was updated - Please run your command again', fg='green')

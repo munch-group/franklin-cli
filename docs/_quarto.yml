@@ -59,13 +59,20 @@ website:
       style: floating
       align: left
       contents:
-        - pages/getting_started.qmd       
+        - pages/getting_started.qmd 
+        - pages/overview.qmd
         - section: "Student"
           contents:
             - pages/student/index.qmd
         - section: "Educator"
           contents:
             - pages/create_edit.qmd
+            - pages/access.qmd
+            - pages/commands.qmd
+            - pages/computer_setup.qmd
+            - pages/faq.qmd
+            - pages/sascha_get_started.qmd
+            - pages/sascha_installation.qmd            
         - section: "Tutorials"
           contents:
             - pages/tutorials/terminal.qmd
@@ -79,12 +86,6 @@ website:
             - pages/about/git.qmd
             - pages/about/gitlab.qmd
             - pages/about/docker.qmd
-        - section: "Infrastructure"
-          contents:
-            - pages/admin/overview.qmd
-            - pages/admin/gitlab.qmd
-            - pages/admin/docker.qmd
-            - pages/admin/set_up_your_own.qmd
 
         # - section: "Source code"
         #   contents:

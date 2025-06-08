@@ -4,9 +4,28 @@ aliases:
   - ../index.html
 ---
 
-**franklin** is an open source project witth the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.
+**franklin** is an open source project with the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.
 
 The tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.
+
+## Key Features
+
+**GitLab hosting:** of repositories for exercises grouped by course, allowing for nested authentication privileges.
+
+**Docker Integration:** Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.
+
+**Conda and Pixi package Management:** The tool supports building and publishing Conda packages, enabling automatic management of dependencies.
+
+**Continuous integration:** Franklin uses GitLab pipelines for continuous integration automating workflows for building, testing, and publishing docker images.
+
+**Plugin Architecture:** The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.
+
+**Auto update:** Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.
+
+**Workflow automation:** To accommodate educators with different computational skill levels, franklin supports three levels of automation to support exercise development. 
+
+**User management:** The admin API allow easy management of users and assigning rules as either guest, teaching assistant, professor, or administrator.
+ 
 
 ## The student interface
 
@@ -44,22 +63,15 @@ The following command command prompts the educator for course and exercise. It t
 franklin exercise edit
 ```
 
-## Key Features
-
-- GitLab hosting of repositories for exercises grouped by course, allowing for nested authentication priviliges.
-- Docker Integration: Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.
-- Conda Package Management: The tool supports building and publishing Conda packages, enabling automatic management of dependencies.
-- Release Automation: Franklin uses continuous integration on through GitLab to automate workflows for building, testing, and publishing docker images.
-- Plugin Architecture: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.
-- Conventional Commits: Franklin adheres to the Conventional Commits specification, promoting a standardized commit history that aligns with Semantic Versioning principles.
-
 ## Installing Miniforge Python
 
-Miniforge is a community Python distribution with the license requirements for large companies imposed by Anaconda. 
+Although franklin works with any python3 distribution, but the [Miniforge distribution](https://conda-forge.org/download/) is strongly recommended.
+
+Miniforge is a conda-based community driven Python distribution. It is more robust and does not have the license requirements for large companies now imposed by Anaconda. 
 
 ## Installing Franklin
 
-Using Conda, students install franklin like this:
+Students can install franklin into a conda environment like this:
 
 ```{.bash filename="Terminal"}
 conda install -c conda-forge -c munch-group franklin
@@ -71,15 +83,20 @@ Educators also install the `franklin-educator` plugin:
 conda install -c conda-forge -c munch-group franklin franklin-educator
 ```
 
-Courses using [Pixi](https://pixi.sh/latest/) simply replace `conda install` with `pixi add`.
+In courses using [Pixi](https://pixi.sh/latest/) they can install like this:
+
+```{.bash filename="Terminal"}
+pixi workspace add channel munch-group
+pixi add franklin franklin-educator
+```
+
+Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.
 
 ## GitLab administrator setup
 
 Franklin only requires a GitLab group named 'Franklin', with subgroups for each course holding the exercise repositories.
 
 ## About this documentation
-
-These pages serve as documentation for educators, administrators and developers. To provide a 
 
 These pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click "Sign up" to create a Hypothes.is account. Once you are logged in to that, you click [this invite link](https://hypothes.is/groups/99akKdQZ/franklin) to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click "Annotate" to add your suggestion/comment. 
 

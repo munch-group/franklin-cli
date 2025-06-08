@@ -299,7 +299,7 @@ def download():
         term.secho(f"The exercise folder already exists:\n{repo_local_path.absolute()}.")
         raise click.Abort()
 
-    output = utils.run_cmd(f'git clone {clone_url} {repo_local_path}')
+    output = utils.run_cmd(f'git clone {clone_url} "{repo_local_path}"')
 
     # iterdir = (importlib_resources
     #            .files()
@@ -307,7 +307,8 @@ def download():
     #            .iterdir()
     # )
     # template_files = [p.name for p in iterdir]
-    template_files = list(Path(os.path.dirname(sys.modules['franklin'].__file__) + '/data/templates/exercise').glob('*'))
+    template_dir = Path(os.path.dirname(sys.modules['franklin_educator'].__file__)) / 'data' / 'templates' / 'exercise'
+    template_files = list(template_dir.glob('*'))
 
     dev_files = [p for p in template_files if p != 'exercise.ipynb']
 

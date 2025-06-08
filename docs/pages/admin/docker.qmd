@@ -1,9 +1,0 @@
----
-title: Docker admin
----
-
-## Building docker images
-
-
-## Running docker containers
-

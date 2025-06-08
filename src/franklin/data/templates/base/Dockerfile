@@ -3,6 +3,8 @@
 FROM continuumio/miniconda3:25.1.1-2
 
 LABEL maintainer="Kasper Munch <kaspermunch@birc.au.dk>"
+
+# change franklin to franklin-something if running on a different institute
 LABEL dk.au.gitlab.group=franklin
 
 ENV PYTHONDONTWRITEBYTECODE=true
