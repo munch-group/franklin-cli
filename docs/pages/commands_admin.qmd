@@ -1,4 +1,26 @@
-## The hieraki of gitlab
+---
+title: Admin tools
+---
+
+The `franklin-educator` plugin.
+
+```{.bash filename="Terminal"}
+conda install -c conda-forge -c munch-group franklin-educator
+```
+
+```{.bash filename="Terminal"}
+pixi workspace channel add munch-group
+pixi add franklin-educator
+```
+
+## Tokens
+
+
+## Find users
+
+
+## User permissions
+
 
 Guest: Can view the project/group and can create issues, comment and see public content.
 Guests cannot push code, create merge requests or edit settings
@@ -31,4 +53,5 @@ The course coordinater should be the owner of the subgroup of their course.
 TØ instructors should be maintainers on the subgroup
 
 Both instructors and course coordinators should only have guest or reporter privalleges on the main group (franklin)
+
 

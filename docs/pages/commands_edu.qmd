@@ -1,28 +1,36 @@
 ---
-title: Editing exercises
+title: Developing exercises
 ---
 
-::: {.callout-caution }
-## This pages are under construction
+The `franklin-educator` plugin.
 
-:::
+```{.bash filename="Terminal"}
+conda install -c conda-forge -c munch-group franklin-educator
+```
+
+```{.bash filename="Terminal"}
+pixi workspace channel add munch-group
+pixi add franklin-educator
+```
+
+## Create a new exercise 
+
+```{.bash filename="Terminal"}
+franklin exercise new
+```
+
+The command presents you with menus to select the course and exercise you 
+
+## Exercise edit workflow
 
 
-## The automated way
-
-### Creating
 
 
-### Editing
-
-
-### Additional channels or dependencies not found
+## Exercise down / up
 
 
 
-
-
-## The manual way
+## Clone exercise
 
 
 ### Git clone
@@ -100,3 +108,7 @@ Then add the package:
 
 
 ### Git push
+
+
+## Removing (archiving) an exercise 
+

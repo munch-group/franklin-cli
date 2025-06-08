@@ -61,18 +61,16 @@ website:
       contents:
         - pages/getting_started.qmd 
         - pages/overview.qmd
-        - section: "Student"
+        - section: "Setting up"
           contents:
-            - pages/student/index.qmd
-        - section: "Educator"
-          contents:
-            - pages/create_edit.qmd
-            - pages/access.qmd
-            - pages/commands.qmd
             - pages/computer_setup.qmd
-            - pages/faq.qmd
             - pages/sascha_get_started.qmd
             - pages/sascha_installation.qmd            
+        - section: "Using Franklin"
+          contents:
+            - pages/commands_core.qmd
+            - pages/commands_edu.qmd
+            - pages/commands_admin.qmd
         - section: "Tutorials"
           contents:
             - pages/tutorials/terminal.qmd
@@ -86,6 +84,7 @@ website:
             - pages/about/git.qmd
             - pages/about/gitlab.qmd
             - pages/about/docker.qmd
+        - pages/faq.qmd
 
         # - section: "Source code"
         #   contents:

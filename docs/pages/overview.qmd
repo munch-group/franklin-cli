@@ -1,5 +1,5 @@
 ---
-title: Franklin overview
+title: Outline and infrastructure
 ---
 
 
