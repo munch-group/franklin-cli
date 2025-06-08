@@ -2,7 +2,7 @@
 title: Running exercises
 ---
 
-**franklin** uses the [click](https://click.palletsprojects.com/en/stable/) library to define a hierachy of commands and subcommands. `franklin` is the main command and has the subcommands `download`, `jupyter`, `update`, and `cleanup`. Should you forget, you can always run the `franklin` command like this:
+**franklin** uses the [click](https://click.palletsprojects.com/en/stable/) library to define a hierarchy of commands and subcommands. `franklin` is the main command and has the subcommands `download`, `jupyter`, `update`, `show`, and `cleanup`. Should you forget, you can always run the `franklin` command like this:
 
 ```{.bash filename="Terminal"}
 franklin
@@ -24,9 +24,8 @@ Commands:
   cleanup   Cleanup Franklin storage
   download  Download an exercise
   jupyter   Run jupyter for an exercise
+  show      Commands for showing Docker content.
   update    Update Franklin
-
-  See https://munch-group.org/franklin for more details
 ```
 
 To run each subcommand, you simply append it to `franklin`, E.g. `franklin jupyter`. The following sections explain what each subcommand do.
@@ -37,10 +36,10 @@ To run each subcommand, you simply append it to `franklin`, E.g. `franklin jupyt
 franklin download
 ```
 
-The command presents you with menus to select the course and exercise you 
+Running this command, you will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a folder in your current folder (you can run `ls` to see it). If the exercise is called `cool-exercise`, you can change to that folder by running `cd cool-exercise`.
 
 
-You will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses.
+<!-- You will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses.
 ![alt text](<images/Skærmbillede 2025-05-28 kl. 14.52.02.png>)
 
 You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to do. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)
@@ -48,48 +47,55 @@ You choose your course by using the arrow keys and a new selection menu will app
 After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses.
 ![alt text](<images/Skærmbillede 2025-05-28 kl. 14.52.02.png>)
 
-You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)
-
-Then in order to make sure can run code in the exercise you run the command:
-
-franklin jupyter 
-
-A new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!
-
-Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder![alt text](<images/Skærmbillede 2025-05-28 kl. 15.22.07.png>)
+You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise) -->
 
 ## Run Jupyter
+
+Your downloaded exercise is a jupyter notebook. In order to open and use it, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:
 
 ```{.bash filename="Terminal"}
 franklin jupyter
 ```
 
-A new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!
+JupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press `Ctrl-C` in the terminal window (remember to save your notebook first).
 
 Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder![alt text](<images/Skærmbillede 2025-05-28 kl. 15.22.07.png>)
 
 
 ## Update franklin
-Franklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command 
+
+Franklin should update automaticaly when you start it, but if you should need to update it manually you can do it running this command:
 
 ```{.bash filename="Terminal"}
 franklin update
 ```
 
-You can also check out which version of franklin you have installed by using the command 
+You can also see which version of franklin you have installed by running this command:
+
+```{.bash filename="Terminal"}
+franklin --version
+```
 
 ## Cleanup disk space
 
-In order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these. 
+Franklin downloads a linux "docker image" for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later.
 
-You can easily do this by using the command franklin cleanup
+To see the images downloaded to your computer and how much space they take up, you can run this command:
+
+```{.bash filename="Terminal"}
+franklin show images
+```
+
+To free up disk space, you can run this command:
 
 ```{.bash filename="Terminal"}
 franklin cleanup
 ```
 
-A seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use. 
+You will be prompted with a menu showing the "docker images" on your computer. Select all the ones you want to remove and press Enter. Deleting images will not delete any of your own files with saved work.
 
-![alt text](<images/Skærmbillede 2025-05-28 kl. 15.32.16.png>)
 
-Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.
+<!-- 
+![alt text](<images/Skærmbillede 2025-05-28 kl. 15.32.16.png>) -->
+
+<!-- Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more. -->

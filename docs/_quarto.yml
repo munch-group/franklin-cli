@@ -59,13 +59,11 @@ website:
       style: floating
       align: left
       contents:
-        - pages/getting_started.qmd 
+        # - pages/getting_started.qmd 
         - pages/overview.qmd
         - section: "Setting up"
           contents:
             - pages/computer_setup.qmd
-            - pages/sascha_get_started.qmd
-            - pages/sascha_installation.qmd            
         - section: "Using Franklin"
           contents:
             - pages/commands_core.qmd
@@ -73,18 +71,18 @@ website:
             - pages/commands_admin.qmd
         - section: "Tutorials"
           contents:
-            - pages/tutorials/terminal.qmd
-            - pages/tutorials/jupyterlab.ipynb
-            - pages/tutorials/developing_exercises.qmd
-            - pages/tutorials/data_analysis.ipynb
-            - pages/tutorials/plotting.ipynb
+            - pages/developing.qmd
+            - pages/data_analysis.ipynb
+            - pages/plotting.ipynb
         - section: "About"
           contents:
-            - pages/about/ssh.qmd
-            - pages/about/git.qmd
-            - pages/about/conda.qmd
-            - pages/about/gitlab.qmd
-            - pages/about/docker.qmd
+            - pages/terminal.qmd
+            - pages/jupyterlab.ipynb
+            - pages/ssh.qmd
+            - pages/git.qmd
+            - pages/conda.qmd
+            - pages/gitlab.qmd
+            - pages/docker.qmd
         - pages/faq.qmd
 
         # - section: "Source code"

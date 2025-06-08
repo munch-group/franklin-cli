@@ -18,11 +18,10 @@ book:
     - index.qmd
     - part: "Terminal"
       chapters:
-        - terminal.qmd
-        - ../tutorials/jupyterlab.ipynb
-        - ../tutorials/developing_exercises.qmd
-        - ../tutorials/data_analysis.ipynb
-        - ../tutorials/plotting.ipynb
+        - ../terminal.qmd
+        - ../jupyterlab.ipynb
+        - ../data_analysis.ipynb
+        - ../plotting.ipynb
   downloads: [pdf]
 
 # embed-resources: true
