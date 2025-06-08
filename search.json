@@ -802,49 +802,70 @@
     "href": "pages/getting_started.html",
     "title": "Getting started",
     "section": "",
-    "text": "franklin is an open source project with the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.\nThe tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.\nGitLab hosting: of repositories for exercises grouped by course, allowing for nested authentication privileges.\nDocker Integration: Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.\nConda and Pixi package Management: The tool supports building and publishing Conda packages, enabling automatic management of dependencies.\nContinuous integration: Franklin uses GitLab pipelines for continuous integration automating workflows for building, testing, and publishing docker images.\nNested plugin APIs: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.\nAuto update: Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.\nAutomated workflows: To accommodate educators with different computational skill levels, franklin supports three levels of automation to support exercise development.\nUser management: The admin API allow easy management of users and assigning rules as either guest, teaching assistant, professor, or administrator."
+    "text": "franklin is an open source project with the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.\nThe tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.\nGitLab hosting: of repositories for exercises grouped by course, allowing for nested authentication privileges.\nDocker Integration: Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.\nConda and Pixi package Management: The tool supports building and publishing Conda packages, enabling automatic management of dependencies.\nContinuous integration: Franklin uses GitLab pipelines for continuous integration automating workflows for building, testing, and publishing docker images.\nNested plugin APIs: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.\nAuto update: Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.\nAutomated workflows: To accommodate educators with different computational skill levels, franklin supports three levels of automation to support exercise development.\nUser management: The admin API allow easy management of users and assigning rules as either guest, teaching assistant, professor, or administrator.",
+    "crumbs": [
+      "Getting started"
+    ]
   },
   {
     "objectID": "pages/getting_started.html#the-student-interface",
     "href": "pages/getting_started.html#the-student-interface",
     "title": "Getting started",
     "section": "The student interface",
-    "text": "The student interface\nThe student run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies.\nOn both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.\n\n\nTerminal\n\nfranklin download\n\nThe student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student’s computer with all required dependencies preinstalled.\n\n\nTerminal\n\nfranklin jupyter\n\nThe environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors."
+    "text": "The student interface\nThe student run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies.\nOn both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.\n\n\nTerminal\n\nfranklin download\n\nThe student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student’s computer with all required dependencies preinstalled.\n\n\nTerminal\n\nfranklin jupyter\n\nThe environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.",
+    "crumbs": [
+      "Getting started"
+    ]
   },
   {
     "objectID": "pages/getting_started.html#the-educator-interface",
     "href": "pages/getting_started.html#the-educator-interface",
     "title": "Getting started",
     "section": "The educator interface",
-    "text": "The educator interface\nEducators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.\nRunning the following command prompts the educator for course and exercise name and creates a new exercise.\nPlugin exercise from franklin-jupyter\n\n\nTerminal\n\nfranklin exercise new\n\nThe following command command prompts the educator for course and exercise. It then retrieves the exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.\n\n\nTerminal\n\nfranklin exercise edit"
+    "text": "The educator interface\nEducators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.\nRunning the following command prompts the educator for course and exercise name and creates a new exercise.\nPlugin exercise from franklin-jupyter\n\n\nTerminal\n\nfranklin exercise new\n\nThe following command command prompts the educator for course and exercise. It then retrieves the exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.\n\n\nTerminal\n\nfranklin exercise edit",
+    "crumbs": [
+      "Getting started"
+    ]
   },
   {
     "objectID": "pages/getting_started.html#installing-miniforge-python",
     "href": "pages/getting_started.html#installing-miniforge-python",
     "title": "Getting started",
     "section": "Installing Miniforge Python",
-    "text": "Installing Miniforge Python\nAlthough franklin works with any python3 distribution, but the Miniforge distribution is strongly recommended.\nMiniforge is a conda-based community driven Python distribution. It is more robust and does not have the license requirements for large companies now imposed by Anaconda."
+    "text": "Installing Miniforge Python\nAlthough franklin works with any python3 distribution, but the Miniforge distribution is strongly recommended.\nMiniforge is a conda-based community driven Python distribution. It is more robust and does not have the license requirements for large companies now imposed by Anaconda.",
+    "crumbs": [
+      "Getting started"
+    ]
   },
   {
     "objectID": "pages/getting_started.html#installing-franklin",
     "href": "pages/getting_started.html#installing-franklin",
     "title": "Getting started",
     "section": "Installing Franklin",
-    "text": "Installing Franklin\nStudents can install franklin into a conda environment like this:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin\n\nEducators also install the franklin-educator plugin:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin franklin-educator\n\nIn courses using Pixi they can install like this:\n\n\nTerminal\n\npixi workspace add channel munch-group\npixi add franklin franklin-educator\n\nOnce installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students."
+    "text": "Installing Franklin\nStudents can install franklin into a conda environment like this:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin\n\nEducators also install the franklin-educator plugin:\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin franklin-educator\n\nIn courses using Pixi they can install like this:\n\n\nTerminal\n\npixi workspace add channel munch-group\npixi add franklin franklin-educator\n\nOnce installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.",
+    "crumbs": [
+      "Getting started"
+    ]
   },
   {
     "objectID": "pages/getting_started.html#gitlab-administrator-setup",
     "href": "pages/getting_started.html#gitlab-administrator-setup",
     "title": "Getting started",
     "section": "GitLab administrator setup",
-    "text": "GitLab administrator setup\nFranklin only requires a GitLab group named ‘Franklin’, with subgroups for each course holding the exercise repositories."
+    "text": "GitLab administrator setup\nFranklin only requires a GitLab group named ‘Franklin’, with subgroups for each course holding the exercise repositories.",
+    "crumbs": [
+      "Getting started"
+    ]
   },
   {
     "objectID": "pages/getting_started.html#about-this-documentation",
     "href": "pages/getting_started.html#about-this-documentation",
     "title": "Getting started",
     "section": "About this documentation",
-    "text": "About this documentation\nThese pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click “Sign up” to create a Hypothes.is account. Once you are logged in to that, you click this invite link to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click “Annotate” to add your suggestion/comment."
+    "text": "About this documentation\nThese pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click “Sign up” to create a Hypothes.is account. Once you are logged in to that, you click this invite link to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click “Annotate” to add your suggestion/comment.",
+    "crumbs": [
+      "Getting started"
+    ]
   },
   {
     "objectID": "pages/docker.html",
