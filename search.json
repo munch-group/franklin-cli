@@ -231,53 +231,562 @@
     ]
   },
   {
-    "objectID": "pages/Use_franklin.html",
-    "href": "pages/Use_franklin.html",
-    "title": "franklin",
-    "section": "",
-    "text": "To use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:\nconda activate franklin\nThen navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)\nAfter activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this: \n\n\n\nIn order to use the commands listed you will first have to type franklin. Thats means if you want to use the download command you will in your terminal write\nfranklin download\nYou will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to do. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\n\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\n\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version"
-  },
-  {
-    "objectID": "pages/Use_franklin.html#franklin-commands--students-version",
-    "href": "pages/Use_franklin.html#franklin-commands--students-version",
-    "title": "franklin",
-    "section": "",
-    "text": "To use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:\nconda activate franklin\nThen navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)\nAfter activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this: \n\n\n\nIn order to use the commands listed you will first have to type franklin. Thats means if you want to use the download command you will in your terminal write\nfranklin download\nYou will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to do. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\n\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\n\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version"
-  },
-  {
-    "objectID": "pages/Use_franklin.html#educators-version",
-    "href": "pages/Use_franklin.html#educators-version",
-    "title": "franklin",
-    "section": "Educators version",
-    "text": "Educators version\nThe educators version of franklin looks a lot like the student version with extra features for creating and editing exercises.\n\nMake a new exercise via franklin\nTo create a new exercise you will need to use the command\nfranklin exercise\nWhen you run this command a new page of commands will show. \nIn order to create a new exercise you use the command\nfranklin exercise new\nA selection menu then appears and you choose the course you want to make an exercise for. Franklin then asks you to make make a short descriptive label of your exercise. This will be the title of the exercise. When you have named your exercise press enter\n…… MANGLER\n\n\nEdit an already existing exercise\nTo edit an exercise use the command\nfranklin exercise edit\nand choose your course and exercise you want to edit in the selection menu.\n…..MANGLER\n\n\ndownload an exercise without editing.\nIf you want to download an exercise the same way the students does it, you can use the command\nfranklin download\nAfter running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\nRename an exercise\n\n\nGitui\nfranklin exercise gitui lances git GUI\nGit gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.\nGit gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment\n\n\nClean up old docker containers\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\nUpdate franklin\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version"
-  },
-  {
     "objectID": "pages/faq.html",
     "href": "pages/faq.html",
     "title": "FAQ",
     "section": "",
     "text": "franklin-educator is installed in my environemnt but I cannot see the exercise commands\nTry reinstalling franklin-educator:\n\n\nTerminal\n\nconda uninstall franklin-educator\n\nand then\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin-educator\n\n\n\nDocker is installed but franklin keeps complaining it is not\nWhen Docker Desktop is in Eco mode, franklin cannot get to it. If Docker Desktop is not running, franklin can start it for you. So Quit Docker Desktop and try running franklin again.\n\n\nI quit Docker Desktop but it is still running\nThe blue Docker Desktop window is the Docker dashboard. Closing that window will not close Docker Desktop. To close Docker Desktop find the small docker icon in the menu bar on Mac or in the bottom right taskbar on Windows. Look for a tiny whale with containers on its back.\n\n\nHow much space is frankling taking up on my hard disk?\n\n\nHow do I free up disk space used by franklin\n\n\nWhat happens if I delete an exercise in franklin\n\n\nHow do I rename an exercise\nChanges the display name using franklin exercise rename. Do not change the repository name on GitLab.",
     "crumbs": [
-      "Educator",
       "FAQ"
     ]
+  },
+  {
+    "objectID": "pages/sascha_get_started.html",
+    "href": "pages/sascha_get_started.html",
+    "title": "franklin",
+    "section": "",
+    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_get_started.html#get-started-with-jupyter-note-book",
+    "href": "pages/sascha_get_started.html#get-started-with-jupyter-note-book",
+    "title": "franklin",
+    "section": "",
+    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_get_started.html#enviroments",
+    "href": "pages/sascha_get_started.html#enviroments",
+    "title": "franklin",
+    "section": "Enviroments",
+    "text": "Enviroments\n\n\nIn bioinformatics, we install packages and programs so we can use them in our analyses and pipelines. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small insulated world for each project, which then only contained the packages you needed for that particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there is a tool that lets you do just that, and its name is Conda.\n“Conda is an open source package management system and environment management system for installing multiple versions of software packages and their dependencies and switching easily between them.”\nThe small worlds that Conda creates are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else. Conda also downloads and installs the packages for you and it makes sure that the software packages you install in each environment are compatible. It even makes sure that packages needed by packages (dependencies) are also installed. Conda is truly awesome.\nIn this case you need to create a new enviroment where you install franklin\nYou will need franklin for downloading assignments. You will also be able to choose a enviroment in franklin that specifially fits the assignment you want to make.\n\n\nCreate Franklin enviroment and install franklin\nIn order to download franklin and install an enviroment called franklin you have to write the code below into your terminal\nconda create -y -n franklin -c conda-forge -c munch-group franklin\nThis commands runs the Conda program and tells it to create a new enviroment with the name franklin and to install franklin in that enviroment. Once you have ran the command, your terminal output should look something like this:\noutput",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_get_started.html#franklin-for-educators",
+    "href": "pages/sascha_get_started.html#franklin-for-educators",
+    "title": "franklin",
+    "section": "Franklin for educators",
+    "text": "Franklin for educators\nYou will then also need to download franklin educator Before you insert the code below, activate your franklin enviroment in your terminal\nconda activate franklin\nconda install -c conda-forge -c munch-group franklin franklin-educator",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_get_started.html#set-up-gitlab",
+    "href": "pages/sascha_get_started.html#set-up-gitlab",
+    "title": "franklin",
+    "section": "set up gitlab",
+    "text": "set up gitlab\n\nsign in\nGo to gitlab by following this link On the sign-in page, choose the login option called login with Uni-add.\n\n\nSSH keys - what is that and why do i need it?\nSSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.\n\n\nHow do i get a SSH key?\nkaspers guide\n\n\ninsert SSH key to gitlab\nTo access your SSH keys you use the command: cat ~/.ssh/id_rsa.pub\nIt is very important that you choose the rsa.pub version.\nAfter you have run the command cat ~/.ssh/id_rsa.pub in your terminal a long line of letters and number will appear in your terminal. This is your SSH key. Now copy it and go back to the gitlab webpage\nThen press the icon on the top beside the picture that represent your profile and find the option called “edit profile” in the dropdown menu It should look like this: \nNow you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.\nThe page should look something like the figure below: \nIn the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this.\nYou are now ready to use gitlab!",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_get_started.html#how-do-i-create-a-new-assignment",
+    "href": "pages/sascha_get_started.html#how-do-i-create-a-new-assignment",
+    "title": "franklin",
+    "section": "How do i create a new assignment",
+    "text": "How do i create a new assignment",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_get_started.html#how-do-i-add-my-tas-to-the-course",
+    "href": "pages/sascha_get_started.html#how-do-i-add-my-tas-to-the-course",
+    "title": "franklin",
+    "section": "How do I add my TAs to the course?",
+    "text": "How do I add my TAs to the course?",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_get_started.html#jupyter-lab",
+    "href": "pages/sascha_get_started.html#jupyter-lab",
+    "title": "franklin",
+    "section": "jupyter lab",
+    "text": "jupyter lab\n\nWhat can i do in jupyter lab?\nJupyterLab is an easy-to-use program that helps you learn and work with code. You open it in a web browser, and it lets you write code, run it, and see the results right away.\nIt’s especially useful for trying out small bits of code, doing calculations, looking at data, and making plots. In juputer you can both write notes code and also run the code, all on the same page.\n\n\nMarkdown cells\nThere is two different kinds of cells in jupyter - markdown cells and code cells. In markdown cells you can write code in the same manner as you would in a teksteditor such as word. In markdown cells you can create a nice layout of your text piece. If you want to learn more check out the jupyter guide notebook\n\n\nCode cells\nAs the name implies you can write code in code cells and then execute your code by directly in jupyter lab by pressing shift+enter. If you want to see examples of what for example can be done in code cells check out the jupyter guide notebook\nIn order to make a new cell in markdown press the + icon on the right side of the cell. You can also use the shortcut “a” to make a cell above the cell you are interacting with, and you can use the shortcut “b” to create new cell below the one you were interacting with. If you have clicked the code cell so that you are able to write in it, you need to press esc prior to using the shortcuts.\n\n\ncreate a new cell\nWhen you have a new cell you can choose whether you want it to be a markdown cell or a code cell by using the menu bar at the top of the page. In the example below, the current cell type is code. If you wanted to change it, you click where it says code, and then chooses markdown in the drop down menu: \nYou can also use the shortcut esc + m to change a code cell to a markdown cell, and esc+ y to change a markdown cell to a code cell.",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/student/index.html",
+    "href": "pages/student/index.html",
+    "title": "franklin",
+    "section": "",
+    "text": "The student runs a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies.\nOn both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.\n\n\nTerminal\n\nfranklin download\n\nThe student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student’s computer with all required dependencies preinstalled.\n\n\nTerminal\n\nfranklin jupyter\n\nThe environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors."
+  },
+  {
+    "objectID": "pages/commands_admin.html",
+    "href": "pages/commands_admin.html",
+    "title": "Admin tools",
+    "section": "",
+    "text": "The franklin-educator plugin.",
+    "crumbs": [
+      "Using Franklin",
+      "Admin tools"
+    ]
+  },
+  {
+    "objectID": "pages/commands_admin.html#tokens",
+    "href": "pages/commands_admin.html#tokens",
+    "title": "Admin tools",
+    "section": "Tokens",
+    "text": "Tokens",
+    "crumbs": [
+      "Using Franklin",
+      "Admin tools"
+    ]
+  },
+  {
+    "objectID": "pages/commands_admin.html#find-users",
+    "href": "pages/commands_admin.html#find-users",
+    "title": "Admin tools",
+    "section": "Find users",
+    "text": "Find users",
+    "crumbs": [
+      "Using Franklin",
+      "Admin tools"
+    ]
+  },
+  {
+    "objectID": "pages/commands_admin.html#user-permissions",
+    "href": "pages/commands_admin.html#user-permissions",
+    "title": "Admin tools",
+    "section": "User permissions",
+    "text": "User permissions\nGuest: Can view the project/group and can create issues, comment and see public content. Guests cannot push code, create merge requests or edit settings\nReporter: Can do the same as guest plus clone repositories, view issues, merge requests and pipelines. Reportes cannot push code.\nDeveloper: Can do the same things as the reporter and also push code, create branges and create merge requests. They can also run and retry pipelines and creates and edit issues.\nMaintainer: Can do the same as the developer plus merge merge requests, manage project settings, invite other users with lower roles\nOwner: Has full access to everything. They can delete and transfer projects, manage group settings, and add or remove owners\nSummary:\n\n\n\n\n\n\n\n\n\n\n\n\nRole\nView Code\nPush Code\nMerge MR\nManage CI/CD\nDelete Project\nManage Members\n\n\n\n\nGuest\n❌\n❌\n❌\n❌\n❌\n❌\n\n\nReporter\n✅\n❌\n❌\n❌\n❌\n❌\n\n\nDeveloper\n✅\n✅\n❌\n✅\n❌\n❌\n\n\nMaintainer\n✅\n✅\n✅\n✅\n❌\n✅ (some)\n\n\nOwner\n✅\n✅\n✅\n✅\n✅\n✅\n\n\n\nIn order to grant permission to delete and create project you will have to be a owner of that subgroup. This is done by first inviting the person you want to own a subgroup to the main group as a reader. Then you add them to the subgroup once more and choose them as a owner of the particular subgroup.\nThe course coordinater should be the owner of the subgroup of their course.\nTØ instructors should be maintainers on the subgroup\nBoth instructors and course coordinators should only have guest or reporter privalleges on the main group (franklin)",
+    "crumbs": [
+      "Using Franklin",
+      "Admin tools"
+    ]
+  },
+  {
+    "objectID": "pages/about/git.html",
+    "href": "pages/about/git.html",
+    "title": "Git version control",
+    "section": "",
+    "text": "This pages are under construction",
+    "crumbs": [
+      "About",
+      "Git version control"
+    ]
+  },
+  {
+    "objectID": "pages/about/git.html#tldr",
+    "href": "pages/about/git.html#tldr",
+    "title": "Git version control",
+    "section": "TLDR;",
+    "text": "TLDR;\nGit is a distributed version control system designed to track changes in source code and facilitate collaboration among multiple developers. Originally created by Linus Torvalds in 2005 for managing the Linux kernel, Git has since become the dominant version control tool in software development, underpinning platforms such as GitHub, GitLab, and Bitbucket.\nIn Git, every working copy of a repository is a full-fledged versioned archive, containing the entire history of the project. This distributed model enhances performance, enables offline work, and provides a robust foundation for branching and merging workflows. Changes are recorded as commits—snapshots of the project at specific points in time—organized in a directed acyclic graph (DAG).\nKey concepts include:\nRepository: A data structure containing all commits, branches, and tags for a project. Commit: A recorded state of the repository, with metadata about the author, timestamp, and parent commits. Branch: A movable pointer to a commit, enabling parallel development paths. Merge: The integration of changes from one branch into another, optionally involving conflict resolution. Remote: A reference to another copy of the repository, typically hosted on a server. Git supports advanced features such as rebasing, cherry-picking, and interactive staging. It also allows for fine-grained control of collaboration through pull requests, code reviews, and access control mechanisms.\nWhile Git has a steep learning curve, especially in conflict resolution and complex branching workflows, its efficiency, reliability, and flexibility make it an indispensable tool in modern software engineering and research computing.",
+    "crumbs": [
+      "About",
+      "Git version control"
+    ]
+  },
+  {
+    "objectID": "pages/about/git.html#git-as-journaled-backup",
+    "href": "pages/about/git.html#git-as-journaled-backup",
+    "title": "Git version control",
+    "section": "Git as journaled backup",
+    "text": "Git as journaled backup\nWhen you are in your &lt;repositoryname&gt; folder, you can run git commands to manage your files, record their changes and sync them to the repository on GitHub for safe keeping. These tutorials are good introductions to git.\nTo journal the creation or modification of a file, you need to add it to git:\n\n\nTerminal\n\ngit add &lt;the_changed_file&gt;\n\nThis “stages” the change. This adds the file to the a “group” of changes that represent some modification to your project. You can add more files to that “group” by running the command again with other files. If you run git status you can see that the files are now staged.\nSo maybe you added or changed two python files addressing some parcitular problem or advancing some part of your project. Now you want to store those of changes to the journal maintained by Git and associate it with a short message describing the changes. For that you use:\n\n\nTerminal\n\ngit commit -m '&lt;message&gt;'\n\nIf you added two python files, your description could be 'Added two python files for my analysis'. If you fixed a bug or added new code to the files, your message should reflect that.\nNow your changes are recorded in the version of the &lt;repositoryname&gt; on the cluster, but that does not serve as a backup in case you accidentally delete your entire folder or the cluster burns down. To backup your repository you need to synchronize your local &lt;repositoryname&gt; repository on the cluster with the &lt;repositoryname&gt; repository on GitHub. To du that use:\n\n\nTerminal\n\ngit push\n\nIn addition to keeping your precious files safe and backed up, your GitHub repository also serve as a journal documenting of your progress. Each commit is a snapshot if your project that can be retrieved at any time.",
+    "crumbs": [
+      "About",
+      "Git version control"
+    ]
+  },
+  {
+    "objectID": "pages/about/git.html#git",
+    "href": "pages/about/git.html#git",
+    "title": "Git version control",
+    "section": "Git",
+    "text": "Git\nThere is a cheat sheet here and some good visual guides here and here.\nThe three most important commands to learn are: git status, git add, git rm, git mv, git commit and git push.\n\nResolving conflicts\nBlah blah…",
+    "crumbs": [
+      "About",
+      "Git version control"
+    ]
+  },
+  {
+    "objectID": "pages/about/docker.html",
+    "href": "pages/about/docker.html",
+    "title": "Docker virtualization",
+    "section": "",
+    "text": "This pages are under construction\n\n\n\n\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.",
+    "crumbs": [
+      "About",
+      "Docker virtualization"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#docker",
+    "href": "pages/overview.html#docker",
+    "title": "Outline and infrastructure",
+    "section": "Docker",
+    "text": "Docker",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#pixi",
+    "href": "pages/overview.html#pixi",
+    "title": "Outline and infrastructure",
+    "section": "Pixi",
+    "text": "Pixi",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#purpose",
+    "href": "pages/overview.html#purpose",
+    "title": "Outline and infrastructure",
+    "section": "Purpose",
+    "text": "Purpose",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#git",
+    "href": "pages/overview.html#git",
+    "title": "Outline and infrastructure",
+    "section": "Git",
+    "text": "Git",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#gitlab",
+    "href": "pages/overview.html#gitlab",
+    "title": "Outline and infrastructure",
+    "section": "GitLab",
+    "text": "GitLab",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#groupsubgroup-layout",
+    "href": "pages/overview.html#groupsubgroup-layout",
+    "title": "Outline and infrastructure",
+    "section": "Group/Subgroup layout",
+    "text": "Group/Subgroup layout",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#users-permissions-authentication",
+    "href": "pages/overview.html#users-permissions-authentication",
+    "title": "Outline and infrastructure",
+    "section": "Users / Permissions / Authentication",
+    "text": "Users / Permissions / Authentication\n\nThe franklin-admin plugin\nInstall the franklin-admin to administer users and course infrastructure.\nTODO",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#tokens",
+    "href": "pages/overview.html#tokens",
+    "title": "Outline and infrastructure",
+    "section": "Tokens",
+    "text": "Tokens",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#pipelines",
+    "href": "pages/overview.html#pipelines",
+    "title": "Outline and infrastructure",
+    "section": "Pipelines",
+    "text": "Pipelines\n\nAU hosting\n\n\nGitLab Franklin group\n\n\nGitLab Course subgroups\n\n\nGitLab exercise repositories",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#authentication",
+    "href": "pages/overview.html#authentication",
+    "title": "Outline and infrastructure",
+    "section": "Authentication",
+    "text": "Authentication\nWeb GUI: UNI-AD login\n\nAdmin\nKasper (and someone else for backup)\nssh keys\n\n\nVIP\nssh keys\n\n\nStudents\nRead-only token distributed with franklin.",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#docker-1",
+    "href": "pages/overview.html#docker-1",
+    "title": "Outline and infrastructure",
+    "section": "Docker",
+    "text": "Docker\n\nImage hierarchy\n\nBase images maintained in the Base\nCourse base images only refer to a versioned base image\n\n\n\nTemplates\n\nEvery course has a repo template with a docker file that that refers to the course base image\nThese templates are forked from franklin/base-templates/base-template\n\n\n\nTag policy\n\nFranklin base images are versioned and must referred to with their version tag\nCourse base images are tagged latest so that courses always pulls updated version.\nExercise images are always tagged latest, which is the tag franklin pulls",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#container-registry",
+    "href": "pages/overview.html#container-registry",
+    "title": "Outline and infrastructure",
+    "section": "Container registry",
+    "text": "Container registry\n\nimport os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── Use_franklin.md\n├── about\n│   ├── docker.qmd\n│   ├── git.qmd\n│   ├── gitlab.qmd\n│   ├── images\n│   │   ├── Skærmbillede 2025-06-03 kl. 13.28.40.png\n│   │   ├── Skærmbillede 2025-06-03 kl. 14.25.30.png\n│   │   └── Skærmbillede 2025-06-03 kl. 14.27.12.png\n│   └── ssh.qmd\n├── commands_admin.qmd\n├── commands_core.qmd\n├── commands_edu.qmd\n├── computer_setup.qmd\n├── faq.qmd\n├── getting_started.qmd\n├── images\n│   ├── Screenshot 2025-05-31 at 11.05.53.png\n│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.44.43.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.45.05.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.39.22.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.40.10.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.42.11.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.37.28.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.52.02.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.22.07.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.32.16.png\n│   ├── Skærmbillede 2025-05-29 kl. 16.19.09.png\n│   ├── elephant.png\n│   ├── pipeline_example.png\n│   ├── pipeline_example_nomenu.png\n│   └── shell-command.png\n├── overview.qmd\n├── overview.quarto_ipynb\n├── sascha_get_started.qmd\n├── sascha_installation.qmd\n├── student\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   ├── index.qmd\n│   └── terminal.qmd\n└── tutorials\n    ├── data_analysis.ipynb\n    ├── developing_exercises.qmd\n    ├── jupyterlab.ipynb\n    ├── plotting.ipynb\n    └── terminal.qmd\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "api/run.html",
+    "href": "api/run.html",
+    "title": "run",
+    "section": "",
+    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#parameters",
+    "href": "api/run.html#parameters",
+    "title": "run",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#returns",
+    "href": "api/run.html#returns",
+    "title": "run",
+    "section": "",
+    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/pull.html",
+    "href": "api/pull.html",
+    "title": "pull",
+    "section": "",
+    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/pull.html#parameters",
+    "href": "api/pull.html#parameters",
+    "title": "pull",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/launch_exercise.html",
+    "href": "api/launch_exercise.html",
+    "title": "launch_exercise",
+    "section": "",
+    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
+  },
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\n_run\n\n\n\n\n\n\n\nSome description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#jupyter",
+    "href": "api/index.html#jupyter",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\n_run",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#docker",
+    "href": "api/index.html#docker",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "notebooks/example.html",
+    "href": "notebooks/example.html",
+    "title": "Workplace interaction",
+    "section": "",
+    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
+  },
+  {
+    "objectID": "pages/about/ssh.html",
+    "href": "pages/about/ssh.html",
+    "title": "SSH authentication",
+    "section": "",
+    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
+    "crumbs": [
+      "About",
+      "SSH authentication"
+    ]
+  },
+  {
+    "objectID": "pages/about/ssh.html#tldr",
+    "href": "pages/about/ssh.html#tldr",
+    "title": "SSH authentication",
+    "section": "",
+    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
+    "crumbs": [
+      "About",
+      "SSH authentication"
+    ]
+  },
+  {
+    "objectID": "pages/about/gitlab.html",
+    "href": "pages/about/gitlab.html",
+    "title": "Gitlab server",
+    "section": "",
+    "text": "This pages are under construction\n\n\n\n\n\n\n\n\n\nalt text\n\n\n\n\n\nalt text\n\n\nIntroduction to GitLab\nGitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.\nGitLab enables individuals and teams to collaborate on code by providing:\nGit repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails. Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows. CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository. Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration. Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains. GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.\nIn summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.",
+    "crumbs": [
+      "About",
+      "Gitlab server"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_installation.html",
+    "href": "pages/sascha_installation.html",
+    "title": "franklin",
+    "section": "",
+    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_installation.html#get-started-with-jupyter-note-book",
+    "href": "pages/sascha_installation.html#get-started-with-jupyter-note-book",
+    "title": "franklin",
+    "section": "",
+    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_installation.html#install-docker-and-franklin",
+    "href": "pages/sascha_installation.html#install-docker-and-franklin",
+    "title": "franklin",
+    "section": "Install docker and franklin",
+    "text": "Install docker and franklin\n\nWhat do i need franklin and docker for?\nDocker is a tool that makes sure everyone runs the exact same version of a program, no matter what kind of computer they have. When students work on coding assignments, things can sometimes break if they have different versions of Python or other software installed. Docker solves this by creating a special “container” that holds everything the assignment needs — like a mini computer inside your computer. For teachers, this means you don’t have to worry about installing the right packages on every student’s device or assignments suddenly breaking because something got updated. Installing Docker is the first step to making sure your assignments work the same for everyone, every time.\nFranklin helps you navigate these containers so that the right “mini computer” is activated when the student works on the exercises that needs that particular enviroment to run\n\n\nInstall Docker Desktop\nIn order for franklin to work you also have to download docker desktop\nBefore you try to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac.\nIf you are downloading docker on a AU computer remember to activate admin priviliges by activating heimdal.\nIf you are unsure of how to activate Heimdal follow the instructions given on this page\n\n\nDownload Docker Desktop on a mac\nGo to this page and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. If you do not know, you can find the name of your chip by clicking the apple icon in the upper left corner and choose “about this mac” in the dropdown menu \nApple silicon chips include M1, M2 and M3. Apple intel chips are named intel.\nBack on the docker desktop download page you choose the one that matches your computer chip and follows the instruction on your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens a window pops up and asks if you want to sign in or create and account. You can just press skip on these. An account is not necessary for using docker in franklin.\nWhen docker desktop is done downloading shut down the program. Make sure that it has been compleately shut down by checking the top right corner of your device. If there is an icon that looks like a small cargo ship click on it and choose “Quit Docker Desktop” in the dropdown menu \n\n\nDownload Docker Desktop on a Windows\nGo to this page and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. If you do not know, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip\nBack on the docker desktop download page you choose the one that matches your computer chip and follows the instruction on your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens a window pops up and asks if you want to sign in or create and account. You can just press skip on these. An account is not necessary for using docker in franklin.\nWhen docker desktop is done installing make sure the program is compleately shut down. You do this by going to “Taskmanager” and search for “docker” in the search bar in taskmanager. If there is any tasks open where docker is involved click “End task”\nIf docker desktop comes with the error message “WSL 2 is required” Install WSL via copying the following command into your terminal:\nwsl –install",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_installation.html#enviroments",
+    "href": "pages/sascha_installation.html#enviroments",
+    "title": "franklin",
+    "section": "Enviroments",
+    "text": "Enviroments\nIn bioinformatics, we install packages and programs so we can use them in our analyses and pipelines. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small insulated world for each project, which then only contained the packages you needed for that particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there is a tool that lets you do just that, and its name is Conda.\n“Conda is an open source package management system and environment management system for installing multiple versions of software packages and their dependencies and switching easily between them.”\nThe small worlds that Conda creates are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else. Conda also downloads and installs the packages for you and it makes sure that the software packages you install in each environment are compatible. It even makes sure that packages needed by packages (dependencies) are also installed. Conda is truly awesome.\nIn this case you need to create a new enviroment where you install franklin\nYou will need franklin for downloading assignments. You will also be able to choose a enviroment in franklin that specifially fits the assignment you want to make.\n\nCreate Franklin enviroment and install franklin\nIn order to download franklin and install an enviroment called franklin you have to write the code below into your terminal\nconda create -y -n franklin -c conda-forge -c munch-group franklin\nThis commands runs the Conda program and tells it to create a new enviroment with the name franklin and to install franklin in that enviroment. Once you have ran the command, your terminal output should look something like this:\noutput\n\n\nFranklin for educators\nYou will then also need to download franklin educator Before you insert the code below, activate your franklin enviroment in your terminal\nconda activate franklin\nconda install -c conda-forge -c munch-group franklin franklin-educator\nEvery time you want to start franklin you use the command\nconda activate franklin",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_installation.html#set-up-gitlab",
+    "href": "pages/sascha_installation.html#set-up-gitlab",
+    "title": "franklin",
+    "section": "set up gitlab",
+    "text": "set up gitlab\n\nWhat do i need gitlab for?\nGitLab is a website where you can store and share your code and teaching materials — kind of like Google Drive, but built for programming. When you put your exercises on GitLab, you always have a clear and organized version of your work that others (like students) can access. When using Docker, GitLab becomes especially useful because you can keep everything in one place: the exercise instructions, the Docker setup, and the files students need. This makes it easy to update, reuse, and share your assignments\n\n\nsign in\nGo to gitlab by following this link On the sign-in page, choose the login option called login with Uni-add.\n\n\nSSH keys - what is that and why do i need it?\nSSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.\n\n\nHow do i get a SSH key?\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa ~/.ssh/id_rsa.pub You can do so using the ls commmand:\nls -a ~/.ssh\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\nssh-keygen -t rsa\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is ). SSH will prompt you for your password.\nssh @login.genome.au.dk mkdir -p .ssh\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace  with your cluster user name):\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk ‘cat &gt;&gt; .ssh/authorized_keys’\n\n\ninsert SSH key to gitlab\nTo access your SSH keys you use the command:\ncat ~/.ssh/id_rsa.pub\nIt is very important that you choose the rsa.pub version.\nAfter you have run the command cat ~/.ssh/id_rsa.pub in your terminal a long line of letters and number will appear in your terminal. This is your SSH key. Now copy it and go back to the gitlab webpage\nThen press the icon on the top beside the picture that represent your profile and find the option called “edit profile” in the dropdown menu It should look like this: \nNow you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.\nThe page should look something like the figure below: \nIn the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this.\nYou are now ready to use gitlab!",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_installation.html#start-franklin",
+    "href": "pages/sascha_installation.html#start-franklin",
+    "title": "franklin",
+    "section": "Start franklin",
+    "text": "Start franklin\nTo use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:\nconda activate franklin\nThen navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)\nAfter activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this:",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_installation.html#guide-to-create-exercises-in-franklin",
+    "href": "pages/sascha_installation.html#guide-to-create-exercises-in-franklin",
+    "title": "franklin",
+    "section": "Guide to create exercises in franklin",
+    "text": "Guide to create exercises in franklin\nEducators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.\nRunning the following command prompts the educator for course and exercise name and creates a new exercise.\nfranklin exercise new\nWhen you have used this command the terminal will guide you thorugh how you make a new exercise. It will first ask you to write a name of your exercise in the terminal and then open gitlab where you can make a description. The you will go back to your terminal when it tells you to and run the commands\nfranklin exercise edit\nThis command lets you edit your new exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/sascha_installation.html#other-franklin-commands",
+    "href": "pages/sascha_installation.html#other-franklin-commands",
+    "title": "franklin",
+    "section": "Other franklin commands",
+    "text": "Other franklin commands\n\ndownload an exercise without editing.\nIf you want to download an exercise the same way the students does it, you can use the command\nfranklin download\nAfter running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\nClean up old docker containers\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\nUpdate franklin\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version",
+    "crumbs": [
+      "Setting up",
+      "Get started with jupyter note book"
+    ]
+  },
+  {
+    "objectID": "pages/student/terminal.html",
+    "href": "pages/student/terminal.html",
+    "title": "The terminal",
+    "section": "",
+    "text": "This pages are under construction\n\n\n\n\n\n\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.\nCtrl-C for abort"
   },
   {
     "objectID": "pages/getting_started.html",
     "href": "pages/getting_started.html",
     "title": "Getting started",
     "section": "",
-    "text": "franklin is an open source project with the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.\nThe tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.",
-    "crumbs": [
-      "Getting started"
-    ]
-  },
-  {
-    "objectID": "pages/getting_started.html#key-features",
-    "href": "pages/getting_started.html#key-features",
-    "title": "Getting started",
-    "section": "Key Features",
-    "text": "Key Features\nGitLab hosting: of repositories for exercises grouped by course, allowing for nested authentication privileges.\nDocker Integration: Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.\nConda and Pixi package Management: The tool supports building and publishing Conda packages, enabling automatic management of dependencies.\nContinuous integration: Franklin uses GitLab pipelines for continuous integration automating workflows for building, testing, and publishing docker images.\nPlugin Architecture: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.\nAuto update: Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.\nWorkflow automation: To accommodate educators with different computational skill levels, franklin supports three levels of automation to support exercise development.\nUser management: The admin API allow easy management of users and assigning rules as either guest, teaching assistant, professor, or administrator.",
+    "text": "franklin is an open source project with the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.\nThe tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.\nGitLab hosting: of repositories for exercises grouped by course, allowing for nested authentication privileges.\nDocker Integration: Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.\nConda and Pixi package Management: The tool supports building and publishing Conda packages, enabling automatic management of dependencies.\nContinuous integration: Franklin uses GitLab pipelines for continuous integration automating workflows for building, testing, and publishing docker images.\nNested plugin APIs: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.\nAuto update: Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.\nAutomated workflows: To accommodate educators with different computational skill levels, franklin supports three levels of automation to support exercise development.\nUser management: The admin API allow easy management of users and assigning rules as either guest, teaching assistant, professor, or administrator.",
     "crumbs": [
       "Getting started"
     ]
@@ -343,622 +852,146 @@
     ]
   },
   {
-    "objectID": "pages/student/terminal.html",
-    "href": "pages/student/terminal.html",
-    "title": "The terminal",
+    "objectID": "pages/commands_edu.html",
+    "href": "pages/commands_edu.html",
+    "title": "Developing exercises",
     "section": "",
-    "text": "This pages are under construction\n\n\n\n\n\n\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.\nCtrl-C for abort"
-  },
-  {
-    "objectID": "pages/sascha_installation.html",
-    "href": "pages/sascha_installation.html",
-    "title": "franklin",
-    "section": "",
-    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
+    "text": "The franklin-educator plugin.",
     "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
+      "Using Franklin",
+      "Developing exercises"
     ]
   },
   {
-    "objectID": "pages/sascha_installation.html#get-started-with-jupyter-note-book",
-    "href": "pages/sascha_installation.html#get-started-with-jupyter-note-book",
-    "title": "franklin",
-    "section": "",
-    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
+    "objectID": "pages/commands_edu.html#create-a-new-exercise",
+    "href": "pages/commands_edu.html#create-a-new-exercise",
+    "title": "Developing exercises",
+    "section": "Create a new exercise",
+    "text": "Create a new exercise\n\n\nTerminal\n\nfranklin exercise new\n\nThe command presents you with menus to select the course and exercise you",
     "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
+      "Using Franklin",
+      "Developing exercises"
     ]
   },
   {
-    "objectID": "pages/sascha_installation.html#install-docker-and-franklin",
-    "href": "pages/sascha_installation.html#install-docker-and-franklin",
-    "title": "franklin",
-    "section": "Install docker and franklin",
-    "text": "Install docker and franklin\n\nWhat do i need franklin and docker for?\nDocker is a tool that makes sure everyone runs the exact same version of a program, no matter what kind of computer they have. When students work on coding assignments, things can sometimes break if they have different versions of Python or other software installed. Docker solves this by creating a special “container” that holds everything the assignment needs — like a mini computer inside your computer. For teachers, this means you don’t have to worry about installing the right packages on every student’s device or assignments suddenly breaking because something got updated. Installing Docker is the first step to making sure your assignments work the same for everyone, every time.\nFranklin helps you navigate these containers so that the right “mini computer” is activated when the student works on the exercises that needs that particular enviroment to run\n\n\nInstall Docker Desktop\nIn order for franklin to work you also have to download docker desktop\nBefore you try to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac.\nIf you are downloading docker on a AU computer remember to activate admin priviliges by activating heimdal.\nIf you are unsure of how to activate Heimdal follow the instructions given on this page\n\n\nDownload Docker Desktop on a mac\nGo to this page and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. If you do not know, you can find the name of your chip by clicking the apple icon in the upper left corner and choose “about this mac” in the dropdown menu \nApple silicon chips include M1, M2 and M3. Apple intel chips are named intel.\nBack on the docker desktop download page you choose the one that matches your computer chip and follows the instruction on your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens a window pops up and asks if you want to sign in or create and account. You can just press skip on these. An account is not necessary for using docker in franklin.\nWhen docker desktop is done downloading shut down the program. Make sure that it has been compleately shut down by checking the top right corner of your device. If there is an icon that looks like a small cargo ship click on it and choose “Quit Docker Desktop” in the dropdown menu \n\n\nDownload Docker Desktop on a Windows\nGo to this page and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. If you do not know, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip\nBack on the docker desktop download page you choose the one that matches your computer chip and follows the instruction on your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens a window pops up and asks if you want to sign in or create and account. You can just press skip on these. An account is not necessary for using docker in franklin.\nWhen docker desktop is done installing make sure the program is compleately shut down. You do this by going to “Taskmanager” and search for “docker” in the search bar in taskmanager. If there is any tasks open where docker is involved click “End task”\nIf docker desktop comes with the error message “WSL 2 is required” Install WSL via copying the following command into your terminal:\nwsl –install",
+    "objectID": "pages/commands_edu.html#exercise-edit-workflow",
+    "href": "pages/commands_edu.html#exercise-edit-workflow",
+    "title": "Developing exercises",
+    "section": "Exercise edit workflow",
+    "text": "Exercise edit workflow",
     "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
+      "Using Franklin",
+      "Developing exercises"
     ]
   },
   {
-    "objectID": "pages/sascha_installation.html#enviroments",
-    "href": "pages/sascha_installation.html#enviroments",
-    "title": "franklin",
-    "section": "Enviroments",
-    "text": "Enviroments\nIn bioinformatics, we install packages and programs so we can use them in our analyses and pipelines. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small insulated world for each project, which then only contained the packages you needed for that particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there is a tool that lets you do just that, and its name is Conda.\n“Conda is an open source package management system and environment management system for installing multiple versions of software packages and their dependencies and switching easily between them.”\nThe small worlds that Conda creates are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else. Conda also downloads and installs the packages for you and it makes sure that the software packages you install in each environment are compatible. It even makes sure that packages needed by packages (dependencies) are also installed. Conda is truly awesome.\nIn this case you need to create a new enviroment where you install franklin\nYou will need franklin for downloading assignments. You will also be able to choose a enviroment in franklin that specifially fits the assignment you want to make.\n\nCreate Franklin enviroment and install franklin\nIn order to download franklin and install an enviroment called franklin you have to write the code below into your terminal\nconda create -y -n franklin -c conda-forge -c munch-group franklin\nThis commands runs the Conda program and tells it to create a new enviroment with the name franklin and to install franklin in that enviroment. Once you have ran the command, your terminal output should look something like this:\noutput\n\n\nFranklin for educators\nYou will then also need to download franklin educator Before you insert the code below, activate your franklin enviroment in your terminal\nconda activate franklin\nconda install -c conda-forge -c munch-group franklin franklin-educator\nEvery time you want to start franklin you use the command\nconda activate franklin",
+    "objectID": "pages/commands_edu.html#exercise-down-up",
+    "href": "pages/commands_edu.html#exercise-down-up",
+    "title": "Developing exercises",
+    "section": "Exercise down / up",
+    "text": "Exercise down / up",
     "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
+      "Using Franklin",
+      "Developing exercises"
     ]
   },
   {
-    "objectID": "pages/sascha_installation.html#set-up-gitlab",
-    "href": "pages/sascha_installation.html#set-up-gitlab",
-    "title": "franklin",
-    "section": "set up gitlab",
-    "text": "set up gitlab\n\nWhat do i need gitlab for?\nGitLab is a website where you can store and share your code and teaching materials — kind of like Google Drive, but built for programming. When you put your exercises on GitLab, you always have a clear and organized version of your work that others (like students) can access. When using Docker, GitLab becomes especially useful because you can keep everything in one place: the exercise instructions, the Docker setup, and the files students need. This makes it easy to update, reuse, and share your assignments\n\n\nsign in\nGo to gitlab by following this link On the sign-in page, choose the login option called login with Uni-add.\n\n\nSSH keys - what is that and why do i need it?\nSSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.\n\n\nHow do i get a SSH key?\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa ~/.ssh/id_rsa.pub You can do so using the ls commmand:\nls -a ~/.ssh\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\nssh-keygen -t rsa\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is ). SSH will prompt you for your password.\nssh @login.genome.au.dk mkdir -p .ssh\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace  with your cluster user name):\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk ‘cat &gt;&gt; .ssh/authorized_keys’\n\n\ninsert SSH key to gitlab\nTo access your SSH keys you use the command:\ncat ~/.ssh/id_rsa.pub\nIt is very important that you choose the rsa.pub version.\nAfter you have run the command cat ~/.ssh/id_rsa.pub in your terminal a long line of letters and number will appear in your terminal. This is your SSH key. Now copy it and go back to the gitlab webpage\nThen press the icon on the top beside the picture that represent your profile and find the option called “edit profile” in the dropdown menu It should look like this: \nNow you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.\nThe page should look something like the figure below: \nIn the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this.\nYou are now ready to use gitlab!",
+    "objectID": "pages/commands_edu.html#clone-exercise",
+    "href": "pages/commands_edu.html#clone-exercise",
+    "title": "Developing exercises",
+    "section": "Clone exercise",
+    "text": "Clone exercise\n\nGit clone\nThis command below clones an exercise git repository into a folder with the same name as the repository.\n\n\nTerminal\n\nfranklin exercise clone\n\nif the repository is called data-exercise, you can open it in vscode like this:\n\n\nTerminal\n\ncode data-exercise\n\n\n\n\n\n\n\nFor Mac users\n\n\n\nOn Macs, the code command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter.\n\n\n\nalt text\n\n\nRestart the terminal for the change to take effect.\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can run code followed by a folder name to edit files in that folder. To edit files in your current folder, run\nin any folder to start editing files in that folder.\n\n\nTerminal\n\ncode data-exercise\n\n’’’\nOnce you have opened the folder with the repository in vscode, you need to reopen it in the linux container used for the exercise. To do that, you open the Command Palette (Cmd+Shift+P) and type “reopen” to find “Reopen in container”:\n\n\n\nalt text\n\n\nWhen you select that and hit Enter, vscode builds the container (which takes a while).\n\n\nGitUI\ngit clone git@github.com:munch-group/arg-dashboard.git\n\ncode arg-dashboard\nCmd-Shift-P, “Reopen in container”\nTo add dependencies (e.g. scipy), open terminal in vscode and install pixi:\n./install_pixi.sh\nThen add the package:\npixi add --feature exercise --platform linux-64 scipy\n[Using notebooks in vscode]https://code.visualstudio.com/docs/datascience/jupyter-notebooks)\n\n\nGit add\n\n\nGit commit\n\n\nGit push\n\n\nRemoving (archiving) an exercise",
     "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
+      "Using Franklin",
+      "Developing exercises"
     ]
   },
   {
-    "objectID": "pages/sascha_installation.html#start-franklin",
-    "href": "pages/sascha_installation.html#start-franklin",
-    "title": "franklin",
-    "section": "Start franklin",
-    "text": "Start franklin\nTo use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:\nconda activate franklin\nThen navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)\nAfter activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this:",
+    "objectID": "pages/commands_edu.html#removing-archiving-an-exercise",
+    "href": "pages/commands_edu.html#removing-archiving-an-exercise",
+    "title": "Developing exercises",
+    "section": "Removing (archiving) an exercise",
+    "text": "Removing (archiving) an exercise",
     "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
+      "Using Franklin",
+      "Developing exercises"
     ]
   },
   {
-    "objectID": "pages/sascha_installation.html#guide-to-create-exercises-in-franklin",
-    "href": "pages/sascha_installation.html#guide-to-create-exercises-in-franklin",
-    "title": "franklin",
-    "section": "Guide to create exercises in franklin",
-    "text": "Guide to create exercises in franklin\nEducators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.\nRunning the following command prompts the educator for course and exercise name and creates a new exercise.\nfranklin exercise new\nWhen you have used this command the terminal will guide you thorugh how you make a new exercise. It will first ask you to write a name of your exercise in the terminal and then open gitlab where you can make a description. The you will go back to your terminal when it tells you to and run the commands\nfranklin exercise edit\nThis command lets you edit your new exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/sascha_installation.html#other-franklin-commands",
-    "href": "pages/sascha_installation.html#other-franklin-commands",
-    "title": "franklin",
-    "section": "Other franklin commands",
-    "text": "Other franklin commands\n\ndownload an exercise without editing.\nIf you want to download an exercise the same way the students does it, you can use the command\nfranklin download\nAfter running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\nClean up old docker containers\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\nUpdate franklin\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/about/gitlab.html",
-    "href": "pages/about/gitlab.html",
-    "title": "Gitlab server",
-    "section": "",
-    "text": "This pages are under construction\n\n\n\n\n\n\n\n\n\nalt text\n\n\n\n\n\nalt text\n\n\nIntroduction to GitLab\nGitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.\nGitLab enables individuals and teams to collaborate on code by providing:\nGit repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails. Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows. CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository. Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration. Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains. GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.\nIn summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.",
-    "crumbs": [
-      "About",
-      "Gitlab server"
-    ]
-  },
-  {
-    "objectID": "pages/about/ssh.html",
-    "href": "pages/about/ssh.html",
-    "title": "SSH authentication",
-    "section": "",
-    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
-    "crumbs": [
-      "About",
-      "SSH authentication"
-    ]
-  },
-  {
-    "objectID": "pages/about/ssh.html#tldr",
-    "href": "pages/about/ssh.html#tldr",
-    "title": "SSH authentication",
-    "section": "",
-    "text": "Firstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
-    "crumbs": [
-      "About",
-      "SSH authentication"
-    ]
-  },
-  {
-    "objectID": "notebooks/example.html",
-    "href": "notebooks/example.html",
-    "title": "Workplace interaction",
-    "section": "",
-    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
-  },
-  {
-    "objectID": "api/index.html",
-    "href": "api/index.html",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\n_run\n\n\n\n\n\n\n\nSome description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/index.html#jupyter",
-    "href": "api/index.html#jupyter",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\n_run",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/index.html#docker",
-    "href": "api/index.html#docker",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/launch_exercise.html",
-    "href": "api/launch_exercise.html",
-    "title": "launch_exercise",
-    "section": "",
-    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
-  },
-  {
-    "objectID": "api/pull.html",
-    "href": "api/pull.html",
-    "title": "pull",
-    "section": "",
-    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/pull.html#parameters",
-    "href": "api/pull.html#parameters",
-    "title": "pull",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/run.html",
-    "href": "api/run.html",
-    "title": "run",
-    "section": "",
-    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#parameters",
-    "href": "api/run.html#parameters",
-    "title": "run",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#returns",
-    "href": "api/run.html#returns",
-    "title": "run",
-    "section": "",
-    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#docker",
-    "href": "pages/overview.html#docker",
-    "title": "Franklin overview",
-    "section": "Docker",
-    "text": "Docker",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#pixi",
-    "href": "pages/overview.html#pixi",
-    "title": "Franklin overview",
-    "section": "Pixi",
-    "text": "Pixi",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#purpose",
-    "href": "pages/overview.html#purpose",
-    "title": "Franklin overview",
-    "section": "Purpose",
-    "text": "Purpose",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#git",
-    "href": "pages/overview.html#git",
-    "title": "Franklin overview",
-    "section": "Git",
-    "text": "Git",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#gitlab",
-    "href": "pages/overview.html#gitlab",
-    "title": "Franklin overview",
-    "section": "GitLab",
-    "text": "GitLab",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#groupsubgroup-layout",
-    "href": "pages/overview.html#groupsubgroup-layout",
-    "title": "Franklin overview",
-    "section": "Group/Subgroup layout",
-    "text": "Group/Subgroup layout",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#users-permissions-authentication",
-    "href": "pages/overview.html#users-permissions-authentication",
-    "title": "Franklin overview",
-    "section": "Users / Permissions / Authentication",
-    "text": "Users / Permissions / Authentication\n\nThe franklin-admin plugin\nInstall the franklin-admin to administer users and course infrastructure.\nTODO",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#tokens",
-    "href": "pages/overview.html#tokens",
-    "title": "Franklin overview",
-    "section": "Tokens",
-    "text": "Tokens",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#pipelines",
-    "href": "pages/overview.html#pipelines",
-    "title": "Franklin overview",
-    "section": "Pipelines",
-    "text": "Pipelines\n\nAU hosting\n\n\nGitLab Franklin group\n\n\nGitLab Course subgroups\n\n\nGitLab exercise repositories",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#authentication",
-    "href": "pages/overview.html#authentication",
-    "title": "Franklin overview",
-    "section": "Authentication",
-    "text": "Authentication\nWeb GUI: UNI-AD login\n\nAdmin\nKasper (and someone else for backup)\nssh keys\n\n\nVIP\nssh keys\n\n\nStudents\nRead-only token distributed with franklin.",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#docker-1",
-    "href": "pages/overview.html#docker-1",
-    "title": "Franklin overview",
-    "section": "Docker",
-    "text": "Docker\n\nImage hierarchy\n\nBase images maintained in the Base\nCourse base images only refer to a versioned base image\n\n\n\nTemplates\n\nEvery course has a repo template with a docker file that that refers to the course base image\nThese templates are forked from franklin/base-templates/base-template\n\n\n\nTag policy\n\nFranklin base images are versioned and must referred to with their version tag\nCourse base images are tagged latest so that courses always pulls updated version.\nExercise images are always tagged latest, which is the tag franklin pulls",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#container-registry",
-    "href": "pages/overview.html#container-registry",
-    "title": "Franklin overview",
-    "section": "Container registry",
-    "text": "Container registry\n\nimport os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── Use_franklin.md\n├── about\n│   ├── docker.qmd\n│   ├── git.qmd\n│   ├── gitlab.qmd\n│   ├── images\n│   │   ├── Skærmbillede 2025-06-03 kl. 13.28.40.png\n│   │   ├── Skærmbillede 2025-06-03 kl. 14.25.30.png\n│   │   └── Skærmbillede 2025-06-03 kl. 14.27.12.png\n│   └── ssh.qmd\n├── access.qmd\n├── commands.qmd\n├── computer_setup.qmd\n├── create_edit.qmd\n├── faq.qmd\n├── getting_started.qmd\n├── images\n│   ├── Screenshot 2025-05-31 at 11.05.53.png\n│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.44.43.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.45.05.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.39.22.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.40.10.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.42.11.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.37.28.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.52.02.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.22.07.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.32.16.png\n│   ├── Skærmbillede 2025-05-29 kl. 16.19.09.png\n│   ├── elephant.png\n│   ├── pipeline_example.png\n│   ├── pipeline_example_nomenu.png\n│   └── shell-command.png\n├── overview.qmd\n├── overview.quarto_ipynb\n├── sascha_get_started.qmd\n├── sascha_installation.qmd\n├── source.qmd\n├── student\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   ├── index.qmd\n│   └── terminal.qmd\n└── tutorials\n    ├── data_analysis.ipynb\n    ├── developing_exercises.qmd\n    ├── jupyterlab.ipynb\n    ├── plotting.ipynb\n    └── terminal.qmd\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md",
-    "crumbs": [
-      "Franklin overview"
-    ]
-  },
-  {
-    "objectID": "pages/about/docker.html",
-    "href": "pages/about/docker.html",
-    "title": "Docker virtualization",
-    "section": "",
-    "text": "This pages are under construction\n\n\n\n\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.",
-    "crumbs": [
-      "About",
-      "Docker virtualization"
-    ]
-  },
-  {
-    "objectID": "pages/about/git.html",
-    "href": "pages/about/git.html",
-    "title": "Git version control",
-    "section": "",
-    "text": "This pages are under construction",
-    "crumbs": [
-      "About",
-      "Git version control"
-    ]
-  },
-  {
-    "objectID": "pages/about/git.html#tldr",
-    "href": "pages/about/git.html#tldr",
-    "title": "Git version control",
-    "section": "TLDR;",
-    "text": "TLDR;\nGit is a distributed version control system designed to track changes in source code and facilitate collaboration among multiple developers. Originally created by Linus Torvalds in 2005 for managing the Linux kernel, Git has since become the dominant version control tool in software development, underpinning platforms such as GitHub, GitLab, and Bitbucket.\nIn Git, every working copy of a repository is a full-fledged versioned archive, containing the entire history of the project. This distributed model enhances performance, enables offline work, and provides a robust foundation for branching and merging workflows. Changes are recorded as commits—snapshots of the project at specific points in time—organized in a directed acyclic graph (DAG).\nKey concepts include:\nRepository: A data structure containing all commits, branches, and tags for a project. Commit: A recorded state of the repository, with metadata about the author, timestamp, and parent commits. Branch: A movable pointer to a commit, enabling parallel development paths. Merge: The integration of changes from one branch into another, optionally involving conflict resolution. Remote: A reference to another copy of the repository, typically hosted on a server. Git supports advanced features such as rebasing, cherry-picking, and interactive staging. It also allows for fine-grained control of collaboration through pull requests, code reviews, and access control mechanisms.\nWhile Git has a steep learning curve, especially in conflict resolution and complex branching workflows, its efficiency, reliability, and flexibility make it an indispensable tool in modern software engineering and research computing.",
-    "crumbs": [
-      "About",
-      "Git version control"
-    ]
-  },
-  {
-    "objectID": "pages/about/git.html#git-as-journaled-backup",
-    "href": "pages/about/git.html#git-as-journaled-backup",
-    "title": "Git version control",
-    "section": "Git as journaled backup",
-    "text": "Git as journaled backup\nWhen you are in your &lt;repositoryname&gt; folder, you can run git commands to manage your files, record their changes and sync them to the repository on GitHub for safe keeping. These tutorials are good introductions to git.\nTo journal the creation or modification of a file, you need to add it to git:\n\n\nTerminal\n\ngit add &lt;the_changed_file&gt;\n\nThis “stages” the change. This adds the file to the a “group” of changes that represent some modification to your project. You can add more files to that “group” by running the command again with other files. If you run git status you can see that the files are now staged.\nSo maybe you added or changed two python files addressing some parcitular problem or advancing some part of your project. Now you want to store those of changes to the journal maintained by Git and associate it with a short message describing the changes. For that you use:\n\n\nTerminal\n\ngit commit -m '&lt;message&gt;'\n\nIf you added two python files, your description could be 'Added two python files for my analysis'. If you fixed a bug or added new code to the files, your message should reflect that.\nNow your changes are recorded in the version of the &lt;repositoryname&gt; on the cluster, but that does not serve as a backup in case you accidentally delete your entire folder or the cluster burns down. To backup your repository you need to synchronize your local &lt;repositoryname&gt; repository on the cluster with the &lt;repositoryname&gt; repository on GitHub. To du that use:\n\n\nTerminal\n\ngit push\n\nIn addition to keeping your precious files safe and backed up, your GitHub repository also serve as a journal documenting of your progress. Each commit is a snapshot if your project that can be retrieved at any time.",
-    "crumbs": [
-      "About",
-      "Git version control"
-    ]
-  },
-  {
-    "objectID": "pages/about/git.html#git",
-    "href": "pages/about/git.html#git",
-    "title": "Git version control",
-    "section": "Git",
-    "text": "Git\nThere is a cheat sheet here and some good visual guides here and here.\nThe three most important commands to learn are: git status, git add, git rm, git mv, git commit and git push.\n\nResolving conflicts\nBlah blah…",
-    "crumbs": [
-      "About",
-      "Git version control"
-    ]
-  },
-  {
-    "objectID": "pages/source.html",
-    "href": "pages/source.html",
-    "title": "Code",
-    "section": "",
-    "text": "import os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── Use_franklin.md\n├── about\n│   ├── docker.html\n│   ├── docker.qmd\n│   ├── git.html\n│   ├── git.qmd\n│   ├── gitlab.html\n│   ├── gitlab.qmd\n│   ├── images\n│   │   ├── Skærmbillede 2025-06-03 kl. 13.28.40.png\n│   │   ├── Skærmbillede 2025-06-03 kl. 14.25.30.png\n│   │   └── Skærmbillede 2025-06-03 kl. 14.27.12.png\n│   ├── ssh.html\n│   └── ssh.qmd\n├── access.qmd\n├── commands.qmd\n├── computer_setup.qmd\n├── create_edit.qmd\n├── faq.qmd\n├── getting_started.qmd\n├── images\n│   ├── Screenshot 2025-05-31 at 11.05.53.png\n│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.44.43.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.45.05.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.39.22.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.40.10.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.42.11.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.37.28.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.52.02.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.22.07.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.32.16.png\n│   ├── Skærmbillede 2025-05-29 kl. 16.19.09.png\n│   ├── elephant.png\n│   ├── pipeline_example.png\n│   ├── pipeline_example_nomenu.png\n│   └── shell-command.png\n├── overview.html\n├── overview.qmd\n├── sascha_get_started.qmd\n├── sascha_installation.html\n├── sascha_installation.qmd\n├── source.qmd\n├── source.quarto_ipynb\n├── student\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   ├── index.qmd\n│   └── terminal.qmd\n└── tutorials\n    ├── data_analysis.ipynb\n    ├── developing_exercises.qmd\n    ├── jupyterlab.ipynb\n    ├── plotting.ipynb\n    └── terminal.qmd\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md"
-  },
-  {
-    "objectID": "pages/student/index.html",
-    "href": "pages/student/index.html",
-    "title": "franklin",
-    "section": "",
-    "text": "The student runs a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies.\nOn both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.\n\n\nTerminal\n\nfranklin download\n\nThe student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student’s computer with all required dependencies preinstalled.\n\n\nTerminal\n\nfranklin jupyter\n\nThe environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.",
-    "crumbs": [
-      "Student",
-      "index.html"
-    ]
-  },
-  {
-    "objectID": "pages/sascha_get_started.html",
-    "href": "pages/sascha_get_started.html",
-    "title": "franklin",
-    "section": "",
-    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/sascha_get_started.html#get-started-with-jupyter-note-book",
-    "href": "pages/sascha_get_started.html#get-started-with-jupyter-note-book",
-    "title": "franklin",
-    "section": "",
-    "text": "To run Jupyter notebook we will use a distribution of Python called Anaconda. Anaconda is the easiest way of installing Python on Windows, macOS (Mac), and Linux. To install Anaconda, head to this site. Click “Download”. When the download has completed, double-click the file you just downloaded and follow the instructions on the screen. It is important that you accept all the suggested installation settings.\n\n\n\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\n\n\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/sascha_get_started.html#enviroments",
-    "href": "pages/sascha_get_started.html#enviroments",
-    "title": "franklin",
-    "section": "Enviroments",
-    "text": "Enviroments\n\n\nIn bioinformatics, we install packages and programs so we can use them in our analyses and pipelines. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small insulated world for each project, which then only contained the packages you needed for that particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there is a tool that lets you do just that, and its name is Conda.\n“Conda is an open source package management system and environment management system for installing multiple versions of software packages and their dependencies and switching easily between them.”\nThe small worlds that Conda creates are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else. Conda also downloads and installs the packages for you and it makes sure that the software packages you install in each environment are compatible. It even makes sure that packages needed by packages (dependencies) are also installed. Conda is truly awesome.\nIn this case you need to create a new enviroment where you install franklin\nYou will need franklin for downloading assignments. You will also be able to choose a enviroment in franklin that specifially fits the assignment you want to make.\n\n\nCreate Franklin enviroment and install franklin\nIn order to download franklin and install an enviroment called franklin you have to write the code below into your terminal\nconda create -y -n franklin -c conda-forge -c munch-group franklin\nThis commands runs the Conda program and tells it to create a new enviroment with the name franklin and to install franklin in that enviroment. Once you have ran the command, your terminal output should look something like this:\noutput",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/sascha_get_started.html#franklin-for-educators",
-    "href": "pages/sascha_get_started.html#franklin-for-educators",
-    "title": "franklin",
-    "section": "Franklin for educators",
-    "text": "Franklin for educators\nYou will then also need to download franklin educator Before you insert the code below, activate your franklin enviroment in your terminal\nconda activate franklin\nconda install -c conda-forge -c munch-group franklin franklin-educator",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/sascha_get_started.html#set-up-gitlab",
-    "href": "pages/sascha_get_started.html#set-up-gitlab",
-    "title": "franklin",
-    "section": "set up gitlab",
-    "text": "set up gitlab\n\nsign in\nGo to gitlab by following this link On the sign-in page, choose the login option called login with Uni-add.\n\n\nSSH keys - what is that and why do i need it?\nSSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.\n\n\nHow do i get a SSH key?\nkaspers guide\n\n\ninsert SSH key to gitlab\nTo access your SSH keys you use the command: cat ~/.ssh/id_rsa.pub\nIt is very important that you choose the rsa.pub version.\nAfter you have run the command cat ~/.ssh/id_rsa.pub in your terminal a long line of letters and number will appear in your terminal. This is your SSH key. Now copy it and go back to the gitlab webpage\nThen press the icon on the top beside the picture that represent your profile and find the option called “edit profile” in the dropdown menu It should look like this: \nNow you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.\nThe page should look something like the figure below: \nIn the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this.\nYou are now ready to use gitlab!",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/sascha_get_started.html#how-do-i-create-a-new-assignment",
-    "href": "pages/sascha_get_started.html#how-do-i-create-a-new-assignment",
-    "title": "franklin",
-    "section": "How do i create a new assignment",
-    "text": "How do i create a new assignment",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/sascha_get_started.html#how-do-i-add-my-tas-to-the-course",
-    "href": "pages/sascha_get_started.html#how-do-i-add-my-tas-to-the-course",
-    "title": "franklin",
-    "section": "How do I add my TAs to the course?",
-    "text": "How do I add my TAs to the course?",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/sascha_get_started.html#jupyter-lab",
-    "href": "pages/sascha_get_started.html#jupyter-lab",
-    "title": "franklin",
-    "section": "jupyter lab",
-    "text": "jupyter lab\n\nWhat can i do in jupyter lab?\nJupyterLab is an easy-to-use program that helps you learn and work with code. You open it in a web browser, and it lets you write code, run it, and see the results right away.\nIt’s especially useful for trying out small bits of code, doing calculations, looking at data, and making plots. In juputer you can both write notes code and also run the code, all on the same page.\n\n\nMarkdown cells\nThere is two different kinds of cells in jupyter - markdown cells and code cells. In markdown cells you can write code in the same manner as you would in a teksteditor such as word. In markdown cells you can create a nice layout of your text piece. If you want to learn more check out the jupyter guide notebook\n\n\nCode cells\nAs the name implies you can write code in code cells and then execute your code by directly in jupyter lab by pressing shift+enter. If you want to see examples of what for example can be done in code cells check out the jupyter guide notebook\nIn order to make a new cell in markdown press the + icon on the right side of the cell. You can also use the shortcut “a” to make a cell above the cell you are interacting with, and you can use the shortcut “b” to create new cell below the one you were interacting with. If you have clicked the code cell so that you are able to write in it, you need to press esc prior to using the shortcuts.\n\n\ncreate a new cell\nWhen you have a new cell you can choose whether you want it to be a markdown cell or a code cell by using the menu bar at the top of the page. In the example below, the current cell type is code. If you wanted to change it, you click where it says code, and then chooses markdown in the drop down menu: \nYou can also use the shortcut esc + m to change a code cell to a markdown cell, and esc+ y to change a markdown cell to a code cell.",
-    "crumbs": [
-      "Educator",
-      "Get started with jupyter note book"
-    ]
-  },
-  {
-    "objectID": "pages/create_edit.html",
-    "href": "pages/create_edit.html",
-    "title": "Editing exercises",
-    "section": "",
-    "text": "This pages are under construction",
-    "crumbs": [
-      "Educator",
-      "Editing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/create_edit.html#the-automated-way",
-    "href": "pages/create_edit.html#the-automated-way",
-    "title": "Editing exercises",
-    "section": "The automated way",
-    "text": "The automated way\n\nCreating\n\n\nEditing\n\n\nAdditional channels or dependencies not found",
-    "crumbs": [
-      "Educator",
-      "Editing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/create_edit.html#the-manual-way",
-    "href": "pages/create_edit.html#the-manual-way",
-    "title": "Editing exercises",
-    "section": "The manual way",
-    "text": "The manual way\n\nGit clone\nThis command below clones an exercise git repository into a folder with the same name as the repository.\n\n\nTerminal\n\nfranklin exercise clone\n\nif the repository is called data-exercise, you can open it in vscode like this:\n\n\nTerminal\n\ncode data-exercise\n\n\n\n\n\n\n\nFor Mac users\n\n\n\nOn Macs, the code command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter.\n\n\n\nalt text\n\n\nRestart the terminal for the change to take effect.\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can run code followed by a folder name to edit files in that folder. To edit files in your current folder, run\nin any folder to start editing files in that folder.\n\n\nTerminal\n\ncode data-exercise\n\n’’’\nOnce you have opened the folder with the repository in vscode, you need to reopen it in the linux container used for the exercise. To do that, you open the Command Palette (Cmd+Shift+P) and type “reopen” to find “Reopen in container”:\n\n\n\nalt text\n\n\nWhen you select that and hit Enter, vscode builds the container (which takes a while).\n\n\nGitUI\ngit clone git@github.com:munch-group/arg-dashboard.git\n\ncode arg-dashboard\nCmd-Shift-P, “Reopen in container”\nTo add dependencies (e.g. scipy), open terminal in vscode and install pixi:\n./install_pixi.sh\nThen add the package:\npixi add --feature exercise --platform linux-64 scipy\n[Using notebooks in vscode]https://code.visualstudio.com/docs/datascience/jupyter-notebooks)\n\n\nGit add\n\n\nGit commit\n\n\nGit push",
-    "crumbs": [
-      "Educator",
-      "Editing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/access.html",
-    "href": "pages/access.html",
-    "title": "franklin",
-    "section": "",
-    "text": "Guest: Can view the project/group and can create issues, comment and see public content. Guests cannot push code, create merge requests or edit settings\nReporter: Can do the same as guest plus clone repositories, view issues, merge requests and pipelines. Reportes cannot push code.\nDeveloper: Can do the same things as the reporter and also push code, create branges and create merge requests. They can also run and retry pipelines and creates and edit issues.\nMaintainer: Can do the same as the developer plus merge merge requests, manage project settings, invite other users with lower roles\nOwner: Has full access to everything. They can delete and transfer projects, manage group settings, and add or remove owners\nSummary:\n\n\n\n\n\n\n\n\n\n\n\n\nRole\nView Code\nPush Code\nMerge MR\nManage CI/CD\nDelete Project\nManage Members\n\n\n\n\nGuest\n❌\n❌\n❌\n❌\n❌\n❌\n\n\nReporter\n✅\n❌\n❌\n❌\n❌\n❌\n\n\nDeveloper\n✅\n✅\n❌\n✅\n❌\n❌\n\n\nMaintainer\n✅\n✅\n✅\n✅\n❌\n✅ (some)\n\n\nOwner\n✅\n✅\n✅\n✅\n✅\n✅\n\n\n\nIn order to grant permission to delete and create project you will have to be a owner of that subgroup. This is done by first inviting the person you want to own a subgroup to the main group as a reader. Then you add them to the subgroup once more and choose them as a owner of the particular subgroup.\nThe course coordinater should be the owner of the subgroup of their course.\nTØ instructors should be maintainers on the subgroup\nBoth instructors and course coordinators should only have guest or reporter privalleges on the main group (franklin)",
-    "crumbs": [
-      "Educator",
-      "The hieraki of gitlab"
-    ]
-  },
-  {
-    "objectID": "pages/access.html#the-hieraki-of-gitlab",
-    "href": "pages/access.html#the-hieraki-of-gitlab",
-    "title": "franklin",
-    "section": "",
-    "text": "Guest: Can view the project/group and can create issues, comment and see public content. Guests cannot push code, create merge requests or edit settings\nReporter: Can do the same as guest plus clone repositories, view issues, merge requests and pipelines. Reportes cannot push code.\nDeveloper: Can do the same things as the reporter and also push code, create branges and create merge requests. They can also run and retry pipelines and creates and edit issues.\nMaintainer: Can do the same as the developer plus merge merge requests, manage project settings, invite other users with lower roles\nOwner: Has full access to everything. They can delete and transfer projects, manage group settings, and add or remove owners\nSummary:\n\n\n\n\n\n\n\n\n\n\n\n\nRole\nView Code\nPush Code\nMerge MR\nManage CI/CD\nDelete Project\nManage Members\n\n\n\n\nGuest\n❌\n❌\n❌\n❌\n❌\n❌\n\n\nReporter\n✅\n❌\n❌\n❌\n❌\n❌\n\n\nDeveloper\n✅\n✅\n❌\n✅\n❌\n❌\n\n\nMaintainer\n✅\n✅\n✅\n✅\n❌\n✅ (some)\n\n\nOwner\n✅\n✅\n✅\n✅\n✅\n✅\n\n\n\nIn order to grant permission to delete and create project you will have to be a owner of that subgroup. This is done by first inviting the person you want to own a subgroup to the main group as a reader. Then you add them to the subgroup once more and choose them as a owner of the particular subgroup.\nThe course coordinater should be the owner of the subgroup of their course.\nTØ instructors should be maintainers on the subgroup\nBoth instructors and course coordinators should only have guest or reporter privalleges on the main group (franklin)",
-    "crumbs": [
-      "Educator",
-      "The hieraki of gitlab"
-    ]
-  },
-  {
-    "objectID": "pages/commands.html",
-    "href": "pages/commands.html",
-    "title": "Using Franklin",
+    "objectID": "pages/commands_core.html",
+    "href": "pages/commands_core.html",
+    "title": "Running exercises",
     "section": "",
     "text": "franklin uses the click library to define a hierachy of commands and subcommands. franklin is the main command and has the subcommands download, jupyter, update, and cleanup. Should you forget, you can always run the franklin command like this:\nto print the following help message:\nTo run each subcommand, you simply append it to franklin, E.g. franklin jupyter. The following sections explain what each subcommand do.",
     "crumbs": [
-      "Educator",
-      "Using Franklin"
+      "Using Franklin",
+      "Running exercises"
     ]
   },
   {
-    "objectID": "pages/commands.html#franklin-download",
-    "href": "pages/commands.html#franklin-download",
-    "title": "Using Franklin",
-    "section": "franklin download",
-    "text": "franklin download\n\n\nTerminal\n\nfranklin download\n\nThe command presents you with menus to select the course and exercise you",
+    "objectID": "pages/commands_core.html#download-exercise",
+    "href": "pages/commands_core.html#download-exercise",
+    "title": "Running exercises",
+    "section": "Download exercise",
+    "text": "Download exercise\n\n\nTerminal\n\nfranklin download\n\nThe command presents you with menus to select the course and exercise you",
     "crumbs": [
-      "Educator",
-      "Using Franklin"
+      "Using Franklin",
+      "Running exercises"
     ]
   },
   {
-    "objectID": "pages/commands.html#franklin-jupyter",
-    "href": "pages/commands.html#franklin-jupyter",
-    "title": "Using Franklin",
-    "section": "franklin jupyter",
-    "text": "franklin jupyter\n\n\nTerminal\n\nfranklin jupyter",
+    "objectID": "pages/commands_core.html#run-jupyter",
+    "href": "pages/commands_core.html#run-jupyter",
+    "title": "Running exercises",
+    "section": "Run Jupyter",
+    "text": "Run Jupyter\n\n\nTerminal\n\nfranklin jupyter",
     "crumbs": [
-      "Educator",
-      "Using Franklin"
+      "Using Franklin",
+      "Running exercises"
     ]
   },
   {
-    "objectID": "pages/commands.html#franklin-update",
-    "href": "pages/commands.html#franklin-update",
-    "title": "Using Franklin",
-    "section": "franklin update",
-    "text": "franklin update\n\n\nTerminal\n\nfranklin update",
+    "objectID": "pages/commands_core.html#update-franklin",
+    "href": "pages/commands_core.html#update-franklin",
+    "title": "Running exercises",
+    "section": "Update franklin",
+    "text": "Update franklin\n\n\nTerminal\n\nfranklin update",
     "crumbs": [
-      "Educator",
-      "Using Franklin"
+      "Using Franklin",
+      "Running exercises"
     ]
   },
   {
-    "objectID": "pages/commands.html#franklin-cleanup",
-    "href": "pages/commands.html#franklin-cleanup",
-    "title": "Using Franklin",
-    "section": "franklin cleanup",
-    "text": "franklin cleanup\n\n\nTerminal\n\nfranklin cleanup",
+    "objectID": "pages/commands_core.html#cleanup-disk-space",
+    "href": "pages/commands_core.html#cleanup-disk-space",
+    "title": "Running exercises",
+    "section": "Cleanup disk space",
+    "text": "Cleanup disk space\n\n\nTerminal\n\nfranklin cleanup",
     "crumbs": [
-      "Educator",
-      "Using Franklin"
+      "Using Franklin",
+      "Running exercises"
     ]
+  },
+  {
+    "objectID": "pages/Use_franklin.html",
+    "href": "pages/Use_franklin.html",
+    "title": "franklin",
+    "section": "",
+    "text": "To use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:\nconda activate franklin\nThen navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)\nAfter activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this: \n\n\n\nIn order to use the commands listed you will first have to type franklin. Thats means if you want to use the download command you will in your terminal write\nfranklin download\nYou will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to do. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\n\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\n\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version"
+  },
+  {
+    "objectID": "pages/Use_franklin.html#franklin-commands--students-version",
+    "href": "pages/Use_franklin.html#franklin-commands--students-version",
+    "title": "franklin",
+    "section": "",
+    "text": "To use franklin activate the enviroment were you installed franklin. If you followed the installationguide that enviroment should be called franklin. In order to activate the enviroment use the command below:\nconda activate franklin\nThen navigate to an empty folder by using the terminal (remember you can use the cd to enter a subfolder, ls to see what is in the subfolder and cd .. to go back to main folder)\nAfter activating your franklin enviroment you can then type franklin in your terminal in order to see the different options in franklin. It should look like this: \n\n\n\nIn order to use the commands listed you will first have to type franklin. Thats means if you want to use the download command you will in your terminal write\nfranklin download\nYou will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to do. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\n\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\n\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version"
+  },
+  {
+    "objectID": "pages/Use_franklin.html#educators-version",
+    "href": "pages/Use_franklin.html#educators-version",
+    "title": "franklin",
+    "section": "Educators version",
+    "text": "Educators version\nThe educators version of franklin looks a lot like the student version with extra features for creating and editing exercises.\n\nMake a new exercise via franklin\nTo create a new exercise you will need to use the command\nfranklin exercise\nWhen you run this command a new page of commands will show. \nIn order to create a new exercise you use the command\nfranklin exercise new\nA selection menu then appears and you choose the course you want to make an exercise for. Franklin then asks you to make make a short descriptive label of your exercise. This will be the title of the exercise. When you have named your exercise press enter\n…… MANGLER\n\n\nEdit an already existing exercise\nTo edit an exercise use the command\nfranklin exercise edit\nand choose your course and exercise you want to edit in the selection menu.\n…..MANGLER\n\n\ndownload an exercise without editing.\nIf you want to download an exercise the same way the students does it, you can use the command\nfranklin download\nAfter running this command a selection menu will pop out and in this menu you will be able to pick between the different courses. \nYou choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)\nThen in order to make sure can run code in the exercise you run the command:\nfranklin jupyter\nA new selection menu now opens that once more shows you the different courses. Use the key arrows to pick your course and in the submenu pick the exercise you want to solve. Jupyter notebook now opens in your browser. in the filemenu on the right side in jupyter you should be able to see your newly downloaded exercise. Open it and your ready to go!\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder\n\n\nRename an exercise\n\n\nGitui\nfranklin exercise gitui lances git GUI\nGit gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.\nGit gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment\n\n\nClean up old docker containers\nIn order or your TØ exercises to run correctly an enviroment that is the same for each students computer is created in docker. These are also specific for each course and exercise. Unfortunately, these take up a fair ammount of space on your computer, so when you are done with a course it might be a good idea to delete these.\nYou can easily do this by using the command franklin cleanup\nrun the command: franklin cleanup\nA seletion menu will then appear with all your currently downloaded docker images, named after each of your exercises. You can then use your arrow keys to select the exercise enviroments that you no longer use.\n\n\n\nalt text\n\n\nNote: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more.\n\n\nUpdate franklin\nFranklin should update automaticaly when you start the program, but if you should need to update it manually you can use the command\nfranklin update\nYou can also check out which version of franklin you have installed by using the command\nfranklin –version"
   },
   {
     "objectID": "pages/tutorials/data_analysis.html#arrays",
