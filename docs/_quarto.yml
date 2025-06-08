@@ -50,7 +50,7 @@ website:
         text: API reference
       - href: pages/student/
         text: Student site
-      - href: ../sandbox/
+      - href: sandbox/
         text: Sandbox
     right:
       - icon: github
