@@ -842,52 +842,52 @@ def _storage(verbose):
     term.echo(storage(verbose), nowrap=True)
 
 
-def logs() -> List[Dict[str, Any]]:
-    """
-    Docker Desktop logs.
+# def logs() -> List[Dict[str, Any]]:
+#     """
+#     Docker Desktop logs.
 
-    Parameters
-    ----------
-    return_json : 
-        _description_, by default False
+#     Parameters
+#     ----------
+#     return_json : 
+#         _description_, by default False
 
-    Returns
-    -------
-    :
-        List of dictionaries with log information.
-    """
-    output = utils.run_cmd('docker desktop logs --format json')
-    return [json.loads(line) for line in output.strip().splitlines()]
-
-
-@show.command('logs')
-@crash_report
-def _logs():
-    """Show Docker Desktop logs.
-    """
-    logs()
+#     Returns
+#     -------
+#     :
+#         List of dictionaries with log information.
+#     """
+#     output = utils.run_cmd('docker desktop logs --format json')
+#     return [json.loads(line) for line in output.strip().splitlines()]
 
 
-def volumes() -> List[Dict[str, Any]]:
-    """
-    Docker volumes.
-
-    Returns
-    -------
-    :
-        List of dictionaries with volume information.
-    """
-    output = utils.run_cmd('docker volume ls --format json')
-    return [json.loads(line) for line in output.strip().splitlines()]
+# @show.command('logs')
+# @crash_report
+# def _logs():
+#     """Show Docker Desktop logs.
+#     """
+#     logs()
 
 
-@show.command('volumes')
-@ensure_docker_running
-@crash_report
-def _volumes():
-    """List docker volumes.
-    """
-    term.echo(volumes(), nowrap=True)
+# def volumes() -> List[Dict[str, Any]]:
+#     """
+#     Docker volumes.
+
+#     Returns
+#     -------
+#     :
+#         List of dictionaries with volume information.
+#     """
+#     output = utils.run_cmd('docker volume ls --format json')
+#     return [json.loads(line) for line in output.strip().splitlines()]
+
+
+# @show.command('volumes')
+# @ensure_docker_running
+# @crash_report
+# def _volumes():
+#     """List docker volumes.
+#     """
+#     term.echo(volumes(), nowrap=True)
 
 
 def images() -> List[Dict[str, Any]]:

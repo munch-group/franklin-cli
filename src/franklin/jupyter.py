@@ -162,26 +162,21 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
 
             term.echo()
             term.echo()
-            term.secho('Closed browser window.') 
+            term.secho('Closing browser window.') 
             sys.stdout.flush()
             time.sleep(0.5)
-
-            term.echo()
             term.secho('Stopping Docker container') 
             sys.stdout.flush()
             time.sleep(0.5)
             _docker.kill_container(run_container_id)
             docker_run_p.terminate()
             docker_run_p.wait()
-
-            term.echo()
             term.secho('Stopping Docker Desktop') 
             sys.stdout.flush()
             _docker.desktop_stop()
-
-            term.echo()
-            term.secho('You can now safely close this window', fg='green')
-            term.echo()
+            # term.echo()
+            # term.secho('You can now safely close this window', fg='green')
+            # term.echo()
             logging.shutdown()
 
     ##########################
