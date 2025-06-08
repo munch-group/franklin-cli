@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -77,9 +42,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -319,15 +281,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#what-do-i-need-franklin-and-docker-for" id="toc-what-do-i-need-franklin-and-docker-for" class="nav-link active" data-scroll-target="#what-do-i-need-franklin-and-docker-for">What do i need franklin and docker for?</a></li>
-  <li><a href="#install-docker-desktop" id="toc-install-docker-desktop" class="nav-link" data-scroll-target="#install-docker-desktop">Install Docker Desktop</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -373,58 +328,8 @@ This pages are under construction
 <p>Docker’s core components include:</p>
 <p>Docker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.</p>
 <p>Despite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.</p>
-<section id="what-do-i-need-franklin-and-docker-for" class="level3">
-<h3 class="anchored" data-anchor-id="what-do-i-need-franklin-and-docker-for">What do i need franklin and docker for?</h3>
-<p>Docker is a tool that makes sure everyone runs the exact same version of a program, no matter what kind of computer they have. When students work on coding assignments, things can sometimes break if they have different versions of Python or other software installed. Docker solves this by creating a special “container” that holds everything the assignment needs — like a mini computer inside your computer. For teachers, this means you don’t have to worry about installing the right packages on every student’s device or assignments suddenly breaking because something got updated. Installing Docker is the first step to making sure your assignments work the same for everyone, every time.</p>
-<p>Franklin helps you navigate these containers so that the right “mini computer” is activated when the student works on the exercises that needs that particular enviroment to run</p>
-</section>
-<section id="install-docker-desktop" class="level3">
-<h3 class="anchored" data-anchor-id="install-docker-desktop">Install Docker Desktop</h3>
-<p>In order for franklin to work you also have to download docker desktop</p>
-<p>Before you try to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac.</p>
-<p>If you are downloading docker on a AU computer remember to activate admin priviliges by activating heimdal.</p>
-<p>If you are unsure of how to activate Heimdal follow the instructions given on <a href="https://medarbejdere.au.dk/administration/it/vejledninger/sikkerhed/aktiver-administratorrettigheder-paa-medarbejdercomputer-heimdal">this page</a></p>
-<section id="instructions-for-mac" class="level4">
-<h4 class="anchored" data-anchor-id="instructions-for-mac">Instructions for Mac</h4>
-<p>Go to <a href="https://www.docker.com/products/docker-desktop/">this page</a> and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. On a Mac, you can find the name of your chip by clicking the apple icon in the upper left corner and choose “about this mac” in the dropdown menu. Apple silicon chips include M1, M2 and M3. Apple intel chips are named intel.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/Skærmbillede 2025-06-03 kl. 13.28.40.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/Skærmbillede 2025-06-03 kl. 13.28.40.png" class="img-fluid figure-img" alt="alt text"></a></p>
-<figcaption>alt text</figcaption>
-</figure>
-</div>
-<p>On Windows, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip.</p>
-<p>Download the version of Docker Desktop that matches your operating system and computer chip. Once downloaded, follow the installation instructions for your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens, a window pops up and asks if you want to sign in or create and account. An account is not necessary for using docker with franklin, so you can just click “skip” when prompted.</p>
-<p>When the installation procedure is complete and Docker is done starting up, you must it down. Just closing the blue Docker Dashboard window does not shut down Docker. You need to explicitly quit the program. To make sure it has quit, you can look for the little docker whale icon. In Mac is it in the menu bar. On Windows it is in the small popup menu at the right end of you task bar. If you see a small whale, Docker is still running. Click the whale icon and quit Docker.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/Skærmbillede 2025-06-03 kl. 14.27.12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="alt text"><img src="images/Skærmbillede 2025-06-03 kl. 14.27.12.png" class="img-fluid figure-img" alt="alt text"></a></p>
-<figcaption>alt text</figcaption>
-</figure>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-WSL
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>On Windows, Docker Desktop may give you an error message saying “WSL 2 is required”. In that case, install WSL by running the following command into your terminal:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">wsl</span> <span class="at">--install</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -839,38 +744,6 @@ WSL
   </div>
 </nav>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 
