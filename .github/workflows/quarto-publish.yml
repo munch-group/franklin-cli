@@ -55,6 +55,23 @@ jobs:
       #     path: .
       #     to: html
 
+
+      - name: Install the dependencies
+        working-directory: ./jupyterlite
+        run: |
+          python -m pip install -r requirements.txt
+      - name: Build the JupyterLite site
+        working-directory: ./jupyterlite
+        run: |
+          cp README.md content
+          jupyter lite build --contents content --output-dir dist --lite-dir jupyterlite
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ../_build/dist
+
+
+
       - name: Publish to GitHub Pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
