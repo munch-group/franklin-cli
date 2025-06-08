@@ -8,23 +8,6 @@ aliases:
 
 The tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.
 
-**GitLab hosting:** of repositories for exercises grouped by course, allowing for nested authentication privileges.
-
-**Docker Integration:** Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.
-
-**Conda and Pixi package Management:** The tool supports building and publishing Conda packages, enabling automatic management of dependencies.
-
-**Continuous integration:** Franklin uses GitLab pipelines for continuous integration automating workflows for building, testing, and publishing docker images.
-
-**Nested plugin APIs:** The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.
-
-**Auto update:** Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.
-
-**Automated workflows:** To accommodate educators with different computational skill levels, franklin supports three levels of automation to support exercise development. 
-
-**User management:** The admin API allow easy management of users and assigning rules as either guest, teaching assistant, professor, or administrator.
- 
-
 ## The student interface
 
 The student run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies. 
