@@ -27,3 +27,39 @@ Security and compliance: GitLab offers features like container scanning, depende
 GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.
 
 In summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.
+
+
+
+## set up gitlab
+
+### sign in
+Go to gitlab by following [this link](https://gitlab.au.dk)
+On the sign-in page, choose the login option called login with Uni-add. 
+
+### SSH keys - what is that and why do i need it?
+SSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.
+
+### How do i get a SSH key?
+
+kaspers guide
+
+### insert SSH key to gitlab
+To access your SSH keys you use the command: 
+cat ~/.ssh/id_rsa.pub
+
+It is very important that you choose the rsa.pub version.
+
+After you have run the command cat ~/.ssh/id_rsa.pub in your terminal  a long line of letters and number will appear in your terminal. This is your SSH key. 
+Now copy it and go back to the [gitlab webpage](https://gitlab.au.dk) 
+
+Then press the icon on the top beside the picture that represent your profile and find the option called "edit profile" in the dropdown menu
+It should look like this: ![alt text](<images/Skærmbillede 2025-05-27 kl. 13.42.11.png>)
+
+Now you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.
+
+The page should look something like the figure below:
+![alt text](<images/Skærmbillede 2025-05-27 kl. 13.40.10.png>)
+
+In the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this. 
+
+You are now ready to use gitlab!

@@ -15,11 +15,23 @@ pixi add franklin-educator
 
 ## Create a new exercise 
 
+To create a new exercise you will need to use the command 
+
+franklin exercise
+
+When you run this command a new page of commands will show. 
+![alt text](<images/Skærmbillede 2025-05-29 kl. 16.19.09.png>)
+
+In order to create a new exercise you use the command 
+
+
 ```{.bash filename="Terminal"}
 franklin exercise new
 ```
 
 The command presents you with menus to select the course and exercise you 
+
+A selection menu then appears and you choose the course you want to make an exercise for. Franklin then asks you to make make a short descriptive label of your exercise. This will be the title of the exercise. When you have named your exercise press enter
 
 ## Exercise edit workflow
 
@@ -31,6 +43,13 @@ The command presents you with menus to select the course and exercise you
 
 
 ## Clone exercise
+
+
+## GitUI
+
+Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.
+
+Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment
 
 
 ### Git clone

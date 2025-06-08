@@ -82,6 +82,7 @@ website:
           contents:
             - pages/about/ssh.qmd
             - pages/about/git.qmd
+            - pages/about/conda.qmd
             - pages/about/gitlab.qmd
             - pages/about/docker.qmd
         - pages/faq.qmd
