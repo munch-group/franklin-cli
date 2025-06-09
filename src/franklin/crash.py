@@ -7,6 +7,7 @@ import pyperclip
 import click
 from functools import wraps
 from subprocess import CalledProcessError
+from importlib.metadata import packages_distributions
 
 from .logger import logger
 #from . import crash
@@ -114,7 +115,6 @@ def crash_report(func: Callable) -> Callable:
             click.pause("Press Enter open issue page to copy the error information to your "
                         "clipboard.")
 
-            from importlib.metadata import packages_distributions
             distributions = packages_distributions()
             package = distributions.get(__name__.split('.')[0])
             url = f'https://github.com/munch-group/{package}/issues'
