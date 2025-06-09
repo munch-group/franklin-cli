@@ -74,7 +74,7 @@
     "href": "../commands_core.html",
     "title": "Running exercises",
     "section": "",
-    "text": "Download an exercise\nFranklin is a command line tool that your run from a terminal. If you are not famililiar with terminals, have a look at this brief introduction before you go on.\nFranklin uses the click library to define a hierarchy of commands and subcommands that you can run in the terminal. franklin is the main command and has the subcommands download, jupyter, update, show, and cleanup. Should you forget, you can always just run the franklin command like this:\nto print the following help message:\nTo run each subcommand, you simply append it to franklin, E.g. franklin jupyter. The following sections explain what each subcommand do.\nRunning this command, you will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a folder in your current folder (you can run ls to see it). If the exercise is called cool-exercise, you can change to that folder by running cd cool-exercise.",
+    "text": "Download an exercise\nFranklin is a command line tool that your run from a terminal. If you are not famililiar with terminals, have a look at this brief introduction before you go on.\nFranklin uses the click library to define a hierarchy of commands and subcommands that you can run in the terminal. franklin is the main command and has the subcommands download, jupyter, update, show, and cleanup. Should you forget, you can always just run the franklin command like this:\nto print the following help message:\nTo run each subcommand, you simply append it to franklin, E.g. franklin jupyter. The following sections explain what each subcommand do.\nThe jupyter exercises are available for you to download onto your own computer. To do so, you just run the command below. You will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a folder in your current folder (you can run ls to see it). If the exercise is called cool-exercise, you can change to that folder by running cd cool-exercise.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Running exercises</span>"
     ]
@@ -94,7 +94,7 @@
     "href": "../commands_core.html#run-jupyter",
     "title": "Running exercises",
     "section": "Run Jupyter",
-    "text": "Run Jupyter\nYour downloaded exercise is a jupyter notebook. In order to open and use it, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:\n\n\nTerminal\n\nfranklin jupyter\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\n\n\n\nJupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press Ctrl-C in the terminal window (remember to save your notebook first).\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder",
+    "text": "Run Jupyter\nIn order to open and run the downloaded jupyter notebook, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:\n\n\nTerminal\n\nfranklin jupyter\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\ncheck for updates\ncheck internet connection\ncheck enough disk space is available\nchecks that docker is installed\nstarts docker in the background\nFinds the course git repositories in the franklin group.\nPresents you with a list of courses to choose from.\nFinds the git repositories in the course group that are visible to students.\nMatch docker images in the registry to exercise repositories.\nPresents you with a list of exercises to choose from.\nStarts docker and waits for its engine boot up.\nPulls the docker image from the registry if it is not already on your computer.\nLaunches a Linux docker container running with all dependencies installed.\nMakes the container mount the folder with your local files so you can open them in JupyterLab.\nFind an open port if port 8888 is already in use.\nLaunches JupyterLab and forwards the display to a dedicated Google Chrome browser window.\nWaits until you press Ctrl-C in the terminal or close the Chrome window.\nStops jupyter and the docker container it runs in.\nCloses Docker Desktop\n\n\nJupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press Ctrl-C in the terminal window (remember to save your notebook first).\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Running exercises</span>"
     ]
@@ -104,17 +104,57 @@
     "href": "../commands_core.html#update-franklin",
     "title": "Running exercises",
     "section": "Update franklin",
-    "text": "Update franklin\nFranklin should update automaticaly when you start it, but if you should need to update it manually you can do it running this command:\n\n\nTerminal\n\nfranklin update\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\n\n\n\nYou can also see which version of franklin you have installed by running this command:\n\n\nTerminal\n\nfranklin --version\n\n\n\nClick to see what happens under the hood",
+    "text": "Update franklin\nFranklin should update automaticaly when you start it, but if you should need to update it manually you can do it running this command:\n\n\nTerminal\n\nfranklin update\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\nChecks for updates to franklin package using either Conda or Pixi dependeing on how franlin is installed.\nDetermines if you are a student or educator.\nUpdates franklin if a newer version exists.\nUpdates the franklin-educator package if you are an educator.\nCloses franklin reporting the update if any.\n\n\nYou can also see which version of franklin you have installed by running this command:\n\n\nTerminal\n\nfranklin --version\n\n\n\nClick to see what happens under the hood",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Running exercises</span>"
     ]
   },
   {
-    "objectID": "../commands_core.html#cleanup-disk-space",
-    "href": "../commands_core.html#cleanup-disk-space",
+    "objectID": "../commands_core.html#cleanup-docker-disk-usage",
+    "href": "../commands_core.html#cleanup-docker-disk-usage",
     "title": "Running exercises",
-    "section": "Cleanup disk space",
-    "text": "Cleanup disk space\nFranklin downloads a linux “docker image” for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later.\nTo see the images downloaded to your computer and how much space they take up, you can run this command:\n\n\nTerminal\n\nfranklin show images\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\n\n\n\nTo free up disk space, you can run this command:\n\n\nTerminal\n\nfranklin cleanup\n\n\n\nClick to see what happens under the hood",
+    "section": "Cleanup Docker disk usage",
+    "text": "Cleanup Docker disk usage\nTo free up disk space, you can run the command below. You will be prompted with a menu showing the “docker images” on your computer. Select all the ones you want to remove and press Enter. Deleting images will not delete any of your own files with saved work.\n\n\nTerminal\n\nfranklin cleanup\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\nStarts docker and waits for its engine boot up.\nFinds the exercise stored as docker images on your computer.\nPrompts you with the list of exercises (images), allowing you to select the ones you want to remove.\nCloses all docker containers for those images.\nRemoves the selected images\nPrunes all unused data cached by Docker.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Running exercises</span>"
+    ]
+  },
+  {
+    "objectID": "../commands_core.html#show-docker-disk-usage",
+    "href": "../commands_core.html#show-docker-disk-usage",
+    "title": "Running exercises",
+    "section": "Show Docker disk usage",
+    "text": "Show Docker disk usage\nThe franklin show subcommand itself has the subcommands images, containers, and storage:",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Running exercises</span>"
+    ]
+  },
+  {
+    "objectID": "../commands_core.html#show-docker-images",
+    "href": "../commands_core.html#show-docker-images",
+    "title": "Running exercises",
+    "section": "Show Docker images",
+    "text": "Show Docker images\nFranklin downloads a linux “docker image” for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later.\nTo see the images downloaded to your computer and how much space they take up, you can run this command:\n\n\nTerminal\n\nfranklin show images",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Running exercises</span>"
+    ]
+  },
+  {
+    "objectID": "../commands_core.html#show-docker-containers",
+    "href": "../commands_core.html#show-docker-containers",
+    "title": "Running exercises",
+    "section": "Show Docker containers",
+    "text": "Show Docker containers\nFranklin starts a Docker Linux container when you run franklin jupyter. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later.\nTo see the images downloaded to your computer and how much space they take up, you can run this command:\n\n\nTerminal\n\nfranklin show images",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Running exercises</span>"
+    ]
+  },
+  {
+    "objectID": "../commands_core.html#show-docker-storage",
+    "href": "../commands_core.html#show-docker-storage",
+    "title": "Running exercises",
+    "section": "Show Docker storage",
+    "text": "Show Docker storage\nTo see a summary of how much disk space Docker takes up on your computer for what purpose, you can run this command:\n\n\nTerminal\n\nfranklin show storage",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Running exercises</span>"
     ]
