@@ -1,3 +1,79 @@
+# project:
+#   type: website
+#   output-dir: ../../_build/pages/student
+#   # resources:
+#     # - objects.txt
+#     # - objects-test.txt
+
+# execute:
+#   freeze: auto
+#   echo: true
+
+# website:
+#   title: "franklin"
+#   page-navigation: true
+#   navbar:
+#     left:
+#       # - file: examples/
+#       #   text: Examples
+#       - href: http://munch-group.org/jupyterlite
+#         text: Sandbox
+#     right:
+#       - icon: github
+#         href: https://github.com/munch-group/franklin/
+#   sidebar:
+#     - id: pages
+#       title: Get Started
+#       style: floating
+#       align: left
+#       contents:
+#         - pages/getting_started.qmd 
+#         - pages/overview.qmd
+#         - section: "Setting up"
+#           contents:
+#             - pages/computer_setup.qmd
+#         - section: "Using Franklin"
+#           contents:
+#             - pages/commands_core.qmd
+#         - section: "Tutorials"
+#           contents:
+#             - pages/developing.qmd
+#             - pages/data_analysis.ipynb
+#             - pages/plotting.ipynb
+#         - section: "About"
+#           contents:
+#             - pages/terminal.qmd
+#             - pages/jupyterlab.ipynb
+#             - pages/conda.qmd
+#         - pages/faq.qmd
+
+#         # - section: "Source code"
+#         #   contents:
+#         #     - pages/admin/source.qmd
+#         #     - ../src/franklin/docker.py
+
+# comments:
+#   hypothesis: true
+
+# format:
+#   html:
+#     # mainfont: "Passata"
+#     theme: 
+#       - cosmo
+#       # - custom.scss
+
+#     # theme: cosmo
+#     css:
+#       - styles.css
+#     toc: true
+#     sidebar:
+#       collapse-level: 1
+#       search: true  
+#     mermaid:
+#       theme: neutral    
+
+
+
 project:
   type: book
   output-dir: ../../_build/pages/student
@@ -7,7 +83,7 @@ project:
 book:
   title: "Franklin"
   # title: "<br>"
-  subtitle: "The MBG jupyter exercise tool"
+#  subtitle: "The MBG jupyter exercise tool"
   # description: 'A course in bioinformatics and programming'
   # author: "Kasper Munch"
   sidebar:
@@ -16,19 +92,30 @@ book:
     background: "white"      
   chapters:
     - index.qmd
-    - part: "Terminal"
-      chapters:
+    - ../computer_setup.qmd
+    - ../commands_core.qmd
+    - ../faq.qmd
+    - part: "Tutorials"
+      chapters:              
         - ../terminal.qmd
         - ../jupyterlab.ipynb
         - ../data_analysis.ipynb
         - ../plotting.ipynb
-  downloads: [pdf]
+    - part: "About"
+      chapters:  
+        - ../terminal.qmd
+        - ../jupyterlab.ipynb
+        - ../conda.qmd
+        - ../gitlab.qmd
+        - ../docker.qmd                  
+
+  # downloads: [pdf]
 
 # embed-resources: true
 
 format:
   html:
-    mainfont: "Passata"
+    # mainfont: "Passata"
     theme: 
       - default
       - custom.scss
@@ -37,24 +124,25 @@ format:
     fig-height: 3
     filters:
       - quarto
-      - headers.lua
+      # - headers.lua
     notebook-links: global
-    # number-sections: false
-    number-sections: true      
+    toc-depth: 3    
+    number-sections: false
+    # number-sections: true      
     code-block-bg: "#f9f9f9"
     # code-tools: true    
-  pdf:
-    documentclass: scrbook
-    papersize: a4
-    highlight-style: kate 
-    fig-width: 7
-    fig-height: 5
-    toc-depth: 2
-    secPrefix:
-      - "exercise"
-      - "exercises"
-    include-in-header:
-      - file: header_extra.tex
+  # pdf:
+  #   documentclass: scrbook
+  #   papersize: a4
+  #   highlight-style: kate 
+  #   fig-width: 7
+  #   fig-height: 5
+  #   toc-depth: 2
+  #   secPrefix:
+  #     - "exercise"
+  #     - "exercises"
+  #   include-in-header:
+  #     - file: header_extra.tex
   # epub:
   #   cover-image: cover.png
   #   highlight-style: kate 

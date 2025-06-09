@@ -102,14 +102,27 @@ def crash_report(func: Callable) -> Callable:
         def msg_and_exit():
             term.secho(
                 f"\nFranklin encountered an unexpected problem.", fg='red')
+            # term.secho(
+            #     f'\nPlease open an email to {cfg.maintainer_email} with '
+            #     'subject "Franklin crash". When you press Enter in this '
+            #     'window, the crash information is copied to your clipboard '
+            #     'So you can paste it into the email body before sending it')
             term.secho(
-                f'\nPlease open an email to {cfg.maintainer_email} with '
-                'subject "Franklin crash". When you press Enter in this '
-                'window, the crash information is copied to your clipboard '
-                'So you can paste it into the email body before sending it')
-            click.pause("Press Enter to copy the crash information to your "
+                f'\nPlease report this by submitting an issue on GitHub with '
+                'a descriptive title and the error information pasted into '
+                'the description field.')
+            click.pause("Press Enter open issue page to copy the error information to your "
                         "clipboard.")
+
+            from importlib.metadata import packages_distributions
+            distributions = packages_distributions()
+            package = distributions.get(__name__.split('.')[0])
+            url = f'https://github.com/munch-group/{package}/issues'
+
             pyperclip.copy(gather_crash_info())
+
+            webbrowser.open(url, new=1)
+
             sys.exit(1)   
 
         if os.environ.get('DEVEL', None):

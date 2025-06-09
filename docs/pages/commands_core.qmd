@@ -2,7 +2,9 @@
 title: Running exercises
 ---
 
-**franklin** uses the [click](https://click.palletsprojects.com/en/stable/) library to define a hierarchy of commands and subcommands. `franklin` is the main command and has the subcommands `download`, `jupyter`, `update`, `show`, and `cleanup`. Should you forget, you can always run the `franklin` command like this:
+Franklin is a command line tool that your run from a terminal. If you are not famililiar with terminals, have a look at [this brief introduction](about/terminal.html) before you go on. 
+
+Franklin uses the [click](https://click.palletsprojects.com/en/stable/) library to define a hierarchy of commands and subcommands that you can run in the terminal. `franklin` is the main command and has the subcommands `download`, `jupyter`, `update`, `show`, and `cleanup`. Should you forget, you can always just run the `franklin` command like this:
 
 ```{.bash filename="Terminal"}
 franklin
@@ -30,14 +32,29 @@ Commands:
 
 To run each subcommand, you simply append it to `franklin`, E.g. `franklin jupyter`. The following sections explain what each subcommand do.
 
-## Download exercise
+## Download an exercise
 
 ```{.bash filename="Terminal"}
 franklin download
 ```
 
-Running this command, you will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a folder in your current folder (you can run `ls` to see it). If the exercise is called `cool-exercise`, you can change to that folder by running `cd cool-exercise`.
+<details>
+<summary><small>Click to see what happens under the hood</small></summary>
 
+### This is what the franklin does for you
+
+- Finds the course git repositories in the franklin group.
+- Presents you with a list of courses to choose from.
+- Finds the git repositories in the course group that are visible to students.
+- Match docker images in the registry to exercise repositories.
+- Presents you with a list of exercises to choose from.
+- Clones the git repository for the exercise from the AU GitLab website
+- Gives the downloaded folder the name of the exercise.
+- Removes the repository files not relevant to students.
+
+</details>
+
+Running this command, you will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a folder in your current folder (you can run `ls` to see it). If the exercise is called `cool-exercise`, you can change to that folder by running `cd cool-exercise`.
 
 <!-- You will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses.
 ![alt text](<images/Skærmbillede 2025-05-28 kl. 14.52.02.png>)
@@ -57,6 +74,15 @@ Your downloaded exercise is a jupyter notebook. In order to open and use it, you
 franklin jupyter
 ```
 
+<details>
+<summary><small>Click to see what happens under the hood</small></summary>
+
+### This is what the franklin does for you
+
+- 
+
+</details>
+
 JupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press `Ctrl-C` in the terminal window (remember to save your notebook first).
 
 Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder![alt text](<images/Skærmbillede 2025-05-28 kl. 15.22.07.png>)
@@ -70,11 +96,30 @@ Franklin should update automaticaly when you start it, but if you should need to
 franklin update
 ```
 
+<details>
+<summary><small>Click to see what happens under the hood</small></summary>
+
+### This is what the franklin does for you
+
+- 
+
+</details>
+
 You can also see which version of franklin you have installed by running this command:
 
 ```{.bash filename="Terminal"}
 franklin --version
 ```
+
+<details>
+<summary><small>Click to see what happens under the hood</small></summary>
+
+### This is what the franklin does for you
+
+- 
+
+</details>
+
 
 ## Cleanup disk space
 
@@ -86,11 +131,29 @@ To see the images downloaded to your computer and how much space they take up, y
 franklin show images
 ```
 
+<details>
+<summary><small>Click to see what happens under the hood</small></summary>
+
+### This is what the franklin does for you
+
+- 
+
+</details>
+
 To free up disk space, you can run this command:
 
 ```{.bash filename="Terminal"}
 franklin cleanup
 ```
+
+<details>
+<summary><small>Click to see what happens under the hood</small></summary>
+
+### This is what the franklin does for you
+
+- 
+
+</details>
 
 You will be prompted with a menu showing the "docker images" on your computer. Select all the ones you want to remove and press Enter. Deleting images will not delete any of your own files with saved work.
 
@@ -99,3 +162,8 @@ You will be prompted with a menu showing the "docker images" on your computer. S
 ![alt text](<images/Skærmbillede 2025-05-28 kl. 15.32.16.png>) -->
 
 <!-- Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more. -->
+
+
+## Live action
+
+{{< video https://www.youtube.com/embed/BCnmQsXGO8k aspect-ratio="16x9" >}}

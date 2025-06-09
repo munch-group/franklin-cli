@@ -40,19 +40,22 @@ title-block-banner-color: "#FFFFFF"
 </style>
  -->
 
+## Franklin
 
-The student runs a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies. 
+**Franklin** takes care of the technical challenges in running jupyter notebook exercise on your computer. That way, you can focus on learning rather than library incompatibilities and platform specific dependencies. 
 
-On both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.
+Once installed, running lets you download the exercise you want.
 
 ```{.bash filename="Terminal"}
 franklin download
 ```
 
-The student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student's computer with all required dependencies preinstalled.
+Running this command, starts a jupyter notebook on your computer that 
 
 ```{.bash filename="Terminal"}
 franklin jupyter
 ```
 
-The environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.
+You can find more detail along with installation instructions and tutorials in the side bar.
+
+Should you come across a bug or find yourself missing some functionality, you are welcome to [submit an issue](https://github.com/munch-group/franklin/issues).

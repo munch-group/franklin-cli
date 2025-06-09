@@ -13,12 +13,22 @@ $h6-font-size:                $font-size-base !default;
     font-family: "Passata";
     src: url("au_fonts/AUPassata_Rg.ttf");
   }
-  @font-face {
-    font-family: "Peto";
-    src: url("au_fonts/AU_Peto.ttf");
-  }  
+@font-face {
+  font-family: "Peto";
+  src: url("au_fonts/AU_Peto.ttf");
+}  
 
-  // * {
+// #title-block-header .title {
+//   font-family: "Peto";
+//   font-size: 4.0rem; /* adjust as needed */
+// }
+
+
+
+
+
+
+// * {
   //   font-family: Passata;
   // }
   
