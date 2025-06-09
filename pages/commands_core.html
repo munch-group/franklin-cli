@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Running exercises – franklin</title>
+<title>Running exercises – Franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,31 +58,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../pages/commands_edu.html" rel="next">
-<link href="../pages/computer_setup.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-905433ffa22618bb005779f2b23c5ce0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="student/site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="student/site_libs/quarto-nav/headroom.min.js"></script>
+<script src="student/site_libs/clipboard/clipboard.min.js"></script>
+<script src="student/site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="student/site_libs/quarto-search/fuse.min.js"></script>
+<script src="student/site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="student/">
+<link href="student/../faq.html" rel="next">
+<link href="student/../computer_setup.html" rel="prev">
+<script src="student/site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="student/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="student/site_libs/quarto-html/popper.min.js"></script>
+<script src="student/site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="student/site_libs/quarto-html/anchor.min.js"></script>
+<link href="student/site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="student/site_libs/quarto-html/quarto-syntax-highlighting-f1f3b3fd89b16212fde59a2af78f1759.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="student/site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="student/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="student/site_libs/bootstrap/bootstrap-96474ba0df3056c31823ea9d60366b68.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -104,223 +104,131 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://hypothes.is/embed.js"></script>
-<script>
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    document.body.classList.add('hypothesis-enabled');
-  });
-</script>
 
 
-<link rel="stylesheet" href="../api/_styles-quartodoc.css">
-<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating nav-fixed quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">franklin</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../api/"> 
-<span class="menu-text">API reference</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../pages/student/"> 
-<span class="menu-text">Student site</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="http://munch-group.org/jupyterlite"> 
-<span class="menu-text">Sandbox</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/munch-group/franklin/"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/commands_core.html">Using Franklin</a></li><li class="breadcrumb-item"><a href="../pages/commands_core.html">Running exercises</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../commands_core.html"><span class="chapter-title">Running exercises</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="student/">Content</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started</span></a>
+  <a href="student/index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Franklin</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Outline and infrastructure</span></a>
+  <a href="student/../computer_setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Computer setup</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="student/../commands_core.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Running exercises</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="student/../faq.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">FAQ</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Setting up</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/computer_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Computer setup</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Using Franklin</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/commands_core.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Running exercises</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/commands_edu.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Developing exercises</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/commands_admin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Admin tools</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Developing exercises</span></a>
+  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/data_analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data analysis in Python and R</span></a>
+  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Jupyterlab</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/plotting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Plots with matplotlib</span></a>
+  <a href="student/../data_analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Data analysis in Python and R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="student/../plotting.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Plots with matplotlib</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">About</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The terminal</span></a>
+  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jupyterlab</span></a>
+  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Jupyterlab</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/ssh.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSH authentication</span></a>
+  <a href="student/../conda.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Conda</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/git.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Git version control</span></a>
+  <a href="student/../gitlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Gitlab server</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/conda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Conda</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gitlab server</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/docker.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Docker virtualization</span></a>
+  <a href="student/../docker.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Docker virtualization</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/faq.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">FAQ</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -328,22 +236,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#download-exercise" id="toc-download-exercise" class="nav-link active" data-scroll-target="#download-exercise">Download exercise</a></li>
-  <li><a href="#run-jupyter" id="toc-run-jupyter" class="nav-link" data-scroll-target="#run-jupyter">Run Jupyter</a></li>
-  <li><a href="#update-franklin" id="toc-update-franklin" class="nav-link" data-scroll-target="#update-franklin">Update franklin</a></li>
-  <li><a href="#cleanup-disk-space" id="toc-cleanup-disk-space" class="nav-link" data-scroll-target="#cleanup-disk-space">Cleanup disk space</a></li>
+  <li><a href="#download-an-exercise" id="toc-download-an-exercise" class="nav-link active" data-scroll-target="#download-an-exercise">Download an exercise</a>
+  <ul class="collapse">
+  <li><a href="#this-is-what-the-franklin-does-for-you" id="toc-this-is-what-the-franklin-does-for-you" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you">This is what the franklin does for you</a></li>
+  </ul></li>
+  <li><a href="#run-jupyter" id="toc-run-jupyter" class="nav-link" data-scroll-target="#run-jupyter">Run Jupyter</a>
+  <ul class="collapse">
+  <li><a href="#this-is-what-the-franklin-does-for-you-1" id="toc-this-is-what-the-franklin-does-for-you-1" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-1">This is what the franklin does for you</a></li>
+  </ul></li>
+  <li><a href="#update-franklin" id="toc-update-franklin" class="nav-link" data-scroll-target="#update-franklin">Update franklin</a>
+  <ul class="collapse">
+  <li><a href="#this-is-what-the-franklin-does-for-you-2" id="toc-this-is-what-the-franklin-does-for-you-2" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-2">This is what the franklin does for you</a></li>
+  <li><a href="#this-is-what-the-franklin-does-for-you-3" id="toc-this-is-what-the-franklin-does-for-you-3" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-3">This is what the franklin does for you</a></li>
+  </ul></li>
+  <li><a href="#cleanup-disk-space" id="toc-cleanup-disk-space" class="nav-link" data-scroll-target="#cleanup-disk-space">Cleanup disk space</a>
+  <ul class="collapse">
+  <li><a href="#this-is-what-the-franklin-does-for-you-4" id="toc-this-is-what-the-franklin-does-for-you-4" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-4">This is what the franklin does for you</a></li>
+  <li><a href="#this-is-what-the-franklin-does-for-you-5" id="toc-this-is-what-the-franklin-does-for-you-5" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-5">This is what the franklin does for you</a></li>
+  </ul></li>
+  <li><a href="#live-action" id="toc-live-action" class="nav-link" data-scroll-target="#live-action">Live action</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/commands_core.html">Using Franklin</a></li><li class="breadcrumb-item"><a href="../pages/commands_core.html">Running exercises</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Running exercises</h1>
+<h1 class="title"><span class="chapter-title">Running exercises</span></h1>
 </div>
 
 
@@ -360,7 +283,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>franklin</strong> uses the <a href="https://click.palletsprojects.com/en/stable/">click</a> library to define a hierarchy of commands and subcommands. <code>franklin</code> is the main command and has the subcommands <code>download</code>, <code>jupyter</code>, <code>update</code>, <code>show</code>, and <code>cleanup</code>. Should you forget, you can always run the <code>franklin</code> command like this:</p>
+<p>Franklin is a command line tool that your run from a terminal. If you are not famililiar with terminals, have a look at <a href="about/terminal.html">this brief introduction</a> before you go on.</p>
+<p>Franklin uses the <a href="https://click.palletsprojects.com/en/stable/">click</a> library to define a hierarchy of commands and subcommands that you can run in the terminal. <code>franklin</code> is the main command and has the subcommands <code>download</code>, <code>jupyter</code>, <code>update</code>, <code>show</code>, and <code>cleanup</code>. Should you forget, you can always just run the <code>franklin</code> command like this:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
@@ -384,14 +308,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  show      Commands for showing Docker content.</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  update    Update Franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To run each subcommand, you simply append it to <code>franklin</code>, E.g. <code>franklin jupyter</code>. The following sections explain what each subcommand do.</p>
-<section id="download-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="download-exercise">Download exercise</h2>
+<section id="download-an-exercise" class="level2">
+<h2 class="anchored" data-anchor-id="download-an-exercise">Download an exercise</h2>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
 <div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<details>
+<summary>
+<small>Click to see what happens under the hood</small>
+</summary>
+<section id="this-is-what-the-franklin-does-for-you" class="level3">
+<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you">This is what the franklin does for you</h3>
+<ul>
+<li>Finds the course git repositories in the franklin group.</li>
+<li>Presents you with a list of courses to choose from.</li>
+<li>Finds the git repositories in the course group that are visible to students.</li>
+<li>Match docker images in the registry to exercise repositories.</li>
+<li>Presents you with a list of exercises to choose from.</li>
+<li>Clones the git repository for the exercise from the AU GitLab website</li>
+<li>Gives the downloaded folder the name of the exercise.</li>
+<li>Removes the repository files not relevant to students.</li>
+</ul>
+</section></details>
 <p>Running this command, you will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a folder in your current folder (you can run <code>ls</code> to see it). If the exercise is called <code>cool-exercise</code>, you can change to that folder by running <code>cd cool-exercise</code>.</p>
 <!-- You will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses.
 ![alt text](<images/Skærmbillede 2025-05-28 kl. 14.52.02.png>)
@@ -403,6 +344,7 @@ After running this command a selection menu will pop out and in this menu you wi
 
 You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise) -->
 </section>
+
 <section id="run-jupyter" class="level2">
 <h2 class="anchored" data-anchor-id="run-jupyter">Run Jupyter</h2>
 <p>Your downloaded exercise is a jupyter notebook. In order to open and use it, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:</p>
@@ -412,9 +354,20 @@ You choose your course by using the arrow keys and a new selection menu will app
 </div>
 <div class="sourceCode" id="cb4" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<details>
+<summary>
+<small>Click to see what happens under the hood</small>
+</summary>
+<section id="this-is-what-the-franklin-does-for-you-1" class="level3">
+<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-1">This is what the franklin does for you</h3>
+<ul>
+<li></li>
+</ul>
+</section></details>
 <p>JupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press <code>Ctrl-C</code> in the terminal window (remember to save your notebook first).</p>
 <p>Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder<img src="images/Skærmbillede 2025-05-28 kl. 15.22.07.png" class="img-fluid" alt="alt text"></p>
 </section>
+
 <section id="update-franklin" class="level2">
 <h2 class="anchored" data-anchor-id="update-franklin">Update franklin</h2>
 <p>Franklin should update automaticaly when you start it, but if you should need to update it manually you can do it running this command:</p>
@@ -424,6 +377,16 @@ You choose your course by using the arrow keys and a new selection menu will app
 </div>
 <div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> update</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<details>
+<summary>
+<small>Click to see what happens under the hood</small>
+</summary>
+<section id="this-is-what-the-franklin-does-for-you-2" class="level3">
+<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-2">This is what the franklin does for you</h3>
+<ul>
+<li></li>
+</ul>
+</section></details>
 <p>You can also see which version of franklin you have installed by running this command:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -431,7 +394,19 @@ You choose your course by using the arrow keys and a new selection menu will app
 </div>
 <div class="sourceCode" id="cb6" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<details>
+<summary>
+<small>Click to see what happens under the hood</small>
+</summary>
+</details></section>
+<section id="this-is-what-the-franklin-does-for-you-3" class="level3">
+<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-3">This is what the franklin does for you</h3>
+<ul>
+<li></li>
+</ul>
+
 </section>
+
 <section id="cleanup-disk-space" class="level2">
 <h2 class="anchored" data-anchor-id="cleanup-disk-space">Cleanup disk space</h2>
 <p>Franklin downloads a linux “docker image” for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later.</p>
@@ -442,6 +417,16 @@ You choose your course by using the arrow keys and a new selection menu will app
 </div>
 <div class="sourceCode" id="cb7" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show images</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<details>
+<summary>
+<small>Click to see what happens under the hood</small>
+</summary>
+<section id="this-is-what-the-franklin-does-for-you-4" class="level3">
+<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-4">This is what the franklin does for you</h3>
+<ul>
+<li></li>
+</ul>
+</section></details>
 <p>To free up disk space, you can run this command:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -449,10 +434,26 @@ You choose your course by using the arrow keys and a new selection menu will app
 </div>
 <div class="sourceCode" id="cb8" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> cleanup</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<details>
+<summary>
+<small>Click to see what happens under the hood</small>
+</summary>
+</details></section>
+<section id="this-is-what-the-franklin-does-for-you-5" class="level3">
+<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-5">This is what the franklin does for you</h3>
+<ul>
+<li></li>
+</ul>
+
 <p>You will be prompted with a menu showing the “docker images” on your computer. Select all the ones you want to remove and press Enter. Deleting images will not delete any of your own files with saved work.</p>
 <!-- 
 ![alt text](<images/Skærmbillede 2025-05-28 kl. 15.32.16.png>) -->
 <!-- Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more. -->
+</section>
+
+<section id="live-action" class="level2">
+<h2 class="anchored" data-anchor-id="live-action">Live action</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/BCnmQsXGO8k" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 
 
 </section>
@@ -530,7 +531,7 @@ You choose your course by using the arrow keys and a new selection menu will app
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/munch-group\.github\.io\/franklin\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -859,13 +860,13 @@ You choose your course by using the arrow keys and a new selection menu will app
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/computer_setup.html" class="pagination-link" aria-label="Computer setup">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Computer setup</span>
+      <a href="student/../computer_setup.html" class="pagination-link" aria-label="Computer setup">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Computer setup</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/commands_edu.html" class="pagination-link" aria-label="Developing exercises">
-        <span class="nav-page-text">Developing exercises</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="student/../faq.html" class="pagination-link" aria-label="FAQ">
+        <span class="nav-page-text"><span class="chapter-title">FAQ</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

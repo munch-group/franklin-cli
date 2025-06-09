@@ -378,7 +378,14 @@
     "href": "pages/student/index.html",
     "title": "franklin",
     "section": "",
-    "text": "The student runs a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies.\nOn both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.\n\n\nTerminal\n\nfranklin download\n\nThe student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student’s computer with all required dependencies preinstalled.\n\n\nTerminal\n\nfranklin jupyter\n\nThe environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors."
+    "text": "Franklin takes care of the technical challenges in running jupyter notebook exercise on your computer. That way, you can focus on learning rather than library incompatibilities and platform specific dependencies.\nOnce installed, running lets you download the exercise you want.\n\n\nTerminal\n\nfranklin download\n\nRunning this command, starts a jupyter notebook on your computer that\n\n\nTerminal\n\nfranklin jupyter\n\nYou can find more detail along with installation instructions and tutorials in the side bar.\nShould you come across a bug or find yourself missing some functionality, you are welcome to submit an issue."
+  },
+  {
+    "objectID": "pages/student/index.html#franklin",
+    "href": "pages/student/index.html#franklin",
+    "title": "franklin",
+    "section": "",
+    "text": "Franklin takes care of the technical challenges in running jupyter notebook exercise on your computer. That way, you can focus on learning rather than library incompatibilities and platform specific dependencies.\nOnce installed, running lets you download the exercise you want.\n\n\nTerminal\n\nfranklin download\n\nRunning this command, starts a jupyter notebook on your computer that\n\n\nTerminal\n\nfranklin jupyter\n\nYou can find more detail along with installation instructions and tutorials in the side bar.\nShould you come across a bug or find yourself missing some functionality, you are welcome to submit an issue."
   },
   {
     "objectID": "pages/commands_admin.html",
@@ -882,7 +889,7 @@
     "href": "pages/getting_started.html#about-this-documentation",
     "title": "Getting started",
     "section": "About this documentation",
-    "text": "About this documentation\nThese pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click “Sign up” to create a Hypothes.is account. Once you are logged in to that, you click this invite link to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click “Annotate” to add your suggestion/comment.",
+    "text": "About this documentation\nThese pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click “Sign up” to create a Hypothes.is account. Once you are logged in to that, you click this invite link to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click “Annotate” to add your suggestion/comment.\nShould you come across a bug or find yourself missing some functionality, you are welcome to submit an issue.",
     "crumbs": [
       "Getting started"
     ]
@@ -947,18 +954,18 @@
     "href": "pages/commands_core.html",
     "title": "Running exercises",
     "section": "",
-    "text": "franklin uses the click library to define a hierarchy of commands and subcommands. franklin is the main command and has the subcommands download, jupyter, update, show, and cleanup. Should you forget, you can always run the franklin command like this:\nto print the following help message:\nTo run each subcommand, you simply append it to franklin, E.g. franklin jupyter. The following sections explain what each subcommand do.",
+    "text": "Franklin is a command line tool that your run from a terminal. If you are not famililiar with terminals, have a look at this brief introduction before you go on.\nFranklin uses the click library to define a hierarchy of commands and subcommands that you can run in the terminal. franklin is the main command and has the subcommands download, jupyter, update, show, and cleanup. Should you forget, you can always just run the franklin command like this:\nto print the following help message:\nTo run each subcommand, you simply append it to franklin, E.g. franklin jupyter. The following sections explain what each subcommand do.",
     "crumbs": [
       "Using Franklin",
       "Running exercises"
     ]
   },
   {
-    "objectID": "pages/commands_core.html#download-exercise",
-    "href": "pages/commands_core.html#download-exercise",
+    "objectID": "pages/commands_core.html#download-an-exercise",
+    "href": "pages/commands_core.html#download-an-exercise",
     "title": "Running exercises",
-    "section": "Download exercise",
-    "text": "Download exercise\n\n\nTerminal\n\nfranklin download\n\nRunning this command, you will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a folder in your current folder (you can run ls to see it). If the exercise is called cool-exercise, you can change to that folder by running cd cool-exercise.",
+    "section": "Download an exercise",
+    "text": "Download an exercise\n\n\nTerminal\n\nfranklin download\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\nFinds the course git repositories in the franklin group.\nPresents you with a list of courses to choose from.\nFinds the git repositories in the course group that are visible to students.\nMatch docker images in the registry to exercise repositories.\nPresents you with a list of exercises to choose from.\nClones the git repository for the exercise from the AU GitLab website\nGives the downloaded folder the name of the exercise.\nRemoves the repository files not relevant to students.\n\n\nRunning this command, you will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a folder in your current folder (you can run ls to see it). If the exercise is called cool-exercise, you can change to that folder by running cd cool-exercise.",
     "crumbs": [
       "Using Franklin",
       "Running exercises"
@@ -969,7 +976,7 @@
     "href": "pages/commands_core.html#run-jupyter",
     "title": "Running exercises",
     "section": "Run Jupyter",
-    "text": "Run Jupyter\nYour downloaded exercise is a jupyter notebook. In order to open and use it, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:\n\n\nTerminal\n\nfranklin jupyter\n\nJupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press Ctrl-C in the terminal window (remember to save your notebook first).\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder",
+    "text": "Run Jupyter\nYour downloaded exercise is a jupyter notebook. In order to open and use it, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:\n\n\nTerminal\n\nfranklin jupyter\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\n\n\n\nJupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press Ctrl-C in the terminal window (remember to save your notebook first).\nNote: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder",
     "crumbs": [
       "Using Franklin",
       "Running exercises"
@@ -980,7 +987,7 @@
     "href": "pages/commands_core.html#update-franklin",
     "title": "Running exercises",
     "section": "Update franklin",
-    "text": "Update franklin\nFranklin should update automaticaly when you start it, but if you should need to update it manually you can do it running this command:\n\n\nTerminal\n\nfranklin update\n\nYou can also see which version of franklin you have installed by running this command:\n\n\nTerminal\n\nfranklin --version",
+    "text": "Update franklin\nFranklin should update automaticaly when you start it, but if you should need to update it manually you can do it running this command:\n\n\nTerminal\n\nfranklin update\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\n\n\n\nYou can also see which version of franklin you have installed by running this command:\n\n\nTerminal\n\nfranklin --version\n\n\n\nClick to see what happens under the hood",
     "crumbs": [
       "Using Franklin",
       "Running exercises"
@@ -991,7 +998,18 @@
     "href": "pages/commands_core.html#cleanup-disk-space",
     "title": "Running exercises",
     "section": "Cleanup disk space",
-    "text": "Cleanup disk space\nFranklin downloads a linux “docker image” for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later.\nTo see the images downloaded to your computer and how much space they take up, you can run this command:\n\n\nTerminal\n\nfranklin show images\n\nTo free up disk space, you can run this command:\n\n\nTerminal\n\nfranklin cleanup\n\nYou will be prompted with a menu showing the “docker images” on your computer. Select all the ones you want to remove and press Enter. Deleting images will not delete any of your own files with saved work.",
+    "text": "Cleanup disk space\nFranklin downloads a linux “docker image” for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later.\nTo see the images downloaded to your computer and how much space they take up, you can run this command:\n\n\nTerminal\n\nfranklin show images\n\n\n\nClick to see what happens under the hood\n\n\nThis is what the franklin does for you\n\n\n\n\nTo free up disk space, you can run this command:\n\n\nTerminal\n\nfranklin cleanup\n\n\n\nClick to see what happens under the hood",
+    "crumbs": [
+      "Using Franklin",
+      "Running exercises"
+    ]
+  },
+  {
+    "objectID": "pages/commands_core.html#live-action",
+    "href": "pages/commands_core.html#live-action",
+    "title": "Running exercises",
+    "section": "Live action",
+    "text": "Live action",
     "crumbs": [
       "Using Franklin",
       "Running exercises"
