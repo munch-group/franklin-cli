@@ -101,7 +101,7 @@ def crash_report(func: Callable) -> Callable:
     def wrapper(*args, **kwargs):
 
 
-        def msg_and_exit(module_name='franklin'):
+        def msg_and_exit():
             term.secho(
                 f"\nFranklin encountered an unexpected problem.", fg='red')
             # term.secho(
@@ -116,14 +116,15 @@ def crash_report(func: Callable) -> Callable:
             click.pause("Press Enter open issue page to copy the error information to your "
                         "clipboard.")
 
-            # 
-            if not module_name.startswith('franklin-'):
-                module_name = 'franklin'
-            module_name = module_name.replace('_', '-')
+            frame = inspect.trace()[-1]
+            module = inspect.getmodule(frame[0])
+            package_name = 'franklin'
+            if module is not None and  module.__name__.startswith('franklin_'):
+                package_name = module.__name__.split('.')[0].replace('_', '-')
 
             # distributions = packages_distributions()
             # package = distributions.get(__name__.split('.')[0])[0]
-            url = f'https://github.com/munch-group/{package}/issues'
+            url = f'https://github.com/munch-group/{package_name}/issues'
 
             pyperclip.copy(gather_crash_info())
 
@@ -172,14 +173,8 @@ def crash_report(func: Callable) -> Callable:
             raise e
 
         except:
-            frame = inspect.trace()[-1]
-            module = inspect.getmodule(frame[0])
             logger.exception('CRASH')
-            if module is not None:
-                msg_and_exit(module.__name__)
-            else:
-                msg_and_exit()
-            raise
+            msg_and_exit()
 
         return ret
     return wrapper
