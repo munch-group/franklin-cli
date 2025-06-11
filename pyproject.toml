@@ -30,8 +30,8 @@ dependencies = [
     'pyperclip',
     'selenium',
     'webdriver-manager',
-    'cryptography',
     'rapidfuzz',
+    'pycryptodome',
 ]
 authors = [
   {name = "Kasper Munch", email = "kaspermunch@birc.au.dk"},
@@ -80,10 +80,7 @@ platforms = ["osx-arm64"]
 
 [tool.pixi.pypi-dependencies]
 franklin = { path = ".", editable = true }
-franklin-educator = { path = "../franklin-educator", editable = true }
+franklin_educator = { path = "../franklin-educator", editable = true }
 
 [tool.pixi.tasks]
-
-[tool.pixi.dependencies]
-rapidfuzz = ">=3.13.0,<4"
 

@@ -10,4 +10,6 @@ pyyaml
 pyperclip
 selenium
 webdriver-manager
-# importlib_resources
+rapidfuzz
+pycrypto
+pycryptodome

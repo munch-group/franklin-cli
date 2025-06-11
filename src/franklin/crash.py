@@ -1,6 +1,7 @@
 import os
 import sys
 import platform
+import inspect
 import webbrowser
 import urllib.parse
 import pyperclip
@@ -100,7 +101,7 @@ def crash_report(func: Callable) -> Callable:
     def wrapper(*args, **kwargs):
 
 
-        def msg_and_exit():
+        def msg_and_exit(module_name='franklin'):
             term.secho(
                 f"\nFranklin encountered an unexpected problem.", fg='red')
             # term.secho(
@@ -115,8 +116,13 @@ def crash_report(func: Callable) -> Callable:
             click.pause("Press Enter open issue page to copy the error information to your "
                         "clipboard.")
 
-            distributions = packages_distributions()
-            package = distributions.get(__name__.split('.')[0])
+            # 
+            if not module_name.startswith('franklin-'):
+                module_name = 'franklin'
+            module_name = module_name.replace('_', '-')
+
+            # distributions = packages_distributions()
+            # package = distributions.get(__name__.split('.')[0])[0]
             url = f'https://github.com/munch-group/{package}/issues'
 
             pyperclip.copy(gather_crash_info())
@@ -166,8 +172,13 @@ def crash_report(func: Callable) -> Callable:
             raise e
 
         except:
+            frame = inspect.trace()[-1]
+            module = inspect.getmodule(frame[0])
             logger.exception('CRASH')
-            msg_and_exit()
+            if module is not None:
+                msg_and_exit(module.__name__)
+            else:
+                msg_and_exit()
             raise
 
         return ret
