@@ -27,7 +27,6 @@ def franklin(update: bool) -> None:
     A tool to download notebook exercises and run jupyter 
     in a way that fits each exercise.    
     """
-    print(update)
     term.check_window_size()
     # utils.show_banner()
     if update:
