@@ -17,6 +17,116 @@ from .logger import logger
 from .utils import is_educator
 from . import system
 
+
+def get_group_members(group_id: str, api_token: str):
+    """Get all members of a group in GitLab."""
+
+    headers = {'PRIVATE-TOKEN': api_token}
+    url = f'https://{cfg.gitlab_domain}/api/v4/groups/{group_id}/members/all'
+
+    response = requests.get(url, headers=headers)
+    members = {}
+    for member in response.json():
+        members[member['id']] = member['access_level']
+    return members
+
+# def update_project_permissions(user_id: int, project_id: int, access_level: int, api_token: str):
+
+
+#     # API endpoint to update existing member
+#     url = f"https://{cfg.gitlab_domain}/api/v4/projects/{project_id}/members/{user_id}"
+
+#     headers = {
+#         "PRIVATE-TOKEN": api_token,
+#         "Content-Type": "application/json"
+#     }
+
+#     payload = {
+#         "access_level": access_level
+#     }
+
+#     # Execute request
+#     response = requests.put(url, headers=headers, json=payload)
+
+#     # Output response
+#     if response.status_code == 200:
+#         print("Access level updated successfully.")
+#     elif response.status_code == 404:
+#         print("User is not a member of the project.")
+#     else:
+#         print(f"Error {response.status_code}: {response.json()}")
+
+
+def get_user_info(user_id: int, api_token: str):
+    """Get user information from GitLab by user ID."""
+    
+    # API endpoint to get user information
+    # Note: Replace 'your_token' with your actual GitLab private token
+    headers = {'PRIVATE-TOKEN': api_token}
+    url = f'https://{cfg.gitlab_domain}/api/v4/users/{user_id}'
+
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Error fetching user info: {response.status_code}")
+        return None
+
+
+def get_group_id(group_name, api_token):
+    url = f"https://{cfg.gitlab_domain}/api/v4/groups"
+    headers = {"PRIVATE-TOKEN": api_token}
+    response = requests.get(url, headers=headers, params={"search": group_name})
+    for group in response.json():
+        if group["path"] == group_name or group["full_path"] == group_name:
+            return group['id']
+
+
+def get_project_id(project_name, group_id, api_token):
+    url = f"https://{cfg.gitlab_domain}/api/v4/groups/{group_id}/projects"
+    headers = {"PRIVATE-TOKEN": api_token}
+    response = requests.get(url, headers=headers)
+    for project in response.json():
+        if project["path"] == project_name or project["name"] == project_name:
+            return project['id']
+
+
+def get_user_id(user_name, api_token):
+    url = f"https://{cfg.gitlab_domain}/api/v4/users?username={user_name}"
+    headers = {"PRIVATE-TOKEN": api_token}
+    response = requests.get(url, headers=headers)
+    user = response.json()[0]
+    return user['id']
+
+
+
+
+def create_public_gitlab_project(project_name: str, course: str,
+                          api_token: str = None) -> None:
+
+    if gitlab_token is None:
+        gitlab_token = cfg.gitlab_token
+
+    headers = {
+        "PRIVATE-TOKEN": gitlab_token,
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "name": project_name,
+        "visibility": "public",
+        "namespace_id": get_group_id(course, api_token),
+    }
+    response = requests.post(cfg.gitlab_api_url, headers=headers, json=payload)
+
+    # Handle response
+    if response.status_code == 201:
+        repo_info = response.json()
+        print(f"Repository created: {repo_info['web_url']}")
+    else:
+        print(f"Error {response.status_code}: {response.text}")
+
+
+
 def get_registry_listing(registry: str) -> Dict[Tuple[str, str], str]:
     """
     Fetches the listing of images in the GitLab registry.
