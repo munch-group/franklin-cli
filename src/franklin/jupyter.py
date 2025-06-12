@@ -131,8 +131,8 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
         [
             'JupyterLab lab will open in your the Chrome browser.',
             '',
-            'To quit jupyter, you an either close the Chrome browser window '
-            'or Press Ctrl-C in this terminal. Do NOT close this terminal window.',
+            'To quit jupyter, close the Chrome browser window. '
+            'Do NOT close this terminal window.',
             '',
             'If you have not installed the Chrome browser, please do so now.',
             'It is available at https://www.google.com/chrome/',

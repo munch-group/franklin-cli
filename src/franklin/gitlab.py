@@ -448,7 +448,8 @@ def download():
         if os.path.exists(path):
             logger.debug(f"Removing {path}")
             if os.path.isdir(path):
-                shutil.rmtree(path)
+                shutil.rmtree(path, onerror=utils.on_rm_error)
+
             else:
                 os.remove(path)
 

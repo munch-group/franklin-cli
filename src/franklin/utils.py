@@ -41,6 +41,14 @@ import shutil
 # foo('Hello, world!')
 
 
+import stat
+
+def on_rm_error(func, path, exc_info):
+    # Change the file to writable and retry
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+
+
 _banner = """
         ▗▄▄▄▖▗▄▄▖  ▗▄▖ ▗▖  ▗▖▗▖ ▗▖▗▖   ▗▄▄▄▖▗▖  ▗▖
         ▐▌   ▐▌ ▐▌▐▌ ▐▌▐▛▚▖▐▌▐▌▗▞▘▐▌     █  ▐▛▚▖▐▌
