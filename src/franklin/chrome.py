@@ -66,8 +66,13 @@ def is_chrome_installed():
     return False
 
 def get_chrome_driver():
+
+    import tempfile
+
+    tmpdir = tempfile.mkdtemp()
     options = Options()
     options.add_argument("--disable-infobars")  # suppresses the "Chrome is being controlled..." message
+    options.add_argument(f"--user-data-dir={tmpdir}") 
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option("useAutomationExtension", False)
 
