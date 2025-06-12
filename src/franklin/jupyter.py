@@ -157,8 +157,8 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     from contextlib import redirect_stderr, redirect_stdout
 
     try:
-        with redirect_stderr(logging.LoggerWriter(logger.debug)):
-            with redirect_stdout(logging.LoggerWriter(logger.debug)):
+        with redirect_stderr(logger.LoggerWriter(logger.debug)):
+            with redirect_stdout(logger.LoggerWriter(logger.debug)):
                 chrome.chrome_open_and_wait(token_url)
 
     except KeyboardInterrupt:
