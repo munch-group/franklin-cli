@@ -154,11 +154,12 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     #     'and franklin.', fg='green')
     # click.pause("press Enter to continue")
 
-    from contextlib import redirect_stderr
+    from contextlib import redirect_stderr, redirect_stdout
 
     try:
         with redirect_stderr(logging.LoggerWriter(logger.debug)):
-            chrome.chrome_open_and_wait(token_url)
+            with redirect_stdout(logging.LoggerWriter(logger.debug)):
+                chrome.chrome_open_and_wait(token_url)
 
     except KeyboardInterrupt:
         pass
