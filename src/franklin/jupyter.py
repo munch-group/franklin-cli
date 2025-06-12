@@ -5,7 +5,6 @@ import logging
 import shlex
 import time
 import webbrowser
-import logging
 import subprocess
 import click
 import shutil
@@ -14,7 +13,7 @@ from subprocess import Popen, PIPE, STDOUT
 from .crash import crash_report
 from .gitlab import select_image
 from . import docker as _docker
-from .logger import logger
+from .logger import logger, LoggerWriter
 from .desktop import config_fit
 from . import terminal as term
 from . import options
@@ -157,8 +156,8 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
     from contextlib import redirect_stderr, redirect_stdout
 
     try:
-        with redirect_stderr(logger.LoggerWriter(logger.debug)):
-            with redirect_stdout(logger.LoggerWriter(logger.debug)):
+        with redirect_stderr(LoggerWriter(logger.debug)):
+            with redirect_stdout(LoggerWriter(logger.debug)):
                 chrome.chrome_open_and_wait(token_url)
 
     except KeyboardInterrupt:
