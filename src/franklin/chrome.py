@@ -160,8 +160,7 @@ def chrome_open_and_wait(token_url: str) -> None:
         return d.current_url and "lab/tree" in d.current_url
 
     try:
-        logger.debug(f'Waiting for Jupyter to load in Chrome '
-                     'and then to close')
+        logger.debug(f'Waiting for Chrome')
         WebDriverWait(driver, 600).until(
             # EC.presence_of_element_located((By.CLASS_NAME, "jp-Notebook"))
             # lambda d: shutdown or d.current_url and "lab/tree" in d.current_url       
