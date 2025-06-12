@@ -540,7 +540,7 @@ def pull(image_url :str) -> None:
     #     sys.stdout.flush()
     # p.wait()
 
-    subprocess.run(utils.fmt_cmd(f'docker pull {image_url}:latest'), check=False)
+    subprocess.run(utils.fmt_cmd(f'docker pull {image_url}:latest'), check=True)
 
 
 ## commented out to avoid confusion

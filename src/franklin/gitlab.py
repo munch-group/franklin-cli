@@ -8,6 +8,7 @@ import sys
 import shutil
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Tuple, List, Dict, Callable, Any
+from operator import itemgetter
 # import importlib_resources
 from . import config as cfg
 from . import utils
@@ -16,7 +17,6 @@ from . import terminal as term
 from .logger import logger
 from .utils import is_educator
 from . import system
-
 
 def get_group_members(group_id: str, api_token: str):
     """Get all members of a group in GitLab."""
@@ -99,6 +99,16 @@ def get_user_id(user_name, api_token):
     return user['id']
 
 
+def get_project_visibility(course, exercise, api_token):
+
+    project_path = f'{cfg.gitlab_group}/{course}/{exercise}'
+    url = f"{cfg.gitlab_api_url}/projects/{requests.utils.quote(project_path, safe='')}"
+
+    response = requests.get(url, headers = {"PRIVATE-TOKEN": api_token})
+    if response.status_code == 200:
+        return response.json().get("visibility")
+    else:
+        print(f"Failed to fetch project info: {response.status_code}")
 
 
 def create_public_gitlab_project(project_name: str, course: str,
@@ -201,12 +211,23 @@ def get_exercise_names(course: str) -> Dict[str, str]:
     :
         A dictionary with the exercise names and the Danish exercise names
     """
-    s = requests.Session()
-    s.headers.update({'PRIVATE-TOKEN': cfg.gitlab_token})
-    url = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}%2F{course}/projects'
 
+    s = requests.Session()
+    s.headers.update({'PRIVATE-TOKEN': cfg.gitlab_token,
+                      "Content-Type" : "application/json"})
+    params = {
+        "archived": "false",  # must be passed as a string
+        # "membership": "true",  # optional: only projects the user is a member of
+        # "per_page": 100        # optional: number of results per page
+    }
+    url = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}%2F{course}/projects'
+    r  = s.get(url, params=params)
+
+    # s = requests.Session()
+    # s.headers.update({'PRIVATE-TOKEN': cfg.gitlab_token})
+    # url = f'{cfg.gitlab_api_url}/groups/{cfg.gitlab_group}%2F{course}/projects'
+    # r  = s.get(url, headers={ "Content-Type" : "application/json"})
     name_mapping = {}
-    r  = s.get(url, headers={ "Content-Type" : "application/json"})
     if not r.ok:
         r.raise_for_status()
 
@@ -215,7 +236,7 @@ def get_exercise_names(course: str) -> Dict[str, str]:
             name_mapping[entry['path']] = entry['description']
         else:
             name_mapping[entry['path']] = entry['path']
-    
+
     return name_mapping
 
 
@@ -270,7 +291,7 @@ def pick_exercise(course: str, danish_course_name, exercises_images) -> Tuple[st
         time.sleep(2)
 
     exercise_repo_names, listed_exercise_names = \
-        zip(*sorted(exercise_names.items()))
+        zip(*sorted(exercise_names.items(), key=itemgetter(1)))
     term.secho(f'\nUse arrow keys to select exercise in '
                f'"{danish_course_name}" and press Enter:', fg='green')
     captions = []
