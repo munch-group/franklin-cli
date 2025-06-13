@@ -335,12 +335,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#create-a-new-exercise" id="toc-create-a-new-exercise" class="nav-link active" data-scroll-target="#create-a-new-exercise">Create a new exercise</a></li>
-  <li><a href="#exercise-edit-workflow" id="toc-exercise-edit-workflow" class="nav-link" data-scroll-target="#exercise-edit-workflow">Exercise edit workflow</a></li>
-  <li><a href="#exercise-down-up" id="toc-exercise-down-up" class="nav-link" data-scroll-target="#exercise-down-up">Exercise down / up</a></li>
-  <li><a href="#clone-exercise" id="toc-clone-exercise" class="nav-link" data-scroll-target="#clone-exercise">Clone exercise</a></li>
-  <li><a href="#gitui" id="toc-gitui" class="nav-link" data-scroll-target="#gitui">GitUI</a>
+  <li><a href="#exercise-edit-workflow" id="toc-exercise-edit-workflow" class="nav-link" data-scroll-target="#exercise-edit-workflow">Exercise edit workflow</a>
   <ul class="collapse">
-  <li><a href="#git-clone" id="toc-git-clone" class="nav-link" data-scroll-target="#git-clone">Git clone</a></li>
+  <li><a href="#automated-workflow" id="toc-automated-workflow" class="nav-link" data-scroll-target="#automated-workflow">Automated workflow</a></li>
+  <li><a href="#assisted-workflow" id="toc-assisted-workflow" class="nav-link" data-scroll-target="#assisted-workflow">Assisted workflow</a></li>
+  <li><a href="#supported-workflow" id="toc-supported-workflow" class="nav-link" data-scroll-target="#supported-workflow">Supported workflow</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -410,32 +409,51 @@ Pixi
 </section>
 <section id="exercise-edit-workflow" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-edit-workflow">Exercise edit workflow</h2>
-</section>
-<section id="exercise-down-up" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-down-up">Exercise down / up</h2>
-</section>
-<section id="clone-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="clone-exercise">Clone exercise</h2>
-</section>
-<section id="gitui" class="level2">
-<h2 class="anchored" data-anchor-id="gitui">GitUI</h2>
-<p>Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.</p>
-<p>Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment</p>
-<section id="git-clone" class="level3">
-<h3 class="anchored">Git clone</h3>
-<p>This command below clones an exercise git repository into a folder with the same name as the repository.</p>
+<p>To accommodate educators with different computational skill levels, franklin supports two different development workflows:</p>
+<ul>
+<li><strong>Automated:</strong> A fully automated (but rigid) workflow for absolute beginners.</li>
+<li><strong>Assisted:</strong> A semi-automated workflow for intermediate users allowing more flexibility.</li>
+<li><strong>Supported:</strong> A fully flexible approach based on vscode devcontainers catering for skilled users.</li>
+</ul>
+<section id="automated-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="automated-workflow">Automated workflow</h3>
+<p>Run this command and follow instructions carefully:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise clone</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="assisted-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="assisted-workflow">Assisted workflow</h3>
+<p><em>This workflow is temporarily disabled</em></p>
+<!-- 
+```{.bash filename="Terminal"}
+franklin exercise down
+```
+
+```{.bash filename="Terminal"}
+franklin exercise up
+```
+ -->
+</section>
+<section id="supported-workflow" class="level3">
+<h3 class="anchored">Supported workflow</h3>
+<p>User this command to clone the exercise repository:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb6" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise clone</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Open the repository in Vscode</p>
 <p>if the repository is called <code>data-exercise</code>, you can open it in vscode like this:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb6" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> data-exercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> data-exercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -457,6 +475,12 @@ For Mac users
 <p>Restart the terminal for the change to take effect.</p>
 </div>
 </div>
+<p>nd click “Reopen in Container” if prompted, or otherwise use Cmd-Shift-P to open the command palette and type/select “Reopen in Container”. This reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the <code>prod</code> jupyter kernel among the environemnts available. To add/commit/push you can use vscode’s git interface, gitui, or teh command line tool.</p>
+<!-- ## GitUI
+
+Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.
+
+Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment -->
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -473,7 +497,7 @@ Tip
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb7" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> data-exercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> data-exercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>’’’</p>
 <p>Once you have opened the folder with the repository in vscode, you need to reopen it in the linux container used for the exercise. To do that, you open the Command Palette (Cmd+Shift+P) and type “reopen” to find “Reopen in container”:</p>
@@ -485,8 +509,8 @@ Tip
 </div>
 <p>When you select that and hit Enter, vscode builds the container (which takes a while).</p>
 <!-- FIXME: make sure docker images built this way are also visible and cleaned up by franklin cleanup  -->
-<section id="gitui-1" class="level3">
-<h3 class="anchored" data-anchor-id="gitui-1">GitUI</h3>
+<section id="gitui" class="level3">
+<h3 class="anchored" data-anchor-id="gitui">GitUI</h3>
 <pre><code>git clone git@github.com:munch-group/arg-dashboard.git
 
 code arg-dashboard</code></pre>

@@ -84,40 +84,7 @@
     "href": "pages/commands_edu.html#exercise-edit-workflow",
     "title": "Developing exercises",
     "section": "Exercise edit workflow",
-    "text": "Exercise edit workflow",
-    "crumbs": [
-      "Using Franklin",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_edu.html#exercise-down-up",
-    "href": "pages/commands_edu.html#exercise-down-up",
-    "title": "Developing exercises",
-    "section": "Exercise down / up",
-    "text": "Exercise down / up",
-    "crumbs": [
-      "Using Franklin",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_edu.html#clone-exercise",
-    "href": "pages/commands_edu.html#clone-exercise",
-    "title": "Developing exercises",
-    "section": "Clone exercise",
-    "text": "Clone exercise",
-    "crumbs": [
-      "Using Franklin",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_edu.html#gitui",
-    "href": "pages/commands_edu.html#gitui",
-    "title": "Developing exercises",
-    "section": "GitUI",
-    "text": "GitUI\nGit gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.\nGit gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment\n\nGit clone\nThis command below clones an exercise git repository into a folder with the same name as the repository.\n\n\nTerminal\n\nfranklin exercise clone\n\nif the repository is called data-exercise, you can open it in vscode like this:\n\n\nTerminal\n\ncode data-exercise\n\n\n\n\n\n\n\nFor Mac users\n\n\n\nOn Macs, the code command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter.\n\n\n\nalt text\n\n\nRestart the terminal for the change to take effect.\n\n\n\n\n\n\n\n\nTip\n\n\n\nYou can run code followed by a folder name to edit files in that folder. To edit files in your current folder, run\nin any folder to start editing files in that folder.\n\n\nTerminal\n\ncode data-exercise\n\n’’’\nOnce you have opened the folder with the repository in vscode, you need to reopen it in the linux container used for the exercise. To do that, you open the Command Palette (Cmd+Shift+P) and type “reopen” to find “Reopen in container”:\n\n\n\nalt text\n\n\nWhen you select that and hit Enter, vscode builds the container (which takes a while).\n\n\nGitUI\ngit clone git@github.com:munch-group/arg-dashboard.git\n\ncode arg-dashboard\nCmd-Shift-P, “Reopen in container”\nTo add dependencies (e.g. scipy), open terminal in vscode and install pixi:\n./install_pixi.sh\nThen add the package:\npixi add --feature exercise --platform linux-64 scipy\n[Using notebooks in vscode]https://code.visualstudio.com/docs/datascience/jupyter-notebooks)\n\n\nGit add\n\n\nGit commit\n\n\nGit push\n\n\nRemoving (archiving) an exercise",
+    "text": "Exercise edit workflow\nTo accommodate educators with different computational skill levels, franklin supports two different development workflows:\n\nAutomated: A fully automated (but rigid) workflow for absolute beginners.\nAssisted: A semi-automated workflow for intermediate users allowing more flexibility.\nSupported: A fully flexible approach based on vscode devcontainers catering for skilled users.\n\n\nAutomated workflow\nRun this command and follow instructions carefully:\n\n\nTerminal\n\nfranklin exercise edit\n\n\n\nAssisted workflow\nThis workflow is temporarily disabled\n\n\n\nSupported workflow\nUser this command to clone the exercise repository:\n\n\nTerminal\n\nfranklin exercise clone\n\nOpen the repository in Vscode\nif the repository is called data-exercise, you can open it in vscode like this:\n\n\nTerminal\n\ncode data-exercise\n\n\n\n\n\n\n\nFor Mac users\n\n\n\nOn Macs, the code command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter.\n\n\n\nalt text\n\n\nRestart the terminal for the change to take effect.\n\n\nnd click “Reopen in Container” if prompted, or otherwise use Cmd-Shift-P to open the command palette and type/select “Reopen in Container”. This reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the prod jupyter kernel among the environemnts available. To add/commit/push you can use vscode’s git interface, gitui, or teh command line tool.\n\n\n\n\n\n\n\nTip\n\n\n\nYou can run code followed by a folder name to edit files in that folder. To edit files in your current folder, run\nin any folder to start editing files in that folder.\n\n\nTerminal\n\ncode data-exercise\n\n’’’\nOnce you have opened the folder with the repository in vscode, you need to reopen it in the linux container used for the exercise. To do that, you open the Command Palette (Cmd+Shift+P) and type “reopen” to find “Reopen in container”:\n\n\n\nalt text\n\n\nWhen you select that and hit Enter, vscode builds the container (which takes a while).\n\n\nGitUI\ngit clone git@github.com:munch-group/arg-dashboard.git\n\ncode arg-dashboard\nCmd-Shift-P, “Reopen in container”\nTo add dependencies (e.g. scipy), open terminal in vscode and install pixi:\n./install_pixi.sh\nThen add the package:\npixi add --feature exercise --platform linux-64 scipy\n[Using notebooks in vscode]https://code.visualstudio.com/docs/datascience/jupyter-notebooks)\n\n\nGit add\n\n\nGit commit\n\n\nGit push\n\n\nRemoving (archiving) an exercise",
     "crumbs": [
       "Using Franklin",
       "Developing exercises"
