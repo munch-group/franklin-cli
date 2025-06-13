@@ -2,8 +2,12 @@
 title: SSH authentication
 ---
 
-## TLDR;
+::: {.callout-caution }  
+## Under development  
+The content of this page is being developed.  
+:::
 
+## How it works
 
 Firstly, you have to understand what public/private encryption keys are. A *private* key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A *public* key is another string of bits that is a derivative of the private key. 
 
@@ -11,6 +15,7 @@ You can generate a unique public key from the private key but cannot get the pri
 
 So, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.
 
+## Setting up password-less GitLab access
 
 First, check if you have these two authentication files on your local machine: 
 

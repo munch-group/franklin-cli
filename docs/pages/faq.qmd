@@ -2,6 +2,10 @@
 title: FAQ
 ---
 
+::: {.callout-caution }  
+## Under development  
+The content of this page is being developed.  
+:::
 
 #### franklin-educator is installed in my environemnt but I cannot see the exercise commands
 

@@ -2,6 +2,11 @@
 title: Conda
 ---
 
+::: {.callout-caution }  
+## Under development  
+The content of this page is being developed.  
+:::
+
 ## Conda enviroments
 
 In bioinformatics, we install packages and programs so we can use them in our analyses and pipelines. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small insulated world for each project, which then only contained the packages you needed for that particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there is a tool that lets you do just that, and its name is Conda.

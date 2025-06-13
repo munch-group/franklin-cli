@@ -2,6 +2,10 @@
 title: Computer setup
 ---
 
+::: {.callout-caution }  
+## Under development  
+The content of this page is being developed.  
+:::
 
 ::: callout-note
 

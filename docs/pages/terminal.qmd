@@ -2,10 +2,11 @@
 title: The terminal
 ---
 
-::: {.callout-caution }
-## This pages are under construction
-
+::: {.callout-caution }  
+## Under development  
+The content of this page is being developed.  
 :::
+
 
 [this primer](https://lifehacker.com/5633909/who-needs-a-mouse-learn-to-use-the-command-line-for-almost-anything) before you go on.
 

@@ -2,7 +2,15 @@
 title: Developing exercises
 ---
 
-The `franklin-educator` plugin.
+::: {.callout-caution }  
+## Under development  
+The content of this page is being developed.  
+:::
+
+Franklin is built for developing exercises, as well as running them. 
+
+
+  To ensure For educators to The `franklin-educator` plugin.
 
 ```{.bash filename="Terminal"}
 conda install -c conda-forge -c munch-group franklin-educator

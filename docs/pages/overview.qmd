@@ -2,6 +2,10 @@
 title: Outline and infrastructure
 ---
 
+::: {.callout-caution }  
+## Under development  
+The content of this page is being developed.  
+:::
 
 **GitLab hosting:** of repositories for exercises grouped by course, allowing for nested authentication privileges.
 

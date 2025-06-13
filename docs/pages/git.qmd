@@ -2,9 +2,9 @@
 title: Git version control
 ---
 
-::: {.callout-caution }
-## This pages are under construction
-
+::: {.callout-caution }  
+## Under development  
+The content of this page is being developed.  
 :::
 
 ## TLDR;

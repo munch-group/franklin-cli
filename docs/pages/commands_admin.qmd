@@ -2,6 +2,11 @@
 title: Admin tools
 ---
 
+::: {.callout-caution }  
+## Under development  
+The content of this page is being developed.  
+:::
+
 The `franklin-educator` plugin.
 
 ```{.bash filename="Terminal"}
