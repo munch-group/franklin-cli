@@ -331,7 +331,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tldr" id="toc-tldr" class="nav-link active" data-scroll-target="#tldr">TLDR;</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link active" data-scroll-target="#how-it-works">How it works</a></li>
+  <li><a href="#setting-up-password-less-gitlab-access" id="toc-setting-up-password-less-gitlab-access" class="nav-link" data-scroll-target="#setting-up-password-less-gitlab-access">Setting up password-less GitLab access</a></li>
   </ul>
 </nav>
     </div>
@@ -357,11 +358,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="tldr" class="level2">
-<h2 class="anchored" data-anchor-id="tldr">TLDR;</h2>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Under development
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The content of this page is being developed.</p>
+</div>
+</div>
+<section id="how-it-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works">How it works</h2>
 <p>Firstly, you have to understand what public/private encryption keys are. A <em>private</em> key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A <em>public</em> key is another string of bits that is a derivative of the private key.</p>
 <p>You can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.</p>
 <p>So, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.</p>
+</section>
+<section id="setting-up-password-less-gitlab-access" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-password-less-gitlab-access">Setting up password-less GitLab access</h2>
 <p>First, check if you have these two authentication files on your local machine:</p>
 <pre><code>~/.ssh/id_rsa
 ~/.ssh/id_rsa.pub</code></pre>
