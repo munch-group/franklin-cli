@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,7 +66,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../pages/data_analysis.html" rel="next">
-<link href="../pages/commands_admin.html" rel="prev">
+<link href="../pages/commands_edu.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -42,6 +77,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -190,12 +228,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Developing exercises</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/commands_admin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Admin tools</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -296,9 +328,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tldr" id="toc-tldr" class="nav-link active" data-scroll-target="#tldr">TLDR;</a></li>
-  <li><a href="#create-an-exercise-repository" id="toc-create-an-exercise-repository" class="nav-link" data-scroll-target="#create-an-exercise-repository">Create an exercise repository</a></li>
-  <li><a href="#developchange-a-new-exercise-on-gitlab" id="toc-developchange-a-new-exercise-on-gitlab" class="nav-link" data-scroll-target="#developchange-a-new-exercise-on-gitlab">Develop/change a new exercise on GitLab</a></li>
+  <li><a href="#the-exercise-repository" id="toc-the-exercise-repository" class="nav-link active" data-scroll-target="#the-exercise-repository">The exercise repository</a></li>
+  <li><a href="#developchange-a-new-exercise-on-gitlab" id="toc-developchange-a-new-exercise-on-gitlab" class="nav-link" data-scroll-target="#developchange-a-new-exercise-on-gitlab">Develop/change a new exercise on GitLab</a>
+  <ul class="collapse">
+  <li><a href="#assisted-workflow" id="toc-assisted-workflow" class="nav-link" data-scroll-target="#assisted-workflow">Assisted workflow</a></li>
+  <li><a href="#supported-workflow" id="toc-supported-workflow" class="nav-link" data-scroll-target="#supported-workflow">Supported workflow</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -337,19 +372,8 @@ Under development
 <p>The content of this page is being developed.</p>
 </div>
 </div>
-<section id="tldr" class="level2">
-<h2 class="anchored" data-anchor-id="tldr">TLDR;</h2>
-<pre><code>conda create -n franklin -c conda-forge munch-group::franklin
-conda activate franklin
-
-franklin exercise down
-cd &lt;repo&gt;
-franklin jupyter run
-franklin up
-cd ..</code></pre>
-</section>
-<section id="create-an-exercise-repository" class="level2">
-<h2 class="anchored" data-anchor-id="create-an-exercise-repository">Create an exercise repository</h2>
+<section id="the-exercise-repository" class="level2">
+<h2 class="anchored" data-anchor-id="the-exercise-repository">The exercise repository</h2>
 <p>A git repository is where an exercise lives</p>
 <ul>
 <li><strong>exercise.ipynb:</strong>: blah blah</li>
@@ -361,8 +385,71 @@ cd ..</code></pre>
 </section>
 <section id="developchange-a-new-exercise-on-gitlab" class="level2">
 <h2 class="anchored" data-anchor-id="developchange-a-new-exercise-on-gitlab">Develop/change a new exercise on GitLab</h2>
+<p>To begin an automated edit workflow, just run the command below and follow instructions carefully:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For more information about edit workflows, see the tutorial about developing exercises.</p>
+<section id="assisted-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="assisted-workflow">Assisted workflow</h3>
+<p><strong><em>This workflow is temporarily disabled</em></strong></p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb2" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise down</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise up</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="supported-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="supported-workflow">Supported workflow</h3>
+<p>Use this command to clone the exercise repository:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb4" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise clone</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then open the repository. If is is called <code>data-exercise</code>, you can open it in vscode like this:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> data-exercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<blockquote class="blockquote">
+<p><strong>For Mac users:</strong> On Macs, the <code>code</code> command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter. Restart the terminal for the change to take effect.</p>
+</blockquote>
+<p>Once open in vscode, click “Reopen in Container” if prompted, or otherwise use Cmd-Shift-P to open the command palette and type “reopen”, select “Reopen in Container” and hit Enter.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Screenshot 2025-05-31 at 11.05.53.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/Screenshot 2025-05-31 at 11.05.53.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
+</figure>
+</div>
+<p>Vscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the <code>prod</code> jupyter kernel among the environments available. For an introduction to jupyter in vscode, see <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">Using notebooks in vscode</a>.</p>
+<p>If you need to install and use third-party python packages (e.g.&nbsp;<code>pandas</code>), these packages must be added as dependencies to the docker image. To do this, open vscode’s terminal window and install pixi by running this command:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./install_pixi.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Running the command below, will both make <code>pandas</code> available and add it as a dependency for the exercise.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--feature</span> exercise <span class="at">--platform</span> linux-64  pandas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>An alternative approach scan the notebook and add dependencies automatically.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run python .pixi.py .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To add/commit/push you can use vscode’s git interface, <code>gitui</code>, or the <code>git</code> command line tool.</p>
+<blockquote class="blockquote">
+<p><strong>GitUI:</strong> Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged. Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment</p>
+</blockquote>
+<!-- FIXME: make sure docker images built this way are also visible and cleaned up by franklin cleanup  -->
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -767,8 +854,8 @@ cd ..</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/commands_admin.html" class="pagination-link" aria-label="Admin tools">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Admin tools</span>
+      <a href="../pages/commands_edu.html" class="pagination-link" aria-label="Developing exercises">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Developing exercises</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -778,6 +865,38 @@ cd ..</code></pre>
   </div>
 </nav>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

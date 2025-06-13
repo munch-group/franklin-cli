@@ -4,44 +4,28 @@
     "href": "pages/commands_admin.html",
     "title": "Admin tools",
     "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.\nThe franklin-educator plugin.",
-    "crumbs": [
-      "Using Franklin",
-      "Admin tools"
-    ]
+    "text": "Under development\n\n\n\nThe content of this page is being developed.\nThe franklin-educator plugin."
   },
   {
     "objectID": "pages/commands_admin.html#tokens",
     "href": "pages/commands_admin.html#tokens",
     "title": "Admin tools",
     "section": "Tokens",
-    "text": "Tokens",
-    "crumbs": [
-      "Using Franklin",
-      "Admin tools"
-    ]
+    "text": "Tokens"
   },
   {
     "objectID": "pages/commands_admin.html#find-users",
     "href": "pages/commands_admin.html#find-users",
     "title": "Admin tools",
     "section": "Find users",
-    "text": "Find users",
-    "crumbs": [
-      "Using Franklin",
-      "Admin tools"
-    ]
+    "text": "Find users"
   },
   {
     "objectID": "pages/commands_admin.html#user-permissions",
     "href": "pages/commands_admin.html#user-permissions",
     "title": "Admin tools",
     "section": "User permissions",
-    "text": "User permissions\nGuest: Can view the project/group and can create issues, comment and see public content. Guests cannot push code, create merge requests or edit settings\nReporter: Can do the same as guest plus clone repositories, view issues, merge requests and pipelines. Reportes cannot push code.\nDeveloper: Can do the same things as the reporter and also push code, create branges and create merge requests. They can also run and retry pipelines and creates and edit issues.\nMaintainer: Can do the same as the developer plus merge merge requests, manage project settings, invite other users with lower roles\nOwner: Has full access to everything. They can delete and transfer projects, manage group settings, and add or remove owners\nSummary:\n\n\n\n\n\n\n\n\n\n\n\n\nRole\nView Code\nPush Code\nMerge MR\nManage CI/CD\nDelete Project\nManage Members\n\n\n\n\nGuest\n❌\n❌\n❌\n❌\n❌\n❌\n\n\nReporter\n✅\n❌\n❌\n❌\n❌\n❌\n\n\nDeveloper\n✅\n✅\n❌\n✅\n❌\n❌\n\n\nMaintainer\n✅\n✅\n✅\n✅\n❌\n✅ (some)\n\n\nOwner\n✅\n✅\n✅\n✅\n✅\n✅\n\n\n\nIn order to grant permission to delete and create project you will have to be a owner of that subgroup. This is done by first inviting the person you want to own a subgroup to the main group as a reader. Then you add them to the subgroup once more and choose them as a owner of the particular subgroup.\nThe course coordinater should be the owner of the subgroup of their course.\nTØ instructors should be maintainers on the subgroup\nBoth instructors and course coordinators should only have guest or reporter privalleges on the main group (franklin)",
-    "crumbs": [
-      "Using Franklin",
-      "Admin tools"
-    ]
+    "text": "User permissions\nGuest: Can view the project/group and can create issues, comment and see public content. Guests cannot push code, create merge requests or edit settings\nReporter: Can do the same as guest plus clone repositories, view issues, merge requests and pipelines. Reportes cannot push code.\nDeveloper: Can do the same things as the reporter and also push code, create branges and create merge requests. They can also run and retry pipelines and creates and edit issues.\nMaintainer: Can do the same as the developer plus merge merge requests, manage project settings, invite other users with lower roles\nOwner: Has full access to everything. They can delete and transfer projects, manage group settings, and add or remove owners\nSummary:\n\n\n\n\n\n\n\n\n\n\n\n\nRole\nView Code\nPush Code\nMerge MR\nManage CI/CD\nDelete Project\nManage Members\n\n\n\n\nGuest\n❌\n❌\n❌\n❌\n❌\n❌\n\n\nReporter\n✅\n❌\n❌\n❌\n❌\n❌\n\n\nDeveloper\n✅\n✅\n❌\n✅\n❌\n❌\n\n\nMaintainer\n✅\n✅\n✅\n✅\n❌\n✅ (some)\n\n\nOwner\n✅\n✅\n✅\n✅\n✅\n✅\n\n\n\nIn order to grant permission to delete and create project you will have to be a owner of that subgroup. This is done by first inviting the person you want to own a subgroup to the main group as a reader. Then you add them to the subgroup once more and choose them as a owner of the particular subgroup.\nThe course coordinater should be the owner of the subgroup of their course.\nTØ instructors should be maintainers on the subgroup\nBoth instructors and course coordinators should only have guest or reporter privalleges on the main group (franklin)"
   },
   {
     "objectID": "pages/student/index.html",
@@ -84,7 +68,7 @@
     "href": "pages/commands_edu.html#exercise-edit-workflow",
     "title": "Developing exercises",
     "section": "Exercise edit workflow",
-    "text": "Exercise edit workflow\nTo accommodate educators with different computational skill levels, franklin supports two different development workflows:\n\nAutomated: A fully automated (but rigid) workflow for absolute beginners.\nAssisted: A semi-automated workflow for intermediate users allowing more flexibility.\nSupported: A fully flexible approach based on vscode devcontainers catering for skilled users.\n\n\nAutomated workflow\nRun this command and follow instructions carefully:\n\n\nTerminal\n\nfranklin exercise edit\n\n\n\nAssisted workflow\nThis workflow is temporarily disabled\n\n\n\nSupported workflow\nUser this command to clone the exercise repository:\n\n\nTerminal\n\nfranklin exercise clone\n\nOpen the repository in Vscode\nif the repository is called data-exercise, you can open it in vscode like this:\n\n\nTerminal\n\ncode data-exercise\n\n\n\n\n\n\n\nFor Mac users\n\n\n\nOn Macs, the code command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter.\n\n\n\nalt text\n\n\nRestart the terminal for the change to take effect.\n\n\nnd click “Reopen in Container” if prompted, or otherwise use Cmd-Shift-P to open the command palette and type/select “Reopen in Container”. This reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the prod jupyter kernel among the environemnts available. To add/commit/push you can use vscode’s git interface, gitui, or teh command line tool.\n\n\n\n\n\n\n\nTip\n\n\n\nYou can run code followed by a folder name to edit files in that folder. To edit files in your current folder, run\nin any folder to start editing files in that folder.\n\n\nTerminal\n\ncode data-exercise\n\n’’’\nOnce you have opened the folder with the repository in vscode, you need to reopen it in the linux container used for the exercise. To do that, you open the Command Palette (Cmd+Shift+P) and type “reopen” to find “Reopen in container”:\n\n\n\nalt text\n\n\nWhen you select that and hit Enter, vscode builds the container (which takes a while).\n\n\nGitUI\ngit clone git@github.com:munch-group/arg-dashboard.git\n\ncode arg-dashboard\nCmd-Shift-P, “Reopen in container”\nTo add dependencies (e.g. scipy), open terminal in vscode and install pixi:\n./install_pixi.sh\nThen add the package:\npixi add --feature exercise --platform linux-64 scipy\n[Using notebooks in vscode]https://code.visualstudio.com/docs/datascience/jupyter-notebooks)\n\n\nGit add\n\n\nGit commit\n\n\nGit push\n\n\nRemoving (archiving) an exercise",
+    "text": "Exercise edit workflow\nTo accommodate educators with different computational skill levels, franklin supports two different development workflows:\n\nAutomated: A fully automated (but rigid) workflow for absolute beginners and for quick edits by more advanced users.\nAssisted: A semi-automated workflow for intermediate users allowing more flexibility.\nSupported: A fully flexible approach based on vscode devcontainers catering for skilled users.",
     "crumbs": [
       "Using Franklin",
       "Developing exercises"
@@ -95,7 +79,7 @@
     "href": "pages/commands_edu.html#removing-archiving-an-exercise",
     "title": "Developing exercises",
     "section": "Removing (archiving) an exercise",
-    "text": "Removing (archiving) an exercise",
+    "text": "Removing (archiving) an exercise\nGitLab exercises are not deleted. We archive them instead, which makes them invisible to students. To archive a repository, first run this command which opens the the repository settings page:\n\n\nTerminal\n\nfranklin exercise settings\n\nThen find expand the “Advanced” section as the bottom and click the blue button that says “Archive project”.",
     "crumbs": [
       "Using Franklin",
       "Developing exercises"
@@ -266,22 +250,11 @@
     ]
   },
   {
-    "objectID": "pages/developing.html#tldr",
-    "href": "pages/developing.html#tldr",
+    "objectID": "pages/developing.html#the-exercise-repository",
+    "href": "pages/developing.html#the-exercise-repository",
     "title": "Developing exercises",
-    "section": "TLDR;",
-    "text": "TLDR;\nconda create -n franklin -c conda-forge munch-group::franklin\nconda activate franklin\n\nfranklin exercise down\ncd &lt;repo&gt;\nfranklin jupyter run\nfranklin up\ncd ..",
-    "crumbs": [
-      "Tutorials",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/developing.html#create-an-exercise-repository",
-    "href": "pages/developing.html#create-an-exercise-repository",
-    "title": "Developing exercises",
-    "section": "Create an exercise repository",
-    "text": "Create an exercise repository\nA git repository is where an exercise lives\n\nexercise.ipynb:: blah blah\nDockerfile: blah blah\nREADME.md:: blah blah\ndocker-entrypoint.sh:: blah blah\ntagged-release.sh:: blah blah",
+    "section": "The exercise repository",
+    "text": "The exercise repository\nA git repository is where an exercise lives\n\nexercise.ipynb:: blah blah\nDockerfile: blah blah\nREADME.md:: blah blah\ndocker-entrypoint.sh:: blah blah\ntagged-release.sh:: blah blah",
     "crumbs": [
       "Tutorials",
       "Developing exercises"
@@ -292,7 +265,7 @@
     "href": "pages/developing.html#developchange-a-new-exercise-on-gitlab",
     "title": "Developing exercises",
     "section": "Develop/change a new exercise on GitLab",
-    "text": "Develop/change a new exercise on GitLab",
+    "text": "Develop/change a new exercise on GitLab\nTo begin an automated edit workflow, just run the command below and follow instructions carefully:\n\n\nTerminal\n\nfranklin exercise edit\n\nFor more information about edit workflows, see the tutorial about developing exercises.\n\nAssisted workflow\nThis workflow is temporarily disabled\n\n\nTerminal\n\nfranklin exercise down\n\n\n\nTerminal\n\nfranklin exercise up\n\n\n\nSupported workflow\nUse this command to clone the exercise repository:\n\n\nTerminal\n\nfranklin exercise clone\n\nThen open the repository. If is is called data-exercise, you can open it in vscode like this:\n\n\nTerminal\n\ncode data-exercise\n\n\nFor Mac users: On Macs, the code command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter. Restart the terminal for the change to take effect.\n\nOnce open in vscode, click “Reopen in Container” if prompted, or otherwise use Cmd-Shift-P to open the command palette and type “reopen”, select “Reopen in Container” and hit Enter.\n\n\n\nalt text\n\n\nVscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the prod jupyter kernel among the environments available. For an introduction to jupyter in vscode, see Using notebooks in vscode.\nIf you need to install and use third-party python packages (e.g. pandas), these packages must be added as dependencies to the docker image. To do this, open vscode’s terminal window and install pixi by running this command:\n./install_pixi.sh\nRunning the command below, will both make pandas available and add it as a dependency for the exercise.\npixi add --feature exercise --platform linux-64  pandas\nAn alternative approach scan the notebook and add dependencies automatically.\npixi run python .pixi.py .\nTo add/commit/push you can use vscode’s git interface, gitui, or the git command line tool.\n\nGitUI: Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged. Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment",
     "crumbs": [
       "Tutorials",
       "Developing exercises"

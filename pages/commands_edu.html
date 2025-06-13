@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/commands_admin.html" rel="next">
+<link href="../pages/developing.html" rel="next">
 <link href="../pages/commands_core.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -77,9 +77,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -228,12 +225,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Developing exercises</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/commands_admin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Admin tools</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -335,12 +326,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#create-a-new-exercise" id="toc-create-a-new-exercise" class="nav-link active" data-scroll-target="#create-a-new-exercise">Create a new exercise</a></li>
-  <li><a href="#exercise-edit-workflow" id="toc-exercise-edit-workflow" class="nav-link" data-scroll-target="#exercise-edit-workflow">Exercise edit workflow</a>
-  <ul class="collapse">
-  <li><a href="#automated-workflow" id="toc-automated-workflow" class="nav-link" data-scroll-target="#automated-workflow">Automated workflow</a></li>
-  <li><a href="#assisted-workflow" id="toc-assisted-workflow" class="nav-link" data-scroll-target="#assisted-workflow">Assisted workflow</a></li>
-  <li><a href="#supported-workflow" id="toc-supported-workflow" class="nav-link" data-scroll-target="#supported-workflow">Supported workflow</a></li>
-  </ul></li>
+  <li><a href="#exercise-edit-workflow" id="toc-exercise-edit-workflow" class="nav-link" data-scroll-target="#exercise-edit-workflow">Exercise edit workflow</a></li>
+  <li><a href="#removing-archiving-an-exercise" id="toc-removing-archiving-an-exercise" class="nav-link" data-scroll-target="#removing-archiving-an-exercise">Removing (archiving) an exercise</a></li>
   </ul>
 </nav>
     </div>
@@ -411,133 +398,23 @@ Pixi
 <h2 class="anchored" data-anchor-id="exercise-edit-workflow">Exercise edit workflow</h2>
 <p>To accommodate educators with different computational skill levels, franklin supports two different development workflows:</p>
 <ul>
-<li><strong>Automated:</strong> A fully automated (but rigid) workflow for absolute beginners.</li>
+<li><strong>Automated:</strong> A fully automated (but rigid) workflow for absolute beginners and for quick edits by more advanced users.</li>
 <li><strong>Assisted:</strong> A semi-automated workflow for intermediate users allowing more flexibility.</li>
 <li><strong>Supported:</strong> A fully flexible approach based on vscode devcontainers catering for skilled users.</li>
 </ul>
-<section id="automated-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="automated-workflow">Automated workflow</h3>
-<p>Run this command and follow instructions carefully:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="assisted-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="assisted-workflow">Assisted workflow</h3>
-<p><em>This workflow is temporarily disabled</em></p>
-<!-- 
-```{.bash filename="Terminal"}
-franklin exercise down
-```
-
-```{.bash filename="Terminal"}
-franklin exercise up
-```
- -->
-</section>
-<section id="supported-workflow" class="level3">
-<h3 class="anchored">Supported workflow</h3>
-<p>User this command to clone the exercise repository:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb6" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise clone</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Open the repository in Vscode</p>
-<p>if the repository is called <code>data-exercise</code>, you can open it in vscode like this:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb7" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> data-exercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-For Mac users
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>On Macs, the <code>code</code> command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/shell-command.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/shell-command.png" class="img-fluid figure-img" alt="alt text"></a></p>
-<figcaption>alt text</figcaption>
-</figure>
-</div>
-<p>Restart the terminal for the change to take effect.</p>
-</div>
-</div>
-<p>nd click “Reopen in Container” if prompted, or otherwise use Cmd-Shift-P to open the command palette and type/select “Reopen in Container”. This reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the <code>prod</code> jupyter kernel among the environemnts available. To add/commit/push you can use vscode’s git interface, gitui, or teh command line tool.</p>
-<!-- ## GitUI
-
-Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.
-
-Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment -->
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You can run <code>code</code> followed by a folder name to edit files in that folder. To edit files in your current folder, run</p>
-<p>in any folder to start editing files in that folder.</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb8" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> data-exercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>’’’</p>
-<p>Once you have opened the folder with the repository in vscode, you need to reopen it in the linux container used for the exercise. To do that, you open the Command Palette (Cmd+Shift+P) and type “reopen” to find “Reopen in container”:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/Screenshot 2025-05-31 at 11.05.53.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="alt text"><img src="images/Screenshot 2025-05-31 at 11.05.53.png" class="img-fluid figure-img" alt="alt text"></a></p>
-<figcaption>alt text</figcaption>
-</figure>
-</div>
-<p>When you select that and hit Enter, vscode builds the container (which takes a while).</p>
-<!-- FIXME: make sure docker images built this way are also visible and cleaned up by franklin cleanup  -->
-<section id="gitui" class="level3">
-<h3 class="anchored" data-anchor-id="gitui">GitUI</h3>
-<pre><code>git clone git@github.com:munch-group/arg-dashboard.git
-
-code arg-dashboard</code></pre>
-<p>Cmd-Shift-P, “Reopen in container”</p>
-<p>To add dependencies (e.g.&nbsp;scipy), open terminal in vscode and install pixi:</p>
-<pre><code>./install_pixi.sh</code></pre>
-<p>Then add the package:</p>
-<pre><code>pixi add --feature exercise --platform linux-64 scipy</code></pre>
-<p>[Using notebooks in vscode]https://code.visualstudio.com/docs/datascience/jupyter-notebooks)</p>
-</section>
-<section id="git-add" class="level3">
-<h3 class="anchored" data-anchor-id="git-add">Git add</h3>
-</section>
-<section id="git-commit" class="level3">
-<h3 class="anchored" data-anchor-id="git-commit">Git commit</h3>
-</section>
-<section id="git-push" class="level3">
-<h3 class="anchored" data-anchor-id="git-push">Git push</h3>
 </section>
 <section id="removing-archiving-an-exercise" class="level2">
 <h2 class="anchored" data-anchor-id="removing-archiving-an-exercise">Removing (archiving) an exercise</h2>
+<p>GitLab exercises are not deleted. We archive them instead, which makes them invisible to students. To archive a repository, first run this command which opens the the repository settings page:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise settings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then find expand the “Advanced” section as the bottom and click the blue button that says “Archive project”.</p>
 
 
-</section>
-</div>
-</div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -947,44 +824,12 @@ code arg-dashboard</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/commands_admin.html" class="pagination-link" aria-label="Admin tools">
-        <span class="nav-page-text">Admin tools</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/developing.html" class="pagination-link" aria-label="Developing exercises">
+        <span class="nav-page-text">Developing exercises</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 
