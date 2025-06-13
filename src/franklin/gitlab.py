@@ -448,8 +448,11 @@ def download():
         if os.path.exists(path):
             logger.debug(f"Removing {path}")
             if os.path.isdir(path):
-                shutil.rmtree(path, onerror=utils.on_rm_error)
-
+                import stat
+                def on_rm_error(func, path, exc_info):
+                    os.chmod(path, stat.S_IWRITE) # make writable and retry
+                    func(path)
+                utils.rmtree(path)
             else:
                 os.remove(path)
 

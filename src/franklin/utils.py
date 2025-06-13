@@ -6,6 +6,8 @@ import re
 import shutil
 import click
 import requests 
+import stat
+import shutil
 import time
 from . import utils
 from .logger import logger
@@ -40,13 +42,19 @@ import shutil
 
 # foo('Hello, world!')
 
+def rmtree(path: str) -> None:
+    """
+    shutil.rmtree with error handling.
 
-import stat
-
-def on_rm_error(func, path, exc_info):
-    # Change the file to writable and retry
-    os.chmod(path, stat.S_IWRITE)
-    func(path)
+    Parameters
+    ----------
+    path : 
+        path to the directory to remove.
+    """
+    def on_rm_error(func, path, exc_info):
+        os.chmod(path, stat.S_IWRITE) # make writable and retry
+        func(path)
+    shutil.rmtree(path, oneexc=on_rm_error)
 
 
 _banner = """
