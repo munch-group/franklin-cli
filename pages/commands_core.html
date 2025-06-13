@@ -239,28 +239,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#download-an-exercise" id="toc-download-an-exercise" class="nav-link active" data-scroll-target="#download-an-exercise">Download an exercise</a>
-  <ul class="collapse">
-  <li><a href="#this-is-what-the-franklin-does-for-you" id="toc-this-is-what-the-franklin-does-for-you" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you">This is what the franklin does for you</a></li>
-  </ul></li>
-  <li><a href="#run-jupyter" id="toc-run-jupyter" class="nav-link" data-scroll-target="#run-jupyter">Run Jupyter</a>
-  <ul class="collapse">
-  <li><a href="#this-is-what-the-franklin-does-for-you-1" id="toc-this-is-what-the-franklin-does-for-you-1" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-1">This is what the franklin does for you</a></li>
-  </ul></li>
-  <li><a href="#update-franklin" id="toc-update-franklin" class="nav-link" data-scroll-target="#update-franklin">Update franklin</a>
-  <ul class="collapse">
-  <li><a href="#this-is-what-the-franklin-does-for-you-2" id="toc-this-is-what-the-franklin-does-for-you-2" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-2">This is what the franklin does for you</a></li>
-  <li><a href="#this-is-what-the-franklin-does-for-you-3" id="toc-this-is-what-the-franklin-does-for-you-3" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-3">This is what the franklin does for you</a></li>
-  <li><a href="#this-is-what-the-franklin-does-for-you-4" id="toc-this-is-what-the-franklin-does-for-you-4" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-4">This is what the franklin does for you</a></li>
-  </ul></li>
-  <li><a href="#cleanup-docker-disk-usage" id="toc-cleanup-docker-disk-usage" class="nav-link" data-scroll-target="#cleanup-docker-disk-usage">Cleanup Docker disk usage</a>
-  <ul class="collapse">
-  <li><a href="#this-is-what-the-franklin-does-for-you-5" id="toc-this-is-what-the-franklin-does-for-you-5" class="nav-link" data-scroll-target="#this-is-what-the-franklin-does-for-you-5">This is what the franklin does for you</a></li>
-  </ul></li>
-  <li><a href="#show-docker-disk-usage" id="toc-show-docker-disk-usage" class="nav-link" data-scroll-target="#show-docker-disk-usage">Show Docker disk usage</a></li>
-  <li><a href="#show-docker-images" id="toc-show-docker-images" class="nav-link" data-scroll-target="#show-docker-images">Show Docker images</a></li>
-  <li><a href="#show-docker-containers" id="toc-show-docker-containers" class="nav-link" data-scroll-target="#show-docker-containers">Show Docker containers</a></li>
-  <li><a href="#show-docker-storage" id="toc-show-docker-storage" class="nav-link" data-scroll-target="#show-docker-storage">Show Docker storage</a></li>
+  <li><a href="#download-an-exercise" id="toc-download-an-exercise" class="nav-link active" data-scroll-target="#download-an-exercise">Download an exercise</a></li>
+  <li><a href="#run-jupyter" id="toc-run-jupyter" class="nav-link" data-scroll-target="#run-jupyter">Run Jupyter</a></li>
+  <li><a href="#update-franklin" id="toc-update-franklin" class="nav-link" data-scroll-target="#update-franklin">Update franklin</a></li>
+  <li><a href="#cleanup-after-franklin" id="toc-cleanup-after-franklin" class="nav-link" data-scroll-target="#cleanup-after-franklin">Cleanup after Franklin</a></li>
+  <li><a href="#show-what-franklin-has-on-your-computer" id="toc-show-what-franklin-has-on-your-computer" class="nav-link" data-scroll-target="#show-what-franklin-has-on-your-computer">Show what Franklin has on your computer</a></li>
   <li><a href="#live-action" id="toc-live-action" class="nav-link" data-scroll-target="#live-action">Live action</a></li>
   </ul>
 </nav>
@@ -288,14 +271,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Franklin is a command line tool that your run from a terminal. If you are not famililiar with terminals, have a look at <a href="about/terminal.html">this brief introduction</a> before you go on.</p>
-<p>Franklin uses the <a href="https://click.palletsprojects.com/en/stable/">click</a> library to define a hierarchy of commands and subcommands that you can run in the terminal. <code>franklin</code> is the main command and has the subcommands <code>download</code>, <code>jupyter</code>, <code>update</code>, <code>show</code>, and <code>cleanup</code>. Should you forget, you can always just run the <code>franklin</code> command like this:</p>
+<p>Franklin uses the <a href="https://click.palletsprojects.com/en/stable/">click</a> library to define a hierarchy of commands and subcommands that you can run in the terminal. <code>franklin</code> is the main command and has the subcommands <code>download</code>, <code>jupyter</code>, <code>update</code>, <code>show</code>, and <code>cleanup</code>. To run each subcommand, you simply append it to <code>franklin</code>, E.g. <code>franklin jupyter</code>. The following sections explain what each subcommand do. Should you forget, you can always just run the main <code>franklin</code> command like this:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
 <div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>to print the following help message:</p>
+<p>That will print the following help text to remind you.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Usage: franklin [OPTIONS] COMMAND [ARGS]...</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  A tool to download notebook exercises and run jupyter  in a way that fits</span>
@@ -311,10 +294,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  jupyter   Run jupyter for an exercise</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  show      Commands for showing Docker content.</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  update    Update Franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To run each subcommand, you simply append it to <code>franklin</code>, E.g. <code>franklin jupyter</code>. The following sections explain what each subcommand do.</p>
-<section id="download-an-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="download-an-exercise">Download an exercise</h2>
-<p>The jupyter exercises are available for you to download onto your own computer. To do so, you just run the command below. You will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a folder in your current folder (you can run <code>ls</code> to see it). If the exercise is called <code>cool-exercise</code>, you can change to that folder by running <code>cd cool-exercise</code>.</p>
+<section id="download-an-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="download-an-exercise">Download an exercise</h3>
+<p>The jupyter exercises are available for you to download onto your own computer. To do so, you just run the command below. You will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a subfolder in your current folder (you can run <code>ls</code> to see it). If the exercise is called <code>cool-exercise</code>, you can change to that folder by running <code>cd cool-exercise</code>.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
@@ -323,10 +305,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <details>
 <summary>
-<small>Click to see what happens under the hood</small>
+<small>Click to see what Franklin does</small>
 </summary>
-<section id="this-is-what-the-franklin-does-for-you" class="level3">
-<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you">This is what the franklin does for you</h3>
 <ul>
 <li>Finds the course git repositories in the franklin group.</li>
 <li>Presents you with a list of courses to choose from.</li>
@@ -337,7 +317,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Gives the downloaded folder the name of the exercise.</li>
 <li>Removes the repository files not relevant to students.</li>
 </ul>
-</section></details>
+</details>
 <!-- You will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses.
 ![alt text](<images/Skærmbillede 2025-05-28 kl. 14.52.02.png>)
 
@@ -348,7 +328,6 @@ After running this command a selection menu will pop out and in this menu you wi
 
 You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise) -->
 </section>
-
 <section id="run-jupyter" class="level2">
 <h2 class="anchored" data-anchor-id="run-jupyter">Run Jupyter</h2>
 <p>In order to open and run the downloaded jupyter notebook, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:</p>
@@ -360,10 +339,8 @@ You choose your course by using the arrow keys and a new selection menu will app
 </div>
 <details>
 <summary>
-<small>Click to see what happens under the hood</small>
+<small>Click to see what Franklin does</small>
 </summary>
-<section id="this-is-what-the-franklin-does-for-you-1" class="level3">
-<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-1">This is what the franklin does for you</h3>
 <ul>
 <li>check for updates</li>
 <li>check internet connection</li>
@@ -381,18 +358,29 @@ You choose your course by using the arrow keys and a new selection menu will app
 <li>Makes the container mount the folder with your local files so you can open them in JupyterLab.</li>
 <li>Find an open port if port 8888 is already in use.</li>
 <li>Launches JupyterLab and forwards the display to a dedicated Google Chrome browser window.</li>
-<li>Waits until you press Ctrl-C in the terminal or close the Chrome window.</li>
+<li>Waits until you close the Chrome window.</li>
 <li>Stops jupyter and the docker container it runs in.</li>
 <li>Closes Docker Desktop</li>
 </ul>
-</section></details>
+</details>
 <p>JupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press <code>Ctrl-C</code> in the terminal window (remember to save your notebook first).</p>
-<p>Note: If the message below pops up, the folder you started franklin in was either not empty or you may have forgotten to go to the exercise subfolder<img src="images/Skærmbillede 2025-05-28 kl. 15.22.07.png" class="img-fluid" alt="alt text"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Subdirectories
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the your terminal shows a message saying “You have subdirectories in your current directory”, the folder (directory) from which you ran the <code>franklin jupyter</code> command has other directory in it. For security reasons, Franklin does not allow this. You need to either change to the exercise folder (which has no directory in it), or launch Franklin from another without any subdirectories.</p>
+</div>
+</div>
 </section>
-
 <section id="update-franklin" class="level2">
 <h2 class="anchored" data-anchor-id="update-franklin">Update franklin</h2>
-<p>Franklin should update automaticaly when you start it, but if you should need to update it manually you can do it running this command:</p>
+<p>Franklin should update automatically when you start it, but if you should need to update it manually you can do it running this command:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
@@ -401,66 +389,31 @@ You choose your course by using the arrow keys and a new selection menu will app
 </div>
 <details>
 <summary>
-<small>Click to see what happens under the hood</small>
+<small>Click to see what Franklin does</small>
 </summary>
-<section id="this-is-what-the-franklin-does-for-you-2" class="level3">
-<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-2">This is what the franklin does for you</h3>
 <ul>
-<li>Checks for updates to franklin package using either Conda or Pixi dependeing on how franlin is installed.</li>
+<li>Checks for updates to franklin package using either Conda or Pixi dependeing on how franklin is installed.</li>
 <li>Determines if you are a student or educator.</li>
 <li>Updates franklin if a newer version exists.</li>
 <li>Updates the franklin-educator package if you are an educator.</li>
 <li>Closes franklin reporting the update if any.</li>
 </ul>
-</section></details>
-<p>You can also see which version of franklin you have installed by running this command:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb6" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<details>
-<summary>
-<small>Click to see what happens under the hood</small>
-</summary>
-</details></section>
-<section id="this-is-what-the-franklin-does-for-you-3" class="level3">
-<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-3">This is what the franklin does for you</h3>
-<ul>
-<li>Just reports the current version of franklin.</li>
-</ul>
-
-<details>
-<summary>
-<small>Click to see what happens under the hood</small>
-</summary>
-</details></section>
-<section id="this-is-what-the-franklin-does-for-you-4" class="level3">
-<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-4">This is what the franklin does for you</h3>
-<ul>
-<li>Starts docker and waits for its engine boot up.</li>
-<li>Finds the exercise stored as docker images on your computer.</li>
-<li>Shows a list of exercises (images) and the space they take up on your computer.</li>
-</ul>
-
+</details>
+<p>You can also see which version of franklin you have installed by running <code>franklin --version</code>.</p>
 </section>
-
-<section id="cleanup-docker-disk-usage" class="level2">
-<h2 class="anchored" data-anchor-id="cleanup-docker-disk-usage">Cleanup Docker disk usage</h2>
+<section id="cleanup-after-franklin" class="level2">
+<h2 class="anchored" data-anchor-id="cleanup-after-franklin">Cleanup after Franklin</h2>
 <p>To free up disk space, you can run the command below. You will be prompted with a menu showing the “docker images” on your computer. Select all the ones you want to remove and press Enter. Deleting images will not delete any of your own files with saved work.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb7" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> cleanup</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> cleanup</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details>
 <summary>
-<small>Click to see what happens under the hood</small>
+<small>Click to see what Franklin does</small>
 </summary>
-<section id="this-is-what-the-franklin-does-for-you-5" class="level3">
-<h3 class="anchored" data-anchor-id="this-is-what-the-franklin-does-for-you-5">This is what the franklin does for you</h3>
 <ul>
 <li>Starts docker and waits for its engine boot up.</li>
 <li>Finds the exercise stored as docker images on your computer.</li>
@@ -469,43 +422,31 @@ You choose your course by using the arrow keys and a new selection menu will app
 <li>Removes the selected images</li>
 <li>Prunes all unused data cached by Docker.</li>
 </ul>
-</section></details>
+</details>
+<p>Make a habit of running <code>franklin cleanup</code> once in a while. This does not affect any of your own files. The only drawback is that you will have to wait a bit while Franklin downloads images again, should you need them at a later point.</p>
 </section>
-
-<section id="show-docker-disk-usage" class="level2">
-<h2 class="anchored" data-anchor-id="show-docker-disk-usage">Show Docker disk usage</h2>
-<p>The <code>franklin show</code> subcommand itself has the subcommands <code>images</code>, <code>containers</code>, and <code>storage</code>:</p>
-</section>
-<section id="show-docker-images" class="level2">
-<h2 class="anchored" data-anchor-id="show-docker-images">Show Docker images</h2>
-<p>Franklin downloads a linux “docker image” for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later.</p>
-<p>To see the images downloaded to your computer and how much space they take up, you can run this command:</p>
+<section id="show-what-franklin-has-on-your-computer" class="level2">
+<h2 class="anchored" data-anchor-id="show-what-franklin-has-on-your-computer">Show what Franklin has on your computer</h2>
+<p>If you are curious, you can use the <code>franklin show</code> subcommands to see what Docker has stored on your computer. The sub commands are <code>images</code>, <code>containers</code>, and <code>storage</code>. To see a summary of how much disk space Docker takes up on your computer for what purpose, you can run this command:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb7" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show storage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Franklin downloads a linux “docker image” for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later. To see the images downloaded to your computer and how much space they take up, you can run this command:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
 <div class="sourceCode" id="cb8" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show images</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="show-docker-containers" class="level2">
-<h2 class="anchored" data-anchor-id="show-docker-containers">Show Docker containers</h2>
-<p>Franklin starts a Docker Linux container when you run <code>franklin jupyter</code>. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later.</p>
-<p>To see the images downloaded to your computer and how much space they take up, you can run this command:</p>
+<p>Franklin starts a Docker Linux container when you run <code>franklin jupyter</code>. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later. To see the images downloaded to your computer and how much space they take up, you can run this command:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
 <div class="sourceCode" id="cb9" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show images</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="show-docker-storage" class="level2">
-<h2 class="anchored" data-anchor-id="show-docker-storage">Show Docker storage</h2>
-<p>To see a summary of how much disk space Docker takes up on your computer for what purpose, you can run this command:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb10" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show storage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- 
 ![alt text](<images/Skærmbillede 2025-05-28 kl. 15.32.16.png>) -->
