@@ -7,19 +7,8 @@ title: Developing exercises
 The content of this page is being developed.  
 :::
 
-## TLDR;
 
-    conda create -n franklin -c conda-forge munch-group::franklin
-    conda activate franklin
-
-    franklin exercise down
-    cd <repo>
-    franklin jupyter run
-    franklin up
-    cd ..
-
-
-## Create an exercise repository
+## The exercise repository
 
 A git repository is where an exercise lives
 
@@ -32,3 +21,77 @@ A git repository is where an exercise lives
 
 
 ## Develop/change a new exercise on GitLab
+
+
+To begin an automated edit workflow, just run the command below and follow instructions carefully:
+
+```{.bash filename="Terminal"}
+franklin exercise edit
+```
+
+For more information about edit workflows, see the tutorial about developing exercises.
+
+
+
+### Assisted workflow
+
+__*This workflow is temporarily disabled*__
+
+
+```{.bash filename="Terminal"}
+franklin exercise down
+```
+
+```{.bash filename="Terminal"}
+franklin exercise up
+```
+
+
+### Supported workflow
+
+Use this command to clone the exercise repository:
+
+```{.bash filename="Terminal"}
+franklin exercise clone
+```
+
+Then open the repository. If is is called `data-exercise`, you can open it in vscode like this:
+
+```{.bash filename="Terminal"}
+code data-exercise
+```
+
+> **For Mac users:** On Macs, the `code` command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type 'shell command', select  "Shell Command: Install 'code' command in PATH command" and hit Enter. Restart the terminal for the change to take effect. 
+
+
+Once open in vscode, click "Reopen in Container" if prompted, or otherwise use Cmd-Shift-P to open the command palette and type "reopen", select "Reopen in Container" and hit Enter.
+
+![alt text](<images/Screenshot 2025-05-31 at 11.05.53.png>)
+
+Vscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the `prod` jupyter kernel among the environments available. For an introduction to jupyter in vscode, see [Using notebooks in vscode](https://code.visualstudio.com/docs/datascience/jupyter-notebooks).
+
+
+If you need to install and use third-party python packages (e.g. `pandas`), these packages must be added as dependencies to the docker image. To do this, open vscode's terminal window and install pixi by running this command: 
+
+```{.bash}
+./install_pixi.sh
+```
+
+Running the command below, will both make `pandas` available and add it as a dependency for the exercise. 
+
+```{.bash}
+pixi add --feature exercise --platform linux-64  pandas
+```
+
+An alternative approach scan the notebook and add dependencies automatically. 
+
+```{.bash}
+pixi run python .pixi.py .
+```
+
+To add/commit/push you can use vscode's git interface, `gitui`, or the `git ` command line tool.
+
+> **GitUI:** Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged. Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment
+
+<!-- FIXME: make sure docker images built this way are also visible and cleaned up by franklin cleanup  -->
+

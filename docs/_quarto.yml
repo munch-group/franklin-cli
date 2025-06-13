@@ -70,7 +70,7 @@ website:
           contents:
             - pages/commands_core.qmd
             - pages/commands_edu.qmd
-            - pages/commands_admin.qmd
+            # - pages/commands_admin.qmd
         - section: "Tutorials"
           contents:
             - pages/developing.qmd

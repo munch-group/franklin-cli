@@ -45,122 +45,17 @@ The command presents you with menus to select your course and the name of the Gi
 
 To accommodate educators with different computational skill levels, franklin supports two different development workflows:
 
-- **Automated:** A fully automated (but rigid) workflow for absolute beginners.
+- **Automated:** A fully automated (but rigid) workflow for absolute beginners and for quick edits by more advanced users.
 - **Assisted:** A semi-automated workflow for intermediate users allowing more flexibility.
 - **Supported:** A fully flexible approach based on vscode devcontainers catering for skilled users.
-
-### Automated workflow
-
-Run this command and follow instructions carefully:
-
-```{.bash filename="Terminal"}
-franklin exercise edit
-```
-
-### Assisted workflow
-
-*This workflow is temporarily disabled*
-
-<!-- 
-```{.bash filename="Terminal"}
-franklin exercise down
-```
-
-```{.bash filename="Terminal"}
-franklin exercise up
-```
- -->
-
-### Supported workflow
-
-User this command to clone the exercise repository:
-
-```{.bash filename="Terminal"}
-franklin exercise clone
-```
-
-Open the repository in Vscode 
-
-
-
-if the repository is called `data-exercise`, you can open it in vscode like this:
-
-```{.bash filename="Terminal"}
-code data-exercise
-```
-
-::: callout-important
-
-## For Mac users
-
-On Macs, the `code` command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type 'shell command', select  "Shell Command: Install 'code' command in PATH command" and hit Enter.
-
-![alt text](images/shell-command.png)
-
-Restart the terminal for the change to take effect. 
-
-:::
-
-
-nd click "Reopen in Container" if prompted, or otherwise use Cmd-Shift-P to open the command palette and type/select "Reopen in Container". This reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the `prod` jupyter kernel among the environemnts available. To add/commit/push you can use vscode's git interface, gitui, or teh command line tool.
-
-
-<!-- ## GitUI
-
-Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.
-
-Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment -->
-
-
-
-::: callout-tip
-
-You can run `code` followed by a folder name to edit files in that folder. To edit files in your current folder, run
-
-in any folder to start editing files in that folder.
-
-```{.bash filename="Terminal"}
-code data-exercise
-```
-
-'''
-
-Once you have opened the folder with the repository in vscode, you need to reopen it in the linux container used for the exercise. To do that, you open the Command Palette (Cmd+Shift+P) and type "reopen" to find "Reopen in container":
-
-![alt text](<images/Screenshot 2025-05-31 at 11.05.53.png>)
-
-When you select that and hit Enter, vscode builds the container (which takes a while). 
-
-<!-- FIXME: make sure docker images built this way are also visible and cleaned up by franklin cleanup  -->
-
-
-### GitUI
-
-    git clone git@github.com:munch-group/arg-dashboard.git
-
-    code arg-dashboard
-
-Cmd-Shift-P, "Reopen in container"
-
-To add dependencies (e.g. scipy), open terminal in vscode and install pixi:
-
-    ./install_pixi.sh
-
-Then add the package:
-
-    pixi add --feature exercise --platform linux-64 scipy
- 
-
-[Using notebooks in vscode]https://code.visualstudio.com/docs/datascience/jupyter-notebooks)
-
-### Git add
-
-
-### Git commit
-
-
-### Git push
 
 
 ## Removing (archiving) an exercise 
 
+GitLab exercises are not deleted. We archive them instead, which makes them invisible to students. To archive a repository, first run this command which opens the the repository settings page:
+
+```{.bash filename="Terminal"}
+franklin exercise settings
+```
+
+Then find expand the "Advanced" section as the bottom and click the blue button that says "Archive project".
