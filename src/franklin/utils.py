@@ -54,7 +54,7 @@ def rmtree(path: str) -> None:
     def on_rm_error(func, path, exc_info):
         os.chmod(path, stat.S_IWRITE) # make writable and retry
         func(path)
-    shutil.rmtree(path, oneexc=on_rm_error)
+    shutil.rmtree(path, onexc=on_rm_error)
 
 
 _banner = """

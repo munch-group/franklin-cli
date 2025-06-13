@@ -2,44 +2,44 @@
 title: Developing exercises
 ---
 
-::: {.callout-caution }  
-## Under development  
-The content of this page is being developed.  
-:::
-
-Franklin is built for developing exercises, as well as running them. 
-
-
-  To ensure For educators to The `franklin-educator` plugin.
+Franklin is built for developing stable exercises, as well as for running them. The additional tools required for exercise creation and development are not part the core `franklin` package. Instead, it is distributed as the `franklin-educator` plugin. This setup ensures that educators use exactly the same code for testing exercises as students, while keeping the core student API lean and simple. To develop exercises, you must install both packages in an existing conda environment like this:
 
 ```{.bash filename="Terminal"}
 conda install -c conda-forge -c munch-group franklin-educator
 ```
 
+Or make a new environment for just these packages using this command:
+
 ```{.bash filename="Terminal"}
+conda create -n franklin -c conda-forge -c munch-group franklin-educator
+```
+
+
+::: {.callout-note }  
+## Pixi 
+
+If you know your way around [Pixi](https://pixi.sh/latest/), you can also use that to install:
+
+```{.bash}
 pixi workspace channel add munch-group
 pixi add franklin-educator
 ```
 
+:::
+
 ## Create a new exercise 
 
-To create a new exercise you will need to use the command 
-
-franklin exercise
-
-When you run this command a new page of commands will show. 
-![alt text](<images/Skærmbillede 2025-05-29 kl. 16.19.09.png>)
-
-In order to create a new exercise you use the command 
-
+To create a new blank exercise, you use the command:
 
 ```{.bash filename="Terminal"}
 franklin exercise new
 ```
 
-The command presents you with menus to select the course and exercise you 
+The command presents you with menus to select your course and the name of the GitLab repository for the exercise. It then launches the GitLab settings page for the repository so you can add a title/name to the exercise and to make the repository public.
 
-A selection menu then appears and you choose the course you want to make an exercise for. Franklin then asks you to make make a short descriptive label of your exercise. This will be the title of the exercise. When you have named your exercise press enter
+
+{{< video https://www.youtube.com/embed/BCnmQsXGO8k aspect-ratio="16x9" >}}
+
 
 ## Exercise edit workflow
 

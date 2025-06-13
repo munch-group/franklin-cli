@@ -1026,18 +1026,26 @@ def cleanup_exercises(image_id: str, force=True) -> None:
     logger.debug(f"Removing image: {image_id}")
     rm_image(image_id)
     
+
     
-@click.command('cleanup')
+@click.command('remove')
 @click.argument("image_id", required=False)
 @ensure_docker_running
 @crash_report
 def cleanup(image_id=None):
-    """Cleanup Franklin storage
+    """Remove selected exercises
     """
     if image_id:
         cleanup_exercises(image_id)
         return
     image_list(callback=cleanup_exercises)
+    
+@click.command('cleanup')
+@ensure_docker_running
+@crash_report
+def cleanup():
+    """Cleanup and reclaim disk space used by Franklin
+    """
     prune_all()
 
 
