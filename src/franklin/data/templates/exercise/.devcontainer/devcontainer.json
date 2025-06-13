@@ -23,7 +23,7 @@
 		"WORKSPACE_FOLDER": "${containerWorkspaceFolder}"
 	},
 	// "postStartCommand": "/home/vscode/.pixi/envs/prod/bin/python -m ipykernel install --user --name prod --display-name 'Franklin kernel'",
-	"remote.containers.reopenInContainer": true,
+	// "remote.containers.reopenInContainer": true,
 
 
 	// Configure tool-specific properties.

@@ -43,31 +43,45 @@ The command presents you with menus to select your course and the name of the Gi
 
 ## Exercise edit workflow
 
+To accommodate educators with different computational skill levels, franklin supports two different development workflows:
 
+- **Automated:** A fully automated (but rigid) workflow for absolute beginners.
+- **Assisted:** A semi-automated workflow for intermediate users allowing more flexibility.
+- **Supported:** A fully flexible approach based on vscode devcontainers catering for skilled users.
 
+### Automated workflow
 
-## Exercise down / up
+Run this command and follow instructions carefully:
 
+```{.bash filename="Terminal"}
+franklin exercise edit
+```
 
+### Assisted workflow
 
-## Clone exercise
+*This workflow is temporarily disabled*
 
+<!-- 
+```{.bash filename="Terminal"}
+franklin exercise down
+```
 
-## GitUI
+```{.bash filename="Terminal"}
+franklin exercise up
+```
+ -->
 
-Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.
+### Supported workflow
 
-Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment
-
-
-### Git clone
-
-
-This command below clones an exercise git repository into a folder with the same name as the repository. 
+User this command to clone the exercise repository:
 
 ```{.bash filename="Terminal"}
 franklin exercise clone
 ```
+
+Open the repository in Vscode 
+
+
 
 if the repository is called `data-exercise`, you can open it in vscode like this:
 
@@ -86,6 +100,17 @@ On Macs, the `code` command line utility needs to be installed first. Launch vsc
 Restart the terminal for the change to take effect. 
 
 :::
+
+
+nd click "Reopen in Container" if prompted, or otherwise use Cmd-Shift-P to open the command palette and type/select "Reopen in Container". This reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the `prod` jupyter kernel among the environemnts available. To add/commit/push you can use vscode's git interface, gitui, or teh command line tool.
+
+
+<!-- ## GitUI
+
+Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged.
+
+Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment -->
+
 
 
 ::: callout-tip
