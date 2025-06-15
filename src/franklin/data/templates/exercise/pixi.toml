@@ -26,6 +26,7 @@ git = "*"
 ipykernel = "*"
 pixi-kernel = "*"
 pip = "*"
+jupyterlab-quarto = "*"
 franklin-container = "*"
 
 [environments]
