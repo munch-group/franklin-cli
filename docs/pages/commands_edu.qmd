@@ -50,6 +50,17 @@ To accommodate educators with different computational skill levels, franklin sup
 - **Supported:** A fully flexible approach based on vscode devcontainers catering for skilled users.
 
 
+To begin an automated edit workflow, just run the command below and follow instructions carefully:
+
+```{.bash filename="Terminal"}
+franklin exercise edit
+```
+
+For more information about edit workflows, see the tutorial about developing exercises.
+
+
+
+
 ## Removing (archiving) an exercise 
 
 GitLab exercises are not deleted. We archive them instead, which makes them invisible to students. To archive a repository, first run this command which opens the the repository settings page:

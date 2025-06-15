@@ -75,6 +75,7 @@ website:
           contents:
             - pages/developing.qmd
             - pages/data_analysis.ipynb
+            - pages/python_vs_r.qmd
             - pages/plotting.ipynb
         - section: "About"
           contents:

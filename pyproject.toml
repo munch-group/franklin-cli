@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = '0.24.148'
+version = '0.24.149'
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -72,6 +72,7 @@ franklin = [
   "data/templates/exercise/install_pixi.sh",
   "data/templates/exercise/pixi.toml",
   "data/templates/exercise/README.md",
+  "data/templates/exercise/magic.py",
   ]
   
 [tool.pixi.workspace]

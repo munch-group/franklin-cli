@@ -24,8 +24,9 @@ nbconvert = "*"
 nodejs = "*"
 git = "*"
 ipykernel = "*"
+pixi-kernel = "*"
 pip = "*"
-# ipykernel and pip is required for running juptyer in vscode
+franklin-container = "*"
 
 [environments]
 build = ["build"]

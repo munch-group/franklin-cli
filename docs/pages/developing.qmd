@@ -79,19 +79,40 @@ If you need to install and use third-party python packages (e.g. `pandas`), thes
 
 Running the command below, will both make `pandas` available and add it as a dependency for the exercise. 
 
+
+! pixi run test-notebook
+
+! pixi run add-dependency 
+
+! pixi run collect-dependencies
+
 ```{.bash}
-pixi add --feature exercise --platform linux-64  pandas
+pixi run add-dependency pandas
 ```
 
 An alternative approach scan the notebook and add dependencies automatically. 
 
 ```{.bash}
-pixi run python .pixi.py .
+pixi run collect-dependencies
 ```
 
+You can test that the exercise notebook runs as configured using this command:
+
+```{.bash}
+pixi run test-notebook
+```
+ 
 To add/commit/push you can use vscode's git interface, `gitui`, or the `git ` command line tool.
 
 > **GitUI:** Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged. Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment
 
 <!-- FIXME: make sure docker images built this way are also visible and cleaned up by franklin cleanup  -->
 
+
+
+
+```
+# ! /install_pixi.sh
+# %load_ext magic
+# %franklin pandas matplotlib
+```
