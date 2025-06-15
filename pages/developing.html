@@ -252,6 +252,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
           <li class="sidebar-item">
+ <span class="menu-text">pages/python_vs_r.qmd</span>
+  </li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/plotting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Plots with matplotlib</span></a>
@@ -439,14 +442,22 @@ Under development
 <p>If you need to install and use third-party python packages (e.g.&nbsp;<code>pandas</code>), these packages must be added as dependencies to the docker image. To do this, open vscode’s terminal window and install pixi by running this command:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./install_pixi.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Running the command below, will both make <code>pandas</code> available and add it as a dependency for the exercise.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--feature</span> exercise <span class="at">--platform</span> linux-64  pandas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>! pixi run test-notebook</p>
+<p>! pixi run add-dependency</p>
+<p>! pixi run collect-dependencies</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run add-dependency pandas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>An alternative approach scan the notebook and add dependencies automatically.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run python .pixi.py .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run collect-dependencies</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can test that the exercise notebook runs as configured using this command:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run test-notebook</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To add/commit/push you can use vscode’s git interface, <code>gitui</code>, or the <code>git</code> command line tool.</p>
 <blockquote class="blockquote">
 <p><strong>GitUI:</strong> Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged. Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment</p>
 </blockquote>
 <!-- FIXME: make sure docker images built this way are also visible and cleaned up by franklin cleanup  -->
+<pre><code># ! /install_pixi.sh
+# %load_ext magic
+# %franklin pandas matplotlib</code></pre>
 
 
 </section>
