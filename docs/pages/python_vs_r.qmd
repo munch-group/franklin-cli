@@ -1,0 +1,324 @@
+---
+title: "Standard Data Manipulations in Pandas, Tidyverse, and Julia"
+format: html
+editor: visual
+---
+
+## Indexing Rows
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+import pandas as pd
+
+df = pd.DataFrame({
+    'A': [1, 2, 3],
+    'B': [4, 5, 6]
+})
+
+# Select row by position
+row_pos = df.iloc[1]  # second row
+
+# Select row by label (if index is labeled)
+df.index = ['x', 'y', 'z']
+row_label = df.loc['y']
+```
+
+### R (Tidyverse)
+
+```r
+library(dplyr)
+
+df <- tibble(A = c(1, 2, 3), B = c(4, 5, 6))
+
+# Select row by position
+row_pos <- slice(df, 2)  # second row
+
+# Select row by condition
+row_condition <- filter(df, A == 2)
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+using DataFrames
+
+df = DataFrame(A = [1, 2, 3], B = [4, 5, 6])
+
+# Select row by index
+row_pos = df[2, :]
+
+# Select row by condition
+row_condition = df[df.A .== 2, :]
+```
+:::
+
+## Indexing Columns
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+# Select a single column
+col = df['A']
+
+# Select multiple columns
+cols = df[['A', 'B']]
+```
+
+### R (Tidyverse)
+
+```r
+# Select a single column
+col <- df %>% select(A)
+
+# Select multiple columns
+cols <- df %>% select(A, B)
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+# Select a single column
+col = df.A
+
+# Select multiple columns
+cols = select(df, [:A, :B])
+```
+:::
+
+## Column and Row Assignment
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+# Assign a new column
+df['C'] = df['A'] + df['B']
+
+# Assign values to a row by position
+df.iloc[0] = [10, 20, 30]
+```
+
+### R (Tidyverse)
+
+```r
+# Add new column
+mutated <- df %>% mutate(C = A + B)
+
+# Replace first row values
+df[1, ] <- list(10, 20, 30)
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+# Assign new column
+df.C = df.A + df.B
+
+# Replace first row
+df[1, :] = (A=10, B=20, C=30)
+```
+:::
+
+## Filtering and Masking
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+# Boolean mask where A > 1
+mask = df['A'] > 1
+masked_df = df[mask]
+```
+
+### R (Tidyverse)
+
+```r
+# Logical filtering where A > 1
+masked_df <- df %>% filter(A > 1)
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+# Filter where A > 1
+masked_df = df[df.A .> 1, :]
+```
+:::
+
+## Broadcasting (Vectorized Ops)
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+# Add new column as double of A
+df['D'] = df['A'] * 2
+```
+
+### R (Tidyverse)
+
+```r
+# Add new column as double of A
+mutated <- df %>% mutate(D = A * 2)
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+# Add new column as double of A
+df.D = df.A .* 2
+```
+:::
+
+## Mapping / Transform
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+# Apply function to column A
+mapped = df['A'].map(lambda x: x**2)
+```
+
+### R (Tidyverse)
+
+```r
+# Apply function to column A
+mapped <- df %>% mutate(A_squared = A^2)
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+# Apply function to column A
+df.A_squared = df.A .^ 2
+```
+:::
+
+## Melt / Pivot Longer
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+# Wide to long
+long_df = pd.melt(df, id_vars=['A'], value_vars=['B', 'C'])
+```
+
+### R (Tidyverse)
+
+```r
+library(tidyr)
+
+# Wide to long
+long_df <- df %>% pivot_longer(cols = c(B, C), names_to = "variable", values_to = "value")
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+using DataFrames
+
+# Wide to long
+long_df = stack(df, [:B, :C], id_vars = [:A])
+```
+:::
+
+## Pivot Wider
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+# Long to wide
+wide_df = long_df.pivot(index='A', columns='variable', values='value')
+```
+
+### R (Tidyverse)
+
+```r
+# Long to wide
+wide_df <- long_df %>% pivot_wider(names_from = variable, values_from = value)
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+# Long to wide
+wide_df = unstack(long_df, :A, :variable, :value)
+```
+:::
+
+## Group By & Summarize
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+# Group by A and calculate multiple summaries
+summary = df.groupby('A').agg(
+    B_sum=('B', 'sum'),
+    C_mean=('C', 'mean')
+).reset_index()
+```
+
+### R (Tidyverse)
+
+```r
+# Group by A and summarize multiple columns
+summary <- df %>% 
+  group_by(A) %>% 
+  summarize(
+    B_sum = sum(B),
+    C_mean = mean(C, na.rm = TRUE)
+  )
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+using Statistics
+
+grouped = combine(groupby(df, :A),
+    :B => sum => :B_sum,
+    :C => mean => :C_mean)
+```
+:::
+
+## Sorting
+
+::: {.panel-tabset}
+
+### Python (Pandas)
+
+```python
+# Sort by column A descending
+sorted_df = df.sort_values(by='A', ascending=False)
+```
+
+### R (Tidyverse)
+
+```r
+# Sort by column A descending
+sorted_df <- df %>% arrange(desc(A))
+```
+
+### Julia (DataFrames.jl)
+
+```julia
+# Sort by column A descending
+sorted_df = sort(df, :A, rev=true)
+```
+:::
