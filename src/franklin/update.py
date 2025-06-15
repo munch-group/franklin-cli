@@ -15,6 +15,7 @@ import subprocess
 from typing import Tuple, List, Dict, Callable, Any
 from packaging.version import Version, InvalidVersion
 import json
+import importlib
 
 from . import config as cfg
 from . import utils
@@ -82,11 +83,12 @@ def conda_update_client() -> None:
     Update the Franklin client.
     """
     updated = conda_update('franklin')
-    try:
-        import franklin_educator 
-    except ModuleNotFoundError:
-        return updated
-    updated += conda_reinstall('franklin-educator')
+    for plugin in ['franklin-educator', 'franklin-admin']:
+        try:
+            importlib.import_module(plugin)
+        except ModuleNotFoundError:
+            continue
+        updated += conda_reinstall(plugin)
     return updated
     
 
@@ -170,14 +172,16 @@ def pixi_update_client() -> None:
     pixi_update('franklin')
     updated = before == pixi_installed_version('franklin')
 
-    try:
-        import franklin_educator 
-    except ModuleNotFoundError:
-        return
-    before = pixi_installed_version('franklin-educator')
-    pixi_reinstall('franklin-educator')
-    updated += before == pixi_installed_version('franklin-educator')
+    for plugin in ['franklin-educator', 'franklin-admin']:
+        try:
+            importlib.import_module(plugin)
+        except ModuleNotFoundError:
+            continue
+        before = pixi_installed_version(plugin)
+        pixi_reinstall(plugin)
+        updated += before == pixi_installed_version(plugin)
     return updated
+
 
 def _update():
     """Update Franklin
