@@ -1,0 +1,9 @@
+---
+title: Sandbox
+---
+
+To quickly get a feel for Jupyter and to browse tutorials, visit the JupyterLite Sandbox. JupyterLite is a JupyterLab distribution that runs entirely in the browser 
+
+JupyterLite emulates the behavior of JupyterLab and Python and runs entirely in the browser. It does not access your local files. So to use it, you need to upload and download notebooks you want to play with. Still in development, JupyterLite does not include all JupyterLab features. 
+
+[Try the sandbox](https://munch-group.org/jupyterlite/lab)
