@@ -26,8 +26,11 @@ git = "*"
 ipykernel = "*"
 pixi-kernel = "*"
 pip = "*"
-jupyterlab-quarto = "*"
 franklin-container = "*"
+
+[feature.prod.target.linux-64.pypi-dependencies]
+jupyterlab-quarto = "*"
+
 
 [environments]
 build = ["build"]
