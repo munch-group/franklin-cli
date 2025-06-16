@@ -74,8 +74,8 @@ website:
         - section: "Tutorials"
           contents:
             - pages/developing.qmd
-            - pages/data_analysis.ipynb
-            - pages/python_vs_r.qmd
+            - pages/numpy_and_pandas.ipynb
+            - pages/python_r_juliaqmd
             - pages/plotting.ipynb
         - section: "About"
           contents:

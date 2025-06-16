@@ -29,7 +29,6 @@ def franklin(update: bool) -> None:
     """
     term.check_window_size()
     # utils.show_banner()
-    print(update)
     if update:
         _update.update_packages()
     desktop.ensure_docker_installed(lambda _: None)
