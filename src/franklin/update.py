@@ -83,9 +83,9 @@ def conda_update_client() -> None:
     Update the Franklin client.
     """
     updated = conda_update('franklin')
-    for plugin in ['franklin_educator', 'franklin_admin']:
+    for plugin in ['franklin-educator', 'franklin-admin']:
         try:
-            importlib.import_module(plugin)
+            importlib.import_module(plugin.replace('-', '_'))
         except ModuleNotFoundError:
             continue
         updated += conda_reinstall(plugin)
@@ -172,9 +172,9 @@ def pixi_update_client() -> None:
     pixi_update('franklin')
     updated = before == pixi_installed_version('franklin')
 
-    for plugin in ['franklin_educator', 'franklin_admin']:
+    for plugin in ['franklin-educator', 'franklin-admin']:
         try:
-            importlib.import_module(plugin)
+            importlib.import_module(plugin.replace('-', '_'))
         except ModuleNotFoundError:
             continue
         before = pixi_installed_version(plugin)
