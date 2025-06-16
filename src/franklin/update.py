@@ -52,12 +52,12 @@ def conda_update(package) -> None:
     return updated
 
 
-def conda_reinstall(package) -> None:
+def conda_reinstall(package) -> int:
     """
     Reinstall the package.
     """
     channel = cfg.conda_channel
-    updated = False
+    updated = 0
     logger.debug(f'Checking for updates to {package}')
     try:
 
@@ -65,7 +65,7 @@ def conda_reinstall(package) -> None:
         if latest > system.package_version(package):        
             cmd = f'conda install -y -c conda-forge -c munch-group --force-reinstall {package}'
             utils.run_cmd(cmd)
-            updated = True
+            updated = 1
             logger.debug(f'Reinstalled {package}')
         docker.config_fit()
     except:
@@ -83,7 +83,7 @@ def conda_update_client() -> None:
     Update the Franklin client.
     """
     updated = conda_update('franklin')
-    for plugin in ['franklin-educator', 'franklin-admin']:
+    for plugin in ['franklin_educator', 'franklin_admin']:
         try:
             importlib.import_module(plugin)
         except ModuleNotFoundError:
@@ -172,7 +172,7 @@ def pixi_update_client() -> None:
     pixi_update('franklin')
     updated = before == pixi_installed_version('franklin')
 
-    for plugin in ['franklin-educator', 'franklin-admin']:
+    for plugin in ['franklin_educator', 'franklin_admin']:
         try:
             importlib.import_module(plugin)
         except ModuleNotFoundError:
