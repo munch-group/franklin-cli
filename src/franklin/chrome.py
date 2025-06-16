@@ -3,6 +3,7 @@ import os
 import platform
 import sys
 import time
+from pathlib import Path
 from functools import wraps
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -17,6 +18,7 @@ from selenium.webdriver.chrome.options import Options
 import click
 from . import terminal as term
 from . import config as cfg
+from . import system
 from .logger import logger
 
 def chrome_installed(required=True):
@@ -69,10 +71,29 @@ def get_chrome_driver():
 
     import tempfile
 
-    tmpdir = tempfile.mkdtemp()
+    # tmpdir = tempfile.mkdtemp()
     options = Options()
     options.add_argument("--disable-infobars")  # suppresses the "Chrome is being controlled..." message
-    options.add_argument(f"--user-data-dir={tmpdir}") 
+
+    # On Linux/Mac: --user-data-dir=/home/yourname/.config/selenium-profile
+    # On Windows: --user-data-dir=C:\\Users\\YourName\\AppData\\Local\\Google\\Chrome\\User Data\\SeleniumProfile
+
+    # options.add_argument(f"--user-data-dir={tmpdir}") 
+    home = Path().home()
+    user_data_dir = home / '.config' / 'google-chrome' / 'Default'
+    if system.system() == "Windows":
+        user_data_dir = home / 'AppData' / 'Local' / 'Google' / 'Chrome' / 'User Data' / 'Default'
+    elif system.system() == "Darwin":
+        user_data_dir = home / 'Library' / 'Application Support' / 'Google' / 'Chrome' / 'Default'
+    elif system.system() == "Linux":
+        user_data_dir = home / '.config' / 'google-chrome' / 'Default'
+    else:
+        # If the system is not recognized, use the temporary directory
+        user_data_dir = tempfile.mkdtemp()
+
+    options.add_argument(f"--user-data-dir={user_data_dir}") 
+        
+    options.add_argument("--remote-debugging-port=9222")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option("useAutomationExtension", False)
 
