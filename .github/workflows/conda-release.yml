@@ -92,6 +92,7 @@ jobs:
         uses: munch-group/action-conda-build-upload@v0.1.11
         with:
           meta_yaml_dir: conda-build
+          conda_build_args: -c conda-forge -c munch-group
           # conda_build_args: "--python ${{ matrix.python-version }}"
           platform_all: true
           # platform_osx-arm64: true

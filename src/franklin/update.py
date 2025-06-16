@@ -201,14 +201,14 @@ def _update():
 def update_packages():
     """Update Franklin
     """ 
-    # term.secho('Checking for updates')
+    logger.debug('Checking for updates')
+    nr_updated = _update()
     if _update():
         term.echo()
-        term.secho('Franklin was updated - Please run your command again', fg='green')
+        term.secho(f'Franklin updated {nr_updated} packages - Please run your command again', fg='green')
         term.echo()        
         sys.exit(1)
-    # else:
-    #     term.secho('No updates available')
+    logger.debug('No updates available')
 
 @click.command()
 def update() -> None:
