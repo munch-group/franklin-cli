@@ -32,8 +32,6 @@ Educators with limited computational skills can develop and distribute jupyter e
 
 Running the following command prompts the educator for course and exercise name and creates a new exercise. 
 
-Plugin `exercise` from franklin-jupyter
-
 ```{.bash filename="Terminal"}
 franklin exercise new
 ```

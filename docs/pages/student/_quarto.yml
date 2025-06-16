@@ -99,7 +99,7 @@ book:
       chapters:              
         - ../terminal.qmd
         - ../jupyterlab.ipynb
-        - ../data_analysis.ipynb
+        - ../numpy_and_pandas.ipynb
         - ../plotting.ipynb
     - part: "About"
       chapters:  
