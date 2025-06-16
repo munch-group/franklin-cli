@@ -25,7 +25,7 @@ RUN echo '#!/usr/bin/env bash \n\
 WORKSPACE_FOLDER="${1:-$PWD}" \n\
 ENVIRONMENT="prod" \n\
 echo "export PIXI_HOME=/home/vscode" >> /home/vscode/.bashrc \n\
-echo "export PIXI_PROJECT_MANIFEST="$WORKSPACE_FOLDER/pixi.toml" >> /home/vscode/.bashrc \n\
+echo "export PIXI_PROJECT_MANIFEST=$WORKSPACE_FOLDER/pixi.toml" >> /home/vscode/.bashrc \n\
 curl -fsSL https://pixi.sh/install.sh | bash \n\
 /bin/bash -i -c "pixi run python -m ipykernel install --user --name prod --display-name Franklin" \n\
 /bin/bash -i -c "pixi shell-hook --manifest-path $WORKSPACE_FOLDER --environment $ENVIRONMENT >> /home/vscode/.bashrc" \n\
