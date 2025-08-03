@@ -10,8 +10,11 @@ If you're already familiar with Python and Jupyter, Franklin streamlines your wo
 ## Quick Start
 
 ```bash
-# Install Franklin with educator tools
-conda install -c conda-forge -c munch-group franklin franklin-educator
+# Install Franklin with educator tools using Pixi
+pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
+
+# Alternative: Using conda
+# conda install -c conda-forge -c munch-group franklin franklin-educator
 
 # Download and work on exercises
 franklin download              # Interactive exercise selection

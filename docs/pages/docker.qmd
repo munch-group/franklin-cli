@@ -1,37 +1,605 @@
 ---
-title: Docker virtualization
+title: "Introduction to Docker"
+subtitle: "Containerization for Reproducible Computing"
 ---
 
-::: {.callout-caution }  
-## Under development  
-The content of this page is being developed.  
+## What is Docker?
+
+Docker is a platform that packages applications and their dependencies into portable containers. Think of a container as a lightweight, self-contained box that includes everything needed to run your software—the code, runtime, system tools, libraries, and settings. This ensures your application runs identically on any computer, regardless of the operating system or installed software.
+
+### The Problem Docker Solves
+
+Without Docker:
+- "It works on my machine!" but fails on yours
+- Different versions of Python, libraries, or system tools
+- Complex installation instructions that vary by OS
+- Conflicts between projects requiring different dependencies
+- Difficulty reproducing research or coursework
+
+With Docker:
+- Same environment everywhere
+- No installation conflicts
+- One command to run complex applications
+- Perfect reproducibility
+- Isolation between projects
+
+## How Docker Works
+
+### Containers vs Virtual Machines
+
+```mermaid
+graph TB
+    subgraph "Virtual Machine"
+        VM[Guest OS<br/>20GB+] --> APP1[App A]
+        VM --> APP2[App B]
+        HOST1[Host OS] --> HYP[Hypervisor] --> VM
+    end
+    
+    subgraph "Docker Container"
+        HOST2[Host OS] --> DOC[Docker Engine]
+        DOC --> CON1[Container A<br/>~100MB]
+        DOC --> CON2[Container B<br/>~100MB]
+    end
+```
+
+**Virtual Machines**:
+- Full operating system per VM
+- Heavy resource usage (GB of RAM)
+- Slow to start (minutes)
+- Complete isolation
+
+**Docker Containers**:
+- Share host OS kernel
+- Lightweight (MB of RAM)
+- Fast to start (seconds)
+- Process-level isolation
+
+### Core Docker Concepts
+
+1. **Image**: A blueprint or template for creating containers (like a recipe)
+2. **Container**: A running instance of an image (like a cooked meal)
+3. **Dockerfile**: Instructions for building an image (like writing a recipe)
+4. **Registry**: Storage for sharing images (like a cookbook library)
+
+## Docker for Franklin Users
+
+Franklin uses Docker to ensure exercises run identically for all students:
+
+### How Franklin Uses Docker
+
+```mermaid
+graph LR
+    A[Franklin Exercise] --> B[Docker Image]
+    B --> C[Container Starts]
+    C --> D[JupyterLab Runs]
+    D --> E[Student Works]
+    E --> F[Work Saved Locally]
+```
+
+1. **Exercise includes Docker configuration**
+2. **Franklin pulls required image**
+3. **Creates isolated container**
+4. **Mounts your files inside**
+5. **Runs JupyterLab in container**
+6. **Your work is saved on your computer**
+
+### Student Perspective
+
+As a Franklin student, Docker works behind the scenes:
+
+```bash
+# Franklin handles Docker automatically
+franklin jupyter
+# → Downloads Docker image if needed
+# → Starts container
+# → Opens JupyterLab
+# → Everything just works!
+```
+
+You don't need to know Docker commands—Franklin manages everything.
+
+## Installing Docker
+
+::: {.panel-tabset}
+
+### Windows
+
+1. **Download Docker Desktop**:
+   - Visit [docker.com/products/docker-desktop](https://docker.com/products/docker-desktop)
+   - Download for Windows
+   - Run installer
+
+2. **System Requirements**:
+   - Windows 10/11 Pro, Enterprise, or Education
+   - WSL 2 enabled
+   - 4GB RAM minimum
+
+3. **Post-Installation**:
+   - Start Docker Desktop
+   - Wait for "Docker is running" status
+   - Test: `docker --version`
+
+### macOS
+
+1. **Download Docker Desktop**:
+   - Visit [docker.com/products/docker-desktop](https://docker.com/products/docker-desktop)
+   - Choose Intel or Apple Silicon version
+   - Run installer
+
+2. **System Requirements**:
+   - macOS 10.15 or newer
+   - 4GB RAM minimum
+
+3. **Post-Installation**:
+   - Start Docker Desktop from Applications
+   - Grant necessary permissions
+   - Test: `docker --version`
+
+### Linux
+
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install docker.io
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+# Log out and back in
+
+# Fedora
+sudo dnf install docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+# Log out and back in
+
+# Test installation
+docker --version
+docker run hello-world
+```
+
 :::
 
-How Docker Bridges Operating Systems (Layman's Explanation)
+## Basic Docker Commands
 
-Imagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.
+While Franklin handles Docker automatically, understanding basic commands helps troubleshooting:
 
-Here’s how it works in simple terms:
+### Working with Images
 
-Docker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less.
-This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup.
-Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent.
-Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter.
-In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.
+```bash
+# List local images
+docker images
 
+# Pull an image
+docker pull python:3.10
 
-Docker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.
+# Remove an image
+docker rmi python:3.10
 
-Unlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.
+# Search for images
+docker search jupyter
+```
 
-Docker’s core components include:
+### Working with Containers
 
-Docker Engine: The runtime that builds and runs containers.
-Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts.
-Docker Containers: Instances of images that are executed with an isolated filesystem and environment.
-Docker Hub: A public registry for sharing and retrieving Docker images.
-Docker Compose: A tool for defining and running multi-container applications using YAML configuration.
-Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.
+```bash
+# List running containers
+docker ps
 
-Despite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.
+# List all containers
+docker ps -a
 
+# Stop a container
+docker stop container_name
+
+# Remove a container
+docker rm container_name
+
+# View container logs
+docker logs container_name
+```
+
+### Running Containers
+
+```bash
+# Basic run
+docker run python:3.10 python --version
+
+# Interactive mode
+docker run -it python:3.10 bash
+
+# Run with port mapping
+docker run -p 8888:8888 jupyter/base-notebook
+
+# Run with volume mount
+docker run -v /local/path:/container/path python:3.10
+
+# Run in background
+docker run -d nginx
+```
+
+## Understanding Dockerfiles
+
+A Dockerfile defines how to build an image:
+
+```dockerfile
+# Start from base image
+FROM python:3.10-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Define startup command
+CMD ["python", "app.py"]
+```
+
+### Franklin Exercise Dockerfile
+
+Franklin exercises typically use:
+
+```dockerfile
+# Base scientific Python image
+FROM munchgroup/franklin-jupyter:latest
+
+# Install exercise-specific packages
+RUN pip install pandas numpy matplotlib
+
+# Copy exercise files
+COPY exercise.ipynb /home/jovyan/
+
+# Set up environment
+ENV PYTHONPATH=/home/jovyan
+
+# Start JupyterLab
+CMD ["jupyter", "lab"]
+```
+
+## Docker Compose
+
+For multi-container applications:
+
+```yaml
+# docker-compose.yml
+version: '3'
+
+services:
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+  
+  database:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+```
+
+Run with:
+```bash
+docker-compose up    # Start services
+docker-compose down  # Stop services
+```
+
+## Docker for Development
+
+### Creating Development Environments
+
+```bash
+# Python development
+docker run -it -v $(pwd):/workspace python:3.10 bash
+
+# Node.js development
+docker run -it -v $(pwd):/app node:18 bash
+
+# Data science environment
+docker run -p 8888:8888 -v $(pwd):/home/jovyan jupyter/scipy-notebook
+```
+
+### Building Custom Images
+
+1. **Create Dockerfile**:
+```dockerfile
+FROM python:3.10
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+```
+
+2. **Build image**:
+```bash
+docker build -t my-app .
+```
+
+3. **Run container**:
+```bash
+docker run my-app
+```
+
+## Docker Best Practices
+
+### Image Optimization
+
+✅ **Do:**
+- Use specific version tags (`python:3.10`, not `python:latest`)
+- Minimize layers by combining RUN commands
+- Use `.dockerignore` to exclude unnecessary files
+- Start with minimal base images (`alpine`, `slim`)
+- Clean up after installations
+
+❌ **Don't:**
+- Include sensitive data in images
+- Run as root unnecessarily
+- Use large base images when smaller ones work
+- Ignore security updates
+
+### Container Management
+
+✅ **Do:**
+- Name your containers meaningfully
+- Use volumes for persistent data
+- Set resource limits
+- Use health checks
+- Clean up stopped containers
+
+❌ **Don't:**
+- Store data inside containers
+- Expose unnecessary ports
+- Run multiple processes per container
+- Ignore container logs
+
+## Troubleshooting Docker
+
+### Common Issues
+
+#### Docker Daemon Not Running
+
+```bash
+# Check status
+docker version
+
+# Start Docker
+# macOS/Windows: Start Docker Desktop app
+# Linux:
+sudo systemctl start docker
+```
+
+#### Permission Denied
+
+```bash
+# Linux: Add user to docker group
+sudo usermod -aG docker $USER
+# Log out and back in
+
+# Or use sudo (not recommended)
+sudo docker run hello-world
+```
+
+#### Port Already in Use
+
+```bash
+# Find process using port
+lsof -i :8888  # macOS/Linux
+netstat -ano | findstr :8888  # Windows
+
+# Use different port
+docker run -p 8889:8888 image_name
+```
+
+#### Out of Disk Space
+
+```bash
+# Clean up unused resources
+docker system prune -a
+
+# Remove unused images
+docker image prune -a
+
+# Remove stopped containers
+docker container prune
+
+# Remove unused volumes
+docker volume prune
+```
+
+### Franklin-Specific Issues
+
+#### Container Won't Start
+
+```bash
+# Check Franklin logs
+franklin jupyter --debug
+
+# Manually pull image
+docker pull munchgroup/franklin-jupyter:latest
+
+# Reset Franklin Docker settings
+franklin docker reset
+```
+
+#### Files Not Visible
+
+```bash
+# Check mount points
+docker inspect container_name | grep Mounts
+
+# Verify permissions
+ls -la exercise_folder/
+
+# Run with explicit mount
+docker run -v $(pwd):/home/jovyan image_name
+```
+
+## Docker in Research
+
+### Reproducible Research
+
+Docker ensures your research is reproducible:
+
+```dockerfile
+# Reproducible analysis environment
+FROM rocker/tidyverse:4.2.0
+
+# Install specific package versions
+RUN R -e "install.packages('ggplot2', version='3.4.0')"
+
+# Copy analysis scripts
+COPY analysis.R /home/rstudio/
+
+# Document environment
+COPY README.md /home/rstudio/
+```
+
+### Sharing Research
+
+```bash
+# Save image to file
+docker save my-research > research-env.tar
+
+# Load on another computer
+docker load < research-env.tar
+
+# Or push to registry
+docker tag my-research username/research:v1
+docker push username/research:v1
+```
+
+## Advanced Docker Topics
+
+### Multi-Stage Builds
+
+Optimize image size:
+
+```dockerfile
+# Build stage
+FROM python:3.10 AS builder
+WORKDIR /app
+COPY requirements.txt .
+RUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt
+
+# Runtime stage
+FROM python:3.10-slim
+WORKDIR /app
+COPY --from=builder /wheels /wheels
+RUN pip install --no-cache /wheels/*
+COPY . .
+CMD ["python", "app.py"]
+```
+
+### Docker Networks
+
+Connect containers:
+
+```bash
+# Create network
+docker network create mynet
+
+# Run containers on network
+docker run --network mynet --name db postgres
+docker run --network mynet --name app my-app
+
+# Containers can now reach each other by name
+```
+
+### Docker Volumes
+
+Persist data:
+
+```bash
+# Create named volume
+docker volume create mydata
+
+# Use volume
+docker run -v mydata:/data my-app
+
+# Backup volume
+docker run --rm -v mydata:/source -v $(pwd):/backup \
+  alpine tar czf /backup/backup.tar.gz -C /source .
+```
+
+## Docker Security
+
+### Security Best Practices
+
+1. **Keep Docker Updated**: Regular security patches
+2. **Scan Images**: Use `docker scan image_name`
+3. **Don't Run as Root**: Use USER directive in Dockerfile
+4. **Limit Resources**: Set memory and CPU limits
+5. **Use Official Images**: Verified and maintained
+6. **Sign Images**: Docker Content Trust
+
+### Security Scanning
+
+```bash
+# Scan for vulnerabilities
+docker scan my-image
+
+# Check image layers
+docker history my-image
+
+# Inspect image
+docker inspect my-image
+```
+
+## Quick Reference
+
+### Essential Commands
+
+| Command | Purpose |
+|---------|---------|
+| `docker run image` | Run container from image |
+| `docker ps` | List running containers |
+| `docker images` | List local images |
+| `docker stop container` | Stop container |
+| `docker rm container` | Remove container |
+| `docker rmi image` | Remove image |
+| `docker logs container` | View container logs |
+| `docker exec -it container bash` | Enter running container |
+| `docker build -t name .` | Build image from Dockerfile |
+| `docker-compose up` | Start services |
+
+### Useful Flags
+
+| Flag | Purpose |
+|------|---------|
+| `-d` | Run in background (detached) |
+| `-it` | Interactive terminal |
+| `-p 8080:80` | Map ports (host:container) |
+| `-v /path:/path` | Mount volume |
+| `--rm` | Remove container after exit |
+| `--name myname` | Name container |
+| `-e VAR=value` | Set environment variable |
+
+## Resources
+
+### Documentation
+- [Docker Docs](https://docs.docker.com)
+- [Docker Hub](https://hub.docker.com)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+### Learning
+- [Docker 101 Tutorial](https://docker.com/101-tutorial)
+- [Play with Docker](https://labs.play-with-docker.com)
+- [Docker for Data Science](https://jupyter-docker-stacks.readthedocs.io)
+
+## Summary
+
+Docker revolutionizes software deployment by:
+- **Ensuring Consistency**: Same environment everywhere
+- **Simplifying Setup**: One command to run complex stacks
+- **Enabling Isolation**: No conflicts between projects
+- **Supporting Reproducibility**: Perfect for research and education
+
+For Franklin users, Docker works invisibly to provide a consistent, reliable environment for all exercises. While you don't need to be a Docker expert, understanding the basics helps you troubleshoot issues and leverage Docker for your own projects beyond Franklin.

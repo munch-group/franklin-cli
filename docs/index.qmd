@@ -23,7 +23,13 @@ New to programming? Start here for a gentle introduction.
 
 **Get started in 5 minutes:**
 ```bash
-conda install -c munch-group franklin
+# Install Pixi (one-time setup)
+curl -fsSL https://pixi.sh/install.sh | bash
+
+# Install Franklin
+pixi global install franklin --channel conda-forge --channel munch-group
+
+# Start working
 franklin download
 franklin jupyter
 ```
@@ -39,7 +45,7 @@ Create and distribute exercises that work everywhere.
 
 **Create your first exercise:**
 ```bash
-conda install -c munch-group franklin-educator
+pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
 franklin exercise new
 franklin exercise edit
 ```
@@ -73,7 +79,7 @@ Students focus on learning, not troubleshooting. Franklin handles all environmen
 Same experience on Windows, Mac, and Linux. No more "works on my machine" problems. Every student sees identical results.
 
 ### 📦 **Smart Dependencies**
-Automatic dependency detection from notebook imports. Pixi package manager ensures reproducible environments across all platforms.
+Automatic dependency detection from notebook imports. Uses Pixi, a modern, fast package manager that ensures reproducible environments across all platforms.
 
 ### 🐳 **Container Isolation**
 Each exercise runs in its own Docker container. No conflicts between courses, no pollution of system Python, complete isolation.
@@ -128,7 +134,7 @@ Designed specifically for teaching. Features like exercise templates, automated 
 
 ```bash
 # 1. Install Franklin (one-time setup)
-conda install -c conda-forge -c munch-group franklin
+pixi global install franklin --channel conda-forge --channel munch-group
 
 # 2. Download an exercise
 franklin download
@@ -146,7 +152,7 @@ franklin jupyter
 
 ```bash
 # 1. Install Franklin with educator tools
-conda install -c conda-forge -c munch-group franklin-educator
+pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
 
 # 2. Create a new exercise
 franklin exercise new

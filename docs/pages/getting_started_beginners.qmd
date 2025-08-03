@@ -20,12 +20,12 @@ You don't need to understand how it works – just follow the simple commands be
 
 ## Before You Start
 
-### Step 1: Install Python (One-Time Setup)
+### Step 1: Install Pixi (One-Time Setup)
 
-Python is the programming language you'll be learning. We recommend installing it through **Miniforge**, which is free and easy to use.
+Pixi is a modern package manager that Franklin uses. It's fast, reliable, and easy to install.
 
-{{< video videos/install-python-overview.mp4 
-    title="Installing Python with Miniforge (2 min)"
+{{< video videos/install-pixi-overview.mp4 
+    title="Installing Pixi Package Manager (2 min)"
     width="100%" 
     height="400"
 >}}
@@ -34,30 +34,54 @@ Python is the programming language you'll be learning. We recommend installing i
 
 ### Windows
 
-1. Visit [Miniforge Downloads](https://conda-forge.org/download/)
-2. Click on **Windows** and download the installer
-3. Double-click the downloaded file
-4. Follow the installer:
-   - Click "Next" through the screens
-   - Select "Just Me" when asked
-   - Use the default installation location
-   - Check "Add Miniforge3 to my PATH" when prompted
-5. Restart your computer
+1. Open PowerShell as Administrator:
+   - Press Windows key
+   - Type "PowerShell"
+   - Right-click and select "Run as Administrator"
+
+2. Copy and paste this command, then press Enter:
+   ```powershell
+   iwr -useb https://pixi.sh/install.ps1 | iex
+   ```
+
+3. Close PowerShell and open a new regular PowerShell window
+
+4. Verify installation:
+   ```powershell
+   pixi --version
+   ```
 
 ### Mac
 
-1. Visit [Miniforge Downloads](https://conda-forge.org/download/)
-2. Click on **MacOS** and download the installer for your Mac type:
-   - Apple Silicon (M1/M2/M3) → Download the `arm64` version
-   - Intel Mac → Download the `x86_64` version
-   - Not sure? Click the Apple menu → About This Mac → Look for "Chip"
-3. Open Terminal (find it in Applications → Utilities)
-4. Type this command and press Enter:
+1. Open Terminal (find it in Applications → Utilities)
+
+2. Copy and paste this command, then press Enter:
    ```bash
-   bash ~/Downloads/Miniforge3-MacOSX-*.sh
+   curl -fsSL https://pixi.sh/install.sh | bash
    ```
-5. Press Enter to continue, type `yes` when asked
-6. Close and reopen Terminal
+
+3. Close Terminal and open a new Terminal window
+
+4. Verify installation:
+   ```bash
+   pixi --version
+   ```
+
+### Linux
+
+1. Open your terminal
+
+2. Copy and paste this command, then press Enter:
+   ```bash
+   curl -fsSL https://pixi.sh/install.sh | bash
+   ```
+
+3. Restart your terminal
+
+4. Verify installation:
+   ```bash
+   pixi --version
+   ```
 
 :::
 
@@ -66,17 +90,30 @@ Python is the programming language you'll be learning. We recommend installing i
 Now we'll install Franklin itself. This only takes a minute!
 
 1. Open your terminal/command prompt:
-   - **Windows**: Press Windows key, type "Miniforge Prompt", press Enter
-   - **Mac**: Open Terminal from Applications → Utilities
+   - **Windows**: Open PowerShell (press Windows key, type "PowerShell", press Enter)
+   - **Mac/Linux**: Open Terminal
 
 2. Copy and paste this command, then press Enter:
    ```bash
-   conda install -c conda-forge -c munch-group franklin
+   pixi global install franklin --channel conda-forge --channel munch-group
    ```
 
-3. When prompted, type `y` and press Enter
+3. Verify Franklin is installed:
+   ```bash
+   franklin --version
+   ```
 
 That's it! Franklin is now installed and will keep itself updated automatically.
+
+### Alternative: Using Conda
+
+If your instructor specifically requires conda/miniforge:
+
+1. Install [Miniforge](https://conda-forge.org/download/) following their instructions
+2. Install Franklin:
+   ```bash
+   conda install -c conda-forge -c munch-group franklin
+   ```
 
 ## Your First Exercise
 
@@ -176,6 +213,10 @@ franklin --help
 
 Franklin updates automatically, but you can force an update:
 ```bash
+# Using pixi
+pixi global update franklin
+
+# Using conda (if you installed with conda)
 conda update franklin
 ```
 

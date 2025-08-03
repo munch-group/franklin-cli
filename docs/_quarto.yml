@@ -86,6 +86,7 @@ website:
         - section: "Setup & Configuration"
           contents:
             - pages/computer_setup.qmd
+            - pages/automatic_updates.qmd
             - pages/conda.qmd
             - pages/docker.qmd
             - pages/gitlab.qmd

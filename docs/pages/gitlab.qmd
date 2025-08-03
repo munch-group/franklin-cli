@@ -1,65 +1,557 @@
 ---
-title: Gitlab server
+title: "Introduction to GitLab"
+subtitle: "Code Collaboration and CI/CD Platform"
 ---
 
-::: {.callout-caution }  
-## Under development  
-The content of this page is being developed.  
+## What is GitLab?
+
+GitLab is a complete DevOps platform that combines Git repository hosting with powerful collaboration and automation tools. While GitHub might be more familiar, GitLab offers unique advantages for educational environments, especially when self-hosted by universities.
+
+### GitLab vs GitHub
+
+| Feature | GitLab | GitHub |
+|---------|--------|--------|
+| **Hosting** | Self-hosted or cloud | Primarily cloud |
+| **CI/CD** | Built-in, unlimited | Actions with limits |
+| **Privacy** | Complete control (self-hosted) | Microsoft-owned |
+| **Free Features** | More generous | More limited |
+| **Integration** | All-in-one platform | Requires multiple tools |
+
+## Why GitLab for Education?
+
+Educational institutions often choose GitLab because:
+
+1. **Data Control**: Self-hosted instances keep student work on university servers
+2. **Unlimited CI/CD**: No minute limits for automated testing and deployment
+3. **Private Projects**: Free private repositories for all students
+4. **Integration**: Works seamlessly with university authentication (LDAP, SAML)
+5. **Compliance**: Meets educational privacy requirements
+
+## Core GitLab Features
+
+### Repository Management
+
+GitLab hosts Git repositories with additional features:
+
+```mermaid
+graph LR
+    A[Local Code] -->|git push| B[GitLab Repo]
+    B -->|git pull| C[Collaborator]
+    B -->|Merge Request| D[Code Review]
+    D -->|Approved| E[Main Branch]
+```
+
+### Project Organization
+
+```
+GitLab Instance
+├── Groups (Courses)
+│   ├── Subgroups (Semesters)
+│   └── Projects (Exercises)
+└── Personal Projects
+    └── Student Work
+```
+
+### CI/CD Pipelines
+
+Automatic testing and deployment:
+
+```yaml
+# .gitlab-ci.yml
+test:
+  script:
+    - python -m pytest
+    - pixi run test-notebook
+  
+deploy:
+  script:
+    - franklin exercise publish
+```
+
+## Getting Started with GitLab
+
+### Step 1: Access Your GitLab Instance
+
+Universities typically host GitLab at:
+- `gitlab.university.edu`
+- `git.university.edu`
+- `code.university.edu`
+
+```bash
+# Example URLs
+https://gitlab.au.dk        # Aarhus University
+https://gitlab.ethz.ch      # ETH Zurich
+https://gitlab.com          # Public GitLab
+```
+
+### Step 2: Sign In
+
+Most university GitLab instances use Single Sign-On (SSO):
+
+1. Navigate to your GitLab instance
+2. Click "Sign in with SSO" or "University Login"
+3. Enter your university credentials
+4. Authorize GitLab access
+
+::: {.callout-tip}
+## First Time Login
+On first login, GitLab may ask to:
+- Confirm your email
+- Set up two-factor authentication
+- Complete your profile
 :::
 
+### Step 3: Set Up SSH Keys
 
-![alt text](images/pipeline_example.png)
+SSH keys enable secure, password-less access to GitLab.
 
-![alt text](images/pipeline_example_nomenu.png)
+#### Generate SSH Keys
 
+```bash
+# Check for existing keys
+ls -la ~/.ssh
 
-Introduction to GitLab
+# Generate new Ed25519 key (recommended)
+ssh-keygen -t ed25519 -C "your.email@university.edu"
 
-GitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.
+# Or RSA key (fallback)
+ssh-keygen -t rsa -b 4096 -C "your.email@university.edu"
+```
 
-GitLab enables individuals and teams to collaborate on code by providing:
+When prompted:
+1. Press Enter for default location
+2. Enter a passphrase (optional but recommended)
+3. Confirm passphrase
 
-Git repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails.
-Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows.
-CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository.
-Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration.
-Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains.
-GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.
+#### Add SSH Key to GitLab
 
-In summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.
+1. **Copy your public key**:
+   ```bash
+   # For Ed25519
+   cat ~/.ssh/id_ed25519.pub
+   
+   # For RSA
+   cat ~/.ssh/id_rsa.pub
+   ```
 
+2. **Add to GitLab**:
+   - Click your avatar → **Preferences**
+   - Navigate to **SSH Keys** in sidebar
+   - Paste your public key
+   - Give it a title (e.g., "Laptop")
+   - Set expiration (optional)
+   - Click **Add key**
 
+3. **Test connection**:
+   ```bash
+   ssh -T git@gitlab.university.edu
+   # Should see: "Welcome to GitLab, @username!"
+   ```
 
-## set up gitlab
+## Working with GitLab Projects
 
-### sign in
-Go to gitlab by following [this link](https://gitlab.au.dk)
-On the sign-in page, choose the login option called login with Uni-add. 
+### Creating a Project
 
-### SSH keys - what is that and why do i need it?
-SSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.
+1. Click **New project** button
+2. Choose creation method:
+   - **Create blank project**: Start from scratch
+   - **Create from template**: Use predefined templates
+   - **Import project**: From GitHub, Bitbucket, etc.
 
-### How do i get a SSH key?
+3. Configure project:
+   ```
+   Project name: my-assignment
+   Project URL: gitlab.university.edu/username/
+   Visibility: Private (default for coursework)
+   Initialize with README: Yes
+   ```
 
-kaspers guide
+### Cloning a Project
 
-### insert SSH key to gitlab
-To access your SSH keys you use the command: 
-cat ~/.ssh/id_rsa.pub
+```bash
+# With SSH (recommended)
+git clone git@gitlab.university.edu:username/project.git
 
-It is very important that you choose the rsa.pub version.
+# With HTTPS (requires password)
+git clone https://gitlab.university.edu/username/project.git
 
-After you have run the command cat ~/.ssh/id_rsa.pub in your terminal  a long line of letters and number will appear in your terminal. This is your SSH key. 
-Now copy it and go back to the [gitlab webpage](https://gitlab.au.dk) 
+# Clone into specific folder
+git clone git@gitlab.university.edu:username/project.git my-folder
+```
 
-Then press the icon on the top beside the picture that represent your profile and find the option called "edit profile" in the dropdown menu
-It should look like this: ![alt text](<images/Skærmbillede 2025-05-27 kl. 13.42.11.png>)
+### Basic GitLab Workflow
 
-Now you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.
+```bash
+# 1. Clone project
+git clone git@gitlab.university.edu:course/exercise.git
+cd exercise
 
-The page should look something like the figure below:
-![alt text](<images/Skærmbillede 2025-05-27 kl. 13.40.10.png>)
+# 2. Create feature branch
+git checkout -b my-solution
 
-In the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this. 
+# 3. Make changes
+echo "Solution code" > solution.py
 
-You are now ready to use gitlab!
+# 4. Commit changes
+git add solution.py
+git commit -m "Add solution for problem 1"
+
+# 5. Push to GitLab
+git push origin my-solution
+
+# 6. Create Merge Request in GitLab UI
+```
+
+## Merge Requests (MRs)
+
+Merge Requests are GitLab's way of proposing changes:
+
+### Creating a Merge Request
+
+1. Push your branch to GitLab
+2. GitLab shows banner: "Create merge request"
+3. Fill in details:
+   - **Title**: Clear description of changes
+   - **Description**: Detailed explanation
+   - **Assignee**: Person to review
+   - **Milestone**: Related deadline
+   - **Labels**: Categories (bug, feature, etc.)
+
+### Merge Request Features
+
+- **Code Review**: Line-by-line comments
+- **CI/CD Integration**: Automatic testing
+- **Discussions**: Threaded conversations
+- **Approvals**: Require reviews before merging
+- **Diffs**: Visual comparison of changes
+
+## GitLab CI/CD
+
+### Understanding Pipelines
+
+GitLab CI/CD runs automated tasks when you push code:
+
+```mermaid
+graph LR
+    A[Push Code] --> B[Pipeline Triggers]
+    B --> C[Build Stage]
+    C --> D[Test Stage]
+    D --> E[Deploy Stage]
+    E --> F[Success/Failure]
+```
+
+### Basic Pipeline Configuration
+
+Create `.gitlab-ci.yml` in your repository:
+
+```yaml
+# Define stages
+stages:
+  - build
+  - test
+  - deploy
+
+# Build job
+build:
+  stage: build
+  script:
+    - echo "Building project..."
+    - pip install -r requirements.txt
+
+# Test job
+test:
+  stage: test
+  script:
+    - echo "Running tests..."
+    - python -m pytest
+    - python -m mypy .
+
+# Deploy job (only on main branch)
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying..."
+    - franklin exercise publish
+  only:
+    - main
+```
+
+### Pipeline Status
+
+View pipeline status:
+- Green checkmark ✓ = Passed
+- Red X = Failed
+- Yellow circle = Running
+- Gray circle = Pending
+
+## GitLab for Franklin Users
+
+### Student Workflow
+
+Franklin integrates seamlessly with GitLab:
+
+```bash
+# Download exercise from GitLab
+franklin download
+# → Automatically uses GitLab API
+# → Clones with proper authentication
+
+# Work on exercise
+franklin jupyter
+
+# Commit changes
+git add -A
+git commit -m "Complete exercise"
+git push
+```
+
+### Educator Workflow
+
+```bash
+# Create exercise repository
+franklin exercise new
+
+# Set up GitLab project
+git remote add origin git@gitlab.university.edu:course/exercise.git
+git push -u origin main
+
+# Configure CI/CD
+cat > .gitlab-ci.yml << EOF
+test:
+  image: python:3.10
+  script:
+    - pip install pixi
+    - pixi run test-notebook
+EOF
+
+# Publish to students
+franklin exercise publish
+```
+
+### GitLab Groups for Courses
+
+Organize courses using GitLab groups:
+
+```
+gitlab.university.edu/
+├── cs101-fall2024/          # Course group
+│   ├── exercises/            # Subgroup
+│   │   ├── week1/           # Exercise project
+│   │   ├── week2/
+│   │   └── final-project/
+│   └── solutions/            # Private subgroup
+└── cs102-spring2025/
+```
+
+## Advanced GitLab Features
+
+### Issue Tracking
+
+Track tasks, bugs, and questions:
+
+```markdown
+# Issue Template
+## Problem Description
+Describe the issue...
+
+## Steps to Reproduce
+1. Run `franklin jupyter`
+2. Open notebook
+3. Error appears
+
+## Expected Behavior
+What should happen...
+
+## Environment
+- OS: Windows 11
+- Franklin: 0.24.165
+```
+
+### Wiki Pages
+
+Document your project:
+- Project overview
+- API documentation
+- Installation guide
+- Troubleshooting
+
+### Protected Branches
+
+Prevent accidental changes:
+1. Settings → Repository → Protected branches
+2. Select branch (e.g., `main`)
+3. Configure:
+   - Allowed to merge: Maintainers
+   - Allowed to push: No one
+
+### Access Tokens
+
+For automation and scripts:
+
+```bash
+# Create personal access token
+# GitLab → Settings → Access Tokens
+
+# Use in scripts
+git clone https://oauth2:YOUR_TOKEN@gitlab.university.edu/project.git
+
+# Or with Franklin
+export GITLAB_TOKEN=YOUR_TOKEN
+franklin download --token
+```
+
+## Troubleshooting GitLab
+
+### SSH Connection Issues
+
+```bash
+# Debug SSH connection
+ssh -vvv git@gitlab.university.edu
+
+# Common fixes:
+# 1. Check SSH agent
+ssh-add -l
+
+# 2. Add key to agent
+ssh-add ~/.ssh/id_ed25519
+
+# 3. Check permissions
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+```
+
+### Authentication Problems
+
+```bash
+# HTTPS credentials
+git config --global credential.helper store
+
+# SSH configuration
+cat >> ~/.ssh/config << EOF
+Host gitlab.university.edu
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    Port 22
+EOF
+```
+
+### Push Rejected
+
+Common reasons and solutions:
+
+1. **Protected branch**: Create merge request instead
+2. **No permissions**: Check project access level
+3. **Large files**: Use Git LFS for files >100MB
+4. **Outdated branch**: Pull and merge first
+
+```bash
+# Update your branch
+git pull origin main
+git merge main
+git push
+```
+
+## GitLab Best Practices
+
+### For Students
+
+✅ **Do:**
+- Use descriptive commit messages
+- Create merge requests for review
+- Keep repositories organized
+- Use issues for questions
+- Tag releases for submissions
+
+❌ **Don't:**
+- Commit sensitive data (passwords, keys)
+- Force push to shared branches
+- Delete other people's branches
+- Ignore CI/CD failures
+
+### For Educators
+
+✅ **Do:**
+- Use templates for consistency
+- Set up CI/CD for auto-grading
+- Create protected branches
+- Document requirements in README
+- Use milestones for deadlines
+
+❌ **Don't:**
+- Store solutions in public repos
+- Forget to test pipelines
+- Ignore student access issues
+- Skip documentation
+
+## GitLab vs Local Git
+
+| Operation | Local Git | GitLab |
+|-----------|-----------|--------|
+| Version control | ✓ | ✓ |
+| Branching | ✓ | ✓ |
+| Collaboration | ✗ | ✓ |
+| Backup | ✗ | ✓ |
+| CI/CD | ✗ | ✓ |
+| Issue tracking | ✗ | ✓ |
+| Code review | ✗ | ✓ |
+| Wiki/Docs | ✗ | ✓ |
+
+## Quick Reference
+
+### Essential GitLab Commands
+
+```bash
+# Clone project
+git clone git@gitlab.university.edu:project.git
+
+# Add GitLab remote
+git remote add origin git@gitlab.university.edu:project.git
+
+# Push new branch
+git push -u origin feature-branch
+
+# Update from GitLab
+git pull origin main
+
+# Check remote
+git remote -v
+```
+
+### GitLab CLI (Optional)
+
+```bash
+# Install GitLab CLI
+brew install glab        # macOS
+winget install glab      # Windows
+
+# Authenticate
+glab auth login
+
+# Create MR from terminal
+glab mr create --title "Add feature"
+
+# View pipelines
+glab pipeline list
+```
+
+## Resources
+
+### Documentation
+- [GitLab Docs](https://docs.gitlab.com)
+- [GitLab University](https://university.gitlab.com)
+- [Git Basics](https://git-scm.com/book)
+
+### Learning
+- [GitLab 101](https://gitlab.com/gitlab-org/gitlab-101)
+- [CI/CD Examples](https://docs.gitlab.com/ee/ci/examples/)
+- [GitLab Flow](https://about.gitlab.com/topics/version-control/what-is-gitlab-flow/)
+
+## Summary
+
+GitLab is more than just Git hosting—it's a complete platform for:
+- **Version Control**: Track all changes to your code
+- **Collaboration**: Work with classmates and instructors
+- **Automation**: Test and deploy automatically
+- **Organization**: Manage projects, issues, and documentation
+
+For Franklin users, GitLab provides the infrastructure for distributing exercises, submitting solutions, and automated grading. Master these GitLab basics, and you'll be ready for both academic work and professional software development!

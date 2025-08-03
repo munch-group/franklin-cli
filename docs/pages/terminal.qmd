@@ -1,64 +1,593 @@
 ---
-title: The terminal
+title: "Introduction to the Terminal"
+subtitle: "Your Command Line Interface"
 ---
 
-::: {.callout-caution }  
-## Under development  
-The content of this page is being developed.  
+## What is a Terminal?
+
+A terminal (also called command line, shell, or console) is a text-based interface for interacting with your computer. Instead of clicking buttons and icons, you type commands to tell the computer what to do. While it might seem intimidating at first, the terminal is an incredibly powerful tool that gives you precise control over your system.
+
+### Why Learn the Terminal?
+
+- **Power**: Many tasks are faster and more efficient in the terminal
+- **Automation**: Chain commands together and create scripts
+- **Remote Access**: Control servers and other computers remotely
+- **Development**: Essential for programming and data science
+- **Franklin**: Many Franklin commands work best from the terminal
+
+## Opening Your Terminal
+
+::: {.panel-tabset}
+
+### macOS
+
+1. Press `Cmd + Space` to open Spotlight
+2. Type "Terminal" and press Enter
+3. Or: Find Terminal in Applications → Utilities
+
+You'll see something like:
+```bash
+username@MacBook-Pro ~ %
+```
+
+### Windows
+
+1. Press `Windows Key`
+2. Type "PowerShell" or "Command Prompt"
+3. Or: Right-click Start Menu → Windows Terminal
+
+You'll see something like:
+```powershell
+PS C:\Users\username>
+```
+
+### Linux
+
+1. Press `Ctrl + Alt + T` (most distributions)
+2. Or: Find Terminal in your applications menu
+
+You'll see something like:
+```bash
+username@computer:~$
+```
+
 :::
 
+## Understanding the Prompt
 
-[this primer](https://lifehacker.com/5633909/who-needs-a-mouse-learn-to-use-the-command-line-for-almost-anything) before you go on.
+The prompt shows you important information:
 
+```bash
+username@hostname:current_directory$
+```
 
-A terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.
+- **username**: Your user account name
+- **hostname**: Your computer's name
+- **current_directory**: Where you are in the file system
+- **$** or **%**: Indicates you can type a command
 
-Historically, "terminals" referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.
+## Essential Navigation Commands
 
-Key characteristics of a terminal include:
+### Where Am I? (`pwd`)
 
-Command-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output.
-Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking).
-Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, >, etc.).
-Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming.
-The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.
+The `pwd` command (print working directory) shows your current location:
 
-
-Ctrl-C for abort
-
-
-
-You also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows'
-
-![Figure 1.1](<images/Skærmbillede 2025-05-22 kl. 16.44.43.png>)
-
-![Figure 1.2](<images/Skærmbillede 2025-05-22 kl. 16.45.05.png>)
-
-What is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as "the terminal"
-
-### Navigating folders via the terminal
-The terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt. 
-
-When you open the terminal you'll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:
-
+```bash
 pwd
-/Users/kasper/programming 
+# Output: /Users/username/Documents
+```
 
-If the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or "full address" of the folder with dashes (or backslashes on windows) separating nested
-folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way
-you not only know which folder you are in but also where that folder is. Let us see what
-is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)
+### What's Here? (`ls`)
 
+The `ls` command lists files and folders:
+
+```bash
+# Basic listing
 ls
-notes 
-projects
 
-It seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can "walk" into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:
+# Detailed listing with sizes and dates
+ls -l
 
-cd notes
+# Show hidden files (starting with .)
+ls -a
 
+# Human-readable file sizes
+ls -lh
+```
 
-It seems that nothing really happened, but if I run the pwd command  now to see which folder I am in, I get:
+### Moving Around (`cd`)
 
-pwd
-/Users/kasper/programming/notes
+The `cd` command (change directory) moves between folders:
+
+```bash
+# Go to a specific folder
+cd Documents
+
+# Go to home directory
+cd ~
+# or just
+cd
+
+# Go up one level
+cd ..
+
+# Go up two levels
+cd ../..
+
+# Go to previous directory
+cd -
+
+# Use absolute path
+cd /Users/username/Documents
+
+# Use relative path
+cd ./subfolder
+```
+
+## Working with Files and Folders
+
+### Creating Files and Folders
+
+```bash
+# Create a new folder
+mkdir my_project
+mkdir -p projects/python/data_analysis  # Create nested folders
+
+# Create an empty file
+touch notes.txt
+
+# Create and write to a file
+echo "Hello World" > greeting.txt
+
+# Append to a file
+echo "Another line" >> greeting.txt
+```
+
+### Viewing File Contents
+
+```bash
+# View entire file
+cat filename.txt
+
+# View with pagination
+less filename.txt  # Press 'q' to quit
+
+# View first 10 lines
+head filename.txt
+
+# View last 10 lines
+tail filename.txt
+
+# View last lines as file updates (great for logs)
+tail -f logfile.log
+```
+
+### Copying, Moving, and Deleting
+
+```bash
+# Copy file
+cp source.txt destination.txt
+
+# Copy folder recursively
+cp -r source_folder destination_folder
+
+# Move/rename file or folder
+mv old_name.txt new_name.txt
+mv file.txt /path/to/destination/
+
+# Delete file
+rm file.txt
+
+# Delete empty folder
+rmdir empty_folder
+
+# Delete folder and contents (careful!)
+rm -r folder_name
+
+# Delete with confirmation
+rm -i file.txt
+```
+
+## Useful Shortcuts and Tips
+
+### Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Tab` | Auto-complete file/folder names |
+| `↑` / `↓` | Navigate command history |
+| `Ctrl + C` | Cancel current command |
+| `Ctrl + A` | Go to beginning of line |
+| `Ctrl + E` | Go to end of line |
+| `Ctrl + L` | Clear screen (or use `clear`) |
+| `Ctrl + R` | Search command history |
+| `Ctrl + D` | Exit terminal |
+
+### Command History
+
+```bash
+# View command history
+history
+
+# Run previous command
+!!
+
+# Run command from history
+!123  # Run command number 123
+
+# Search history
+history | grep "git"
+```
+
+### Wildcards and Patterns
+
+```bash
+# * matches any characters
+ls *.txt           # All .txt files
+rm temp_*          # All files starting with temp_
+
+# ? matches single character
+ls file?.txt       # Matches file1.txt, file2.txt, etc.
+
+# [...] matches any character in brackets
+ls file[123].txt   # Matches file1.txt, file2.txt, file3.txt
+```
+
+## Finding Things
+
+### Finding Files
+
+```bash
+# Find files by name
+find . -name "*.py"
+
+# Find folders
+find . -type d -name "data"
+
+# Find files modified in last 24 hours
+find . -mtime -1
+
+# Find and execute command
+find . -name "*.txt" -exec cat {} \;
+```
+
+### Searching File Contents
+
+```bash
+# Search for text in file
+grep "search term" file.txt
+
+# Search recursively in all files
+grep -r "TODO" .
+
+# Case-insensitive search
+grep -i "python" file.txt
+
+# Show line numbers
+grep -n "error" logfile.log
+
+# Search for files containing text
+grep -l "import pandas" *.py
+```
+
+## Working with Processes
+
+### Running Programs
+
+```bash
+# Run a Python script
+python script.py
+
+# Run in background
+python long_script.py &
+
+# Run and disconnect from terminal
+nohup python script.py &
+```
+
+### Managing Processes
+
+```bash
+# List running processes
+ps aux
+
+# Find specific process
+ps aux | grep python
+
+# Kill a process
+kill 1234  # Kill process with ID 1234
+
+# Force kill
+kill -9 1234
+
+# Interactive process viewer
+top  # Press 'q' to quit
+```
+
+## Input/Output Redirection
+
+### Redirecting Output
+
+```bash
+# Redirect output to file
+ls > file_list.txt
+
+# Append to file
+ls >> file_list.txt
+
+# Redirect errors
+command 2> errors.txt
+
+# Redirect both output and errors
+command &> all_output.txt
+```
+
+### Pipes
+
+Chain commands together:
+
+```bash
+# Count Python files
+ls | grep ".py" | wc -l
+
+# Find and sort
+find . -name "*.txt" | sort
+
+# View processes using most memory
+ps aux | sort -k4 -r | head
+```
+
+## Environment Variables
+
+```bash
+# View all environment variables
+env
+
+# View specific variable
+echo $PATH
+echo $HOME
+
+# Set temporary variable
+export MY_VAR="value"
+
+# Add to PATH
+export PATH=$PATH:/new/path
+```
+
+## Franklin in the Terminal
+
+Franklin is designed to work seamlessly from the terminal:
+
+```bash
+# Check Franklin installation
+franklin --version
+
+# Download exercises
+franklin download
+
+# Start Jupyter
+franklin jupyter
+
+# Get help
+franklin --help
+franklin jupyter --help
+```
+
+### Common Franklin Workflows
+
+```bash
+# Student workflow
+cd ~/Documents/Courses
+franklin download
+cd "Exercise Name"
+franklin jupyter
+
+# Educator workflow
+franklin exercise new
+cd my-exercise
+franklin exercise edit
+franklin exercise test
+franklin exercise publish
+```
+
+## Terminal for Different Shells
+
+::: {.panel-tabset}
+
+### Bash (Linux/Mac)
+
+Most common shell with extensive features:
+
+```bash
+# Check current shell
+echo $SHELL
+
+# Bash-specific features
+alias ll='ls -la'
+source ~/.bashrc
+```
+
+### Zsh (Mac default)
+
+Enhanced Bash with better completion:
+
+```bash
+# Zsh configuration
+~/.zshrc
+
+# Powerful tab completion
+cd /u/l/b<Tab>  # Expands to /usr/local/bin
+```
+
+### PowerShell (Windows)
+
+Object-oriented shell:
+
+```powershell
+# PowerShell commands
+Get-ChildItem  # Like ls
+Set-Location   # Like cd
+Get-Content    # Like cat
+
+# Aliases work too
+ls
+cd
+cat
+```
+
+:::
+
+## Terminal Customization
+
+### Creating Aliases
+
+Make shortcuts for common commands:
+
+```bash
+# Add to ~/.bashrc or ~/.zshrc
+alias ll='ls -la'
+alias gs='git status'
+alias jp='franklin jupyter'
+alias py='python'
+
+# Reload configuration
+source ~/.bashrc
+```
+
+### Customizing Prompt
+
+```bash
+# Simple prompt
+PS1='\u@\h:\w\$ '
+
+# Colorful prompt
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+```
+
+## Best Practices
+
+### Safety First
+- ✅ Use `ls` before `rm` to verify what you're deleting
+- ✅ Use `-i` flag with `rm` for confirmation
+- ✅ Make backups before major operations
+- ✅ Test commands on sample data first
+
+### Efficiency Tips
+- ✅ Use Tab completion extensively
+- ✅ Create aliases for repetitive commands
+- ✅ Learn keyboard shortcuts
+- ✅ Use command history
+
+### Organization
+- ✅ Use descriptive file and folder names
+- ✅ Organize projects in dedicated directories
+- ✅ Keep your home directory clean
+- ✅ Use version control (Git) for code
+
+## Common Terminal Tasks
+
+### Quick File Backup
+
+```bash
+# Backup single file
+cp important.txt important_backup.txt
+
+# Backup with date
+cp important.txt important_$(date +%Y%m%d).txt
+
+# Backup entire folder
+tar -czf backup.tar.gz my_folder/
+```
+
+### Batch Operations
+
+```bash
+# Rename multiple files
+for file in *.txt; do
+    mv "$file" "backup_$file"
+done
+
+# Convert all CSV to lowercase names
+for file in *.CSV; do
+    mv "$file" "${file,,}"
+done
+```
+
+### Quick System Info
+
+```bash
+# Disk usage
+df -h
+
+# Folder sizes
+du -sh *
+
+# Memory usage
+free -h  # Linux
+top      # Mac/Linux
+
+# Network info
+ifconfig  # or ip addr
+```
+
+## Troubleshooting Common Issues
+
+### Permission Denied
+
+```bash
+# Check permissions
+ls -l file.txt
+
+# Make executable
+chmod +x script.sh
+
+# Change ownership
+sudo chown username file.txt
+```
+
+### Command Not Found
+
+```bash
+# Check if program installed
+which python
+
+# Check PATH
+echo $PATH
+
+# Install missing command
+# Mac: brew install program
+# Linux: apt install program
+# Windows: winget install program
+```
+
+### Stuck Terminal
+
+- **Ctrl + C**: Stop current command
+- **Ctrl + D**: Exit/logout
+- **Ctrl + Z**: Suspend process (use `fg` to resume)
+- **Ctrl + L**: Clear screen
+
+## Resources for Learning More
+
+### Interactive Tutorials
+- [Command Line Tutorial](https://ubuntu.com/tutorials/command-line-for-beginners)
+- [Learn Shell](https://www.learnshell.org/)
+- [Bash Guide](https://mywiki.wooledge.org/BashGuide)
+
+### Practice
+1. Start with navigation: `pwd`, `ls`, `cd`
+2. Create and manipulate files
+3. Learn one new command per day
+4. Automate repetitive tasks
+
+## Summary
+
+The terminal is your direct line of communication with the computer. While graphical interfaces are convenient, the terminal offers:
+
+- **Speed**: Type faster than you can click
+- **Power**: Access to thousands of commands
+- **Automation**: Script repetitive tasks
+- **Remote Access**: Work on distant servers
+- **Development**: Essential for programming
+
+Start with basic navigation, gradually add commands to your toolkit, and soon you'll wonder how you ever lived without it!

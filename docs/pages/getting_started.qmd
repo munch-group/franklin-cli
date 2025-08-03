@@ -42,34 +42,76 @@ The following command command prompts the educator for course and exercise. It t
 franklin exercise edit
 ```
 
-## Installing Miniforge Python
+## Installing Pixi Package Manager
 
-Although franklin works with any python3 distribution, but the [Miniforge distribution](https://conda-forge.org/download/) is strongly recommended.
+Franklin uses [Pixi](https://pixi.sh/latest/), a modern, fast package manager that's fully compatible with conda packages but offers better performance and reliability.
 
-Miniforge is a conda-based community driven Python distribution. It is more robust and does not have the license requirements for large companies now imposed by Anaconda. 
+### Quick Install
+
+::: {.panel-tabset}
+
+### macOS/Linux
+```{.bash filename="Terminal"}
+curl -fsSL https://pixi.sh/install.sh | bash
+```
+
+### Windows
+```{.powershell filename="PowerShell"}
+iwr -useb https://pixi.sh/install.ps1 | iex
+```
+
+:::
+
+After installation, restart your terminal to ensure pixi is in your PATH.
 
 ## Installing Franklin
 
-Students can install franklin into a conda environment like this:
+### For Students
 
 ```{.bash filename="Terminal"}
-conda install -c conda-forge -c munch-group franklin
+# Add the Franklin channel
+pixi global install franklin --channel conda-forge --channel munch-group
+
+# Verify installation
+franklin --version
 ```
 
-Educators also install the `franklin-educator` plugin:
+### For Educators
 
 ```{.bash filename="Terminal"}
+# Install Franklin with educator tools
+pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
+
+# Verify installation
+franklin --version
+franklin exercise --help
+```
+
+### Alternative: Conda Installation
+
+If you prefer using conda/mamba:
+
+```{.bash filename="Terminal"}
+# Students
+conda install -c conda-forge -c munch-group franklin
+
+# Educators
 conda install -c conda-forge -c munch-group franklin franklin-educator
 ```
 
-In courses using [Pixi](https://pixi.sh/latest/) they can install like this:
+## Automatic Updates
+
+Once installed, Franklin updates automatically through pixi's global sync mechanism. This ensures that any update or bugfix is automatically available to students.
+
+To manually check for updates:
 
 ```{.bash filename="Terminal"}
-pixi workspace add channel munch-group
-pixi add franklin franklin-educator
-```
+# Using pixi
+pixi global update franklin
 
-Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.
+# Using conda
+conda update -c conda-forge -c munch-group franklin
+```
 
 ## GitLab administrator setup
 

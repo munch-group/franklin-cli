@@ -1236,7 +1236,6 @@ mse = mean((y_test .- y_pred).^2)
 - Machine learning and deep learning
 - Web applications with data backends
 - Large ecosystem of libraries
-- Franklin ecosystem integration
 
 **R**
 - Statistical analysis and modeling
@@ -1269,37 +1268,6 @@ mse = mean((y_test .- y_pred).^2)
 | **Deep Learning** | TensorFlow, PyTorch | keras, torch | Flux.jl |
 | **Statistics** | scipy, statsmodels | Built-in, many packages | StatsBase.jl |
 
-## Franklin Integration
-
-### Using These Languages in Franklin
-
-Franklin exercises support all three languages through Docker containers:
-
-```python
-# Python in Franklin
-import pandas as pd
-import numpy as np
-# Franklin automatically installs required packages
-```
-
-```r
-# R in Franklin
-library(tidyverse)
-# Use pixi.toml for R package management
-```
-
-```julia
-# Julia in Franklin
-using DataFrames
-# Julia packages managed through Project.toml
-```
-
-### Best Practices for Franklin Exercises
-
-1. **Python (Recommended)**: Default choice for Franklin exercises
-2. **R**: Use for statistics-focused courses
-3. **Julia**: Use for high-performance computing courses
-
 ## Conclusion
 
 Each language has its strengths:
@@ -1323,4 +1291,4 @@ Choose based on your specific needs, team expertise, and project requirements. M
 - [Julia Documentation](https://docs.julialang.org/)
 - [Julia Data Science](https://juliadatascience.io/)
 
-Happy coding in your language of choice!
+Happy coding in your language of choice! 🐍📊📈

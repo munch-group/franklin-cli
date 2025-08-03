@@ -1,68 +1,369 @@
 ---
-title: Git version control
+title: "Introduction to Git"
+subtitle: "Version Control for Your Code"
 ---
 
-::: {.callout-caution }  
-## Under development  
-The content of this page is being developed.  
-:::
+## What is Git?
 
-## TLDR;
+Git is a **version control system** that tracks changes to your files over time. Think of it as a sophisticated "undo" system that remembers every version of your work, allows you to collaborate with others, and helps you organize your coding projects.
 
-Git is a distributed version control system designed to track changes in source code and facilitate collaboration among multiple developers. Originally created by Linus Torvalds in 2005 for managing the Linux kernel, Git has since become the dominant version control tool in software development, underpinning platforms such as GitHub, GitLab, and Bitbucket.
+### Why Do You Need Git?
 
-In Git, every working copy of a repository is a full-fledged versioned archive, containing the entire history of the project. This distributed model enhances performance, enables offline work, and provides a robust foundation for branching and merging workflows. Changes are recorded as commits—snapshots of the project at specific points in time—organized in a directed acyclic graph (DAG).
+Imagine you're writing an essay:
+- You save multiple versions: `essay_v1.doc`, `essay_v2.doc`, `essay_final.doc`, `essay_final_REALLY_final.doc`
+- You accidentally delete an important paragraph
+- You want to see what you changed between versions
+- You're working with a classmate and need to combine your changes
 
-Key concepts include:
+Git solves all these problems elegantly for code (and any text files).
 
-Repository: A data structure containing all commits, branches, and tags for a project.
-Commit: A recorded state of the repository, with metadata about the author, timestamp, and parent commits.
-Branch: A movable pointer to a commit, enabling parallel development paths.
-Merge: The integration of changes from one branch into another, optionally involving conflict resolution.
-Remote: A reference to another copy of the repository, typically hosted on a server.
-Git supports advanced features such as rebasing, cherry-picking, and interactive staging. It also allows for fine-grained control of collaboration through pull requests, code reviews, and access control mechanisms.
+## Core Concepts
 
-While Git has a steep learning curve, especially in conflict resolution and complex branching workflows, its efficiency, reliability, and flexibility make it an indispensable tool in modern software engineering and research computing.
+### Repository (Repo)
+A repository is a folder that Git tracks. It contains all your project files and the entire history of changes.
 
-# Version control {#sec-git-101}
-
-## Git as journaled backup
-
-When you are in your `<repositoryname>` folder, you can run git commands to manage your files, record their changes and sync them to the repository on GitHub for safe keeping. [These tutorials](https://www.atlassian.com/git) are good introductions to git. 
-
-To journal the creation or modification of a file, you need to `add` it to git:
-
-```{.bash filename="Terminal"}
-git add <the_changed_file>
+```bash
+# Turn any folder into a Git repository
+git init
 ```
 
- This "stages" the change. This adds the file to the a "group" of changes that represent some modification to your project. You can add more files to that "group" by running the command again with other files. If you run `git status` you can see that the files are now staged.
+### Commits
+A commit is a snapshot of your work at a specific point in time. Each commit has:
+- A unique ID (hash)
+- Author information
+- Timestamp
+- A message describing the changes
 
-So maybe you added or changed two python files addressing some parcitular problem or advancing some part of your project. Now you want to store those of changes to the journal maintained by Git and associate it with a short message describing the changes. For that you use:
-
-```{.bash filename="Terminal"}
-git commit -m '<message>'
-```
-    
-If you added two python files, your description could be `'Added two python files for my analysis'`. If you fixed a bug or added new code to the files, your message should reflect that. 
-
-Now your changes are recorded in the version of the `<repositoryname>` *on the cluster*, but that does not serve as a backup in case you accidentally delete your entire folder or the cluster burns down. To backup your repository you need to synchronize your *local* `<repositoryname>` repository on the cluster with the `<repositoryname>` repository *on GitHub*. To du that use:
-
-```{.bash filename="Terminal"}
-git push
+```bash
+# Create a commit
+git add myfile.py          # Stage the file
+git commit -m "Add data analysis function"  # Commit with message
 ```
 
-In addition to keeping your precious files safe and backed up, your GitHub repository also serve as a journal documenting of your progress. Each commit is a snapshot if your project that can be retrieved at any time.
+### The Three States
 
-## Git 
+Files in Git exist in three states:
 
+```mermaid
+graph LR
+    A[Working Directory] -->|git add| B[Staging Area]
+    B -->|git commit| C[Repository]
+    C -->|git checkout| A
+```
 
-There is a cheat sheet [here](https://training.github.com/downloads/github-git-cheat-sheet/) and some good visual guides [here](https://ndpsoftware.com/git-cheatsheet.html) and [here](https://marklodato.github.io/visual-git-guide/index-en.html).
+1. **Working Directory**: Where you edit files
+2. **Staging Area**: Where you prepare changes for commit
+3. **Repository**: Where Git permanently stores snapshots
 
+## Essential Git Commands
 
-The three most important commands to learn are: [git status](https://git-scm.com/docs/git-status), [git add](https://git-scm.com/docs/git-add), [git rm](https://git-scm.com/docs/git-rm), [git mv](https://git-scm.com/docs/git-mv), [git commit](https://git-scm.com/docs/git-commit) and [git push](https://git-scm.com/docs/git-push). 
+### Starting a Project
 
+```bash
+# Create a new repository
+git init
 
-### Resolving conflicts
+# Clone an existing repository
+git clone https://github.com/username/project.git
 
-Blah blah...
+# Check repository status
+git status
+```
+
+### Making Changes
+
+```bash
+# Stage specific files
+git add filename.py
+git add data.csv
+
+# Stage all changes
+git add .
+
+# Commit staged changes
+git commit -m "Describe what you changed"
+
+# See what changed
+git diff                    # Changes not yet staged
+git diff --staged          # Changes staged for commit
+```
+
+### Viewing History
+
+```bash
+# View commit history
+git log
+
+# View history with graph
+git log --oneline --graph --all
+
+# View specific commit
+git show abc123
+
+# See who changed what
+git blame filename.py
+```
+
+### Undoing Changes
+
+```bash
+# Discard changes in working directory
+git checkout -- filename.py
+
+# Unstage a file
+git reset HEAD filename.py
+
+# Undo last commit (keep changes)
+git reset --soft HEAD~1
+
+# Undo last commit (discard changes)
+git reset --hard HEAD~1
+```
+
+## Branching and Merging
+
+Branches allow you to work on different features without affecting the main code.
+
+### Working with Branches
+
+```bash
+# Create new branch
+git branch feature-name
+
+# Switch to branch
+git checkout feature-name
+
+# Create and switch in one command
+git checkout -b feature-name
+
+# List branches
+git branch
+
+# Delete branch
+git branch -d feature-name
+```
+
+### Merging Changes
+
+```bash
+# Merge feature branch into current branch
+git merge feature-name
+
+# Resolve merge conflicts manually, then:
+git add conflicted-file.py
+git commit -m "Resolve merge conflict"
+```
+
+## Remote Repositories
+
+Remote repositories (like GitHub, GitLab) allow you to:
+- Back up your code
+- Collaborate with others
+- Share your work
+
+### Working with Remotes
+
+```bash
+# Add remote repository
+git remote add origin https://github.com/username/repo.git
+
+# View remotes
+git remote -v
+
+# Push to remote
+git push origin main
+
+# Pull from remote
+git pull origin main
+
+# Fetch without merging
+git fetch origin
+```
+
+## Git with Franklin
+
+Franklin exercises are Git repositories, making version control seamless:
+
+### Student Workflow
+
+```bash
+# After downloading an exercise
+cd "Exercise Name"
+
+# Check git status
+git status
+
+# Save your work
+git add exercise.ipynb
+git commit -m "Complete part 1 of exercise"
+
+# Create your own backup
+git remote add backup https://github.com/yourusername/solutions.git
+git push backup main
+```
+
+### Educator Workflow
+
+```bash
+# Creating an exercise
+franklin exercise new
+
+# Track changes
+git add -A
+git commit -m "Add exercise instructions"
+
+# Update exercise
+git commit -m "Clarify problem 3"
+franklin exercise publish
+```
+
+## Best Practices
+
+### Commit Messages
+
+Write clear, descriptive commit messages:
+
+```bash
+# Good commit messages
+git commit -m "Add data validation to user input"
+git commit -m "Fix bug in sorting algorithm"
+git commit -m "Update documentation for API endpoints"
+
+# Bad commit messages
+git commit -m "Fixed stuff"
+git commit -m "asdf"
+git commit -m "Monday's work"
+```
+
+### Commit Frequency
+
+- Commit **often**: Small, logical changes
+- Commit **working code**: Don't break the build
+- Commit **related changes**: One commit = one purpose
+
+### .gitignore
+
+Use `.gitignore` to exclude files from version control:
+
+```bash
+# .gitignore file
+*.pyc               # Python compiled files
+__pycache__/        # Python cache directory
+.DS_Store           # Mac system files
+*.log               # Log files
+secrets.txt         # Sensitive information
+venv/               # Virtual environment
+```
+
+## Common Scenarios
+
+### Scenario 1: Accidentally Committed a Large File
+
+```bash
+# Remove file from history
+git rm --cached large_file.zip
+git commit -m "Remove large file"
+
+# Add to .gitignore
+echo "*.zip" >> .gitignore
+git add .gitignore
+git commit -m "Ignore zip files"
+```
+
+### Scenario 2: Need to Switch Tasks Quickly
+
+```bash
+# Save current work without committing
+git stash
+
+# Work on urgent fix
+git checkout main
+# ... make fixes ...
+git commit -m "Emergency fix"
+
+# Return to previous work
+git checkout feature-branch
+git stash pop
+```
+
+### Scenario 3: Made Changes to Wrong Branch
+
+```bash
+# Save changes
+git stash
+
+# Switch to correct branch
+git checkout correct-branch
+
+# Apply changes
+git stash pop
+```
+
+## Git vs GitHub/GitLab
+
+**Git** is the version control system that runs on your computer.
+
+**GitHub/GitLab** are web services that host Git repositories and add features like:
+- Web interface
+- Issue tracking
+- Pull/Merge requests
+- Collaboration tools
+- CI/CD pipelines
+
+## Visual Git Tools
+
+While command line is powerful, visual tools can help:
+
+### GUI Applications
+- **GitKraken**: User-friendly, cross-platform
+- **SourceTree**: Free, comprehensive
+- **GitHub Desktop**: Simple, integrated with GitHub
+- **VS Code**: Built-in Git support
+
+### VS Code Git Integration
+
+VS Code has excellent Git integration:
+- See changes in the sidebar
+- Stage/unstage with clicks
+- Commit with UI
+- View diffs visually
+- Resolve merge conflicts
+
+## Quick Reference
+
+| Command | Purpose |
+|---------|---------|
+| `git init` | Start tracking a folder |
+| `git clone [url]` | Copy a repository |
+| `git add [file]` | Stage changes |
+| `git commit -m "[message]"` | Save snapshot |
+| `git status` | Check what's changed |
+| `git log` | View history |
+| `git branch [name]` | Create branch |
+| `git checkout [branch]` | Switch branches |
+| `git merge [branch]` | Combine branches |
+| `git push` | Upload to remote |
+| `git pull` | Download from remote |
+
+## Learning Resources
+
+### Interactive Tutorials
+- [Learn Git Branching](https://learngitbranching.js.org/) - Visual and interactive
+- [GitHub's Git Tutorial](https://try.github.io/) - Step-by-step guide
+- [Atlassian Git Tutorial](https://www.atlassian.com/git/tutorials) - Comprehensive guide
+
+### Practice
+The best way to learn Git is to use it:
+1. Start with a personal project
+2. Make commits for every change
+3. Try branching for new features
+4. Push to GitHub/GitLab for backup
+
+## Summary
+
+Git might seem complex at first, but you only need a few commands to get started:
+1. `git add` and `git commit` to save your work
+2. `git status` to see what's happening
+3. `git push` and `git pull` to sync with remote
+
+As you become comfortable with these basics, you can gradually explore more advanced features. Remember: Git is a safety net for your code—it's there to help, not to complicate your workflow.

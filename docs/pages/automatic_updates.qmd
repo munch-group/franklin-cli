@@ -1,0 +1,282 @@
+---
+title: "Automatic Updates"
+subtitle: "How Franklin Keeps Itself Updated"
+---
+
+## Overview
+
+Franklin is designed to automatically stay up-to-date, ensuring all users have the latest features and bug fixes without manual intervention. This page explains how automatic updates work with both Pixi and Conda installation methods.
+
+## Update Mechanisms
+
+### Pixi Global Packages
+
+When installed with `pixi global install`, Franklin benefits from Pixi's automatic update features:
+
+```bash
+# Initial installation
+pixi global install franklin --channel conda-forge --channel munch-group
+```
+
+**Automatic Update Process:**
+
+1. **Global Sync**: Pixi periodically checks for updates to global packages
+2. **Version Resolution**: Automatically resolves to the latest compatible version
+3. **Background Updates**: Updates happen transparently when you run Franklin commands
+4. **No User Intervention**: Updates are applied without requiring manual commands
+
+**Manual Update Check:**
+```bash
+# Force immediate update check
+pixi global update franklin
+
+# Update all global packages
+pixi global update --all
+```
+
+### Conda Environment Updates
+
+When installed with conda, Franklin uses conda's update mechanism:
+
+```bash
+# Initial installation
+conda install -c conda-forge -c munch-group franklin
+```
+
+**Update Process:**
+
+1. **Solver-based Updates**: Conda's solver finds the latest compatible version
+2. **Channel Priority**: Updates come from the specified channels in priority order
+3. **Environment Isolation**: Updates are contained within the conda environment
+
+**Manual Update:**
+```bash
+# Update Franklin
+conda update -c conda-forge -c munch-group franklin
+
+# Update all packages in environment
+conda update --all
+```
+
+## Version Pinning and Control
+
+### Preventing Automatic Updates
+
+If you need to lock to a specific version:
+
+#### With Pixi:
+```bash
+# Install specific version
+pixi global install franklin==0.24.165 --channel conda-forge --channel munch-group
+
+# Pin version in project
+echo "franklin==0.24.165" >> pixi.toml
+```
+
+#### With Conda:
+```bash
+# Install specific version
+conda install franklin=0.24.165
+
+# Pin version
+echo "franklin==0.24.165" >> $CONDA_PREFIX/conda-meta/pinned
+```
+
+### Checking Current Version
+
+```bash
+# Check installed version
+franklin --version
+
+# Check available versions (pixi)
+pixi search franklin --channel munch-group
+
+# Check available versions (conda)
+conda search franklin -c munch-group
+```
+
+## Update Channels
+
+Franklin releases follow this pattern:
+
+1. **Development**: Nightly builds (not for production)
+2. **Beta**: Release candidates for testing
+3. **Stable**: Production-ready releases (default)
+
+### Subscribing to Different Channels
+
+```bash
+# Stable (default)
+pixi global install franklin --channel conda-forge --channel munch-group
+
+# Beta channel
+pixi global install franklin --channel conda-forge --channel munch-group/label/beta
+
+# Development builds
+pixi global install franklin --channel conda-forge --channel munch-group/label/dev
+```
+
+## Update Notifications
+
+Franklin checks for updates on startup and notifies you when a new version is available:
+
+```
+╭────────────────────────────────────────────────╮
+│  A new version of Franklin is available!       │
+│  Current: 0.24.165 → Available: 0.24.166      │
+│  Run 'pixi global update franklin' to update   │
+╰────────────────────────────────────────────────╯
+```
+
+### Configuring Update Checks
+
+```bash
+# Disable update notifications
+franklin config set updates.check false
+
+# Change update check frequency (hours)
+franklin config set updates.check_interval 24
+
+# Disable automatic updates (pixi only)
+franklin config set updates.auto_update false
+```
+
+## Plugin Updates
+
+Educator and admin plugins update alongside the main Franklin package:
+
+```bash
+# Update all Franklin components
+pixi global update franklin franklin-educator franklin-admin
+
+# Check plugin versions
+franklin --version
+franklin exercise --version  # Educator plugin
+franklin admin --version     # Admin plugin
+```
+
+## Rollback Procedures
+
+If an update causes issues, you can rollback to a previous version:
+
+### With Pixi:
+```bash
+# View update history
+pixi global list --show-versions
+
+# Rollback to specific version
+pixi global install franklin==0.24.164 --channel conda-forge --channel munch-group
+```
+
+### With Conda:
+```bash
+# View revision history
+conda list --revisions
+
+# Rollback to previous revision
+conda install --revision 2
+
+# Or install specific version
+conda install franklin=0.24.164
+```
+
+## Container Image Updates
+
+Franklin also manages Docker container updates for exercises:
+
+```bash
+# Pull latest base images
+franklin docker pull --latest
+
+# Update exercise containers
+franklin docker update --all
+
+# Clean old images
+franklin docker prune --days 30
+```
+
+## Best Practices
+
+::: {.callout-tip}
+## Update Recommendations
+
+1. **Regular Users**: Let automatic updates run (default behavior)
+2. **During Semester**: Consider pinning version for stability
+3. **Between Semesters**: Update to latest version for new features
+4. **Testing**: Use beta channel in non-production environments
+5. **Production**: Always test updates in staging first
+:::
+
+## Troubleshooting Updates
+
+### Update Fails
+
+```bash
+# Clear package cache
+pixi cache clean
+# or
+conda clean --all
+
+# Force reinstall
+pixi global uninstall franklin
+pixi global install franklin --channel conda-forge --channel munch-group
+```
+
+### Version Conflicts
+
+```bash
+# Check dependencies
+pixi info franklin
+# or
+conda info franklin
+
+# Resolve conflicts
+pixi global update --force
+# or
+conda update --force-reinstall franklin
+```
+
+### Network Issues
+
+```bash
+# Use offline mode if packages are cached
+franklin --offline
+
+# Configure proxy for updates
+export HTTP_PROXY=http://proxy.company.com:8080
+export HTTPS_PROXY=http://proxy.company.com:8080
+```
+
+## Security Updates
+
+Critical security updates are:
+
+1. **Automatically Applied**: Within 24 hours of release
+2. **Logged**: Update history is maintained
+3. **Notified**: Administrators receive security notifications
+4. **Tested**: Updates go through automated testing before release
+
+### Security Update Policy
+
+```bash
+# Check security status
+franklin security status
+
+# View security updates
+franklin security updates --list
+
+# Apply security updates immediately
+franklin security update --now
+```
+
+## Summary
+
+Franklin's automatic update system ensures:
+
+- **Consistency**: All users run the same version
+- **Security**: Critical fixes are applied quickly
+- **Reliability**: Updates are tested before release
+- **Flexibility**: Manual control when needed
+- **Transparency**: Clear notifications and logs
+
+The combination of Pixi's modern package management and Franklin's update checks provides a robust, automatic update system that keeps the platform current without disrupting users' work.

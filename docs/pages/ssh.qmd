@@ -1,60 +1,448 @@
 ---
-title: SSH authentication
+title: "Introduction to SSH"
+subtitle: "Secure Shell for Remote Access"
 ---
 
-::: {.callout-caution }  
-## Under development  
-The content of this page is being developed.  
-:::
+## What is SSH?
 
-## How it works
+SSH (Secure Shell) is a protocol that allows you to securely connect to remote computers over a network. Think of it as a secure telephone line between your computer and another computer—you can run commands, transfer files, and work on the remote machine as if you were sitting right in front of it.
 
-Firstly, you have to understand what public/private encryption keys are. A *private* key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A *public* key is another string of bits that is a derivative of the private key. 
+### Why Use SSH?
 
-You can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read. 
+- **Security**: All communication is encrypted
+- **Remote Work**: Access servers and clusters from anywhere
+- **File Transfer**: Securely copy files between machines
+- **Automation**: Run scripts on remote servers
+- **Git Integration**: Push/pull to GitHub/GitLab without passwords
 
-So, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.
+## How SSH Works
 
-## Setting up password-less GitLab access
+SSH uses a pair of cryptographic keys for authentication:
 
-First, check if you have these two authentication files on your local machine: 
-
-```
-~/.ssh/id_rsa
-~/.ssh/id_rsa.pub
-```
-
-You can do so using the `ls` commmand:
-
-```{.bash filename="Terminal"}
-ls -a ~/.ssh
+```mermaid
+graph LR
+    A[Your Computer<br/>Private Key 🔑] -->|Encrypted Connection| B[Remote Server<br/>Public Key 🔓]
+    B -->|Challenge| A
+    A -->|Response| B
 ```
 
-You most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:
+1. **Private Key**: Secret key that never leaves your computer
+2. **Public Key**: Can be shared freely, stored on servers
+3. **Authentication**: Server verifies you have the matching private key
 
-```{.bash filename="Terminal"}
-ssh-keygen -t rsa
+## Setting Up SSH Keys
 
+### Step 1: Check for Existing Keys
+
+First, check if you already have SSH keys:
+
+```bash
+ls -la ~/.ssh
 ```
 
-Now use `ssh` to create a directory `~/.ssh` on the cluster (assuming your username on the cluster is `<cluster user name>`). SSH will prompt you for your password.
+Look for files like:
+- `id_rsa` (private key)
+- `id_rsa.pub` (public key)
+- `id_ed25519` (newer algorithm private key)
+- `id_ed25519.pub` (newer algorithm public key)
 
-```{.bash filename="Terminal"}
-ssh <cluster user name>@login.genome.au.dk mkdir -p .ssh
+### Step 2: Generate SSH Keys
+
+If you don't have keys, generate them:
+
+```bash
+# Generate RSA key (traditional)
+ssh-keygen -t rsa -b 4096 -C "your.email@example.com"
+
+# Or generate Ed25519 key (recommended, more secure)
+ssh-keygen -t ed25519 -C "your.email@example.com"
 ```
 
-Finally, append the public `ssh` key on your local machine to the file `.ssh/authorized_keys` on the cluster and enter your password (replace `<cluster user name>` with your cluster user name):
+When prompted:
+1. **File location**: Press Enter for default
+2. **Passphrase**: Optional but recommended for extra security
+3. **Confirm passphrase**: Re-enter if you set one
 
-```{.bash filename="Terminal"}
-cat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat >> .ssh/authorized_keys'
+### Step 3: View Your Public Key
+
+```bash
+# Display your public key
+cat ~/.ssh/id_rsa.pub
+# or
+cat ~/.ssh/id_ed25519.pub
 ```
 
-From now on, you can log into the cluster from your local machine without being prompted for a password.
+This is the key you'll share with servers and services.
 
-Try it:
+## Using SSH
 
-```{.bash filename="Terminal"}
-ssh <cluster user name>@login.genome.au.dk
+### Basic Connection
+
+```bash
+# Connect to a remote server
+ssh username@hostname
+
+# Examples
+ssh john@192.168.1.100
+ssh student@server.university.edu
+ssh admin@myserver.com
+
+# Connect with specific port
+ssh -p 2222 username@hostname
 ```
 
-(see, no password).
+### First Connection
+
+When connecting to a new server:
+
+```
+The authenticity of host 'server.com (192.168.1.1)' can't be established.
+RSA key fingerprint is SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxx.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+```
+
+Type `yes` if you trust the server.
+
+### SSH with Password
+
+If you haven't set up key authentication:
+
+```bash
+ssh username@hostname
+# Enter password when prompted
+```
+
+### SSH with Key
+
+Once your public key is on the server:
+
+```bash
+ssh username@hostname
+# No password needed!
+```
+
+## Setting Up Password-less Access
+
+### Method 1: ssh-copy-id (Easiest)
+
+```bash
+# Copy your public key to the server
+ssh-copy-id username@hostname
+
+# Enter your password one last time
+# Future connections won't need a password
+```
+
+### Method 2: Manual Setup
+
+```bash
+# 1. Copy your public key
+cat ~/.ssh/id_rsa.pub
+
+# 2. Connect to server
+ssh username@hostname
+
+# 3. Add key to authorized_keys
+mkdir -p ~/.ssh
+echo "YOUR_PUBLIC_KEY_HERE" >> ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
+## SSH Config File
+
+Simplify connections with SSH config:
+
+### Create/Edit Config
+
+```bash
+nano ~/.ssh/config
+```
+
+### Add Server Configurations
+
+```bash
+# ~/.ssh/config
+
+Host myserver
+    HostName server.example.com
+    User john
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+
+Host university
+    HostName cluster.uni.edu
+    User student123
+    Port 2222
+
+Host gitlab
+    HostName gitlab.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+```
+
+### Use Simplified Names
+
+```bash
+# Instead of:
+ssh john@server.example.com
+
+# Just use:
+ssh myserver
+```
+
+## File Transfer with SSH
+
+### SCP (Secure Copy)
+
+```bash
+# Copy file to remote
+scp localfile.txt username@hostname:/path/to/destination/
+
+# Copy file from remote
+scp username@hostname:/path/to/file.txt ./
+
+# Copy entire directory
+scp -r local_directory/ username@hostname:/path/to/destination/
+
+# Using SSH config alias
+scp file.txt myserver:~/documents/
+```
+
+### SFTP (Secure FTP)
+
+```bash
+# Start SFTP session
+sftp username@hostname
+
+# SFTP commands
+sftp> ls                    # List remote files
+sftp> pwd                   # Show remote directory
+sftp> cd /path/to/dir       # Change remote directory
+sftp> get remote_file.txt   # Download file
+sftp> put local_file.txt    # Upload file
+sftp> exit                  # Close connection
+```
+
+## SSH with Git
+
+### GitHub SSH Setup
+
+1. **Add SSH key to GitHub**:
+   - Go to GitHub → Settings → SSH and GPG keys
+   - Click "New SSH key"
+   - Paste your public key
+
+2. **Test connection**:
+   ```bash
+   ssh -T git@github.com
+   ```
+
+3. **Clone with SSH**:
+   ```bash
+   git clone git@github.com:username/repository.git
+   ```
+
+### GitLab SSH Setup
+
+1. **Add SSH key to GitLab**:
+   - Go to GitLab → Settings → SSH Keys
+   - Paste your public key
+
+2. **Test connection**:
+   ```bash
+   ssh -T git@gitlab.com
+   ```
+
+3. **Use SSH for Git**:
+   ```bash
+   git remote set-url origin git@gitlab.com:username/project.git
+   ```
+
+## SSH Tunneling
+
+Create secure tunnels for accessing remote services:
+
+### Local Port Forwarding
+
+Access remote service through local port:
+
+```bash
+# Access remote database locally
+ssh -L 3306:localhost:3306 username@hostname
+
+# Access remote Jupyter notebook
+ssh -L 8888:localhost:8888 username@hostname
+```
+
+### Example: Remote Jupyter
+
+```bash
+# 1. On remote server, start Jupyter
+jupyter notebook --no-browser --port=8888
+
+# 2. On local machine, create tunnel
+ssh -L 8888:localhost:8888 username@hostname
+
+# 3. Open browser to http://localhost:8888
+```
+
+## SSH Agent
+
+Manage keys and passphrases efficiently:
+
+### Start SSH Agent
+
+```bash
+# Start agent
+eval "$(ssh-agent -s)"
+
+# Add key to agent
+ssh-add ~/.ssh/id_rsa
+
+# Add with passphrase caching
+ssh-add -t 3600 ~/.ssh/id_rsa  # Cache for 1 hour
+```
+
+### List Loaded Keys
+
+```bash
+ssh-add -l
+```
+
+## Common SSH Commands
+
+| Command | Purpose |
+|---------|---------|
+| `ssh user@host` | Connect to remote host |
+| `ssh -p 2222 user@host` | Connect on specific port |
+| `ssh-keygen` | Generate SSH keys |
+| `ssh-copy-id user@host` | Copy public key to server |
+| `scp file user@host:~/` | Copy file to remote |
+| `sftp user@host` | Start SFTP session |
+| `ssh -L 8080:localhost:80 user@host` | Create tunnel |
+| `ssh-add` | Add key to SSH agent |
+| `ssh -X user@host` | Enable X11 forwarding |
+
+## Troubleshooting
+
+### Permission Denied
+
+```bash
+# Check key permissions
+ls -la ~/.ssh/
+
+# Fix permissions
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_rsa
+chmod 644 ~/.ssh/id_rsa.pub
+chmod 600 ~/.ssh/config
+```
+
+### Connection Refused
+
+```bash
+# Check if SSH service is running on server
+ssh -v username@hostname  # Verbose mode
+
+# Common issues:
+# - Wrong port
+# - Firewall blocking connection
+# - SSH service not running
+```
+
+### Key Not Working
+
+```bash
+# Debug authentication
+ssh -vv username@hostname
+
+# Check authorized_keys on server
+cat ~/.ssh/authorized_keys
+
+# Ensure correct permissions on server
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
+## Security Best Practices
+
+### Do's
+- ✅ Use strong passphrases for keys
+- ✅ Use Ed25519 keys (more secure than RSA)
+- ✅ Keep private keys private
+- ✅ Use different keys for different services
+- ✅ Regularly rotate keys
+- ✅ Use SSH config for organization
+
+### Don'ts
+- ❌ Share private keys
+- ❌ Use password authentication when keys are available
+- ❌ Ignore host key warnings
+- ❌ Use weak or no passphrases
+- ❌ Store private keys in insecure locations
+
+## SSH with Franklin
+
+Franklin exercises often involve SSH for:
+
+### Accessing Remote Clusters
+
+```bash
+# SSH to university cluster
+ssh student@cluster.university.edu
+
+# Run Franklin on remote server
+franklin jupyter --remote
+```
+
+### Git Operations
+
+```bash
+# Configure SSH for GitLab
+ssh-keygen -t ed25519 -C "student@university.edu"
+
+# Add to GitLab
+cat ~/.ssh/id_ed25519.pub
+# Copy and paste to GitLab → Settings → SSH Keys
+
+# Clone with SSH
+git clone git@gitlab.university.edu:course/exercise.git
+```
+
+## Quick Setup Guide
+
+For Franklin users, here's a quick SSH setup:
+
+```bash
+# 1. Generate key
+ssh-keygen -t ed25519 -C "your.email@university.edu"
+
+# 2. Start SSH agent
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# 3. Copy public key
+cat ~/.ssh/id_ed25519.pub
+
+# 4. Add to GitHub/GitLab
+# Paste the key in settings
+
+# 5. Test connection
+ssh -T git@github.com
+ssh -T git@gitlab.com
+
+# 6. Configure Git to use SSH
+git config --global url."git@github.com:".insteadOf "https://github.com/"
+git config --global url."git@gitlab.com:".insteadOf "https://gitlab.com/"
+```
+
+## Summary
+
+SSH is essential for:
+- Secure remote access to servers
+- Password-less Git operations
+- Secure file transfers
+- Running remote commands
+
+Start with basic key generation and connections, then explore advanced features like tunneling and agent forwarding as needed. Remember: your private key is like your password—keep it safe and never share it!

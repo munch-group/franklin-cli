@@ -7,6 +7,22 @@ subtitle: "All Commands at a Glance"
 
 ::: {.panel-tabset}
 
+### Pixi (Recommended)
+```bash
+# Install Pixi package manager
+curl -fsSL https://pixi.sh/install.sh | bash  # macOS/Linux
+iwr -useb https://pixi.sh/install.ps1 | iex   # Windows PowerShell
+
+# Students
+pixi global install franklin --channel conda-forge --channel munch-group
+
+# Educators
+pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
+
+# Administrators
+pixi global install franklin-admin --channel conda-forge --channel munch-group
+```
+
 ### Conda
 ```bash
 # Students
@@ -17,17 +33,6 @@ conda install -c conda-forge -c munch-group franklin franklin-educator
 
 # Administrators
 conda install -c conda-forge -c munch-group franklin-admin
-```
-
-### Pixi
-```bash
-# Add channel
-pixi workspace add channel munch-group
-
-# Install packages
-pixi add franklin                    # Students
-pixi add franklin franklin-educator  # Educators
-pixi add franklin-admin              # Administrators
 ```
 
 ### Development
