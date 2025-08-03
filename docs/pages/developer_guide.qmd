@@ -1,0 +1,767 @@
+---
+title: "Franklin Developer Guide"
+subtitle: "Contributing to the Franklin Ecosystem"
+---
+
+## Introduction
+
+This guide is for developers who want to contribute to Franklin or build extensions. Franklin is a Python-based educational platform with a plugin architecture, making it extensible and maintainable.
+
+## Architecture Overview
+
+```mermaid
+graph TB
+    subgraph "Franklin Core"
+        CLI[CLI Interface]
+        PM[Plugin Manager]
+        DM[Docker Manager]
+        GM[GitLab Manager]
+        JM[Jupyter Manager]
+        AUTH[Auth Module]
+    end
+    
+    subgraph "Plugins"
+        EDU[franklin-educator]
+        ADMIN[franklin-admin]
+        MAGIC[franklin-container]
+    end
+    
+    subgraph "External Services"
+        DOCKER[Docker Engine]
+        GITLAB[GitLab API]
+        PIXI[Pixi Package Manager]
+    end
+    
+    CLI --> PM
+    PM --> EDU
+    PM --> ADMIN
+    EDU --> ADMIN
+    
+    DM --> DOCKER
+    GM --> GITLAB
+    JM --> DOCKER
+    MAGIC --> PIXI
+```
+
+### Core Components
+
+- **CLI Framework**: Built with Click, supports plugins via entry points
+- **Plugin System**: Dynamic command registration through `importlib.metadata`
+- **Docker Integration**: Container lifecycle management for isolated environments
+- **GitLab Integration**: Exercise distribution and version control
+- **Authentication**: Centralized token and encryption management
+
+## Development Setup
+
+{{< video videos/developer-setup-walkthrough.mp4 
+    title="Setting Up Franklin Development Environment (6 min)"
+    width="100%" 
+    height="400"
+>}}
+
+### Prerequisites
+
+```bash
+# Required tools
+- Python 3.9+
+- Docker Desktop
+- Git
+- Miniforge/Miniconda
+
+# Optional but recommended
+- VS Code with Python extension
+- Docker extension for VS Code
+- GitLab account for testing
+```
+
+### Setting Up Development Environment
+
+```bash
+# Clone the repository
+git clone https://github.com/munch-group/franklin.git
+cd franklin-ecosystem
+
+# Create development environment
+conda create -n franklin-dev python=3.11
+conda activate franklin-dev
+
+# Install in development mode
+cd franklin
+pip install -e .
+
+# Install development dependencies
+pip install pytest pytest-cov black mypy ruff
+
+# Install plugins in development mode
+cd ../franklin-educator
+pip install -e .
+cd ../franklin-admin
+pip install -e .
+```
+
+### Project Structure
+
+```
+franklin-ecosystem/
+├── franklin/                    # Core package
+│   ├── src/franklin/
+│   │   ├── __init__.py         # Main CLI entry point
+│   │   ├── plugin_interface.py # Plugin base classes
+│   │   ├── interfaces.py       # Facade interfaces
+│   │   ├── auth.py            # Authentication utilities
+│   │   ├── docker.py          # Docker management
+│   │   ├── gitlab.py          # GitLab integration
+│   │   ├── jupyter.py         # Jupyter management
+│   │   └── config.py          # Configuration
+│   ├── tests/
+│   ├── pyproject.toml
+│   └── docs/
+├── franklin-educator/          # Educator plugin
+├── franklin-admin/            # Admin plugin
+└── franklin-container/        # Jupyter magic
+```
+
+## Plugin Development
+
+### Creating a New Plugin
+
+1. **Create plugin structure**:
+
+```bash
+franklin-myplugin/
+├── src/
+│   └── franklin_myplugin/
+│       ├── __init__.py
+│       └── commands.py
+├── pyproject.toml
+├── README.md
+└── tests/
+```
+
+2. **Configure `pyproject.toml`**:
+
+```toml
+[project]
+name = "franklin-myplugin"
+version = "0.1.0"
+dependencies = [
+    "franklin>=0.24.165",
+]
+
+[project.entry-points."franklin.plugins"]
+mycommand = "franklin_myplugin.commands:mycommand"
+```
+
+3. **Implement plugin commands**:
+
+```python
+# src/franklin_myplugin/commands.py
+import click
+from franklin.interfaces import TerminalInterface, DockerInterface
+from franklin.plugin_interface import FranklinPlugin
+
+@click.command()
+@click.option('--name', help='Resource name')
+def mycommand(name):
+    """My custom Franklin command"""
+    term = TerminalInterface()
+    docker = DockerInterface()
+    
+    if docker.is_docker_running():
+        term.print_success(f"Processing {name}")
+    else:
+        term.print_error("Docker is not running")
+
+class MyPlugin(FranklinPlugin):
+    """Custom Franklin plugin"""
+    
+    def get_commands(self):
+        return [mycommand]
+    
+    def get_config_schema(self):
+        return {
+            "type": "object",
+            "properties": {
+                "setting1": {"type": "string"},
+                "setting2": {"type": "integer"}
+            }
+        }
+```
+
+### Using Facade Interfaces
+
+Always use facade interfaces instead of importing internal modules:
+
+```python
+# Good - Using facades
+from franklin.interfaces import (
+    GitLabInterface, 
+    TerminalInterface,
+    DockerInterface,
+    ConfigInterface
+)
+
+def my_function():
+    gitlab = GitLabInterface()
+    term = TerminalInterface()
+    
+    user_info = gitlab.get_user_info()
+    term.print_info(f"User: {user_info['name']}")
+
+# Bad - Direct imports (avoid this)
+from franklin import gitlab, terminal  # Don't do this
+```
+
+### Plugin Best Practices
+
+1. **Dependency Management**: Declare only `franklin` as dependency
+2. **Error Handling**: Use Franklin's terminal interface for consistent output
+3. **Configuration**: Use the config schema for plugin settings
+4. **Testing**: Write tests for all commands
+5. **Documentation**: Include docstrings and README
+
+## Core Development
+
+### Working with Docker Integration
+
+```python
+# franklin/src/franklin/docker.py enhancements
+from typing import Optional, Dict, Any
+import docker
+
+class DockerManager:
+    """Enhanced Docker management"""
+    
+    def __init__(self):
+        self.client = docker.from_env()
+    
+    def create_container(
+        self,
+        name: str,
+        image: str,
+        environment: Optional[Dict[str, str]] = None,
+        volumes: Optional[Dict[str, Dict[str, str]]] = None,
+        **kwargs
+    ) -> docker.models.containers.Container:
+        """Create a new container with specified configuration"""
+        
+        config = {
+            'name': name,
+            'image': image,
+            'detach': True,
+            'environment': environment or {},
+            'volumes': volumes or {},
+            **kwargs
+        }
+        
+        # Add Franklin-specific labels
+        config['labels'] = {
+            'franklin.version': get_version(),
+            'franklin.type': 'exercise',
+            **config.get('labels', {})
+        }
+        
+        return self.client.containers.create(**config)
+```
+
+### Extending GitLab Integration
+
+```python
+# Adding new GitLab functionality
+from franklin.interfaces import GitLabInterface
+import requests
+
+class ExtendedGitLab(GitLabInterface):
+    """Extended GitLab functionality"""
+    
+    def create_merge_request(
+        self,
+        project_id: str,
+        source_branch: str,
+        target_branch: str,
+        title: str
+    ) -> Dict[str, Any]:
+        """Create a merge request"""
+        
+        url = f"{self.get_gitlab_url()}/api/v4/projects/{project_id}/merge_requests"
+        headers = {"PRIVATE-TOKEN": self.get_api_token()}
+        
+        data = {
+            "source_branch": source_branch,
+            "target_branch": target_branch,
+            "title": title,
+            "remove_source_branch": True
+        }
+        
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
+        return response.json()
+```
+
+### Authentication System
+
+```python
+# Working with the auth module
+from franklin.auth import encrypt_data, decrypt_data
+from pathlib import Path
+
+def store_credentials(username: str, password: str, data: str):
+    """Store encrypted credentials"""
+    
+    encrypted = encrypt_data(data, password)
+    
+    cred_path = Path.home() / ".franklin" / "credentials" / f"{username}.enc"
+    cred_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    with open(cred_path, 'wb') as f:
+        f.write(encrypted)
+
+def retrieve_credentials(username: str, password: str) -> str:
+    """Retrieve and decrypt credentials"""
+    
+    cred_path = Path.home() / ".franklin" / "credentials" / f"{username}.enc"
+    
+    with open(cred_path, 'rb') as f:
+        encrypted = f.read()
+    
+    return decrypt_data(encrypted, password)
+```
+
+## Testing
+
+### Unit Testing
+
+```python
+# tests/test_commands.py
+import pytest
+from click.testing import CliRunner
+from franklin import franklin
+from unittest.mock import patch, MagicMock
+
+def test_download_command():
+    """Test the download command"""
+    runner = CliRunner()
+    
+    with patch('franklin.gitlab.get_registry_listing') as mock_listing:
+        mock_listing.return_value = {
+            ('course1', 'Course 1'): 'image1',
+            ('course2', 'Course 2'): 'image2'
+        }
+        
+        result = runner.invoke(franklin, ['download', '--help'])
+        assert result.exit_code == 0
+        assert 'Download an exercise' in result.output
+
+@pytest.fixture
+def mock_docker():
+    """Mock Docker client"""
+    with patch('docker.from_env') as mock:
+        client = MagicMock()
+        mock.return_value = client
+        yield client
+
+def test_container_management(mock_docker):
+    """Test container creation and management"""
+    from franklin.docker import DockerManager
+    
+    manager = DockerManager()
+    container = manager.create_container(
+        name='test-container',
+        image='python:3.11'
+    )
+    
+    mock_docker.containers.create.assert_called_once()
+```
+
+### Integration Testing
+
+```python
+# tests/test_integration.py
+import subprocess
+import tempfile
+from pathlib import Path
+
+def test_full_workflow():
+    """Test complete exercise workflow"""
+    
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # Create test exercise
+        result = subprocess.run(
+            ['franklin', 'exercise', 'new'],
+            input='Test Course\nTest Exercise\n',
+            text=True,
+            capture_output=True,
+            cwd=tmpdir
+        )
+        assert result.returncode == 0
+        
+        # Verify exercise structure
+        exercise_dir = Path(tmpdir) / 'Test Exercise'
+        assert exercise_dir.exists()
+        assert (exercise_dir / 'Dockerfile').exists()
+        assert (exercise_dir / 'pixi.toml').exists()
+        assert (exercise_dir / 'exercise.ipynb').exists()
+```
+
+### Performance Testing
+
+```python
+# tests/test_performance.py
+import time
+import pytest
+from franklin.docker import DockerManager
+
+@pytest.mark.performance
+def test_container_startup_time():
+    """Test container startup performance"""
+    
+    manager = DockerManager()
+    
+    start_time = time.time()
+    container = manager.create_container(
+        name='perf-test',
+        image='python:3.11-slim'
+    )
+    container.start()
+    container.wait(condition='running', timeout=30)
+    elapsed = time.time() - start_time
+    
+    assert elapsed < 10, f"Container startup took {elapsed}s"
+    
+    # Cleanup
+    container.remove(force=True)
+```
+
+## Debugging
+
+### Debug Mode
+
+Enable debug mode for verbose output:
+
+```python
+# franklin/src/franklin/config.py
+import os
+import logging
+
+def setup_logging():
+    """Configure logging based on environment"""
+    
+    level = logging.DEBUG if os.environ.get('FRANKLIN_DEBUG') else logging.INFO
+    
+    logging.basicConfig(
+        level=level,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler('franklin.log'),
+            logging.StreamHandler()
+        ]
+    )
+
+# Use in code
+import logging
+logger = logging.getLogger(__name__)
+
+def my_function():
+    logger.debug("Entering my_function")
+    # ... function code ...
+    logger.debug("Exiting my_function")
+```
+
+### Remote Debugging
+
+```python
+# Enable remote debugging with debugpy
+import debugpy
+
+def enable_remote_debugging(port=5678):
+    """Enable remote debugging for VS Code"""
+    
+    debugpy.listen(("0.0.0.0", port))
+    print(f"Waiting for debugger on port {port}...")
+    debugpy.wait_for_client()
+
+# VS Code launch.json configuration
+{
+    "name": "Attach to Franklin",
+    "type": "python",
+    "request": "attach",
+    "connect": {
+        "host": "localhost",
+        "port": 5678
+    }
+}
+```
+
+## CI/CD Pipeline
+
+### GitHub Actions Workflow
+
+```yaml
+# .github/workflows/test.yml
+name: Test Franklin
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ['3.9', '3.10', '3.11']
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python }}
+    
+    - name: Install dependencies
+      run: |
+        pip install -e .[dev]
+        pip install pytest pytest-cov
+    
+    - name: Run tests
+      run: |
+        pytest tests/ --cov=franklin --cov-report=xml
+    
+    - name: Upload coverage
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+```
+
+### Release Process
+
+```bash
+# 1. Update version in pyproject.toml
+# 2. Update CHANGELOG.md
+# 3. Commit changes
+git add -A
+git commit -m "chore: release v0.24.166"
+
+# 4. Create and push tag
+./release-tag.sh "Release v0.24.166"
+
+# 5. GitHub Actions automatically:
+#    - Builds packages
+#    - Publishes to conda-forge
+#    - Updates documentation
+```
+
+## Documentation
+
+### Building Documentation
+
+```bash
+cd franklin/docs
+
+# Install documentation dependencies
+pip install quartodoc quarto
+
+# Build API documentation
+quartodoc build
+
+# Build and serve documentation
+quarto preview
+```
+
+### Writing Documentation
+
+1. **API Documentation**: Use NumPy-style docstrings
+2. **Tutorials**: Create `.qmd` files in `docs/pages/`
+3. **Examples**: Include runnable code examples
+4. **Screenshots**: Store in `docs/pages/images/`
+
+## Contributing Guidelines
+
+### Code Style
+
+```bash
+# Format code with black
+black src/ tests/
+
+# Check with ruff
+ruff check src/ tests/
+
+# Type checking with mypy
+mypy src/franklin/
+```
+
+### Commit Convention
+
+Follow conventional commits:
+
+```bash
+feat: add new Docker management features
+fix: resolve container startup issue
+docs: update developer guide
+test: add integration tests for GitLab
+refactor: simplify plugin loading mechanism
+chore: update dependencies
+```
+
+### Pull Request Process
+
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/my-feature`
+3. Make changes and test thoroughly
+4. Update documentation if needed
+5. Submit PR with clear description
+6. Ensure CI passes
+7. Request review from maintainers
+
+## Security Considerations
+
+### Handling Sensitive Data
+
+```python
+# Never log sensitive information
+import logging
+
+def safe_log(data: dict):
+    """Log data with sensitive fields redacted"""
+    
+    sensitive_keys = ['password', 'token', 'api_key', 'secret']
+    safe_data = {
+        k: '***REDACTED***' if k in sensitive_keys else v
+        for k, v in data.items()
+    }
+    logging.info(f"Data: {safe_data}")
+```
+
+### Input Validation
+
+```python
+# Validate all user input
+from pathlib import Path
+import re
+
+def validate_exercise_name(name: str) -> bool:
+    """Validate exercise name"""
+    
+    # Check length
+    if not 1 <= len(name) <= 50:
+        return False
+    
+    # Check characters (alphanumeric, spaces, hyphens)
+    if not re.match(r'^[a-zA-Z0-9\s\-]+$', name):
+        return False
+    
+    # Check for path traversal attempts
+    if '..' in name or '/' in name or '\\' in name:
+        return False
+    
+    return True
+```
+
+## Performance Optimization
+
+### Caching Strategies
+
+```python
+from functools import lru_cache
+import time
+
+class CachedGitLab:
+    """GitLab client with caching"""
+    
+    def __init__(self):
+        self._cache_ttl = 300  # 5 minutes
+        self._cache = {}
+    
+    @lru_cache(maxsize=128)
+    def get_user_info(self, user_id: str):
+        """Get user info with caching"""
+        
+        cache_key = f"user_{user_id}"
+        cached = self._cache.get(cache_key)
+        
+        if cached and time.time() - cached['time'] < self._cache_ttl:
+            return cached['data']
+        
+        # Fetch from API
+        data = self._fetch_user(user_id)
+        
+        self._cache[cache_key] = {
+            'data': data,
+            'time': time.time()
+        }
+        
+        return data
+```
+
+### Async Operations
+
+```python
+import asyncio
+import aiohttp
+
+async def fetch_exercises(courses: list):
+    """Fetch exercises for multiple courses concurrently"""
+    
+    async with aiohttp.ClientSession() as session:
+        tasks = [
+            fetch_course_exercises(session, course)
+            for course in courses
+        ]
+        return await asyncio.gather(*tasks)
+
+async def fetch_course_exercises(session, course):
+    """Fetch exercises for a single course"""
+    
+    url = f"https://gitlab.com/api/v4/groups/{course}/projects"
+    async with session.get(url) as response:
+        return await response.json()
+```
+
+## Troubleshooting Development Issues
+
+### Common Problems and Solutions
+
+**Import errors in development**
+```bash
+# Ensure package is installed in editable mode
+pip install -e .
+
+# Check Python path
+python -c "import sys; print(sys.path)"
+```
+
+**Docker permission issues**
+```bash
+# Add user to docker group (Linux)
+sudo usermod -aG docker $USER
+
+# Restart Docker service
+sudo systemctl restart docker
+```
+
+**Plugin not loading**
+```bash
+# Check entry points are registered
+python -c "from importlib.metadata import entry_points; print(entry_points())"
+
+# Reinstall package
+pip install -e . --force-reinstall
+```
+
+## Resources
+
+### Documentation
+- [Click Documentation](https://click.palletsprojects.com/)
+- [Docker SDK for Python](https://docker-py.readthedocs.io/)
+- [GitLab API Documentation](https://docs.gitlab.com/ee/api/)
+- [Pixi Documentation](https://pixi.sh/latest/)
+
+### Community
+- [Franklin GitHub Discussions](https://github.com/munch-group/franklin/discussions)
+- [Franklin Issues](https://github.com/munch-group/franklin/issues)
+- [Contributing Guide](https://github.com/munch-group/franklin/blob/main/CONTRIBUTING.md)
+
+### Tools
+- [Python Packaging Guide](https://packaging.python.org/)
+- [Conventional Commits](https://www.conventionalcommits.org/)
+- [Semantic Versioning](https://semver.org/)

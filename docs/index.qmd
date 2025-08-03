@@ -1,0 +1,236 @@
+---
+title: "Franklin"
+subtitle: "Making Jupyter-based Education Accessible to Everyone"
+---
+
+::: {.hero-banner}
+## Welcome to Franklin
+
+Franklin is an open-source platform that makes teaching and learning with Jupyter notebooks simple, reliable, and accessible—regardless of technical expertise.
+:::
+
+## Choose Your Path
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-4}
+### 🎓 **Students**
+New to programming? Start here for a gentle introduction.
+
+- [Beginner's Guide](pages/getting_started_beginners.qmd) - Complete setup walkthrough
+- [Quick Reference](pages/quick_reference.qmd) - All commands at a glance
+- [Troubleshooting](pages/troubleshooting.qmd) - Solutions to common issues
+
+**Get started in 5 minutes:**
+```bash
+conda install -c munch-group franklin
+franklin download
+franklin jupyter
+```
+:::
+
+::: {.g-col-12 .g-col-md-4}
+### 🧑‍🏫 **Educators**
+Create and distribute exercises that work everywhere.
+
+- [Educator Guide](pages/commands_edu.qmd) - Exercise management
+- [Python Users Guide](pages/python_users_guide.qmd) - Advanced workflows
+- [Development Tips](pages/developing.qmd) - Best practices
+
+**Create your first exercise:**
+```bash
+conda install -c munch-group franklin-educator
+franklin exercise new
+franklin exercise edit
+```
+:::
+
+::: {.g-col-12 .g-col-md-4}
+### 💻 **Developers**
+Extend Franklin or contribute to the project.
+
+- [Developer Guide](pages/developer_guide.qmd) - Architecture & contributing
+- [API Reference](api/index.qmd) - Complete API documentation
+- [Plugin Development](pages/developer_guide.qmd#plugin-development) - Build extensions
+
+**Set up development:**
+```bash
+git clone https://github.com/munch-group/franklin
+pip install -e .
+```
+:::
+
+:::
+
+## Why Franklin?
+
+::: {.features}
+
+### 🚀 **Zero Setup Frustration**
+Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically.
+
+### 🔧 **Works Everywhere**
+Same experience on Windows, Mac, and Linux. No more "works on my machine" problems. Every student sees identical results.
+
+### 📦 **Smart Dependencies**
+Automatic dependency detection from notebook imports. Pixi package manager ensures reproducible environments across all platforms.
+
+### 🐳 **Container Isolation**
+Each exercise runs in its own Docker container. No conflicts between courses, no pollution of system Python, complete isolation.
+
+### 🔄 **Auto Updates**
+Franklin and exercises update automatically. Bug fixes and improvements reach all students instantly without manual intervention.
+
+### 🎯 **Education Focused**
+Designed specifically for teaching. Features like exercise templates, automated testing, and GitLab integration streamline the educational workflow.
+
+:::
+
+## Key Features
+
+::: {.panel-tabset}
+
+### For Students
+
+- **Simple Commands**: Just `franklin download` and `franklin jupyter`
+- **Automatic Setup**: All dependencies installed automatically
+- **Consistent Environment**: Same setup as classmates and instructors
+- **Exercise Management**: Download, work on, and submit exercises easily
+- **Integrated Help**: Built-in troubleshooting and documentation
+
+### For Educators
+
+- **Exercise Creation**: Templates and scaffolding for new exercises
+- **Version Control**: Git integration for exercise development
+- **Automated Testing**: Validate exercises before distribution
+- **Dependency Management**: Automatic detection and installation
+- **Multi-role Support**: Different access levels for TAs and professors
+
+### For Administrators
+
+- **User Management**: Bulk user creation and role assignment
+- **GitLab Integration**: Centralized exercise repository management
+- **Access Control**: Fine-grained permissions for courses and exercises
+- **Usage Analytics**: Monitor platform usage and performance
+- **Deployment Options**: On-premise or cloud deployment
+
+:::
+
+## Quick Start Examples
+
+{{< video videos/franklin-overview-demo.mp4 
+    title="Franklin Platform Overview (4 min)"
+    width="100%" 
+    height="500"
+>}}
+
+### Student Workflow
+
+```bash
+# 1. Install Franklin (one-time setup)
+conda install -c conda-forge -c munch-group franklin
+
+# 2. Download an exercise
+franklin download
+# → Select your course
+# → Select the exercise
+
+# 3. Start working
+franklin jupyter
+# → JupyterLab opens in your browser
+# → Complete the exercise
+# → Save your work
+```
+
+### Educator Workflow
+
+```bash
+# 1. Install Franklin with educator tools
+conda install -c conda-forge -c munch-group franklin-educator
+
+# 2. Create a new exercise
+franklin exercise new
+# → Name your course and exercise
+# → Edit the template notebook
+
+# 3. Test locally
+pixi run test-notebook
+
+# 4. Publish for students
+franklin exercise publish
+```
+
+## System Architecture
+
+```mermaid
+graph LR
+    A[Student] -->|franklin download| B[GitLab]
+    B -->|Exercise + Docker Image| C[Local Machine]
+    C -->|franklin jupyter| D[Docker Container]
+    D -->|Isolated Environment| E[JupyterLab]
+    
+    F[Educator] -->|franklin exercise| B
+    B -->|CI/CD Pipeline| G[Container Registry]
+    G -->|Base Images| D
+```
+
+## Community & Support
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6}
+### Get Help
+
+- 📚 [Documentation](pages/getting_started.qmd) - Comprehensive guides
+- 🐛 [Issue Tracker](https://github.com/munch-group/franklin/issues) - Report bugs
+- 💬 [Discussions](https://github.com/munch-group/franklin/discussions) - Ask questions
+- 📧 [Contact](mailto:kaspermunch@birc.au.dk) - Direct support
+:::
+
+::: {.g-col-12 .g-col-md-6}
+### Contribute
+
+- 🔧 [Developer Guide](pages/developer_guide.qmd) - Start contributing
+- 🌟 [GitHub](https://github.com/munch-group/franklin) - Star the project
+- 🔌 [Plugins](pages/developer_guide.qmd#plugin-development) - Extend Franklin
+- 📝 [Documentation](https://hypothes.is/groups/99akKdQZ/franklin) - Improve docs
+:::
+
+:::
+
+## Latest Updates
+
+::: {.callout-note}
+## Version 0.24.165
+- Improved plugin architecture with stable interfaces
+- Centralized authentication module
+- Enhanced Docker container management
+- Better error messages and debugging tools
+- Comprehensive documentation for all user levels
+:::
+
+## Technologies
+
+Franklin is built on modern, reliable technologies:
+
+- **[Python](https://python.org)** - Core implementation language
+- **[Click](https://click.palletsprojects.com)** - CLI framework with plugin support
+- **[Docker](https://docker.com)** - Container isolation and reproducibility
+- **[JupyterLab](https://jupyter.org)** - Interactive notebook interface
+- **[Pixi](https://pixi.sh)** - Modern conda-compatible package manager
+- **[GitLab](https://gitlab.com)** - Exercise distribution and version control
+
+## Ready to Start?
+
+::: {.callout-tip}
+## Next Steps
+
+1. **New Users**: Start with the [Beginner's Guide](pages/getting_started_beginners.qmd)
+2. **Python Users**: Jump to the [Python Users Guide](pages/python_users_guide.qmd)
+3. **Developers**: Explore the [Developer Guide](pages/developer_guide.qmd)
+4. **Quick Help**: Check the [Troubleshooting Guide](pages/troubleshooting.qmd)
+:::
+
+---
+
+*Franklin is developed and maintained by the [Munch Group](https://munch-group.org) at Aarhus University.*

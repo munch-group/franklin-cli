@@ -1,0 +1,254 @@
+---
+title: "Franklin for Beginners"
+subtitle: "A Complete Guide for Users New to Programming"
+---
+
+## Welcome to Franklin!
+
+Franklin is a tool that makes it easy to learn programming and data science, even if you've never written code before. Think of Franklin as your personal assistant that handles all the technical setup so you can focus on learning.
+
+## What is Franklin?
+
+Franklin is like having a teaching assistant who:
+
+- **Sets up your computer** with all the software you need
+- **Downloads exercises** from your instructors  
+- **Ensures everything works** the same way on every computer
+- **Keeps everything updated** automatically
+
+You don't need to understand how it works – just follow the simple commands below!
+
+## Before You Start
+
+### Step 1: Install Python (One-Time Setup)
+
+Python is the programming language you'll be learning. We recommend installing it through **Miniforge**, which is free and easy to use.
+
+{{< video videos/install-python-overview.mp4 
+    title="Installing Python with Miniforge (2 min)"
+    width="100%" 
+    height="400"
+>}}
+
+::: {.panel-tabset}
+
+### Windows
+
+1. Visit [Miniforge Downloads](https://conda-forge.org/download/)
+2. Click on **Windows** and download the installer
+3. Double-click the downloaded file
+4. Follow the installer:
+   - Click "Next" through the screens
+   - Select "Just Me" when asked
+   - Use the default installation location
+   - Check "Add Miniforge3 to my PATH" when prompted
+5. Restart your computer
+
+### Mac
+
+1. Visit [Miniforge Downloads](https://conda-forge.org/download/)
+2. Click on **MacOS** and download the installer for your Mac type:
+   - Apple Silicon (M1/M2/M3) → Download the `arm64` version
+   - Intel Mac → Download the `x86_64` version
+   - Not sure? Click the Apple menu → About This Mac → Look for "Chip"
+3. Open Terminal (find it in Applications → Utilities)
+4. Type this command and press Enter:
+   ```bash
+   bash ~/Downloads/Miniforge3-MacOSX-*.sh
+   ```
+5. Press Enter to continue, type `yes` when asked
+6. Close and reopen Terminal
+
+:::
+
+### Step 2: Install Franklin
+
+Now we'll install Franklin itself. This only takes a minute!
+
+1. Open your terminal/command prompt:
+   - **Windows**: Press Windows key, type "Miniforge Prompt", press Enter
+   - **Mac**: Open Terminal from Applications → Utilities
+
+2. Copy and paste this command, then press Enter:
+   ```bash
+   conda install -c conda-forge -c munch-group franklin
+   ```
+
+3. When prompted, type `y` and press Enter
+
+That's it! Franklin is now installed and will keep itself updated automatically.
+
+## Your First Exercise
+
+{{< video videos/first-exercise-complete-workflow.mp4 
+    title="Complete Student Workflow Demo (5 min)"
+    width="100%" 
+    height="400"
+>}}
+
+### Downloading an Exercise
+
+Your instructor will give you an exercise to work on. Here's how to get it:
+
+1. Open your terminal (Miniforge Prompt on Windows, Terminal on Mac)
+
+2. Type this command and press Enter:
+   ```bash
+   franklin download
+   ```
+
+3. Franklin will show you a list of available courses:
+   ```
+   Select course:
+   → Introduction to Python
+     Data Science Basics
+     Statistics with Python
+   ```
+   Use arrow keys to select your course, press Enter
+
+4. Next, select the exercise:
+   ```
+   Select exercise:
+   → Week 1 - Getting Started
+     Week 2 - Variables and Types
+   ```
+   Use arrow keys to select, press Enter
+
+5. Franklin downloads the exercise to a folder on your computer and tells you where it is:
+   ```
+   Exercise downloaded to: /Users/yourname/Week 1 - Getting Started
+   ```
+
+### Working on Your Exercise
+
+Now let's open your exercise in Jupyter (the program where you'll write and run code):
+
+{{< video videos/working-in-jupyterlab.mp4 
+    title="Working with Jupyter Notebooks (3 min)"
+    width="100%" 
+    height="400"
+>}}
+
+1. In the same terminal, type:
+   ```bash
+   franklin jupyter
+   ```
+
+2. Select your course and exercise again (same as before)
+
+3. Franklin will:
+   - Set up everything needed for the exercise
+   - Open your web browser
+   - Show you JupyterLab (looks like a document editor)
+
+4. In JupyterLab:
+   - Click on the notebook file (ends with `.ipynb`)
+   - Read the instructions in each cell
+   - Type your code where it says "Your code here"
+   - Press **Shift+Enter** to run each cell
+   - Save your work with **Ctrl+S** (Windows) or **Cmd+S** (Mac)
+
+### Saving and Submitting Your Work
+
+Your work is automatically saved in the exercise folder. To submit:
+
+1. Find your exercise folder (Franklin told you where it is)
+2. The completed notebook is there
+3. Submit according to your instructor's directions (usually upload to your course website)
+
+## Common Tasks
+
+### Checking Franklin Version
+
+To see which version you have:
+```bash
+franklin --version
+```
+
+### Getting Help
+
+If something isn't working:
+```bash
+franklin --help
+```
+
+### Updating Franklin
+
+Franklin updates automatically, but you can force an update:
+```bash
+conda update franklin
+```
+
+## Troubleshooting
+
+### "Command not found"
+
+**Problem**: Terminal says `franklin: command not found`
+
+**Solution**: 
+1. Make sure you installed Miniforge first
+2. Close your terminal completely and open a new one
+3. Try the install command again
+
+### "No exercises available"
+
+**Problem**: No courses or exercises appear when you run `franklin download`
+
+**Solution**: 
+1. Check with your instructor that exercises have been published
+2. Make sure you're connected to the internet
+3. Try again in a few minutes
+
+### Browser doesn't open
+
+**Problem**: After running `franklin jupyter`, nothing happens
+
+**Solution**:
+1. Look in your terminal for a line like:
+   ```
+   JupyterLab URL: http://localhost:8888/lab?token=...
+   ```
+2. Copy that entire URL
+3. Open your web browser manually
+4. Paste the URL in the address bar
+
+### Can't find your exercise folder
+
+**Problem**: Don't know where Franklin saved your exercise
+
+**Solution**:
+1. Run `franklin download` again
+2. When it asks "Exercise already exists. Overwrite?", type `n` for no
+3. It will show you the exact location
+
+## Tips for Success
+
+::: {.callout-tip}
+## Best Practices
+
+1. **Create a course folder**: Keep all exercises for one course in the same place
+2. **Name files clearly**: When saving additional files, use descriptive names
+3. **Save often**: Press Ctrl+S (or Cmd+S on Mac) frequently
+4. **Read carefully**: Exercise instructions often contain hints
+5. **Don't panic**: If something goes wrong, you can always re-download the exercise
+:::
+
+::: {.callout-important}
+## Remember
+
+- You don't need to understand how Franklin works internally
+- Just follow the commands exactly as shown
+- Your instructor is there to help if you get stuck
+- Every student's Franklin setup works the same way – you can help each other!
+:::
+
+## Next Steps
+
+Once you're comfortable with the basics:
+
+1. Read through the exercises carefully before starting
+2. Try experimenting with the code to see what happens
+3. Ask questions when something doesn't make sense
+4. Help classmates who might be struggling
+
+Welcome to your programming journey with Franklin! 🚀

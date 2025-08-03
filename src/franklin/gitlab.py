@@ -417,17 +417,18 @@ def select_image() -> str:
 def download():
     """Download an exercise
     """
+    # Check if educator plugin is installed without importing it
     try:
-        import franklin_educator
-
-        term.boxed_text("Are you an educator?",
-                        ['If you want to edit the version available to students, '
-                        'you must use "franklin exercise edit" instead.'],                        
-                        fg='blue')
-        # term.echo('If you want to edit the version available to students, '
-        #           'you must use "franklin exercise edit" instead.')
-        click.confirm("Continue?", default=False, abort=True)
-    except ImportError:
+        from importlib.metadata import entry_points
+        educator_plugins = entry_points().select(group='franklin.plugins', name='exercise')
+        if educator_plugins:
+            # Educator plugin is installed
+            term.boxed_text("Are you an educator?",
+                            ['If you want to edit the version available to students, '
+                            'you must use "franklin exercise edit" instead.'],                        
+                            fg='blue')
+            click.confirm("Continue?", default=False, abort=True)
+    except Exception:
         pass
 
     # get images for available exercises

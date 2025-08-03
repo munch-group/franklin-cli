@@ -61,32 +61,43 @@ website:
       style: floating
       align: left
       contents:
-        - pages/getting_started.qmd 
-        - pages/overview.qmd
-        - section: "Setting up"
+        - section: "Getting Started"
           contents:
-            - pages/computer_setup.qmd
-        - section: "Using Franklin"
+            - pages/getting_started.qmd
+            - pages/getting_started_beginners.qmd
+            - pages/quick_reference.qmd
+        - section: "User Guides"
           contents:
+            - pages/python_users_guide.qmd
             - pages/commands_core.qmd
             - pages/commands_edu.qmd
             # - pages/commands_admin.qmd
+        - section: "Developer Resources"
+          contents:
+            - pages/developer_guide.qmd
+            - pages/developing.qmd
+            - pages/overview.qmd
         - section: "Tutorials"
           contents:
-            - pages/developing.qmd
             - pages/numpy_and_pandas.ipynb
-            - pages/python_r_juliaqmd
+            - pages/python_r_julia.qmd
             - pages/plotting.ipynb
-        - section: "About"
+            - pages/jupyterlab.ipynb
+        - section: "Setup & Configuration"
+          contents:
+            - pages/computer_setup.qmd
+            - pages/conda.qmd
+            - pages/docker.qmd
+            - pages/gitlab.qmd
+        - section: "Reference"
           contents:
             - pages/terminal.qmd
-            - pages/jupyterlab.ipynb
             - pages/ssh.qmd
             - pages/git.qmd
-            - pages/conda.qmd
-            - pages/gitlab.qmd
-            - pages/docker.qmd
-        - pages/faq.qmd
+        - section: "Help & Support"
+          contents:
+            - pages/troubleshooting.qmd
+            - pages/faq.qmd
 
         # - section: "Source code"
         #   contents:

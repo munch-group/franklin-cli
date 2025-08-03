@@ -1,0 +1,661 @@
+---
+title: "Troubleshooting Guide"
+subtitle: "Solutions to Common Franklin Issues"
+---
+
+## Diagnostic Tools
+
+Before troubleshooting specific issues, run Franklin's diagnostic tool:
+
+```bash
+franklin doctor
+```
+
+This checks:
+- Python installation
+- Docker status
+- Network connectivity
+- GitLab access
+- File permissions
+- Available disk space
+
+## Installation Issues
+
+### "Command not found" Error
+
+::: {.panel-tabset}
+
+### Windows
+
+**Problem**: Terminal shows `'franklin' is not recognized as an internal or external command`
+
+**Solutions**:
+
+1. **Verify Miniforge Installation**:
+   ```powershell
+   # Check if conda is installed
+   conda --version
+   ```
+   If not found, reinstall Miniforge from [conda-forge.org](https://conda-forge.org/download/)
+
+2. **Check PATH**:
+   ```powershell
+   # Add Miniforge to PATH
+   $env:Path += ";C:\Users\YOUR_USERNAME\miniforge3\Scripts"
+   ```
+
+3. **Reinstall Franklin**:
+   ```powershell
+   conda install -c conda-forge -c munch-group franklin --force-reinstall
+   ```
+
+4. **Use Miniforge Prompt**:
+   - Don't use Command Prompt or PowerShell
+   - Use "Miniforge Prompt" from Start Menu
+
+### Mac/Linux
+
+**Problem**: Terminal shows `franklin: command not found`
+
+**Solutions**:
+
+1. **Check Installation**:
+   ```bash
+   which franklin
+   conda list franklin
+   ```
+
+2. **Activate Conda**:
+   ```bash
+   # Initialize conda for your shell
+   conda init bash  # or zsh for Mac
+   source ~/.bashrc  # or ~/.zshrc for Mac
+   ```
+
+3. **Reinstall**:
+   ```bash
+   conda remove franklin
+   conda install -c conda-forge -c munch-group franklin
+   ```
+
+4. **Check Shell Configuration**:
+   ```bash
+   # Ensure conda is in PATH
+   echo $PATH | grep conda
+   ```
+
+:::
+
+### Installation Hangs or Fails
+
+**Problem**: Installation process freezes or shows errors
+
+**Solutions**:
+
+1. **Clear Conda Cache**:
+   ```bash
+   conda clean --all
+   ```
+
+2. **Use Mamba** (faster solver):
+   ```bash
+   conda install mamba -c conda-forge
+   mamba install -c conda-forge -c munch-group franklin
+   ```
+
+3. **Network Issues**:
+   ```bash
+   # Use different mirror
+   conda config --add channels conda-forge
+   conda config --set channel_priority strict
+   ```
+
+4. **Create Fresh Environment**:
+   ```bash
+   conda create -n franklin-env python=3.11
+   conda activate franklin-env
+   conda install -c munch-group franklin
+   ```
+
+## Docker Issues
+
+### Docker Not Running
+
+**Problem**: "Docker is not running" error
+
+{{< video videos/troubleshoot-docker-not-running.mp4 
+    title="Fixing Docker Issues (2 min)"
+    width="100%" 
+    height="400"
+>}}
+
+::: {.panel-tabset}
+
+### Windows
+
+1. **Start Docker Desktop**:
+   - Open Docker Desktop from Start Menu
+   - Wait for "Docker Desktop is running" in system tray
+
+2. **Check Service**:
+   ```powershell
+   # Check Docker service
+   Get-Service docker
+   
+   # Start if needed
+   Start-Service docker
+   ```
+
+3. **Enable WSL2**:
+   - Settings → General → Use WSL 2 based engine
+   - Restart Docker Desktop
+
+### Mac
+
+1. **Start Docker Desktop**:
+   - Open Docker from Applications
+   - Look for whale icon in menu bar
+
+2. **Reset Docker**:
+   - Docker Desktop → Preferences → Reset
+   - "Reset to factory defaults"
+
+3. **Check Resources**:
+   - Docker Desktop → Preferences → Resources
+   - Increase memory to at least 4GB
+
+### Linux
+
+1. **Start Docker Service**:
+   ```bash
+   sudo systemctl start docker
+   sudo systemctl enable docker
+   ```
+
+2. **Add User to Docker Group**:
+   ```bash
+   sudo usermod -aG docker $USER
+   newgrp docker
+   ```
+
+3. **Check Status**:
+   ```bash
+   sudo systemctl status docker
+   docker ps
+   ```
+
+:::
+
+### Container Startup Failures
+
+**Problem**: Container fails to start or immediately exits
+
+**Solutions**:
+
+1. **Check Logs**:
+   ```bash
+   franklin logs --tail 100
+   docker logs $(docker ps -lq)
+   ```
+
+2. **Clean Up**:
+   ```bash
+   # Remove problematic containers
+   franklin cleanup --all
+   
+   # Clean Docker system
+   docker system prune -a
+   ```
+
+3. **Resource Limits**:
+   ```bash
+   # Launch with lower resources
+   franklin jupyter --memory 2g --cpus 1
+   ```
+
+4. **Port Conflicts**:
+   ```bash
+   # Use different port
+   franklin jupyter --port 8889
+   
+   # Check what's using port 8888
+   lsof -i :8888  # Mac/Linux
+   netstat -ano | findstr :8888  # Windows
+   ```
+
+## Exercise Download Issues
+
+### No Exercises Available
+
+**Problem**: No courses or exercises appear when running `franklin download`
+
+**Solutions**:
+
+1. **Check Network**:
+   ```bash
+   # Test GitLab connectivity
+   curl https://gitlab.com/api/v4/version
+   ```
+
+2. **Update Franklin**:
+   ```bash
+   conda update franklin
+   franklin update
+   ```
+
+3. **Check Configuration**:
+   ```bash
+   # View current config
+   cat ~/.franklin/config.json
+   
+   # Reset if corrupted
+   franklin reset --config
+   ```
+
+4. **Verify with Instructor**:
+   - Ensure exercises are published
+   - Check course name spelling
+   - Confirm you have access
+
+### Download Fails or Hangs
+
+**Problem**: Download starts but doesn't complete
+
+**Solutions**:
+
+1. **Check Disk Space**:
+   ```bash
+   # Mac/Linux
+   df -h ~
+   
+   # Windows
+   Get-PSDrive C
+   ```
+
+2. **Clear Cache**:
+   ```bash
+   franklin cache clear
+   rm -rf ~/.franklin/cache/*
+   ```
+
+3. **Use Direct URL**:
+   ```bash
+   # If instructor provides URL
+   franklin download --url https://gitlab.com/course/exercise
+   ```
+
+4. **Manual Download**:
+   ```bash
+   # Clone with git
+   git clone https://gitlab.com/franklin/courses/exercise.git
+   ```
+
+## Jupyter Issues
+
+### Jupyter Won't Start
+
+**Problem**: Browser doesn't open or shows error
+
+**Solutions**:
+
+1. **Manual URL**:
+   ```bash
+   # Look for URL in terminal output
+   JupyterLab URL: http://localhost:8888/lab?token=...
+   # Copy and paste in browser
+   ```
+
+2. **Browser Issues**:
+   ```bash
+   # Set default browser
+   export BROWSER=chrome  # or firefox, safari
+   franklin jupyter
+   ```
+
+3. **Token Problems**:
+   ```bash
+   # Get new token
+   franklin jupyter --generate-token
+   ```
+
+4. **Firewall/Antivirus**:
+   - Temporarily disable firewall
+   - Add exception for port 8888
+   - Whitelist Docker in antivirus
+
+### Kernel Crashes or Restarts
+
+**Problem**: Jupyter kernel dies during execution
+
+**Solutions**:
+
+1. **Increase Memory**:
+   ```bash
+   franklin jupyter --memory 8g
+   ```
+
+2. **Check Code**:
+   ```python
+   # Monitor memory usage
+   import psutil
+   print(f"Memory: {psutil.virtual_memory().percent}%")
+   ```
+
+3. **Restart Kernel**:
+   - Kernel → Restart Kernel and Clear All Outputs
+   - Run cells one by one
+
+4. **Update Packages**:
+   ```python
+   %franklin update jupyter ipykernel
+   ```
+
+### Can't Install Packages
+
+**Problem**: `%franklin` magic doesn't work
+
+**Solutions**:
+
+1. **Load Extension**:
+   ```python
+   %load_ext magic
+   ```
+
+2. **Use Full Path**:
+   ```python
+   import sys
+   !{sys.executable} -m pip install numpy
+   ```
+
+3. **Check Pixi**:
+   ```bash
+   # In terminal
+   pixi add numpy
+   ```
+
+4. **Manual Installation**:
+   ```python
+   import subprocess
+   subprocess.run(["pixi", "add", "package_name"])
+   ```
+
+## Permission Issues
+
+### Access Denied Errors
+
+::: {.panel-tabset}
+
+### Windows
+
+1. **Run as Administrator**:
+   - Right-click Miniforge Prompt
+   - "Run as administrator"
+
+2. **Fix Ownership**:
+   ```powershell
+   # Take ownership of Franklin directory
+   takeown /f $env:USERPROFILE\.franklin /r
+   ```
+
+3. **Antivirus Exclusion**:
+   - Add `C:\Users\YOUR_NAME\.franklin` to exclusions
+   - Add Docker folders to exclusions
+
+### Mac/Linux
+
+1. **Fix Permissions**:
+   ```bash
+   # Fix Franklin directory
+   sudo chown -R $USER:$USER ~/.franklin
+   chmod -R 755 ~/.franklin
+   ```
+
+2. **Docker Permissions**:
+   ```bash
+   # Add to docker group
+   sudo usermod -aG docker $USER
+   # Log out and back in
+   ```
+
+3. **File Permissions**:
+   ```bash
+   # Fix exercise files
+   chmod -R u+rw exercise-folder/
+   ```
+
+:::
+
+## Network Issues
+
+### Proxy Configuration
+
+**Problem**: Behind corporate firewall/proxy
+
+**Solutions**:
+
+1. **Set Proxy**:
+   ```bash
+   export HTTP_PROXY=http://proxy.company.com:8080
+   export HTTPS_PROXY=http://proxy.company.com:8080
+   export NO_PROXY=localhost,127.0.0.1
+   ```
+
+2. **Configure Git**:
+   ```bash
+   git config --global http.proxy http://proxy.company.com:8080
+   ```
+
+3. **Configure Docker**:
+   - Docker Desktop → Settings → Resources → Proxies
+   - Add proxy configuration
+
+4. **Conda Configuration**:
+   ```bash
+   conda config --set proxy_servers.http http://proxy.company.com:8080
+   conda config --set proxy_servers.https http://proxy.company.com:8080
+   ```
+
+### SSL Certificate Errors
+
+**Problem**: SSL verification failures
+
+**Solutions**:
+
+1. **Temporary Bypass** (not recommended for production):
+   ```bash
+   export PYTHONHTTPSVERIFY=0
+   conda config --set ssl_verify false
+   ```
+
+2. **Add Corporate Certificate**:
+   ```bash
+   # Get certificate
+   export REQUESTS_CA_BUNDLE=/path/to/corporate-cert.pem
+   export SSL_CERT_FILE=/path/to/corporate-cert.pem
+   ```
+
+3. **Update Certificates**:
+   ```bash
+   conda update ca-certificates
+   conda update certifi
+   ```
+
+## Performance Issues
+
+### Slow Performance
+
+**Problem**: Franklin or exercises run slowly
+
+**Solutions**:
+
+1. **Increase Resources**:
+   - Docker Desktop → Settings → Resources
+   - Increase CPUs to 4+
+   - Increase Memory to 8GB+
+   - Increase Disk space
+
+2. **Clean Up**:
+   ```bash
+   # Remove unused containers
+   docker container prune
+   
+   # Remove unused images
+   docker image prune -a
+   
+   # Clean everything
+   docker system prune -a --volumes
+   ```
+
+3. **Disable Antivirus Scanning**:
+   - Exclude Docker directories
+   - Exclude `.franklin` directory
+
+4. **Use SSD**:
+   - Move Docker data to SSD
+   - Store exercises on SSD
+
+### Memory Errors
+
+**Problem**: Out of memory errors
+
+**Solutions**:
+
+1. **Monitor Usage**:
+   ```python
+   import psutil
+   print(f"Available: {psutil.virtual_memory().available / 1e9:.2f} GB")
+   ```
+
+2. **Process Data in Chunks**:
+   ```python
+   # Instead of loading entire file
+   for chunk in pd.read_csv('large.csv', chunksize=10000):
+       process(chunk)
+   ```
+
+3. **Clear Variables**:
+   ```python
+   # Free memory
+   del large_variable
+   import gc
+   gc.collect()
+   ```
+
+## Recovery Procedures
+
+### Complete Reset
+
+If nothing else works, perform a complete reset:
+
+```bash
+# 1. Backup your work
+cp -r ~/franklin-exercises ~/franklin-backup
+
+# 2. Remove Franklin
+conda remove franklin franklin-educator franklin-admin
+rm -rf ~/.franklin
+
+# 3. Clean Docker
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
+docker system prune -a --volumes
+
+# 4. Reinstall
+conda install -c conda-forge -c munch-group franklin
+
+# 5. Test
+franklin doctor
+```
+
+### Data Recovery
+
+If you lose work:
+
+1. **Check Auto-saves**:
+   ```bash
+   # Jupyter auto-saves
+   ls -la .ipynb_checkpoints/
+   ```
+
+2. **Docker Volumes**:
+   ```bash
+   # List volumes
+   docker volume ls
+   
+   # Inspect volume
+   docker volume inspect franklin_exercise_data
+   ```
+
+3. **Git History**:
+   ```bash
+   # If exercise is git repository
+   git reflog
+   git checkout <commit-hash>
+   ```
+
+## Getting Help
+
+### Collecting Debug Information
+
+When reporting issues, include:
+
+```bash
+# System information
+franklin doctor --verbose > debug.txt
+
+# Franklin version
+franklin --version >> debug.txt
+
+# Python version
+python --version >> debug.txt
+
+# Docker version
+docker --version >> debug.txt
+
+# Recent logs
+franklin logs --tail 100 >> debug.txt
+```
+
+### Support Channels
+
+1. **GitHub Issues**: [github.com/munch-group/franklin/issues](https://github.com/munch-group/franklin/issues)
+2. **Documentation**: [munch-group.org/franklin](https://munch-group.org/franklin)
+3. **Course Instructor**: For exercise-specific issues
+4. **IT Support**: For network/firewall issues
+
+### Common Error Messages
+
+| Error | Meaning | Solution |
+|-------|---------|----------|
+| `Docker daemon not running` | Docker Desktop not started | Start Docker Desktop |
+| `Port 8888 already in use` | Another service using port | Use `--port 8889` |
+| `No such container` | Container was removed | Run `franklin jupyter` again |
+| `Permission denied` | File permission issue | Fix with `chmod` or `chown` |
+| `No space left on device` | Disk full | Clear Docker cache |
+| `Network unreachable` | Network/firewall issue | Check proxy settings |
+| `Module not found` | Package not installed | Use `%franklin package_name` |
+| `Kernel died` | Out of memory | Increase memory limit |
+
+## Prevention Tips
+
+::: {.callout-tip}
+## Best Practices
+
+1. **Regular Updates**: Keep Franklin updated with `conda update franklin`
+2. **Clean Regularly**: Run `franklin cleanup` weekly
+3. **Monitor Resources**: Check Docker Desktop resource usage
+4. **Backup Work**: Commit to git frequently
+5. **Test Early**: Test exercises as soon as downloaded
+6. **Read Logs**: Check logs when issues occur
+7. **Document Issues**: Keep notes on what worked
+:::
+
+::: {.callout-warning}
+## Common Mistakes to Avoid
+
+- Don't run multiple Franklin instances simultaneously
+- Don't modify Dockerfile unless you understand Docker
+- Don't ignore error messages - read them carefully
+- Don't delete `.franklin` directory without backup
+- Don't use sudo/admin unless specifically required
+:::

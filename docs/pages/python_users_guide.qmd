@@ -1,0 +1,514 @@
+---
+title: "Franklin for Python & Jupyter Users"
+subtitle: "Advanced Features and Workflows"
+---
+
+## Overview
+
+If you're already familiar with Python and Jupyter, Franklin streamlines your workflow by handling environment management, dependency resolution, and exercise distribution. This guide covers advanced features and best practices for experienced users.
+
+## Quick Start
+
+```bash
+# Install Franklin with educator tools
+conda install -c conda-forge -c munch-group franklin franklin-educator
+
+# Download and work on exercises
+franklin download              # Interactive exercise selection
+franklin jupyter               # Launch in containerized environment
+
+# Create and manage exercises (educators)
+franklin exercise new          # Create new exercise
+franklin exercise edit         # Edit existing exercise
+```
+
+## Understanding Franklin's Architecture
+
+### Environment Management
+
+Franklin uses **Docker containers** to ensure reproducibility:
+
+- Each exercise runs in an isolated container
+- Dependencies are managed via **Pixi** (modern conda replacement)
+- Automatic dependency detection from notebook imports
+- Zero conflicts between different exercises or courses
+
+### The Franklin Magic
+
+Inside Jupyter notebooks, Franklin provides magic commands for package management:
+
+```python
+# Load the Franklin magic
+%load_ext magic
+
+# Install packages on-the-fly
+%franklin numpy pandas scikit-learn
+
+# Alternative syntax
+%pixi_install matplotlib seaborn
+```
+
+These commands:
+- Install packages in the current container
+- Update the `pixi.toml` manifest
+- Persist across notebook sessions
+- Work identically on all platforms
+
+## Advanced Workflows
+
+{{< video videos/advanced-workflows-demo.mp4 
+    title="Advanced Franklin Workflows (5 min)"
+    width="100%" 
+    height="400"
+>}}
+
+### Working with Custom Environments
+
+Franklin exercises use `pixi.toml` for dependency management:
+
+```toml
+[project]
+name = "data-science-exercise"
+platforms = ["linux-64", "osx-arm64", "win-64"]
+
+[dependencies]
+python = "3.11.*"
+jupyter = "*"
+numpy = ">=1.24"
+pandas = ">=2.0"
+
+[feature.exercise.dependencies]
+scikit-learn = "*"
+matplotlib = "*"
+```
+
+To add dependencies programmatically:
+
+```python
+import subprocess
+
+def add_package(package_name):
+    """Add a package to the exercise environment"""
+    subprocess.run([
+        "pixi", "add", 
+        "--feature", "exercise", 
+        "--platform", "linux-64",
+        package_name
+    ])
+
+add_package("tensorflow")
+```
+
+### Customizing Docker Containers
+
+Each exercise includes a `Dockerfile` you can customize:
+
+```dockerfile
+# Use course-specific base image
+FROM registry.gitlab.com/franklin/courses/data-science:latest
+
+# Add system dependencies
+RUN apt-get update && apt-get install -y \
+    graphviz \
+    ffmpeg
+
+# Install additional Python packages
+RUN pixi add --feature exercise \
+    pytorch \
+    transformers
+
+# Copy exercise files
+COPY . /workspace
+WORKDIR /workspace
+```
+
+### Git Integration for Version Control
+
+Franklin exercises are Git repositories by default:
+
+```bash
+# After downloading an exercise
+cd "Exercise Name"
+
+# Track your changes
+git add -A
+git commit -m "Completed data analysis section"
+
+# Create your own remote
+git remote add personal https://github.com/you/solutions
+git push personal main
+```
+
+### Batch Processing Multiple Exercises
+
+Process multiple exercises programmatically:
+
+```python
+import subprocess
+import json
+from pathlib import Path
+
+def get_exercises(course_name):
+    """Get all exercises for a course"""
+    result = subprocess.run(
+        ["franklin", "list", "--json"],
+        capture_output=True,
+        text=True
+    )
+    exercises = json.loads(result.stdout)
+    return exercises.get(course_name, [])
+
+def batch_download(course_name):
+    """Download all exercises for a course"""
+    exercises = get_exercises(course_name)
+    for exercise in exercises:
+        subprocess.run([
+            "franklin", "download",
+            "--course", course_name,
+            "--exercise", exercise
+        ])
+
+# Download all exercises
+batch_download("Advanced Python")
+```
+
+## Creating Exercises (Educators)
+
+### Exercise Structure
+
+A typical Franklin exercise contains:
+
+```
+exercise-name/
+├── Dockerfile           # Container configuration
+├── pixi.toml           # Dependency specification
+├── exercise.ipynb      # Main notebook
+├── README.md           # Instructions
+├── tests/              # Automated tests
+│   └── test_solution.py
+├── data/               # Dataset files
+│   └── sample.csv
+└── solutions/          # Hidden from students
+    └── solution.ipynb
+```
+
+### Automated Testing
+
+Implement automated testing for exercises:
+
+```python
+# tests/test_solution.py
+import pytest
+import pandas as pd
+from pathlib import Path
+
+def test_data_loading():
+    """Test that students load data correctly"""
+    # Import student's notebook
+    import import_ipynb
+    import exercise
+    
+    # Check that dataframe was created
+    assert hasattr(exercise, 'df')
+    assert isinstance(exercise.df, pd.DataFrame)
+    assert len(exercise.df) > 0
+
+def test_analysis_complete():
+    """Test that analysis was performed"""
+    import exercise
+    
+    # Check for expected variables
+    assert hasattr(exercise, 'mean_value')
+    assert hasattr(exercise, 'correlation_matrix')
+    
+    # Validate results
+    assert 0 <= exercise.correlation_matrix.max().max() <= 1
+
+# Run tests automatically
+if __name__ == "__main__":
+    pytest.main([__file__])
+```
+
+### Dependency Detection
+
+Franklin automatically detects dependencies from imports:
+
+```python
+# Franklin detects these and adds to pixi.toml
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Custom modules need explicit installation
+%franklin scikit-image opencv-python
+```
+
+### Publishing Exercises
+
+```bash
+# Create new exercise
+franklin exercise new
+
+# Follow prompts:
+# - Course: Machine Learning
+# - Exercise: Neural Networks Lab
+# - Template: default
+
+# Edit the exercise
+cd "Neural Networks Lab"
+jupyter lab exercise.ipynb
+
+# Test locally
+pixi run test-notebook
+
+# Publish for students
+franklin exercise publish
+```
+
+## Performance Optimization
+
+### Container Management
+
+```bash
+# List Franklin containers
+docker ps -a | grep franklin
+
+# Clean up old containers
+franklin cleanup --days 7
+
+# Prune Docker resources
+docker system prune -a
+
+# Limit container resources
+franklin jupyter --memory 4g --cpus 2
+```
+
+### Caching and Persistence
+
+Franklin caches:
+- Docker images per exercise
+- Pixi environments
+- Downloaded exercises
+
+To manage cache:
+
+```bash
+# Clear Franklin cache
+franklin cache clear
+
+# Keep specific courses
+franklin cache clear --keep-course "Data Science"
+
+# Export environment for offline use
+franklin export --course "ML" --exercise "Lab1" --output lab1.tar
+```
+
+## Integration with External Tools
+
+### VS Code Integration
+
+```json
+// .vscode/settings.json
+{
+    "python.defaultInterpreterPath": "/opt/conda/bin/python",
+    "jupyter.jupyterServerType": "remote",
+    "docker.containers.label": "franklin",
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black"
+}
+```
+
+### CI/CD Pipeline Integration
+
+```yaml
+# .gitlab-ci.yml
+test-exercise:
+  image: registry.gitlab.com/franklin/base:latest
+  script:
+    - pixi install
+    - pixi run test-notebook
+    - pixi run pytest tests/
+  artifacts:
+    reports:
+      junit: test-results.xml
+```
+
+### Custom Extensions
+
+Create JupyterLab extensions for Franklin:
+
+```javascript
+// franklin-extension/src/index.ts
+import { JupyterFrontEndPlugin } from '@jupyterlab/application';
+
+const plugin: JupyterFrontEndPlugin<void> = {
+  id: 'franklin-tools',
+  autoStart: true,
+  activate: (app) => {
+    console.log('Franklin Tools activated');
+    // Add custom toolbar buttons, menu items, etc.
+  }
+};
+
+export default plugin;
+```
+
+## Debugging and Profiling
+
+### Debug Mode
+
+```bash
+# Enable verbose output
+FRANKLIN_DEBUG=1 franklin jupyter
+
+# View container logs
+franklin logs --tail 50
+
+# Access container shell
+franklin shell
+```
+
+### Performance Profiling
+
+```python
+# Profile notebook execution
+import cProfile
+import pstats
+
+def profile_notebook():
+    profiler = cProfile.Profile()
+    profiler.enable()
+    
+    # Run your notebook code
+    exec(open('exercise.ipynb').read())
+    
+    profiler.disable()
+    stats = pstats.Stats(profiler)
+    stats.sort_stats('cumulative')
+    stats.print_stats(20)
+
+profile_notebook()
+```
+
+## Best Practices
+
+### For Students
+
+1. **Version Control**: Commit your work frequently
+2. **Documentation**: Add markdown cells explaining your approach
+3. **Testing**: Run all cells before submission
+4. **Resources**: Monitor memory usage in resource-intensive exercises
+
+### For Educators
+
+1. **Reproducibility**: Test exercises on both Mac and Windows
+2. **Dependencies**: Minimize dependencies, pin critical versions
+3. **Data**: Include sample data, provide download scripts for large datasets
+4. **Solutions**: Maintain separate solution branches
+5. **Feedback**: Use automated testing for instant feedback
+
+### Security Considerations
+
+- Exercises run in isolated containers
+- Network access can be restricted
+- File system access is sandboxed
+- Sensitive data should use environment variables:
+
+```python
+import os
+
+# Access secure credentials
+api_key = os.environ.get('API_KEY')
+db_password = os.environ.get('DB_PASSWORD')
+```
+
+## Advanced Configuration
+
+### Franklin Settings
+
+```json
+// ~/.franklin/settings.json
+{
+    "default_course": "Advanced Python",
+    "jupyter_port": 8888,
+    "container_prefix": "franklin",
+    "auto_update": true,
+    "telemetry": false,
+    "max_containers": 5,
+    "default_memory": "4g",
+    "default_cpus": 2
+}
+```
+
+### Custom Base Images
+
+Create specialized base images for your courses:
+
+```dockerfile
+# Dockerfile.base
+FROM continuumio/miniconda3:latest
+
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y build-essential
+
+# Install Pixi
+RUN curl -fsSL https://pixi.sh/install.sh | bash
+
+# Pre-install common packages
+RUN pixi global install \
+    jupyter \
+    numpy \
+    pandas \
+    matplotlib
+
+# Set up workspace
+WORKDIR /workspace
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Import errors after package installation**
+```python
+# Restart kernel after installing packages
+import IPython
+IPython.Application.instance().kernel.do_shutdown(True)
+```
+
+**Memory errors with large datasets**
+```python
+# Use chunked processing
+import pandas as pd
+
+for chunk in pd.read_csv('large_file.csv', chunksize=10000):
+    process(chunk)
+```
+
+**Slow container startup**
+```bash
+# Pre-pull base images
+docker pull registry.gitlab.com/franklin/base:latest
+
+# Increase Docker resources
+# Docker Desktop → Preferences → Resources
+```
+
+## Contributing to Franklin
+
+Interested in contributing? See our [Developer Guide](developer_guide.qmd) for information on:
+
+- Setting up a development environment
+- Franklin's plugin architecture
+- Creating custom templates
+- Contributing to core functionality
+
+## Resources
+
+- [Franklin GitHub Repository](https://github.com/munch-group/franklin)
+- [Pixi Documentation](https://pixi.sh/latest/)
+- [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
+- [JupyterLab Extensions Guide](https://jupyterlab.readthedocs.io/en/stable/extension/extension_dev.html)
