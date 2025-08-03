@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/computer_setup.html" rel="next">
-<link href="../pages/getting_started.html" rel="prev">
+<link href="../pages/numpy_and_pandas.html" rel="next">
+<link href="../pages/developing.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/overview.html">Outline and infrastructure</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/developer_guide.html">Developer Resources</a></li><li class="breadcrumb-item"><a href="../pages/overview.html">Outline and infrastructure</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -175,22 +175,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Outline and infrastructure</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Setting up</span></a>
+ <span class="menu-text">Getting Started</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -198,8 +186,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/computer_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Computer setup</span></a>
+  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/getting_started_beginners.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin for Beginners</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/quick_reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin Quick Reference</span></a>
   </div>
 </li>
       </ul>
@@ -207,12 +207,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Using Franklin</span></a>
+ <span class="menu-text">User Guides</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/python_users_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin for Python &amp; Jupyter Users</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/commands_core.html" class="sidebar-item-text sidebar-link">
@@ -230,12 +236,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Tutorials</span></a>
+ <span class="menu-text">Developer Resources</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/developer_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin Developer Guide</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
@@ -244,17 +256,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/numpy_and_pandas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">NumPy and Pandas</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
- <span class="menu-text">pages/python_r_juliaqmd</span>
-  </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/plotting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Plotting with Python</span></a>
+  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Outline and infrastructure</span></a>
   </div>
 </li>
       </ul>
@@ -262,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">About</span></a>
+ <span class="menu-text">Tutorials</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -270,26 +273,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The terminal</span></a>
+  <a href="../pages/numpy_and_pandas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NumPy and Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/python_r_julia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python, R, and Julia for Data Science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/plotting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plotting with Python</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Jupyterlab</span></a>
+ <span class="menu-text">JupyterLab Tutorial</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Setup &amp; Configuration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/computer_setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/ssh.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SSH authentication</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/git.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Git version control</span></a>
+  <a href="../pages/automatic_updates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Automatic Updates</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -300,24 +326,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gitlab server</span></a>
+  <a href="../pages/docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Docker</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/docker.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Docker virtualization</span></a>
+  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to GitLab</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to the Terminal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/ssh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to SSH</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Git</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Help &amp; Support</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/troubleshooting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Troubleshooting Guide</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/faq.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FAQ</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -366,7 +438,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/developer_guide.html">Developer Resources</a></li><li class="breadcrumb-item"><a href="../pages/overview.html">Outline and infrastructure</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Outline and infrastructure</h1>
 </div>
@@ -497,7 +569,7 @@ Under development
 </section>
 <section id="container-registry" class="level2">
 <h2 class="anchored" data-anchor-id="container-registry">Container registry</h2>
-<div id="edd60a53" class="cell" data-execution_count="1">
+<div id="50d366c0" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_tree(dir_path, prefix<span class="op">=</span><span class="st">''</span>):</span>
@@ -519,7 +591,9 @@ Under development
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage:</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>print_tree(<span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>├── commands_admin.html
+<pre><code>├── automatic_updates.html
+├── automatic_updates.qmd
+├── commands_admin.html
 ├── commands_admin.qmd
 ├── commands_core.qmd
 ├── commands_edu.html
@@ -527,6 +601,8 @@ Under development
 ├── computer_setup.html
 ├── computer_setup.qmd
 ├── conda.qmd
+├── developer_guide.html
+├── developer_guide.qmd
 ├── developing.html
 ├── developing.qmd
 ├── docker.html
@@ -535,6 +611,7 @@ Under development
 ├── faq.qmd
 ├── getting_started.html
 ├── getting_started.qmd
+├── getting_started_beginners.qmd
 ├── git.html
 ├── git.qmd
 ├── gitlab.html
@@ -561,16 +638,27 @@ Under development
 │   └── shell-command.png
 ├── jupyterlab.html
 ├── jupyterlab.ipynb
+├── jupyterlab_complete.html
+├── jupyterlab_complete.ipynb
 ├── jupyterlab_files
 │   └── figure-html
-│       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png
 │       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png
 ├── numpy_and_pandas.html
 ├── numpy_and_pandas.ipynb
+├── numpy_pandas_comprehensive.html
+├── numpy_pandas_comprehensive.ipynb
 ├── overview.qmd
 ├── overview.quarto_ipynb
+├── pixi.html
+├── pixi.qmd
 ├── plotting.ipynb
+├── plotting_expanded.html
+├── plotting_expanded.ipynb
 ├── python_r_julia.qmd
+├── python_r_julia_expanded.html
+├── python_r_julia_expanded.qmd
+├── python_users_guide.qmd
+├── quick_reference.qmd
 ├── sandbox.qmd
 ├── ssh.qmd
 ├── student
@@ -589,14 +677,16 @@ Under development
 │   └── index.qmd
 ├── terminal.html
 ├── terminal.qmd
+├── test_minimal.html
+├── test_minimal.ipynb
+├── test_simple.html
+├── test_simple.ipynb
+├── troubleshooting.html
+├── troubleshooting.qmd
 ├── widgets.html
 ├── widgets.ipynb
-└── widgets_files
-    └── figure-html
-        ├── cell-10-output-1.png
-        ├── cell-24-output-1.png
-        ├── cell-5-output-1.png
-        └── cell-6-output-1.png</code></pre>
+├── widgets_expanded.html
+└── widgets_expanded.ipynb</code></pre>
 </div>
 </div>
 <p>src/franklin</p>
@@ -1042,13 +1132,13 @@ Under development
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/getting_started.html" class="pagination-link" aria-label="Getting started">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Getting started</span>
+      <a href="../pages/developing.html" class="pagination-link" aria-label="Developing exercises">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Developing exercises</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/computer_setup.html" class="pagination-link" aria-label="Computer setup">
-        <span class="nav-page-text">Computer setup</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/numpy_and_pandas.html" class="pagination-link" aria-label="NumPy and Pandas">
+        <span class="nav-page-text">NumPy and Pandas</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

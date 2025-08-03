@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Developing exercises – franklin</title>
+<title>Automatic Updates – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/overview.html" rel="next">
-<link href="../pages/developer_guide.html" rel="prev">
+<link href="../pages/conda.html" rel="next">
+<link href="../pages/computer_setup.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -77,9 +77,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-a986a95301e671fce2c6472dffc862a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -166,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/developer_guide.html">Developer Resources</a></li><li class="breadcrumb-item"><a href="../pages/developing.html">Developing exercises</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/computer_setup.html">Setup &amp; Configuration</a></li><li class="breadcrumb-item"><a href="../pages/automatic_updates.html">Automatic Updates</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -253,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link active">
+  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Developing exercises</span></a>
   </div>
 </li>
@@ -317,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/automatic_updates.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/automatic_updates.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Automatic Updates</span></a>
   </div>
 </li>
@@ -403,21 +400,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-exercise-repository" id="toc-the-exercise-repository" class="nav-link active" data-scroll-target="#the-exercise-repository">The exercise repository</a></li>
-  <li><a href="#developchange-a-new-exercise-on-gitlab" id="toc-developchange-a-new-exercise-on-gitlab" class="nav-link" data-scroll-target="#developchange-a-new-exercise-on-gitlab">Develop/change a new exercise on GitLab</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#update-mechanisms" id="toc-update-mechanisms" class="nav-link" data-scroll-target="#update-mechanisms">Update Mechanisms</a>
   <ul class="collapse">
-  <li><a href="#assisted-workflow" id="toc-assisted-workflow" class="nav-link" data-scroll-target="#assisted-workflow">Assisted workflow</a></li>
-  <li><a href="#supported-workflow" id="toc-supported-workflow" class="nav-link" data-scroll-target="#supported-workflow">Supported workflow</a></li>
+  <li><a href="#pixi-global-packages" id="toc-pixi-global-packages" class="nav-link" data-scroll-target="#pixi-global-packages">Pixi Global Packages</a></li>
+  <li><a href="#conda-environment-updates" id="toc-conda-environment-updates" class="nav-link" data-scroll-target="#conda-environment-updates">Conda Environment Updates</a></li>
   </ul></li>
+  <li><a href="#version-pinning-and-control" id="toc-version-pinning-and-control" class="nav-link" data-scroll-target="#version-pinning-and-control">Version Pinning and Control</a>
+  <ul class="collapse">
+  <li><a href="#preventing-automatic-updates" id="toc-preventing-automatic-updates" class="nav-link" data-scroll-target="#preventing-automatic-updates">Preventing Automatic Updates</a></li>
+  <li><a href="#checking-current-version" id="toc-checking-current-version" class="nav-link" data-scroll-target="#checking-current-version">Checking Current Version</a></li>
+  </ul></li>
+  <li><a href="#update-channels" id="toc-update-channels" class="nav-link" data-scroll-target="#update-channels">Update Channels</a>
+  <ul class="collapse">
+  <li><a href="#subscribing-to-different-channels" id="toc-subscribing-to-different-channels" class="nav-link" data-scroll-target="#subscribing-to-different-channels">Subscribing to Different Channels</a></li>
+  </ul></li>
+  <li><a href="#update-notifications" id="toc-update-notifications" class="nav-link" data-scroll-target="#update-notifications">Update Notifications</a>
+  <ul class="collapse">
+  <li><a href="#configuring-update-checks" id="toc-configuring-update-checks" class="nav-link" data-scroll-target="#configuring-update-checks">Configuring Update Checks</a></li>
+  </ul></li>
+  <li><a href="#plugin-updates" id="toc-plugin-updates" class="nav-link" data-scroll-target="#plugin-updates">Plugin Updates</a></li>
+  <li><a href="#rollback-procedures" id="toc-rollback-procedures" class="nav-link" data-scroll-target="#rollback-procedures">Rollback Procedures</a>
+  <ul class="collapse">
+  <li><a href="#with-pixi-1" id="toc-with-pixi-1" class="nav-link" data-scroll-target="#with-pixi-1">With Pixi:</a></li>
+  <li><a href="#with-conda-1" id="toc-with-conda-1" class="nav-link" data-scroll-target="#with-conda-1">With Conda:</a></li>
+  </ul></li>
+  <li><a href="#container-image-updates" id="toc-container-image-updates" class="nav-link" data-scroll-target="#container-image-updates">Container Image Updates</a></li>
+  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices">Best Practices</a></li>
+  <li><a href="#troubleshooting-updates" id="toc-troubleshooting-updates" class="nav-link" data-scroll-target="#troubleshooting-updates">Troubleshooting Updates</a>
+  <ul class="collapse">
+  <li><a href="#update-fails" id="toc-update-fails" class="nav-link" data-scroll-target="#update-fails">Update Fails</a></li>
+  <li><a href="#version-conflicts" id="toc-version-conflicts" class="nav-link" data-scroll-target="#version-conflicts">Version Conflicts</a></li>
+  <li><a href="#network-issues" id="toc-network-issues" class="nav-link" data-scroll-target="#network-issues">Network Issues</a></li>
+  </ul></li>
+  <li><a href="#security-updates" id="toc-security-updates" class="nav-link" data-scroll-target="#security-updates">Security Updates</a>
+  <ul class="collapse">
+  <li><a href="#security-update-policy" id="toc-security-update-policy" class="nav-link" data-scroll-target="#security-update-policy">Security Update Policy</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/developer_guide.html">Developer Resources</a></li><li class="breadcrumb-item"><a href="../pages/developing.html">Developing exercises</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/computer_setup.html">Setup &amp; Configuration</a></li><li class="breadcrumb-item"><a href="../pages/automatic_updates.html">Automatic Updates</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Developing exercises</h1>
+<h1 class="title">Automatic Updates</h1>
+<p class="subtitle lead">How Franklin Keeps Itself Updated</p>
 </div>
 
 
@@ -434,105 +464,261 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-caution callout-titled">
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Franklin is designed to automatically stay up-to-date, ensuring all users have the latest features and bug fixes without manual intervention. This page explains how automatic updates work with both Pixi and Conda installation methods.</p>
+</section>
+<section id="update-mechanisms" class="level2">
+<h2 class="anchored" data-anchor-id="update-mechanisms">Update Mechanisms</h2>
+<section id="pixi-global-packages" class="level3">
+<h3 class="anchored" data-anchor-id="pixi-global-packages">Pixi Global Packages</h3>
+<p>When installed with <code>pixi global install</code>, Franklin benefits from Pixi’s automatic update features:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial installation</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Automatic Update Process:</strong></p>
+<ol type="1">
+<li><strong>Global Sync</strong>: Pixi periodically checks for updates to global packages</li>
+<li><strong>Version Resolution</strong>: Automatically resolves to the latest compatible version</li>
+<li><strong>Background Updates</strong>: Updates happen transparently when you run Franklin commands</li>
+<li><strong>No User Intervention</strong>: Updates are applied without requiring manual commands</li>
+</ol>
+<p><strong>Manual Update Check:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Force immediate update check</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global update franklin</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Update all global packages</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global update <span class="at">--all</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="conda-environment-updates" class="level3">
+<h3 class="anchored" data-anchor-id="conda-environment-updates">Conda Environment Updates</h3>
+<p>When installed with conda, Franklin uses conda’s update mechanism:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial installation</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Update Process:</strong></p>
+<ol type="1">
+<li><strong>Solver-based Updates</strong>: Conda’s solver finds the latest compatible version</li>
+<li><strong>Channel Priority</strong>: Updates come from the specified channels in priority order</li>
+<li><strong>Environment Isolation</strong>: Updates are contained within the conda environment</li>
+</ol>
+<p><strong>Manual Update:</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Update Franklin</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> update <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Update all packages in environment</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> update <span class="at">--all</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="version-pinning-and-control" class="level2">
+<h2 class="anchored" data-anchor-id="version-pinning-and-control">Version Pinning and Control</h2>
+<section id="preventing-automatic-updates" class="level3">
+<h3 class="anchored" data-anchor-id="preventing-automatic-updates">Preventing Automatic Updates</h3>
+<p>If you need to lock to a specific version:</p>
+<section id="with-pixi" class="level4">
+<h4 class="anchored" data-anchor-id="with-pixi">With Pixi:</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install specific version</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin==0.24.165 <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Pin version in project</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"franklin==0.24.165"</span> <span class="op">&gt;&gt;</span> pixi.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="with-conda" class="level4">
+<h4 class="anchored" data-anchor-id="with-conda">With Conda:</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install specific version</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install franklin=0.24.165</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Pin version</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"franklin==0.24.165"</span> <span class="op">&gt;&gt;</span> <span class="va">$CONDA_PREFIX</span>/conda-meta/pinned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="checking-current-version" class="level3">
+<h3 class="anchored" data-anchor-id="checking-current-version">Checking Current Version</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check installed version</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check available versions (pixi)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> search franklin <span class="at">--channel</span> munch-group</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check available versions (conda)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> search franklin <span class="at">-c</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="update-channels" class="level2">
+<h2 class="anchored" data-anchor-id="update-channels">Update Channels</h2>
+<p>Franklin releases follow this pattern:</p>
+<ol type="1">
+<li><strong>Development</strong>: Nightly builds (not for production)</li>
+<li><strong>Beta</strong>: Release candidates for testing</li>
+<li><strong>Stable</strong>: Production-ready releases (default)</li>
+</ol>
+<section id="subscribing-to-different-channels" class="level3">
+<h3 class="anchored" data-anchor-id="subscribing-to-different-channels">Subscribing to Different Channels</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stable (default)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Beta channel</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group/label/beta</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Development builds</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group/label/dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="update-notifications" class="level2">
+<h2 class="anchored" data-anchor-id="update-notifications">Update Notifications</h2>
+<p>Franklin checks for updates on startup and notifies you when a new version is available:</p>
+<pre><code>╭────────────────────────────────────────────────╮
+│  A new version of Franklin is available!       │
+│  Current: 0.24.165 → Available: 0.24.166      │
+│  Run 'pixi global update franklin' to update   │
+╰────────────────────────────────────────────────╯</code></pre>
+<section id="configuring-update-checks" class="level3">
+<h3 class="anchored" data-anchor-id="configuring-update-checks">Configuring Update Checks</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Disable update notifications</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> config set updates.check false</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Change update check frequency (hours)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> config set updates.check_interval 24</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Disable automatic updates (pixi only)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> config set updates.auto_update false</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="plugin-updates" class="level2">
+<h2 class="anchored" data-anchor-id="plugin-updates">Plugin Updates</h2>
+<p>Educator and admin plugins update alongside the main Franklin package:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Update all Franklin components</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global update franklin franklin-educator franklin-admin</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check plugin versions</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="at">--version</span>  <span class="co"># Educator plugin</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin <span class="at">--version</span>     <span class="co"># Admin plugin</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="rollback-procedures" class="level2">
+<h2 class="anchored" data-anchor-id="rollback-procedures">Rollback Procedures</h2>
+<p>If an update causes issues, you can rollback to a previous version:</p>
+<section id="with-pixi-1" class="level3">
+<h3 class="anchored" data-anchor-id="with-pixi-1">With Pixi:</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View update history</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global list <span class="at">--show-versions</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Rollback to specific version</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin==0.24.164 <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="with-conda-1" class="level3">
+<h3 class="anchored" data-anchor-id="with-conda-1">With Conda:</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View revision history</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> list <span class="at">--revisions</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Rollback to previous revision</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">--revision</span> 2</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Or install specific version</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install franklin=0.24.164</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="container-image-updates" class="level2">
+<h2 class="anchored" data-anchor-id="container-image-updates">Container Image Updates</h2>
+<p>Franklin also manages Docker container updates for exercises:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull latest base images</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> docker pull <span class="at">--latest</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Update exercise containers</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> docker update <span class="at">--all</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean old images</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> docker prune <span class="at">--days</span> 30</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="best-practices">Best Practices</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Under development
+Update Recommendations
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The content of this page is being developed.</p>
+<ol type="1">
+<li><strong>Regular Users</strong>: Let automatic updates run (default behavior)</li>
+<li><strong>During Semester</strong>: Consider pinning version for stability</li>
+<li><strong>Between Semesters</strong>: Update to latest version for new features</li>
+<li><strong>Testing</strong>: Use beta channel in non-production environments</li>
+<li><strong>Production</strong>: Always test updates in staging first</li>
+</ol>
 </div>
 </div>
-<section id="the-exercise-repository" class="level2">
-<h2 class="anchored" data-anchor-id="the-exercise-repository">The exercise repository</h2>
-<p>A git repository is where an exercise lives</p>
+</section>
+<section id="troubleshooting-updates" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting-updates">Troubleshooting Updates</h2>
+<section id="update-fails" class="level3">
+<h3 class="anchored" data-anchor-id="update-fails">Update Fails</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear package cache</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> cache clean</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> clean <span class="at">--all</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Force reinstall</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global uninstall franklin</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="version-conflicts" class="level3">
+<h3 class="anchored" data-anchor-id="version-conflicts">Version Conflicts</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check dependencies</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> info franklin</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> info franklin</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Resolve conflicts</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global update <span class="at">--force</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> update <span class="at">--force-reinstall</span> franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="network-issues" class="level3">
+<h3 class="anchored" data-anchor-id="network-issues">Network Issues</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use offline mode if packages are cached</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--offline</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Configure proxy for updates</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">HTTP_PROXY</span><span class="op">=</span>http://proxy.company.com:8080</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">HTTPS_PROXY</span><span class="op">=</span>http://proxy.company.com:8080</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="security-updates" class="level2">
+<h2 class="anchored" data-anchor-id="security-updates">Security Updates</h2>
+<p>Critical security updates are:</p>
+<ol type="1">
+<li><strong>Automatically Applied</strong>: Within 24 hours of release</li>
+<li><strong>Logged</strong>: Update history is maintained</li>
+<li><strong>Notified</strong>: Administrators receive security notifications</li>
+<li><strong>Tested</strong>: Updates go through automated testing before release</li>
+</ol>
+<section id="security-update-policy" class="level3">
+<h3 class="anchored" data-anchor-id="security-update-policy">Security Update Policy</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check security status</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> security status</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View security updates</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> security updates <span class="at">--list</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply security updates immediately</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> security update <span class="at">--now</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>Franklin’s automatic update system ensures:</p>
 <ul>
-<li><strong>exercise.ipynb:</strong>: blah blah</li>
-<li><strong>Dockerfile:</strong> blah blah</li>
-<li><strong>README.md:</strong>: blah blah</li>
-<li><strong>docker-entrypoint.sh:</strong>: blah blah</li>
-<li><strong>tagged-release.sh:</strong>: blah blah</li>
+<li><strong>Consistency</strong>: All users run the same version</li>
+<li><strong>Security</strong>: Critical fixes are applied quickly</li>
+<li><strong>Reliability</strong>: Updates are tested before release</li>
+<li><strong>Flexibility</strong>: Manual control when needed</li>
+<li><strong>Transparency</strong>: Clear notifications and logs</li>
 </ul>
-</section>
-<section id="developchange-a-new-exercise-on-gitlab" class="level2">
-<h2 class="anchored" data-anchor-id="developchange-a-new-exercise-on-gitlab">Develop/change a new exercise on GitLab</h2>
-<p>To begin an automated edit workflow, just run the command below and follow instructions carefully:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>For more information about edit workflows, see the tutorial about developing exercises.</p>
-<section id="assisted-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="assisted-workflow">Assisted workflow</h3>
-<p><strong><em>This workflow is temporarily disabled</em></strong></p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb2" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise down</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb3" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise up</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="supported-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="supported-workflow">Supported workflow</h3>
-<p>Use this command to clone the exercise repository:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb4" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise clone</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then open the repository. If is is called <code>data-exercise</code>, you can open it in vscode like this:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb5" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">code</span> data-exercise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<blockquote class="blockquote">
-<p><strong>For Mac users:</strong> On Macs, the <code>code</code> command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter. Restart the terminal for the change to take effect.</p>
-</blockquote>
-<p>Once open in vscode, click “Reopen in Container” if prompted, or otherwise use Cmd-Shift-P to open the command palette and type “reopen”, select “Reopen in Container” and hit Enter.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/Screenshot 2025-05-31 at 11.05.53.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/Screenshot 2025-05-31 at 11.05.53.png" class="img-fluid figure-img" alt="alt text"></a></p>
-<figcaption>alt text</figcaption>
-</figure>
-</div>
-<p>Vscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the <code>franklin</code> jupyter kernel among the environments available. For an introduction to jupyter in vscode, see <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">Using notebooks in vscode</a>.</p>
-<p>If you need to install and use third-party python packages (e.g.&nbsp;<code>pandas</code>), these packages must be added as dependencies to the docker image. To do this, open vscode’s terminal window and install pixi by running this command:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./install_pixi.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Running the command below, will both make <code>pandas</code> available and add it as a dependency for the exercise.</p>
-<p>! pixi run test-notebook</p>
-<p>! pixi run add-dependency</p>
-<p>! pixi run collect-dependencies</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run add-dependency pandas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>An alternative approach scan the notebook and add dependencies automatically.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run collect-dependencies</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You can test that the exercise notebook runs as configured using this command:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run test-notebook</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To add/commit/push you can use vscode’s git interface, <code>gitui</code>, or the <code>git</code> command line tool.</p>
-<blockquote class="blockquote">
-<p><strong>GitUI:</strong> Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged. Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment</p>
-</blockquote>
-<!-- FIXME: make sure docker images built this way are also visible and cleaned up by franklin cleanup  -->
-<pre><code># ! /install_pixi.sh
-# %load_ext magic
-# %franklin pandas matplotlib</code></pre>
+<p>The combination of Pixi’s modern package management and Franklin’s update checks provides a robust, automatic update system that keeps the platform current without disrupting users’ work.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -937,49 +1123,17 @@ Under development
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/developer_guide.html" class="pagination-link" aria-label="Franklin Developer Guide">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Franklin Developer Guide</span>
+      <a href="../pages/computer_setup.html" class="pagination-link" aria-label="Computer setup">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Computer setup</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/overview.html" class="pagination-link" aria-label="Outline and infrastructure">
-        <span class="nav-page-text">Outline and infrastructure</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/conda.html" class="pagination-link" aria-label="Conda">
+        <span class="nav-page-text">Conda</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

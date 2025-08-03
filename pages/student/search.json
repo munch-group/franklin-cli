@@ -142,188 +142,397 @@
   {
     "objectID": "../terminal.html",
     "href": "../terminal.html",
-    "title": "The terminal",
+    "title": "Introduction to the Terminal",
     "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.\n\n\nthis primer before you go on.\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.\nCtrl-C for abort\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\nNavigating folders via the terminal\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
+    "text": "What is a Terminal?\nA terminal (also called command line, shell, or console) is a text-based interface for interacting with your computer. Instead of clicking buttons and icons, you type commands to tell the computer what to do. While it might seem intimidating at first, the terminal is an incredibly powerful tool that gives you precise control over your system.",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>The terminal</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#what-is-a-terminal",
+    "href": "../terminal.html#what-is-a-terminal",
+    "title": "Introduction to the Terminal",
+    "section": "",
+    "text": "Why Learn the Terminal?\n\nPower: Many tasks are faster and more efficient in the terminal\nAutomation: Chain commands together and create scripts\nRemote Access: Control servers and other computers remotely\nDevelopment: Essential for programming and data science\nFranklin: Many Franklin commands work best from the terminal",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#opening-your-terminal",
+    "href": "../terminal.html#opening-your-terminal",
+    "title": "Introduction to the Terminal",
+    "section": "Opening Your Terminal",
+    "text": "Opening Your Terminal\n\nmacOSWindowsLinux\n\n\n\nPress Cmd + Space to open Spotlight\nType “Terminal” and press Enter\nOr: Find Terminal in Applications → Utilities\n\nYou’ll see something like:\nusername@MacBook-Pro ~ %\n\n\n\nPress Windows Key\nType “PowerShell” or “Command Prompt”\nOr: Right-click Start Menu → Windows Terminal\n\nYou’ll see something like:\nPS C:\\Users\\username&gt;\n\n\n\nPress Ctrl + Alt + T (most distributions)\nOr: Find Terminal in your applications menu\n\nYou’ll see something like:\nusername@computer:~$",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#understanding-the-prompt",
+    "href": "../terminal.html#understanding-the-prompt",
+    "title": "Introduction to the Terminal",
+    "section": "Understanding the Prompt",
+    "text": "Understanding the Prompt\nThe prompt shows you important information:\nusername@hostname:current_directory$\n\nusername: Your user account name\nhostname: Your computer’s name\ncurrent_directory: Where you are in the file system\n$ or %: Indicates you can type a command",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#essential-navigation-commands",
+    "href": "../terminal.html#essential-navigation-commands",
+    "title": "Introduction to the Terminal",
+    "section": "Essential Navigation Commands",
+    "text": "Essential Navigation Commands\n\nWhere Am I? (pwd)\nThe pwd command (print working directory) shows your current location:\npwd\n# Output: /Users/username/Documents\n\n\nWhat’s Here? (ls)\nThe ls command lists files and folders:\n# Basic listing\nls\n\n# Detailed listing with sizes and dates\nls -l\n\n# Show hidden files (starting with .)\nls -a\n\n# Human-readable file sizes\nls -lh\n\n\nMoving Around (cd)\nThe cd command (change directory) moves between folders:\n# Go to a specific folder\ncd Documents\n\n# Go to home directory\ncd ~\n# or just\ncd\n\n# Go up one level\ncd ..\n\n# Go up two levels\ncd ../..\n\n# Go to previous directory\ncd -\n\n# Use absolute path\ncd /Users/username/Documents\n\n# Use relative path\ncd ./subfolder",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#working-with-files-and-folders",
+    "href": "../terminal.html#working-with-files-and-folders",
+    "title": "Introduction to the Terminal",
+    "section": "Working with Files and Folders",
+    "text": "Working with Files and Folders\n\nCreating Files and Folders\n# Create a new folder\nmkdir my_project\nmkdir -p projects/python/data_analysis  # Create nested folders\n\n# Create an empty file\ntouch notes.txt\n\n# Create and write to a file\necho \"Hello World\" &gt; greeting.txt\n\n# Append to a file\necho \"Another line\" &gt;&gt; greeting.txt\n\n\nViewing File Contents\n# View entire file\ncat filename.txt\n\n# View with pagination\nless filename.txt  # Press 'q' to quit\n\n# View first 10 lines\nhead filename.txt\n\n# View last 10 lines\ntail filename.txt\n\n# View last lines as file updates (great for logs)\ntail -f logfile.log\n\n\nCopying, Moving, and Deleting\n# Copy file\ncp source.txt destination.txt\n\n# Copy folder recursively\ncp -r source_folder destination_folder\n\n# Move/rename file or folder\nmv old_name.txt new_name.txt\nmv file.txt /path/to/destination/\n\n# Delete file\nrm file.txt\n\n# Delete empty folder\nrmdir empty_folder\n\n# Delete folder and contents (careful!)\nrm -r folder_name\n\n# Delete with confirmation\nrm -i file.txt",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#useful-shortcuts-and-tips",
+    "href": "../terminal.html#useful-shortcuts-and-tips",
+    "title": "Introduction to the Terminal",
+    "section": "Useful Shortcuts and Tips",
+    "text": "Useful Shortcuts and Tips\n\nKeyboard Shortcuts\n\n\n\nShortcut\nAction\n\n\n\n\nTab\nAuto-complete file/folder names\n\n\n↑ / ↓\nNavigate command history\n\n\nCtrl + C\nCancel current command\n\n\nCtrl + A\nGo to beginning of line\n\n\nCtrl + E\nGo to end of line\n\n\nCtrl + L\nClear screen (or use clear)\n\n\nCtrl + R\nSearch command history\n\n\nCtrl + D\nExit terminal\n\n\n\n\n\nCommand History\n# View command history\nhistory\n\n# Run previous command\n!!\n\n# Run command from history\n!123  # Run command number 123\n\n# Search history\nhistory | grep \"git\"\n\n\nWildcards and Patterns\n# * matches any characters\nls *.txt           # All .txt files\nrm temp_*          # All files starting with temp_\n\n# ? matches single character\nls file?.txt       # Matches file1.txt, file2.txt, etc.\n\n# [...] matches any character in brackets\nls file[123].txt   # Matches file1.txt, file2.txt, file3.txt",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#finding-things",
+    "href": "../terminal.html#finding-things",
+    "title": "Introduction to the Terminal",
+    "section": "Finding Things",
+    "text": "Finding Things\n\nFinding Files\n# Find files by name\nfind . -name \"*.py\"\n\n# Find folders\nfind . -type d -name \"data\"\n\n# Find files modified in last 24 hours\nfind . -mtime -1\n\n# Find and execute command\nfind . -name \"*.txt\" -exec cat {} \\;\n\n\nSearching File Contents\n# Search for text in file\ngrep \"search term\" file.txt\n\n# Search recursively in all files\ngrep -r \"TODO\" .\n\n# Case-insensitive search\ngrep -i \"python\" file.txt\n\n# Show line numbers\ngrep -n \"error\" logfile.log\n\n# Search for files containing text\ngrep -l \"import pandas\" *.py",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#working-with-processes",
+    "href": "../terminal.html#working-with-processes",
+    "title": "Introduction to the Terminal",
+    "section": "Working with Processes",
+    "text": "Working with Processes\n\nRunning Programs\n# Run a Python script\npython script.py\n\n# Run in background\npython long_script.py &\n\n# Run and disconnect from terminal\nnohup python script.py &\n\n\nManaging Processes\n# List running processes\nps aux\n\n# Find specific process\nps aux | grep python\n\n# Kill a process\nkill 1234  # Kill process with ID 1234\n\n# Force kill\nkill -9 1234\n\n# Interactive process viewer\ntop  # Press 'q' to quit",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#inputoutput-redirection",
+    "href": "../terminal.html#inputoutput-redirection",
+    "title": "Introduction to the Terminal",
+    "section": "Input/Output Redirection",
+    "text": "Input/Output Redirection\n\nRedirecting Output\n# Redirect output to file\nls &gt; file_list.txt\n\n# Append to file\nls &gt;&gt; file_list.txt\n\n# Redirect errors\ncommand 2&gt; errors.txt\n\n# Redirect both output and errors\ncommand &&gt; all_output.txt\n\n\nPipes\nChain commands together:\n# Count Python files\nls | grep \".py\" | wc -l\n\n# Find and sort\nfind . -name \"*.txt\" | sort\n\n# View processes using most memory\nps aux | sort -k4 -r | head",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#environment-variables",
+    "href": "../terminal.html#environment-variables",
+    "title": "Introduction to the Terminal",
+    "section": "Environment Variables",
+    "text": "Environment Variables\n# View all environment variables\nenv\n\n# View specific variable\necho $PATH\necho $HOME\n\n# Set temporary variable\nexport MY_VAR=\"value\"\n\n# Add to PATH\nexport PATH=$PATH:/new/path",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#franklin-in-the-terminal",
+    "href": "../terminal.html#franklin-in-the-terminal",
+    "title": "Introduction to the Terminal",
+    "section": "Franklin in the Terminal",
+    "text": "Franklin in the Terminal\nFranklin is designed to work seamlessly from the terminal:\n# Check Franklin installation\nfranklin --version\n\n# Download exercises\nfranklin download\n\n# Start Jupyter\nfranklin jupyter\n\n# Get help\nfranklin --help\nfranklin jupyter --help\n\nCommon Franklin Workflows\n# Student workflow\ncd ~/Documents/Courses\nfranklin download\ncd \"Exercise Name\"\nfranklin jupyter\n\n# Educator workflow\nfranklin exercise new\ncd my-exercise\nfranklin exercise edit\nfranklin exercise test\nfranklin exercise publish",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#terminal-for-different-shells",
+    "href": "../terminal.html#terminal-for-different-shells",
+    "title": "Introduction to the Terminal",
+    "section": "Terminal for Different Shells",
+    "text": "Terminal for Different Shells\n\nBash (Linux/Mac)Zsh (Mac default)PowerShell (Windows)\n\n\nMost common shell with extensive features:\n# Check current shell\necho $SHELL\n\n# Bash-specific features\nalias ll='ls -la'\nsource ~/.bashrc\n\n\nEnhanced Bash with better completion:\n# Zsh configuration\n~/.zshrc\n\n# Powerful tab completion\ncd /u/l/b&lt;Tab&gt;  # Expands to /usr/local/bin\n\n\nObject-oriented shell:\n# PowerShell commands\nGet-ChildItem  # Like ls\nSet-Location   # Like cd\nGet-Content    # Like cat\n\n# Aliases work too\nls\ncd\ncat",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#terminal-customization",
+    "href": "../terminal.html#terminal-customization",
+    "title": "Introduction to the Terminal",
+    "section": "Terminal Customization",
+    "text": "Terminal Customization\n\nCreating Aliases\nMake shortcuts for common commands:\n# Add to ~/.bashrc or ~/.zshrc\nalias ll='ls -la'\nalias gs='git status'\nalias jp='franklin jupyter'\nalias py='python'\n\n# Reload configuration\nsource ~/.bashrc\n\n\nCustomizing Prompt\n# Simple prompt\nPS1='\\u@\\h:\\w\\$ '\n\n# Colorful prompt\nPS1='\\[\\033[01;32m\\]\\u@\\h\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ '",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#best-practices",
+    "href": "../terminal.html#best-practices",
+    "title": "Introduction to the Terminal",
+    "section": "Best Practices",
+    "text": "Best Practices\n\nSafety First\n\n✅ Use ls before rm to verify what you’re deleting\n✅ Use -i flag with rm for confirmation\n✅ Make backups before major operations\n✅ Test commands on sample data first\n\n\n\nEfficiency Tips\n\n✅ Use Tab completion extensively\n✅ Create aliases for repetitive commands\n✅ Learn keyboard shortcuts\n✅ Use command history\n\n\n\nOrganization\n\n✅ Use descriptive file and folder names\n✅ Organize projects in dedicated directories\n✅ Keep your home directory clean\n✅ Use version control (Git) for code",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#common-terminal-tasks",
+    "href": "../terminal.html#common-terminal-tasks",
+    "title": "Introduction to the Terminal",
+    "section": "Common Terminal Tasks",
+    "text": "Common Terminal Tasks\n\nQuick File Backup\n# Backup single file\ncp important.txt important_backup.txt\n\n# Backup with date\ncp important.txt important_$(date +%Y%m%d).txt\n\n# Backup entire folder\ntar -czf backup.tar.gz my_folder/\n\n\nBatch Operations\n# Rename multiple files\nfor file in *.txt; do\n    mv \"$file\" \"backup_$file\"\ndone\n\n# Convert all CSV to lowercase names\nfor file in *.CSV; do\n    mv \"$file\" \"${file,,}\"\ndone\n\n\nQuick System Info\n# Disk usage\ndf -h\n\n# Folder sizes\ndu -sh *\n\n# Memory usage\nfree -h  # Linux\ntop      # Mac/Linux\n\n# Network info\nifconfig  # or ip addr",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#troubleshooting-common-issues",
+    "href": "../terminal.html#troubleshooting-common-issues",
+    "title": "Introduction to the Terminal",
+    "section": "Troubleshooting Common Issues",
+    "text": "Troubleshooting Common Issues\n\nPermission Denied\n# Check permissions\nls -l file.txt\n\n# Make executable\nchmod +x script.sh\n\n# Change ownership\nsudo chown username file.txt\n\n\nCommand Not Found\n# Check if program installed\nwhich python\n\n# Check PATH\necho $PATH\n\n# Install missing command\n# Mac: brew install program\n# Linux: apt install program\n# Windows: winget install program\n\n\nStuck Terminal\n\nCtrl + C: Stop current command\nCtrl + D: Exit/logout\nCtrl + Z: Suspend process (use fg to resume)\nCtrl + L: Clear screen",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#resources-for-learning-more",
+    "href": "../terminal.html#resources-for-learning-more",
+    "title": "Introduction to the Terminal",
+    "section": "Resources for Learning More",
+    "text": "Resources for Learning More\n\nInteractive Tutorials\n\nCommand Line Tutorial\nLearn Shell\nBash Guide\n\n\n\nPractice\n\nStart with navigation: pwd, ls, cd\nCreate and manipulate files\nLearn one new command per day\nAutomate repetitive tasks",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
+    ]
+  },
+  {
+    "objectID": "../terminal.html#summary",
+    "href": "../terminal.html#summary",
+    "title": "Introduction to the Terminal",
+    "section": "Summary",
+    "text": "Summary\nThe terminal is your direct line of communication with the computer. While graphical interfaces are convenient, the terminal offers:\n\nSpeed: Type faster than you can click\nPower: Access to thousands of commands\nAutomation: Script repetitive tasks\nRemote Access: Work on distant servers\nDevelopment: Essential for programming\n\nStart with basic navigation, gradually add commands to your toolkit, and soon you’ll wonder how you ever lived without it!",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Introduction to the Terminal</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html",
     "href": "../jupyterlab.html",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "",
-    "text": "Starting jupyter lab\nJupyterLab is a highly extensible, feature-rich notebook authoring application and editing environment, and is a part of Project Jupyter, a large umbrella project centered around the goal of providing tools (and standards) for interactive computing with computational notebooks. The name Jupyter is an abbreviation of Julia, Python, R - referring to the three programming languages supported. For an impression of how the three languages compare as tools for data analysis, have a look at the Python, R, and Julia tutorial.\nA computational notebook is a shareable document that combines computer code, plain language descriptions, data, rich visualizations like 3D models, charts, graphs and figures, and interactive controls. A notebook, along with an editor like JupyterLab, provides a fast interactive environment for prototyping and explaining code, exploring and visualizing data, and sharing ideas with others.\nJupyterLab is a sibling to other notebook authoring applications under the Project Jupyter umbrella, like Jupyter Notebook and Jupyter Desktop. JupyterLab offers a more advanced, feature rich, customizable experience compared to Jupyter Notebook.MM\nTerminal commands:\nIt then appears in your default browser.|",
+    "text": "Starting JupyterLabThere are several ways to start JupyterLab:\n—title: “JupyterLab Tutorial”subtitle: “Interactive Computing with Notebooks”—",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
+    ]
+  },
+  {
+    "objectID": "../jupyterlab.html#starting-jupyterlabthere-are-several-ways-to-start-jupyterlab",
+    "href": "../jupyterlab.html#starting-jupyterlabthere-are-several-ways-to-start-jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
+    "section": "",
+    "text": "With Franklin (Recommended)The easiest way for Franklin users:\n\n# Navigate to your exercise foldercd \"My Exercise\"# Start JupyterLab through Franklinfranklin jupyter",
+    "crumbs": [
+      "Tutorials",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#keyboard-shortcuts",
     "href": "../jupyterlab.html#keyboard-shortcuts",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Keyboard shortcuts",
     "text": "Keyboard shortcuts\n\nCommand Mode in Jupyter Notebooks\nIn Jupyter Notebooks, Command Mode is one of the two main interaction modes—the other being Edit Mode. Command Mode is active when the cell border is blue, indicating that keyboard commands will be interpreted as notebook-level operations rather than editing the cell’s content.\nCommand Mode allows users to manage cells and perform structural modifications without using the mouse. This enhances efficiency, especially when working with large notebooks. Pressing Esc while in a cell activates Command Mode.\n\nCommon Keyboard Shortcuts in Command Mode\n\n\n\n\n\n\n\nShortcut\nDescription\n\n\n\n\nEnter\nSwitch to Edit Mode in the selected cell\n\n\nA\nInsert a new cell above the current cell\n\n\nB\nInsert a new cell below the current cell\n\n\nD, D\nDelete the selected cell (press D twice quickly)\n\n\nZ\nUndo the last cell deletion\n\n\nY\nChange cell type to code\n\n\nM\nChange cell type to Markdown\n\n\nC\nCopy the selected cell\n\n\nX\nCut the selected cell\n\n\nV\nPaste cell below\n\n\nShift + V\nPaste cell above\n\n\nShift + Up/Down\nExtend selection to multiple cells\n\n\nCtrl + S (or Cmd + S on macOS)\nSave the notebook\n\n\nH\nShow all keyboard shortcuts\n\n\n0, 0\nRestart the kernel (press 0 twice quickly)\n\n\nShift + M (in Command Mode)\nMerge selected cells\n\n\n\nThese shortcuts make navigation and cell management significantly faster, enabling an efficient coding and documentation workflow within Jupyter Notebooks.\n\n\n\nEdit Mode in Jupyter Notebooks\nEdit Mode is activated when a cell’s border turns green, allowing the user to directly modify the contents of the cell. You can enter Edit Mode by pressing Enter while a cell is selected in Command Mode. This mode is primarily used for writing and editing code or Markdown content within cells.\n\nCommon Keyboard Shortcuts in Edit Mode\n\n\n\n\n\n\n\nShortcut\nDescription\n\n\n\n\nCtrl + Enter\nRun the current cell and remain in Edit Mode\n\n\nShift + Enter\nRun the current cell and move to the next cell\n\n\nAlt + Enter\nRun the current cell and insert a new cell below\n\n\nEsc\nSwitch to Command Mode\n\n\nCtrl + /\nToggle comment on selected lines (code cells only)\n\n\nTab\nCode completion or indent\n\n\nShift + Tab\nShow tooltip/help for the object under cursor\n\n\nCtrl + ]\nIndent the current line or selection\n\n\nCtrl + [\nDedent the current line or selection\n\n\nCtrl + A\nSelect all content in the cell\n\n\nCtrl + Z\nUndo the last change\n\n\nCtrl + Y\nRedo the last undone change\n\n\nCtrl + Shift + -\nSplit the current cell at cursor position into two cells\n\n\nCtrl + S (or Cmd + S)\nSave the notebook\n\n\nCtrl + Shift + -\nSplit the cell at the current cursor position\n\n\n\nThese shortcuts are optimized for efficient coding and content editing, significantly reducing reliance on the mouse and improving productivity within Jupyter Notebooks.",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#menu-toolbar-context-menu",
     "href": "../jupyterlab.html#menu-toolbar-context-menu",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Menu, Toolbar, Context menu",
     "text": "Menu, Toolbar, Context menu",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#command-palette-commandctrl-shift-c",
     "href": "../jupyterlab.html#command-palette-commandctrl-shift-c",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Command palette: Command/Ctrl Shift C",
     "text": "Command palette: Command/Ctrl Shift C",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#keyboard-short-cuts-commandctrl-shift-h",
     "href": "../jupyterlab.html#keyboard-short-cuts-commandctrl-shift-h",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Keyboard short-cuts: Command/Ctrl Shift H",
     "text": "Keyboard short-cuts: Command/Ctrl Shift H",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#code-blocks",
     "href": "../jupyterlab.html#code-blocks",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Code blocks",
     "text": "Code blocks\n\nx = 0",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#last-value-is-displayed",
     "href": "../jupyterlab.html#last-value-is-displayed",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Last value is displayed",
-    "text": "Last value is displayed\n\nx = 1\nx\n\n1",
+    "text": "Last value is displayed\n\nx = 1\nx",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#everything-is-one-python-process",
     "href": "../jupyterlab.html#everything-is-one-python-process",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Everything is one Python process",
-    "text": "Everything is one Python process\n\nx += 1\nx\n\n2",
+    "text": "Everything is one Python process\n\nx += 1\nx",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#restarting-the-kernel",
     "href": "../jupyterlab.html#restarting-the-kernel",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Restarting the kernel",
     "text": "Restarting the kernel",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#lists",
     "href": "../jupyterlab.html#lists",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Lists",
     "text": "Lists\n\nfoo\nbar\nbaz",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#numbered-lists",
     "href": "../jupyterlab.html#numbered-lists",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Numbered lists",
     "text": "Numbered lists\n\nfoo\nbar\nbaz",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#quotes",
     "href": "../jupyterlab.html#quotes",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Quotes",
     "text": "Quotes\n\nThis is a quote",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#formulas",
     "href": "../jupyterlab.html#formulas",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Formulas",
     "text": "Formulas\n\\(\\sum_{i=0}^n i\\)\n\nHTML",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#header-2",
     "href": "../jupyterlab.html#header-2",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Header 2",
     "text": "Header 2\n\nHeader 3\n\nHeader 4",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#formulas-1",
     "href": "../jupyterlab.html#formulas-1",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Formulas",
     "text": "Formulas\n\\(\\sum_{i=0}^n i\\)",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
     "objectID": "../jupyterlab.html#tables",
     "href": "../jupyterlab.html#tables",
-    "title": "Jupyterlab",
+    "title": "What is JupyterLab?JupyterLab is a powerful web-based interactive development environment for working with notebooks, code, and data. It’s the next-generation interface for Project Jupyter, offering a flexible and extensible environment for computational work.### Key Features- Notebooks: Interactive documents combining code, text, and outputs- Multiple Languages: Support for Python, R, Julia, and 100+ other languages- Rich Outputs: Display plots, tables, images, videos, and interactive widgets- Flexible Interface: Arrange multiple documents and activities side by side- Extensions: Customize with a growing ecosystem of extensions### JupyterLab vs Jupyter Notebook| Feature | JupyterLab | Classic Notebook ||———|————|——————|| Interface | Multi-document, IDE-like | Single document || File Browser | Built-in | Limited || Terminal | Integrated | Separate || Text Editor | Full-featured | Basic || Extensions | Modern system | Legacy || Layout | Flexible, draggable | Fixed |Franklin uses JupyterLab by default because it provides the most comprehensive environment for learning and research.",
     "section": "Tables",
     "text": "Tables\n\n\n\nName\nValue\n\n\n\n\nfoo\n2\n\n\nbar\n3",
     "crumbs": [
       "Tutorials",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Jupyterlab</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>JupyterLab Tutorial</span>"
     ]
   },
   {
@@ -331,7 +540,7 @@
     "href": "../numpy_and_pandas.html",
     "title": "NumPy and Pandas",
     "section": "",
-    "text": "Numpy\nFast computation using vectors and matrices\nlist1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\nlist2 = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]\n\nsummed = []\nfor i in range(len(list1)):\n    summed.append(list1[i] + list2[i])\nsummed\n\n[9, 9, 9, 9, 9, 9, 9, 9, 9, 9]",
+    "text": "Numpy\nFast computation using vectors and matrices\nlist1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\nlist2 = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]\n\nsummed = []\nfor i in range(len(list1)):\n    summed.append(list1[i] + list2[i])\nsummed",
     "crumbs": [
       "Tutorials",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>NumPy and Pandas</span>"
@@ -342,7 +551,7 @@
     "href": "../numpy_and_pandas.html#numpy",
     "title": "NumPy and Pandas",
     "section": "",
-    "text": "Arrays\n\nimport numpy as np\n\n\na = np.array(list1)\nb = np.array(list2)\na, b\n\n(array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))\n\n\n\n\nBroadcasting\n\na + b\n\narray([9, 9, 9, 9, 9, 9, 9, 9, 9, 9])\n\n\n\na * b\n\narray([ 0,  8, 14, 18, 20, 20, 18, 14,  8,  0])\n\n\n\na - 10\n\narray([-10,  -9,  -8,  -7,  -6,  -5,  -4,  -3,  -2,  -1])\n\n\n\na.sum()\n\n45\n\n\n\na.mean()\n\n4.5\n\n\n\n\nMultidimentional arrays\n\nlist_of_lists = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nlist_of_lists\n\n[[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n\n\n\nlist_of_lists[1][1]\n\n5\n\n\n\nmatrix = np.array(list_of_lists)\nmatrix\n\narray([[1, 2, 3],\n       [4, 5, 6],\n       [7, 8, 9]])\n\n\n\nmatrix[1][1] # not efficient\n\n5\n\n\n\nmatrix[1, 1] # efficient\n\n5\n\n\n\nmatrix - 10\n\narray([[-9, -8, -7],\n       [-6, -5, -4],\n       [-3, -2, -1]])\n\n\n\nmatrix.sum()\n\n45\n\n\n\nlist_of_lists_of_lists = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\nlist_of_lists_of_lists\n\n[[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\n\n\n\ntensor = np.array(list_of_lists_of_lists)\ntensor\n\narray([[[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]],\n\n       [[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]]])\n\n\n\ntensor[1, 1, 1]\n\n5",
+    "text": "Arrays\n\nimport numpy as np\n\n\na = np.array(list1)\nb = np.array(list2)\na, b\n\n\n\nBroadcasting\n\na + b\n\n\na * b\n\n\na - 10\n\n\na.sum()\n\n\na.mean()\n\n\n\nMultidimentional arrays\n\nlist_of_lists = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nlist_of_lists\n\n\nlist_of_lists[1][1]\n\n\nmatrix = np.array(list_of_lists)\nmatrix\n\n\nmatrix[1][1] # not efficient\n\n\nmatrix[1, 1] # efficient\n\n\nmatrix - 10\n\n\nmatrix.sum()\n\n\nlist_of_lists_of_lists = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\nlist_of_lists_of_lists\n\n\ntensor = np.array(list_of_lists_of_lists)\ntensor\n\n\ntensor[1, 1, 1]",
     "crumbs": [
       "Tutorials",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>NumPy and Pandas</span>"
@@ -353,7 +562,7 @@
     "href": "../numpy_and_pandas.html#pandas",
     "title": "NumPy and Pandas",
     "section": "Pandas",
-    "text": "Pandas\nFast computations on data tables (on top of Numpy).\n\nimport pandas as pd\n\n\nDataFrame\n\ndf = pd.DataFrame({'name': ['Mike', 'Mia', 'Jake'], 'weight': [82, 62, 75]})\ndf\n\n\n\n\n\n\n\n\nname\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\ntype(df)\n\npandas.core.frame.DataFrame\n\n\n\ndf = pd.DataFrame(dict(name=['Mike', 'Mia', 'Jake'], weight=[82, 62, 75]))\ndf\n\n\n\n\n\n\n\n\nname\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\nrecords = [('Mike', 82), ('Mia', 62), ('Jake', 75)]\n\ndf = pd.DataFrame().from_records(records, columns=['age', 'weight'])\ndf\n\n\n\n\n\n\n\n\nage\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\ndf.index\n\nRangeIndex(start=0, stop=3, step=1)\n\n\n\ndf.index.values\n\narray([0, 1, 2])\n\n\n\ndf.columns\n\nIndex(['age', 'weight'], dtype='object')\n\n\n\ndf.dtypes\n\nage       object\nweight     int64\ndtype: object\n\n\nAdd a column to an existing dataframe:\n\ndf['height'] = [182.5, 173.0, 192.5]\ndf\n\n\n\n\n\n\n\n\nage\nweight\nheight\n\n\n\n\n0\nMike\n82\n182.5\n\n\n1\nMia\n62\n173.0\n\n\n2\nJake\n75\n192.5\n\n\n\n\n\n\n\nAdd another, categorical, column:\n\ndf['sex'] = pd.Categorical(['male', 'female', 'male'], categories=['female', 'male'], ordered=True)\ndf\n\n\n\n\n\n\n\n\nage\nweight\nheight\nsex\n\n\n\n\n0\nMike\n82\n182.5\nmale\n\n\n1\nMia\n62\n173.0\nfemale\n\n\n2\nJake\n75\n192.5\nmale\n\n\n\n\n\n\n\n\ndf.dtypes\n\nage         object\nweight       int64\nheight     float64\nsex       category\ndtype: object\n\n\nA Series just wraps an array:\n\ndf.height.to_numpy()\n\narray([182.5, 173. , 192.5])\n\n\n\n\nExample penguin data set\n\nimport seaborn as sns\n\npenguins = sns.load_dataset('penguins')\n\n\npenguins\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n344 rows × 7 columns\n\n\n\n\npenguins.dtypes\n\nspecies               object\nisland                object\nbill_length_mm       float64\nbill_depth_mm        float64\nflipper_length_mm    float64\nbody_mass_g          float64\nsex                   object\ndtype: object\n\n\n\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n\n\n\n\n\n\npenguins.tail()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n\n\n\n\n\nSeries\n\npenguins['flipper_length_mm']\n\n0      181.0\n1      186.0\n2      195.0\n3        NaN\n4      193.0\n       ...  \n339      NaN\n340    215.0\n341    222.0\n342    212.0\n343    213.0\nName: flipper_length_mm, Length: 344, dtype: float64\n\n\n\npenguins.flipper_length_mm\n\n0      181.0\n1      186.0\n2      195.0\n3        NaN\n4      193.0\n       ...  \n339      NaN\n340    215.0\n341    222.0\n342    212.0\n343    213.0\nName: flipper_length_mm, Length: 344, dtype: float64\n\n\n\ntype(penguins.flipper_length_mm)\n\npandas.core.series.Series\n\n\n\n\nBroadcasting\n\npenguins.bill_depth_mm - 1000\n\n0     -981.3\n1     -982.6\n2     -982.0\n3        NaN\n4     -980.7\n       ...  \n339      NaN\n340   -985.7\n341   -984.3\n342   -985.2\n343   -983.9\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\npenguins.bill_depth_mm * penguins.flipper_length_mm\n\n0      3384.7\n1      3236.4\n2      3510.0\n3         NaN\n4      3724.9\n        ...  \n339       NaN\n340    3074.5\n341    3485.4\n342    3137.6\n343    3429.3\nLength: 344, dtype: float64\n\n\n\n\nIndexing\n\nGet a cell\n\npenguins.loc[4, 'island']\n\n'Torgersen'\n\n\n\n\nGet a row\n\npenguins.loc[4]\n\nspecies                 Adelie\nisland               Torgersen\nbill_length_mm            36.7\nbill_depth_mm             19.3\nflipper_length_mm        193.0\nbody_mass_g             3450.0\nsex                     Female\nName: 4, dtype: object\n\n\n\n\nGet a column\n\npenguins['bill_depth_mm']\n\n0      18.7\n1      17.4\n2      18.0\n3       NaN\n4      19.3\n       ... \n339     NaN\n340    14.3\n341    15.7\n342    14.8\n343    16.1\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\npenguins.bill_depth_mm\n\n0      18.7\n1      17.4\n2      18.0\n3       NaN\n4      19.3\n       ... \n339     NaN\n340    14.3\n341    15.7\n342    14.8\n343    16.1\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\n\nGet a range of rows and multiple columns\n\npenguins.loc[40:45, ['island', 'body_mass_g']]\n\n\n\n\n\n\n\n\nisland\nbody_mass_g\n\n\n\n\n40\nDream\n3150.0\n\n\n41\nDream\n3900.0\n\n\n42\nDream\n3100.0\n\n\n43\nDream\n4400.0\n\n\n44\nDream\n3000.0\n\n\n45\nDream\n4600.0\n\n\n\n\n\n\n\n\n\nUse boolean series as index to subset data\n\nidx = penguins.bill_length_mm &gt; 55\nidx\n\n0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n339    False\n340    False\n341    False\n342    False\n343    False\nName: bill_length_mm, Length: 344, dtype: bool\n\n\n\npenguins.loc[idx]\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n169\nChinstrap\nDream\n58.0\n17.8\n181.0\n3700.0\nFemale\n\n\n215\nChinstrap\nDream\n55.8\n19.8\n207.0\n4000.0\nMale\n\n\n253\nGentoo\nBiscoe\n59.6\n17.0\n230.0\n6050.0\nMale\n\n\n321\nGentoo\nBiscoe\n55.9\n17.0\n228.0\n5600.0\nMale\n\n\n335\nGentoo\nBiscoe\n55.1\n16.0\n230.0\n5850.0\nMale\n\n\n\n\n\n\n\n\npenguins.loc[(penguins.bill_length_mm &gt; 55) & (penguins.sex == 'Female')]\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n169\nChinstrap\nDream\n58.0\n17.8\n181.0\n3700.0\nFemale\n\n\n\n\n\n\n\n\n\nSetting and resetting the index\n\npenguins\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n344 rows × 7 columns\n\n\n\n\ndf = penguins.set_index(['species', 'sex', 'island'])\ndf.head(10)\n\n\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nspecies\nsex\nisland\n\n\n\n\n\n\n\n\nAdelie\nMale\nTorgersen\n39.1\n18.7\n181.0\n3750.0\n\n\nFemale\nTorgersen\n39.5\n17.4\n186.0\n3800.0\n\n\nTorgersen\n40.3\n18.0\n195.0\n3250.0\n\n\nNaN\nTorgersen\nNaN\nNaN\nNaN\nNaN\n\n\nFemale\nTorgersen\n36.7\n19.3\n193.0\n3450.0\n\n\nMale\nTorgersen\n39.3\n20.6\n190.0\n3650.0\n\n\nFemale\nTorgersen\n38.9\n17.8\n181.0\n3625.0\n\n\nMale\nTorgersen\n39.2\n19.6\n195.0\n4675.0\n\n\nNaN\nTorgersen\n34.1\n18.1\n193.0\n3475.0\n\n\nTorgersen\n42.0\n20.2\n190.0\n4250.0\n\n\n\n\n\n\n\n\ndf.reset_index()\n\n\n\n\n\n\n\n\nspecies\nsex\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\n\n\n0\nAdelie\nMale\nTorgersen\n39.1\n18.7\n181.0\n3750.0\n\n\n1\nAdelie\nFemale\nTorgersen\n39.5\n17.4\n186.0\n3800.0\n\n\n2\nAdelie\nFemale\nTorgersen\n40.3\n18.0\n195.0\n3250.0\n\n\n3\nAdelie\nNaN\nTorgersen\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nFemale\nTorgersen\n36.7\n19.3\n193.0\n3450.0\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nNaN\nBiscoe\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nFemale\nBiscoe\n46.8\n14.3\n215.0\n4850.0\n\n\n341\nGentoo\nMale\nBiscoe\n50.4\n15.7\n222.0\n5750.0\n\n\n342\nGentoo\nFemale\nBiscoe\n45.2\n14.8\n212.0\n5200.0\n\n\n343\nGentoo\nMale\nBiscoe\n49.9\n16.1\n213.0\n5400.0\n\n\n\n\n344 rows × 7 columns\n\n\n\n\n\n\nSorting rows\n\nsorted_df = penguins.sort_values(by=\"bill_length_mm\")\nsorted_df.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n142\nAdelie\nDream\n32.1\n15.5\n188.0\n3050.0\nFemale\n\n\n98\nAdelie\nDream\n33.1\n16.1\n178.0\n2900.0\nFemale\n\n\n70\nAdelie\nTorgersen\n33.5\n19.0\n190.0\n3600.0\nFemale\n\n\n92\nAdelie\nDream\n34.0\n17.1\n185.0\n3400.0\nFemale\n\n\n8\nAdelie\nTorgersen\n34.1\n18.1\n193.0\n3475.0\nNaN\n\n\n\n\n\n\n\n\nsorted_df.index.values\n\narray([142,  98,  70,  92,   8,  18,  54,  80,  14, 100,  52,  83, 124,\n        25,  66,  74, 136,  60,  90, 118,  68,  22,  42,  48, 150, 148,\n        78,  94, 120,  86,  34,  64,  58,  40,  15, 147,   4,  82, 132,\n        87,  44, 138,  77,  31, 144, 117,  84,  47, 133,  62,  38,  59,\n        21, 121, 102, 103,  10,  20,  11, 149, 104,  28,  96, 108, 134,\n       110, 107,  23,  88, 130,  13, 106, 116,  16,  24, 126,  36,  89,\n         6, 128, 145,  56,   0,  35, 146,   7,   5,  30,   1,  32, 114,\n        45,  50,  72,  93, 112, 105, 139,  71,  39,  51, 137, 140, 122,\n        97,   2,  27,  29, 125, 141,  26,  57, 143,  95,  41, 230, 182,\n        33,  76, 101, 135, 119,  46,  63,  91,  67,  12,  61,  85, 123,\n        55, 127, 151,  65, 326,  69, 236,  53,   9,  79, 113,  37,  49,\n       172, 184, 206,  17, 256, 115, 260,  75, 251,  81, 244, 131, 278,\n       109, 174,  99, 228, 328, 306, 216, 332, 288, 265, 276, 258, 129,\n        43, 257, 246, 336, 314, 268, 304, 275, 241, 252, 272, 208, 298,\n       299, 269, 342, 157, 280, 262, 226, 155, 232, 277, 195, 312, 266,\n       111, 211, 214, 204, 282,  73, 284, 234, 166, 160,  19, 158, 245,\n       220, 286, 238, 334, 281, 193, 243, 170, 180, 291, 294, 293, 225,\n       274, 152, 242, 162, 270, 227, 176, 325, 229, 340, 213, 317, 190,\n       164, 338, 322, 324, 250, 302, 310, 296, 187, 308, 188, 224, 290,\n       247, 329, 202, 248, 292, 318, 233, 255, 271, 173, 320, 295, 259,\n       239, 222, 337, 192, 199, 231, 300, 323, 254, 171, 237, 235, 209,\n       316, 313, 179, 287, 263, 261, 217, 186, 331, 201, 285, 343, 303,\n       153, 221, 223, 249, 198, 273, 210, 219, 240, 168, 279, 341, 267,\n       330, 167, 178, 264, 175, 289, 205, 305, 218, 197, 315, 196, 194,\n       185, 297, 319, 154, 159, 161, 307, 203, 333, 200, 163, 212, 165,\n       177, 189, 309, 207, 311, 301, 156, 181, 327, 191, 183, 283, 335,\n       215, 321, 169, 253,   3, 339])\n\n\nClick to the left of an output cell to enable/disable scrolling of the output (usefull for large amounts of output).\n\nsorted_df.loc[0]\n\nspecies                 Adelie\nisland               Torgersen\nbill_length_mm            39.1\nbill_depth_mm             18.7\nflipper_length_mm        181.0\nbody_mass_g             3750.0\nsex                       Male\nName: 0, dtype: object\n\n\n\nsorted_df.flipper_length_mm[0]\n\n181.0\n\n\n\nsorted_df.iloc[0] # iloc !!!\n\nspecies              Adelie\nisland                Dream\nbill_length_mm         32.1\nbill_depth_mm          15.5\nflipper_length_mm     188.0\nbody_mass_g          3050.0\nsex                  Female\nName: 142, dtype: object\n\n\n\nsorted_df.flipper_length_mm.iloc[0]\n\n188.0\n\n\n\n\nSummary stats\n\npenguins.describe()\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\n\n\ncount\n342.000000\n342.000000\n342.000000\n342.000000\n\n\nmean\n43.921930\n17.151170\n200.915205\n4201.754386\n\n\nstd\n5.459584\n1.974793\n14.061714\n801.954536\n\n\nmin\n32.100000\n13.100000\n172.000000\n2700.000000\n\n\n25%\n39.225000\n15.600000\n190.000000\n3550.000000\n\n\n50%\n44.450000\n17.300000\n197.000000\n4050.000000\n\n\n75%\n48.500000\n18.700000\n213.000000\n4750.000000\n\n\nmax\n59.600000\n21.500000\n231.000000\n6300.000000\n\n\n\n\n\n\n\n\npenguins.bill_length_mm.mean()\n\n43.9219298245614\n\n\n\npenguins.bill_length_mm.count()\n\n342\n\n\n\n\nGroup\n\npenguins.groupby('island')\n\n&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x15cc9e5e0&gt;\n\n\n\n\nAggregate\nAggregating produces a single value for each variable in each group:\nMeans for all numeric variables for each island:\n\npenguins.groupby('island').aggregate(\"mean\", numeric_only=True)\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nisland\n\n\n\n\n\n\n\n\nBiscoe\n45.257485\n15.874850\n209.706587\n4716.017964\n\n\nDream\n44.167742\n18.344355\n193.072581\n3712.903226\n\n\nTorgersen\n38.950980\n18.429412\n191.196078\n3706.372549\n\n\n\n\n\n\n\n\npenguins.groupby('island').mean(numeric_only=True)\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nisland\n\n\n\n\n\n\n\n\nBiscoe\n45.257485\n15.874850\n209.706587\n4716.017964\n\n\nDream\n44.167742\n18.344355\n193.072581\n3712.903226\n\n\nTorgersen\n38.950980\n18.429412\n191.196078\n3706.372549\n\n\n\n\n\n\n\nMeans for bill_length_mm and flipper_length_mm:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].mean()\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\nisland\n\n\n\n\n\n\nBiscoe\n45.257485\n209.706587\n\n\nDream\n44.167742\n193.072581\n\n\nTorgersen\n38.950980\n191.196078\n\n\n\n\n\n\n\nJust for flipper_length_mm:\n\npenguins.groupby('island').flipper_length_mm.mean()\n\nisland\nBiscoe       209.706587\nDream        193.072581\nTorgersen    191.196078\nName: flipper_length_mm, dtype: float64\n\n\n\n\nTransform\nTransforming produces new colums with the same length as the input:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(\"mean\")\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\n\n\n0\n38.950980\n191.196078\n\n\n1\n38.950980\n191.196078\n\n\n2\n38.950980\n191.196078\n\n\n3\n38.950980\n191.196078\n\n\n4\n38.950980\n191.196078\n\n\n...\n...\n...\n\n\n339\n45.257485\n209.706587\n\n\n340\n45.257485\n209.706587\n\n\n341\n45.257485\n209.706587\n\n\n342\n45.257485\n209.706587\n\n\n343\n45.257485\n209.706587\n\n\n\n\n344 rows × 2 columns\n\n\n\n\ndef z_value(sr):\n    return (sr - sr.mean()) / sr.std()\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(z_value)\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\n\n\n0\n0.049258\n-1.636022\n\n\n1\n0.181475\n-0.833742\n\n\n2\n0.445910\n0.610362\n\n\n3\nNaN\nNaN\n\n\n4\n-0.744048\n0.289450\n\n\n...\n...\n...\n\n\n339\nNaN\nNaN\n\n\n340\n0.323193\n0.374297\n\n\n341\n1.077478\n0.869267\n\n\n342\n-0.012044\n0.162167\n\n\n343\n0.972717\n0.232877\n\n\n\n\n344 rows × 2 columns\n\n\n\n\n\nApply\nFlexible method allowing any operation on grouped data.\nReturn a single value:\n\ndef fun(df):\n    return df.bill_length_mm + df.flipper_length_mm.mean() / df.body_mass_g\n\npenguins.groupby('island').apply(fun)#.to_frame('my_stat')\n\nisland        \nBiscoe     20     37.861678\n           21     37.758252\n           22     35.955186\n           23     38.253090\n           24     38.855186\n                    ...    \nTorgersen  127    41.544464\n           128    39.062687\n           129    44.147799\n           130    38.557503\n           131    43.154627\nLength: 344, dtype: float64\n\n\nReturn a dataframe:\n\ndef fun(df):\n    return pd.DataFrame({'sqrt_bill': np.sqrt(df.bill_length_mm),\n                         'bill_squared': df.bill_length_mm**2})\n\npenguins.groupby('island').apply(fun)\n\n\n\n\n\n\n\n\n\nsqrt_bill\nbill_squared\n\n\nisland\n\n\n\n\n\n\n\nBiscoe\n20\n6.148170\n1428.84\n\n\n21\n6.140033\n1421.29\n\n\n22\n5.991661\n1288.81\n\n\n23\n6.180615\n1459.24\n\n\n24\n6.228965\n1505.44\n\n\n...\n...\n...\n...\n\n\nTorgersen\n127\n6.442049\n1722.25\n\n\n128\n6.244998\n1521.00\n\n\n129\n6.640783\n1944.81\n\n\n130\n6.204837\n1482.25\n\n\n131\n6.565059\n1857.61\n\n\n\n\n344 rows × 2 columns",
+    "text": "Pandas\nFast computations on data tables (on top of Numpy).\n\nimport pandas as pd\n\n\nDataFrame\n\ndf = pd.DataFrame({'name': ['Mike', 'Mia', 'Jake'], 'weight': [82, 62, 75]})\ndf\n\n\ntype(df)\n\n\ndf = pd.DataFrame(dict(name=['Mike', 'Mia', 'Jake'], weight=[82, 62, 75]))\ndf\n\n\nrecords = [('Mike', 82), ('Mia', 62), ('Jake', 75)]\n\ndf = pd.DataFrame().from_records(records, columns=['age', 'weight'])\ndf\n\n\ndf.index\n\n\ndf.index.values\n\n\ndf.columns\n\n\ndf.dtypes\n\nAdd a column to an existing dataframe:\n\ndf['height'] = [182.5, 173.0, 192.5]\ndf\n\nAdd another, categorical, column:\n\ndf['sex'] = pd.Categorical(['male', 'female', 'male'], categories=['female', 'male'], ordered=True)\ndf\n\n\ndf.dtypes\n\nA Series just wraps an array:\n\ndf.height.to_numpy()\n\n\n\nExample penguin data set\n\nimport seaborn as sns\n\npenguins = sns.load_dataset('penguins')\n\n\npenguins\n\n\npenguins.dtypes\n\n\npenguins.head()\n\n\npenguins.tail()\n\n\n\nSeries\n\npenguins['flipper_length_mm']\n\n\npenguins.flipper_length_mm\n\n\ntype(penguins.flipper_length_mm)\n\n\n\nBroadcasting\n\npenguins.bill_depth_mm - 1000\n\n\npenguins.bill_depth_mm * penguins.flipper_length_mm\n\n\n\nIndexing\n\nGet a cell\n\npenguins.loc[4, 'island']\n\n\n\nGet a row\n\npenguins.loc[4]\n\n\n\nGet a column\n\npenguins['bill_depth_mm']\n\n\npenguins.bill_depth_mm\n\n\n\nGet a range of rows and multiple columns\n\npenguins.loc[40:45, ['island', 'body_mass_g']]\n\n\n\nUse boolean series as index to subset data\n\nidx = penguins.bill_length_mm &gt; 55\nidx\n\n\npenguins.loc[idx]\n\n\npenguins.loc[(penguins.bill_length_mm &gt; 55) & (penguins.sex == 'Female')]\n\n\n\nSetting and resetting the index\n\npenguins\n\n\ndf = penguins.set_index(['species', 'sex', 'island'])\ndf.head(10)\n\n\ndf.reset_index()\n\n\n\n\nSorting rows\n\nsorted_df = penguins.sort_values(by=\"bill_length_mm\")\nsorted_df.head()\n\n\nsorted_df.index.values\n\nClick to the left of an output cell to enable/disable scrolling of the output (usefull for large amounts of output).\n\nsorted_df.loc[0]\n\n\nsorted_df.flipper_length_mm[0]\n\n\nsorted_df.iloc[0] # iloc !!!\n\n\nsorted_df.flipper_length_mm.iloc[0]\n\n\n\nSummary stats\n\npenguins.describe()\n\n\npenguins.bill_length_mm.mean()\n\n\npenguins.bill_length_mm.count()\n\n\n\nGroup\n\npenguins.groupby('island')\n\n\n\nAggregate\nAggregating produces a single value for each variable in each group:\nMeans for all numeric variables for each island:\n\npenguins.groupby('island').aggregate(\"mean\", numeric_only=True)\n\n\npenguins.groupby('island').mean(numeric_only=True)\n\nMeans for bill_length_mm and flipper_length_mm:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].mean()\n\nJust for flipper_length_mm:\n\npenguins.groupby('island').flipper_length_mm.mean()\n\n\n\nTransform\nTransforming produces new colums with the same length as the input:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(\"mean\")\n\n\ndef z_value(sr):\n    return (sr - sr.mean()) / sr.std()\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(z_value)\n\n\n\nApply\nFlexible method allowing any operation on grouped data.\nReturn a single value:\n\ndef fun(df):\n    return df.bill_length_mm + df.flipper_length_mm.mean() / df.body_mass_g\n\npenguins.groupby('island').apply(fun)#.to_frame('my_stat')\n\nReturn a dataframe:\n\ndef fun(df):\n    return pd.DataFrame({'sqrt_bill': np.sqrt(df.bill_length_mm),\n                         'bill_squared': df.bill_length_mm**2})\n\npenguins.groupby('island').apply(fun)",
     "crumbs": [
       "Tutorials",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>NumPy and Pandas</span>"
@@ -375,7 +584,7 @@
     "href": "../plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
     "title": "Plotting with Python",
     "section": "FacetGrid.map vs. FacetGrid.map_dataframe",
-    "text": "FacetGrid.map vs. FacetGrid.map_dataframe\nWhen you use FacetGrid.map(func, \"col1\", \"col2\", ...), the function func is passed the values of the columns \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …). In addition, the function always receives a keyword argument named color=.\n\ndef scatter(*args, **kwargs):\n    return plt.scatter(args[0], args[1], **kwargs)\n    \ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(scatter, \"bill_length_mm\", \"flipper_length_mm\") ;\n\nWhen you use FacetGrid.map_dataframe(func, \"col1\", \"col2\", ...), the function func is passed the names \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …), and the filtered dataframe as keyword argument data=. In addition, the function always receives a keyword argument named color=.\n\ndef scatterplot(*args, **kwargs):\n    return sns.scatterplot(x=args[0], y=args[1], **kwargs)\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map_dataframe(scatterplot, \"bill_length_mm\", \"flipper_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.histplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.kdeplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"species\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"sex\") ;",
+    "text": "FacetGrid.map vs. FacetGrid.map_dataframe\nWhen you use FacetGrid.map(func, \"col1\", \"col2\", ...), the function func is passed the values of the columns \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …). In addition, the function always receives a keyword argument named color=.\n\ndef scatter(*args, **kwargs):\n    return plt.scatter(args[0], args[1], **kwargs)\n    \ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(scatter, \"bill_length_mm\", \"flipper_length_mm\") ;\n\nWhen you use FacetGrid.map_dataframe(func, \"col1\", \"col2\", ...), the function func is passed the names \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …), and the filtered dataframe as keyword argument data=. In addition, the function always receives a keyword argument named color=.\n\ndef scatterplot(*args, **kwargs):\n    return sns.scatterplot(x=args[0], y=args[1], **kwargs)\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map_dataframe(scatterplot, \"bill_length_mm\", \"flipper_length_mm\") ;\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.histplot, \"bill_length_mm\") ;\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.kdeplot, \"bill_length_mm\") ;\n\n\nsns.pairplot(penguins, hue=\"species\") ;\n\n\nsns.pairplot(penguins, hue=\"sex\") ;",
     "crumbs": [
       "Tutorials",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Plotting with Python</span>"
@@ -395,34 +604,364 @@
   {
     "objectID": "../gitlab.html",
     "href": "../gitlab.html",
-    "title": "Gitlab server",
+    "title": "Introduction to GitLab",
     "section": "",
-    "text": "set up gitlab\nIntroduction to GitLab\nGitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.\nGitLab enables individuals and teams to collaborate on code by providing:\nGit repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails. Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows. CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository. Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration. Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains. GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.\nIn summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.",
+    "text": "What is GitLab?\nGitLab is a complete DevOps platform that combines Git repository hosting with powerful collaboration and automation tools. While GitHub might be more familiar, GitLab offers unique advantages for educational environments, especially when self-hosted by universities.",
     "crumbs": [
       "About",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Gitlab server</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
     ]
   },
   {
-    "objectID": "../gitlab.html#set-up-gitlab",
-    "href": "../gitlab.html#set-up-gitlab",
-    "title": "Gitlab server",
+    "objectID": "../gitlab.html#what-is-gitlab",
+    "href": "../gitlab.html#what-is-gitlab",
+    "title": "Introduction to GitLab",
     "section": "",
-    "text": "sign in\nGo to gitlab by following this link On the sign-in page, choose the login option called login with Uni-add.\n\n\nSSH keys - what is that and why do i need it?\nSSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.\n\n\nHow do i get a SSH key?\nkaspers guide\n\n\ninsert SSH key to gitlab\nTo access your SSH keys you use the command: cat ~/.ssh/id_rsa.pub\nIt is very important that you choose the rsa.pub version.\nAfter you have run the command cat ~/.ssh/id_rsa.pub in your terminal a long line of letters and number will appear in your terminal. This is your SSH key. Now copy it and go back to the gitlab webpage\nThen press the icon on the top beside the picture that represent your profile and find the option called “edit profile” in the dropdown menu It should look like this: \nNow you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.\nThe page should look something like the figure below: \nIn the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this.\nYou are now ready to use gitlab!",
+    "text": "GitLab vs GitHub\n\n\n\nFeature\nGitLab\nGitHub\n\n\n\n\nHosting\nSelf-hosted or cloud\nPrimarily cloud\n\n\nCI/CD\nBuilt-in, unlimited\nActions with limits\n\n\nPrivacy\nComplete control (self-hosted)\nMicrosoft-owned\n\n\nFree Features\nMore generous\nMore limited\n\n\nIntegration\nAll-in-one platform\nRequires multiple tools",
     "crumbs": [
       "About",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Gitlab server</span>"
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#why-gitlab-for-education",
+    "href": "../gitlab.html#why-gitlab-for-education",
+    "title": "Introduction to GitLab",
+    "section": "Why GitLab for Education?",
+    "text": "Why GitLab for Education?\nEducational institutions often choose GitLab because:\n\nData Control: Self-hosted instances keep student work on university servers\nUnlimited CI/CD: No minute limits for automated testing and deployment\nPrivate Projects: Free private repositories for all students\nIntegration: Works seamlessly with university authentication (LDAP, SAML)\nCompliance: Meets educational privacy requirements",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#core-gitlab-features",
+    "href": "../gitlab.html#core-gitlab-features",
+    "title": "Introduction to GitLab",
+    "section": "Core GitLab Features",
+    "text": "Core GitLab Features\n\nRepository Management\nGitLab hosts Git repositories with additional features:\ngraph LR\n    A[Local Code] --&gt;|git push| B[GitLab Repo]\n    B --&gt;|git pull| C[Collaborator]\n    B --&gt;|Merge Request| D[Code Review]\n    D --&gt;|Approved| E[Main Branch]\n\n\nProject Organization\nGitLab Instance\n├── Groups (Courses)\n│   ├── Subgroups (Semesters)\n│   └── Projects (Exercises)\n└── Personal Projects\n    └── Student Work\n\n\nCI/CD Pipelines\nAutomatic testing and deployment:\n# .gitlab-ci.yml\ntest:\n  script:\n    - python -m pytest\n    - pixi run test-notebook\n  \ndeploy:\n  script:\n    - franklin exercise publish",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#getting-started-with-gitlab",
+    "href": "../gitlab.html#getting-started-with-gitlab",
+    "title": "Introduction to GitLab",
+    "section": "Getting Started with GitLab",
+    "text": "Getting Started with GitLab\n\nStep 1: Access Your GitLab Instance\nUniversities typically host GitLab at: - gitlab.university.edu - git.university.edu - code.university.edu\n# Example URLs\nhttps://gitlab.au.dk        # Aarhus University\nhttps://gitlab.ethz.ch      # ETH Zurich\nhttps://gitlab.com          # Public GitLab\n\n\nStep 2: Sign In\nMost university GitLab instances use Single Sign-On (SSO):\n\nNavigate to your GitLab instance\nClick “Sign in with SSO” or “University Login”\nEnter your university credentials\nAuthorize GitLab access\n\n\n\n\n\n\n\nFirst Time Login\n\n\n\nOn first login, GitLab may ask to: - Confirm your email - Set up two-factor authentication - Complete your profile\n\n\n\n\nStep 3: Set Up SSH Keys\nSSH keys enable secure, password-less access to GitLab.\n\nGenerate SSH Keys\n# Check for existing keys\nls -la ~/.ssh\n\n# Generate new Ed25519 key (recommended)\nssh-keygen -t ed25519 -C \"your.email@university.edu\"\n\n# Or RSA key (fallback)\nssh-keygen -t rsa -b 4096 -C \"your.email@university.edu\"\nWhen prompted: 1. Press Enter for default location 2. Enter a passphrase (optional but recommended) 3. Confirm passphrase\n\n\nAdd SSH Key to GitLab\n\nCopy your public key:\n# For Ed25519\ncat ~/.ssh/id_ed25519.pub\n\n# For RSA\ncat ~/.ssh/id_rsa.pub\nAdd to GitLab:\n\nClick your avatar → Preferences\nNavigate to SSH Keys in sidebar\nPaste your public key\nGive it a title (e.g., “Laptop”)\nSet expiration (optional)\nClick Add key\n\nTest connection:\nssh -T git@gitlab.university.edu\n# Should see: \"Welcome to GitLab, @username!\"",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#working-with-gitlab-projects",
+    "href": "../gitlab.html#working-with-gitlab-projects",
+    "title": "Introduction to GitLab",
+    "section": "Working with GitLab Projects",
+    "text": "Working with GitLab Projects\n\nCreating a Project\n\nClick New project button\nChoose creation method:\n\nCreate blank project: Start from scratch\nCreate from template: Use predefined templates\nImport project: From GitHub, Bitbucket, etc.\n\nConfigure project:\nProject name: my-assignment\nProject URL: gitlab.university.edu/username/\nVisibility: Private (default for coursework)\nInitialize with README: Yes\n\n\n\nCloning a Project\n# With SSH (recommended)\ngit clone git@gitlab.university.edu:username/project.git\n\n# With HTTPS (requires password)\ngit clone https://gitlab.university.edu/username/project.git\n\n# Clone into specific folder\ngit clone git@gitlab.university.edu:username/project.git my-folder\n\n\nBasic GitLab Workflow\n# 1. Clone project\ngit clone git@gitlab.university.edu:course/exercise.git\ncd exercise\n\n# 2. Create feature branch\ngit checkout -b my-solution\n\n# 3. Make changes\necho \"Solution code\" &gt; solution.py\n\n# 4. Commit changes\ngit add solution.py\ngit commit -m \"Add solution for problem 1\"\n\n# 5. Push to GitLab\ngit push origin my-solution\n\n# 6. Create Merge Request in GitLab UI",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#merge-requests-mrs",
+    "href": "../gitlab.html#merge-requests-mrs",
+    "title": "Introduction to GitLab",
+    "section": "Merge Requests (MRs)",
+    "text": "Merge Requests (MRs)\nMerge Requests are GitLab’s way of proposing changes:\n\nCreating a Merge Request\n\nPush your branch to GitLab\nGitLab shows banner: “Create merge request”\nFill in details:\n\nTitle: Clear description of changes\nDescription: Detailed explanation\nAssignee: Person to review\nMilestone: Related deadline\nLabels: Categories (bug, feature, etc.)\n\n\n\n\nMerge Request Features\n\nCode Review: Line-by-line comments\nCI/CD Integration: Automatic testing\nDiscussions: Threaded conversations\nApprovals: Require reviews before merging\nDiffs: Visual comparison of changes",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#gitlab-cicd",
+    "href": "../gitlab.html#gitlab-cicd",
+    "title": "Introduction to GitLab",
+    "section": "GitLab CI/CD",
+    "text": "GitLab CI/CD\n\nUnderstanding Pipelines\nGitLab CI/CD runs automated tasks when you push code:\ngraph LR\n    A[Push Code] --&gt; B[Pipeline Triggers]\n    B --&gt; C[Build Stage]\n    C --&gt; D[Test Stage]\n    D --&gt; E[Deploy Stage]\n    E --&gt; F[Success/Failure]\n\n\nBasic Pipeline Configuration\nCreate .gitlab-ci.yml in your repository:\n# Define stages\nstages:\n  - build\n  - test\n  - deploy\n\n# Build job\nbuild:\n  stage: build\n  script:\n    - echo \"Building project...\"\n    - pip install -r requirements.txt\n\n# Test job\ntest:\n  stage: test\n  script:\n    - echo \"Running tests...\"\n    - python -m pytest\n    - python -m mypy .\n\n# Deploy job (only on main branch)\ndeploy:\n  stage: deploy\n  script:\n    - echo \"Deploying...\"\n    - franklin exercise publish\n  only:\n    - main\n\n\nPipeline Status\nView pipeline status: - Green checkmark ✓ = Passed - Red X = Failed - Yellow circle = Running - Gray circle = Pending",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#gitlab-for-franklin-users",
+    "href": "../gitlab.html#gitlab-for-franklin-users",
+    "title": "Introduction to GitLab",
+    "section": "GitLab for Franklin Users",
+    "text": "GitLab for Franklin Users\n\nStudent Workflow\nFranklin integrates seamlessly with GitLab:\n# Download exercise from GitLab\nfranklin download\n# → Automatically uses GitLab API\n# → Clones with proper authentication\n\n# Work on exercise\nfranklin jupyter\n\n# Commit changes\ngit add -A\ngit commit -m \"Complete exercise\"\ngit push\n\n\nEducator Workflow\n# Create exercise repository\nfranklin exercise new\n\n# Set up GitLab project\ngit remote add origin git@gitlab.university.edu:course/exercise.git\ngit push -u origin main\n\n# Configure CI/CD\ncat &gt; .gitlab-ci.yml &lt;&lt; EOF\ntest:\n  image: python:3.10\n  script:\n    - pip install pixi\n    - pixi run test-notebook\nEOF\n\n# Publish to students\nfranklin exercise publish\n\n\nGitLab Groups for Courses\nOrganize courses using GitLab groups:\ngitlab.university.edu/\n├── cs101-fall2024/          # Course group\n│   ├── exercises/            # Subgroup\n│   │   ├── week1/           # Exercise project\n│   │   ├── week2/\n│   │   └── final-project/\n│   └── solutions/            # Private subgroup\n└── cs102-spring2025/",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#advanced-gitlab-features",
+    "href": "../gitlab.html#advanced-gitlab-features",
+    "title": "Introduction to GitLab",
+    "section": "Advanced GitLab Features",
+    "text": "Advanced GitLab Features\n\nIssue Tracking\nTrack tasks, bugs, and questions:\n# Issue Template\n## Problem Description\nDescribe the issue...\n\n## Steps to Reproduce\n1. Run `franklin jupyter`\n2. Open notebook\n3. Error appears\n\n## Expected Behavior\nWhat should happen...\n\n## Environment\n- OS: Windows 11\n- Franklin: 0.24.165\n\n\nWiki Pages\nDocument your project: - Project overview - API documentation - Installation guide - Troubleshooting\n\n\nProtected Branches\nPrevent accidental changes: 1. Settings → Repository → Protected branches 2. Select branch (e.g., main) 3. Configure: - Allowed to merge: Maintainers - Allowed to push: No one\n\n\nAccess Tokens\nFor automation and scripts:\n# Create personal access token\n# GitLab → Settings → Access Tokens\n\n# Use in scripts\ngit clone https://oauth2:YOUR_TOKEN@gitlab.university.edu/project.git\n\n# Or with Franklin\nexport GITLAB_TOKEN=YOUR_TOKEN\nfranklin download --token",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#troubleshooting-gitlab",
+    "href": "../gitlab.html#troubleshooting-gitlab",
+    "title": "Introduction to GitLab",
+    "section": "Troubleshooting GitLab",
+    "text": "Troubleshooting GitLab\n\nSSH Connection Issues\n# Debug SSH connection\nssh -vvv git@gitlab.university.edu\n\n# Common fixes:\n# 1. Check SSH agent\nssh-add -l\n\n# 2. Add key to agent\nssh-add ~/.ssh/id_ed25519\n\n# 3. Check permissions\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/id_ed25519\n\n\nAuthentication Problems\n# HTTPS credentials\ngit config --global credential.helper store\n\n# SSH configuration\ncat &gt;&gt; ~/.ssh/config &lt;&lt; EOF\nHost gitlab.university.edu\n    User git\n    IdentityFile ~/.ssh/id_ed25519\n    Port 22\nEOF\n\n\nPush Rejected\nCommon reasons and solutions:\n\nProtected branch: Create merge request instead\nNo permissions: Check project access level\nLarge files: Use Git LFS for files &gt;100MB\nOutdated branch: Pull and merge first\n\n# Update your branch\ngit pull origin main\ngit merge main\ngit push",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#gitlab-best-practices",
+    "href": "../gitlab.html#gitlab-best-practices",
+    "title": "Introduction to GitLab",
+    "section": "GitLab Best Practices",
+    "text": "GitLab Best Practices\n\nFor Students\n✅ Do: - Use descriptive commit messages - Create merge requests for review - Keep repositories organized - Use issues for questions - Tag releases for submissions\n❌ Don’t: - Commit sensitive data (passwords, keys) - Force push to shared branches - Delete other people’s branches - Ignore CI/CD failures\n\n\nFor Educators\n✅ Do: - Use templates for consistency - Set up CI/CD for auto-grading - Create protected branches - Document requirements in README - Use milestones for deadlines\n❌ Don’t: - Store solutions in public repos - Forget to test pipelines - Ignore student access issues - Skip documentation",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#gitlab-vs-local-git",
+    "href": "../gitlab.html#gitlab-vs-local-git",
+    "title": "Introduction to GitLab",
+    "section": "GitLab vs Local Git",
+    "text": "GitLab vs Local Git\n\n\n\nOperation\nLocal Git\nGitLab\n\n\n\n\nVersion control\n✓\n✓\n\n\nBranching\n✓\n✓\n\n\nCollaboration\n✗\n✓\n\n\nBackup\n✗\n✓\n\n\nCI/CD\n✗\n✓\n\n\nIssue tracking\n✗\n✓\n\n\nCode review\n✗\n✓\n\n\nWiki/Docs\n✗\n✓",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#quick-reference",
+    "href": "../gitlab.html#quick-reference",
+    "title": "Introduction to GitLab",
+    "section": "Quick Reference",
+    "text": "Quick Reference\n\nEssential GitLab Commands\n# Clone project\ngit clone git@gitlab.university.edu:project.git\n\n# Add GitLab remote\ngit remote add origin git@gitlab.university.edu:project.git\n\n# Push new branch\ngit push -u origin feature-branch\n\n# Update from GitLab\ngit pull origin main\n\n# Check remote\ngit remote -v\n\n\nGitLab CLI (Optional)\n# Install GitLab CLI\nbrew install glab        # macOS\nwinget install glab      # Windows\n\n# Authenticate\nglab auth login\n\n# Create MR from terminal\nglab mr create --title \"Add feature\"\n\n# View pipelines\nglab pipeline list",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#resources",
+    "href": "../gitlab.html#resources",
+    "title": "Introduction to GitLab",
+    "section": "Resources",
+    "text": "Resources\n\nDocumentation\n\nGitLab Docs\nGitLab University\nGit Basics\n\n\n\nLearning\n\nGitLab 101\nCI/CD Examples\nGitLab Flow",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
+    ]
+  },
+  {
+    "objectID": "../gitlab.html#summary",
+    "href": "../gitlab.html#summary",
+    "title": "Introduction to GitLab",
+    "section": "Summary",
+    "text": "Summary\nGitLab is more than just Git hosting—it’s a complete platform for: - Version Control: Track all changes to your code - Collaboration: Work with classmates and instructors - Automation: Test and deploy automatically - Organization: Manage projects, issues, and documentation\nFor Franklin users, GitLab provides the infrastructure for distributing exercises, submitting solutions, and automated grading. Master these GitLab basics, and you’ll be ready for both academic work and professional software development!",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Introduction to GitLab</span>"
     ]
   },
   {
     "objectID": "../docker.html",
     "href": "../docker.html",
-    "title": "Docker virtualization",
+    "title": "Introduction to Docker",
     "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.",
+    "text": "What is Docker?\nDocker is a platform that packages applications and their dependencies into portable containers. Think of a container as a lightweight, self-contained box that includes everything needed to run your software—the code, runtime, system tools, libraries, and settings. This ensures your application runs identically on any computer, regardless of the operating system or installed software.",
     "crumbs": [
       "About",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Docker virtualization</span>"
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#what-is-docker",
+    "href": "../docker.html#what-is-docker",
+    "title": "Introduction to Docker",
+    "section": "",
+    "text": "The Problem Docker Solves\nWithout Docker: - “It works on my machine!” but fails on yours - Different versions of Python, libraries, or system tools - Complex installation instructions that vary by OS - Conflicts between projects requiring different dependencies - Difficulty reproducing research or coursework\nWith Docker: - Same environment everywhere - No installation conflicts - One command to run complex applications - Perfect reproducibility - Isolation between projects",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#how-docker-works",
+    "href": "../docker.html#how-docker-works",
+    "title": "Introduction to Docker",
+    "section": "How Docker Works",
+    "text": "How Docker Works\n\nContainers vs Virtual Machines\ngraph TB\n    subgraph \"Virtual Machine\"\n        VM[Guest OS&lt;br/&gt;20GB+] --&gt; APP1[App A]\n        VM --&gt; APP2[App B]\n        HOST1[Host OS] --&gt; HYP[Hypervisor] --&gt; VM\n    end\n    \n    subgraph \"Docker Container\"\n        HOST2[Host OS] --&gt; DOC[Docker Engine]\n        DOC --&gt; CON1[Container A&lt;br/&gt;~100MB]\n        DOC --&gt; CON2[Container B&lt;br/&gt;~100MB]\n    end\nVirtual Machines: - Full operating system per VM - Heavy resource usage (GB of RAM) - Slow to start (minutes) - Complete isolation\nDocker Containers: - Share host OS kernel - Lightweight (MB of RAM) - Fast to start (seconds) - Process-level isolation\n\n\nCore Docker Concepts\n\nImage: A blueprint or template for creating containers (like a recipe)\nContainer: A running instance of an image (like a cooked meal)\nDockerfile: Instructions for building an image (like writing a recipe)\nRegistry: Storage for sharing images (like a cookbook library)",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#docker-for-franklin-users",
+    "href": "../docker.html#docker-for-franklin-users",
+    "title": "Introduction to Docker",
+    "section": "Docker for Franklin Users",
+    "text": "Docker for Franklin Users\nFranklin uses Docker to ensure exercises run identically for all students:\n\nHow Franklin Uses Docker\ngraph LR\n    A[Franklin Exercise] --&gt; B[Docker Image]\n    B --&gt; C[Container Starts]\n    C --&gt; D[JupyterLab Runs]\n    D --&gt; E[Student Works]\n    E --&gt; F[Work Saved Locally]\n\nExercise includes Docker configuration\nFranklin pulls required image\nCreates isolated container\nMounts your files inside\nRuns JupyterLab in container\nYour work is saved on your computer\n\n\n\nStudent Perspective\nAs a Franklin student, Docker works behind the scenes:\n# Franklin handles Docker automatically\nfranklin jupyter\n# → Downloads Docker image if needed\n# → Starts container\n# → Opens JupyterLab\n# → Everything just works!\nYou don’t need to know Docker commands—Franklin manages everything.",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#installing-docker",
+    "href": "../docker.html#installing-docker",
+    "title": "Introduction to Docker",
+    "section": "Installing Docker",
+    "text": "Installing Docker\n\nWindowsmacOSLinux\n\n\n\nDownload Docker Desktop:\n\nVisit docker.com/products/docker-desktop\nDownload for Windows\nRun installer\n\nSystem Requirements:\n\nWindows 10/11 Pro, Enterprise, or Education\nWSL 2 enabled\n4GB RAM minimum\n\nPost-Installation:\n\nStart Docker Desktop\nWait for “Docker is running” status\nTest: docker --version\n\n\n\n\n\nDownload Docker Desktop:\n\nVisit docker.com/products/docker-desktop\nChoose Intel or Apple Silicon version\nRun installer\n\nSystem Requirements:\n\nmacOS 10.15 or newer\n4GB RAM minimum\n\nPost-Installation:\n\nStart Docker Desktop from Applications\nGrant necessary permissions\nTest: docker --version\n\n\n\n\n# Ubuntu/Debian\nsudo apt update\nsudo apt install docker.io\nsudo systemctl start docker\nsudo usermod -aG docker $USER\n# Log out and back in\n\n# Fedora\nsudo dnf install docker\nsudo systemctl start docker\nsudo usermod -aG docker $USER\n# Log out and back in\n\n# Test installation\ndocker --version\ndocker run hello-world",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#basic-docker-commands",
+    "href": "../docker.html#basic-docker-commands",
+    "title": "Introduction to Docker",
+    "section": "Basic Docker Commands",
+    "text": "Basic Docker Commands\nWhile Franklin handles Docker automatically, understanding basic commands helps troubleshooting:\n\nWorking with Images\n# List local images\ndocker images\n\n# Pull an image\ndocker pull python:3.10\n\n# Remove an image\ndocker rmi python:3.10\n\n# Search for images\ndocker search jupyter\n\n\nWorking with Containers\n# List running containers\ndocker ps\n\n# List all containers\ndocker ps -a\n\n# Stop a container\ndocker stop container_name\n\n# Remove a container\ndocker rm container_name\n\n# View container logs\ndocker logs container_name\n\n\nRunning Containers\n# Basic run\ndocker run python:3.10 python --version\n\n# Interactive mode\ndocker run -it python:3.10 bash\n\n# Run with port mapping\ndocker run -p 8888:8888 jupyter/base-notebook\n\n# Run with volume mount\ndocker run -v /local/path:/container/path python:3.10\n\n# Run in background\ndocker run -d nginx",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#understanding-dockerfiles",
+    "href": "../docker.html#understanding-dockerfiles",
+    "title": "Introduction to Docker",
+    "section": "Understanding Dockerfiles",
+    "text": "Understanding Dockerfiles\nA Dockerfile defines how to build an image:\n# Start from base image\nFROM python:3.10-slim\n\n# Set working directory\nWORKDIR /app\n\n# Copy requirements file\nCOPY requirements.txt .\n\n# Install dependencies\nRUN pip install -r requirements.txt\n\n# Copy application code\nCOPY . .\n\n# Define startup command\nCMD [\"python\", \"app.py\"]\n\nFranklin Exercise Dockerfile\nFranklin exercises typically use:\n# Base scientific Python image\nFROM munchgroup/franklin-jupyter:latest\n\n# Install exercise-specific packages\nRUN pip install pandas numpy matplotlib\n\n# Copy exercise files\nCOPY exercise.ipynb /home/jovyan/\n\n# Set up environment\nENV PYTHONPATH=/home/jovyan\n\n# Start JupyterLab\nCMD [\"jupyter\", \"lab\"]",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#docker-compose",
+    "href": "../docker.html#docker-compose",
+    "title": "Introduction to Docker",
+    "section": "Docker Compose",
+    "text": "Docker Compose\nFor multi-container applications:\n# docker-compose.yml\nversion: '3'\n\nservices:\n  web:\n    image: nginx\n    ports:\n      - \"80:80\"\n  \n  database:\n    image: postgres\n    environment:\n      POSTGRES_PASSWORD: secret\n    volumes:\n      - db-data:/var/lib/postgresql/data\n\nvolumes:\n  db-data:\nRun with:\ndocker-compose up    # Start services\ndocker-compose down  # Stop services",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#docker-for-development",
+    "href": "../docker.html#docker-for-development",
+    "title": "Introduction to Docker",
+    "section": "Docker for Development",
+    "text": "Docker for Development\n\nCreating Development Environments\n# Python development\ndocker run -it -v $(pwd):/workspace python:3.10 bash\n\n# Node.js development\ndocker run -it -v $(pwd):/app node:18 bash\n\n# Data science environment\ndocker run -p 8888:8888 -v $(pwd):/home/jovyan jupyter/scipy-notebook\n\n\nBuilding Custom Images\n\nCreate Dockerfile:\n\nFROM python:3.10\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install -r requirements.txt\nCOPY . .\n\nBuild image:\n\ndocker build -t my-app .\n\nRun container:\n\ndocker run my-app",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#docker-best-practices",
+    "href": "../docker.html#docker-best-practices",
+    "title": "Introduction to Docker",
+    "section": "Docker Best Practices",
+    "text": "Docker Best Practices\n\nImage Optimization\n✅ Do: - Use specific version tags (python:3.10, not python:latest) - Minimize layers by combining RUN commands - Use .dockerignore to exclude unnecessary files - Start with minimal base images (alpine, slim) - Clean up after installations\n❌ Don’t: - Include sensitive data in images - Run as root unnecessarily - Use large base images when smaller ones work - Ignore security updates\n\n\nContainer Management\n✅ Do: - Name your containers meaningfully - Use volumes for persistent data - Set resource limits - Use health checks - Clean up stopped containers\n❌ Don’t: - Store data inside containers - Expose unnecessary ports - Run multiple processes per container - Ignore container logs",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#troubleshooting-docker",
+    "href": "../docker.html#troubleshooting-docker",
+    "title": "Introduction to Docker",
+    "section": "Troubleshooting Docker",
+    "text": "Troubleshooting Docker\n\nCommon Issues\n\nDocker Daemon Not Running\n# Check status\ndocker version\n\n# Start Docker\n# macOS/Windows: Start Docker Desktop app\n# Linux:\nsudo systemctl start docker\n\n\nPermission Denied\n# Linux: Add user to docker group\nsudo usermod -aG docker $USER\n# Log out and back in\n\n# Or use sudo (not recommended)\nsudo docker run hello-world\n\n\nPort Already in Use\n# Find process using port\nlsof -i :8888  # macOS/Linux\nnetstat -ano | findstr :8888  # Windows\n\n# Use different port\ndocker run -p 8889:8888 image_name\n\n\nOut of Disk Space\n# Clean up unused resources\ndocker system prune -a\n\n# Remove unused images\ndocker image prune -a\n\n# Remove stopped containers\ndocker container prune\n\n# Remove unused volumes\ndocker volume prune\n\n\n\nFranklin-Specific Issues\n\nContainer Won’t Start\n# Check Franklin logs\nfranklin jupyter --debug\n\n# Manually pull image\ndocker pull munchgroup/franklin-jupyter:latest\n\n# Reset Franklin Docker settings\nfranklin docker reset\n\n\nFiles Not Visible\n# Check mount points\ndocker inspect container_name | grep Mounts\n\n# Verify permissions\nls -la exercise_folder/\n\n# Run with explicit mount\ndocker run -v $(pwd):/home/jovyan image_name",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#docker-in-research",
+    "href": "../docker.html#docker-in-research",
+    "title": "Introduction to Docker",
+    "section": "Docker in Research",
+    "text": "Docker in Research\n\nReproducible Research\nDocker ensures your research is reproducible:\n# Reproducible analysis environment\nFROM rocker/tidyverse:4.2.0\n\n# Install specific package versions\nRUN R -e \"install.packages('ggplot2', version='3.4.0')\"\n\n# Copy analysis scripts\nCOPY analysis.R /home/rstudio/\n\n# Document environment\nCOPY README.md /home/rstudio/\n\n\nSharing Research\n# Save image to file\ndocker save my-research &gt; research-env.tar\n\n# Load on another computer\ndocker load &lt; research-env.tar\n\n# Or push to registry\ndocker tag my-research username/research:v1\ndocker push username/research:v1",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#advanced-docker-topics",
+    "href": "../docker.html#advanced-docker-topics",
+    "title": "Introduction to Docker",
+    "section": "Advanced Docker Topics",
+    "text": "Advanced Docker Topics\n\nMulti-Stage Builds\nOptimize image size:\n# Build stage\nFROM python:3.10 AS builder\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt\n\n# Runtime stage\nFROM python:3.10-slim\nWORKDIR /app\nCOPY --from=builder /wheels /wheels\nRUN pip install --no-cache /wheels/*\nCOPY . .\nCMD [\"python\", \"app.py\"]\n\n\nDocker Networks\nConnect containers:\n# Create network\ndocker network create mynet\n\n# Run containers on network\ndocker run --network mynet --name db postgres\ndocker run --network mynet --name app my-app\n\n# Containers can now reach each other by name\n\n\nDocker Volumes\nPersist data:\n# Create named volume\ndocker volume create mydata\n\n# Use volume\ndocker run -v mydata:/data my-app\n\n# Backup volume\ndocker run --rm -v mydata:/source -v $(pwd):/backup \\\n  alpine tar czf /backup/backup.tar.gz -C /source .",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#docker-security",
+    "href": "../docker.html#docker-security",
+    "title": "Introduction to Docker",
+    "section": "Docker Security",
+    "text": "Docker Security\n\nSecurity Best Practices\n\nKeep Docker Updated: Regular security patches\nScan Images: Use docker scan image_name\nDon’t Run as Root: Use USER directive in Dockerfile\nLimit Resources: Set memory and CPU limits\nUse Official Images: Verified and maintained\nSign Images: Docker Content Trust\n\n\n\nSecurity Scanning\n# Scan for vulnerabilities\ndocker scan my-image\n\n# Check image layers\ndocker history my-image\n\n# Inspect image\ndocker inspect my-image",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#quick-reference",
+    "href": "../docker.html#quick-reference",
+    "title": "Introduction to Docker",
+    "section": "Quick Reference",
+    "text": "Quick Reference\n\nEssential Commands\n\n\n\nCommand\nPurpose\n\n\n\n\ndocker run image\nRun container from image\n\n\ndocker ps\nList running containers\n\n\ndocker images\nList local images\n\n\ndocker stop container\nStop container\n\n\ndocker rm container\nRemove container\n\n\ndocker rmi image\nRemove image\n\n\ndocker logs container\nView container logs\n\n\ndocker exec -it container bash\nEnter running container\n\n\ndocker build -t name .\nBuild image from Dockerfile\n\n\ndocker-compose up\nStart services\n\n\n\n\n\nUseful Flags\n\n\n\nFlag\nPurpose\n\n\n\n\n-d\nRun in background (detached)\n\n\n-it\nInteractive terminal\n\n\n-p 8080:80\nMap ports (host:container)\n\n\n-v /path:/path\nMount volume\n\n\n--rm\nRemove container after exit\n\n\n--name myname\nName container\n\n\n-e VAR=value\nSet environment variable",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#resources",
+    "href": "../docker.html#resources",
+    "title": "Introduction to Docker",
+    "section": "Resources",
+    "text": "Resources\n\nDocumentation\n\nDocker Docs\nDocker Hub\nDocker Compose\n\n\n\nLearning\n\nDocker 101 Tutorial\nPlay with Docker\nDocker for Data Science",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
+    ]
+  },
+  {
+    "objectID": "../docker.html#summary",
+    "href": "../docker.html#summary",
+    "title": "Introduction to Docker",
+    "section": "Summary",
+    "text": "Summary\nDocker revolutionizes software deployment by: - Ensuring Consistency: Same environment everywhere - Simplifying Setup: One command to run complex stacks - Enabling Isolation: No conflicts between projects - Supporting Reproducibility: Perfect for research and education\nFor Franklin users, Docker works invisibly to provide a consistent, reliable environment for all exercises. While you don’t need to be a Docker expert, understanding the basics helps you troubleshoot issues and leverage Docker for your own projects beyond Franklin.",
+    "crumbs": [
+      "About",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Introduction to Docker</span>"
     ]
   }
 ]

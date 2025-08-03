@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Docker virtualization – Franklin</title>
+<title>Introduction to Docker – Franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -81,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../terminal.html">About</a></li><li class="breadcrumb-item"><a href="student/../docker.html"><span class="chapter-title">Docker virtualization</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../terminal.html">About</a></li><li class="breadcrumb-item"><a href="student/../docker.html"><span class="chapter-title">Introduction to Docker</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -137,12 +172,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The terminal</span></a>
+  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Jupyterlab</span></a>
+  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">JupyterLab Tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -168,12 +203,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The terminal</span></a>
+  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Jupyterlab</span></a>
+  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">JupyterLab Tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -183,12 +218,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../gitlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Gitlab server</span></a>
+  <a href="student/../gitlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to GitLab</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../docker.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Docker virtualization</span></a>
+  <a href="student/../docker.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Introduction to Docker</span></a>
   </div>
 </li>
       </ul>
@@ -198,15 +233,89 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#what-is-docker" id="toc-what-is-docker" class="nav-link active" data-scroll-target="#what-is-docker">What is Docker?</a>
+  <ul class="collapse">
+  <li><a href="#the-problem-docker-solves" id="toc-the-problem-docker-solves" class="nav-link" data-scroll-target="#the-problem-docker-solves">The Problem Docker Solves</a></li>
+  </ul></li>
+  <li><a href="#how-docker-works" id="toc-how-docker-works" class="nav-link" data-scroll-target="#how-docker-works">How Docker Works</a>
+  <ul class="collapse">
+  <li><a href="#containers-vs-virtual-machines" id="toc-containers-vs-virtual-machines" class="nav-link" data-scroll-target="#containers-vs-virtual-machines">Containers vs Virtual Machines</a></li>
+  <li><a href="#core-docker-concepts" id="toc-core-docker-concepts" class="nav-link" data-scroll-target="#core-docker-concepts">Core Docker Concepts</a></li>
+  </ul></li>
+  <li><a href="#docker-for-franklin-users" id="toc-docker-for-franklin-users" class="nav-link" data-scroll-target="#docker-for-franklin-users">Docker for Franklin Users</a>
+  <ul class="collapse">
+  <li><a href="#how-franklin-uses-docker" id="toc-how-franklin-uses-docker" class="nav-link" data-scroll-target="#how-franklin-uses-docker">How Franklin Uses Docker</a></li>
+  <li><a href="#student-perspective" id="toc-student-perspective" class="nav-link" data-scroll-target="#student-perspective">Student Perspective</a></li>
+  </ul></li>
+  <li><a href="#installing-docker" id="toc-installing-docker" class="nav-link" data-scroll-target="#installing-docker">Installing Docker</a></li>
+  <li><a href="#basic-docker-commands" id="toc-basic-docker-commands" class="nav-link" data-scroll-target="#basic-docker-commands">Basic Docker Commands</a>
+  <ul class="collapse">
+  <li><a href="#working-with-images" id="toc-working-with-images" class="nav-link" data-scroll-target="#working-with-images">Working with Images</a></li>
+  <li><a href="#working-with-containers" id="toc-working-with-containers" class="nav-link" data-scroll-target="#working-with-containers">Working with Containers</a></li>
+  <li><a href="#running-containers" id="toc-running-containers" class="nav-link" data-scroll-target="#running-containers">Running Containers</a></li>
+  </ul></li>
+  <li><a href="#understanding-dockerfiles" id="toc-understanding-dockerfiles" class="nav-link" data-scroll-target="#understanding-dockerfiles">Understanding Dockerfiles</a>
+  <ul class="collapse">
+  <li><a href="#franklin-exercise-dockerfile" id="toc-franklin-exercise-dockerfile" class="nav-link" data-scroll-target="#franklin-exercise-dockerfile">Franklin Exercise Dockerfile</a></li>
+  </ul></li>
+  <li><a href="#docker-compose" id="toc-docker-compose" class="nav-link" data-scroll-target="#docker-compose">Docker Compose</a></li>
+  <li><a href="#docker-for-development" id="toc-docker-for-development" class="nav-link" data-scroll-target="#docker-for-development">Docker for Development</a>
+  <ul class="collapse">
+  <li><a href="#creating-development-environments" id="toc-creating-development-environments" class="nav-link" data-scroll-target="#creating-development-environments">Creating Development Environments</a></li>
+  <li><a href="#building-custom-images" id="toc-building-custom-images" class="nav-link" data-scroll-target="#building-custom-images">Building Custom Images</a></li>
+  </ul></li>
+  <li><a href="#docker-best-practices" id="toc-docker-best-practices" class="nav-link" data-scroll-target="#docker-best-practices">Docker Best Practices</a>
+  <ul class="collapse">
+  <li><a href="#image-optimization" id="toc-image-optimization" class="nav-link" data-scroll-target="#image-optimization">Image Optimization</a></li>
+  <li><a href="#container-management" id="toc-container-management" class="nav-link" data-scroll-target="#container-management">Container Management</a></li>
+  </ul></li>
+  <li><a href="#troubleshooting-docker" id="toc-troubleshooting-docker" class="nav-link" data-scroll-target="#troubleshooting-docker">Troubleshooting Docker</a>
+  <ul class="collapse">
+  <li><a href="#common-issues" id="toc-common-issues" class="nav-link" data-scroll-target="#common-issues">Common Issues</a></li>
+  <li><a href="#franklin-specific-issues" id="toc-franklin-specific-issues" class="nav-link" data-scroll-target="#franklin-specific-issues">Franklin-Specific Issues</a></li>
+  </ul></li>
+  <li><a href="#docker-in-research" id="toc-docker-in-research" class="nav-link" data-scroll-target="#docker-in-research">Docker in Research</a>
+  <ul class="collapse">
+  <li><a href="#reproducible-research" id="toc-reproducible-research" class="nav-link" data-scroll-target="#reproducible-research">Reproducible Research</a></li>
+  <li><a href="#sharing-research" id="toc-sharing-research" class="nav-link" data-scroll-target="#sharing-research">Sharing Research</a></li>
+  </ul></li>
+  <li><a href="#advanced-docker-topics" id="toc-advanced-docker-topics" class="nav-link" data-scroll-target="#advanced-docker-topics">Advanced Docker Topics</a>
+  <ul class="collapse">
+  <li><a href="#multi-stage-builds" id="toc-multi-stage-builds" class="nav-link" data-scroll-target="#multi-stage-builds">Multi-Stage Builds</a></li>
+  <li><a href="#docker-networks" id="toc-docker-networks" class="nav-link" data-scroll-target="#docker-networks">Docker Networks</a></li>
+  <li><a href="#docker-volumes" id="toc-docker-volumes" class="nav-link" data-scroll-target="#docker-volumes">Docker Volumes</a></li>
+  </ul></li>
+  <li><a href="#docker-security" id="toc-docker-security" class="nav-link" data-scroll-target="#docker-security">Docker Security</a>
+  <ul class="collapse">
+  <li><a href="#security-best-practices" id="toc-security-best-practices" class="nav-link" data-scroll-target="#security-best-practices">Security Best Practices</a></li>
+  <li><a href="#security-scanning" id="toc-security-scanning" class="nav-link" data-scroll-target="#security-scanning">Security Scanning</a></li>
+  </ul></li>
+  <li><a href="#quick-reference" id="toc-quick-reference" class="nav-link" data-scroll-target="#quick-reference">Quick Reference</a>
+  <ul class="collapse">
+  <li><a href="#essential-commands" id="toc-essential-commands" class="nav-link" data-scroll-target="#essential-commands">Essential Commands</a></li>
+  <li><a href="#useful-flags" id="toc-useful-flags" class="nav-link" data-scroll-target="#useful-flags">Useful Flags</a></li>
+  </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a>
+  <ul class="collapse">
+  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
+  <li><a href="#learning" id="toc-learning" class="nav-link" data-scroll-target="#learning">Learning</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../terminal.html">About</a></li><li class="breadcrumb-item"><a href="student/../docker.html"><span class="chapter-title">Docker virtualization</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../terminal.html">About</a></li><li class="breadcrumb-item"><a href="student/../docker.html"><span class="chapter-title">Introduction to Docker</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Docker virtualization</span></h1>
+<h1 class="title"><span class="chapter-title">Introduction to Docker</span></h1>
+<p class="subtitle lead">Containerization for Reproducible Computing</p>
 </div>
 
 
@@ -223,30 +332,603 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="what-is-docker" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-docker">What is Docker?</h2>
+<p>Docker is a platform that packages applications and their dependencies into portable containers. Think of a container as a lightweight, self-contained box that includes everything needed to run your software—the code, runtime, system tools, libraries, and settings. This ensures your application runs identically on any computer, regardless of the operating system or installed software.</p>
+<section id="the-problem-docker-solves" class="level3">
+<h3 class="anchored" data-anchor-id="the-problem-docker-solves">The Problem Docker Solves</h3>
+<p>Without Docker: - “It works on my machine!” but fails on yours - Different versions of Python, libraries, or system tools - Complex installation instructions that vary by OS - Conflicts between projects requiring different dependencies - Difficulty reproducing research or coursework</p>
+<p>With Docker: - Same environment everywhere - No installation conflicts - One command to run complex applications - Perfect reproducibility - Isolation between projects</p>
+</section>
+</section>
+<section id="how-docker-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-docker-works">How Docker Works</h2>
+<section id="containers-vs-virtual-machines" class="level3">
+<h3 class="anchored" data-anchor-id="containers-vs-virtual-machines">Containers vs Virtual Machines</h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Virtual Machine"
+        VM[Guest OS&lt;br/&gt;20GB+] --&gt; APP1[App A]
+        VM --&gt; APP2[App B]
+        HOST1[Host OS] --&gt; HYP[Hypervisor] --&gt; VM
+    end
+    
+    subgraph "Docker Container"
+        HOST2[Host OS] --&gt; DOC[Docker Engine]
+        DOC --&gt; CON1[Container A&lt;br/&gt;~100MB]
+        DOC --&gt; CON2[Container B&lt;br/&gt;~100MB]
+    end</code></pre>
+<p><strong>Virtual Machines</strong>: - Full operating system per VM - Heavy resource usage (GB of RAM) - Slow to start (minutes) - Complete isolation</p>
+<p><strong>Docker Containers</strong>: - Share host OS kernel - Lightweight (MB of RAM) - Fast to start (seconds) - Process-level isolation</p>
+</section>
+<section id="core-docker-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="core-docker-concepts">Core Docker Concepts</h3>
+<ol type="1">
+<li><strong>Image</strong>: A blueprint or template for creating containers (like a recipe)</li>
+<li><strong>Container</strong>: A running instance of an image (like a cooked meal)</li>
+<li><strong>Dockerfile</strong>: Instructions for building an image (like writing a recipe)</li>
+<li><strong>Registry</strong>: Storage for sharing images (like a cookbook library)</li>
+</ol>
+</section>
+</section>
+<section id="docker-for-franklin-users" class="level2">
+<h2 class="anchored" data-anchor-id="docker-for-franklin-users">Docker for Franklin Users</h2>
+<p>Franklin uses Docker to ensure exercises run identically for all students:</p>
+<section id="how-franklin-uses-docker" class="level3">
+<h3 class="anchored" data-anchor-id="how-franklin-uses-docker">How Franklin Uses Docker</h3>
+<pre class="mermaid"><code>graph LR
+    A[Franklin Exercise] --&gt; B[Docker Image]
+    B --&gt; C[Container Starts]
+    C --&gt; D[JupyterLab Runs]
+    D --&gt; E[Student Works]
+    E --&gt; F[Work Saved Locally]</code></pre>
+<ol type="1">
+<li><strong>Exercise includes Docker configuration</strong></li>
+<li><strong>Franklin pulls required image</strong></li>
+<li><strong>Creates isolated container</strong></li>
+<li><strong>Mounts your files inside</strong></li>
+<li><strong>Runs JupyterLab in container</strong></li>
+<li><strong>Your work is saved on your computer</strong></li>
+</ol>
+</section>
+<section id="student-perspective" class="level3">
+<h3 class="anchored" data-anchor-id="student-perspective">Student Perspective</h3>
+<p>As a Franklin student, Docker works behind the scenes:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Franklin handles Docker automatically</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># → Downloads Docker image if needed</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># → Starts container</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># → Opens JupyterLab</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># → Everything just works!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You don’t need to know Docker commands—Franklin manages everything.</p>
+</section>
+</section>
+<section id="installing-docker" class="level2">
+<h2 class="anchored" data-anchor-id="installing-docker">Installing Docker</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Linux</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ol type="1">
+<li><strong>Download Docker Desktop</strong>:
+<ul>
+<li>Visit <a href="https://docker.com/products/docker-desktop">docker.com/products/docker-desktop</a></li>
+<li>Download for Windows</li>
+<li>Run installer</li>
+</ul></li>
+<li><strong>System Requirements</strong>:
+<ul>
+<li>Windows 10/11 Pro, Enterprise, or Education</li>
+<li>WSL 2 enabled</li>
+<li>4GB RAM minimum</li>
+</ul></li>
+<li><strong>Post-Installation</strong>:
+<ul>
+<li>Start Docker Desktop</li>
+<li>Wait for “Docker is running” status</li>
+<li>Test: <code>docker --version</code></li>
+</ul></li>
+</ol>
 </div>
-<div class="callout-title-container flex-fill">
-Under development
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ol type="1">
+<li><strong>Download Docker Desktop</strong>:
+<ul>
+<li>Visit <a href="https://docker.com/products/docker-desktop">docker.com/products/docker-desktop</a></li>
+<li>Choose Intel or Apple Silicon version</li>
+<li>Run installer</li>
+</ul></li>
+<li><strong>System Requirements</strong>:
+<ul>
+<li>macOS 10.15 or newer</li>
+<li>4GB RAM minimum</li>
+</ul></li>
+<li><strong>Post-Installation</strong>:
+<ul>
+<li>Start Docker Desktop from Applications</li>
+<li>Grant necessary permissions</li>
+<li>Test: <code>docker --version</code></li>
+</ul></li>
+</ol>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ubuntu/Debian</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install docker.io</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start docker</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> usermod <span class="at">-aG</span> docker <span class="va">$USER</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Log out and back in</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fedora</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dnf install docker</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start docker</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> usermod <span class="at">-aG</span> docker <span class="va">$USER</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Log out and back in</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Test installation</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> <span class="at">--version</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run hello-world</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>The content of this page is being developed.</p>
 </div>
-</div>
-<p>How Docker Bridges Operating Systems (Layman’s Explanation)</p>
-<p>Imagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.</p>
-<p>Here’s how it works in simple terms:</p>
-<p>Docker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.</p>
-<p>Docker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.</p>
-<p>Unlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.</p>
-<p>Docker’s core components include:</p>
-<p>Docker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.</p>
-<p>Despite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.</p>
+</section>
+<section id="basic-docker-commands" class="level2">
+<h2 class="anchored" data-anchor-id="basic-docker-commands">Basic Docker Commands</h2>
+<p>While Franklin handles Docker automatically, understanding basic commands helps troubleshooting:</p>
+<section id="working-with-images" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-images">Working with Images</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List local images</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> images</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull an image</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull python:3.10</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove an image</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> rmi python:3.10</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for images</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> search jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="working-with-containers" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-containers">Working with Containers</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List running containers</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> ps</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all containers</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> ps <span class="at">-a</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Stop a container</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> stop container_name</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove a container</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> rm container_name</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># View container logs</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> logs container_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="running-containers" class="level3">
+<h3 class="anchored" data-anchor-id="running-containers">Running Containers</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic run</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run python:3.10 python <span class="at">--version</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive mode</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> python:3.10 bash</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run with port mapping</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 8888:8888 jupyter/base-notebook</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Run with volume mount</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> /local/path:/container/path python:3.10</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Run in background</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> nginx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="understanding-dockerfiles" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-dockerfiles">Understanding Dockerfiles</h2>
+<p>A Dockerfile defines how to build an image:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start from base image</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.10-slim</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set working directory</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy requirements file</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> requirements.txt .</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Install dependencies</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy application code</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Define startup command</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"app.py"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="franklin-exercise-dockerfile" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-exercise-dockerfile">Franklin Exercise Dockerfile</h3>
+<p>Franklin exercises typically use:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base scientific Python image</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> munchgroup/franklin-jupyter:latest</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install exercise-specific packages</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install pandas numpy matplotlib</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy exercise files</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> exercise.ipynb /home/jovyan/</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up environment</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="kw">ENV</span> PYTHONPATH=/home/jovyan</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Start JupyterLab</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"jupyter"</span>, <span class="st">"lab"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="docker-compose" class="level2">
+<h2 class="anchored" data-anchor-id="docker-compose">Docker Compose</h2>
+<p>For multi-container applications:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># docker-compose.yml</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">'3'</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">web</span><span class="kw">:</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> nginx</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"80:80"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">database</span><span class="kw">:</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> postgres</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">POSTGRES_PASSWORD</span><span class="kw">:</span><span class="at"> secret</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> db-data:/var/lib/postgresql/data</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">db-data</span><span class="kw">:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Run with:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> up    <span class="co"># Start services</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> down  <span class="co"># Stop services</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="docker-for-development" class="level2">
+<h2 class="anchored" data-anchor-id="docker-for-development">Docker for Development</h2>
+<section id="creating-development-environments" class="level3">
+<h3 class="anchored" data-anchor-id="creating-development-environments">Creating Development Environments</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Python development</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/workspace python:3.10 bash</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Node.js development</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-it</span> <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/app node:18 bash</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Data science environment</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 8888:8888 <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/home/jovyan jupyter/scipy-notebook</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="building-custom-images" class="level3">
+<h3 class="anchored" data-anchor-id="building-custom-images">Building Custom Images</h3>
+<ol type="1">
+<li><strong>Create Dockerfile</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb13"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.10</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> requirements.txt .</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install <span class="at">-r</span> requirements.txt</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li><strong>Build image</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> my-app .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li><strong>Run container</strong>:</li>
+</ol>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run my-app</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="docker-best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="docker-best-practices">Docker Best Practices</h2>
+<section id="image-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="image-optimization">Image Optimization</h3>
+<p>✅ <strong>Do:</strong> - Use specific version tags (<code>python:3.10</code>, not <code>python:latest</code>) - Minimize layers by combining RUN commands - Use <code>.dockerignore</code> to exclude unnecessary files - Start with minimal base images (<code>alpine</code>, <code>slim</code>) - Clean up after installations</p>
+<p>❌ <strong>Don’t:</strong> - Include sensitive data in images - Run as root unnecessarily - Use large base images when smaller ones work - Ignore security updates</p>
+</section>
+<section id="container-management" class="level3">
+<h3 class="anchored" data-anchor-id="container-management">Container Management</h3>
+<p>✅ <strong>Do:</strong> - Name your containers meaningfully - Use volumes for persistent data - Set resource limits - Use health checks - Clean up stopped containers</p>
+<p>❌ <strong>Don’t:</strong> - Store data inside containers - Expose unnecessary ports - Run multiple processes per container - Ignore container logs</p>
+</section>
+</section>
+<section id="troubleshooting-docker" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting-docker">Troubleshooting Docker</h2>
+<section id="common-issues" class="level3">
+<h3 class="anchored" data-anchor-id="common-issues">Common Issues</h3>
+<section id="docker-daemon-not-running" class="level4">
+<h4 class="anchored" data-anchor-id="docker-daemon-not-running">Docker Daemon Not Running</h4>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check status</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> version</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Start Docker</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># macOS/Windows: Start Docker Desktop app</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux:</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start docker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="permission-denied" class="level4">
+<h4 class="anchored" data-anchor-id="permission-denied">Permission Denied</h4>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux: Add user to docker group</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> usermod <span class="at">-aG</span> docker <span class="va">$USER</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Log out and back in</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Or use sudo (not recommended)</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> docker run hello-world</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="port-already-in-use" class="level4">
+<h4 class="anchored" data-anchor-id="port-already-in-use">Port Already in Use</h4>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find process using port</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lsof</span> <span class="at">-i</span> :8888  <span class="co"># macOS/Linux</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">netstat</span> <span class="at">-ano</span> <span class="kw">|</span> <span class="ex">findstr</span> :8888  <span class="co"># Windows</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use different port</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 8889:8888 image_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="out-of-disk-space" class="level4">
+<h4 class="anchored" data-anchor-id="out-of-disk-space">Out of Disk Space</h4>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up unused resources</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> system prune <span class="at">-a</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove unused images</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> image prune <span class="at">-a</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove stopped containers</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> container prune</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove unused volumes</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> volume prune</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="franklin-specific-issues" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-specific-issues">Franklin-Specific Issues</h3>
+<section id="container-wont-start" class="level4">
+<h4 class="anchored" data-anchor-id="container-wont-start">Container Won’t Start</h4>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check Franklin logs</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter <span class="at">--debug</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually pull image</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull munchgroup/franklin-jupyter:latest</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset Franklin Docker settings</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> docker reset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="files-not-visible" class="level4">
+<h4 class="anchored" data-anchor-id="files-not-visible">Files Not Visible</h4>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check mount points</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> inspect container_name <span class="kw">|</span> <span class="fu">grep</span> Mounts</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify permissions</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-la</span> exercise_folder/</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run with explicit mount</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/home/jovyan image_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+<section id="docker-in-research" class="level2">
+<h2 class="anchored" data-anchor-id="docker-in-research">Docker in Research</h2>
+<section id="reproducible-research" class="level3">
+<h3 class="anchored" data-anchor-id="reproducible-research">Reproducible Research</h3>
+<p>Docker ensures your research is reproducible:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reproducible analysis environment</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> rocker/tidyverse:4.2.0</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install specific package versions</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">R</span> <span class="at">-e</span> <span class="st">"install.packages('ggplot2', version='3.4.0')"</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy analysis scripts</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> analysis.R /home/rstudio/</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Document environment</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> README.md /home/rstudio/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="sharing-research" class="level3">
+<h3 class="anchored" data-anchor-id="sharing-research">Sharing Research</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save image to file</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> save my-research <span class="op">&gt;</span> research-env.tar</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load on another computer</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> load <span class="op">&lt;</span> research-env.tar</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Or push to registry</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> tag my-research username/research:v1</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> push username/research:v1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="advanced-docker-topics" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-docker-topics">Advanced Docker Topics</h2>
+<section id="multi-stage-builds" class="level3">
+<h3 class="anchored" data-anchor-id="multi-stage-builds">Multi-Stage Builds</h3>
+<p>Optimize image size:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build stage</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.10 <span class="kw">AS</span> builder</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> requirements.txt .</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> wheel <span class="at">--no-cache-dir</span> <span class="at">--wheel-dir</span> /wheels <span class="at">-r</span> requirements.txt</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Runtime stage</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.10-slim</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /app</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=builder</span> /wheels /wheels</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pip</span> install <span class="at">--no-cache</span> /wheels/<span class="pp">*</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"python"</span>, <span class="st">"app.py"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="docker-networks" class="level3">
+<h3 class="anchored" data-anchor-id="docker-networks">Docker Networks</h3>
+<p>Connect containers:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create network</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> network create mynet</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run containers on network</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--network</span> mynet <span class="at">--name</span> db postgres</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--network</span> mynet <span class="at">--name</span> app my-app</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Containers can now reach each other by name</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="docker-volumes" class="level3">
+<h3 class="anchored" data-anchor-id="docker-volumes">Docker Volumes</h3>
+<p>Persist data:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create named volume</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> volume create mydata</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use volume</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-v</span> mydata:/data my-app</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup volume</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> mydata:/source <span class="at">-v</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:/backup <span class="dt">\</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  alpine tar czf /backup/backup.tar.gz <span class="at">-C</span> /source .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="docker-security" class="level2">
+<h2 class="anchored" data-anchor-id="docker-security">Docker Security</h2>
+<section id="security-best-practices" class="level3">
+<h3 class="anchored" data-anchor-id="security-best-practices">Security Best Practices</h3>
+<ol type="1">
+<li><strong>Keep Docker Updated</strong>: Regular security patches</li>
+<li><strong>Scan Images</strong>: Use <code>docker scan image_name</code></li>
+<li><strong>Don’t Run as Root</strong>: Use USER directive in Dockerfile</li>
+<li><strong>Limit Resources</strong>: Set memory and CPU limits</li>
+<li><strong>Use Official Images</strong>: Verified and maintained</li>
+<li><strong>Sign Images</strong>: Docker Content Trust</li>
+</ol>
+</section>
+<section id="security-scanning" class="level3">
+<h3 class="anchored" data-anchor-id="security-scanning">Security Scanning</h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scan for vulnerabilities</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> scan my-image</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check image layers</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> history my-image</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect image</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> inspect my-image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="quick-reference" class="level2">
+<h2 class="anchored" data-anchor-id="quick-reference">Quick Reference</h2>
+<section id="essential-commands" class="level3">
+<h3 class="anchored" data-anchor-id="essential-commands">Essential Commands</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>docker run image</code></td>
+<td>Run container from image</td>
+</tr>
+<tr class="even">
+<td><code>docker ps</code></td>
+<td>List running containers</td>
+</tr>
+<tr class="odd">
+<td><code>docker images</code></td>
+<td>List local images</td>
+</tr>
+<tr class="even">
+<td><code>docker stop container</code></td>
+<td>Stop container</td>
+</tr>
+<tr class="odd">
+<td><code>docker rm container</code></td>
+<td>Remove container</td>
+</tr>
+<tr class="even">
+<td><code>docker rmi image</code></td>
+<td>Remove image</td>
+</tr>
+<tr class="odd">
+<td><code>docker logs container</code></td>
+<td>View container logs</td>
+</tr>
+<tr class="even">
+<td><code>docker exec -it container bash</code></td>
+<td>Enter running container</td>
+</tr>
+<tr class="odd">
+<td><code>docker build -t name .</code></td>
+<td>Build image from Dockerfile</td>
+</tr>
+<tr class="even">
+<td><code>docker-compose up</code></td>
+<td>Start services</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="useful-flags" class="level3">
+<h3 class="anchored" data-anchor-id="useful-flags">Useful Flags</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Flag</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-d</code></td>
+<td>Run in background (detached)</td>
+</tr>
+<tr class="even">
+<td><code>-it</code></td>
+<td>Interactive terminal</td>
+</tr>
+<tr class="odd">
+<td><code>-p 8080:80</code></td>
+<td>Map ports (host:container)</td>
+</tr>
+<tr class="even">
+<td><code>-v /path:/path</code></td>
+<td>Mount volume</td>
+</tr>
+<tr class="odd">
+<td><code>--rm</code></td>
+<td>Remove container after exit</td>
+</tr>
+<tr class="even">
+<td><code>--name myname</code></td>
+<td>Name container</td>
+</tr>
+<tr class="odd">
+<td><code>-e VAR=value</code></td>
+<td>Set environment variable</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<section id="documentation" class="level3">
+<h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
+<ul>
+<li><a href="https://docs.docker.com">Docker Docs</a></li>
+<li><a href="https://hub.docker.com">Docker Hub</a></li>
+<li><a href="https://docs.docker.com/compose/">Docker Compose</a></li>
+</ul>
+</section>
+<section id="learning" class="level3">
+<h3 class="anchored" data-anchor-id="learning">Learning</h3>
+<ul>
+<li><a href="https://docker.com/101-tutorial">Docker 101 Tutorial</a></li>
+<li><a href="https://labs.play-with-docker.com">Play with Docker</a></li>
+<li><a href="https://jupyter-docker-stacks.readthedocs.io">Docker for Data Science</a></li>
+</ul>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>Docker revolutionizes software deployment by: - <strong>Ensuring Consistency</strong>: Same environment everywhere - <strong>Simplifying Setup</strong>: One command to run complex stacks - <strong>Enabling Isolation</strong>: No conflicts between projects - <strong>Supporting Reproducibility</strong>: Perfect for research and education</p>
+<p>For Franklin users, Docker works invisibly to provide a consistent, reliable environment for all exercises. While you don’t need to be a Docker expert, understanding the basics helps you troubleshoot issues and leverage Docker for your own projects beyond Franklin.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -650,8 +1332,8 @@ Under development
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="student/../gitlab.html" class="pagination-link" aria-label="Gitlab server">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Gitlab server</span></span>
+      <a href="student/../gitlab.html" class="pagination-link" aria-label="Introduction to GitLab">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Introduction to GitLab</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

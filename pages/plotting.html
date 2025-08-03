@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="student/site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="student/site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="student/site_libs/quarto-nav/headroom.min.js"></script>
 <script src="student/site_libs/clipboard/clipboard.min.js"></script>
 <script src="student/site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -104,9 +104,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -176,12 +173,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The terminal</span></a>
+  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Jupyterlab</span></a>
+  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">JupyterLab Tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -207,12 +204,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The terminal</span></a>
+  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Jupyterlab</span></a>
+  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">JupyterLab Tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -222,12 +219,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../gitlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Gitlab server</span></a>
+  <a href="student/../gitlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to GitLab</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../docker.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Docker virtualization</span></a>
+  <a href="student/../docker.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to Docker</span></a>
   </div>
 </li>
       </ul>
@@ -273,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="8c1f12d7-8f6a-4682-9bd4-e4a581d4c16a" class="cell" data-execution_count="1">
+<div id="8c1f12d7-8f6a-4682-9bd4-e4a581d4c16a" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -283,87 +280,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_inline.backend_inline <span class="im">import</span> set_matplotlib_formats</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>set_matplotlib_formats(<span class="st">'retina'</span>, <span class="st">'png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c77ee244" class="cell" data-execution_count="2">
+<div id="c77ee244" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> sns.load_dataset(<span class="st">"penguins"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>penguins.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">species</th>
-<th data-quarto-table-cell-role="th">island</th>
-<th data-quarto-table-cell-role="th">bill_length_mm</th>
-<th data-quarto-table-cell-role="th">bill_depth_mm</th>
-<th data-quarto-table-cell-role="th">flipper_length_mm</th>
-<th data-quarto-table-cell-role="th">body_mass_g</th>
-<th data-quarto-table-cell-role="th">sex</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.1</td>
-<td>18.7</td>
-<td>181.0</td>
-<td>3750.0</td>
-<td>Male</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.5</td>
-<td>17.4</td>
-<td>186.0</td>
-<td>3800.0</td>
-<td>Female</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>40.3</td>
-<td>18.0</td>
-<td>195.0</td>
-<td>3250.0</td>
-<td>Female</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>36.7</td>
-<td>19.3</td>
-<td>193.0</td>
-<td>3450.0</td>
-<td>Female</td>
-</tr>
-</tbody>
-</table>
-
 </div>
-</div>
-</div>
-<div id="a3ee75fa-dc1f-4911-aee3-ace4776ed6d3" class="cell" data-execution_count="3">
+<div id="a3ee75fa-dc1f-4911-aee3-ace4776ed6d3" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm) <span class="op">;</span>  <span class="co"># semi colon makes last value None</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9d53fb5d-c3c7-47ef-93c8-56b519500e7d" class="cell" data-execution_count="4">
+<div id="9d53fb5d-c3c7-47ef-93c8-56b519500e7d" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"ticks"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sns.set_style("darkgrid")</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sns.set_style("whitegrid")</span></span>
@@ -373,29 +297,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>sns.despine()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c4a00d2d-19a7-49c7-af2a-fae5e6112f1c" class="cell" data-execution_count="5">
+<div id="c4a00d2d-19a7-49c7-af2a-fae5e6112f1c" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.hist(penguins.bill_length_mm) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="better-plotting-with-seaborn-on-top-of-matplotlib" class="level1">
 <h1>Better plotting with seaborn (on top of matplotlib)</h1>
-<div id="5fb7e14f-d834-4a9e-88b3-6636e5effd09" class="cell" data-execution_count="6">
+<div id="5fb7e14f-d834-4a9e-88b3-6636e5effd09" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"flipper_length_mm"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="5ca385e3-c6f4-45c2-9a46-6005e71a31ab" class="cell" data-execution_count="11">
+<div id="5ca385e3-c6f4-45c2-9a46-6005e71a31ab" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9fa2e399-d365-49b9-820a-76675c6edf70" class="cell" data-execution_count="12">
+<div id="9fa2e399-d365-49b9-820a-76675c6edf70" class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, style<span class="op">=</span><span class="st">"sex"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4014c35b-272a-4404-a224-17131c4867e2" class="cell" data-execution_count="13">
+<div id="4014c35b-272a-4404-a224-17131c4867e2" class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                style<span class="op">=</span><span class="st">"sex"</span>, size<span class="op">=</span><span class="st">"body_mass_g"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f153abbc-1370-4d32-8c30-0c8447a902ea" class="cell" data-execution_count="14">
+<div id="f153abbc-1370-4d32-8c30-0c8447a902ea" class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> legend_outside():</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    plt.legend(bbox_to_anchor<span class="op">=</span>(<span class="fl">1.05</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="st">'upper left'</span>, borderaxespad<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4feda331-ec77-4e1b-b487-007932a25c44" class="cell" data-execution_count="15">
+<div id="4feda331-ec77-4e1b-b487-007932a25c44" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"flipper_length_mm"</span>, hue<span class="op">=</span><span class="st">"species"</span>, style<span class="op">=</span><span class="st">"sex"</span>, size<span class="op">=</span><span class="st">"body_mass_g"</span>) <span class="op">;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>legend_outside()</span>
@@ -408,319 +332,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="wide-or-long-data" class="level1">
 <h1>Wide or long data</h1>
 <p>Wide format data:</p>
-<div id="8d4c60cb-5ef7-4e31-8ce5-8bc05e029ecb" class="cell" data-execution_count="16">
+<div id="8d4c60cb-5ef7-4e31-8ce5-8bc05e029ecb" class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>penguins[[<span class="st">'bill_length_mm'</span>, <span class="st">'bill_depth_mm'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">bill_length_mm</th>
-<th data-quarto-table-cell-role="th">bill_depth_mm</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>39.1</td>
-<td>18.7</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>39.5</td>
-<td>17.4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>40.3</td>
-<td>18.0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>36.7</td>
-<td>19.3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">339</td>
-<td>NaN</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">340</td>
-<td>46.8</td>
-<td>14.3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">341</td>
-<td>50.4</td>
-<td>15.7</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">342</td>
-<td>45.2</td>
-<td>14.8</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">343</td>
-<td>49.9</td>
-<td>16.1</td>
-</tr>
-</tbody>
-</table>
-
-<p>344 rows × 2 columns</p>
-</div>
-</div>
 </div>
 <p>Long format data:</p>
-<div id="e96d69d6-7bd0-4f0b-9629-ff2658dfbce1" class="cell" data-execution_count="17">
+<div id="e96d69d6-7bd0-4f0b-9629-ff2658dfbce1" class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>long_df <span class="op">=</span> penguins.melt(value_vars<span class="op">=</span>[<span class="st">'bill_length_mm'</span>, <span class="st">'bill_depth_mm'</span>])</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>long_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">variable</th>
-<th data-quarto-table-cell-role="th">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>bill_length_mm</td>
-<td>39.1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>bill_length_mm</td>
-<td>39.5</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>bill_length_mm</td>
-<td>40.3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>bill_length_mm</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>bill_length_mm</td>
-<td>36.7</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">683</td>
-<td>bill_depth_mm</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">684</td>
-<td>bill_depth_mm</td>
-<td>14.3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">685</td>
-<td>bill_depth_mm</td>
-<td>15.7</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">686</td>
-<td>bill_depth_mm</td>
-<td>14.8</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">687</td>
-<td>bill_depth_mm</td>
-<td>16.1</td>
-</tr>
-</tbody>
-</table>
-
-<p>688 rows × 2 columns</p>
-</div>
-</div>
 </div>
 <p>long format is required when you want a number of columns to appear as a “variable” in the plot. As in the example below where the color “variable” reflects whether the point is <code>bill_depth_mm</code> or <code>bill_length_mm</code>.</p>
 <p>Retain other information for each observation:</p>
-<div id="f854be4c-84a6-4b60-945b-cbc5c427b064" class="cell" data-execution_count="18">
+<div id="f854be4c-84a6-4b60-945b-cbc5c427b064" class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>long_df <span class="op">=</span> penguins.melt(id_vars<span class="op">=</span>[<span class="st">'species'</span>, <span class="st">'body_mass_g'</span>, <span class="st">'island'</span>], value_vars<span class="op">=</span>[<span class="st">'bill_length_mm'</span>, <span class="st">'bill_depth_mm'</span>])</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>long_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">species</th>
-<th data-quarto-table-cell-role="th">body_mass_g</th>
-<th data-quarto-table-cell-role="th">island</th>
-<th data-quarto-table-cell-role="th">variable</th>
-<th data-quarto-table-cell-role="th">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Adelie</td>
-<td>3750.0</td>
-<td>Torgersen</td>
-<td>bill_length_mm</td>
-<td>39.1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Adelie</td>
-<td>3800.0</td>
-<td>Torgersen</td>
-<td>bill_length_mm</td>
-<td>39.5</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Adelie</td>
-<td>3250.0</td>
-<td>Torgersen</td>
-<td>bill_length_mm</td>
-<td>40.3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Adelie</td>
-<td>NaN</td>
-<td>Torgersen</td>
-<td>bill_length_mm</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Adelie</td>
-<td>3450.0</td>
-<td>Torgersen</td>
-<td>bill_length_mm</td>
-<td>36.7</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">683</td>
-<td>Gentoo</td>
-<td>NaN</td>
-<td>Biscoe</td>
-<td>bill_depth_mm</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">684</td>
-<td>Gentoo</td>
-<td>4850.0</td>
-<td>Biscoe</td>
-<td>bill_depth_mm</td>
-<td>14.3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">685</td>
-<td>Gentoo</td>
-<td>5750.0</td>
-<td>Biscoe</td>
-<td>bill_depth_mm</td>
-<td>15.7</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">686</td>
-<td>Gentoo</td>
-<td>5200.0</td>
-<td>Biscoe</td>
-<td>bill_depth_mm</td>
-<td>14.8</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">687</td>
-<td>Gentoo</td>
-<td>5400.0</td>
-<td>Biscoe</td>
-<td>bill_depth_mm</td>
-<td>16.1</td>
-</tr>
-</tbody>
-</table>
-
-<p>688 rows × 5 columns</p>
 </div>
-</div>
-</div>
-<div id="1f4fba3b-97af-4b43-9288-64deb2e8ea21" class="cell" data-execution_count="19">
+<div id="1f4fba3b-97af-4b43-9288-64deb2e8ea21" class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>long_df, x<span class="op">=</span><span class="st">'body_mass_g'</span>, y<span class="op">=</span><span class="st">'value'</span>, hue<span class="op">=</span><span class="st">'variable'</span>, style<span class="op">=</span><span class="st">'species'</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>legend_outside()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="dee451dc-edec-40d6-a8dd-5940d9e3f658" class="cell" data-execution_count="20">
+<div id="dee451dc-edec-40d6-a8dd-5940d9e3f658" class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>long_df, x<span class="op">=</span><span class="st">'species'</span>, y<span class="op">=</span><span class="st">'value'</span>, hue<span class="op">=</span><span class="st">'variable'</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="717f84ad-e3c3-4d92-a577-cd3371661419" class="cell" data-execution_count="21">
+<div id="717f84ad-e3c3-4d92-a577-cd3371661419" class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>long_df, x<span class="op">=</span><span class="st">'variable'</span>, y<span class="op">=</span><span class="st">'value'</span>, hue<span class="op">=</span><span class="st">'species'</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="99ec11e0-5d90-49bf-836b-cb696b7e7bed" class="cell" data-execution_count="22">
+<div id="99ec11e0-5d90-49bf-836b-cb696b7e7bed" class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>long_df, x<span class="op">=</span><span class="st">'species'</span>, y<span class="op">=</span><span class="st">'value'</span>, hue<span class="op">=</span><span class="st">'variable'</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plots-with-multiple-facets" class="level1">
 <h1>Plots with multiple facets</h1>
-<div id="9fa37dbe-a528-4719-a9eb-a6a11d14d44c" class="cell" data-execution_count="23">
+<div id="9fa37dbe-a528-4719-a9eb-a6a11d14d44c" class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(penguins, col<span class="op">=</span><span class="st">"island"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Map plotting to each facet:</p>
-<div id="fdd2ae56-b970-4444-b2ff-1f3af3ce39b5" class="cell" data-execution_count="28">
+<div id="fdd2ae56-b970-4444-b2ff-1f3af3ce39b5" class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(penguins, col<span class="op">=</span><span class="st">"island"</span>, hue<span class="op">=</span><span class="st">"species"</span>, height<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">map</span>(sns.scatterplot, <span class="st">"bill_length_mm"</span>, <span class="st">"flipper_length_mm"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Grid of facets representing combinations of two variables:</p>
-<div id="af680761-e0b7-46ae-8a2b-287b0f034b06" class="cell" data-execution_count="29">
+<div id="af680761-e0b7-46ae-8a2b-287b0f034b06" class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(penguins, row<span class="op">=</span><span class="st">"sex"</span>, col<span class="op">=</span><span class="st">"island"</span>, hue<span class="op">=</span><span class="st">"species"</span>, height<span class="op">=</span><span class="dv">3</span>) <span class="op">;</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">map</span>(sns.scatterplot, <span class="st">"bill_length_mm"</span>, <span class="st">"flipper_length_mm"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="19ecc2a2-4ef9-4c16-8a12-223dbc8f141c" class="cell" data-execution_count="30">
+<div id="19ecc2a2-4ef9-4c16-8a12-223dbc8f141c" class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(penguins, row<span class="op">=</span><span class="st">"sex"</span>, col<span class="op">=</span><span class="st">"island"</span>, hue<span class="op">=</span><span class="st">"species"</span>, height<span class="op">=</span><span class="dv">3</span>) <span class="op">;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">map</span>(sns.regplot, <span class="st">"bill_length_mm"</span>, <span class="st">"flipper_length_mm"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="7eb2b9cc-c374-469a-bc4f-8da06940682c" class="cell" data-execution_count="31">
+<div id="7eb2b9cc-c374-469a-bc4f-8da06940682c" class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(data<span class="op">=</span>penguins, x<span class="op">=</span><span class="st">"bill_length_mm"</span>, y<span class="op">=</span><span class="st">"flipper_length_mm"</span>, row<span class="op">=</span><span class="st">"sex"</span>, col<span class="op">=</span><span class="st">"island"</span>, hue<span class="op">=</span><span class="st">"species"</span>, height<span class="op">=</span><span class="dv">2</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="facetgrid.map-vs.-facetgrid.map_dataframe" class="level2">
 <h2 class="anchored" data-anchor-id="facetgrid.map-vs.-facetgrid.map_dataframe">FacetGrid.map vs.&nbsp;FacetGrid.map_dataframe</h2>
 <p>When you use <code>FacetGrid.map(func, "col1", "col2", ...)</code>, the function <code>func</code> is passed the values of the columns <code>"col1"</code> and <code>"col2"</code> (and more if needed) as parameters 1 and 2 (<code>args[0]</code>, <code>args[1]</code>, …). In addition, the function always receives a keyword argument named <code>color=</code>.</p>
-<div id="b0fcc636-2495-48d2-8133-baf140dbdcc3" class="cell" data-execution_count="32">
+<div id="b0fcc636-2495-48d2-8133-baf140dbdcc3" class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scatter(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> plt.scatter(args[<span class="dv">0</span>], args[<span class="dv">1</span>], <span class="op">**</span>kwargs)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -728,61 +394,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">map</span>(scatter, <span class="st">"bill_length_mm"</span>, <span class="st">"flipper_length_mm"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When you use <code>FacetGrid.map_dataframe(func, "col1", "col2", ...)</code>, the function <code>func</code> is passed the names <code>"col1"</code> and <code>"col2"</code> (and more if needed) as parameters 1 and 2 (<code>args[0]</code>, <code>args[1]</code>, …), and the filtered dataframe as keyword argument <code>data=</code>. In addition, the function always receives a keyword argument named <code>color=</code>.</p>
-<div id="64bb32c4-3c8a-40e6-bc3e-40b3d7f414e9" class="cell" data-execution_count="101">
+<div id="64bb32c4-3c8a-40e6-bc3e-40b3d7f414e9" class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> scatterplot(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sns.scatterplot(x<span class="op">=</span>args[<span class="dv">0</span>], y<span class="op">=</span>args[<span class="dv">1</span>], <span class="op">**</span>kwargs)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(penguins, row<span class="op">=</span><span class="st">"sex"</span>, col<span class="op">=</span><span class="st">"island"</span>, hue<span class="op">=</span><span class="st">"species"</span>) <span class="op">;</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>g.map_dataframe(scatterplot, <span class="st">"bill_length_mm"</span>, <span class="st">"flipper_length_mm"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="plotting_files/figure-html/cell-26-output-1.png" width="890" height="592" class="figure-img"></p>
-</figure>
 </div>
-</div>
-</div>
-<div id="e967fced-387a-4725-b6fc-59d3851e4e10" class="cell" data-execution_count="102">
+<div id="e967fced-387a-4725-b6fc-59d3851e4e10" class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(penguins, row<span class="op">=</span><span class="st">"sex"</span>, col<span class="op">=</span><span class="st">"island"</span>, hue<span class="op">=</span><span class="st">"species"</span>) <span class="op">;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">map</span>(sns.histplot, <span class="st">"bill_length_mm"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="plotting_files/figure-html/cell-27-output-1.png" width="890" height="592" class="figure-img"></p>
-</figure>
 </div>
-</div>
-</div>
-<div id="05948b27-5dbf-46f4-8973-acfc3079579b" class="cell" data-execution_count="103">
+<div id="05948b27-5dbf-46f4-8973-acfc3079579b" class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.FacetGrid(penguins, row<span class="op">=</span><span class="st">"sex"</span>, col<span class="op">=</span><span class="st">"island"</span>, hue<span class="op">=</span><span class="st">"species"</span>) <span class="op">;</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>g.<span class="bu">map</span>(sns.kdeplot, <span class="st">"bill_length_mm"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="plotting_files/figure-html/cell-28-output-1.png" width="890" height="592" class="figure-img"></p>
-</figure>
 </div>
-</div>
-</div>
-<div id="8b65edb6-c25a-40dd-be64-73a2ab407528" class="cell" data-execution_count="104">
+<div id="8b65edb6-c25a-40dd-be64-73a2ab407528" class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sns.pairplot(penguins, hue<span class="op">=</span><span class="st">"species"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="plotting_files/figure-html/cell-29-output-1.png" width="1105" height="987" class="figure-img"></p>
-</figure>
 </div>
-</div>
-</div>
-<div id="f6359477-0261-4c71-a0c0-fd0af0b69ec0" class="cell" data-execution_count="105">
+<div id="f6359477-0261-4c71-a0c0-fd0af0b69ec0" class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sns.pairplot(penguins, hue<span class="op">=</span><span class="st">"sex"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="plotting_files/figure-html/cell-30-output-1.png" width="1092" height="987" class="figure-img"></p>
-</figure>
-</div>
-</div>
 </div>
 
 

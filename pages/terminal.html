@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The terminal – Franklin</title>
+<title>Introduction to the Terminal – Franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -82,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../terminal.html">Tutorials</a></li><li class="breadcrumb-item"><a href="student/../terminal.html"><span class="chapter-title">The terminal</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../terminal.html">Tutorials</a></li><li class="breadcrumb-item"><a href="student/../terminal.html"><span class="chapter-title">Introduction to the Terminal</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -138,12 +173,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">The terminal</span></a>
+  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Jupyterlab</span></a>
+  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">JupyterLab Tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -169,12 +204,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The terminal</span></a>
+  <a href="student/../terminal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Jupyterlab</span></a>
+  <a href="student/../jupyterlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">JupyterLab Tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -184,12 +219,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../gitlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Gitlab server</span></a>
+  <a href="student/../gitlab.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to GitLab</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="student/../docker.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Docker virtualization</span></a>
+  <a href="student/../docker.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to Docker</span></a>
   </div>
 </li>
       </ul>
@@ -204,16 +239,90 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#navigating-folders-via-the-terminal" id="toc-navigating-folders-via-the-terminal" class="nav-link active" data-scroll-target="#navigating-folders-via-the-terminal">Navigating folders via the terminal</a></li>
+  <li><a href="#what-is-a-terminal" id="toc-what-is-a-terminal" class="nav-link active" data-scroll-target="#what-is-a-terminal">What is a Terminal?</a>
+  <ul class="collapse">
+  <li><a href="#why-learn-the-terminal" id="toc-why-learn-the-terminal" class="nav-link" data-scroll-target="#why-learn-the-terminal">Why Learn the Terminal?</a></li>
+  </ul></li>
+  <li><a href="#opening-your-terminal" id="toc-opening-your-terminal" class="nav-link" data-scroll-target="#opening-your-terminal">Opening Your Terminal</a></li>
+  <li><a href="#understanding-the-prompt" id="toc-understanding-the-prompt" class="nav-link" data-scroll-target="#understanding-the-prompt">Understanding the Prompt</a></li>
+  <li><a href="#essential-navigation-commands" id="toc-essential-navigation-commands" class="nav-link" data-scroll-target="#essential-navigation-commands">Essential Navigation Commands</a>
+  <ul class="collapse">
+  <li><a href="#where-am-i-pwd" id="toc-where-am-i-pwd" class="nav-link" data-scroll-target="#where-am-i-pwd">Where Am I? (<code>pwd</code>)</a></li>
+  <li><a href="#whats-here-ls" id="toc-whats-here-ls" class="nav-link" data-scroll-target="#whats-here-ls">What’s Here? (<code>ls</code>)</a></li>
+  <li><a href="#moving-around-cd" id="toc-moving-around-cd" class="nav-link" data-scroll-target="#moving-around-cd">Moving Around (<code>cd</code>)</a></li>
+  </ul></li>
+  <li><a href="#working-with-files-and-folders" id="toc-working-with-files-and-folders" class="nav-link" data-scroll-target="#working-with-files-and-folders">Working with Files and Folders</a>
+  <ul class="collapse">
+  <li><a href="#creating-files-and-folders" id="toc-creating-files-and-folders" class="nav-link" data-scroll-target="#creating-files-and-folders">Creating Files and Folders</a></li>
+  <li><a href="#viewing-file-contents" id="toc-viewing-file-contents" class="nav-link" data-scroll-target="#viewing-file-contents">Viewing File Contents</a></li>
+  <li><a href="#copying-moving-and-deleting" id="toc-copying-moving-and-deleting" class="nav-link" data-scroll-target="#copying-moving-and-deleting">Copying, Moving, and Deleting</a></li>
+  </ul></li>
+  <li><a href="#useful-shortcuts-and-tips" id="toc-useful-shortcuts-and-tips" class="nav-link" data-scroll-target="#useful-shortcuts-and-tips">Useful Shortcuts and Tips</a>
+  <ul class="collapse">
+  <li><a href="#keyboard-shortcuts" id="toc-keyboard-shortcuts" class="nav-link" data-scroll-target="#keyboard-shortcuts">Keyboard Shortcuts</a></li>
+  <li><a href="#command-history" id="toc-command-history" class="nav-link" data-scroll-target="#command-history">Command History</a></li>
+  <li><a href="#wildcards-and-patterns" id="toc-wildcards-and-patterns" class="nav-link" data-scroll-target="#wildcards-and-patterns">Wildcards and Patterns</a></li>
+  </ul></li>
+  <li><a href="#finding-things" id="toc-finding-things" class="nav-link" data-scroll-target="#finding-things">Finding Things</a>
+  <ul class="collapse">
+  <li><a href="#finding-files" id="toc-finding-files" class="nav-link" data-scroll-target="#finding-files">Finding Files</a></li>
+  <li><a href="#searching-file-contents" id="toc-searching-file-contents" class="nav-link" data-scroll-target="#searching-file-contents">Searching File Contents</a></li>
+  </ul></li>
+  <li><a href="#working-with-processes" id="toc-working-with-processes" class="nav-link" data-scroll-target="#working-with-processes">Working with Processes</a>
+  <ul class="collapse">
+  <li><a href="#running-programs" id="toc-running-programs" class="nav-link" data-scroll-target="#running-programs">Running Programs</a></li>
+  <li><a href="#managing-processes" id="toc-managing-processes" class="nav-link" data-scroll-target="#managing-processes">Managing Processes</a></li>
+  </ul></li>
+  <li><a href="#inputoutput-redirection" id="toc-inputoutput-redirection" class="nav-link" data-scroll-target="#inputoutput-redirection">Input/Output Redirection</a>
+  <ul class="collapse">
+  <li><a href="#redirecting-output" id="toc-redirecting-output" class="nav-link" data-scroll-target="#redirecting-output">Redirecting Output</a></li>
+  <li><a href="#pipes" id="toc-pipes" class="nav-link" data-scroll-target="#pipes">Pipes</a></li>
+  </ul></li>
+  <li><a href="#environment-variables" id="toc-environment-variables" class="nav-link" data-scroll-target="#environment-variables">Environment Variables</a></li>
+  <li><a href="#franklin-in-the-terminal" id="toc-franklin-in-the-terminal" class="nav-link" data-scroll-target="#franklin-in-the-terminal">Franklin in the Terminal</a>
+  <ul class="collapse">
+  <li><a href="#common-franklin-workflows" id="toc-common-franklin-workflows" class="nav-link" data-scroll-target="#common-franklin-workflows">Common Franklin Workflows</a></li>
+  </ul></li>
+  <li><a href="#terminal-for-different-shells" id="toc-terminal-for-different-shells" class="nav-link" data-scroll-target="#terminal-for-different-shells">Terminal for Different Shells</a></li>
+  <li><a href="#terminal-customization" id="toc-terminal-customization" class="nav-link" data-scroll-target="#terminal-customization">Terminal Customization</a>
+  <ul class="collapse">
+  <li><a href="#creating-aliases" id="toc-creating-aliases" class="nav-link" data-scroll-target="#creating-aliases">Creating Aliases</a></li>
+  <li><a href="#customizing-prompt" id="toc-customizing-prompt" class="nav-link" data-scroll-target="#customizing-prompt">Customizing Prompt</a></li>
+  </ul></li>
+  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices">Best Practices</a>
+  <ul class="collapse">
+  <li><a href="#safety-first" id="toc-safety-first" class="nav-link" data-scroll-target="#safety-first">Safety First</a></li>
+  <li><a href="#efficiency-tips" id="toc-efficiency-tips" class="nav-link" data-scroll-target="#efficiency-tips">Efficiency Tips</a></li>
+  <li><a href="#organization" id="toc-organization" class="nav-link" data-scroll-target="#organization">Organization</a></li>
+  </ul></li>
+  <li><a href="#common-terminal-tasks" id="toc-common-terminal-tasks" class="nav-link" data-scroll-target="#common-terminal-tasks">Common Terminal Tasks</a>
+  <ul class="collapse">
+  <li><a href="#quick-file-backup" id="toc-quick-file-backup" class="nav-link" data-scroll-target="#quick-file-backup">Quick File Backup</a></li>
+  <li><a href="#batch-operations" id="toc-batch-operations" class="nav-link" data-scroll-target="#batch-operations">Batch Operations</a></li>
+  <li><a href="#quick-system-info" id="toc-quick-system-info" class="nav-link" data-scroll-target="#quick-system-info">Quick System Info</a></li>
+  </ul></li>
+  <li><a href="#troubleshooting-common-issues" id="toc-troubleshooting-common-issues" class="nav-link" data-scroll-target="#troubleshooting-common-issues">Troubleshooting Common Issues</a>
+  <ul class="collapse">
+  <li><a href="#permission-denied" id="toc-permission-denied" class="nav-link" data-scroll-target="#permission-denied">Permission Denied</a></li>
+  <li><a href="#command-not-found" id="toc-command-not-found" class="nav-link" data-scroll-target="#command-not-found">Command Not Found</a></li>
+  <li><a href="#stuck-terminal" id="toc-stuck-terminal" class="nav-link" data-scroll-target="#stuck-terminal">Stuck Terminal</a></li>
+  </ul></li>
+  <li><a href="#resources-for-learning-more" id="toc-resources-for-learning-more" class="nav-link" data-scroll-target="#resources-for-learning-more">Resources for Learning More</a>
+  <ul class="collapse">
+  <li><a href="#interactive-tutorials" id="toc-interactive-tutorials" class="nav-link" data-scroll-target="#interactive-tutorials">Interactive Tutorials</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../terminal.html">Tutorials</a></li><li class="breadcrumb-item"><a href="student/../terminal.html"><span class="chapter-title">The terminal</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="student/../terminal.html">Tutorials</a></li><li class="breadcrumb-item"><a href="student/../terminal.html"><span class="chapter-title">Introduction to the Terminal</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">The terminal</span></h1>
+<h1 class="title"><span class="chapter-title">Introduction to the Terminal</span></h1>
+<p class="subtitle lead">Your Command Line Interface</p>
 </div>
 
 
@@ -230,50 +339,586 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="what-is-a-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-terminal">What is a Terminal?</h2>
+<p>A terminal (also called command line, shell, or console) is a text-based interface for interacting with your computer. Instead of clicking buttons and icons, you type commands to tell the computer what to do. While it might seem intimidating at first, the terminal is an incredibly powerful tool that gives you precise control over your system.</p>
+<section id="why-learn-the-terminal" class="level3">
+<h3 class="anchored" data-anchor-id="why-learn-the-terminal">Why Learn the Terminal?</h3>
+<ul>
+<li><strong>Power</strong>: Many tasks are faster and more efficient in the terminal</li>
+<li><strong>Automation</strong>: Chain commands together and create scripts</li>
+<li><strong>Remote Access</strong>: Control servers and other computers remotely</li>
+<li><strong>Development</strong>: Essential for programming and data science</li>
+<li><strong>Franklin</strong>: Many Franklin commands work best from the terminal</li>
+</ul>
+</section>
+</section>
+<section id="opening-your-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="opening-your-terminal">Opening Your Terminal</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">macOS</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Linux</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ol type="1">
+<li>Press <code>Cmd + Space</code> to open Spotlight</li>
+<li>Type “Terminal” and press Enter</li>
+<li>Or: Find Terminal in Applications → Utilities</li>
+</ol>
+<p>You’ll see something like:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">username@MacBook-Pro</span> ~ %</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-Under development
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ol type="1">
+<li>Press <code>Windows Key</code></li>
+<li>Type “PowerShell” or “Command Prompt”</li>
+<li>Or: Right-click Start Menu → Windows Terminal</li>
+</ol>
+<p>You’ll see something like:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PS</span> C<span class="op">:</span>\Users\username<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<ol type="1">
+<li>Press <code>Ctrl + Alt + T</code> (most distributions)</li>
+<li>Or: Find Terminal in your applications menu</li>
+</ol>
+<p>You’ll see something like:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">username@computer:~$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>The content of this page is being developed.</p>
+</div>
+</section>
+<section id="understanding-the-prompt" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-prompt">Understanding the Prompt</h2>
+<p>The prompt shows you important information:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">username@hostname:current_directory$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><strong>username</strong>: Your user account name</li>
+<li><strong>hostname</strong>: Your computer’s name</li>
+<li><strong>current_directory</strong>: Where you are in the file system</li>
+<li><strong>$</strong> or <strong>%</strong>: Indicates you can type a command</li>
+</ul>
+</section>
+<section id="essential-navigation-commands" class="level2">
+<h2 class="anchored" data-anchor-id="essential-navigation-commands">Essential Navigation Commands</h2>
+<section id="where-am-i-pwd" class="level3">
+<h3 class="anchored" data-anchor-id="where-am-i-pwd">Where Am I? (<code>pwd</code>)</h3>
+<p>The <code>pwd</code> command (print working directory) shows your current location:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: /Users/username/Documents</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="whats-here-ls" class="level3">
+<h3 class="anchored" data-anchor-id="whats-here-ls">What’s Here? (<code>ls</code>)</h3>
+<p>The <code>ls</code> command lists files and folders:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic listing</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Detailed listing with sizes and dates</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Show hidden files (starting with .)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-a</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Human-readable file sizes</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="moving-around-cd" class="level3">
+<h3 class="anchored" data-anchor-id="moving-around-cd">Moving Around (<code>cd</code>)</h3>
+<p>The <code>cd</code> command (change directory) moves between folders:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to a specific folder</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Documents</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to home directory</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># or just</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Go up one level</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Go up two levels</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../..</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to previous directory</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="at">-</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Use absolute path</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /Users/username/Documents</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Use relative path</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ./subfolder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="working-with-files-and-folders" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-files-and-folders">Working with Files and Folders</h2>
+<section id="creating-files-and-folders" class="level3">
+<h3 class="anchored" data-anchor-id="creating-files-and-folders">Creating Files and Folders</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new folder</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> my_project</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> projects/python/data_analysis  <span class="co"># Create nested folders</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty file</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> notes.txt</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and write to a file</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello World"</span> <span class="op">&gt;</span> greeting.txt</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Append to a file</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Another line"</span> <span class="op">&gt;&gt;</span> greeting.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="viewing-file-contents" class="level3">
+<h3 class="anchored" data-anchor-id="viewing-file-contents">Viewing File Contents</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View entire file</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> filename.txt</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View with pagination</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> filename.txt  <span class="co"># Press 'q' to quit</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View first 10 lines</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> filename.txt</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View last 10 lines</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> filename.txt</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># View last lines as file updates (great for logs)</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-f</span> logfile.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="copying-moving-and-deleting" class="level3">
+<h3 class="anchored" data-anchor-id="copying-moving-and-deleting">Copying, Moving, and Deleting</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy file</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> source.txt destination.txt</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy folder recursively</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> source_folder destination_folder</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Move/rename file or folder</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> old_name.txt new_name.txt</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> file.txt /path/to/destination/</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete file</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> file.txt</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete empty folder</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="fu">rmdir</span> empty_folder</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete folder and contents (careful!)</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> folder_name</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete with confirmation</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-i</span> file.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="useful-shortcuts-and-tips" class="level2">
+<h2 class="anchored" data-anchor-id="useful-shortcuts-and-tips">Useful Shortcuts and Tips</h2>
+<section id="keyboard-shortcuts" class="level3">
+<h3 class="anchored" data-anchor-id="keyboard-shortcuts">Keyboard Shortcuts</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Tab</code></td>
+<td>Auto-complete file/folder names</td>
+</tr>
+<tr class="even">
+<td><code>↑</code> / <code>↓</code></td>
+<td>Navigate command history</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + C</code></td>
+<td>Cancel current command</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl + A</code></td>
+<td>Go to beginning of line</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + E</code></td>
+<td>Go to end of line</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl + L</code></td>
+<td>Clear screen (or use <code>clear</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>Ctrl + R</code></td>
+<td>Search command history</td>
+</tr>
+<tr class="even">
+<td><code>Ctrl + D</code></td>
+<td>Exit terminal</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="command-history" class="level3">
+<h3 class="anchored" data-anchor-id="command-history">Command History</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View command history</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">history</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run previous command</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">!!</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run command from history</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">!123</span>  <span class="co"># Run command number 123</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Search history</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">history</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="st">"git"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="wildcards-and-patterns" class="level3">
+<h3 class="anchored" data-anchor-id="wildcards-and-patterns">Wildcards and Patterns</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># * matches any characters</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="pp">*</span>.txt           <span class="co"># All .txt files</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> temp_<span class="pp">*</span>          <span class="co"># All files starting with temp_</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ? matches single character</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> file<span class="pp">?</span>.txt       <span class="co"># Matches file1.txt, file2.txt, etc.</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [...] matches any character in brackets</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> file<span class="pp">[</span><span class="ss">123</span><span class="pp">]</span>.txt   <span class="co"># Matches file1.txt, file2.txt, file3.txt</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="finding-things" class="level2">
+<h2 class="anchored" data-anchor-id="finding-things">Finding Things</h2>
+<section id="finding-files" class="level3">
+<h3 class="anchored" data-anchor-id="finding-files">Finding Files</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find files by name</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">"*.py"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find folders</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-type</span> d <span class="at">-name</span> <span class="st">"data"</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Find files modified in last 24 hours</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-mtime</span> <span class="at">-1</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Find and execute command</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">"*.txt"</span> <span class="at">-exec</span> cat {} <span class="dt">\;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="searching-file-contents" class="level3">
+<h3 class="anchored" data-anchor-id="searching-file-contents">Searching File Contents</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for text in file</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"search term"</span> file.txt</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Search recursively in all files</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-r</span> <span class="st">"TODO"</span> .</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Case-insensitive search</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-i</span> <span class="st">"python"</span> file.txt</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Show line numbers</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-n</span> <span class="st">"error"</span> logfile.log</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for files containing text</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-l</span> <span class="st">"import pandas"</span> <span class="pp">*</span>.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="working-with-processes" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-processes">Working with Processes</h2>
+<section id="running-programs" class="level3">
+<h3 class="anchored" data-anchor-id="running-programs">Running Programs</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run a Python script</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> script.py</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run in background</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> long_script.py <span class="kw">&amp;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run and disconnect from terminal</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">nohup</span> python script.py <span class="kw">&amp;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="managing-processes" class="level3">
+<h3 class="anchored" data-anchor-id="managing-processes">Managing Processes</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List running processes</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> aux</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find specific process</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> aux <span class="kw">|</span> <span class="fu">grep</span> python</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Kill a process</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> 1234  <span class="co"># Kill process with ID 1234</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Force kill</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="bu">kill</span> <span class="at">-9</span> 1234</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive process viewer</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="ex">top</span>  <span class="co"># Press 'q' to quit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="inputoutput-redirection" class="level2">
+<h2 class="anchored" data-anchor-id="inputoutput-redirection">Input/Output Redirection</h2>
+<section id="redirecting-output" class="level3">
+<h3 class="anchored" data-anchor-id="redirecting-output">Redirecting Output</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Redirect output to file</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="op">&gt;</span> file_list.txt</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Append to file</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="op">&gt;&gt;</span> file_list.txt</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Redirect errors</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="bu">command</span> <span class="dv">2</span><span class="op">&gt;</span> errors.txt</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Redirect both output and errors</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="bu">command</span> <span class="op">&amp;&gt;</span> all_output.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pipes" class="level3">
+<h3 class="anchored" data-anchor-id="pipes">Pipes</h3>
+<p>Chain commands together:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count Python files</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="st">".py"</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Find and sort</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">"*.txt"</span> <span class="kw">|</span> <span class="fu">sort</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View processes using most memory</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ps</span> aux <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-k4</span> <span class="at">-r</span> <span class="kw">|</span> <span class="fu">head</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="environment-variables" class="level2">
+<h2 class="anchored" data-anchor-id="environment-variables">Environment Variables</h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View all environment variables</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">env</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View specific variable</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$PATH</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$HOME</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Set temporary variable</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">MY_VAR</span><span class="op">=</span><span class="st">"value"</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Add to PATH</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="va">$PATH</span>:/new/path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="franklin-in-the-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-in-the-terminal">Franklin in the Terminal</h2>
+<p>Franklin is designed to work seamlessly from the terminal:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check Franklin installation</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download exercises</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Start Jupyter</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get help</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--help</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="common-franklin-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="common-franklin-workflows">Common Franklin Workflows</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Student workflow</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents/Courses</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"Exercise Name"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Educator workflow</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise new</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> my-exercise</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise test</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise publish</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="terminal-for-different-shells" class="level2">
+<h2 class="anchored" data-anchor-id="terminal-for-different-shells">Terminal for Different Shells</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Bash (Linux/Mac)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Zsh (Mac default)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">PowerShell (Windows)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Most common shell with extensive features:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check current shell</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$SHELL</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bash-specific features</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> ll=<span class="st">'ls -la'</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Enhanced Bash with better completion:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zsh configuration</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">~/.zshrc</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Powerful tab completion</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /u/l/b<span class="op">&lt;</span>Tab<span class="op">&gt;</span>  <span class="co"># Expands to /usr/local/bin</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>Object-oriented shell:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PowerShell commands</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-ChildItem</span>  <span class="co"># Like ls</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Set-Location</span>   <span class="co"># Like cd</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">Get-Content</span>    <span class="co"># Like cat</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Aliases work too</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p><a href="https://lifehacker.com/5633909/who-needs-a-mouse-learn-to-use-the-command-line-for-almost-anything">this primer</a> before you go on.</p>
-<p>A terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.</p>
-<p>Historically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.</p>
-<p>Key characteristics of a terminal include:</p>
-<p>Command-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &amp;&amp;, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.</p>
-<p>Ctrl-C for abort</p>
-<p>You also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Skærmbillede 2025-05-22 kl. 16.44.43.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 1.1</figcaption>
-</figure>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/Skærmbillede 2025-05-22 kl. 16.45.05.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 1.2</figcaption>
-</figure>
-</div>
-<p>What is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”</p>
-<section id="navigating-folders-via-the-terminal" class="level3">
-<h3 class="anchored" data-anchor-id="navigating-folders-via-the-terminal">Navigating folders via the terminal</h3>
-<p>The terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.</p>
-<p>When you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:</p>
-<p>pwd /Users/kasper/programming</p>
-<p>If the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)</p>
-<p>ls notes projects</p>
-<p>It seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:</p>
-<p>cd notes</p>
-<p>It seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:</p>
-<p>pwd /Users/kasper/programming/notes</p>
+</section>
+<section id="terminal-customization" class="level2">
+<h2 class="anchored" data-anchor-id="terminal-customization">Terminal Customization</h2>
+<section id="creating-aliases" class="level3">
+<h3 class="anchored" data-anchor-id="creating-aliases">Creating Aliases</h3>
+<p>Make shortcuts for common commands:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add to ~/.bashrc or ~/.zshrc</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> ll=<span class="st">'ls -la'</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> gs=<span class="st">'git status'</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> jp=<span class="st">'franklin jupyter'</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> py=<span class="st">'python'</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Reload configuration</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="customizing-prompt" class="level3">
+<h3 class="anchored" data-anchor-id="customizing-prompt">Customizing Prompt</h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple prompt</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="va">PS1</span><span class="op">=</span><span class="st">'\u@\h:\w\$ '</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Colorful prompt</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="va">PS1</span><span class="op">=</span><span class="st">'\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="best-practices">Best Practices</h2>
+<section id="safety-first" class="level3">
+<h3 class="anchored" data-anchor-id="safety-first">Safety First</h3>
+<ul>
+<li>✅ Use <code>ls</code> before <code>rm</code> to verify what you’re deleting</li>
+<li>✅ Use <code>-i</code> flag with <code>rm</code> for confirmation</li>
+<li>✅ Make backups before major operations</li>
+<li>✅ Test commands on sample data first</li>
+</ul>
+</section>
+<section id="efficiency-tips" class="level3">
+<h3 class="anchored" data-anchor-id="efficiency-tips">Efficiency Tips</h3>
+<ul>
+<li>✅ Use Tab completion extensively</li>
+<li>✅ Create aliases for repetitive commands</li>
+<li>✅ Learn keyboard shortcuts</li>
+<li>✅ Use command history</li>
+</ul>
+</section>
+<section id="organization" class="level3">
+<h3 class="anchored" data-anchor-id="organization">Organization</h3>
+<ul>
+<li>✅ Use descriptive file and folder names</li>
+<li>✅ Organize projects in dedicated directories</li>
+<li>✅ Keep your home directory clean</li>
+<li>✅ Use version control (Git) for code</li>
+</ul>
+</section>
+</section>
+<section id="common-terminal-tasks" class="level2">
+<h2 class="anchored" data-anchor-id="common-terminal-tasks">Common Terminal Tasks</h2>
+<section id="quick-file-backup" class="level3">
+<h3 class="anchored" data-anchor-id="quick-file-backup">Quick File Backup</h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup single file</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> important.txt important_backup.txt</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup with date</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> important.txt important_<span class="va">$(</span><span class="fu">date</span> +%Y%m%d<span class="va">)</span>.txt</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Backup entire folder</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czf</span> backup.tar.gz my_folder/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="batch-operations" class="level3">
+<h3 class="anchored" data-anchor-id="batch-operations">Batch Operations</h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename multiple files</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.txt<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mv</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="st">"backup_</span><span class="va">$file</span><span class="st">"</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert all CSV to lowercase names</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.CSV<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mv</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="st">"</span><span class="va">${file</span><span class="op">,,</span><span class="va">}</span><span class="st">"</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="quick-system-info" class="level3">
+<h3 class="anchored" data-anchor-id="quick-system-info">Quick System Info</h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Disk usage</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Folder sizes</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> <span class="pp">*</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Memory usage</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">free</span> <span class="at">-h</span>  <span class="co"># Linux</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="ex">top</span>      <span class="co"># Mac/Linux</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Network info</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="ex">ifconfig</span>  <span class="co"># or ip addr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="troubleshooting-common-issues" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting-common-issues">Troubleshooting Common Issues</h2>
+<section id="permission-denied" class="level3">
+<h3 class="anchored" data-anchor-id="permission-denied">Permission Denied</h3>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check permissions</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> file.txt</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Make executable</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x script.sh</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Change ownership</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown username file.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="command-not-found" class="level3">
+<h3 class="anchored" data-anchor-id="command-not-found">Command Not Found</h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if program installed</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span> python</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check PATH</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$PATH</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Install missing command</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Mac: brew install program</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Linux: apt install program</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Windows: winget install program</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="stuck-terminal" class="level3">
+<h3 class="anchored" data-anchor-id="stuck-terminal">Stuck Terminal</h3>
+<ul>
+<li><strong>Ctrl + C</strong>: Stop current command</li>
+<li><strong>Ctrl + D</strong>: Exit/logout</li>
+<li><strong>Ctrl + Z</strong>: Suspend process (use <code>fg</code> to resume)</li>
+<li><strong>Ctrl + L</strong>: Clear screen</li>
+</ul>
+</section>
+</section>
+<section id="resources-for-learning-more" class="level2">
+<h2 class="anchored" data-anchor-id="resources-for-learning-more">Resources for Learning More</h2>
+<section id="interactive-tutorials" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-tutorials">Interactive Tutorials</h3>
+<ul>
+<li><a href="https://ubuntu.com/tutorials/command-line-for-beginners">Command Line Tutorial</a></li>
+<li><a href="https://www.learnshell.org/">Learn Shell</a></li>
+<li><a href="https://mywiki.wooledge.org/BashGuide">Bash Guide</a></li>
+</ul>
+</section>
+<section id="practice" class="level3">
+<h3 class="anchored" data-anchor-id="practice">Practice</h3>
+<ol type="1">
+<li>Start with navigation: <code>pwd</code>, <code>ls</code>, <code>cd</code></li>
+<li>Create and manipulate files</li>
+<li>Learn one new command per day</li>
+<li>Automate repetitive tasks</li>
+</ol>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>The terminal is your direct line of communication with the computer. While graphical interfaces are convenient, the terminal offers:</p>
+<ul>
+<li><strong>Speed</strong>: Type faster than you can click</li>
+<li><strong>Power</strong>: Access to thousands of commands</li>
+<li><strong>Automation</strong>: Script repetitive tasks</li>
+<li><strong>Remote Access</strong>: Work on distant servers</li>
+<li><strong>Development</strong>: Essential for programming</li>
+</ul>
+<p>Start with basic navigation, gradually add commands to your toolkit, and soon you’ll wonder how you ever lived without it!</p>
 
 
 </section>
@@ -685,8 +1330,8 @@ Under development
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="student/../jupyterlab.html" class="pagination-link" aria-label="Jupyterlab">
-        <span class="nav-page-text"><span class="chapter-title">Jupyterlab</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="student/../jupyterlab.html" class="pagination-link" aria-label="JupyterLab Tutorial">
+        <span class="nav-page-text"><span class="chapter-title">JupyterLab Tutorial</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
