@@ -76,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a98ec624fb63d9b712fc3a6f62e2b305.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a986a95301e671fce2c6472dffc862a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -438,7 +438,7 @@ Under development
 <figcaption>alt text</figcaption>
 </figure>
 </div>
-<p>Vscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the <code>prod</code> jupyter kernel among the environments available. For an introduction to jupyter in vscode, see <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">Using notebooks in vscode</a>.</p>
+<p>Vscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the <code>franklin</code> jupyter kernel among the environments available. For an introduction to jupyter in vscode, see <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">Using notebooks in vscode</a>.</p>
 <p>If you need to install and use third-party python packages (e.g.&nbsp;<code>pandas</code>), these packages must be added as dependencies to the docker image. To do this, open vscode’s terminal window and install pixi by running this command:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./install_pixi.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Running the command below, will both make <code>pandas</code> available and add it as a dependency for the exercise.</p>

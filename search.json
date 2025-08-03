@@ -1,5 +1,329 @@
 [
   {
+    "objectID": "api/pull.html",
+    "href": "api/pull.html",
+    "title": "pull",
+    "section": "",
+    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/pull.html#parameters",
+    "href": "api/pull.html#parameters",
+    "title": "pull",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "pull"
+    ]
+  },
+  {
+    "objectID": "api/index.html",
+    "href": "api/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\n_run\n\n\n\n\n\n\n\nSome description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#jupyter",
+    "href": "api/index.html#jupyter",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\n_run",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "api/index.html#docker",
+    "href": "api/index.html#docker",
+    "title": "Function reference",
+    "section": "",
+    "text": "Some description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "pages/conda.html",
+    "href": "pages/conda.html",
+    "title": "Conda",
+    "section": "",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.",
+    "crumbs": [
+      "About",
+      "Conda"
+    ]
+  },
+  {
+    "objectID": "pages/conda.html#conda-enviroments",
+    "href": "pages/conda.html#conda-enviroments",
+    "title": "Conda",
+    "section": "Conda enviroments",
+    "text": "Conda enviroments\nIn bioinformatics, we install packages and programs so we can use them in our analyses and pipelines. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small insulated world for each project, which then only contained the packages you needed for that particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there is a tool that lets you do just that, and its name is Conda.\n“Conda is an open source package management system and environment management system for installing multiple versions of software packages and their dependencies and switching easily between them.”\nThe small worlds that Conda creates are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else. Conda also downloads and installs the packages for you and it makes sure that the software packages you install in each environment are compatible. It even makes sure that packages needed by packages (dependencies) are also installed. Conda is truly awesome.\nIn this case you need to create a new enviroment where you install franklin\nYou will need franklin for downloading assignments. You will also be able to choose a enviroment in franklin that specifially fits the assignment you want to make.",
+    "crumbs": [
+      "About",
+      "Conda"
+    ]
+  },
+  {
+    "objectID": "pages/python_r_julia.html",
+    "href": "pages/python_r_julia.html",
+    "title": "Python, R, and Julia",
+    "section": "",
+    "text": "Python (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\nimport pandas as pd\n\ndf = pd.DataFrame({\n    'A': [1, 2, 3],\n    'B': [4, 5, 6]\n})\n\n# Select row by position\nrow_pos = df.iloc[1]  # second row\n\n# Select row by label (if index is labeled)\ndf.index = ['x', 'y', 'z']\nrow_label = df.loc['y']\n\n\nlibrary(dplyr)\n\ndf &lt;- tibble(A = c(1, 2, 3), B = c(4, 5, 6))\n\n# Select row by position\nrow_pos &lt;- slice(df, 2)  # second row\n\n# Select row by condition\nrow_condition &lt;- filter(df, A == 2)\n\n\nusing DataFrames\n\ndf = DataFrame(A = [1, 2, 3], B = [4, 5, 6])\n\n# Select row by index\nrow_pos = df[2, :]\n\n# Select row by condition\nrow_condition = df[df.A .== 2, :]"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#indexing-rows",
+    "href": "pages/python_r_julia.html#indexing-rows",
+    "title": "Python, R, and Julia",
+    "section": "",
+    "text": "Python (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\nimport pandas as pd\n\ndf = pd.DataFrame({\n    'A': [1, 2, 3],\n    'B': [4, 5, 6]\n})\n\n# Select row by position\nrow_pos = df.iloc[1]  # second row\n\n# Select row by label (if index is labeled)\ndf.index = ['x', 'y', 'z']\nrow_label = df.loc['y']\n\n\nlibrary(dplyr)\n\ndf &lt;- tibble(A = c(1, 2, 3), B = c(4, 5, 6))\n\n# Select row by position\nrow_pos &lt;- slice(df, 2)  # second row\n\n# Select row by condition\nrow_condition &lt;- filter(df, A == 2)\n\n\nusing DataFrames\n\ndf = DataFrame(A = [1, 2, 3], B = [4, 5, 6])\n\n# Select row by index\nrow_pos = df[2, :]\n\n# Select row by condition\nrow_condition = df[df.A .== 2, :]"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#indexing-columns",
+    "href": "pages/python_r_julia.html#indexing-columns",
+    "title": "Python, R, and Julia",
+    "section": "Indexing Columns",
+    "text": "Indexing Columns\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Select a single column\ncol = df['A']\n\n# Select multiple columns\ncols = df[['A', 'B']]\n\n\n# Select a single column\ncol &lt;- df %&gt;% select(A)\n\n# Select multiple columns\ncols &lt;- df %&gt;% select(A, B)\n\n\n# Select a single column\ncol = df.A\n\n# Select multiple columns\ncols = select(df, [:A, :B])"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#column-and-row-assignment",
+    "href": "pages/python_r_julia.html#column-and-row-assignment",
+    "title": "Python, R, and Julia",
+    "section": "Column and Row Assignment",
+    "text": "Column and Row Assignment\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Assign a new column\ndf['C'] = df['A'] + df['B']\n\n# Assign values to a row by position\ndf.iloc[0] = [10, 20, 30]\n\n\n# Add new column\nmutated &lt;- df %&gt;% mutate(C = A + B)\n\n# Replace first row values\ndf[1, ] &lt;- list(10, 20, 30)\n\n\n# Assign new column\ndf.C = df.A + df.B\n\n# Replace first row\ndf[1, :] = (A=10, B=20, C=30)"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#filtering-and-masking",
+    "href": "pages/python_r_julia.html#filtering-and-masking",
+    "title": "Python, R, and Julia",
+    "section": "Filtering and Masking",
+    "text": "Filtering and Masking\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Boolean mask where A &gt; 1\nmask = df['A'] &gt; 1\nmasked_df = df[mask]\n\n\n# Logical filtering where A &gt; 1\nmasked_df &lt;- df %&gt;% filter(A &gt; 1)\n\n\n# Filter where A &gt; 1\nmasked_df = df[df.A .&gt; 1, :]"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#broadcasting-vectorized-ops",
+    "href": "pages/python_r_julia.html#broadcasting-vectorized-ops",
+    "title": "Python, R, and Julia",
+    "section": "Broadcasting (Vectorized Ops)",
+    "text": "Broadcasting (Vectorized Ops)\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Add new column as double of A\ndf['D'] = df['A'] * 2\n\n\n# Add new column as double of A\nmutated &lt;- df %&gt;% mutate(D = A * 2)\n\n\n# Add new column as double of A\ndf.D = df.A .* 2"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#mapping-transform",
+    "href": "pages/python_r_julia.html#mapping-transform",
+    "title": "Python, R, and Julia",
+    "section": "Mapping / Transform",
+    "text": "Mapping / Transform\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Apply function to column A\nmapped = df['A'].map(lambda x: x**2)\n\n\n# Apply function to column A\nmapped &lt;- df %&gt;% mutate(A_squared = A^2)\n\n\n# Apply function to column A\ndf.A_squared = df.A .^ 2"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#melt-pivot-longer",
+    "href": "pages/python_r_julia.html#melt-pivot-longer",
+    "title": "Python, R, and Julia",
+    "section": "Melt / Pivot Longer",
+    "text": "Melt / Pivot Longer\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Wide to long\nlong_df = pd.melt(df, id_vars=['A'], value_vars=['B', 'C'])\n\n\nlibrary(tidyr)\n\n# Wide to long\nlong_df &lt;- df %&gt;% pivot_longer(cols = c(B, C), names_to = \"variable\", values_to = \"value\")\n\n\nusing DataFrames\n\n# Wide to long\nlong_df = stack(df, [:B, :C], id_vars = [:A])"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#pivot-wider",
+    "href": "pages/python_r_julia.html#pivot-wider",
+    "title": "Python, R, and Julia",
+    "section": "Pivot Wider",
+    "text": "Pivot Wider\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Long to wide\nwide_df = long_df.pivot(index='A', columns='variable', values='value')\n\n\n# Long to wide\nwide_df &lt;- long_df %&gt;% pivot_wider(names_from = variable, values_from = value)\n\n\n# Long to wide\nwide_df = unstack(long_df, :A, :variable, :value)"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#group-by-summarize",
+    "href": "pages/python_r_julia.html#group-by-summarize",
+    "title": "Python, R, and Julia",
+    "section": "Group By & Summarize",
+    "text": "Group By & Summarize\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Group by A and calculate multiple summaries\nsummary = df.groupby('A').agg(\n    B_sum=('B', 'sum'),\n    C_mean=('C', 'mean')\n).reset_index()\n\n\n# Group by A and summarize multiple columns\nsummary &lt;- df %&gt;% \n  group_by(A) %&gt;% \n  summarize(\n    B_sum = sum(B),\n    C_mean = mean(C, na.rm = TRUE)\n  )\n\n\nusing Statistics\n\ngrouped = combine(groupby(df, :A),\n    :B =&gt; sum =&gt; :B_sum,\n    :C =&gt; mean =&gt; :C_mean)"
+  },
+  {
+    "objectID": "pages/python_r_julia.html#sorting",
+    "href": "pages/python_r_julia.html#sorting",
+    "title": "Python, R, and Julia",
+    "section": "Sorting",
+    "text": "Sorting\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Sort by column A descending\nsorted_df = df.sort_values(by='A', ascending=False)\n\n\n# Sort by column A descending\nsorted_df &lt;- df %&gt;% arrange(desc(A))\n\n\n# Sort by column A descending\nsorted_df = sort(df, :A, rev=true)"
+  },
+  {
+    "objectID": "pages/ssh.html",
+    "href": "pages/ssh.html",
+    "title": "SSH authentication",
+    "section": "",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.",
+    "crumbs": [
+      "About",
+      "SSH authentication"
+    ]
+  },
+  {
+    "objectID": "pages/ssh.html#how-it-works",
+    "href": "pages/ssh.html#how-it-works",
+    "title": "SSH authentication",
+    "section": "How it works",
+    "text": "How it works\nFirstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.",
+    "crumbs": [
+      "About",
+      "SSH authentication"
+    ]
+  },
+  {
+    "objectID": "pages/ssh.html#setting-up-password-less-gitlab-access",
+    "href": "pages/ssh.html#setting-up-password-less-gitlab-access",
+    "title": "SSH authentication",
+    "section": "Setting up password-less GitLab access",
+    "text": "Setting up password-less GitLab access\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
+    "crumbs": [
+      "About",
+      "SSH authentication"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html",
+    "href": "pages/overview.html",
+    "title": "Outline and infrastructure",
+    "section": "",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.\nGitLab hosting: of repositories for exercises grouped by course, allowing for nested authentication privileges.\nDocker Integration: Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.\nConda and Pixi package Management: The tool supports building and publishing Conda packages, enabling automatic management of dependencies.\nContinuous integration: Franklin uses GitLab pipelines for continuous integration automating workflows for building, testing, and publishing docker images.\nNested plugin APIs: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.\nAuto update: Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.\nAutomated workflows: To accommodate educators with different computational skill levels, franklin supports three levels of automation to support exercise development.\nUser management: The admin API allow easy management of users and assigning rules as either guest, teaching assistant, professor, or administrator.",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#click",
+    "href": "pages/overview.html#click",
+    "title": "Outline and infrastructure",
+    "section": "Click",
+    "text": "Click",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#docker",
+    "href": "pages/overview.html#docker",
+    "title": "Outline and infrastructure",
+    "section": "Docker",
+    "text": "Docker",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#pixi",
+    "href": "pages/overview.html#pixi",
+    "title": "Outline and infrastructure",
+    "section": "Pixi",
+    "text": "Pixi",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#purpose",
+    "href": "pages/overview.html#purpose",
+    "title": "Outline and infrastructure",
+    "section": "Purpose",
+    "text": "Purpose",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#git",
+    "href": "pages/overview.html#git",
+    "title": "Outline and infrastructure",
+    "section": "Git",
+    "text": "Git",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#gitlab",
+    "href": "pages/overview.html#gitlab",
+    "title": "Outline and infrastructure",
+    "section": "GitLab",
+    "text": "GitLab",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#groupsubgroup-layout",
+    "href": "pages/overview.html#groupsubgroup-layout",
+    "title": "Outline and infrastructure",
+    "section": "Group/Subgroup layout",
+    "text": "Group/Subgroup layout",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#users-permissions-authentication",
+    "href": "pages/overview.html#users-permissions-authentication",
+    "title": "Outline and infrastructure",
+    "section": "Users / Permissions / Authentication",
+    "text": "Users / Permissions / Authentication\n\nThe franklin-admin plugin\nInstall the franklin-admin to administer users and course infrastructure.\nTODO",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#tokens",
+    "href": "pages/overview.html#tokens",
+    "title": "Outline and infrastructure",
+    "section": "Tokens",
+    "text": "Tokens",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#pipelines",
+    "href": "pages/overview.html#pipelines",
+    "title": "Outline and infrastructure",
+    "section": "Pipelines",
+    "text": "Pipelines\n\nAU hosting\n\n\nGitLab Franklin group\n\n\nGitLab Course subgroups\n\n\nGitLab exercise repositories",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#authentication",
+    "href": "pages/overview.html#authentication",
+    "title": "Outline and infrastructure",
+    "section": "Authentication",
+    "text": "Authentication\nWeb GUI: UNI-AD login\n\nAdmin\nKasper (and someone else for backup)\nssh keys\n\n\nVIP\nssh keys\n\n\nStudents\nRead-only token distributed with franklin.",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#docker-1",
+    "href": "pages/overview.html#docker-1",
+    "title": "Outline and infrastructure",
+    "section": "Docker",
+    "text": "Docker\n\nImage hierarchy\n\nBase images maintained in the Base\nCourse base images only refer to a versioned base image\n\n\n\nTemplates\n\nEvery course has a repo template with a docker file that that refers to the course base image\nThese templates are forked from franklin/base-templates/base-template\n\n\n\nTag policy\n\nFranklin base images are versioned and must referred to with their version tag\nCourse base images are tagged latest so that courses always pulls updated version.\nExercise images are always tagged latest, which is the tag franklin pulls",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
+    "objectID": "pages/overview.html#container-registry",
+    "href": "pages/overview.html#container-registry",
+    "title": "Outline and infrastructure",
+    "section": "Container registry",
+    "text": "Container registry\n\nimport os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── commands_admin.html\n├── commands_admin.qmd\n├── commands_core.qmd\n├── commands_edu.html\n├── commands_edu.qmd\n├── computer_setup.html\n├── computer_setup.qmd\n├── conda.qmd\n├── developing.html\n├── developing.qmd\n├── docker.html\n├── docker.qmd\n├── faq.html\n├── faq.qmd\n├── getting_started.html\n├── getting_started.qmd\n├── git.html\n├── git.qmd\n├── gitlab.html\n├── gitlab.qmd\n├── images\n│   ├── Screenshot 2025-05-31 at 11.05.53.png\n│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.44.43.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.45.05.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.39.22.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.40.10.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.42.11.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.37.28.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.52.02.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.22.07.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.32.16.png\n│   ├── Skærmbillede 2025-05-29 kl. 16.19.09.png\n│   ├── Skærmbillede 2025-06-03 kl. 13.28.40.png\n│   ├── Skærmbillede 2025-06-03 kl. 14.25.30.png\n│   ├── Skærmbillede 2025-06-03 kl. 14.27.12.png\n│   ├── elephant.png\n│   ├── pipeline_example.png\n│   ├── pipeline_example_nomenu.png\n│   └── shell-command.png\n├── jupyterlab.html\n├── jupyterlab.ipynb\n├── jupyterlab_files\n│   └── figure-html\n│       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n├── numpy_and_pandas.html\n├── numpy_and_pandas.ipynb\n├── overview.qmd\n├── overview.quarto_ipynb\n├── plotting.ipynb\n├── python_r_julia.qmd\n├── sandbox.qmd\n├── ssh.qmd\n├── student\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   ├── index.html\n│   └── index.qmd\n├── terminal.html\n├── terminal.qmd\n├── widgets.html\n├── widgets.ipynb\n└── widgets_files\n    └── figure-html\n        ├── cell-10-output-1.png\n        ├── cell-24-output-1.png\n        ├── cell-5-output-1.png\n        └── cell-6-output-1.png\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md",
+    "crumbs": [
+      "Outline and infrastructure"
+    ]
+  },
+  {
     "objectID": "pages/commands_admin.html",
     "href": "pages/commands_admin.html",
     "title": "Admin tools",
@@ -28,6 +352,138 @@
     "text": "User permissions\nGuest: Can view the project/group and can create issues, comment and see public content. Guests cannot push code, create merge requests or edit settings\nReporter: Can do the same as guest plus clone repositories, view issues, merge requests and pipelines. Reportes cannot push code.\nDeveloper: Can do the same things as the reporter and also push code, create branges and create merge requests. They can also run and retry pipelines and creates and edit issues.\nMaintainer: Can do the same as the developer plus merge merge requests, manage project settings, invite other users with lower roles\nOwner: Has full access to everything. They can delete and transfer projects, manage group settings, and add or remove owners\nSummary:\n\n\n\n\n\n\n\n\n\n\n\n\nRole\nView Code\nPush Code\nMerge MR\nManage CI/CD\nDelete Project\nManage Members\n\n\n\n\nGuest\n❌\n❌\n❌\n❌\n❌\n❌\n\n\nReporter\n✅\n❌\n❌\n❌\n❌\n❌\n\n\nDeveloper\n✅\n✅\n❌\n✅\n❌\n❌\n\n\nMaintainer\n✅\n✅\n✅\n✅\n❌\n✅ (some)\n\n\nOwner\n✅\n✅\n✅\n✅\n✅\n✅\n\n\n\nIn order to grant permission to delete and create project you will have to be a owner of that subgroup. This is done by first inviting the person you want to own a subgroup to the main group as a reader. Then you add them to the subgroup once more and choose them as a owner of the particular subgroup.\nThe course coordinater should be the owner of the subgroup of their course.\nTØ instructors should be maintainers on the subgroup\nBoth instructors and course coordinators should only have guest or reporter privalleges on the main group (franklin)"
   },
   {
+    "objectID": "pages/docker.html",
+    "href": "pages/docker.html",
+    "title": "Docker virtualization",
+    "section": "",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.",
+    "crumbs": [
+      "About",
+      "Docker virtualization"
+    ]
+  },
+  {
+    "objectID": "pages/developing.html",
+    "href": "pages/developing.html",
+    "title": "Developing exercises",
+    "section": "",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.",
+    "crumbs": [
+      "Tutorials",
+      "Developing exercises"
+    ]
+  },
+  {
+    "objectID": "pages/developing.html#the-exercise-repository",
+    "href": "pages/developing.html#the-exercise-repository",
+    "title": "Developing exercises",
+    "section": "The exercise repository",
+    "text": "The exercise repository\nA git repository is where an exercise lives\n\nexercise.ipynb:: blah blah\nDockerfile: blah blah\nREADME.md:: blah blah\ndocker-entrypoint.sh:: blah blah\ntagged-release.sh:: blah blah",
+    "crumbs": [
+      "Tutorials",
+      "Developing exercises"
+    ]
+  },
+  {
+    "objectID": "pages/developing.html#developchange-a-new-exercise-on-gitlab",
+    "href": "pages/developing.html#developchange-a-new-exercise-on-gitlab",
+    "title": "Developing exercises",
+    "section": "Develop/change a new exercise on GitLab",
+    "text": "Develop/change a new exercise on GitLab\nTo begin an automated edit workflow, just run the command below and follow instructions carefully:\n\n\nTerminal\n\nfranklin exercise edit\n\nFor more information about edit workflows, see the tutorial about developing exercises.\n\nAssisted workflow\nThis workflow is temporarily disabled\n\n\nTerminal\n\nfranklin exercise down\n\n\n\nTerminal\n\nfranklin exercise up\n\n\n\nSupported workflow\nUse this command to clone the exercise repository:\n\n\nTerminal\n\nfranklin exercise clone\n\nThen open the repository. If is is called data-exercise, you can open it in vscode like this:\n\n\nTerminal\n\ncode data-exercise\n\n\nFor Mac users: On Macs, the code command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter. Restart the terminal for the change to take effect.\n\nOnce open in vscode, click “Reopen in Container” if prompted, or otherwise use Cmd-Shift-P to open the command palette and type “reopen”, select “Reopen in Container” and hit Enter.\n\n\n\nalt text\n\n\nVscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the franklin jupyter kernel among the environments available. For an introduction to jupyter in vscode, see Using notebooks in vscode.\nIf you need to install and use third-party python packages (e.g. pandas), these packages must be added as dependencies to the docker image. To do this, open vscode’s terminal window and install pixi by running this command:\n./install_pixi.sh\nRunning the command below, will both make pandas available and add it as a dependency for the exercise.\n! pixi run test-notebook\n! pixi run add-dependency\n! pixi run collect-dependencies\npixi run add-dependency pandas\nAn alternative approach scan the notebook and add dependencies automatically.\npixi run collect-dependencies\nYou can test that the exercise notebook runs as configured using this command:\npixi run test-notebook\nTo add/commit/push you can use vscode’s git interface, gitui, or the git command line tool.\n\nGitUI: Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged. Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment\n\n\n# ! /install_pixi.sh\n# %load_ext magic\n# %franklin pandas matplotlib",
+    "crumbs": [
+      "Tutorials",
+      "Developing exercises"
+    ]
+  },
+  {
+    "objectID": "pages/terminal.html",
+    "href": "pages/terminal.html",
+    "title": "The terminal",
+    "section": "",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.\n\n\nthis primer before you go on.\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.\nCtrl-C for abort\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\nNavigating folders via the terminal\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
+    "crumbs": [
+      "About",
+      "The terminal"
+    ]
+  },
+  {
+    "objectID": "pages/numpy_and_pandas.html",
+    "href": "pages/numpy_and_pandas.html",
+    "title": "NumPy and Pandas",
+    "section": "",
+    "text": "Fast computation using vectors and matrices\n\nlist1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\nlist2 = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]\n\nsummed = []\nfor i in range(len(list1)):\n    summed.append(list1[i] + list2[i])\nsummed\n\n[9, 9, 9, 9, 9, 9, 9, 9, 9, 9]\n\n\n\n\n\nimport numpy as np\n\n\na = np.array(list1)\nb = np.array(list2)\na, b\n\n(array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))\n\n\n\n\n\n\na + b\n\narray([9, 9, 9, 9, 9, 9, 9, 9, 9, 9])\n\n\n\na * b\n\narray([ 0,  8, 14, 18, 20, 20, 18, 14,  8,  0])\n\n\n\na - 10\n\narray([-10,  -9,  -8,  -7,  -6,  -5,  -4,  -3,  -2,  -1])\n\n\n\na.sum()\n\n45\n\n\n\na.mean()\n\n4.5\n\n\n\n\n\n\nlist_of_lists = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nlist_of_lists\n\n[[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n\n\n\nlist_of_lists[1][1]\n\n5\n\n\n\nmatrix = np.array(list_of_lists)\nmatrix\n\narray([[1, 2, 3],\n       [4, 5, 6],\n       [7, 8, 9]])\n\n\n\nmatrix[1][1] # not efficient\n\n5\n\n\n\nmatrix[1, 1] # efficient\n\n5\n\n\n\nmatrix - 10\n\narray([[-9, -8, -7],\n       [-6, -5, -4],\n       [-3, -2, -1]])\n\n\n\nmatrix.sum()\n\n45\n\n\n\nlist_of_lists_of_lists = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\nlist_of_lists_of_lists\n\n[[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\n\n\n\ntensor = np.array(list_of_lists_of_lists)\ntensor\n\narray([[[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]],\n\n       [[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]]])\n\n\n\ntensor[1, 1, 1]\n\n5",
+    "crumbs": [
+      "Tutorials",
+      "NumPy and Pandas"
+    ]
+  },
+  {
+    "objectID": "pages/numpy_and_pandas.html#numpy",
+    "href": "pages/numpy_and_pandas.html#numpy",
+    "title": "NumPy and Pandas",
+    "section": "",
+    "text": "Fast computation using vectors and matrices\n\nlist1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\nlist2 = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]\n\nsummed = []\nfor i in range(len(list1)):\n    summed.append(list1[i] + list2[i])\nsummed\n\n[9, 9, 9, 9, 9, 9, 9, 9, 9, 9]\n\n\n\n\n\nimport numpy as np\n\n\na = np.array(list1)\nb = np.array(list2)\na, b\n\n(array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))\n\n\n\n\n\n\na + b\n\narray([9, 9, 9, 9, 9, 9, 9, 9, 9, 9])\n\n\n\na * b\n\narray([ 0,  8, 14, 18, 20, 20, 18, 14,  8,  0])\n\n\n\na - 10\n\narray([-10,  -9,  -8,  -7,  -6,  -5,  -4,  -3,  -2,  -1])\n\n\n\na.sum()\n\n45\n\n\n\na.mean()\n\n4.5\n\n\n\n\n\n\nlist_of_lists = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nlist_of_lists\n\n[[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n\n\n\nlist_of_lists[1][1]\n\n5\n\n\n\nmatrix = np.array(list_of_lists)\nmatrix\n\narray([[1, 2, 3],\n       [4, 5, 6],\n       [7, 8, 9]])\n\n\n\nmatrix[1][1] # not efficient\n\n5\n\n\n\nmatrix[1, 1] # efficient\n\n5\n\n\n\nmatrix - 10\n\narray([[-9, -8, -7],\n       [-6, -5, -4],\n       [-3, -2, -1]])\n\n\n\nmatrix.sum()\n\n45\n\n\n\nlist_of_lists_of_lists = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\nlist_of_lists_of_lists\n\n[[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\n\n\n\ntensor = np.array(list_of_lists_of_lists)\ntensor\n\narray([[[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]],\n\n       [[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]]])\n\n\n\ntensor[1, 1, 1]\n\n5",
+    "crumbs": [
+      "Tutorials",
+      "NumPy and Pandas"
+    ]
+  },
+  {
+    "objectID": "pages/numpy_and_pandas.html#pandas",
+    "href": "pages/numpy_and_pandas.html#pandas",
+    "title": "NumPy and Pandas",
+    "section": "Pandas",
+    "text": "Pandas\nFast computations on data tables (on top of Numpy).\n\nimport pandas as pd\n\n\nDataFrame\n\ndf = pd.DataFrame({'name': ['Mike', 'Mia', 'Jake'], 'weight': [82, 62, 75]})\ndf\n\n\n\n\n\n\n\n\nname\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\ntype(df)\n\npandas.core.frame.DataFrame\n\n\n\ndf = pd.DataFrame(dict(name=['Mike', 'Mia', 'Jake'], weight=[82, 62, 75]))\ndf\n\n\n\n\n\n\n\n\nname\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\nrecords = [('Mike', 82), ('Mia', 62), ('Jake', 75)]\n\ndf = pd.DataFrame().from_records(records, columns=['age', 'weight'])\ndf\n\n\n\n\n\n\n\n\nage\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\ndf.index\n\nRangeIndex(start=0, stop=3, step=1)\n\n\n\ndf.index.values\n\narray([0, 1, 2])\n\n\n\ndf.columns\n\nIndex(['age', 'weight'], dtype='object')\n\n\n\ndf.dtypes\n\nage       object\nweight     int64\ndtype: object\n\n\nAdd a column to an existing dataframe:\n\ndf['height'] = [182.5, 173.0, 192.5]\ndf\n\n\n\n\n\n\n\n\nage\nweight\nheight\n\n\n\n\n0\nMike\n82\n182.5\n\n\n1\nMia\n62\n173.0\n\n\n2\nJake\n75\n192.5\n\n\n\n\n\n\n\nAdd another, categorical, column:\n\ndf['sex'] = pd.Categorical(['male', 'female', 'male'], categories=['female', 'male'], ordered=True)\ndf\n\n\n\n\n\n\n\n\nage\nweight\nheight\nsex\n\n\n\n\n0\nMike\n82\n182.5\nmale\n\n\n1\nMia\n62\n173.0\nfemale\n\n\n2\nJake\n75\n192.5\nmale\n\n\n\n\n\n\n\n\ndf.dtypes\n\nage         object\nweight       int64\nheight     float64\nsex       category\ndtype: object\n\n\nA Series just wraps an array:\n\ndf.height.to_numpy()\n\narray([182.5, 173. , 192.5])\n\n\n\n\nExample penguin data set\n\nimport seaborn as sns\n\npenguins = sns.load_dataset('penguins')\n\n\npenguins\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n344 rows × 7 columns\n\n\n\n\npenguins.dtypes\n\nspecies               object\nisland                object\nbill_length_mm       float64\nbill_depth_mm        float64\nflipper_length_mm    float64\nbody_mass_g          float64\nsex                   object\ndtype: object\n\n\n\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n\n\n\n\n\n\npenguins.tail()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n\n\n\n\n\nSeries\n\npenguins['flipper_length_mm']\n\n0      181.0\n1      186.0\n2      195.0\n3        NaN\n4      193.0\n       ...  \n339      NaN\n340    215.0\n341    222.0\n342    212.0\n343    213.0\nName: flipper_length_mm, Length: 344, dtype: float64\n\n\n\npenguins.flipper_length_mm\n\n0      181.0\n1      186.0\n2      195.0\n3        NaN\n4      193.0\n       ...  \n339      NaN\n340    215.0\n341    222.0\n342    212.0\n343    213.0\nName: flipper_length_mm, Length: 344, dtype: float64\n\n\n\ntype(penguins.flipper_length_mm)\n\npandas.core.series.Series\n\n\n\n\nBroadcasting\n\npenguins.bill_depth_mm - 1000\n\n0     -981.3\n1     -982.6\n2     -982.0\n3        NaN\n4     -980.7\n       ...  \n339      NaN\n340   -985.7\n341   -984.3\n342   -985.2\n343   -983.9\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\npenguins.bill_depth_mm * penguins.flipper_length_mm\n\n0      3384.7\n1      3236.4\n2      3510.0\n3         NaN\n4      3724.9\n        ...  \n339       NaN\n340    3074.5\n341    3485.4\n342    3137.6\n343    3429.3\nLength: 344, dtype: float64\n\n\n\n\nIndexing\n\nGet a cell\n\npenguins.loc[4, 'island']\n\n'Torgersen'\n\n\n\n\nGet a row\n\npenguins.loc[4]\n\nspecies                 Adelie\nisland               Torgersen\nbill_length_mm            36.7\nbill_depth_mm             19.3\nflipper_length_mm        193.0\nbody_mass_g             3450.0\nsex                     Female\nName: 4, dtype: object\n\n\n\n\nGet a column\n\npenguins['bill_depth_mm']\n\n0      18.7\n1      17.4\n2      18.0\n3       NaN\n4      19.3\n       ... \n339     NaN\n340    14.3\n341    15.7\n342    14.8\n343    16.1\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\npenguins.bill_depth_mm\n\n0      18.7\n1      17.4\n2      18.0\n3       NaN\n4      19.3\n       ... \n339     NaN\n340    14.3\n341    15.7\n342    14.8\n343    16.1\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\n\nGet a range of rows and multiple columns\n\npenguins.loc[40:45, ['island', 'body_mass_g']]\n\n\n\n\n\n\n\n\nisland\nbody_mass_g\n\n\n\n\n40\nDream\n3150.0\n\n\n41\nDream\n3900.0\n\n\n42\nDream\n3100.0\n\n\n43\nDream\n4400.0\n\n\n44\nDream\n3000.0\n\n\n45\nDream\n4600.0\n\n\n\n\n\n\n\n\n\nUse boolean series as index to subset data\n\nidx = penguins.bill_length_mm &gt; 55\nidx\n\n0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n339    False\n340    False\n341    False\n342    False\n343    False\nName: bill_length_mm, Length: 344, dtype: bool\n\n\n\npenguins.loc[idx]\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n169\nChinstrap\nDream\n58.0\n17.8\n181.0\n3700.0\nFemale\n\n\n215\nChinstrap\nDream\n55.8\n19.8\n207.0\n4000.0\nMale\n\n\n253\nGentoo\nBiscoe\n59.6\n17.0\n230.0\n6050.0\nMale\n\n\n321\nGentoo\nBiscoe\n55.9\n17.0\n228.0\n5600.0\nMale\n\n\n335\nGentoo\nBiscoe\n55.1\n16.0\n230.0\n5850.0\nMale\n\n\n\n\n\n\n\n\npenguins.loc[(penguins.bill_length_mm &gt; 55) & (penguins.sex == 'Female')]\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n169\nChinstrap\nDream\n58.0\n17.8\n181.0\n3700.0\nFemale\n\n\n\n\n\n\n\n\n\nSetting and resetting the index\n\npenguins\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n344 rows × 7 columns\n\n\n\n\ndf = penguins.set_index(['species', 'sex', 'island'])\ndf.head(10)\n\n\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nspecies\nsex\nisland\n\n\n\n\n\n\n\n\nAdelie\nMale\nTorgersen\n39.1\n18.7\n181.0\n3750.0\n\n\nFemale\nTorgersen\n39.5\n17.4\n186.0\n3800.0\n\n\nTorgersen\n40.3\n18.0\n195.0\n3250.0\n\n\nNaN\nTorgersen\nNaN\nNaN\nNaN\nNaN\n\n\nFemale\nTorgersen\n36.7\n19.3\n193.0\n3450.0\n\n\nMale\nTorgersen\n39.3\n20.6\n190.0\n3650.0\n\n\nFemale\nTorgersen\n38.9\n17.8\n181.0\n3625.0\n\n\nMale\nTorgersen\n39.2\n19.6\n195.0\n4675.0\n\n\nNaN\nTorgersen\n34.1\n18.1\n193.0\n3475.0\n\n\nTorgersen\n42.0\n20.2\n190.0\n4250.0\n\n\n\n\n\n\n\n\ndf.reset_index()\n\n\n\n\n\n\n\n\nspecies\nsex\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\n\n\n0\nAdelie\nMale\nTorgersen\n39.1\n18.7\n181.0\n3750.0\n\n\n1\nAdelie\nFemale\nTorgersen\n39.5\n17.4\n186.0\n3800.0\n\n\n2\nAdelie\nFemale\nTorgersen\n40.3\n18.0\n195.0\n3250.0\n\n\n3\nAdelie\nNaN\nTorgersen\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nFemale\nTorgersen\n36.7\n19.3\n193.0\n3450.0\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nNaN\nBiscoe\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nFemale\nBiscoe\n46.8\n14.3\n215.0\n4850.0\n\n\n341\nGentoo\nMale\nBiscoe\n50.4\n15.7\n222.0\n5750.0\n\n\n342\nGentoo\nFemale\nBiscoe\n45.2\n14.8\n212.0\n5200.0\n\n\n343\nGentoo\nMale\nBiscoe\n49.9\n16.1\n213.0\n5400.0\n\n\n\n\n344 rows × 7 columns\n\n\n\n\n\n\nSorting rows\n\nsorted_df = penguins.sort_values(by=\"bill_length_mm\")\nsorted_df.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n142\nAdelie\nDream\n32.1\n15.5\n188.0\n3050.0\nFemale\n\n\n98\nAdelie\nDream\n33.1\n16.1\n178.0\n2900.0\nFemale\n\n\n70\nAdelie\nTorgersen\n33.5\n19.0\n190.0\n3600.0\nFemale\n\n\n92\nAdelie\nDream\n34.0\n17.1\n185.0\n3400.0\nFemale\n\n\n8\nAdelie\nTorgersen\n34.1\n18.1\n193.0\n3475.0\nNaN\n\n\n\n\n\n\n\n\nsorted_df.index.values\n\narray([142,  98,  70,  92,   8,  18,  54,  80,  14, 100,  52,  83, 124,\n        25,  66,  74, 136,  60,  90, 118,  68,  22,  42,  48, 150, 148,\n        78,  94, 120,  86,  34,  64,  58,  40,  15, 147,   4,  82, 132,\n        87,  44, 138,  77,  31, 144, 117,  84,  47, 133,  62,  38,  59,\n        21, 121, 102, 103,  10,  20,  11, 149, 104,  28,  96, 108, 134,\n       110, 107,  23,  88, 130,  13, 106, 116,  16,  24, 126,  36,  89,\n         6, 128, 145,  56,   0,  35, 146,   7,   5,  30,   1,  32, 114,\n        45,  50,  72,  93, 112, 105, 139,  71,  39,  51, 137, 140, 122,\n        97,   2,  27,  29, 125, 141,  26,  57, 143,  95,  41, 230, 182,\n        33,  76, 101, 135, 119,  46,  63,  91,  67,  12,  61,  85, 123,\n        55, 127, 151,  65, 326,  69, 236,  53,   9,  79, 113,  37,  49,\n       172, 184, 206,  17, 256, 115, 260,  75, 251,  81, 244, 131, 278,\n       109, 174,  99, 228, 328, 306, 216, 332, 288, 265, 276, 258, 129,\n        43, 257, 246, 336, 314, 268, 304, 275, 241, 252, 272, 208, 298,\n       299, 269, 342, 157, 280, 262, 226, 155, 232, 277, 195, 312, 266,\n       111, 211, 214, 204, 282,  73, 284, 234, 166, 160,  19, 158, 245,\n       220, 286, 238, 334, 281, 193, 243, 170, 180, 291, 294, 293, 225,\n       274, 152, 242, 162, 270, 227, 176, 325, 229, 340, 213, 317, 190,\n       164, 338, 322, 324, 250, 302, 310, 296, 187, 308, 188, 224, 290,\n       247, 329, 202, 248, 292, 318, 233, 255, 271, 173, 320, 295, 259,\n       239, 222, 337, 192, 199, 231, 300, 323, 254, 171, 237, 235, 209,\n       316, 313, 179, 287, 263, 261, 217, 186, 331, 201, 285, 343, 303,\n       153, 221, 223, 249, 198, 273, 210, 219, 240, 168, 279, 341, 267,\n       330, 167, 178, 264, 175, 289, 205, 305, 218, 197, 315, 196, 194,\n       185, 297, 319, 154, 159, 161, 307, 203, 333, 200, 163, 212, 165,\n       177, 189, 309, 207, 311, 301, 156, 181, 327, 191, 183, 283, 335,\n       215, 321, 169, 253,   3, 339])\n\n\nClick to the left of an output cell to enable/disable scrolling of the output (usefull for large amounts of output).\n\nsorted_df.loc[0]\n\nspecies                 Adelie\nisland               Torgersen\nbill_length_mm            39.1\nbill_depth_mm             18.7\nflipper_length_mm        181.0\nbody_mass_g             3750.0\nsex                       Male\nName: 0, dtype: object\n\n\n\nsorted_df.flipper_length_mm[0]\n\n181.0\n\n\n\nsorted_df.iloc[0] # iloc !!!\n\nspecies              Adelie\nisland                Dream\nbill_length_mm         32.1\nbill_depth_mm          15.5\nflipper_length_mm     188.0\nbody_mass_g          3050.0\nsex                  Female\nName: 142, dtype: object\n\n\n\nsorted_df.flipper_length_mm.iloc[0]\n\n188.0\n\n\n\n\nSummary stats\n\npenguins.describe()\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\n\n\ncount\n342.000000\n342.000000\n342.000000\n342.000000\n\n\nmean\n43.921930\n17.151170\n200.915205\n4201.754386\n\n\nstd\n5.459584\n1.974793\n14.061714\n801.954536\n\n\nmin\n32.100000\n13.100000\n172.000000\n2700.000000\n\n\n25%\n39.225000\n15.600000\n190.000000\n3550.000000\n\n\n50%\n44.450000\n17.300000\n197.000000\n4050.000000\n\n\n75%\n48.500000\n18.700000\n213.000000\n4750.000000\n\n\nmax\n59.600000\n21.500000\n231.000000\n6300.000000\n\n\n\n\n\n\n\n\npenguins.bill_length_mm.mean()\n\n43.9219298245614\n\n\n\npenguins.bill_length_mm.count()\n\n342\n\n\n\n\nGroup\n\npenguins.groupby('island')\n\n&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x15cc9e5e0&gt;\n\n\n\n\nAggregate\nAggregating produces a single value for each variable in each group:\nMeans for all numeric variables for each island:\n\npenguins.groupby('island').aggregate(\"mean\", numeric_only=True)\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nisland\n\n\n\n\n\n\n\n\nBiscoe\n45.257485\n15.874850\n209.706587\n4716.017964\n\n\nDream\n44.167742\n18.344355\n193.072581\n3712.903226\n\n\nTorgersen\n38.950980\n18.429412\n191.196078\n3706.372549\n\n\n\n\n\n\n\n\npenguins.groupby('island').mean(numeric_only=True)\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nisland\n\n\n\n\n\n\n\n\nBiscoe\n45.257485\n15.874850\n209.706587\n4716.017964\n\n\nDream\n44.167742\n18.344355\n193.072581\n3712.903226\n\n\nTorgersen\n38.950980\n18.429412\n191.196078\n3706.372549\n\n\n\n\n\n\n\nMeans for bill_length_mm and flipper_length_mm:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].mean()\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\nisland\n\n\n\n\n\n\nBiscoe\n45.257485\n209.706587\n\n\nDream\n44.167742\n193.072581\n\n\nTorgersen\n38.950980\n191.196078\n\n\n\n\n\n\n\nJust for flipper_length_mm:\n\npenguins.groupby('island').flipper_length_mm.mean()\n\nisland\nBiscoe       209.706587\nDream        193.072581\nTorgersen    191.196078\nName: flipper_length_mm, dtype: float64\n\n\n\n\nTransform\nTransforming produces new colums with the same length as the input:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(\"mean\")\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\n\n\n0\n38.950980\n191.196078\n\n\n1\n38.950980\n191.196078\n\n\n2\n38.950980\n191.196078\n\n\n3\n38.950980\n191.196078\n\n\n4\n38.950980\n191.196078\n\n\n...\n...\n...\n\n\n339\n45.257485\n209.706587\n\n\n340\n45.257485\n209.706587\n\n\n341\n45.257485\n209.706587\n\n\n342\n45.257485\n209.706587\n\n\n343\n45.257485\n209.706587\n\n\n\n\n344 rows × 2 columns\n\n\n\n\ndef z_value(sr):\n    return (sr - sr.mean()) / sr.std()\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(z_value)\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\n\n\n0\n0.049258\n-1.636022\n\n\n1\n0.181475\n-0.833742\n\n\n2\n0.445910\n0.610362\n\n\n3\nNaN\nNaN\n\n\n4\n-0.744048\n0.289450\n\n\n...\n...\n...\n\n\n339\nNaN\nNaN\n\n\n340\n0.323193\n0.374297\n\n\n341\n1.077478\n0.869267\n\n\n342\n-0.012044\n0.162167\n\n\n343\n0.972717\n0.232877\n\n\n\n\n344 rows × 2 columns\n\n\n\n\n\nApply\nFlexible method allowing any operation on grouped data.\nReturn a single value:\n\ndef fun(df):\n    return df.bill_length_mm + df.flipper_length_mm.mean() / df.body_mass_g\n\npenguins.groupby('island').apply(fun)#.to_frame('my_stat')\n\nisland        \nBiscoe     20     37.861678\n           21     37.758252\n           22     35.955186\n           23     38.253090\n           24     38.855186\n                    ...    \nTorgersen  127    41.544464\n           128    39.062687\n           129    44.147799\n           130    38.557503\n           131    43.154627\nLength: 344, dtype: float64\n\n\nReturn a dataframe:\n\ndef fun(df):\n    return pd.DataFrame({'sqrt_bill': np.sqrt(df.bill_length_mm),\n                         'bill_squared': df.bill_length_mm**2})\n\npenguins.groupby('island').apply(fun)\n\n\n\n\n\n\n\n\n\nsqrt_bill\nbill_squared\n\n\nisland\n\n\n\n\n\n\n\nBiscoe\n20\n6.148170\n1428.84\n\n\n21\n6.140033\n1421.29\n\n\n22\n5.991661\n1288.81\n\n\n23\n6.180615\n1459.24\n\n\n24\n6.228965\n1505.44\n\n\n...\n...\n...\n...\n\n\nTorgersen\n127\n6.442049\n1722.25\n\n\n128\n6.244998\n1521.00\n\n\n129\n6.640783\n1944.81\n\n\n130\n6.204837\n1482.25\n\n\n131\n6.565059\n1857.61\n\n\n\n\n344 rows × 2 columns",
+    "crumbs": [
+      "Tutorials",
+      "NumPy and Pandas"
+    ]
+  },
+  {
+    "objectID": "pages/git.html",
+    "href": "pages/git.html",
+    "title": "Git version control",
+    "section": "",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.",
+    "crumbs": [
+      "About",
+      "Git version control"
+    ]
+  },
+  {
+    "objectID": "pages/git.html#tldr",
+    "href": "pages/git.html#tldr",
+    "title": "Git version control",
+    "section": "TLDR;",
+    "text": "TLDR;\nGit is a distributed version control system designed to track changes in source code and facilitate collaboration among multiple developers. Originally created by Linus Torvalds in 2005 for managing the Linux kernel, Git has since become the dominant version control tool in software development, underpinning platforms such as GitHub, GitLab, and Bitbucket.\nIn Git, every working copy of a repository is a full-fledged versioned archive, containing the entire history of the project. This distributed model enhances performance, enables offline work, and provides a robust foundation for branching and merging workflows. Changes are recorded as commits—snapshots of the project at specific points in time—organized in a directed acyclic graph (DAG).\nKey concepts include:\nRepository: A data structure containing all commits, branches, and tags for a project. Commit: A recorded state of the repository, with metadata about the author, timestamp, and parent commits. Branch: A movable pointer to a commit, enabling parallel development paths. Merge: The integration of changes from one branch into another, optionally involving conflict resolution. Remote: A reference to another copy of the repository, typically hosted on a server. Git supports advanced features such as rebasing, cherry-picking, and interactive staging. It also allows for fine-grained control of collaboration through pull requests, code reviews, and access control mechanisms.\nWhile Git has a steep learning curve, especially in conflict resolution and complex branching workflows, its efficiency, reliability, and flexibility make it an indispensable tool in modern software engineering and research computing.",
+    "crumbs": [
+      "About",
+      "Git version control"
+    ]
+  },
+  {
+    "objectID": "pages/git.html#git-as-journaled-backup",
+    "href": "pages/git.html#git-as-journaled-backup",
+    "title": "Git version control",
+    "section": "Git as journaled backup",
+    "text": "Git as journaled backup\nWhen you are in your &lt;repositoryname&gt; folder, you can run git commands to manage your files, record their changes and sync them to the repository on GitHub for safe keeping. These tutorials are good introductions to git.\nTo journal the creation or modification of a file, you need to add it to git:\n\n\nTerminal\n\ngit add &lt;the_changed_file&gt;\n\nThis “stages” the change. This adds the file to the a “group” of changes that represent some modification to your project. You can add more files to that “group” by running the command again with other files. If you run git status you can see that the files are now staged.\nSo maybe you added or changed two python files addressing some parcitular problem or advancing some part of your project. Now you want to store those of changes to the journal maintained by Git and associate it with a short message describing the changes. For that you use:\n\n\nTerminal\n\ngit commit -m '&lt;message&gt;'\n\nIf you added two python files, your description could be 'Added two python files for my analysis'. If you fixed a bug or added new code to the files, your message should reflect that.\nNow your changes are recorded in the version of the &lt;repositoryname&gt; on the cluster, but that does not serve as a backup in case you accidentally delete your entire folder or the cluster burns down. To backup your repository you need to synchronize your local &lt;repositoryname&gt; repository on the cluster with the &lt;repositoryname&gt; repository on GitHub. To du that use:\n\n\nTerminal\n\ngit push\n\nIn addition to keeping your precious files safe and backed up, your GitHub repository also serve as a journal documenting of your progress. Each commit is a snapshot if your project that can be retrieved at any time.",
+    "crumbs": [
+      "About",
+      "Git version control"
+    ]
+  },
+  {
+    "objectID": "pages/git.html#git",
+    "href": "pages/git.html#git",
+    "title": "Git version control",
+    "section": "Git",
+    "text": "Git\nThere is a cheat sheet here and some good visual guides here and here.\nThe three most important commands to learn are: git status, git add, git rm, git mv, git commit and git push.\n\nResolving conflicts\nBlah blah…",
+    "crumbs": [
+      "About",
+      "Git version control"
+    ]
+  },
+  {
     "objectID": "pages/student/index.html",
     "href": "pages/student/index.html",
     "title": "franklin",
@@ -42,124 +498,11 @@
     "text": "Franklin takes care of the technical challenges in running jupyter notebook exercise on your computer. That way, you can focus on learning rather than library incompatibilities and platform specific dependencies.\nOnce installed, running lets you download the exercise you want.\n\n\nTerminal\n\nfranklin download\n\nRunning this command, starts a jupyter notebook on your computer that\n\n\nTerminal\n\nfranklin jupyter\n\nYou can find more detail along with installation instructions and tutorials in the side bar.\nShould you come across a bug or find yourself missing some functionality, you are welcome to submit an issue."
   },
   {
-    "objectID": "pages/commands_edu.html",
-    "href": "pages/commands_edu.html",
-    "title": "Developing exercises",
+    "objectID": "notebooks/example.html",
+    "href": "notebooks/example.html",
+    "title": "Workplace interaction",
     "section": "",
-    "text": "Franklin is built for developing stable exercises, as well as for running them. The additional tools required for exercise creation and development are not part the core franklin package. Instead, it is distributed as the franklin-educator plugin. This setup ensures that educators use exactly the same code for testing exercises as students, while keeping the core student API lean and simple. To develop exercises, you must install both packages in an existing conda environment like this:\nOr make a new environment for just these packages using this command:",
-    "crumbs": [
-      "Using Franklin",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_edu.html#create-a-new-exercise",
-    "href": "pages/commands_edu.html#create-a-new-exercise",
-    "title": "Developing exercises",
-    "section": "Create a new exercise",
-    "text": "Create a new exercise\nTo create a new blank exercise, you use the command:\n\n\nTerminal\n\nfranklin exercise new\n\nThe command presents you with menus to select your course and the name of the GitLab repository for the exercise. It then launches the GitLab settings page for the repository so you can add a title/name to the exercise and to make the repository public.",
-    "crumbs": [
-      "Using Franklin",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_edu.html#exercise-edit-workflow",
-    "href": "pages/commands_edu.html#exercise-edit-workflow",
-    "title": "Developing exercises",
-    "section": "Exercise edit workflow",
-    "text": "Exercise edit workflow\nTo accommodate educators with different computational skill levels, franklin supports two different development workflows:\n\nAutomated: A fully automated (but rigid) workflow for absolute beginners and for quick edits by more advanced users.\nAssisted: A semi-automated workflow for intermediate users allowing more flexibility.\nSupported: A fully flexible approach based on vscode devcontainers catering for skilled users.\n\nTo begin an automated edit workflow, just run the command below and follow instructions carefully:\n\n\nTerminal\n\nfranklin exercise edit\n\nFor more information about edit workflows, see the tutorial about developing exercises.",
-    "crumbs": [
-      "Using Franklin",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_edu.html#removing-archiving-an-exercise",
-    "href": "pages/commands_edu.html#removing-archiving-an-exercise",
-    "title": "Developing exercises",
-    "section": "Removing (archiving) an exercise",
-    "text": "Removing (archiving) an exercise\nGitLab exercises are not deleted. We archive them instead, which makes them invisible to students. To archive a repository, first run this command which opens the the repository settings page:\n\n\nTerminal\n\nfranklin exercise settings\n\nThen find expand the “Advanced” section as the bottom and click the blue button that says “Archive project”.",
-    "crumbs": [
-      "Using Franklin",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_core.html",
-    "href": "pages/commands_core.html",
-    "title": "Running exercises",
-    "section": "",
-    "text": "Franklin is a command line tool that your run from a terminal. If you are not famililiar with terminals, have a look at this brief introduction before you go on.\nFranklin uses the click library to define a hierarchy of commands and subcommands that you can run in the terminal. franklin is the main command and has the subcommands download, jupyter, update, show, and cleanup. To run each subcommand, you simply append it to franklin, E.g. franklin jupyter. The following sections explain what each subcommand do. Should you forget, you can always just run the main franklin command like this:\nThat will print the following help text to remind you.",
-    "crumbs": [
-      "Using Franklin",
-      "Running exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_core.html#run-jupyter",
-    "href": "pages/commands_core.html#run-jupyter",
-    "title": "Running exercises",
-    "section": "Run Jupyter",
-    "text": "Run Jupyter\nIn order to open and run the downloaded jupyter notebook, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:\n\n\nTerminal\n\nfranklin jupyter\n\n\n\nClick to see what Franklin does\n\n\ncheck for updates\ncheck internet connection\ncheck enough disk space is available\nchecks that docker is installed\nstarts docker in the background\nFinds the course git repositories in the franklin group.\nPresents you with a list of courses to choose from.\nFinds the git repositories in the course group that are visible to students.\nMatch docker images in the registry to exercise repositories.\nPresents you with a list of exercises to choose from.\nStarts docker and waits for its engine boot up.\nPulls the docker image from the registry if it is not already on your computer.\nLaunches a Linux docker container running with all dependencies installed.\nMakes the container mount the folder with your local files so you can open them in JupyterLab.\nFind an open port if port 8888 is already in use.\nLaunches JupyterLab and forwards the display to a dedicated Google Chrome browser window.\nWaits until you close the Chrome window.\nStops jupyter and the docker container it runs in.\nCloses Docker Desktop\n\n\nJupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press Ctrl-C in the terminal window (remember to save your notebook first).\n\n\n\n\n\n\nSubdirectories\n\n\n\nIf the your terminal shows a message saying “You have subdirectories in your current directory”, the folder (directory) from which you ran the franklin jupyter command has other directory in it. For security reasons, Franklin does not allow this. You need to either change to the exercise folder (which has no directory in it), or launch Franklin from another without any subdirectories.",
-    "crumbs": [
-      "Using Franklin",
-      "Running exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_core.html#update-franklin",
-    "href": "pages/commands_core.html#update-franklin",
-    "title": "Running exercises",
-    "section": "Update franklin",
-    "text": "Update franklin\nFranklin should update automatically when you start it, but if you should need to update it manually you can do it running this command:\n\n\nTerminal\n\nfranklin update\n\n\n\nClick to see what Franklin does\n\n\nChecks for updates to franklin package using either Conda or Pixi dependeing on how franklin is installed.\nDetermines if you are a student or educator.\nUpdates franklin if a newer version exists.\nUpdates the franklin-educator package if you are an educator.\nCloses franklin reporting the update if any.\n\n\nYou can also see which version of franklin you have installed by running franklin --version.",
-    "crumbs": [
-      "Using Franklin",
-      "Running exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_core.html#cleanup-after-franklin",
-    "href": "pages/commands_core.html#cleanup-after-franklin",
-    "title": "Running exercises",
-    "section": "Cleanup after Franklin",
-    "text": "Cleanup after Franklin\nTo free up disk space, you can run the command below. You will be prompted with a menu showing the “docker images” on your computer. Select all the ones you want to remove and press Enter. Deleting images will not delete any of your own files with saved work.\n\n\nTerminal\n\nfranklin cleanup\n\n\n\nClick to see what Franklin does\n\n\nStarts docker and waits for its engine boot up.\nFinds the exercise stored as docker images on your computer.\nPrompts you with the list of exercises (images), allowing you to select the ones you want to remove.\nCloses all docker containers for those images.\nRemoves the selected images\nPrunes all unused data cached by Docker.\n\n\nMake a habit of running franklin cleanup once in a while. This does not affect any of your own files. The only drawback is that you will have to wait a bit while Franklin downloads images again, should you need them at a later point.",
-    "crumbs": [
-      "Using Franklin",
-      "Running exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_core.html#show-what-franklin-has-on-your-computer",
-    "href": "pages/commands_core.html#show-what-franklin-has-on-your-computer",
-    "title": "Running exercises",
-    "section": "Show what Franklin has on your computer",
-    "text": "Show what Franklin has on your computer\nIf you are curious, you can use the franklin show subcommands to see what Docker has stored on your computer. The sub commands are images, containers, and storage. To see a summary of how much disk space Docker takes up on your computer for what purpose, you can run this command:\n\n\nTerminal\n\nfranklin show storage\n\nFranklin downloads a linux “docker image” for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later. To see the images downloaded to your computer and how much space they take up, you can run this command:\n\n\nTerminal\n\nfranklin show images\n\nFranklin starts a Docker Linux container when you run franklin jupyter. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later. To see the images downloaded to your computer and how much space they take up, you can run this command:\n\n\nTerminal\n\nfranklin show images",
-    "crumbs": [
-      "Using Franklin",
-      "Running exercises"
-    ]
-  },
-  {
-    "objectID": "pages/commands_core.html#live-action",
-    "href": "pages/commands_core.html#live-action",
-    "title": "Running exercises",
-    "section": "Live action",
-    "text": "Live action",
-    "crumbs": [
-      "Using Franklin",
-      "Running exercises"
-    ]
-  },
-  {
-    "objectID": "pages/faq.html",
-    "href": "pages/faq.html",
-    "title": "FAQ",
-    "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.\n\n\n\nfranklin-educator is installed in my environemnt but I cannot see the exercise commands\nTry reinstalling franklin-educator:\n\n\nTerminal\n\nconda uninstall franklin-educator\n\nand then\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin-educator\n\n\n\nDocker is installed but franklin keeps complaining it is not\nWhen Docker Desktop is in Eco mode, franklin cannot get to it. If Docker Desktop is not running, franklin can start it for you. So Quit Docker Desktop and try running franklin again.\n\n\nI quit Docker Desktop but it is still running\nThe blue Docker Desktop window is the Docker dashboard. Closing that window will not close Docker Desktop. To close Docker Desktop find the small docker icon in the menu bar on Mac or in the bottom right taskbar on Windows. Look for a tiny whale with containers on its back.\n\n\nHow much space is frankling taking up on my hard disk?\n\n\nHow do I free up disk space used by franklin\n\n\nWhat happens if I delete an exercise in franklin\n\n\nHow do I rename an exercise\nChanges the display name using franklin exercise rename. Do not change the repository name on GitLab.",
-    "crumbs": [
-      "FAQ"
-    ]
+    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
   },
   {
     "objectID": "pages/jupyterlab.html",
@@ -338,622 +681,13 @@
     ]
   },
   {
-    "objectID": "pages/widgets.html",
-    "href": "pages/widgets.html",
-    "title": "Showcase",
+    "objectID": "pages/faq.html",
+    "href": "pages/faq.html",
+    "title": "FAQ",
     "section": "",
-    "text": "import pandas as pd\nimport seaborn as sns\nimport plotwidgets as wp\n%config InlineBackend.figure_format = 'retina'\n\n#wp.set_options(max_figure_width=4)\n#wp.set_options(x=None, y=None, col=None, graphics=[sns.scatterplot, sns.boxplot], theme={'style': 'darkgrid', 'palette': 'colorblind'})\n\n\n---------------------------------------------------------------------------\nModuleNotFoundError                       Traceback (most recent call last)\nCell In[4], line 3\n      1 import pandas as pd\n      2 import seaborn as sns\n----&gt; 3 import plotwidgets as wp\n      4 get_ipython().run_line_magic('config', \"InlineBackend.figure_format = 'retina'\")\n      6 #wp.set_options(max_figure_width=4)\n      7 #wp.set_options(x=None, y=None, col=None, graphics=[sns.scatterplot, sns.boxplot], theme={'style': 'darkgrid', 'palette': 'colorblind'})\n\nModuleNotFoundError: No module named 'plotwidgets'"
-  },
-  {
-    "objectID": "pages/widgets.html#penguin-data",
-    "href": "pages/widgets.html#penguin-data",
-    "title": "Showcase",
-    "section": "Penguin data",
-    "text": "Penguin data\n\ndata = sns.load_dataset('penguins')\ndata.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale"
-  },
-  {
-    "objectID": "pages/widgets.html#the-plot-widget",
-    "href": "pages/widgets.html#the-plot-widget",
-    "title": "Showcase",
-    "section": "The plot widget",
-    "text": "The plot widget\n\nwp.seaborn(data)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nimport seaborn as sns\nsns.set_style({'style': 'darkgrid', 'palette': 'viridis'})                             \ng = sns.relplot(data, x='species', y='island', col='island', row='species', height=2, kind='scatter', \n                facet_kws=dict(margin_titles=True))\ng.set_titles(col_template=\"{col_name}\", row_template=\"{row_name}\")\ng.tight_layout() ;\n\n\n\n\n\n\n\n\n\nimport seaborn as sns\nsns.set_style({'style': 'darkgrid', 'palette': 'viridis'})                             \nsns.relplot(data, x='bill_length_mm', y='bill_depth_mm', hue='flipper_length_mm', \n            row='island', col='species', \n            palette='viridis', kind='scatter', height=2) ;\n\n\n\n\n\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='body_mass_g', hue='body_mass_g', #plot='boxplot',\n           col='species'\n          )\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data, #plot='scatterplot', \n           x='bill_length_mm', y='body_mass_g', hue='body_mass_g', col='species')\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='sex', #plot='scatterplot', \n          # palette='colorblind'\n          )\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsns.scatterplot(data, x='bill_length_mm', y='bill_depth_mm', hue='sex', \n              #  palette='colorblind'\n               )\n\n\n\n\n\n\n\n\n\nwp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm', hue='body_mass_g', \n           # style='sex', \n           # size='body_mass_g', \n           col='species', row='island',\n          wrap=3, theme={'palette': 'Set1'})\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[24], line 1\n----&gt; 1 wp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm', hue='body_mass_g', \n      2            # style='sex', \n      3            # size='body_mass_g', \n      4            col='species', row='island',\n      5           wrap=3, theme={'palette': 'Set1'})\n\nTypeError: seaborn() got an unexpected keyword argument 'wrap'\n\n\n\n\nwp.seaborn(data, plot='boxplot', x='species', y='bill_depth_mm')\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[25], line 1\n----&gt; 1 wp.seaborn(data, plot='boxplot', x='species', y='bill_depth_mm')\n\nTypeError: seaborn() got an unexpected keyword argument 'plot'\n\n\n\n\nwp.seaborn(data, plot='histplot', x='bill_depth_mm', hue='sex', row='species', col='island')\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[26], line 1\n----&gt; 1 wp.seaborn(data, plot='histplot', x='bill_depth_mm', hue='sex', row='species', col='island')\n\nTypeError: seaborn() got an unexpected keyword argument 'plot'\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', row='species', col='island')\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm')\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm', graphics=[sns.lmplot])\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[30], line 1\n----&gt; 1 wp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm', graphics=[sns.lmplot])\n\nTypeError: seaborn() got an unexpected keyword argument 'graphics'\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='species', graphics=[sns.lmplot])\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[31], line 1\n----&gt; 1 wp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='species', graphics=[sns.lmplot])\n\nTypeError: seaborn() got an unexpected keyword argument 'graphics'\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', graphics=[sns.scatterplot])\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[32], line 1\n----&gt; 1 wp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', graphics=[sns.scatterplot])\n\nTypeError: seaborn() got an unexpected keyword argument 'graphics'\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='species', graphics=[sns.kdeplot])\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[33], line 1\n----&gt; 1 wp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='species', graphics=[sns.kdeplot])\n\nTypeError: seaborn() got an unexpected keyword argument 'graphics'\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='sex', plot='scatterplot', palette='colorblind')\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[34], line 1\n----&gt; 1 wp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='sex', plot='scatterplot', palette='colorblind')\n\nTypeError: seaborn() got an unexpected keyword argument 'plot'\n\n\n\n\ng = sns.FacetGrid(data, row='species', col='island', hue='sex')\ng.map_dataframe(sns.regplot, x='bill_depth_mm', y='bill_length_mm')"
-  },
-  {
-    "objectID": "pages/numpy_and_pandas.html",
-    "href": "pages/numpy_and_pandas.html",
-    "title": "NumPy and Pandas",
-    "section": "",
-    "text": "Fast computation using vectors and matrices\n\nlist1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\nlist2 = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]\n\nsummed = []\nfor i in range(len(list1)):\n    summed.append(list1[i] + list2[i])\nsummed\n\n[9, 9, 9, 9, 9, 9, 9, 9, 9, 9]\n\n\n\n\n\nimport numpy as np\n\n\na = np.array(list1)\nb = np.array(list2)\na, b\n\n(array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))\n\n\n\n\n\n\na + b\n\narray([9, 9, 9, 9, 9, 9, 9, 9, 9, 9])\n\n\n\na * b\n\narray([ 0,  8, 14, 18, 20, 20, 18, 14,  8,  0])\n\n\n\na - 10\n\narray([-10,  -9,  -8,  -7,  -6,  -5,  -4,  -3,  -2,  -1])\n\n\n\na.sum()\n\n45\n\n\n\na.mean()\n\n4.5\n\n\n\n\n\n\nlist_of_lists = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nlist_of_lists\n\n[[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n\n\n\nlist_of_lists[1][1]\n\n5\n\n\n\nmatrix = np.array(list_of_lists)\nmatrix\n\narray([[1, 2, 3],\n       [4, 5, 6],\n       [7, 8, 9]])\n\n\n\nmatrix[1][1] # not efficient\n\n5\n\n\n\nmatrix[1, 1] # efficient\n\n5\n\n\n\nmatrix - 10\n\narray([[-9, -8, -7],\n       [-6, -5, -4],\n       [-3, -2, -1]])\n\n\n\nmatrix.sum()\n\n45\n\n\n\nlist_of_lists_of_lists = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\nlist_of_lists_of_lists\n\n[[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\n\n\n\ntensor = np.array(list_of_lists_of_lists)\ntensor\n\narray([[[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]],\n\n       [[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]]])\n\n\n\ntensor[1, 1, 1]\n\n5",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.\n\n\n\nfranklin-educator is installed in my environemnt but I cannot see the exercise commands\nTry reinstalling franklin-educator:\n\n\nTerminal\n\nconda uninstall franklin-educator\n\nand then\n\n\nTerminal\n\nconda install -c conda-forge -c munch-group franklin-educator\n\n\n\nDocker is installed but franklin keeps complaining it is not\nWhen Docker Desktop is in Eco mode, franklin cannot get to it. If Docker Desktop is not running, franklin can start it for you. So Quit Docker Desktop and try running franklin again.\n\n\nI quit Docker Desktop but it is still running\nThe blue Docker Desktop window is the Docker dashboard. Closing that window will not close Docker Desktop. To close Docker Desktop find the small docker icon in the menu bar on Mac or in the bottom right taskbar on Windows. Look for a tiny whale with containers on its back.\n\n\nHow much space is frankling taking up on my hard disk?\n\n\nHow do I free up disk space used by franklin\n\n\nWhat happens if I delete an exercise in franklin\n\n\nHow do I rename an exercise\nChanges the display name using franklin exercise rename. Do not change the repository name on GitLab.",
     "crumbs": [
-      "Tutorials",
-      "NumPy and Pandas"
-    ]
-  },
-  {
-    "objectID": "pages/numpy_and_pandas.html#numpy",
-    "href": "pages/numpy_and_pandas.html#numpy",
-    "title": "NumPy and Pandas",
-    "section": "",
-    "text": "Fast computation using vectors and matrices\n\nlist1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\nlist2 = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]\n\nsummed = []\nfor i in range(len(list1)):\n    summed.append(list1[i] + list2[i])\nsummed\n\n[9, 9, 9, 9, 9, 9, 9, 9, 9, 9]\n\n\n\n\n\nimport numpy as np\n\n\na = np.array(list1)\nb = np.array(list2)\na, b\n\n(array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))\n\n\n\n\n\n\na + b\n\narray([9, 9, 9, 9, 9, 9, 9, 9, 9, 9])\n\n\n\na * b\n\narray([ 0,  8, 14, 18, 20, 20, 18, 14,  8,  0])\n\n\n\na - 10\n\narray([-10,  -9,  -8,  -7,  -6,  -5,  -4,  -3,  -2,  -1])\n\n\n\na.sum()\n\n45\n\n\n\na.mean()\n\n4.5\n\n\n\n\n\n\nlist_of_lists = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nlist_of_lists\n\n[[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n\n\n\nlist_of_lists[1][1]\n\n5\n\n\n\nmatrix = np.array(list_of_lists)\nmatrix\n\narray([[1, 2, 3],\n       [4, 5, 6],\n       [7, 8, 9]])\n\n\n\nmatrix[1][1] # not efficient\n\n5\n\n\n\nmatrix[1, 1] # efficient\n\n5\n\n\n\nmatrix - 10\n\narray([[-9, -8, -7],\n       [-6, -5, -4],\n       [-3, -2, -1]])\n\n\n\nmatrix.sum()\n\n45\n\n\n\nlist_of_lists_of_lists = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\nlist_of_lists_of_lists\n\n[[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[1, 2, 3], [4, 5, 6], [7, 8, 9]]]\n\n\n\ntensor = np.array(list_of_lists_of_lists)\ntensor\n\narray([[[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]],\n\n       [[1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]]])\n\n\n\ntensor[1, 1, 1]\n\n5",
-    "crumbs": [
-      "Tutorials",
-      "NumPy and Pandas"
-    ]
-  },
-  {
-    "objectID": "pages/numpy_and_pandas.html#pandas",
-    "href": "pages/numpy_and_pandas.html#pandas",
-    "title": "NumPy and Pandas",
-    "section": "Pandas",
-    "text": "Pandas\nFast computations on data tables (on top of Numpy).\n\nimport pandas as pd\n\n\nDataFrame\n\ndf = pd.DataFrame({'name': ['Mike', 'Mia', 'Jake'], 'weight': [82, 62, 75]})\ndf\n\n\n\n\n\n\n\n\nname\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\ntype(df)\n\npandas.core.frame.DataFrame\n\n\n\ndf = pd.DataFrame(dict(name=['Mike', 'Mia', 'Jake'], weight=[82, 62, 75]))\ndf\n\n\n\n\n\n\n\n\nname\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\nrecords = [('Mike', 82), ('Mia', 62), ('Jake', 75)]\n\ndf = pd.DataFrame().from_records(records, columns=['age', 'weight'])\ndf\n\n\n\n\n\n\n\n\nage\nweight\n\n\n\n\n0\nMike\n82\n\n\n1\nMia\n62\n\n\n2\nJake\n75\n\n\n\n\n\n\n\n\ndf.index\n\nRangeIndex(start=0, stop=3, step=1)\n\n\n\ndf.index.values\n\narray([0, 1, 2])\n\n\n\ndf.columns\n\nIndex(['age', 'weight'], dtype='object')\n\n\n\ndf.dtypes\n\nage       object\nweight     int64\ndtype: object\n\n\nAdd a column to an existing dataframe:\n\ndf['height'] = [182.5, 173.0, 192.5]\ndf\n\n\n\n\n\n\n\n\nage\nweight\nheight\n\n\n\n\n0\nMike\n82\n182.5\n\n\n1\nMia\n62\n173.0\n\n\n2\nJake\n75\n192.5\n\n\n\n\n\n\n\nAdd another, categorical, column:\n\ndf['sex'] = pd.Categorical(['male', 'female', 'male'], categories=['female', 'male'], ordered=True)\ndf\n\n\n\n\n\n\n\n\nage\nweight\nheight\nsex\n\n\n\n\n0\nMike\n82\n182.5\nmale\n\n\n1\nMia\n62\n173.0\nfemale\n\n\n2\nJake\n75\n192.5\nmale\n\n\n\n\n\n\n\n\ndf.dtypes\n\nage         object\nweight       int64\nheight     float64\nsex       category\ndtype: object\n\n\nA Series just wraps an array:\n\ndf.height.to_numpy()\n\narray([182.5, 173. , 192.5])\n\n\n\n\nExample penguin data set\n\nimport seaborn as sns\n\npenguins = sns.load_dataset('penguins')\n\n\npenguins\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n344 rows × 7 columns\n\n\n\n\npenguins.dtypes\n\nspecies               object\nisland                object\nbill_length_mm       float64\nbill_depth_mm        float64\nflipper_length_mm    float64\nbody_mass_g          float64\nsex                   object\ndtype: object\n\n\n\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n\n\n\n\n\n\npenguins.tail()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n\n\n\n\n\nSeries\n\npenguins['flipper_length_mm']\n\n0      181.0\n1      186.0\n2      195.0\n3        NaN\n4      193.0\n       ...  \n339      NaN\n340    215.0\n341    222.0\n342    212.0\n343    213.0\nName: flipper_length_mm, Length: 344, dtype: float64\n\n\n\npenguins.flipper_length_mm\n\n0      181.0\n1      186.0\n2      195.0\n3        NaN\n4      193.0\n       ...  \n339      NaN\n340    215.0\n341    222.0\n342    212.0\n343    213.0\nName: flipper_length_mm, Length: 344, dtype: float64\n\n\n\ntype(penguins.flipper_length_mm)\n\npandas.core.series.Series\n\n\n\n\nBroadcasting\n\npenguins.bill_depth_mm - 1000\n\n0     -981.3\n1     -982.6\n2     -982.0\n3        NaN\n4     -980.7\n       ...  \n339      NaN\n340   -985.7\n341   -984.3\n342   -985.2\n343   -983.9\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\npenguins.bill_depth_mm * penguins.flipper_length_mm\n\n0      3384.7\n1      3236.4\n2      3510.0\n3         NaN\n4      3724.9\n        ...  \n339       NaN\n340    3074.5\n341    3485.4\n342    3137.6\n343    3429.3\nLength: 344, dtype: float64\n\n\n\n\nIndexing\n\nGet a cell\n\npenguins.loc[4, 'island']\n\n'Torgersen'\n\n\n\n\nGet a row\n\npenguins.loc[4]\n\nspecies                 Adelie\nisland               Torgersen\nbill_length_mm            36.7\nbill_depth_mm             19.3\nflipper_length_mm        193.0\nbody_mass_g             3450.0\nsex                     Female\nName: 4, dtype: object\n\n\n\n\nGet a column\n\npenguins['bill_depth_mm']\n\n0      18.7\n1      17.4\n2      18.0\n3       NaN\n4      19.3\n       ... \n339     NaN\n340    14.3\n341    15.7\n342    14.8\n343    16.1\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\npenguins.bill_depth_mm\n\n0      18.7\n1      17.4\n2      18.0\n3       NaN\n4      19.3\n       ... \n339     NaN\n340    14.3\n341    15.7\n342    14.8\n343    16.1\nName: bill_depth_mm, Length: 344, dtype: float64\n\n\n\n\nGet a range of rows and multiple columns\n\npenguins.loc[40:45, ['island', 'body_mass_g']]\n\n\n\n\n\n\n\n\nisland\nbody_mass_g\n\n\n\n\n40\nDream\n3150.0\n\n\n41\nDream\n3900.0\n\n\n42\nDream\n3100.0\n\n\n43\nDream\n4400.0\n\n\n44\nDream\n3000.0\n\n\n45\nDream\n4600.0\n\n\n\n\n\n\n\n\n\nUse boolean series as index to subset data\n\nidx = penguins.bill_length_mm &gt; 55\nidx\n\n0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n339    False\n340    False\n341    False\n342    False\n343    False\nName: bill_length_mm, Length: 344, dtype: bool\n\n\n\npenguins.loc[idx]\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n169\nChinstrap\nDream\n58.0\n17.8\n181.0\n3700.0\nFemale\n\n\n215\nChinstrap\nDream\n55.8\n19.8\n207.0\n4000.0\nMale\n\n\n253\nGentoo\nBiscoe\n59.6\n17.0\n230.0\n6050.0\nMale\n\n\n321\nGentoo\nBiscoe\n55.9\n17.0\n228.0\n5600.0\nMale\n\n\n335\nGentoo\nBiscoe\n55.1\n16.0\n230.0\n5850.0\nMale\n\n\n\n\n\n\n\n\npenguins.loc[(penguins.bill_length_mm &gt; 55) & (penguins.sex == 'Female')]\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n169\nChinstrap\nDream\n58.0\n17.8\n181.0\n3700.0\nFemale\n\n\n\n\n\n\n\n\n\nSetting and resetting the index\n\npenguins\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nBiscoe\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nBiscoe\n46.8\n14.3\n215.0\n4850.0\nFemale\n\n\n341\nGentoo\nBiscoe\n50.4\n15.7\n222.0\n5750.0\nMale\n\n\n342\nGentoo\nBiscoe\n45.2\n14.8\n212.0\n5200.0\nFemale\n\n\n343\nGentoo\nBiscoe\n49.9\n16.1\n213.0\n5400.0\nMale\n\n\n\n\n344 rows × 7 columns\n\n\n\n\ndf = penguins.set_index(['species', 'sex', 'island'])\ndf.head(10)\n\n\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nspecies\nsex\nisland\n\n\n\n\n\n\n\n\nAdelie\nMale\nTorgersen\n39.1\n18.7\n181.0\n3750.0\n\n\nFemale\nTorgersen\n39.5\n17.4\n186.0\n3800.0\n\n\nTorgersen\n40.3\n18.0\n195.0\n3250.0\n\n\nNaN\nTorgersen\nNaN\nNaN\nNaN\nNaN\n\n\nFemale\nTorgersen\n36.7\n19.3\n193.0\n3450.0\n\n\nMale\nTorgersen\n39.3\n20.6\n190.0\n3650.0\n\n\nFemale\nTorgersen\n38.9\n17.8\n181.0\n3625.0\n\n\nMale\nTorgersen\n39.2\n19.6\n195.0\n4675.0\n\n\nNaN\nTorgersen\n34.1\n18.1\n193.0\n3475.0\n\n\nTorgersen\n42.0\n20.2\n190.0\n4250.0\n\n\n\n\n\n\n\n\ndf.reset_index()\n\n\n\n\n\n\n\n\nspecies\nsex\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\n\n\n0\nAdelie\nMale\nTorgersen\n39.1\n18.7\n181.0\n3750.0\n\n\n1\nAdelie\nFemale\nTorgersen\n39.5\n17.4\n186.0\n3800.0\n\n\n2\nAdelie\nFemale\nTorgersen\n40.3\n18.0\n195.0\n3250.0\n\n\n3\nAdelie\nNaN\nTorgersen\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nFemale\nTorgersen\n36.7\n19.3\n193.0\n3450.0\n\n\n...\n...\n...\n...\n...\n...\n...\n...\n\n\n339\nGentoo\nNaN\nBiscoe\nNaN\nNaN\nNaN\nNaN\n\n\n340\nGentoo\nFemale\nBiscoe\n46.8\n14.3\n215.0\n4850.0\n\n\n341\nGentoo\nMale\nBiscoe\n50.4\n15.7\n222.0\n5750.0\n\n\n342\nGentoo\nFemale\nBiscoe\n45.2\n14.8\n212.0\n5200.0\n\n\n343\nGentoo\nMale\nBiscoe\n49.9\n16.1\n213.0\n5400.0\n\n\n\n\n344 rows × 7 columns\n\n\n\n\n\n\nSorting rows\n\nsorted_df = penguins.sort_values(by=\"bill_length_mm\")\nsorted_df.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n142\nAdelie\nDream\n32.1\n15.5\n188.0\n3050.0\nFemale\n\n\n98\nAdelie\nDream\n33.1\n16.1\n178.0\n2900.0\nFemale\n\n\n70\nAdelie\nTorgersen\n33.5\n19.0\n190.0\n3600.0\nFemale\n\n\n92\nAdelie\nDream\n34.0\n17.1\n185.0\n3400.0\nFemale\n\n\n8\nAdelie\nTorgersen\n34.1\n18.1\n193.0\n3475.0\nNaN\n\n\n\n\n\n\n\n\nsorted_df.index.values\n\narray([142,  98,  70,  92,   8,  18,  54,  80,  14, 100,  52,  83, 124,\n        25,  66,  74, 136,  60,  90, 118,  68,  22,  42,  48, 150, 148,\n        78,  94, 120,  86,  34,  64,  58,  40,  15, 147,   4,  82, 132,\n        87,  44, 138,  77,  31, 144, 117,  84,  47, 133,  62,  38,  59,\n        21, 121, 102, 103,  10,  20,  11, 149, 104,  28,  96, 108, 134,\n       110, 107,  23,  88, 130,  13, 106, 116,  16,  24, 126,  36,  89,\n         6, 128, 145,  56,   0,  35, 146,   7,   5,  30,   1,  32, 114,\n        45,  50,  72,  93, 112, 105, 139,  71,  39,  51, 137, 140, 122,\n        97,   2,  27,  29, 125, 141,  26,  57, 143,  95,  41, 230, 182,\n        33,  76, 101, 135, 119,  46,  63,  91,  67,  12,  61,  85, 123,\n        55, 127, 151,  65, 326,  69, 236,  53,   9,  79, 113,  37,  49,\n       172, 184, 206,  17, 256, 115, 260,  75, 251,  81, 244, 131, 278,\n       109, 174,  99, 228, 328, 306, 216, 332, 288, 265, 276, 258, 129,\n        43, 257, 246, 336, 314, 268, 304, 275, 241, 252, 272, 208, 298,\n       299, 269, 342, 157, 280, 262, 226, 155, 232, 277, 195, 312, 266,\n       111, 211, 214, 204, 282,  73, 284, 234, 166, 160,  19, 158, 245,\n       220, 286, 238, 334, 281, 193, 243, 170, 180, 291, 294, 293, 225,\n       274, 152, 242, 162, 270, 227, 176, 325, 229, 340, 213, 317, 190,\n       164, 338, 322, 324, 250, 302, 310, 296, 187, 308, 188, 224, 290,\n       247, 329, 202, 248, 292, 318, 233, 255, 271, 173, 320, 295, 259,\n       239, 222, 337, 192, 199, 231, 300, 323, 254, 171, 237, 235, 209,\n       316, 313, 179, 287, 263, 261, 217, 186, 331, 201, 285, 343, 303,\n       153, 221, 223, 249, 198, 273, 210, 219, 240, 168, 279, 341, 267,\n       330, 167, 178, 264, 175, 289, 205, 305, 218, 197, 315, 196, 194,\n       185, 297, 319, 154, 159, 161, 307, 203, 333, 200, 163, 212, 165,\n       177, 189, 309, 207, 311, 301, 156, 181, 327, 191, 183, 283, 335,\n       215, 321, 169, 253,   3, 339])\n\n\nClick to the left of an output cell to enable/disable scrolling of the output (usefull for large amounts of output).\n\nsorted_df.loc[0]\n\nspecies                 Adelie\nisland               Torgersen\nbill_length_mm            39.1\nbill_depth_mm             18.7\nflipper_length_mm        181.0\nbody_mass_g             3750.0\nsex                       Male\nName: 0, dtype: object\n\n\n\nsorted_df.flipper_length_mm[0]\n\n181.0\n\n\n\nsorted_df.iloc[0] # iloc !!!\n\nspecies              Adelie\nisland                Dream\nbill_length_mm         32.1\nbill_depth_mm          15.5\nflipper_length_mm     188.0\nbody_mass_g          3050.0\nsex                  Female\nName: 142, dtype: object\n\n\n\nsorted_df.flipper_length_mm.iloc[0]\n\n188.0\n\n\n\n\nSummary stats\n\npenguins.describe()\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\n\n\ncount\n342.000000\n342.000000\n342.000000\n342.000000\n\n\nmean\n43.921930\n17.151170\n200.915205\n4201.754386\n\n\nstd\n5.459584\n1.974793\n14.061714\n801.954536\n\n\nmin\n32.100000\n13.100000\n172.000000\n2700.000000\n\n\n25%\n39.225000\n15.600000\n190.000000\n3550.000000\n\n\n50%\n44.450000\n17.300000\n197.000000\n4050.000000\n\n\n75%\n48.500000\n18.700000\n213.000000\n4750.000000\n\n\nmax\n59.600000\n21.500000\n231.000000\n6300.000000\n\n\n\n\n\n\n\n\npenguins.bill_length_mm.mean()\n\n43.9219298245614\n\n\n\npenguins.bill_length_mm.count()\n\n342\n\n\n\n\nGroup\n\npenguins.groupby('island')\n\n&lt;pandas.core.groupby.generic.DataFrameGroupBy object at 0x15cc9e5e0&gt;\n\n\n\n\nAggregate\nAggregating produces a single value for each variable in each group:\nMeans for all numeric variables for each island:\n\npenguins.groupby('island').aggregate(\"mean\", numeric_only=True)\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nisland\n\n\n\n\n\n\n\n\nBiscoe\n45.257485\n15.874850\n209.706587\n4716.017964\n\n\nDream\n44.167742\n18.344355\n193.072581\n3712.903226\n\n\nTorgersen\n38.950980\n18.429412\n191.196078\n3706.372549\n\n\n\n\n\n\n\n\npenguins.groupby('island').mean(numeric_only=True)\n\n\n\n\n\n\n\n\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\n\n\nisland\n\n\n\n\n\n\n\n\nBiscoe\n45.257485\n15.874850\n209.706587\n4716.017964\n\n\nDream\n44.167742\n18.344355\n193.072581\n3712.903226\n\n\nTorgersen\n38.950980\n18.429412\n191.196078\n3706.372549\n\n\n\n\n\n\n\nMeans for bill_length_mm and flipper_length_mm:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].mean()\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\nisland\n\n\n\n\n\n\nBiscoe\n45.257485\n209.706587\n\n\nDream\n44.167742\n193.072581\n\n\nTorgersen\n38.950980\n191.196078\n\n\n\n\n\n\n\nJust for flipper_length_mm:\n\npenguins.groupby('island').flipper_length_mm.mean()\n\nisland\nBiscoe       209.706587\nDream        193.072581\nTorgersen    191.196078\nName: flipper_length_mm, dtype: float64\n\n\n\n\nTransform\nTransforming produces new colums with the same length as the input:\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(\"mean\")\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\n\n\n0\n38.950980\n191.196078\n\n\n1\n38.950980\n191.196078\n\n\n2\n38.950980\n191.196078\n\n\n3\n38.950980\n191.196078\n\n\n4\n38.950980\n191.196078\n\n\n...\n...\n...\n\n\n339\n45.257485\n209.706587\n\n\n340\n45.257485\n209.706587\n\n\n341\n45.257485\n209.706587\n\n\n342\n45.257485\n209.706587\n\n\n343\n45.257485\n209.706587\n\n\n\n\n344 rows × 2 columns\n\n\n\n\ndef z_value(sr):\n    return (sr - sr.mean()) / sr.std()\n\npenguins.groupby('island')[['bill_length_mm', 'flipper_length_mm']].transform(z_value)\n\n\n\n\n\n\n\n\nbill_length_mm\nflipper_length_mm\n\n\n\n\n0\n0.049258\n-1.636022\n\n\n1\n0.181475\n-0.833742\n\n\n2\n0.445910\n0.610362\n\n\n3\nNaN\nNaN\n\n\n4\n-0.744048\n0.289450\n\n\n...\n...\n...\n\n\n339\nNaN\nNaN\n\n\n340\n0.323193\n0.374297\n\n\n341\n1.077478\n0.869267\n\n\n342\n-0.012044\n0.162167\n\n\n343\n0.972717\n0.232877\n\n\n\n\n344 rows × 2 columns\n\n\n\n\n\nApply\nFlexible method allowing any operation on grouped data.\nReturn a single value:\n\ndef fun(df):\n    return df.bill_length_mm + df.flipper_length_mm.mean() / df.body_mass_g\n\npenguins.groupby('island').apply(fun)#.to_frame('my_stat')\n\nisland        \nBiscoe     20     37.861678\n           21     37.758252\n           22     35.955186\n           23     38.253090\n           24     38.855186\n                    ...    \nTorgersen  127    41.544464\n           128    39.062687\n           129    44.147799\n           130    38.557503\n           131    43.154627\nLength: 344, dtype: float64\n\n\nReturn a dataframe:\n\ndef fun(df):\n    return pd.DataFrame({'sqrt_bill': np.sqrt(df.bill_length_mm),\n                         'bill_squared': df.bill_length_mm**2})\n\npenguins.groupby('island').apply(fun)\n\n\n\n\n\n\n\n\n\nsqrt_bill\nbill_squared\n\n\nisland\n\n\n\n\n\n\n\nBiscoe\n20\n6.148170\n1428.84\n\n\n21\n6.140033\n1421.29\n\n\n22\n5.991661\n1288.81\n\n\n23\n6.180615\n1459.24\n\n\n24\n6.228965\n1505.44\n\n\n...\n...\n...\n...\n\n\nTorgersen\n127\n6.442049\n1722.25\n\n\n128\n6.244998\n1521.00\n\n\n129\n6.640783\n1944.81\n\n\n130\n6.204837\n1482.25\n\n\n131\n6.565059\n1857.61\n\n\n\n\n344 rows × 2 columns",
-    "crumbs": [
-      "Tutorials",
-      "NumPy and Pandas"
-    ]
-  },
-  {
-    "objectID": "pages/gitlab.html",
-    "href": "pages/gitlab.html",
-    "title": "Gitlab server",
-    "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.\nIntroduction to GitLab\nGitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.\nGitLab enables individuals and teams to collaborate on code by providing:\nGit repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails. Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows. CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository. Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration. Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains. GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.\nIn summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.",
-    "crumbs": [
-      "About",
-      "Gitlab server"
-    ]
-  },
-  {
-    "objectID": "pages/gitlab.html#set-up-gitlab",
-    "href": "pages/gitlab.html#set-up-gitlab",
-    "title": "Gitlab server",
-    "section": "set up gitlab",
-    "text": "set up gitlab\n\nsign in\nGo to gitlab by following this link On the sign-in page, choose the login option called login with Uni-add.\n\n\nSSH keys - what is that and why do i need it?\nSSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.\n\n\nHow do i get a SSH key?\nkaspers guide\n\n\ninsert SSH key to gitlab\nTo access your SSH keys you use the command: cat ~/.ssh/id_rsa.pub\nIt is very important that you choose the rsa.pub version.\nAfter you have run the command cat ~/.ssh/id_rsa.pub in your terminal a long line of letters and number will appear in your terminal. This is your SSH key. Now copy it and go back to the gitlab webpage\nThen press the icon on the top beside the picture that represent your profile and find the option called “edit profile” in the dropdown menu It should look like this: \nNow you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.\nThe page should look something like the figure below: \nIn the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this.\nYou are now ready to use gitlab!",
-    "crumbs": [
-      "About",
-      "Gitlab server"
-    ]
-  },
-  {
-    "objectID": "pages/developing.html",
-    "href": "pages/developing.html",
-    "title": "Developing exercises",
-    "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.",
-    "crumbs": [
-      "Tutorials",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/developing.html#the-exercise-repository",
-    "href": "pages/developing.html#the-exercise-repository",
-    "title": "Developing exercises",
-    "section": "The exercise repository",
-    "text": "The exercise repository\nA git repository is where an exercise lives\n\nexercise.ipynb:: blah blah\nDockerfile: blah blah\nREADME.md:: blah blah\ndocker-entrypoint.sh:: blah blah\ntagged-release.sh:: blah blah",
-    "crumbs": [
-      "Tutorials",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/developing.html#developchange-a-new-exercise-on-gitlab",
-    "href": "pages/developing.html#developchange-a-new-exercise-on-gitlab",
-    "title": "Developing exercises",
-    "section": "Develop/change a new exercise on GitLab",
-    "text": "Develop/change a new exercise on GitLab\nTo begin an automated edit workflow, just run the command below and follow instructions carefully:\n\n\nTerminal\n\nfranklin exercise edit\n\nFor more information about edit workflows, see the tutorial about developing exercises.\n\nAssisted workflow\nThis workflow is temporarily disabled\n\n\nTerminal\n\nfranklin exercise down\n\n\n\nTerminal\n\nfranklin exercise up\n\n\n\nSupported workflow\nUse this command to clone the exercise repository:\n\n\nTerminal\n\nfranklin exercise clone\n\nThen open the repository. If is is called data-exercise, you can open it in vscode like this:\n\n\nTerminal\n\ncode data-exercise\n\n\nFor Mac users: On Macs, the code command line utility needs to be installed first. Launch vscode and open the Command Palette (Cmd+Shift+P), type ‘shell command’, select “Shell Command: Install ‘code’ command in PATH command” and hit Enter. Restart the terminal for the change to take effect.\n\nOnce open in vscode, click “Reopen in Container” if prompted, or otherwise use Cmd-Shift-P to open the command palette and type “reopen”, select “Reopen in Container” and hit Enter.\n\n\n\nalt text\n\n\nVscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the prod jupyter kernel among the environments available. For an introduction to jupyter in vscode, see Using notebooks in vscode.\nIf you need to install and use third-party python packages (e.g. pandas), these packages must be added as dependencies to the docker image. To do this, open vscode’s terminal window and install pixi by running this command:\n./install_pixi.sh\nRunning the command below, will both make pandas available and add it as a dependency for the exercise.\n! pixi run test-notebook\n! pixi run add-dependency\n! pixi run collect-dependencies\npixi run add-dependency pandas\nAn alternative approach scan the notebook and add dependencies automatically.\npixi run collect-dependencies\nYou can test that the exercise notebook runs as configured using this command:\npixi run test-notebook\nTo add/commit/push you can use vscode’s git interface, gitui, or the git command line tool.\n\nGitUI: Git gui opens up a page with 4 section: unstaged changes, staged changed commit box and modified, not staged. Git gui can be used for version control, meaning if you an another educator is editing the same exercise at the same time, Git Gui can help you select which changes you want to keep, if you have editet the exact same assignment or it will allow you to merge both your changes into the new version of the assignment\n\n\n# ! /install_pixi.sh\n# %load_ext magic\n# %franklin pandas matplotlib",
-    "crumbs": [
-      "Tutorials",
-      "Developing exercises"
-    ]
-  },
-  {
-    "objectID": "pages/sandbox.html",
-    "href": "pages/sandbox.html",
-    "title": "Sandbox",
-    "section": "",
-    "text": "To quickly get a feel for Jupyter and to browse tutorials, visit the JupyterLite Sandbox. JupyterLite is a JupyterLab distribution that runs entirely in the browser\nJupyterLite emulates the behavior of JupyterLab and Python and runs entirely in the browser. It does not access your local files. So to use it, you need to upload and download notebooks you want to play with. Still in development, JupyterLite does not include all JupyterLab features.\nTry the sandbox"
-  },
-  {
-    "objectID": "api/run.html",
-    "href": "api/run.html",
-    "title": "run",
-    "section": "",
-    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#parameters",
-    "href": "api/run.html#parameters",
-    "title": "run",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/run.html#returns",
-    "href": "api/run.html#returns",
-    "title": "run",
-    "section": "",
-    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
-    "crumbs": [
-      "Docker",
-      "run"
-    ]
-  },
-  {
-    "objectID": "api/launch_exercise.html",
-    "href": "api/launch_exercise.html",
-    "title": "launch_exercise",
-    "section": "",
-    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
-  },
-  {
-    "objectID": "api/pull.html",
-    "href": "api/pull.html",
-    "title": "pull",
-    "section": "",
-    "text": "franklin.docker.pull(image_url)\nPull Docker image.\n\n\n\nimage_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/pull.html#parameters",
-    "href": "api/pull.html#parameters",
-    "title": "pull",
-    "section": "",
-    "text": "image_url : str\n\nImage URL.",
-    "crumbs": [
-      "Docker",
-      "pull"
-    ]
-  },
-  {
-    "objectID": "api/index.html",
-    "href": "api/index.html",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\n_run\n\n\n\n\n\n\n\nSome description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/index.html#jupyter",
-    "href": "api/index.html#jupyter",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\n_run",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "api/index.html#docker",
-    "href": "api/index.html#docker",
-    "title": "Function reference",
-    "section": "",
-    "text": "Some description…\n\n\n\nrun\nRuns a container from an image.\n\n\npull\nPull Docker image.",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "notebooks/example.html",
-    "href": "notebooks/example.html",
-    "title": "Workplace interaction",
-    "section": "",
-    "text": "Import some plotting libraries and set some defaults:\n\nimport sys\nimport numpy as np\nimport pandas as pd\nfrom IPython.display import display, Markdown\nimport matplotlib.pyplot as plt\nimport seaborn as sns"
-  },
-  {
-    "objectID": "pages/plotting.html",
-    "href": "pages/plotting.html",
-    "title": "Plotting with Python",
-    "section": "",
-    "text": "import matplotlib.pyplot as plt\nimport seaborn as sns\nimport pandas as pd\nsns.set_style(\"darkgrid\")\n\n# make graphics sharper on a good screen\nfrom matplotlib_inline.backend_inline import set_matplotlib_formats\nset_matplotlib_formats('retina', 'png')\npenguins = sns.load_dataset(\"penguins\")\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\nplt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm) ;  # semi colon makes last value None\nsns.set_style(\"ticks\")\n# sns.set_style(\"darkgrid\")\n# sns.set_style(\"whitegrid\")\n# sns.set_style(\"white\")\n# sns.set_style(\"dark\")\n\nplt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm)\nsns.despine()\nplt.hist(penguins.bill_length_mm) ;",
-    "crumbs": [
-      "Tutorials",
-      "Plotting with Python"
-    ]
-  },
-  {
-    "objectID": "pages/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
-    "href": "pages/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
-    "title": "Plotting with Python",
-    "section": "FacetGrid.map vs. FacetGrid.map_dataframe",
-    "text": "FacetGrid.map vs. FacetGrid.map_dataframe\nWhen you use FacetGrid.map(func, \"col1\", \"col2\", ...), the function func is passed the values of the columns \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …). In addition, the function always receives a keyword argument named color=.\n\ndef scatter(*args, **kwargs):\n    return plt.scatter(args[0], args[1], **kwargs)\n    \ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(scatter, \"bill_length_mm\", \"flipper_length_mm\") ;\n\nWhen you use FacetGrid.map_dataframe(func, \"col1\", \"col2\", ...), the function func is passed the names \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …), and the filtered dataframe as keyword argument data=. In addition, the function always receives a keyword argument named color=.\n\ndef scatterplot(*args, **kwargs):\n    return sns.scatterplot(x=args[0], y=args[1], **kwargs)\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map_dataframe(scatterplot, \"bill_length_mm\", \"flipper_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.histplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.kdeplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"species\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"sex\") ;",
-    "crumbs": [
-      "Tutorials",
-      "Plotting with Python"
-    ]
-  },
-  {
-    "objectID": "pages/git.html",
-    "href": "pages/git.html",
-    "title": "Git version control",
-    "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.",
-    "crumbs": [
-      "About",
-      "Git version control"
-    ]
-  },
-  {
-    "objectID": "pages/git.html#tldr",
-    "href": "pages/git.html#tldr",
-    "title": "Git version control",
-    "section": "TLDR;",
-    "text": "TLDR;\nGit is a distributed version control system designed to track changes in source code and facilitate collaboration among multiple developers. Originally created by Linus Torvalds in 2005 for managing the Linux kernel, Git has since become the dominant version control tool in software development, underpinning platforms such as GitHub, GitLab, and Bitbucket.\nIn Git, every working copy of a repository is a full-fledged versioned archive, containing the entire history of the project. This distributed model enhances performance, enables offline work, and provides a robust foundation for branching and merging workflows. Changes are recorded as commits—snapshots of the project at specific points in time—organized in a directed acyclic graph (DAG).\nKey concepts include:\nRepository: A data structure containing all commits, branches, and tags for a project. Commit: A recorded state of the repository, with metadata about the author, timestamp, and parent commits. Branch: A movable pointer to a commit, enabling parallel development paths. Merge: The integration of changes from one branch into another, optionally involving conflict resolution. Remote: A reference to another copy of the repository, typically hosted on a server. Git supports advanced features such as rebasing, cherry-picking, and interactive staging. It also allows for fine-grained control of collaboration through pull requests, code reviews, and access control mechanisms.\nWhile Git has a steep learning curve, especially in conflict resolution and complex branching workflows, its efficiency, reliability, and flexibility make it an indispensable tool in modern software engineering and research computing.",
-    "crumbs": [
-      "About",
-      "Git version control"
-    ]
-  },
-  {
-    "objectID": "pages/git.html#git-as-journaled-backup",
-    "href": "pages/git.html#git-as-journaled-backup",
-    "title": "Git version control",
-    "section": "Git as journaled backup",
-    "text": "Git as journaled backup\nWhen you are in your &lt;repositoryname&gt; folder, you can run git commands to manage your files, record their changes and sync them to the repository on GitHub for safe keeping. These tutorials are good introductions to git.\nTo journal the creation or modification of a file, you need to add it to git:\n\n\nTerminal\n\ngit add &lt;the_changed_file&gt;\n\nThis “stages” the change. This adds the file to the a “group” of changes that represent some modification to your project. You can add more files to that “group” by running the command again with other files. If you run git status you can see that the files are now staged.\nSo maybe you added or changed two python files addressing some parcitular problem or advancing some part of your project. Now you want to store those of changes to the journal maintained by Git and associate it with a short message describing the changes. For that you use:\n\n\nTerminal\n\ngit commit -m '&lt;message&gt;'\n\nIf you added two python files, your description could be 'Added two python files for my analysis'. If you fixed a bug or added new code to the files, your message should reflect that.\nNow your changes are recorded in the version of the &lt;repositoryname&gt; on the cluster, but that does not serve as a backup in case you accidentally delete your entire folder or the cluster burns down. To backup your repository you need to synchronize your local &lt;repositoryname&gt; repository on the cluster with the &lt;repositoryname&gt; repository on GitHub. To du that use:\n\n\nTerminal\n\ngit push\n\nIn addition to keeping your precious files safe and backed up, your GitHub repository also serve as a journal documenting of your progress. Each commit is a snapshot if your project that can be retrieved at any time.",
-    "crumbs": [
-      "About",
-      "Git version control"
-    ]
-  },
-  {
-    "objectID": "pages/git.html#git",
-    "href": "pages/git.html#git",
-    "title": "Git version control",
-    "section": "Git",
-    "text": "Git\nThere is a cheat sheet here and some good visual guides here and here.\nThe three most important commands to learn are: git status, git add, git rm, git mv, git commit and git push.\n\nResolving conflicts\nBlah blah…",
-    "crumbs": [
-      "About",
-      "Git version control"
-    ]
-  },
-  {
-    "objectID": "pages/computer_setup.html",
-    "href": "pages/computer_setup.html",
-    "title": "Computer setup",
-    "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.",
-    "crumbs": [
-      "Setting up",
-      "Computer setup"
-    ]
-  },
-  {
-    "objectID": "pages/computer_setup.html#install-python",
-    "href": "pages/computer_setup.html#install-python",
-    "title": "Computer setup",
-    "section": "Install Python",
-    "text": "Install Python\n\n\n\n\n\n\nWarning\n\n\n\nTo be decided if we use miniforge, miniconda or anaconda…\n\n\nIf you have not done so already, you should install a distribution of Python called Anaconda. Anaconda is not only an easy way of installing Python on Windows, Mac, and Linux; it also comes with the conda package management system (more about that later). To install Anaconda, visit this page. When the download completes, you must follow the default installation.",
-    "crumbs": [
-      "Setting up",
-      "Computer setup"
-    ]
-  },
-  {
-    "objectID": "pages/computer_setup.html#install-chrome",
-    "href": "pages/computer_setup.html#install-chrome",
-    "title": "Computer setup",
-    "section": "Install Chrome",
-    "text": "Install Chrome\nFranklin is built to interact with the Chrome browser. So you need to make sure that is installed on your computer. If not, you can download it here.",
-    "crumbs": [
-      "Setting up",
-      "Computer setup"
-    ]
-  },
-  {
-    "objectID": "pages/computer_setup.html#install-docker-desktop",
-    "href": "pages/computer_setup.html#install-docker-desktop",
-    "title": "Computer setup",
-    "section": "Install Docker Desktop",
-    "text": "Install Docker Desktop\nDocker is a tool that can run a small linux world in your computer. Franklin uses it to make sure Jupyter runs your exercise in exactly the same way, no matter which kind of computer you have. You do not need to known anything about Docker. Franklin will take care of the whole thing for you. If you are interested, though, you can have a look at this brief introduction to Docker.\nBefore you to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac. If you are downloading docker on a AU computer remember to activate admin privileges by activating Heimdal.\nIf you are unsure of how to activate Heimdal, follow the instructions given on this page\nGo to this page and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. On a Mac, you can find the name of your chip by clicking the apple icon in the upper left corner and choose “about this mac” in the dropdown menu. Apple silicon chips include M1, M2 and M3. Apple intel chips are named intel.\n\n\n\nalt text\n\n\nOn Windows, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip.\nDownload the version of Docker Desktop that matches your operating system and computer chip. Once downloaded, follow the installation instructions for your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens, a window pops up and asks if you want to sign in or create and account. An account is not necessary for using docker with franklin, so you can just click “skip” when prompted.\nWhen the installation procedure is complete and Docker is done starting up, you must it down. Just closing the blue Docker Dashboard window does not shut down Docker. You need to explicitly quit the program. To make sure it has quit, you can look for the little docker whale icon. In Mac is it in the menu bar. On Windows it is in the small popup menu at the right end of you task bar. If you see a small whale, Docker is still running. Click the whale icon and quit Docker.\n\n\n\nalt text\n\n\n\n\n\n\n\n\nWSL\n\n\n\nOn Windows, Docker Desktop may give you an error message saying “WSL 2 is required”. In that case, install WSL by running the following command into your terminal:\n\n\nTerminal\n\nwsl --install\n\n\n\n\nThe Terminal\nFranklin is a command-line application. That means it is executed by writing its name and any arguments in a “terminal” rather than clicking on an icon and using a graphical user interface. Many different programs can serve as a terminal.If you have a Windows machine, use the Anaconda Powershell Prompt (not the Anaconda Prompt and not the CMD). You installed Anaconda Powershell Prompt along with Anaconda Python. If you have a Mac, the terminal you will use is called Terminal. The Terminal application is pre-installed on Mac. From now on, whenever I refer to the terminal, I mean Anaconda Powershell Prompt on Windows and Terminal on Mac.\nI will will assume some familiarity with using a terminal and executing commands on the command line. If you have not used a terminal before, or if you are a bit rusty, you should run through this introduction before you go on.\n\n\nCreate a conda environment for Franklin\n\nYou must install packages and programs for your analyses and pipelines. Sometimes, however, the packages you need for one project conflict with the ones you need for other projects you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small world insulated from the rest of your Anaconda installation? Then, that small world would only contain the packages you needed for a single project. If each project had its isolated world, then there would be no such conflicts.\nFortunately, a tool lets you do just that, and its name is Conda. Conda’s small worlds are called “environments,” and you can create as many as you like. You can then switch between them as you switch between your bioinformatics projects. Conda also downloads and installs the packages for you, ensuring that the packages you install in each environment are compatible. It even makes sure to install packages (dependencies) required by the packages you install. By creating an environment for each project, the libraries installed for each project do not interfere. You can read more about conda environments and how to use them in this introduction.\nCreate an environment called franklin with franklin installed.\n\n\nTerminal\n\nconda create -y -n franklin -c conda-forge -c munch-group franklin\n\n\n\n\n\n\n\nFor educators\n\n\n\nEducators should also install franklin-educator like this:\n\n\nTerminal\n\nconda create -y -n franklin -c conda-forge -c munch-group franklin franklin-educator",
-    "crumbs": [
-      "Setting up",
-      "Computer setup"
-    ]
-  },
-  {
-    "objectID": "pages/computer_setup.html#test-your-setup",
-    "href": "pages/computer_setup.html#test-your-setup",
-    "title": "Computer setup",
-    "section": "Test your setup",
-    "text": "Test your setup\nIf you succesfully completed all the above steps, you should now be able to activate your franklin environment:\n\n\nTerminal\n\nconda activate franklin\n\nand run this command to update franklin to its newest version:\n\n\nTerminal\n\nfranklin update\n\nYou can learn about how to use franklin on this page.",
-    "crumbs": [
-      "Setting up",
-      "Computer setup"
-    ]
-  },
-  {
-    "objectID": "pages/conda.html",
-    "href": "pages/conda.html",
-    "title": "Conda",
-    "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.",
-    "crumbs": [
-      "About",
-      "Conda"
-    ]
-  },
-  {
-    "objectID": "pages/conda.html#conda-enviroments",
-    "href": "pages/conda.html#conda-enviroments",
-    "title": "Conda",
-    "section": "Conda enviroments",
-    "text": "Conda enviroments\nIn bioinformatics, we install packages and programs so we can use them in our analyses and pipelines. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small insulated world for each project, which then only contained the packages you needed for that particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there is a tool that lets you do just that, and its name is Conda.\n“Conda is an open source package management system and environment management system for installing multiple versions of software packages and their dependencies and switching easily between them.”\nThe small worlds that Conda creates are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else. Conda also downloads and installs the packages for you and it makes sure that the software packages you install in each environment are compatible. It even makes sure that packages needed by packages (dependencies) are also installed. Conda is truly awesome.\nIn this case you need to create a new enviroment where you install franklin\nYou will need franklin for downloading assignments. You will also be able to choose a enviroment in franklin that specifially fits the assignment you want to make.",
-    "crumbs": [
-      "About",
-      "Conda"
-    ]
-  },
-  {
-    "objectID": "pages/ssh.html",
-    "href": "pages/ssh.html",
-    "title": "SSH authentication",
-    "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.",
-    "crumbs": [
-      "About",
-      "SSH authentication"
-    ]
-  },
-  {
-    "objectID": "pages/ssh.html#how-it-works",
-    "href": "pages/ssh.html#how-it-works",
-    "title": "SSH authentication",
-    "section": "How it works",
-    "text": "How it works\nFirstly, you have to understand what public/private encryption keys are. A private key is a very long, random sequence of bits. A private key is kept secret and never leaves your laptop. A public key is another string of bits that is a derivative of the private key.\nYou can generate a unique public key from the private key but cannot get the private key from a public key: It is a one-way process. You can encrypt (or sign) any message using the public key, and it will only be possible to decrypt it using the private key it is derived from. In other words, anyone with your public key can send you encrypted messages that only you will be able to read.\nSo, if the cluster has your public key saved, it can authenticate you like this: The cluster sends your laptop a message encrypted using the public key. Your laptop then decrypts the message using its private key and sends it back. If the cluster receives a correctly decrypted message it knows it is you and logs you in.",
-    "crumbs": [
-      "About",
-      "SSH authentication"
-    ]
-  },
-  {
-    "objectID": "pages/ssh.html#setting-up-password-less-gitlab-access",
-    "href": "pages/ssh.html#setting-up-password-less-gitlab-access",
-    "title": "SSH authentication",
-    "section": "Setting up password-less GitLab access",
-    "text": "Setting up password-less GitLab access\nFirst, check if you have these two authentication files on your local machine:\n~/.ssh/id_rsa\n~/.ssh/id_rsa.pub\nYou can do so using the ls commmand:\n\n\nTerminal\n\nls -a ~/.ssh\n\nYou most likely do not. If so, you generate authentication keys with the command below. Just press Enter when prompted for a file in which to save the key. Do not enter a passphrase when prompted - just press enter:\n\n\nTerminal\n\nssh-keygen -t rsa\n\nNow use ssh to create a directory ~/.ssh on the cluster (assuming your username on the cluster is &lt;cluster user name&gt;). SSH will prompt you for your password.\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk mkdir -p .ssh\n\nFinally, append the public ssh key on your local machine to the file .ssh/authorized_keys on the cluster and enter your password (replace &lt;cluster user name&gt; with your cluster user name):\n\n\nTerminal\n\ncat ~/.ssh/id_rsa.pub | ssh username@login.genome.au.dk 'cat &gt;&gt; .ssh/authorized_keys'\n\nFrom now on, you can log into the cluster from your local machine without being prompted for a password.\nTry it:\n\n\nTerminal\n\nssh &lt;cluster user name&gt;@login.genome.au.dk\n\n(see, no password).",
-    "crumbs": [
-      "About",
-      "SSH authentication"
-    ]
-  },
-  {
-    "objectID": "pages/python_r_julia.html",
-    "href": "pages/python_r_julia.html",
-    "title": "Python, R, and Julia",
-    "section": "",
-    "text": "Python (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\nimport pandas as pd\n\ndf = pd.DataFrame({\n    'A': [1, 2, 3],\n    'B': [4, 5, 6]\n})\n\n# Select row by position\nrow_pos = df.iloc[1]  # second row\n\n# Select row by label (if index is labeled)\ndf.index = ['x', 'y', 'z']\nrow_label = df.loc['y']\n\n\nlibrary(dplyr)\n\ndf &lt;- tibble(A = c(1, 2, 3), B = c(4, 5, 6))\n\n# Select row by position\nrow_pos &lt;- slice(df, 2)  # second row\n\n# Select row by condition\nrow_condition &lt;- filter(df, A == 2)\n\n\nusing DataFrames\n\ndf = DataFrame(A = [1, 2, 3], B = [4, 5, 6])\n\n# Select row by index\nrow_pos = df[2, :]\n\n# Select row by condition\nrow_condition = df[df.A .== 2, :]"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#indexing-rows",
-    "href": "pages/python_r_julia.html#indexing-rows",
-    "title": "Python, R, and Julia",
-    "section": "",
-    "text": "Python (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\nimport pandas as pd\n\ndf = pd.DataFrame({\n    'A': [1, 2, 3],\n    'B': [4, 5, 6]\n})\n\n# Select row by position\nrow_pos = df.iloc[1]  # second row\n\n# Select row by label (if index is labeled)\ndf.index = ['x', 'y', 'z']\nrow_label = df.loc['y']\n\n\nlibrary(dplyr)\n\ndf &lt;- tibble(A = c(1, 2, 3), B = c(4, 5, 6))\n\n# Select row by position\nrow_pos &lt;- slice(df, 2)  # second row\n\n# Select row by condition\nrow_condition &lt;- filter(df, A == 2)\n\n\nusing DataFrames\n\ndf = DataFrame(A = [1, 2, 3], B = [4, 5, 6])\n\n# Select row by index\nrow_pos = df[2, :]\n\n# Select row by condition\nrow_condition = df[df.A .== 2, :]"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#indexing-columns",
-    "href": "pages/python_r_julia.html#indexing-columns",
-    "title": "Python, R, and Julia",
-    "section": "Indexing Columns",
-    "text": "Indexing Columns\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Select a single column\ncol = df['A']\n\n# Select multiple columns\ncols = df[['A', 'B']]\n\n\n# Select a single column\ncol &lt;- df %&gt;% select(A)\n\n# Select multiple columns\ncols &lt;- df %&gt;% select(A, B)\n\n\n# Select a single column\ncol = df.A\n\n# Select multiple columns\ncols = select(df, [:A, :B])"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#column-and-row-assignment",
-    "href": "pages/python_r_julia.html#column-and-row-assignment",
-    "title": "Python, R, and Julia",
-    "section": "Column and Row Assignment",
-    "text": "Column and Row Assignment\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Assign a new column\ndf['C'] = df['A'] + df['B']\n\n# Assign values to a row by position\ndf.iloc[0] = [10, 20, 30]\n\n\n# Add new column\nmutated &lt;- df %&gt;% mutate(C = A + B)\n\n# Replace first row values\ndf[1, ] &lt;- list(10, 20, 30)\n\n\n# Assign new column\ndf.C = df.A + df.B\n\n# Replace first row\ndf[1, :] = (A=10, B=20, C=30)"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#filtering-and-masking",
-    "href": "pages/python_r_julia.html#filtering-and-masking",
-    "title": "Python, R, and Julia",
-    "section": "Filtering and Masking",
-    "text": "Filtering and Masking\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Boolean mask where A &gt; 1\nmask = df['A'] &gt; 1\nmasked_df = df[mask]\n\n\n# Logical filtering where A &gt; 1\nmasked_df &lt;- df %&gt;% filter(A &gt; 1)\n\n\n# Filter where A &gt; 1\nmasked_df = df[df.A .&gt; 1, :]"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#broadcasting-vectorized-ops",
-    "href": "pages/python_r_julia.html#broadcasting-vectorized-ops",
-    "title": "Python, R, and Julia",
-    "section": "Broadcasting (Vectorized Ops)",
-    "text": "Broadcasting (Vectorized Ops)\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Add new column as double of A\ndf['D'] = df['A'] * 2\n\n\n# Add new column as double of A\nmutated &lt;- df %&gt;% mutate(D = A * 2)\n\n\n# Add new column as double of A\ndf.D = df.A .* 2"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#mapping-transform",
-    "href": "pages/python_r_julia.html#mapping-transform",
-    "title": "Python, R, and Julia",
-    "section": "Mapping / Transform",
-    "text": "Mapping / Transform\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Apply function to column A\nmapped = df['A'].map(lambda x: x**2)\n\n\n# Apply function to column A\nmapped &lt;- df %&gt;% mutate(A_squared = A^2)\n\n\n# Apply function to column A\ndf.A_squared = df.A .^ 2"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#melt-pivot-longer",
-    "href": "pages/python_r_julia.html#melt-pivot-longer",
-    "title": "Python, R, and Julia",
-    "section": "Melt / Pivot Longer",
-    "text": "Melt / Pivot Longer\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Wide to long\nlong_df = pd.melt(df, id_vars=['A'], value_vars=['B', 'C'])\n\n\nlibrary(tidyr)\n\n# Wide to long\nlong_df &lt;- df %&gt;% pivot_longer(cols = c(B, C), names_to = \"variable\", values_to = \"value\")\n\n\nusing DataFrames\n\n# Wide to long\nlong_df = stack(df, [:B, :C], id_vars = [:A])"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#pivot-wider",
-    "href": "pages/python_r_julia.html#pivot-wider",
-    "title": "Python, R, and Julia",
-    "section": "Pivot Wider",
-    "text": "Pivot Wider\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Long to wide\nwide_df = long_df.pivot(index='A', columns='variable', values='value')\n\n\n# Long to wide\nwide_df &lt;- long_df %&gt;% pivot_wider(names_from = variable, values_from = value)\n\n\n# Long to wide\nwide_df = unstack(long_df, :A, :variable, :value)"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#group-by-summarize",
-    "href": "pages/python_r_julia.html#group-by-summarize",
-    "title": "Python, R, and Julia",
-    "section": "Group By & Summarize",
-    "text": "Group By & Summarize\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Group by A and calculate multiple summaries\nsummary = df.groupby('A').agg(\n    B_sum=('B', 'sum'),\n    C_mean=('C', 'mean')\n).reset_index()\n\n\n# Group by A and summarize multiple columns\nsummary &lt;- df %&gt;% \n  group_by(A) %&gt;% \n  summarize(\n    B_sum = sum(B),\n    C_mean = mean(C, na.rm = TRUE)\n  )\n\n\nusing Statistics\n\ngrouped = combine(groupby(df, :A),\n    :B =&gt; sum =&gt; :B_sum,\n    :C =&gt; mean =&gt; :C_mean)"
-  },
-  {
-    "objectID": "pages/python_r_julia.html#sorting",
-    "href": "pages/python_r_julia.html#sorting",
-    "title": "Python, R, and Julia",
-    "section": "Sorting",
-    "text": "Sorting\n\nPython (Pandas)R (Tidyverse)Julia (DataFrames.jl)\n\n\n# Sort by column A descending\nsorted_df = df.sort_values(by='A', ascending=False)\n\n\n# Sort by column A descending\nsorted_df &lt;- df %&gt;% arrange(desc(A))\n\n\n# Sort by column A descending\nsorted_df = sort(df, :A, rev=true)"
-  },
-  {
-    "objectID": "pages/terminal.html",
-    "href": "pages/terminal.html",
-    "title": "The terminal",
-    "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.\n\n\nthis primer before you go on.\nA terminal is a text-based interface that allows users to interact with the operating system by typing commands. It provides direct access to the system shell—a program that interprets user input and executes corresponding instructions.\nHistorically, “terminals” referred to physical devices (e.g., teletypewriters or CRT monitors) connected to mainframe computers. In modern computing, a terminal is typically a software application (e.g., Terminal on macOS, GNOME Terminal on Linux, Command Prompt or PowerShell on Windows) that emulates this interface.\nKey characteristics of a terminal include:\nCommand-Line Interface (CLI): Unlike graphical user interfaces (GUIs), a terminal requires textual input and returns textual output. Shell Access: The terminal runs a shell such as bash, zsh, or fish, which interprets and executes user commands (e.g., file manipulation, process control, networking). Script Execution: Users can run scripts, automate tasks, and chain commands using control operators (e.g., &&, |, &gt;, etc.). Remote Access: Terminals can be used to log into remote systems via protocols such as SSH, providing a low-overhead method for remote system administration and programming. The terminal is a powerful tool, particularly in software development, system administration, and high-performance computing. It enables reproducibility, fine-grained control, and automation, though it requires users to become familiar with a command language and often lacks the immediate feedback and discoverability of graphical interfaces.\nCtrl-C for abort\nYou also need a tool to open files and start jupyter notebook. It is also here that you will run franklin in order to download exercises. The terminal will already be installed and is called Terminal on OSX and Anaconda powershell on mac. When you open the terminal it should look like fig 1.1 on mac and fig 1.2 on windows’\n\n\n\nFigure 1.1\n\n\n\n\n\nFigure 1.2\n\n\nWhat is Anaconda powershell and this Terminal thing, you ask. Both programs are what we call terminal emulators. They are programs used to run other programs, like the ones you are going to write yourself. In this guide both Terminal and Anaconda Powershel will be refered to as “the terminal”\n\nNavigating folders via the terminal\nThe terminal is a very useful tool. To use it, howevever, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You simply type the command you want and then hit enter. The place where you type is called a prompt.\nWhen you open the terminal you’ll be located in a folder you are in by typing pwd and then press Enter on the keyboard. When you press Enter you tell the terminal to execute the command you just wrote. In this case, the command you typed simply tells you the path to the folder we are in. It would look something like this:\npwd /Users/kasper/programming\nIf the path above was your output you would be in the folder programming. /Users/kasper/programmingis the path or “full address” of the folder with dashes (or backslashes on windows) separating nested folders. So programmingis a subfolder of kasper which is a subfolder of Users. That way you not only know which folder you are in but also where that folder is. Let us see what is in this folder. On OSX you type the ls command (l as in Lima and s as in Sierra)\nls notes projects\nIt seems that there are two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command you must specify which folder you want to walk into (in this case notes). We do this by typing cd, then a space and the then name of the folder. When you press enter you then get:\ncd notes\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get:\npwd /Users/kasper/programming/notes",
-    "crumbs": [
-      "About",
-      "The terminal"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html",
-    "href": "pages/overview.html",
-    "title": "Outline and infrastructure",
-    "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.\nGitLab hosting: of repositories for exercises grouped by course, allowing for nested authentication privileges.\nDocker Integration: Franklin automates the process of launching Docker containers configured with JupyterLab, simplifying environment setup for users.\nConda and Pixi package Management: The tool supports building and publishing Conda packages, enabling automatic management of dependencies.\nContinuous integration: Franklin uses GitLab pipelines for continuous integration automating workflows for building, testing, and publishing docker images.\nNested plugin APIs: The project supports extensibility through plugins, such as the franklin-educator plugin, which adds Git and GitLab integration.\nAuto update: Once installed Franklin updates automatically through either conda or pixi. This ensures that any update or bugfix is automatically available to students.\nAutomated workflows: To accommodate educators with different computational skill levels, franklin supports three levels of automation to support exercise development.\nUser management: The admin API allow easy management of users and assigning rules as either guest, teaching assistant, professor, or administrator.",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#click",
-    "href": "pages/overview.html#click",
-    "title": "Outline and infrastructure",
-    "section": "Click",
-    "text": "Click",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#docker",
-    "href": "pages/overview.html#docker",
-    "title": "Outline and infrastructure",
-    "section": "Docker",
-    "text": "Docker",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#pixi",
-    "href": "pages/overview.html#pixi",
-    "title": "Outline and infrastructure",
-    "section": "Pixi",
-    "text": "Pixi",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#purpose",
-    "href": "pages/overview.html#purpose",
-    "title": "Outline and infrastructure",
-    "section": "Purpose",
-    "text": "Purpose",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#git",
-    "href": "pages/overview.html#git",
-    "title": "Outline and infrastructure",
-    "section": "Git",
-    "text": "Git",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#gitlab",
-    "href": "pages/overview.html#gitlab",
-    "title": "Outline and infrastructure",
-    "section": "GitLab",
-    "text": "GitLab",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#groupsubgroup-layout",
-    "href": "pages/overview.html#groupsubgroup-layout",
-    "title": "Outline and infrastructure",
-    "section": "Group/Subgroup layout",
-    "text": "Group/Subgroup layout",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#users-permissions-authentication",
-    "href": "pages/overview.html#users-permissions-authentication",
-    "title": "Outline and infrastructure",
-    "section": "Users / Permissions / Authentication",
-    "text": "Users / Permissions / Authentication\n\nThe franklin-admin plugin\nInstall the franklin-admin to administer users and course infrastructure.\nTODO",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#tokens",
-    "href": "pages/overview.html#tokens",
-    "title": "Outline and infrastructure",
-    "section": "Tokens",
-    "text": "Tokens",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#pipelines",
-    "href": "pages/overview.html#pipelines",
-    "title": "Outline and infrastructure",
-    "section": "Pipelines",
-    "text": "Pipelines\n\nAU hosting\n\n\nGitLab Franklin group\n\n\nGitLab Course subgroups\n\n\nGitLab exercise repositories",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#authentication",
-    "href": "pages/overview.html#authentication",
-    "title": "Outline and infrastructure",
-    "section": "Authentication",
-    "text": "Authentication\nWeb GUI: UNI-AD login\n\nAdmin\nKasper (and someone else for backup)\nssh keys\n\n\nVIP\nssh keys\n\n\nStudents\nRead-only token distributed with franklin.",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#docker-1",
-    "href": "pages/overview.html#docker-1",
-    "title": "Outline and infrastructure",
-    "section": "Docker",
-    "text": "Docker\n\nImage hierarchy\n\nBase images maintained in the Base\nCourse base images only refer to a versioned base image\n\n\n\nTemplates\n\nEvery course has a repo template with a docker file that that refers to the course base image\nThese templates are forked from franklin/base-templates/base-template\n\n\n\nTag policy\n\nFranklin base images are versioned and must referred to with their version tag\nCourse base images are tagged latest so that courses always pulls updated version.\nExercise images are always tagged latest, which is the tag franklin pulls",
-    "crumbs": [
-      "Outline and infrastructure"
-    ]
-  },
-  {
-    "objectID": "pages/overview.html#container-registry",
-    "href": "pages/overview.html#container-registry",
-    "title": "Outline and infrastructure",
-    "section": "Container registry",
-    "text": "Container registry\n\nimport os\n\ndef print_tree(dir_path, prefix=''):\n    entries = sorted(\n        [e for e in os.listdir(dir_path) if not e.startswith('.')]\n    )\n    last_index = len(entries) - 1\n\n    for i, entry in enumerate(entries):\n        path = os.path.join(dir_path, entry)\n        is_last = (i == last_index)\n        connector = '└── ' if is_last else '├── '\n        print(f\"{prefix}{connector}{entry}\")\n\n        if os.path.isdir(path):\n            extension = '    ' if is_last else '│   '\n            print_tree(path, prefix + extension)\n\n# Example usage:\nprint_tree(\".\")\n\n├── commands_admin.qmd\n├── commands_core.html\n├── commands_core.qmd\n├── commands_edu.qmd\n├── computer_setup.html\n├── computer_setup.qmd\n├── conda.html\n├── conda.qmd\n├── developing.html\n├── developing.qmd\n├── docker.qmd\n├── faq.html\n├── faq.qmd\n├── getting_started.qmd\n├── git.html\n├── git.qmd\n├── gitlab.html\n├── gitlab.qmd\n├── images\n│   ├── Screenshot 2025-05-31 at 11.05.53.png\n│   ├── Skærmbillede 2025-04-01 kl. 17.51.22.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.44.43.png\n│   ├── Skærmbillede 2025-05-22 kl. 16.45.05.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.39.22.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.40.10.png\n│   ├── Skærmbillede 2025-05-27 kl. 13.42.11.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.37.28.png\n│   ├── Skærmbillede 2025-05-28 kl. 14.52.02.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.22.07.png\n│   ├── Skærmbillede 2025-05-28 kl. 15.32.16.png\n│   ├── Skærmbillede 2025-05-29 kl. 16.19.09.png\n│   ├── Skærmbillede 2025-06-03 kl. 13.28.40.png\n│   ├── Skærmbillede 2025-06-03 kl. 14.25.30.png\n│   ├── Skærmbillede 2025-06-03 kl. 14.27.12.png\n│   ├── elephant.png\n│   ├── pipeline_example.png\n│   ├── pipeline_example_nomenu.png\n│   └── shell-command.png\n├── jupyterlab.html\n├── jupyterlab.ipynb\n├── jupyterlab_files\n│   └── figure-html\n│       ├── 19dd77de-85d6-4148-ad6b-1000e7e630e7-1-3129ad44-07b0-4a54-aab7-112f6b991d3c.png\n│       └── ee2ca318-6497-41ef-87c5-9e306291bbb4-1-114001ce-1f71-49de-972e-7128f491eee4.png\n├── numpy_and_pandas.html\n├── numpy_and_pandas.ipynb\n├── overview.qmd\n├── overview.quarto_ipynb\n├── plotting.html\n├── plotting.ipynb\n├── plotting_files\n│   └── figure-html\n│       ├── cell-26-output-1.png\n│       ├── cell-27-output-1.png\n│       ├── cell-28-output-1.png\n│       ├── cell-29-output-1.png\n│       └── cell-30-output-1.png\n├── python_r_julia.html\n├── python_r_julia.qmd\n├── sandbox.html\n├── sandbox.qmd\n├── ssh.html\n├── ssh.qmd\n├── student\n│   ├── _quarto.yml\n│   ├── au_fonts\n│   │   ├── AULogoBold.ttf\n│   │   ├── AULogoReg.ttf\n│   │   ├── AUPassata_Bold.ttf\n│   │   ├── AUPassata_Light.ttf\n│   │   ├── AUPassata_Rg.ttf\n│   │   └── AU_Peto.ttf\n│   ├── custom.scss\n│   ├── header_extra.tex\n│   ├── headers.lua\n│   └── index.qmd\n├── terminal.html\n├── terminal.qmd\n├── widgets.html\n├── widgets.ipynb\n└── widgets_files\n    └── figure-html\n        ├── cell-10-output-1.png\n        ├── cell-24-output-1.png\n        ├── cell-5-output-1.png\n        └── cell-6-output-1.png\n\n\nsrc/franklin\nfranklin\n|-- __init__.py\n|-- config.py\n|-- crash.py\n|-- cutie.py\n|-- data\n|-- desktop.py\n|-- docker.py\n|-- gitlab.py\n|-- jupyter.py\n|-- logger.py\n|-- options.py\n|-- system.py\n|-- terminal.py\n|-- update.py\n`-- utils.py\n-- data\n   |-- default_user_settings.json\n   |-- gitui\n   |   |-- key_bindings.ron\n   |   |-- key_symbols.ron\n   |   `-- theme.ron\n   |-- README.md\n   `-- template\n       |-- base\n       |   |-- Dockerfile\n       |   |-- entrypoint.sh\n       |   |-- README.md\n       |   `-- tagged-release.sh\n       `-- exercise\n           |-- Dockerfile\n           |-- exercise.ipynb\n           |-- franklin.log\n           |-- pixi.toml\n           `-- README.md",
-    "crumbs": [
-      "Outline and infrastructure"
+      "FAQ"
     ]
   },
   {
@@ -1027,14 +761,280 @@
     ]
   },
   {
-    "objectID": "pages/docker.html",
-    "href": "pages/docker.html",
-    "title": "Docker virtualization",
+    "objectID": "pages/commands_edu.html",
+    "href": "pages/commands_edu.html",
+    "title": "Developing exercises",
     "section": "",
-    "text": "Under development\n\n\n\nThe content of this page is being developed.\n\n\nHow Docker Bridges Operating Systems (Layman’s Explanation)\nImagine you have a piece of software that works perfectly on your computer, but when you give it to someone else, it breaks—maybe because they use a different version of Windows, macOS, or Linux, or they’re missing some necessary software. This is a common problem in software development, and Docker solves it by creating a kind of “portable box” for software.\nHere’s how it works in simple terms:\nDocker puts your software, along with everything it needs to run (like tools, libraries, and settings), into a container. Think of it like packing a suitcase that has exactly what your app needs—no more, no less. This container always behaves the same, no matter where you run it: your laptop, a colleague’s machine, a server in the cloud. That’s because Docker doesn’t rely on the local operating system to provide the right setup—it brings its own setup. Even if your computer runs macOS and someone else uses Linux, the Docker container will still work, because Docker acts like a translator. It uses the host system’s resources (CPU, memory, etc.), but keeps the software environment inside the container separate and consistent. Unlike virtual machines, which need to boot an entire operating system, Docker shares the core parts of the host OS, making containers much faster and lighter. In short: Docker bridges operating systems by wrapping your software in a self-contained box that includes everything it needs to run, and then letting that box run on almost any computer without worrying about differences between systems.\nDocker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers are lightweight, standalone, and executable software packages that include everything needed to run an application—code, runtime, system tools, libraries, and settings. This ensures that software behaves the same regardless of the environment in which it is executed.\nUnlike virtual machines, which replicate entire operating systems, Docker containers share the host OS kernel and isolate applications at the process level. This makes containers more efficient in terms of performance and resource utilization. Docker uses a layered filesystem and image caching to further optimize deployment speed and storage.\nDocker’s core components include:\nDocker Engine: The runtime that builds and runs containers. Docker Images: Immutable templates used to create containers, typically defined via Dockerfile scripts. Docker Containers: Instances of images that are executed with an isolated filesystem and environment. Docker Hub: A public registry for sharing and retrieving Docker images. Docker Compose: A tool for defining and running multi-container applications using YAML configuration. Docker is widely adopted in both development and production environments due to its ability to ensure reproducibility, simplify dependency management, and support scalable microservice architectures. It integrates with orchestration systems like Kubernetes and is a foundational technology in continuous integration and deployment (CI/CD) pipelines.\nDespite its benefits, Docker introduces complexity related to security, networking, and persistent storage, especially in distributed settings. Nonetheless, it remains a key tool for encapsulating environments and streamlining software delivery across heterogeneous computing platforms.",
+    "text": "Franklin is built for developing stable exercises, as well as for running them. The additional tools required for exercise creation and development are not part the core franklin package. Instead, it is distributed as the franklin-educator plugin. This setup ensures that educators use exactly the same code for testing exercises as students, while keeping the core student API lean and simple. To develop exercises, you must install both packages in an existing conda environment like this:\nOr make a new environment for just these packages using this command:",
+    "crumbs": [
+      "Using Franklin",
+      "Developing exercises"
+    ]
+  },
+  {
+    "objectID": "pages/commands_edu.html#create-a-new-exercise",
+    "href": "pages/commands_edu.html#create-a-new-exercise",
+    "title": "Developing exercises",
+    "section": "Create a new exercise",
+    "text": "Create a new exercise\nTo create a new blank exercise, you use the command:\n\n\nTerminal\n\nfranklin exercise new\n\nThe command presents you with menus to select your course and the name of the GitLab repository for the exercise. It then launches the GitLab settings page for the repository so you can add a title/name to the exercise and to make the repository public.",
+    "crumbs": [
+      "Using Franklin",
+      "Developing exercises"
+    ]
+  },
+  {
+    "objectID": "pages/commands_edu.html#exercise-edit-workflow",
+    "href": "pages/commands_edu.html#exercise-edit-workflow",
+    "title": "Developing exercises",
+    "section": "Exercise edit workflow",
+    "text": "Exercise edit workflow\nTo accommodate educators with different computational skill levels, franklin supports two different development workflows:\n\nAutomated: A fully automated (but rigid) workflow for absolute beginners and for quick edits by more advanced users.\nAssisted: A semi-automated workflow for intermediate users allowing more flexibility.\nSupported: A fully flexible approach based on vscode devcontainers catering for skilled users.\n\nTo begin an automated edit workflow, just run the command below and follow instructions carefully:\n\n\nTerminal\n\nfranklin exercise edit\n\nFor more information about edit workflows, see the tutorial about developing exercises.",
+    "crumbs": [
+      "Using Franklin",
+      "Developing exercises"
+    ]
+  },
+  {
+    "objectID": "pages/commands_edu.html#removing-archiving-an-exercise",
+    "href": "pages/commands_edu.html#removing-archiving-an-exercise",
+    "title": "Developing exercises",
+    "section": "Removing (archiving) an exercise",
+    "text": "Removing (archiving) an exercise\nGitLab exercises are not deleted. We archive them instead, which makes them invisible to students. To archive a repository, first run this command which opens the the repository settings page:\n\n\nTerminal\n\nfranklin exercise settings\n\nThen find expand the “Advanced” section as the bottom and click the blue button that says “Archive project”.",
+    "crumbs": [
+      "Using Franklin",
+      "Developing exercises"
+    ]
+  },
+  {
+    "objectID": "pages/computer_setup.html",
+    "href": "pages/computer_setup.html",
+    "title": "Computer setup",
+    "section": "",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.",
+    "crumbs": [
+      "Setting up",
+      "Computer setup"
+    ]
+  },
+  {
+    "objectID": "pages/computer_setup.html#install-python",
+    "href": "pages/computer_setup.html#install-python",
+    "title": "Computer setup",
+    "section": "Install Python",
+    "text": "Install Python\n\n\n\n\n\n\nWarning\n\n\n\nTo be decided if we use miniforge, miniconda or anaconda…\n\n\nIf you have not done so already, you should install a distribution of Python called Anaconda. Anaconda is not only an easy way of installing Python on Windows, Mac, and Linux; it also comes with the conda package management system (more about that later). To install Anaconda, visit this page. When the download completes, you must follow the default installation.",
+    "crumbs": [
+      "Setting up",
+      "Computer setup"
+    ]
+  },
+  {
+    "objectID": "pages/computer_setup.html#install-chrome",
+    "href": "pages/computer_setup.html#install-chrome",
+    "title": "Computer setup",
+    "section": "Install Chrome",
+    "text": "Install Chrome\nFranklin is built to interact with the Chrome browser. So you need to make sure that is installed on your computer. If not, you can download it here.",
+    "crumbs": [
+      "Setting up",
+      "Computer setup"
+    ]
+  },
+  {
+    "objectID": "pages/computer_setup.html#install-docker-desktop",
+    "href": "pages/computer_setup.html#install-docker-desktop",
+    "title": "Computer setup",
+    "section": "Install Docker Desktop",
+    "text": "Install Docker Desktop\nDocker is a tool that can run a small linux world in your computer. Franklin uses it to make sure Jupyter runs your exercise in exactly the same way, no matter which kind of computer you have. You do not need to known anything about Docker. Franklin will take care of the whole thing for you. If you are interested, though, you can have a look at this brief introduction to Docker.\nBefore you to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac. If you are downloading docker on a AU computer remember to activate admin privileges by activating Heimdal.\nIf you are unsure of how to activate Heimdal, follow the instructions given on this page\nGo to this page and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. On a Mac, you can find the name of your chip by clicking the apple icon in the upper left corner and choose “about this mac” in the dropdown menu. Apple silicon chips include M1, M2 and M3. Apple intel chips are named intel.\n\n\n\nalt text\n\n\nOn Windows, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip.\nDownload the version of Docker Desktop that matches your operating system and computer chip. Once downloaded, follow the installation instructions for your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens, a window pops up and asks if you want to sign in or create and account. An account is not necessary for using docker with franklin, so you can just click “skip” when prompted.\nWhen the installation procedure is complete and Docker is done starting up, you must it down. Just closing the blue Docker Dashboard window does not shut down Docker. You need to explicitly quit the program. To make sure it has quit, you can look for the little docker whale icon. In Mac is it in the menu bar. On Windows it is in the small popup menu at the right end of you task bar. If you see a small whale, Docker is still running. Click the whale icon and quit Docker.\n\n\n\nalt text\n\n\n\n\n\n\n\n\nWSL\n\n\n\nOn Windows, Docker Desktop may give you an error message saying “WSL 2 is required”. In that case, install WSL by running the following command into your terminal:\n\n\nTerminal\n\nwsl --install\n\n\n\n\nThe Terminal\nFranklin is a command-line application. That means it is executed by writing its name and any arguments in a “terminal” rather than clicking on an icon and using a graphical user interface. Many different programs can serve as a terminal.If you have a Windows machine, use the Anaconda Powershell Prompt (not the Anaconda Prompt and not the CMD). You installed Anaconda Powershell Prompt along with Anaconda Python. If you have a Mac, the terminal you will use is called Terminal. The Terminal application is pre-installed on Mac. From now on, whenever I refer to the terminal, I mean Anaconda Powershell Prompt on Windows and Terminal on Mac.\nI will will assume some familiarity with using a terminal and executing commands on the command line. If you have not used a terminal before, or if you are a bit rusty, you should run through this introduction before you go on.\n\n\nCreate a conda environment for Franklin\n\nYou must install packages and programs for your analyses and pipelines. Sometimes, however, the packages you need for one project conflict with the ones you need for other projects you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small world insulated from the rest of your Anaconda installation? Then, that small world would only contain the packages you needed for a single project. If each project had its isolated world, then there would be no such conflicts.\nFortunately, a tool lets you do just that, and its name is Conda. Conda’s small worlds are called “environments,” and you can create as many as you like. You can then switch between them as you switch between your bioinformatics projects. Conda also downloads and installs the packages for you, ensuring that the packages you install in each environment are compatible. It even makes sure to install packages (dependencies) required by the packages you install. By creating an environment for each project, the libraries installed for each project do not interfere. You can read more about conda environments and how to use them in this introduction.\nCreate an environment called franklin with franklin installed.\n\n\nTerminal\n\nconda create -y -n franklin -c conda-forge -c munch-group franklin\n\n\n\n\n\n\n\nFor educators\n\n\n\nEducators should also install franklin-educator like this:\n\n\nTerminal\n\nconda create -y -n franklin -c conda-forge -c munch-group franklin franklin-educator",
+    "crumbs": [
+      "Setting up",
+      "Computer setup"
+    ]
+  },
+  {
+    "objectID": "pages/computer_setup.html#test-your-setup",
+    "href": "pages/computer_setup.html#test-your-setup",
+    "title": "Computer setup",
+    "section": "Test your setup",
+    "text": "Test your setup\nIf you succesfully completed all the above steps, you should now be able to activate your franklin environment:\n\n\nTerminal\n\nconda activate franklin\n\nand run this command to update franklin to its newest version:\n\n\nTerminal\n\nfranklin update\n\nYou can learn about how to use franklin on this page.",
+    "crumbs": [
+      "Setting up",
+      "Computer setup"
+    ]
+  },
+  {
+    "objectID": "pages/gitlab.html",
+    "href": "pages/gitlab.html",
+    "title": "Gitlab server",
+    "section": "",
+    "text": "Under development\n\n\n\nThe content of this page is being developed.\nIntroduction to GitLab\nGitLab is a web-based DevOps platform that provides a complete suite of tools for software development, version control, and continuous integration/continuous deployment (CI/CD). At its core, GitLab is built around Git, a distributed version control system, but extends far beyond code hosting to support the full software development lifecycle in a single application.\nGitLab enables individuals and teams to collaborate on code by providing:\nGit repository management: Users can host, clone, branch, and merge Git repositories, with integrated access controls and audit trails. Issue tracking and project planning: Built-in tools for task management, including issue boards, milestones, labels, and epics, support Agile and Scrum workflows. CI/CD pipelines: GitLab CI/CD allows automatic building, testing, and deployment of code changes using pipelines defined in .gitlab-ci.yml. These pipelines are deeply integrated with the repository. Code review and collaboration: Merge requests (similar to pull requests) facilitate peer review, code discussion, and automated checks before integration. Security and compliance: GitLab offers features like container scanning, dependency scanning, and license compliance to support secure software supply chains. GitLab is available both as a hosted service (GitLab.com) and as a self-managed solution, which organizations can install on-premises or in private cloud environments. Its open-core model offers a free community edition and paid enterprise features.\nIn summary, GitLab is a comprehensive platform that combines source code management with DevOps capabilities, enabling teams to manage their entire development workflow—from planning and coding to testing, security, and deployment—in a single, cohesive environment.",
     "crumbs": [
       "About",
-      "Docker virtualization"
+      "Gitlab server"
     ]
+  },
+  {
+    "objectID": "pages/gitlab.html#set-up-gitlab",
+    "href": "pages/gitlab.html#set-up-gitlab",
+    "title": "Gitlab server",
+    "section": "set up gitlab",
+    "text": "set up gitlab\n\nsign in\nGo to gitlab by following this link On the sign-in page, choose the login option called login with Uni-add.\n\n\nSSH keys - what is that and why do i need it?\nSSH keys are a secure way to log in to remote systems or services without needing to enter a password each time. An SSH key works like a digital lock and key system. The private key is kept safely on your computer, while the matching public key is shared with the service you want to access. When you try to connect, the service checks that your private key matches the public one it has on file. If they match, access is granted automatically—no password required.\n\n\nHow do i get a SSH key?\nkaspers guide\n\n\ninsert SSH key to gitlab\nTo access your SSH keys you use the command: cat ~/.ssh/id_rsa.pub\nIt is very important that you choose the rsa.pub version.\nAfter you have run the command cat ~/.ssh/id_rsa.pub in your terminal a long line of letters and number will appear in your terminal. This is your SSH key. Now copy it and go back to the gitlab webpage\nThen press the icon on the top beside the picture that represent your profile and find the option called “edit profile” in the dropdown menu It should look like this: \nNow you should be able to see an option in the left side menu called ‘add new ssh key’. You press that and then you insert the copied ssh-key in the box.\nThe page should look something like the figure below: \nIn the bottom of the page, you can write an expiration date of your SSH key. In order to not have to enter a new SSH key, you can remove this.\nYou are now ready to use gitlab!",
+    "crumbs": [
+      "About",
+      "Gitlab server"
+    ]
+  },
+  {
+    "objectID": "pages/widgets.html",
+    "href": "pages/widgets.html",
+    "title": "Showcase",
+    "section": "",
+    "text": "import pandas as pd\nimport seaborn as sns\nimport plotwidgets as wp\n%config InlineBackend.figure_format = 'retina'\n\n#wp.set_options(max_figure_width=4)\n#wp.set_options(x=None, y=None, col=None, graphics=[sns.scatterplot, sns.boxplot], theme={'style': 'darkgrid', 'palette': 'colorblind'})\n\n\n---------------------------------------------------------------------------\nModuleNotFoundError                       Traceback (most recent call last)\nCell In[4], line 3\n      1 import pandas as pd\n      2 import seaborn as sns\n----&gt; 3 import plotwidgets as wp\n      4 get_ipython().run_line_magic('config', \"InlineBackend.figure_format = 'retina'\")\n      6 #wp.set_options(max_figure_width=4)\n      7 #wp.set_options(x=None, y=None, col=None, graphics=[sns.scatterplot, sns.boxplot], theme={'style': 'darkgrid', 'palette': 'colorblind'})\n\nModuleNotFoundError: No module named 'plotwidgets'"
+  },
+  {
+    "objectID": "pages/widgets.html#penguin-data",
+    "href": "pages/widgets.html#penguin-data",
+    "title": "Showcase",
+    "section": "Penguin data",
+    "text": "Penguin data\n\ndata = sns.load_dataset('penguins')\ndata.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale"
+  },
+  {
+    "objectID": "pages/widgets.html#the-plot-widget",
+    "href": "pages/widgets.html#the-plot-widget",
+    "title": "Showcase",
+    "section": "The plot widget",
+    "text": "The plot widget\n\nwp.seaborn(data)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nimport seaborn as sns\nsns.set_style({'style': 'darkgrid', 'palette': 'viridis'})                             \ng = sns.relplot(data, x='species', y='island', col='island', row='species', height=2, kind='scatter', \n                facet_kws=dict(margin_titles=True))\ng.set_titles(col_template=\"{col_name}\", row_template=\"{row_name}\")\ng.tight_layout() ;\n\n\n\n\n\n\n\n\n\nimport seaborn as sns\nsns.set_style({'style': 'darkgrid', 'palette': 'viridis'})                             \nsns.relplot(data, x='bill_length_mm', y='bill_depth_mm', hue='flipper_length_mm', \n            row='island', col='species', \n            palette='viridis', kind='scatter', height=2) ;\n\n\n\n\n\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='body_mass_g', hue='body_mass_g', #plot='boxplot',\n           col='species'\n          )\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data, #plot='scatterplot', \n           x='bill_length_mm', y='body_mass_g', hue='body_mass_g', col='species')\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='sex', #plot='scatterplot', \n          # palette='colorblind'\n          )\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsns.scatterplot(data, x='bill_length_mm', y='bill_depth_mm', hue='sex', \n              #  palette='colorblind'\n               )\n\n\n\n\n\n\n\n\n\nwp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm', hue='body_mass_g', \n           # style='sex', \n           # size='body_mass_g', \n           col='species', row='island',\n          wrap=3, theme={'palette': 'Set1'})\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[24], line 1\n----&gt; 1 wp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm', hue='body_mass_g', \n      2            # style='sex', \n      3            # size='body_mass_g', \n      4            col='species', row='island',\n      5           wrap=3, theme={'palette': 'Set1'})\n\nTypeError: seaborn() got an unexpected keyword argument 'wrap'\n\n\n\n\nwp.seaborn(data, plot='boxplot', x='species', y='bill_depth_mm')\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[25], line 1\n----&gt; 1 wp.seaborn(data, plot='boxplot', x='species', y='bill_depth_mm')\n\nTypeError: seaborn() got an unexpected keyword argument 'plot'\n\n\n\n\nwp.seaborn(data, plot='histplot', x='bill_depth_mm', hue='sex', row='species', col='island')\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[26], line 1\n----&gt; 1 wp.seaborn(data, plot='histplot', x='bill_depth_mm', hue='sex', row='species', col='island')\n\nTypeError: seaborn() got an unexpected keyword argument 'plot'\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', row='species', col='island')\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm')\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm', graphics=[sns.lmplot])\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[30], line 1\n----&gt; 1 wp.seaborn(data=data, x='bill_length_mm', y='bill_depth_mm', graphics=[sns.lmplot])\n\nTypeError: seaborn() got an unexpected keyword argument 'graphics'\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='species', graphics=[sns.lmplot])\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[31], line 1\n----&gt; 1 wp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='species', graphics=[sns.lmplot])\n\nTypeError: seaborn() got an unexpected keyword argument 'graphics'\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', graphics=[sns.scatterplot])\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[32], line 1\n----&gt; 1 wp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', graphics=[sns.scatterplot])\n\nTypeError: seaborn() got an unexpected keyword argument 'graphics'\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='species', graphics=[sns.kdeplot])\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[33], line 1\n----&gt; 1 wp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='species', graphics=[sns.kdeplot])\n\nTypeError: seaborn() got an unexpected keyword argument 'graphics'\n\n\n\n\n\n\n\n\n\n\n\n\n\nwp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='sex', plot='scatterplot', palette='colorblind')\n\n\n---------------------------------------------------------------------------\nTypeError                                 Traceback (most recent call last)\nCell In[34], line 1\n----&gt; 1 wp.seaborn(data, x='bill_length_mm', y='bill_depth_mm', hue='sex', plot='scatterplot', palette='colorblind')\n\nTypeError: seaborn() got an unexpected keyword argument 'plot'\n\n\n\n\ng = sns.FacetGrid(data, row='species', col='island', hue='sex')\ng.map_dataframe(sns.regplot, x='bill_depth_mm', y='bill_length_mm')"
+  },
+  {
+    "objectID": "pages/plotting.html",
+    "href": "pages/plotting.html",
+    "title": "Plotting with Python",
+    "section": "",
+    "text": "import matplotlib.pyplot as plt\nimport seaborn as sns\nimport pandas as pd\nsns.set_style(\"darkgrid\")\n\n# make graphics sharper on a good screen\nfrom matplotlib_inline.backend_inline import set_matplotlib_formats\nset_matplotlib_formats('retina', 'png')\npenguins = sns.load_dataset(\"penguins\")\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nMale\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nFemale\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nFemale\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nFemale\nplt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm) ;  # semi colon makes last value None\nsns.set_style(\"ticks\")\n# sns.set_style(\"darkgrid\")\n# sns.set_style(\"whitegrid\")\n# sns.set_style(\"white\")\n# sns.set_style(\"dark\")\n\nplt.scatter(penguins.bill_length_mm, penguins.flipper_length_mm)\nsns.despine()\nplt.hist(penguins.bill_length_mm) ;",
+    "crumbs": [
+      "Tutorials",
+      "Plotting with Python"
+    ]
+  },
+  {
+    "objectID": "pages/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
+    "href": "pages/plotting.html#facetgrid.map-vs.-facetgrid.map_dataframe",
+    "title": "Plotting with Python",
+    "section": "FacetGrid.map vs. FacetGrid.map_dataframe",
+    "text": "FacetGrid.map vs. FacetGrid.map_dataframe\nWhen you use FacetGrid.map(func, \"col1\", \"col2\", ...), the function func is passed the values of the columns \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …). In addition, the function always receives a keyword argument named color=.\n\ndef scatter(*args, **kwargs):\n    return plt.scatter(args[0], args[1], **kwargs)\n    \ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(scatter, \"bill_length_mm\", \"flipper_length_mm\") ;\n\nWhen you use FacetGrid.map_dataframe(func, \"col1\", \"col2\", ...), the function func is passed the names \"col1\" and \"col2\" (and more if needed) as parameters 1 and 2 (args[0], args[1], …), and the filtered dataframe as keyword argument data=. In addition, the function always receives a keyword argument named color=.\n\ndef scatterplot(*args, **kwargs):\n    return sns.scatterplot(x=args[0], y=args[1], **kwargs)\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map_dataframe(scatterplot, \"bill_length_mm\", \"flipper_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.histplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\ng = sns.FacetGrid(penguins, row=\"sex\", col=\"island\", hue=\"species\") ;\ng.map(sns.kdeplot, \"bill_length_mm\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"species\") ;\n\n\n\n\n\n\n\n\n\nsns.pairplot(penguins, hue=\"sex\") ;",
+    "crumbs": [
+      "Tutorials",
+      "Plotting with Python"
+    ]
+  },
+  {
+    "objectID": "pages/commands_core.html",
+    "href": "pages/commands_core.html",
+    "title": "Running exercises",
+    "section": "",
+    "text": "Franklin is a command line tool that your run from a terminal. If you are not famililiar with terminals, have a look at this brief introduction before you go on.\nFranklin uses the click library to define a hierarchy of commands and subcommands that you can run in the terminal. franklin is the main command and has the subcommands download, jupyter, update, show, and cleanup. To run each subcommand, you simply append it to franklin, E.g. franklin jupyter. The following sections explain what each subcommand do. Should you forget, you can always just run the main franklin command like this:\nThat will print the following help text to remind you.",
+    "crumbs": [
+      "Using Franklin",
+      "Running exercises"
+    ]
+  },
+  {
+    "objectID": "pages/commands_core.html#run-jupyter",
+    "href": "pages/commands_core.html#run-jupyter",
+    "title": "Running exercises",
+    "section": "Run Jupyter",
+    "text": "Run Jupyter\nIn order to open and run the downloaded jupyter notebook, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:\n\n\nTerminal\n\nfranklin jupyter\n\n\n\nClick to see what Franklin does\n\n\ncheck for updates\ncheck internet connection\ncheck enough disk space is available\nchecks that docker is installed\nstarts docker in the background\nFinds the course git repositories in the franklin group.\nPresents you with a list of courses to choose from.\nFinds the git repositories in the course group that are visible to students.\nMatch docker images in the registry to exercise repositories.\nPresents you with a list of exercises to choose from.\nStarts docker and waits for its engine boot up.\nPulls the docker image from the registry if it is not already on your computer.\nLaunches a Linux docker container running with all dependencies installed.\nMakes the container mount the folder with your local files so you can open them in JupyterLab.\nFind an open port if port 8888 is already in use.\nLaunches JupyterLab and forwards the display to a dedicated Google Chrome browser window.\nWaits until you close the Chrome window.\nStops jupyter and the docker container it runs in.\nCloses Docker Desktop\n\n\nJupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press Ctrl-C in the terminal window (remember to save your notebook first).\n\n\n\n\n\n\nSubdirectories\n\n\n\nIf the your terminal shows a message saying “You have subdirectories in your current directory”, the folder (directory) from which you ran the franklin jupyter command has other directory in it. For security reasons, Franklin does not allow this. You need to either change to the exercise folder (which has no directory in it), or launch Franklin from another without any subdirectories.",
+    "crumbs": [
+      "Using Franklin",
+      "Running exercises"
+    ]
+  },
+  {
+    "objectID": "pages/commands_core.html#update-franklin",
+    "href": "pages/commands_core.html#update-franklin",
+    "title": "Running exercises",
+    "section": "Update franklin",
+    "text": "Update franklin\nFranklin should update automatically when you start it, but if you should need to update it manually you can do it running this command:\n\n\nTerminal\n\nfranklin update\n\n\n\nClick to see what Franklin does\n\n\nChecks for updates to franklin package using either Conda or Pixi dependeing on how franklin is installed.\nDetermines if you are a student or educator.\nUpdates franklin if a newer version exists.\nUpdates the franklin-educator package if you are an educator.\nCloses franklin reporting the update if any.\n\n\nYou can also see which version of franklin you have installed by running franklin --version.",
+    "crumbs": [
+      "Using Franklin",
+      "Running exercises"
+    ]
+  },
+  {
+    "objectID": "pages/commands_core.html#cleanup-after-franklin",
+    "href": "pages/commands_core.html#cleanup-after-franklin",
+    "title": "Running exercises",
+    "section": "Cleanup after Franklin",
+    "text": "Cleanup after Franklin\nTo free up disk space, you can run the command below. You will be prompted with a menu showing the “docker images” on your computer. Select all the ones you want to remove and press Enter. Deleting images will not delete any of your own files with saved work.\n\n\nTerminal\n\nfranklin cleanup\n\n\n\nClick to see what Franklin does\n\n\nStarts docker and waits for its engine boot up.\nFinds the exercise stored as docker images on your computer.\nPrompts you with the list of exercises (images), allowing you to select the ones you want to remove.\nCloses all docker containers for those images.\nRemoves the selected images\nPrunes all unused data cached by Docker.\n\n\nMake a habit of running franklin cleanup once in a while. This does not affect any of your own files. The only drawback is that you will have to wait a bit while Franklin downloads images again, should you need them at a later point.",
+    "crumbs": [
+      "Using Franklin",
+      "Running exercises"
+    ]
+  },
+  {
+    "objectID": "pages/commands_core.html#show-what-franklin-has-on-your-computer",
+    "href": "pages/commands_core.html#show-what-franklin-has-on-your-computer",
+    "title": "Running exercises",
+    "section": "Show what Franklin has on your computer",
+    "text": "Show what Franklin has on your computer\nIf you are curious, you can use the franklin show subcommands to see what Docker has stored on your computer. The sub commands are images, containers, and storage. To see a summary of how much disk space Docker takes up on your computer for what purpose, you can run this command:\n\n\nTerminal\n\nfranklin show storage\n\nFranklin downloads a linux “docker image” for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later. To see the images downloaded to your computer and how much space they take up, you can run this command:\n\n\nTerminal\n\nfranklin show images\n\nFranklin starts a Docker Linux container when you run franklin jupyter. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later. To see the images downloaded to your computer and how much space they take up, you can run this command:\n\n\nTerminal\n\nfranklin show images",
+    "crumbs": [
+      "Using Franklin",
+      "Running exercises"
+    ]
+  },
+  {
+    "objectID": "pages/commands_core.html#live-action",
+    "href": "pages/commands_core.html#live-action",
+    "title": "Running exercises",
+    "section": "Live action",
+    "text": "Live action",
+    "crumbs": [
+      "Using Franklin",
+      "Running exercises"
+    ]
+  },
+  {
+    "objectID": "pages/sandbox.html",
+    "href": "pages/sandbox.html",
+    "title": "Sandbox",
+    "section": "",
+    "text": "To quickly get a feel for Jupyter and to browse tutorials, visit the JupyterLite Sandbox. JupyterLite is a JupyterLab distribution that runs entirely in the browser\nJupyterLite emulates the behavior of JupyterLab and Python and runs entirely in the browser. It does not access your local files. So to use it, you need to upload and download notebooks you want to play with. Still in development, JupyterLite does not include all JupyterLab features.\nTry the sandbox"
+  },
+  {
+    "objectID": "api/run.html",
+    "href": "api/run.html",
+    "title": "run",
+    "section": "",
+    "text": "franklin.docker.run(image_url)\nRuns a container from an image.\n\n\n\nimage_url : str\n\nImage URL.\n\n\n\n\n\n\n : Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#parameters",
+    "href": "api/run.html#parameters",
+    "title": "run",
+    "section": "",
+    "text": "image_url : str\n\nImage URL.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/run.html#returns",
+    "href": "api/run.html#returns",
+    "title": "run",
+    "section": "",
+    "text": ": Tuple[Popen, str]\n\nTuple of subprocess handle for ‘docker run’ and host port used for jupyter display.",
+    "crumbs": [
+      "Docker",
+      "run"
+    ]
+  },
+  {
+    "objectID": "api/launch_exercise.html",
+    "href": "api/launch_exercise.html",
+    "title": "launch_exercise",
+    "section": "",
+    "text": "launch_exercise\nfranklin.jupyter.launch_exercise()"
   }
 ]
