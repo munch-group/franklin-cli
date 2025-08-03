@@ -68,7 +68,7 @@ Once open in vscode, click "Reopen in Container" if prompted, or otherwise use C
 
 ![alt text](<images/Screenshot 2025-05-31 at 11.05.53.png>)
 
-Vscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the `prod` jupyter kernel among the environments available. For an introduction to jupyter in vscode, see [Using notebooks in vscode](https://code.visualstudio.com/docs/datascience/jupyter-notebooks).
+Vscode now builds the container (which takes a while), and then reopens the exercise folder in the linux container dedicated to the exercise. You can use this to run/develop the jupyter notebook. Make sure you select the `franklin` jupyter kernel among the environments available. For an introduction to jupyter in vscode, see [Using notebooks in vscode](https://code.visualstudio.com/docs/datascience/jupyter-notebooks).
 
 
 If you need to install and use third-party python packages (e.g. `pandas`), these packages must be added as dependencies to the docker image. To do this, open vscode's terminal window and install pixi by running this command: 
