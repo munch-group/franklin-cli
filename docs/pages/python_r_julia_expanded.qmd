@@ -1291,4 +1291,4 @@ Choose based on your specific needs, team expertise, and project requirements. M
 - [Julia Documentation](https://docs.julialang.org/)
 - [Julia Data Science](https://juliadatascience.io/)
 
-Happy coding in your language of choice! 🐍📊📈
+Happy coding in your language of choice!

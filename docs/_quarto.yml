@@ -71,7 +71,7 @@ website:
             - pages/python_users_guide.qmd
             - pages/commands_core.qmd
             - pages/commands_edu.qmd
-            # - pages/commands_admin.qmd
+            - pages/commands_admin.qmd
         - section: "Developer Resources"
           contents:
             - pages/developer_guide.qmd
@@ -79,14 +79,22 @@ website:
             - pages/overview.qmd
         - section: "Tutorials"
           contents:
+            - pages/jupyterlab.ipynb
+            - pages/jupyterlab_complete.ipynb
             - pages/numpy_and_pandas.ipynb
+            - pages/numpy_pandas_comprehensive.ipynb
             - pages/python_r_julia.qmd
             - pages/plotting.ipynb
-            - pages/jupyterlab.ipynb
+            - pages/plotting_expanded.ipynb
+            - pages/python_r_julia_expanded.qmd
+            - pages/widgets.ipynb
+            - pages/widgets_expanded.ipynb
+
         - section: "Setup & Configuration"
           contents:
             - pages/computer_setup.qmd
             - pages/automatic_updates.qmd
+            - pages/pixi.qmd
             - pages/conda.qmd
             - pages/docker.qmd
             - pages/gitlab.qmd
@@ -172,4 +180,3 @@ quartodoc:
     #     Some description...
     #   contents:
     #     - scriptname
-

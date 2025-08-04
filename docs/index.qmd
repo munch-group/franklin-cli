@@ -14,7 +14,7 @@ Franklin is an open-source platform that makes teaching and learning with Jupyte
 ::: {.grid}
 
 ::: {.g-col-12 .g-col-md-4}
-### 🎓 **Students**
+### **Students**
 New to programming? Start here for a gentle introduction.
 
 - [Beginner's Guide](pages/getting_started_beginners.qmd) - Complete setup walkthrough
@@ -36,7 +36,7 @@ franklin jupyter
 :::
 
 ::: {.g-col-12 .g-col-md-4}
-### 🧑‍🏫 **Educators**
+### **Educators**
 Create and distribute exercises that work everywhere.
 
 - [Educator Guide](pages/commands_edu.qmd) - Exercise management
@@ -52,7 +52,7 @@ franklin exercise edit
 :::
 
 ::: {.g-col-12 .g-col-md-4}
-### 💻 **Developers**
+### **Developers**
 Extend Franklin or contribute to the project.
 
 - [Developer Guide](pages/developer_guide.qmd) - Architecture & contributing
@@ -72,22 +72,22 @@ pip install -e .
 
 ::: {.features}
 
-### 🚀 **Zero Setup Frustration**
+### **Zero Setup Frustration**
 Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically.
 
-### 🔧 **Works Everywhere**
+### **Works Everywhere**
 Same experience on Windows, Mac, and Linux. No more "works on my machine" problems. Every student sees identical results.
 
-### 📦 **Smart Dependencies**
+### **Smart Dependencies**
 Automatic dependency detection from notebook imports. Uses Pixi, a modern, fast package manager that ensures reproducible environments across all platforms.
 
-### 🐳 **Container Isolation**
+### **Container Isolation**
 Each exercise runs in its own Docker container. No conflicts between courses, no pollution of system Python, complete isolation.
 
-### 🔄 **Auto Updates**
+### **Auto Updates**
 Franklin and exercises update automatically. Bug fixes and improvements reach all students instantly without manual intervention.
 
-### 🎯 **Education Focused**
+### **Education Focused**
 Designed specifically for teaching. Features like exercise templates, automated testing, and GitLab integration streamline the educational workflow.
 
 :::
