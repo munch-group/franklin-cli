@@ -66,6 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../pages/getting_started_beginners.html" rel="next">
+<link href="../index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -75,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-a986a95301e671fce2c6472dffc862a1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -178,6 +179,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -570,10 +577,65 @@ pip install -e .
 ::: -->
 <!-- ## Why Franklin? -->
 <!-- ::: {.features} -->
-<div class="smaller">
-<p><strong>Zero Setup Frustration</strong>: Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically. <br> <strong>Works Everywhere</strong>: Same experience on Windows, Mac, and Linux. No more “works on my machine” problems. Every student sees identical results. <br> <strong>Smart Dependencies</strong>: Automatic dependency detection from notebook imports. Uses Pixi, a modern, fast package manager that ensures reproducible environments across all platforms. <br> <strong>Container Isolation</strong>: Each exercise runs in its own Docker container. No conflicts between courses, no pollution of system Python, complete isolation. <br> <strong>Auto Updates</strong>: Franklin and exercises update automatically. Bug fixes and improvements reach all students instantly without manual intervention. <br> <strong>Education Focused</strong>: Designed specifically for teaching. Features like exercise templates, automated testing, and GitLab integration streamline the educational workflow. <br> <strong>Empowering</strong>: Acquired skills not limited to the a outside cloud-based learning environment. Franklin opens JupyterLab in your own browser, using your own CPU to run notebooks in your own folders. <br></p>
-</div>
+<!-- ::: {.smaller}
+
+**Zero Setup Frustration**: Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically. <br>
+**Works Everywhere**: Same experience on Windows, Mac, and Linux. No more "works on my machine" problems. Every student sees identical results. <br>
+**Smart Dependencies**: Automatic dependency detection from notebook imports. Uses Pixi, a modern, fast package manager that ensures reproducible environments across all platforms. <br>
+**Container Isolation**: Each exercise runs in its own Docker container. No conflicts between courses, no pollution of system Python, complete isolation. <br>
+**Auto Updates**: Franklin and exercises update automatically. Bug fixes and improvements reach all students instantly without manual intervention. <br>
+**Education Focused**: Designed specifically for teaching. Features like exercise templates, automated testing, and GitLab integration streamline the educational workflow. <br>
+**Empowering**: Acquired skills not limited to the a outside cloud-based learning environment. Franklin opens JupyterLab in your own browser, using your own CPU to run notebooks in your own folders. <br>
+
+::: -->
 <!-- ::: -->
+<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"></p>
+<div class="grid">
+<div class="g-col-12 g-col-md-4">
+<p><i class="bi bi-cup-hot"></i> <strong>No Setup Frustration</strong>: <br>Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically.</p>
+</div>
+<div class="g-col-12 g-col-md-4">
+<p><i class="bi bi-laptop"></i> <strong>No Platform Issues</strong>: <br>Same experience on Windows, Mac, and Linux. No more “it worked on my machine” problems for educators. Every student sees identical comparable results.</p>
+</div>
+<div class="g-col-12 g-col-md-4">
+<p><i class="bi bi-arrow-repeat"></i> <strong>Smart Dependencies</strong>: <br>Automatic dependency detection from notebook imports. Uses Pixi, a fast package manager that ensures reproducible environments across platforms.</p>
+</div>
+<div class="g-col-12 g-col-md-4">
+<p><i class="bi bi-box-seam"></i> <strong>Container Isolation</strong>: <br>Each exercise is developed and run in its own Docker container. No conflicts between courses or exercises, no pollution of system Python, complete isolation.</p>
+</div>
+<div class="g-col-12 g-col-md-4">
+<p><i class="bi bi-cloud-download"></i> <strong>Auto Updates</strong>: <br>Franklin and its plugins update automatically. Bug fixes and improvements reach all students instantly. No more manual intervention or repeated trouble shooting.</p>
+</div>
+<div class="g-col-12 g-col-md-4">
+<p><i class="bi bi-bug"></i> <strong>Automatic error reports</strong>: Should Franklin crash, it submits a fully documented GitHub issue, unless the same issue is already submitted. No more troubleshooting with students.</p>
+</div>
+<div class="g-col-12 g-col-md-4">
+<p><i class="bi bi-git"></i> <strong>Backed by Git</strong>: <br>Uses institution GitLab server for hosting exercise repositories grouped by course. Uses GitLab pipelines to automate building and hosting of Docker images.</p>
+</div>
+<!-- ::: {.g-col-12 .g-col-md-4}
+
+<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
+
+:::
+
+::: {.g-col-12 .g-col-md-4}
+
+<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
+
+:::
+
+::: {.g-col-12 .g-col-md-4}
+
+<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
+
+::: -->
+<div class="g-col-12 g-col-md-4">
+<p><i class="bi bi-battery-full"></i> <strong>Batteries included</strong>: <br>Multilayered design supports educators at any skill levels. Example notebooks provide plug an play notebook templates for developing exercises.</p>
+</div>
+<div class="g-col-12 g-col-md-4">
+<p><i class="bi bi-rocket-takeoff"></i> <strong>Student Empowering</strong>: <br>Acquired skills not limited to some cloud-based learning environment. Franklin opens JupyterLab in your own browser, uses your own CPU to run notebooks in your own folders.</p>
+</div>
+</div>
 <section id="key-features" class="level2">
 <h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -1567,6 +1629,9 @@ Next Steps
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="Franklin">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Franklin</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../pages/getting_started_beginners.html" class="pagination-link" aria-label="Franklin for Beginners">
