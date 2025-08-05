@@ -173,3 +173,5 @@ pixi.lock
 # pixi environments
 .pixi
 *.egg-info
+
+.claude/
