@@ -38,10 +38,49 @@ class UpdateCrash(Crash):
 def gather_crash_info(include_log=True) -> str:
     """
     Gathers information about the system and the crash.
+    
+    Parameters
+    ----------
+    include_log : bool, optional
+        Whether to include franklin.log contents, by default True.
+    
+    Returns
+    -------
+    str
+        Formatted crash information including system details and logs.
     """
     info = f"python: {sys.executable}\n"
     info += f'franklin: {package_version("franklin")}\n'    
     info += f'franklin-educator: {package_version("franklin-educator")}\n'
+    info += f'franklin-admin: {package_version("franklin-admin")}\n'
+    info += f'franklin-container: {package_version("franklin-container")}\n'
+    
+    # Add package manager and installation method info
+    if '.pixi' in sys.executable:
+        info += "python_environment: pixi\n"
+    elif 'conda' in sys.executable or 'miniconda' in sys.executable:
+        info += "python_environment: conda\n"
+    else:
+        info += "python_environment: unknown\n"
+    
+    # Check actual installation method
+    try:
+        from . import update
+        franklin_install = update.detect_installation_method('franklin')
+        info += f"franklin_installed_via: {franklin_install}\n"
+        
+        # Check plugins if installed
+        for plugin in ['franklin-educator', 'franklin-admin', 'franklin-container']:
+            try:
+                plugin_install = update.detect_installation_method(plugin)
+                if plugin_install != 'unknown':
+                    info += f"{plugin}_installed_via: {plugin_install}\n"
+            except:
+                pass
+    except Exception as e:
+        info += f"installation_detection_error: {e}\n"
+    
+    # System information
     for k, v in platform.uname()._asdict().items():
         info += f"{k}: {v}\n"
     info += f"platform: {platform.platform()}\n"
@@ -51,11 +90,43 @@ def gather_crash_info(include_log=True) -> str:
     info += f"python compiler: {platform.python_compiler()}\n"
     info += f"python build: {platform.python_build()}\n"
     info += f"python implementation: {platform.python_implementation()}\n"
+    
+    # Add update status if available
+    try:
+        from pathlib import Path
+        update_status_file = Path.home() / '.franklin' / 'update_status.json'
+        if update_status_file.exists():
+            with open(update_status_file, 'r') as f:
+                update_data = json.load(f)
+            info += f"\n\nUpdate Status:\n"
+            info += f"last_check: {update_data.get('last_check', 'unknown')}\n"
+            info += f"last_success: {update_data.get('last_success', 'unknown')}\n"
+            info += f"failed_attempts: {update_data.get('failed_attempts', 0)}\n"
+            if update_data.get('error_history'):
+                info += f"recent_errors: {len(update_data['error_history'])}\n"
+                # Include last error
+                last_error = update_data['error_history'][-1]
+                info += f"last_error: {last_error.get('error', 'unknown')}\n"
+                info += f"last_error_time: {last_error.get('timestamp', 'unknown')}\n"
+    except Exception as e:
+        info += f"\n\nUpdate status unavailable: {e}\n"
 
     if include_log:
+        log = ''
         if os.path.exists('franklin.log'):
-            with open('franklin.log', 'r') as f:
-                log = f.read()
+            try:
+                with open('franklin.log', 'r') as f:
+                    # Only include last 1000 lines to avoid huge crash reports
+                    lines = f.readlines()
+                    if len(lines) > 1000:
+                        log = f"[... truncated {len(lines) - 1000} lines ...]\n"
+                        log += ''.join(lines[-1000:])
+                    else:
+                        log = ''.join(lines)
+            except Exception as e:
+                log = f"Failed to read log file: {e}\n"
+        else:
+            log = "No franklin.log file found\n"
         info += f"\n\nFranklin log:\n{log}\n"
 
     return info

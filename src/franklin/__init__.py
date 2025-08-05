@@ -42,7 +42,7 @@ franklin.add_command(_docker.docker)
 
 franklin.add_command(_gitlab.download)
 
-franklin.add_command(_docker.cleanup)
+franklin.add_command(_docker.cleanup_all_command)
 
 franklin.add_command(_docker.show)
 

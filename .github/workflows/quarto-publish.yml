@@ -12,7 +12,8 @@ permissions:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: macos-latest
     
     steps:
       - name: Check out repository
@@ -40,7 +41,7 @@ jobs:
           # version: SPECIFIC-QUARTO-VERSION-HERE
 
       - name: Render Quarto Project - default profile
-        uses: quarto-dev/quarto-actions/render@v2
+        uses: quarto-dev/quarto-actions/render@v2.1.9
         env:
           QUARTO_PROFILE: default
         with:

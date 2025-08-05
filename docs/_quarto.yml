@@ -61,6 +61,7 @@ website:
       style: floating
       align: left
       contents:
+        - index.qmd
         - section: "Getting Started"
           contents:
             - pages/getting_started.qmd

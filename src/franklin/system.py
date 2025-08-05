@@ -12,7 +12,7 @@ import subprocess
 import time
 import requests
 from functools import wraps
-from typing import List, Dict, Any, Callable, Optional, Union
+from typing import List, Any, Callable, Optional, Union
 
 from .logger import logger
 from . import config as cfg
@@ -328,7 +328,7 @@ def check_internet_connection() -> bool:
     on connection failure. The return type annotation may be misleading.
     """
     try:
-        request = requests.get("https://hub.docker.com/", timeout=10)    
+        requests.get("https://hub.docker.com/", timeout=10)    
         logger.debug("Internet connection OK.")
         return True
     except (requests.ConnectionError, requests.Timeout) as exception:
@@ -374,9 +374,9 @@ def internet_ok(func: Callable[..., Any]) -> Callable[..., Any]:
     @wraps(func)
     def wrapper(*args, **kwargs):
         try:
-            request = requests.get("https://hub.docker.com/", timeout=10)    
+            requests.get("https://hub.docker.com/", timeout=10)    
             logger.debug("Internet connection OK.")
-        except (requests.ConnectionError, requests.Timeout) as exception:
+        except (requests.ConnectionError, requests.Timeout):
             term.boxed_text(
                 f"No internet", 
                 ['Franklin needs an internet connection to update'],
@@ -446,11 +446,11 @@ def fake_progress_bar(label: str) -> None:
     - Applies Franklin's progress bar styling options
     - Purely cosmetic - provides no actual progress tracking
     """
-        label = label.ljust(cfg.pg_ljust)
-        with click.progressbar(label=label, length=100, **cfg.pg_options) as b:
-            for i in range(100):
-                time.sleep(0.01)
-                b.update(1)
+    label = label.ljust(cfg.pg_ljust)
+    with click.progressbar(label=label, length=100, **cfg.pg_options) as b:
+        for _ in range(100):
+            time.sleep(0.01)
+            b.update(1)
 
 
 def check_free_disk_space() -> None:

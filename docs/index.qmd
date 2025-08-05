@@ -1,99 +1,12 @@
 ---
 title: Franklin
 subtitle: "Making Jupyter-based Education Accessible to Everyone"
-# aliases:
-#   - ../index.html
+sidebar: false
+page-layout: full
+toc: false
 ---
 
-<!-- 
-::: {.hero-banner}
-
-## Welcome to Franklin
-
-Franklin is an open-source platform that makes teaching and learning with Jupyter notebooks simple, reliable, and accessible—regardless of technical expertise.
-:::
-
-## Choose Your Path
-
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-4}
-### Students
-New to programming? Start here for a gentle introduction.
-
-- [Beginner's Guide](pages/getting_started_beginners.qmd) - Complete setup walkthrough
-- [Quick Reference](pages/quick_reference.qmd) - All commands at a glance
-- [Troubleshooting](pages/troubleshooting.qmd) - Solutions to common issues
-
-Get started in 5 minutes:
-```bash
-# Install Pixi (one-time setup)
-curl -fsSL https://pixi.sh/install.sh | bash
-
-# Install Franklin
-pixi global install franklin --channel conda-forge --channel munch-group
-
-# Start working
-franklin download
-franklin jupyter
-```
-:::
-
-::: {.g-col-12 .g-col-md-4}
-### Educators
-Create and distribute exercises that work everywhere.
-
-- [Educator Guide](pages/commands_edu.qmd) - Exercise management
-- [Python Users Guide](pages/python_users_guide.qmd) - Advanced workflows
-- [Development Tips](pages/developing.qmd) - Best practices
-
-**Create your first exercise:**
-```bash
-pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
-franklin exercise new
-franklin exercise edit
-```
-:::
-
-::: {.g-col-12 .g-col-md-4}
-### Developers
-Extend Franklin or contribute to the project.
-
-- [Developer Guide](pages/developer_guide.qmd) - Architecture & contributing
-- [API Reference](api/index.qmd) - Complete API documentation
-- [Plugin Development](pages/developer_guide.qmd#plugin-development) - Build extensions
-
-**Set up development:**
-```bash
-git clone https://github.com/munch-group/franklin
-pip install -e .
-```
-:::
-
-::: -->
-
-
-<!-- ## Why Franklin? -->
-
-<!-- ::: {.features} -->
-
-<!-- ::: {.smaller}
-
-**Zero Setup Frustration**: Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically. <br>
-**Works Everywhere**: Same experience on Windows, Mac, and Linux. No more "works on my machine" problems. Every student sees identical results. <br>
-**Smart Dependencies**: Automatic dependency detection from notebook imports. Uses Pixi, a modern, fast package manager that ensures reproducible environments across all platforms. <br>
-**Container Isolation**: Each exercise runs in its own Docker container. No conflicts between courses, no pollution of system Python, complete isolation. <br>
-**Auto Updates**: Franklin and exercises update automatically. Bug fixes and improvements reach all students instantly without manual intervention. <br>
-**Education Focused**: Designed specifically for teaching. Features like exercise templates, automated testing, and GitLab integration streamline the educational workflow. <br>
-**Empowering**: Acquired skills not limited to the a outside cloud-based learning environment. Franklin opens JupyterLab in your own browser, using your own CPU to run notebooks in your own folders. <br>
-
-::: -->
-
-<!-- ::: -->
-
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
 
 
 ::: {.grid}
@@ -118,13 +31,25 @@ pip install -e .
 
 ::: {.g-col-12 .g-col-md-4}
 
-<i class="bi bi-box-seam"></i> **Container Isolation**: <br>Each exercise is developed and run in its own Docker container. No conflicts between courses or exercises, no pollution of system Python, complete isolation. 
+<i class="bi bi-rocket-takeoff"></i> **Student Empowering**: <br>Acquired skills not limited to some cloud-based learning environment. Franklin opens JupyterLab in your own browser, uses your own CPU to run notebooks in your own folders.
+
+:::
+
+::: {.g-col-12 .g-col-md-4}
+
+<i class="bi bi-battery-full"></i> **Batteries included**: <br>Multilayered design supports educators at any skill levels. Example notebooks provide plug an play notebook templates for developing exercises.
 
 :::
 
 ::: {.g-col-12 .g-col-md-4}
 
 <i class="bi bi-cloud-download"></i> **Auto Updates**: <br>Franklin and its plugins update automatically. Bug fixes and improvements reach all students instantly. No more manual intervention or repeated trouble shooting. 
+
+:::
+
+::: {.g-col-12 .g-col-md-4}
+
+<i class="bi bi-box-seam"></i> **Container Isolation**: <br>Each exercise is developed and run in its own Docker container. No conflicts between courses or exercises, no pollution of system Python, complete isolation. 
 
 :::
 
@@ -140,73 +65,52 @@ pip install -e .
 
 :::
 
-<!-- ::: {.g-col-12 .g-col-md-4}
 
-<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
 
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
-
-::: -->
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-battery-full"></i> **Batteries included**: <br>Multilayered design supports educators at any skill levels. Example notebooks provide plug an play notebook templates for developing exercises.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-rocket-takeoff"></i> **Student Empowering**: <br>Acquired skills not limited to some cloud-based learning environment. Franklin opens JupyterLab in your own browser, uses your own CPU to run notebooks in your own folders.
-
-:::
 
 :::
 
 
+## Simple command line interface
+
+### Student Workflows
+
+Download an exercise:
+
+1. Run `franklin download`
+2. Select your course
+3. Select the exercise notebook to download
+
+Start working:
+
+1. Run `franklin jupyter`
+2. Select your course and exercise to make JupyterLab opens in the Chrome browser.
+3. Work on the exercise
+4. Save your progress
+5. Close browser window to stop Franklin.
+
+### Educator Workflows
+
+Create a new exercise from an example template:
+
+1. Run `franklin exercise new`
+2. Select your course and name exercise
+3. Edit exercise visibility in browser window.
+
+Edit exercise notebook:
+
+1. Run `franklin exercise edit`
+2. 
+
+# 3. Test locally
+pixi run test-notebook
+
+# 4. Publish for students
+franklin exercise publish
+```
 
 
 
-
-
-## Key Features
-
-::: {.panel-tabset}
-
-### For Students
-
-- **Simple Commands**: Just `franklin download` and `franklin jupyter`
-- **Automatic Setup**: All dependencies installed automatically
-- **Consistent Environment**: Same setup as classmates and instructors
-- **Exercise Management**: Download, work on, and submit exercises easily
-- **Integrated Help**: Built-in troubleshooting and documentation
-
-### For Educators
-
-- **Exercise Creation**: Templates and scaffolding for new exercises
-- **Version Control**: Git integration for exercise development
-- **Automated Testing**: Validate exercises before distribution
-- **Dependency Management**: Automatic detection and installation
-- **Multi-role Support**: Different access levels for TAs and professors
-
-### For Administrators
-
-- **User Management**: Bulk user creation and role assignment
-- **GitLab Integration**: Centralized exercise repository management
-- **Access Control**: Fine-grained permissions for courses and exercises
-- **Usage Analytics**: Monitor platform usage and performance
-- **Deployment Options**: On-premise or cloud deployment
-
-:::
 
 
 ```{mermaid}
@@ -220,24 +124,6 @@ journey
       Alignment: 5: Bioinf
 ```
 
-```{dot}
-graph G {
-  layout=neato
-  run -- intr;
-  intr -- runbl;
-  runbl -- run;
-  run -- kernel;
-  kernel -- zombie;
-  kernel -- sleep;
-  kernel -- runmem;
-  sleep -- swap;
-  swap -- runswap;
-  runswap -- new;
-  runswap -- runmem;
-  new -- runmem;
-  sleep -- runmem;
-}
-```
 
 ## Get started
 
@@ -252,40 +138,6 @@ graph G {
 {{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
 
 :::
-
-```bash
-# 1. Install Franklin (one-time setup)
-pixi global install franklin --channel conda-forge --channel munch-group
-
-# 2. Download an exercise
-franklin download
-# → Select your course
-# → Select the exercise
-
-# 3. Start working
-franklin jupyter
-# → JupyterLab opens in your browser
-# → Complete the exercise
-# → Save your work
-```
-
-### Educator Workflow
-
-```bash
-# 1. Install Franklin with educator tools
-pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
-
-# 2. Create a new exercise
-franklin exercise new
-# → Name your course and exercise
-# → Edit the template notebook
-
-# 3. Test locally
-pixi run test-notebook
-
-# 4. Publish for students
-franklin exercise publish
-```
 
 ## System Architecture
 
