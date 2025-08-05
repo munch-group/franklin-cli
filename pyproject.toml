@@ -87,5 +87,9 @@ pip = "*"
 # franklin = { path = ".", editable = true }
 # franklin_educator = { path = "../franklin-educator", editable = true }
 
-[tool.pixi.tasks]
+[tool.pixi.tasks.install-dev]
+#cmd = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ."
+cmd = "pip install -e ."
+description = "Install the package in development mode"
+
 

@@ -10,6 +10,7 @@ import click
 import shutil
 import time
 from subprocess import Popen, PIPE, STDOUT
+from typing import Optional
 from .crash import crash_report
 from .gitlab import select_image
 from . import docker as _docker
@@ -77,17 +78,52 @@ from . import chrome
 #             pass
 
 
-def launch_jupyter(image_url: str, cwd: str=None) -> None:
+def launch_jupyter(image_url: str, cwd: Optional[str] = None) -> None:
     """
-    Launch Jupyter notebook in a Docker container.
+    Launch Jupyter notebook server in a Docker container with browser automation.
+
+    This function provides a complete workflow for running Jupyter notebooks:
+    1. Downloads/updates the Docker image
+    2. Starts a container with the image
+    3. Monitors container logs for the Jupyter server URL
+    4. Opens Chrome browser and waits for user to close it
+    5. Cleans up containers and Docker Desktop on exit
 
     Parameters
     ----------
-    image_url : 
-        Image registry URL.
-    cwd : 
-        Launch jupyter in this directory (relative to dir where jupyter is 
-        launched), by default None
+    image_url : str
+        The Docker image URL/name containing the Jupyter environment.
+    cwd : Optional[str], default=None
+        The working directory to navigate to in JupyterLab.
+        If provided, appends '/lab/tree/{cwd}' to the Jupyter URL.
+
+    Returns
+    -------
+    None
+        This function manages the complete Jupyter session lifecycle.
+
+    Examples
+    --------
+    >>> # Launch with default directory
+    >>> launch_jupyter('jupyter/datascience-notebook')
+    
+    >>> # Launch in specific subdirectory
+    >>> launch_jupyter('jupyter/datascience-notebook', cwd='exercises/week1')
+
+    Notes
+    -----
+    - Uses failsafe container startup with automatic recovery
+    - Monitors Docker logs to extract Jupyter server URL with token
+    - Replaces container port with host-mapped port in URL
+    - Uses Chrome browser automation for better user experience
+    - Handles cleanup even on KeyboardInterrupt
+    - Stops Docker Desktop after session ends
+    - Redirects Chrome output to debug logging
+
+    Warnings
+    --------
+    This function requires Chrome browser to be installed and will fail
+    if Chrome is not available on the system.
     """
     term.secho()
     term.secho("Downloading/updating image:")
@@ -224,7 +260,53 @@ def launch_jupyter(image_url: str, cwd: str=None) -> None:
 @click.command()
 @crash_report
 def jupyter(allow_subdirs_at_your_own_risk: bool) -> None:
-    """Run jupyter for an exercise
+    """
+    Launch Jupyter notebook environment for Franklin exercises.
+
+    This command provides a complete Jupyter development environment by:
+    1. Validating the current directory structure
+    2. Checking system requirements (internet, disk space, Docker)
+    3. Presenting an interactive exercise selection interface
+    4. Launching Jupyter in a containerized environment
+
+    Parameters
+    ----------
+    allow_subdirs_at_your_own_risk : bool
+        Flag to bypass subdirectory validation. When False (default),
+        prevents running from directories containing subdirectories
+        to avoid file conflicts and ensure clean exercise environment.
+
+    Returns
+    -------
+    None
+        This command manages the complete Jupyter session.
+
+    Raises
+    ------
+    SystemExit
+        If subdirectories are found and allow_subdirs_at_your_own_risk is False.
+
+    Examples
+    --------
+    Run from clean directory:
+    >>> franklin jupyter
+    
+    Override subdirectory check:
+    >>> franklin jupyter --allow-subdirs-at-your-own-risk
+
+    Notes
+    -----
+    - Enforces clean directory structure by default to prevent conflicts
+    - Checks internet connectivity for image downloads
+    - Validates available disk space before starting
+    - Configures Docker Desktop settings automatically
+    - Uses interactive exercise selection from GitLab registry
+    - Provides detailed user guidance for setup issues
+
+    Warnings
+    --------
+    Running from directories with subdirectories may cause file conflicts
+    or unexpected behavior in the containerized environment.
     """
     if not allow_subdirs_at_your_own_risk:
         for x in os.listdir(os.getcwd()):
@@ -246,15 +328,18 @@ def jupyter(allow_subdirs_at_your_own_risk: bool) -> None:
                                 ], fg='blue')
                 sys.exit(1)
 
+    # Validate system requirements
     system.check_internet_connection()
-
     system.check_free_disk_space()
 
+    # Configure Docker if available
     if shutil.which('docker'):
         config_fit()
 
+    # Ensure Docker Desktop is running
     _docker.failsafe_start_desktop()
     time.sleep(2)
 
+    # Interactive exercise selection and launch
     image_url = select_image()
     launch_jupyter(image_url)

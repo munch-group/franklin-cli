@@ -146,7 +146,7 @@ class PrefixAliasedGroup(click.Group):
         # see if it is a prefix of a command
         matches = [x for x in self.list_commands(ctx)
                    if x.startswith(cmd_name)]
-        matches
+        # Find commands that start with the given prefix
         if not matches:
             return None
         elif len(matches) == 1:

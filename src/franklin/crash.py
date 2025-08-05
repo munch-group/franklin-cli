@@ -5,6 +5,8 @@ import inspect
 import webbrowser
 import urllib.parse
 import pyperclip
+import requests
+import json
 import click
 from functools import wraps
 from subprocess import CalledProcessError
@@ -100,37 +102,65 @@ def crash_report(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs):
 
+        def create_github_issue_and_exit(title, body, repository):
 
-        def msg_and_exit():
             term.secho(
-                f"\nFranklin encountered an unexpected problem.", fg='red')
-            # term.secho(
-            #     f'\nPlease open an email to {cfg.maintainer_email} with '
-            #     'subject "Franklin crash". When you press Enter in this '
-            #     'window, the crash information is copied to your clipboard '
-            #     'So you can paste it into the email body before sending it')
+                f"\nFranklin crashed - sorry.", 
+                fg='red')
             term.secho(
-                f'\nPlease report this by submitting an issue on GitHub with '
-                'a descriptive title and the error information pasted into '
-                'the description field.')
-            click.pause("Press Enter open issue page to copy the error information to your "
-                        "clipboard.")
+                '\nThe error hes been reported to the maintainers of Franklin '
+                'and will be fixed in the next release. Once available, '
+                'franklin will be updated automatically.'
+            )
+            url = cfg.github_issues_template_url.format(repository_name=repository)
+            headers = {
+                "Authorization": f"token {cfg.github_write_issue_token}",
+                "Accept": "application/vnd.github.v3+json",
+                "Content-Type": "application/json"
+            }
+            data = {
+                "title": title,
+                "body": body,
+                "labels": ['bug']
+            }
+            response = requests.post(url, headers=headers, data=json.dumps(data))
+            response.raise_for_status()  # Raises an HTTPError for bad responses        
+            issue_data = response.json()
+            sys.exit(1)
 
-            frame = inspect.trace()[-1]
-            module = inspect.getmodule(frame[0])
-            package_name = 'franklin'
-            if module is not None and  module.__name__.startswith('franklin_'):
-                package_name = module.__name__.split('.')[0].replace('_', '-')
-
-            # distributions = packages_distributions()
-            # package = distributions.get(__name__.split('.')[0])[0]
-            url = f'https://github.com/munch-group/{package_name}/issues'
 
             pyperclip.copy(gather_crash_info())
 
-            webbrowser.open(url, new=1)
+        # def msg_and_exit():
+        #     term.secho(
+        #         f"\nFranklin encountered an unexpected problem.", fg='red')
+        #     # term.secho(
+        #     #     f'\nPlease open an email to {cfg.maintainer_email} with '
+        #     #     'subject "Franklin crash". When you press Enter in this '
+        #     #     'window, the crash information is copied to your clipboard '
+        #     #     'So you can paste it into the email body before sending it')
+        #     term.secho(
+        #         f'\nPlease report this by submitting an issue on GitHub with '
+        #         'a descriptive title and the error information pasted into '
+        #         'the description field.')
+        #     click.pause("Press Enter open issue page to copy the error information to your "
+        #                 "clipboard.")
 
-            sys.exit(1)   
+        #     frame = inspect.trace()[-1]
+        #     module = inspect.getmodule(frame[0])
+        #     package_name = 'franklin'
+        #     if module is not None and  module.__name__.startswith('franklin_'):
+        #         package_name = module.__name__.split('.')[0].replace('_', '-')
+
+        #     # distributions = packages_distributions()
+        #     # package = distributions.get(__name__.split('.')[0])[0]
+        #     url = f'https://github.com/munch-group/{package_name}/issues'
+
+        #     pyperclip.copy(gather_crash_info())
+
+        #     webbrowser.open(url, new=1)
+
+        #     sys.exit(1)   
 
         if os.environ.get('DEVEL', None):
             return func(*args, **kwargs)
@@ -163,7 +193,7 @@ def crash_report(func: Callable) -> Callable:
         #         raise e
         #     for line in e.args:
         #         term.secho(line, fg='red')
-        #     msg_and_exit()         
+        #     create_github_issue_and_exit()         
 
         except SystemExit as e:
             raise e
@@ -172,9 +202,21 @@ def crash_report(func: Callable) -> Callable:
             logger.exception('Raised: Abort')
             raise e
 
-        except:
+        except Exception as e:
             logger.exception('CRASH')
-            msg_and_exit()
+            # Gather crash info and create title
+            crash_info = gather_crash_info()
+            error_msg = str(e) if str(e) else "Unknown error"
+            title = f"Crash: {error_msg[:100]}"  # Limit title length
+            
+            # Determine which repository based on module
+            frame = inspect.trace()[-1]
+            module = inspect.getmodule(frame[0])
+            repository = 'franklin'
+            if module is not None and module.__name__.startswith('franklin_'):
+                repository = module.__name__.split('.')[0].replace('_', '-')
+            
+            create_github_issue_and_exit(title, crash_info, repository)
 
         return ret
     return wrapper

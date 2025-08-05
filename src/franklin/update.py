@@ -33,14 +33,14 @@ def conda_update(package) -> None:
     Update the package.
     """
     channel = cfg.conda_channel
-    updated = False
+    updated = 0
     logger.debug(f'Checking for updates to {package}')
     try:
         latest = conda_latest_version(package)
         if latest > system.package_version(package):
             cmd = f'conda install -y -c conda-forge {channel}::{package}={latest}'
             utils.run_cmd(cmd)
-            updated = True
+            updated = 1
             logger.debug(f'Updated {package}')
         docker.config_fit()
     except:
@@ -170,7 +170,7 @@ def pixi_update_client() -> None:
     """
     before = pixi_installed_version('franklin')
     pixi_update('franklin')
-    updated = before == pixi_installed_version('franklin')
+    updated = int(before == pixi_installed_version('franklin'))
 
     for plugin in ['franklin-educator', 'franklin-admin']:
         try:
@@ -179,7 +179,7 @@ def pixi_update_client() -> None:
             continue
         before = pixi_installed_version(plugin)
         pixi_reinstall(plugin)
-        updated += before == pixi_installed_version(plugin)
+        updated += int(before == pixi_installed_version(plugin))
     return updated
 
 

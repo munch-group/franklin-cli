@@ -48,7 +48,7 @@ from .gitlab import get_course_names, get_exercise_names
 from .logger import logger
 from . import system
 
-from typing import Tuple, List, Dict, Callable, Any
+from typing import Tuple, List, Dict, Callable, Any, Optional, Union
 
 # import yaml
 # _root = os.path.abspath(os.path.dirname(__file__))
@@ -61,23 +61,41 @@ os.environ['DOCKER_CLI_HINTS'] = 'false'
 
 def run_container(image_url: str) -> Tuple[str, Popen, str]:
     """
-    Run container from image.
+    Run a Docker container from a specified image.
+
+    This function starts a Docker container using the provided image URL,
+    waits for it to be running, and returns container information including
+    the container ID, process handle, and port number.
 
     Parameters
     ----------
-    image_url : 
-        Image url
+    image_url : str
+        The Docker image URL/name to run as a container.
 
     Returns
     -------
-    :
-        Tuple with container id, process handle and port.
+    tuple[str, Popen, str]
+        A tuple containing:
+        - Container ID (str): The Docker container identifier
+        - Process handle (Popen): The subprocess handle for the container
+        - Port (str): The host port mapped to the container
 
     Raises
     ------
-    :
-        Exception if container if a container id for the running container 
-        is not retrieved.
+    Exception
+        If a container ID for the running container is not retrieved within
+        50 seconds, indicating Docker may not be running or the image failed
+        to start.
+
+    Examples
+    --------
+    >>> container_id, process, port = run_container('nginx:latest')
+    >>> print(f"Container {container_id} running on port {port}")
+
+    Notes
+    -----
+    This function polls for up to 50 seconds (10 iterations × 5 seconds)
+    to find the running container matching the specified image URL.
     """
     docker_run_p, port = run(image_url)
     run_container_id = None
@@ -89,29 +107,47 @@ def run_container(image_url: str) -> Tuple[str, Popen, str]:
         if run_container_id is not None:
             return run_container_id, docker_run_p, port
     else:
-        raise Exception()
+        raise Exception(f"Failed to find running container for image {image_url} after 50 seconds. Docker may not be running or the image failed to start.")
 
 
 def failsafe_run_container(image_url: str) -> Tuple[str, Popen, str]:
     """
-    Run container from image. Upon Exception is raised by run_container, 
-    it does a docker system prune and a docker desktop restart.
+    Run a Docker container with automatic recovery mechanisms.
+
+    This function attempts to run a container using run_container(). If that fails,
+    it performs Docker system cleanup (prune) and restarts Docker Desktop before
+    retrying the container launch.
 
     Parameters
     ----------
-    image_url : 
-        Image URL.
+    image_url : str
+        The Docker image URL/name to run as a container.
 
     Returns
     -------
-    :
-        Tuple with container id, process handle and port.
+    tuple[str, Popen, str]
+        A tuple containing:
+        - Container ID (str): The Docker container identifier  
+        - Process handle (Popen): The subprocess handle for the container
+        - Port (str): The host port mapped to the container
 
     Raises
     ------
-    :
-        Exception if container if a container id for the running container 
-        is not retrieved.
+    Exception
+        If container creation fails even after cleanup and Docker restart.
+
+    Examples
+    --------
+    >>> container_id, process, port = failsafe_run_container('jupyter/base-notebook')
+    >>> print(f"Container {container_id} started successfully")
+
+    Notes
+    -----
+    This function provides a recovery mechanism for common Docker issues by:
+    1. Attempting normal container startup
+    2. On failure: pruning Docker system resources
+    3. Restarting Docker Desktop
+    4. Retrying container startup
     """
 
     try:
@@ -122,19 +158,35 @@ def failsafe_run_container(image_url: str) -> Tuple[str, Popen, str]:
         return run_container(image_url)
 
 
-def ensure_docker_running(func: Callable) -> Callable:
+def ensure_docker_running(func: Callable[..., Any]) -> Callable[..., Any]:
     """
-    Decorator for functions that require Docker Desktop to be running.
+    Decorator to ensure Docker Desktop is running before function execution.
+
+    This decorator wraps functions that require Docker Desktop to be active.
+    It automatically starts Docker Desktop if it's not running before
+    executing the decorated function.
 
     Parameters
     ----------
-    func : 
-        Function.
+    func : Callable[..., Any]
+        The function to be decorated that requires Docker to be running.
 
     Returns
     -------
-    :
-        Decorated function.
+    Callable[..., Any]
+        The decorated function that ensures Docker is running before execution.
+
+    Examples
+    --------
+    >>> @ensure_docker_running
+    ... def my_docker_function():
+    ...     # This function will only run if Docker is active
+    ...     pass
+
+    Notes
+    -----
+    Uses failsafe_start_desktop() to handle Docker startup, which includes
+    error recovery mechanisms.
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -143,21 +195,36 @@ def ensure_docker_running(func: Callable) -> Callable:
     return wrapper
 
 
-def irrelevant_unless_docker_running(func: Callable) -> Callable:
+def irrelevant_unless_docker_running(func: Callable[..., Any]) -> Callable[..., Any]:
     """
-    Decorator for click command functions that are irrelevant unless Docker 
-    Desktop is running. If users use command when Docker Desktop is not 
-    running, they will be informed.
+    Decorator to skip function execution when Docker is not running.
+
+    This decorator is used for click command functions that only make sense
+    when Docker Desktop is active. If Docker is not running, it displays
+    an informative message and returns None instead of executing the function.
 
     Parameters
     ----------
-    func : 
-        Function.
+    func : Callable[..., Any]
+        The click command function that requires Docker to be running.
 
     Returns
     -------
-    :
-        Decorated function.
+    Callable[..., Any]
+        The decorated function that checks Docker status before execution.
+
+    Examples
+    --------
+    >>> @irrelevant_unless_docker_running
+    ... @click.command()
+    ... def list_containers():
+    ...     # This will only run if Docker is active
+    ...     pass
+
+    Notes
+    -----
+    Unlike ensure_docker_running, this decorator does not attempt to start
+    Docker. It simply informs the user and exits gracefully.
     """
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -170,17 +237,32 @@ def irrelevant_unless_docker_running(func: Callable) -> Callable:
 
 def image_exists(image_url: str) -> bool:
     """
-    Checks if image exists.
+    Check if a Docker image exists locally.
+
+    This function searches through all local Docker images to determine
+    if an image with the specified URL/name exists in the local registry.
 
     Parameters
     ----------
-    image_url : 
-        Image URL.
+    image_url : str
+        The Docker image URL/name to check for existence.
 
     Returns
     -------
-    :
-        True if image exists, False otherwise.
+    bool
+        True if the image exists locally, False otherwise.
+
+    Examples
+    --------
+    >>> if image_exists('nginx:latest'):
+    ...     print('Image found locally')
+    ... else:
+    ...     print('Image not found, need to pull')
+
+    Notes
+    -----
+    This function uses the images() function to get all local images
+    and checks if any repository name starts with the provided image_url.
     """
     for image in images():
         if image['Repository'].startswith(image_url):
@@ -1032,8 +1114,11 @@ def cleanup_exercises(image_id: str, force=True) -> None:
 @click.argument("image_id", required=False)
 @ensure_docker_running
 @crash_report
-def cleanup(image_id=None):
-    """Remove selected exercises
+def cleanup_exercises_command(image_id: Optional[str] = None) -> None:
+    """Remove selected exercises with complete cleanup.
+
+    This command provides exercise-specific cleanup by removing all
+    associated containers and images for selected exercises.
     """
     if image_id:
         cleanup_exercises(image_id)
@@ -1043,8 +1128,11 @@ def cleanup(image_id=None):
 @click.command('cleanup')
 @ensure_docker_running
 @crash_report
-def cleanup():
-    """Cleanup and reclaim disk space used by Franklin
+def cleanup_all_command() -> None:
+    """Cleanup and reclaim disk space used by Franklin.
+
+    This command performs comprehensive cleanup of all Franklin Docker
+    resources to reclaim disk space.
     """
     prune_all()
 
