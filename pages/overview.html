@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/numpy_and_pandas.html" rel="next">
+<link href="../pages/jupyterlab.html" rel="next">
 <link href="../pages/developing.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started</span></a>
+ <span class="menu-text">Franklin</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -229,6 +229,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../pages/commands_edu.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Developing exercises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/commands_admin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Admin tools</span></a>
   </div>
 </li>
       </ul>
@@ -273,8 +279,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">JupyterLab Tutorial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/jupyterlab_complete.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">JupyterLab Complete Guide</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../pages/numpy_and_pandas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NumPy and Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/numpy_pandas_comprehensive.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NumPy and Pandas Mastery</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -291,8 +315,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">JupyterLab Tutorial</span></a>
+  <a href="../pages/plotting_expanded.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Visualization with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/python_r_julia_expanded.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python, R, and Julia for Data Science</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/widgets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Showcase</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/widgets_expanded.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interactive Widgets in Jupyter</span></a>
   </div>
 </li>
       </ul>
@@ -316,6 +358,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../pages/automatic_updates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Automatic Updates</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/pixi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pixi.html</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -569,7 +617,7 @@ Under development
 </section>
 <section id="container-registry" class="level2">
 <h2 class="anchored" data-anchor-id="container-registry">Container registry</h2>
-<div id="50d366c0" class="cell" data-execution_count="1">
+<div id="8f3c167b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_tree(dir_path, prefix<span class="op">=</span><span class="st">''</span>):</span>
@@ -686,7 +734,13 @@ Under development
 ├── widgets.html
 ├── widgets.ipynb
 ├── widgets_expanded.html
-└── widgets_expanded.ipynb</code></pre>
+├── widgets_expanded.ipynb
+└── widgets_files
+    └── figure-html
+        ├── cell-10-output-1.png
+        ├── cell-32-output-1.png
+        ├── cell-5-output-1.png
+        └── cell-6-output-1.png</code></pre>
 </div>
 </div>
 <p>src/franklin</p>
@@ -1137,8 +1191,8 @@ Under development
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/numpy_and_pandas.html" class="pagination-link" aria-label="NumPy and Pandas">
-        <span class="nav-page-text">NumPy and Pandas</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/jupyterlab.html" class="pagination-link" aria-label="JupyterLab Tutorial">
+        <span class="nav-page-text">JupyterLab Tutorial</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
