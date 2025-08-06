@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Educator Commands – franklin</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+<link rel="stylesheet" href="../api/_styles-quartodoc.css">
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">franklin</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../api/"> 
+<span class="menu-text">API reference</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../pages/student/"> 
+<span class="menu-text">Student site</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="http://munch-group.org/jupyterlite"> 
+<span class="menu-text">Sandbox</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/munch-group/franklin/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a>
+  <ul class="collapse">
+  <li><a href="#using-conda" id="toc-using-conda" class="nav-link" data-scroll-target="#using-conda">Using Conda</a></li>
+  <li><a href="#using-pixi" id="toc-using-pixi" class="nav-link" data-scroll-target="#using-pixi">Using Pixi</a></li>
+  </ul></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#main-command-group" id="toc-main-command-group" class="nav-link" data-scroll-target="#main-command-group">Main Command Group</a></li>
+  <li><a href="#franklin-exercise" id="toc-franklin-exercise" class="nav-link" data-scroll-target="#franklin-exercise"><code>franklin exercise</code></a>
+  <ul class="collapse">
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">Options</a></li>
+  <li><a href="#available-subcommands" id="toc-available-subcommands" class="nav-link" data-scroll-target="#available-subcommands">Available Subcommands</a></li>
+  </ul></li>
+  <li><a href="#creating-exercises" id="toc-creating-exercises" class="nav-link" data-scroll-target="#creating-exercises">Creating Exercises</a></li>
+  <li><a href="#franklin-exercise-new" id="toc-franklin-exercise-new" class="nav-link" data-scroll-target="#franklin-exercise-new"><code>franklin exercise new</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-1" id="toc-usage-1" class="nav-link" data-scroll-target="#usage-1">Usage</a></li>
+  <li><a href="#options-1" id="toc-options-1" class="nav-link" data-scroll-target="#options-1">Options</a></li>
+  <li><a href="#interactive-mode" id="toc-interactive-mode" class="nav-link" data-scroll-target="#interactive-mode">Interactive Mode</a></li>
+  <li><a href="#direct-mode" id="toc-direct-mode" class="nav-link" data-scroll-target="#direct-mode">Direct Mode</a></li>
+  <li><a href="#templates" id="toc-templates" class="nav-link" data-scroll-target="#templates">Templates</a></li>
+  <li><a href="#post-creation-steps" id="toc-post-creation-steps" class="nav-link" data-scroll-target="#post-creation-steps">Post-Creation Steps</a></li>
+  <li><a href="#behind-the-scenes" id="toc-behind-the-scenes" class="nav-link" data-scroll-target="#behind-the-scenes">Behind the Scenes</a></li>
+  </ul></li>
+  <li><a href="#editing-exercises" id="toc-editing-exercises" class="nav-link" data-scroll-target="#editing-exercises">Editing Exercises</a></li>
+  <li><a href="#franklin-exercise-edit" id="toc-franklin-exercise-edit" class="nav-link" data-scroll-target="#franklin-exercise-edit"><code>franklin exercise edit</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-2" id="toc-usage-2" class="nav-link" data-scroll-target="#usage-2">Usage</a></li>
+  <li><a href="#options-2" id="toc-options-2" class="nav-link" data-scroll-target="#options-2">Options</a></li>
+  <li><a href="#workflows" id="toc-workflows" class="nav-link" data-scroll-target="#workflows">Workflows</a></li>
+  <li><a href="#automated-workflow-default" id="toc-automated-workflow-default" class="nav-link" data-scroll-target="#automated-workflow-default">Automated Workflow (Default)</a></li>
+  <li><a href="#assisted-workflow" id="toc-assisted-workflow" class="nav-link" data-scroll-target="#assisted-workflow">Assisted Workflow</a></li>
+  <li><a href="#manual-workflow" id="toc-manual-workflow" class="nav-link" data-scroll-target="#manual-workflow">Manual Workflow</a></li>
+  <li><a href="#file-watching" id="toc-file-watching" class="nav-link" data-scroll-target="#file-watching">File Watching</a></li>
+  <li><a href="#dependency-management" id="toc-dependency-management" class="nav-link" data-scroll-target="#dependency-management">Dependency Management</a></li>
+  </ul></li>
+  <li><a href="#franklin-exercise-clone" id="toc-franklin-exercise-clone" class="nav-link" data-scroll-target="#franklin-exercise-clone"><code>franklin exercise clone</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-3" id="toc-usage-3" class="nav-link" data-scroll-target="#usage-3">Usage</a></li>
+  <li><a href="#arguments" id="toc-arguments" class="nav-link" data-scroll-target="#arguments">Arguments</a></li>
+  <li><a href="#options-3" id="toc-options-3" class="nav-link" data-scroll-target="#options-3">Options</a></li>
+  <li><a href="#interactive-mode-1" id="toc-interactive-mode-1" class="nav-link" data-scroll-target="#interactive-mode-1">Interactive Mode</a></li>
+  <li><a href="#direct-mode-1" id="toc-direct-mode-1" class="nav-link" data-scroll-target="#direct-mode-1">Direct Mode</a></li>
+  <li><a href="#difference-from-student-download" id="toc-difference-from-student-download" class="nav-link" data-scroll-target="#difference-from-student-download">Difference from Student Download</a></li>
+  </ul></li>
+  <li><a href="#testing-exercises" id="toc-testing-exercises" class="nav-link" data-scroll-target="#testing-exercises">Testing Exercises</a></li>
+  <li><a href="#franklin-exercise-test" id="toc-franklin-exercise-test" class="nav-link" data-scroll-target="#franklin-exercise-test"><code>franklin exercise test</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-4" id="toc-usage-4" class="nav-link" data-scroll-target="#usage-4">Usage</a></li>
+  <li><a href="#options-4" id="toc-options-4" class="nav-link" data-scroll-target="#options-4">Options</a></li>
+  <li><a href="#default-behavior" id="toc-default-behavior" class="nav-link" data-scroll-target="#default-behavior">Default Behavior</a></li>
+  <li><a href="#test-types" id="toc-test-types" class="nav-link" data-scroll-target="#test-types">Test Types</a></li>
+  <li><a href="#test-configuration" id="toc-test-configuration" class="nav-link" data-scroll-target="#test-configuration">Test Configuration</a></li>
+  <li><a href="#writing-tests" id="toc-writing-tests" class="nav-link" data-scroll-target="#writing-tests">Writing Tests</a></li>
+  <li><a href="#common-test-failures" id="toc-common-test-failures" class="nav-link" data-scroll-target="#common-test-failures">Common Test Failures</a></li>
+  </ul></li>
+  <li><a href="#building-and-publishing" id="toc-building-and-publishing" class="nav-link" data-scroll-target="#building-and-publishing">Building and Publishing</a></li>
+  <li><a href="#franklin-exercise-build" id="toc-franklin-exercise-build" class="nav-link" data-scroll-target="#franklin-exercise-build"><code>franklin exercise build</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-5" id="toc-usage-5" class="nav-link" data-scroll-target="#usage-5">Usage</a></li>
+  <li><a href="#options-5" id="toc-options-5" class="nav-link" data-scroll-target="#options-5">Options</a></li>
+  <li><a href="#build-process" id="toc-build-process" class="nav-link" data-scroll-target="#build-process">Build Process</a></li>
+  <li><a href="#build-optimization" id="toc-build-optimization" class="nav-link" data-scroll-target="#build-optimization">Build Optimization</a></li>
+  <li><a href="#multi-stage-builds" id="toc-multi-stage-builds" class="nav-link" data-scroll-target="#multi-stage-builds">Multi-stage Builds</a></li>
+  </ul></li>
+  <li><a href="#franklin-exercise-publish" id="toc-franklin-exercise-publish" class="nav-link" data-scroll-target="#franklin-exercise-publish"><code>franklin exercise publish</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-6" id="toc-usage-6" class="nav-link" data-scroll-target="#usage-6">Usage</a></li>
+  <li><a href="#options-6" id="toc-options-6" class="nav-link" data-scroll-target="#options-6">Options</a></li>
+  <li><a href="#publishing-process" id="toc-publishing-process" class="nav-link" data-scroll-target="#publishing-process">Publishing Process</a></li>
+  <li><a href="#version-tagging" id="toc-version-tagging" class="nav-link" data-scroll-target="#version-tagging">Version Tagging</a></li>
+  <li><a href="#registry-structure" id="toc-registry-structure" class="nav-link" data-scroll-target="#registry-structure">Registry Structure</a></li>
+  </ul></li>
+  <li><a href="#repository-management" id="toc-repository-management" class="nav-link" data-scroll-target="#repository-management">Repository Management</a></li>
+  <li><a href="#franklin-exercise-settings" id="toc-franklin-exercise-settings" class="nav-link" data-scroll-target="#franklin-exercise-settings"><code>franklin exercise settings</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-7" id="toc-usage-7" class="nav-link" data-scroll-target="#usage-7">Usage</a></li>
+  <li><a href="#options-7" id="toc-options-7" class="nav-link" data-scroll-target="#options-7">Options</a></li>
+  <li><a href="#interactive-mode-2" id="toc-interactive-mode-2" class="nav-link" data-scroll-target="#interactive-mode-2">Interactive Mode</a></li>
+  <li><a href="#direct-navigation" id="toc-direct-navigation" class="nav-link" data-scroll-target="#direct-navigation">Direct Navigation</a></li>
+  <li><a href="#common-settings-tasks" id="toc-common-settings-tasks" class="nav-link" data-scroll-target="#common-settings-tasks">Common Settings Tasks</a></li>
+  </ul></li>
+  <li><a href="#franklin-exercise-archive" id="toc-franklin-exercise-archive" class="nav-link" data-scroll-target="#franklin-exercise-archive"><code>franklin exercise archive</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-8" id="toc-usage-8" class="nav-link" data-scroll-target="#usage-8">Usage</a></li>
+  <li><a href="#options-8" id="toc-options-8" class="nav-link" data-scroll-target="#options-8">Options</a></li>
+  <li><a href="#archive-process" id="toc-archive-process" class="nav-link" data-scroll-target="#archive-process">Archive Process</a></li>
+  <li><a href="#effects-of-archiving" id="toc-effects-of-archiving" class="nav-link" data-scroll-target="#effects-of-archiving">Effects of Archiving</a></li>
+  <li><a href="#unarchiving" id="toc-unarchiving" class="nav-link" data-scroll-target="#unarchiving">Unarchiving</a></li>
+  </ul></li>
+  <li><a href="#advanced-features" id="toc-advanced-features" class="nav-link" data-scroll-target="#advanced-features">Advanced Features</a></li>
+  <li><a href="#continuous-integration" id="toc-continuous-integration" class="nav-link" data-scroll-target="#continuous-integration">Continuous Integration</a>
+  <ul class="collapse">
+  <li><a href="#pipeline-triggers" id="toc-pipeline-triggers" class="nav-link" data-scroll-target="#pipeline-triggers">Pipeline Triggers</a></li>
+  <li><a href="#pipeline-monitoring" id="toc-pipeline-monitoring" class="nav-link" data-scroll-target="#pipeline-monitoring">Pipeline Monitoring</a></li>
+  </ul></li>
+  <li><a href="#exercise-metadata" id="toc-exercise-metadata" class="nav-link" data-scroll-target="#exercise-metadata">Exercise Metadata</a></li>
+  <li><a href="#dependency-scanning" id="toc-dependency-scanning" class="nav-link" data-scroll-target="#dependency-scanning">Dependency Scanning</a></li>
+  <li><a href="#solution-management" id="toc-solution-management" class="nav-link" data-scroll-target="#solution-management">Solution Management</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#common-issues" id="toc-common-issues" class="nav-link" data-scroll-target="#common-issues">Common Issues</a></li>
+  <li><a href="#debug-mode" id="toc-debug-mode" class="nav-link" data-scroll-target="#debug-mode">Debug Mode</a></li>
+  </ul></li>
+  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices">Best Practices</a>
+  <ul class="collapse">
+  <li><a href="#exercise-design" id="toc-exercise-design" class="nav-link" data-scroll-target="#exercise-design">Exercise Design</a></li>
+  <li><a href="#dependency-management-1" id="toc-dependency-management-1" class="nav-link" data-scroll-target="#dependency-management-1">Dependency Management</a></li>
+  <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control">Version Control</a></li>
+  <li><a href="#student-experience" id="toc-student-experience" class="nav-link" data-scroll-target="#student-experience">Student Experience</a></li>
+  </ul></li>
+  <li><a href="#command-reference" id="toc-command-reference" class="nav-link" data-scroll-target="#command-reference">Command Reference</a>
+  <ul class="collapse">
+  <li><a href="#quick-reference-table" id="toc-quick-reference-table" class="nav-link" data-scroll-target="#quick-reference-table">Quick Reference Table</a></li>
+  <li><a href="#command-aliases" id="toc-command-aliases" class="nav-link" data-scroll-target="#command-aliases">Command Aliases</a></li>
+  </ul></li>
+  <li><a href="#integration-with-core-franklin" id="toc-integration-with-core-franklin" class="nav-link" data-scroll-target="#integration-with-core-franklin">Integration with Core Franklin</a></li>
+  <li><a href="#future-features" id="toc-future-features" class="nav-link" data-scroll-target="#future-features">Future Features</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Educator Commands</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The <code>franklin-educator</code> plugin extends Franklin with commands for creating and managing exercises. This reference documents all educator-specific commands and workflows.</p>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>Before using educator commands, install the franklin-educator plugin:</p>
+<section id="using-conda" class="level3">
+<h3 class="anchored" data-anchor-id="using-conda">Using Conda</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin-educator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="using-pixi" class="level3">
+<h3 class="anchored" data-anchor-id="using-pixi">Using Pixi</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group franklin-educator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The educator plugin automatically installs the base Franklin package as a dependency.</p>
+</section>
+</section>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Educator commands are accessed through the <code>franklin exercise</code> command group:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="pp">[</span><span class="ss">SUBCOMMAND</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>All educator commands require: - GitLab account with appropriate permissions - SSH key configured for GitLab access - Educator role in the Franklin GitLab group</p>
+</section>
+<section id="main-command-group" class="level2">
+<h2 class="anchored" data-anchor-id="main-command-group">Main Command Group</h2>
+</section>
+<section id="franklin-exercise" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-exercise"><code>franklin exercise</code></h2>
+<p>Parent command for all exercise management operations.</p>
+<section id="usage" class="level3">
+<h3 class="anchored" data-anchor-id="usage">Usage</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> COMMAND <span class="pp">[</span><span class="ss">ARGS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="options" class="level3">
+<h3 class="anchored" data-anchor-id="options">Options</h3>
+<ul>
+<li><code>--help</code>: Show help message and list all subcommands</li>
+</ul>
+</section>
+<section id="available-subcommands" class="level3">
+<h3 class="anchored" data-anchor-id="available-subcommands">Available Subcommands</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<pre><code>Commands:
+  new        Create a new exercise
+  edit       Edit an existing exercise
+  clone      Clone exercise repository for editing
+  test       Test exercise locally
+  build      Build Docker image for exercise
+  publish    Publish exercise to registry
+  settings   Open exercise settings in GitLab
+  archive    Archive (hide) an exercise</code></pre>
+<hr>
+</section>
+</section>
+<section id="creating-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="creating-exercises">Creating Exercises</h2>
+</section>
+<section id="franklin-exercise-new" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-exercise-new"><code>franklin exercise new</code></h2>
+<p>Creates a new exercise repository with starter template.</p>
+<section id="usage-1" class="level3">
+<h3 class="anchored" data-anchor-id="usage-1">Usage</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise new <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="options-1" class="level3">
+<h3 class="anchored" data-anchor-id="options-1">Options</h3>
+<ul>
+<li><code>--course COURSE_NAME</code>: Specify course (skips interactive selection)</li>
+<li><code>--name EXERCISE_NAME</code>: Specify exercise name (skips prompt)</li>
+<li><code>--template TEMPLATE_NAME</code>: Use specific template (default: standard)</li>
+<li><code>--help</code>: Show help message</li>
+</ul>
+</section>
+<section id="interactive-mode" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-mode">Interactive Mode</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise new</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Process:</strong> 1. <strong>Course Selection</strong>: Choose target course from list 2. <strong>Name Input</strong>: Enter repository name (lowercase, no spaces) 3. <strong>Template Selection</strong>: Choose exercise template 4. <strong>Repository Creation</strong>: Creates GitLab repository 5. <strong>Initial Setup</strong>: Adds template files 6. <strong>Browser Launch</strong>: Opens repository settings</p>
+<p><strong>Example interaction:</strong></p>
+<pre><code>Select course:
+  1. Introduction to Biology
+  2. Advanced Chemistry
+  3. Data Science Fundamentals
+Select course number: 1
+
+Enter exercise repository name (e.g., 'week1-intro'): week1-intro
+
+Select template:
+  1. Standard (notebook + tests)
+  2. Advanced (multiple notebooks)
+  3. Minimal (single notebook)
+Select template number: 1
+
+Creating exercise repository...
+✓ Repository created: https://gitlab.au.dk/franklin/intro-bio/week1-intro
+✓ Template files added
+✓ Opening settings page in browser...</code></pre>
+</section>
+<section id="direct-mode" class="level3">
+<h3 class="anchored" data-anchor-id="direct-mode">Direct Mode</h3>
+<p>Create exercise with all parameters:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise new <span class="at">--course</span> intro-bio <span class="at">--name</span> week1-intro <span class="at">--template</span> standard</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="templates" class="level3">
+<h3 class="anchored" data-anchor-id="templates">Templates</h3>
+<p><strong>Standard Template</strong> includes: - <code>exercise.ipynb</code>: Starter notebook - <code>Dockerfile</code>: Container configuration - <code>pixi.toml</code>: Dependency specification - <code>README.md</code>: Student instructions - <code>.gitlab-ci.yml</code>: CI/CD pipeline - <code>tests/</code>: Test directory structure</p>
+<p><strong>Advanced Template</strong> adds: - Multiple notebook files - <code>data/</code>: Sample data directory - <code>src/</code>: Helper modules - Extended test suite</p>
+<p><strong>Minimal Template</strong> contains: - Single notebook file - Basic Dockerfile - Minimal dependencies</p>
+</section>
+<section id="post-creation-steps" class="level3">
+<h3 class="anchored" data-anchor-id="post-creation-steps">Post-Creation Steps</h3>
+<p>After creation, you should: 1. <strong>Set repository visibility</strong> to “Public” in GitLab settings 2. <strong>Add exercise title</strong> in repository description 3. <strong>Configure CI/CD variables</strong> if needed 4. <strong>Clone locally</strong> for development</p>
+</section>
+<section id="behind-the-scenes" class="level3">
+<h3 class="anchored" data-anchor-id="behind-the-scenes">Behind the Scenes</h3>
+<details>
+<summary>
+Technical details of exercise creation
+</summary>
+<ol type="1">
+<li><strong>Permission Check</strong>: Verifies educator role in target course</li>
+<li><strong>Name Validation</strong>: Ensures name follows GitLab conventions</li>
+<li><strong>Repository Creation</strong>: Uses GitLab API to create project</li>
+<li><strong>Template Copy</strong>: Copies template files from Franklin package</li>
+<li><strong>Git Operations</strong>: Initializes repo, adds files, makes initial commit</li>
+<li><strong>Pipeline Trigger</strong>: Starts CI/CD to build initial Docker image</li>
+<li><strong>Settings Launch</strong>: Opens browser to repository settings</li>
+</ol>
+</details>
+<hr>
+</section>
+</section>
+<section id="editing-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="editing-exercises">Editing Exercises</h2>
+</section>
+<section id="franklin-exercise-edit" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-exercise-edit"><code>franklin exercise edit</code></h2>
+<p>Launches exercise editing workflow with live testing.</p>
+<section id="usage-2" class="level3">
+<h3 class="anchored" data-anchor-id="usage-2">Usage</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="options-2" class="level3">
+<h3 class="anchored" data-anchor-id="options-2">Options</h3>
+<ul>
+<li><code>--workflow WORKFLOW</code>: Choose workflow (automated/assisted/manual)</li>
+<li><code>--no-browser</code>: Don’t auto-launch browser</li>
+<li><code>--port PORT</code>: Jupyter port (default: 8888)</li>
+<li><code>--help</code>: Show help message</li>
+</ul>
+</section>
+<section id="workflows" class="level3">
+<h3 class="anchored" data-anchor-id="workflows">Workflows</h3>
+</section>
+<section id="automated-workflow-default" class="level3">
+<h3 class="anchored" data-anchor-id="automated-workflow-default">Automated Workflow (Default)</h3>
+<p>Best for quick edits and beginners:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Process:</strong> 1. <strong>Exercise Selection</strong>: Choose exercise to edit 2. <strong>Clone Repository</strong>: Downloads to temporary directory 3. <strong>Launch Environment</strong>: Starts Docker with exercise 4. <strong>Open JupyterLab</strong>: Browser opens with files 5. <strong>File Watching</strong>: Auto-saves changes to Git 6. <strong>Test on Save</strong>: Runs tests automatically 7. <strong>Commit &amp; Push</strong>: Pushes changes when done</p>
+<p><strong>Features:</strong> - No Git knowledge required - Automatic dependency detection - Live test feedback - Guided commit messages</p>
+</section>
+<section id="assisted-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="assisted-workflow">Assisted Workflow</h3>
+<p>For users comfortable with Git:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit <span class="at">--workflow</span> assisted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Process:</strong> 1. <strong>Clone Repository</strong>: To current directory 2. <strong>Branch Creation</strong>: Makes feature branch 3. <strong>Launch Environment</strong>: Docker with hot-reload 4. <strong>Manual Editing</strong>: Use any editor 5. <strong>Test Command</strong>: Run tests manually 6. <strong>Git Operations</strong>: Commit and push yourself</p>
+<p><strong>Features:</strong> - Full Git control - Choice of editors - Branch-based workflow - Manual test timing</p>
+</section>
+<section id="manual-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="manual-workflow">Manual Workflow</h3>
+<p>For advanced users:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit <span class="at">--workflow</span> manual</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Simply clones the repository and exits. You handle everything: - Environment setup - Testing - Git operations - CI/CD monitoring</p>
+</section>
+<section id="file-watching" class="level3">
+<h3 class="anchored" data-anchor-id="file-watching">File Watching</h3>
+<p>In automated mode, Franklin watches for changes to: - <code>*.ipynb</code>: Notebook files - <code>*.py</code>: Python modules - <code>Dockerfile</code>: Container configuration - <code>pixi.toml</code>: Dependencies - <code>tests/*.py</code>: Test files</p>
+<p>Changes trigger: 1. Auto-save to Git staging 2. Test execution 3. Feedback in terminal</p>
+</section>
+<section id="dependency-management" class="level3">
+<h3 class="anchored" data-anchor-id="dependency-management">Dependency Management</h3>
+<p>Franklin automatically detects and adds dependencies: 1. <strong>Import Detection</strong>: Scans notebooks for imports 2. <strong>Version Resolution</strong>: Finds compatible versions 3. <strong>pixi.toml Update</strong>: Adds to dependency list 4. <strong>Image Rebuild</strong>: Triggers if needed</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In notebook cell:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Franklin detects and adds:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In pixi.toml:</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">[dependencies]</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="dt">pandas</span> <span class="op">=</span> <span class="st">"&gt;=2.0"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="dt">seaborn</span> <span class="op">=</span> <span class="st">"&gt;=0.12"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="franklin-exercise-clone" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-exercise-clone"><code>franklin exercise clone</code></h2>
+<p>Clones exercise repository for local development.</p>
+<section id="usage-3" class="level3">
+<h3 class="anchored" data-anchor-id="usage-3">Usage</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise clone <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> <span class="pp">[</span><span class="ss">URL</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="arguments" class="level3">
+<h3 class="anchored" data-anchor-id="arguments">Arguments</h3>
+<ul>
+<li><code>URL</code> (optional): Direct repository URL to clone</li>
+</ul>
+</section>
+<section id="options-3" class="level3">
+<h3 class="anchored" data-anchor-id="options-3">Options</h3>
+<ul>
+<li><code>--branch BRANCH</code>: Checkout specific branch</li>
+<li><code>--depth DEPTH</code>: Shallow clone depth (default: full)</li>
+<li><code>--help</code>: Show help message</li>
+</ul>
+</section>
+<section id="interactive-mode-1" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-mode-1">Interactive Mode</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise clone</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Process:</strong> 1. Shows course selection menu 2. Shows exercise selection menu 3. Clones selected repository 4. Preserves all files (including solutions)</p>
+</section>
+<section id="direct-mode-1" class="level3">
+<h3 class="anchored" data-anchor-id="direct-mode-1">Direct Mode</h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise clone https://gitlab.au.dk/franklin/course/exercise.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="difference-from-student-download" class="level3">
+<h3 class="anchored" data-anchor-id="difference-from-student-download">Difference from Student Download</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Aspect</th>
+<th><code>exercise clone</code></th>
+<th><code>download</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Target Users</td>
+<td>Educators</td>
+<td>Students</td>
+</tr>
+<tr class="even">
+<td>Files Included</td>
+<td>All files</td>
+<td>Student files only</td>
+</tr>
+<tr class="odd">
+<td>Git History</td>
+<td>Preserved</td>
+<td>Removed</td>
+</tr>
+<tr class="even">
+<td>Branch Access</td>
+<td>All branches</td>
+<td>Main only</td>
+</tr>
+<tr class="odd">
+<td>Push Rights</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="testing-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="testing-exercises">Testing Exercises</h2>
+</section>
+<section id="franklin-exercise-test" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-exercise-test"><code>franklin exercise test</code></h2>
+<p>Runs exercise test suite locally.</p>
+<section id="usage-4" class="level3">
+<h3 class="anchored" data-anchor-id="usage-4">Usage</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise test <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="options-4" class="level3">
+<h3 class="anchored" data-anchor-id="options-4">Options</h3>
+<ul>
+<li><code>--notebook NOTEBOOK</code>: Test specific notebook (default: all)</li>
+<li><code>--verbose</code>: Show detailed test output</li>
+<li><code>--no-docker</code>: Run tests in current environment</li>
+<li><code>--help</code>: Show help message</li>
+</ul>
+</section>
+<section id="default-behavior" class="level3">
+<h3 class="anchored" data-anchor-id="default-behavior">Default Behavior</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Process:</strong> 1. <strong>Detection</strong>: Finds exercise in current directory 2. <strong>Image Build</strong>: Builds Docker image if needed 3. <strong>Container Start</strong>: Launches test container 4. <strong>Test Execution</strong>: Runs all tests in <code>tests/</code> 5. <strong>Notebook Execution</strong>: Validates notebooks run 6. <strong>Output Check</strong>: Verifies expected outputs 7. <strong>Cleanup</strong>: Removes test container</p>
+</section>
+<section id="test-types" class="level3">
+<h3 class="anchored" data-anchor-id="test-types">Test Types</h3>
+<p><strong>Notebook Tests:</strong> - Cell execution without errors - Output presence verification - Variable state checking - Plot generation validation</p>
+<p><strong>Unit Tests:</strong> - Helper function testing - Data loading verification - Model correctness checks</p>
+<p><strong>Integration Tests:</strong> - Full workflow execution - Multi-notebook pipelines - Data flow validation</p>
+</section>
+<section id="test-configuration" class="level3">
+<h3 class="anchored" data-anchor-id="test-configuration">Test Configuration</h3>
+<p>Tests are configured in <code>tests/test_config.yml</code>:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">notebooks</span><span class="kw">:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> exercise.ipynb</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">timeout</span><span class="kw">:</span><span class="at"> </span><span class="dv">60</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">check_outputs</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">allowed_errors</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> advanced.ipynb</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">timeout</span><span class="kw">:</span><span class="at"> </span><span class="dv">120</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">check_outputs</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">allowed_errors</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">'DeprecationWarning'</span><span class="kw">]</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">unit_tests</span><span class="kw">:</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> tests/test_helpers.py</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> tests/test_data.py</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">integration_tests</span><span class="kw">:</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> tests/test_full_workflow.py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="writing-tests" class="level3">
+<h3 class="anchored" data-anchor-id="writing-tests">Writing Tests</h3>
+<p><strong>Notebook test example:</strong></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/test_notebook.py</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_exercise_notebook():</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Test that exercise notebook runs without errors."""</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    notebook_path <span class="op">=</span> <span class="st">"exercise.ipynb"</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Execute notebook</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(notebook_path) <span class="im">as</span> f:</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        nb <span class="op">=</span> nbformat.read(f, as_version<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    ep <span class="op">=</span> ExecutePreprocessor(timeout<span class="op">=</span><span class="dv">60</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    ep.preprocess(nb, {<span class="st">'metadata'</span>: {<span class="st">'path'</span>: <span class="st">'./'</span>}})</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check for specific outputs</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">any</span>(<span class="st">'plot'</span> <span class="kw">in</span> cell.source <span class="cf">for</span> cell <span class="kw">in</span> nb.cells)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">any</span>(<span class="st">'result'</span> <span class="kw">in</span> cell.source <span class="cf">for</span> cell <span class="kw">in</span> nb.cells)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="common-test-failures" class="level3">
+<h3 class="anchored" data-anchor-id="common-test-failures">Common Test Failures</h3>
+<ul>
+<li><strong>Import Error</strong>: Missing dependency in pixi.toml</li>
+<li><strong>Timeout</strong>: Notebook takes too long (increase timeout)</li>
+<li><strong>Output Mismatch</strong>: Expected output not found</li>
+<li><strong>File Not Found</strong>: Data files not included</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="building-and-publishing" class="level2">
+<h2 class="anchored" data-anchor-id="building-and-publishing">Building and Publishing</h2>
+</section>
+<section id="franklin-exercise-build" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-exercise-build"><code>franklin exercise build</code></h2>
+<p>Builds Docker image for exercise.</p>
+<section id="usage-5" class="level3">
+<h3 class="anchored" data-anchor-id="usage-5">Usage</h3>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise build <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="options-5" class="level3">
+<h3 class="anchored" data-anchor-id="options-5">Options</h3>
+<ul>
+<li><code>--tag TAG</code>: Image tag (default: latest)</li>
+<li><code>--no-cache</code>: Build without cache</li>
+<li><code>--push</code>: Push after building</li>
+<li><code>--help</code>: Show help message</li>
+</ul>
+</section>
+<section id="build-process" class="level3">
+<h3 class="anchored" data-anchor-id="build-process">Build Process</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Steps:</strong> 1. <strong>Validation</strong>: Checks Dockerfile exists 2. <strong>Dependency Resolution</strong>: Processes pixi.toml 3. <strong>Image Build</strong>: Runs Docker build 4. <strong>Layer Caching</strong>: Optimizes rebuild speed 5. <strong>Tagging</strong>: Applies repository tags 6. <strong>Size Check</strong>: Warns if &gt;2GB</p>
+</section>
+<section id="build-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="build-optimization">Build Optimization</h3>
+<p><strong>Dockerfile best practices:</strong></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Good: Dependencies before code</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> mambaforge:latest</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> pixi.toml .</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pixi</span> install</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Bad: Code changes bust cache</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> mambaforge:latest</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pixi</span> install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="multi-stage-builds" class="level3">
+<h3 class="anchored" data-anchor-id="multi-stage-builds">Multi-stage Builds</h3>
+<p>For smaller images:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build stage</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> mambaforge:latest as builder</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> pixi.toml .</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">pixi</span> install</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Runtime stage</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> python:3.11-slim</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> <span class="op">--from=builder</span> /opt/conda /opt/conda</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="franklin-exercise-publish" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-exercise-publish"><code>franklin exercise publish</code></h2>
+<p>Publishes exercise to GitLab registry.</p>
+<section id="usage-6" class="level3">
+<h3 class="anchored" data-anchor-id="usage-6">Usage</h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise publish <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="options-6" class="level3">
+<h3 class="anchored" data-anchor-id="options-6">Options</h3>
+<ul>
+<li><code>--tag TAG</code>: Image tag (default: latest)</li>
+<li><code>--force</code>: Overwrite existing tag</li>
+<li><code>--test</code>: Run tests before publishing</li>
+<li><code>--help</code>: Show help message</li>
+</ul>
+</section>
+<section id="publishing-process" class="level3">
+<h3 class="anchored" data-anchor-id="publishing-process">Publishing Process</h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise publish</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Steps:</strong> 1. <strong>Test Execution</strong>: Runs test suite (unless skipped) 2. <strong>Image Build</strong>: Builds Docker image 3. <strong>Registry Login</strong>: Authenticates with GitLab 4. <strong>Image Push</strong>: Uploads to registry 5. <strong>Tag Update</strong>: Updates latest tag 6. <strong>Visibility Check</strong>: Ensures image is accessible</p>
+</section>
+<section id="version-tagging" class="level3">
+<h3 class="anchored" data-anchor-id="version-tagging">Version Tagging</h3>
+<p>Best practice for versions:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise publish <span class="at">--tag</span> v1.0</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise publish <span class="at">--tag</span> fall2024</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise publish <span class="at">--tag</span> latest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Students always get <code>latest</code> unless specified otherwise.</p>
+</section>
+<section id="registry-structure" class="level3">
+<h3 class="anchored" data-anchor-id="registry-structure">Registry Structure</h3>
+<p>Images are organized as:</p>
+<pre><code>registry.gitlab.au.dk/
+└── franklin/
+    └── [course-name]/
+        └── [exercise-name]:tag</code></pre>
+<p>Example:</p>
+<pre><code>registry.gitlab.au.dk/franklin/intro-bio/week1-intro:latest</code></pre>
+<hr>
+</section>
+</section>
+<section id="repository-management" class="level2">
+<h2 class="anchored" data-anchor-id="repository-management">Repository Management</h2>
+</section>
+<section id="franklin-exercise-settings" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-exercise-settings"><code>franklin exercise settings</code></h2>
+<p>Opens exercise GitLab settings page.</p>
+<section id="usage-7" class="level3">
+<h3 class="anchored" data-anchor-id="usage-7">Usage</h3>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise settings <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="options-7" class="level3">
+<h3 class="anchored" data-anchor-id="options-7">Options</h3>
+<ul>
+<li><code>--section SECTION</code>: Specific settings section</li>
+<li><code>--help</code>: Show help message</li>
+</ul>
+</section>
+<section id="interactive-mode-2" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-mode-2">Interactive Mode</h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise settings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Opens general settings page after exercise selection.</p>
+</section>
+<section id="direct-navigation" class="level3">
+<h3 class="anchored" data-anchor-id="direct-navigation">Direct Navigation</h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise settings <span class="at">--section</span> visibility</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise settings <span class="at">--section</span> ci-cd</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise settings <span class="at">--section</span> members</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="common-settings-tasks" class="level3">
+<h3 class="anchored" data-anchor-id="common-settings-tasks">Common Settings Tasks</h3>
+<p><strong>Make Repository Public:</strong> 1. Run <code>franklin exercise settings --section visibility</code> 2. Change “Project visibility” to “Public” 3. Save changes</p>
+<p><strong>Add Teaching Assistants:</strong> 1. Run <code>franklin exercise settings --section members</code> 2. Click “Invite members” 3. Add users with “Developer” role</p>
+<p><strong>Configure CI/CD:</strong> 1. Run <code>franklin exercise settings --section ci-cd</code> 2. Add variables for registry credentials 3. Configure pipeline triggers</p>
+<hr>
+</section>
+</section>
+<section id="franklin-exercise-archive" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-exercise-archive"><code>franklin exercise archive</code></h2>
+<p>Archives (hides) an exercise from students.</p>
+<section id="usage-8" class="level3">
+<h3 class="anchored" data-anchor-id="usage-8">Usage</h3>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise archive <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="options-8" class="level3">
+<h3 class="anchored" data-anchor-id="options-8">Options</h3>
+<ul>
+<li><code>--confirm</code>: Skip confirmation prompt</li>
+<li><code>--help</code>: Show help message</li>
+</ul>
+</section>
+<section id="archive-process" class="level3">
+<h3 class="anchored" data-anchor-id="archive-process">Archive Process</h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise archive</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Steps:</strong> 1. <strong>Exercise Selection</strong>: Choose exercise to archive 2. <strong>Confirmation</strong>: Confirm archival intent 3. <strong>API Call</strong>: Sets repository to archived state 4. <strong>Registry Update</strong>: Removes from student view</p>
+</section>
+<section id="effects-of-archiving" class="level3">
+<h3 class="anchored" data-anchor-id="effects-of-archiving">Effects of Archiving</h3>
+<p><strong>What happens:</strong> - Repository becomes read-only - Hidden from student exercise lists - Image remains in registry - Can be unarchived later</p>
+<p><strong>What’s preserved:</strong> - All code and history - Issues and merge requests - CI/CD pipelines - Docker images</p>
+</section>
+<section id="unarchiving" class="level3">
+<h3 class="anchored" data-anchor-id="unarchiving">Unarchiving</h3>
+<p>To restore an archived exercise: 1. Go to GitLab settings 2. Expand “Advanced” section 3. Click “Unarchive project”</p>
+<hr>
+</section>
+</section>
+<section id="advanced-features" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-features">Advanced Features</h2>
+</section>
+<section id="continuous-integration" class="level2">
+<h2 class="anchored" data-anchor-id="continuous-integration">Continuous Integration</h2>
+<p>All exercises include GitLab CI/CD pipelines:</p>
+<p><strong>.gitlab-ci.yml template:</strong></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stages</span><span class="kw">:</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> test</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> build</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> publish</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span><span class="kw">:</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> test</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pixi run test</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> pixi run notebook-test</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span><span class="kw">:</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> build</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> docker build -t $CI_REGISTRY_IMAGE .</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">stage</span><span class="kw">:</span><span class="at"> publish</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> docker push $CI_REGISTRY_IMAGE:latest</span></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">only</span><span class="kw">:</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> main</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="pipeline-triggers" class="level3">
+<h3 class="anchored" data-anchor-id="pipeline-triggers">Pipeline Triggers</h3>
+<p>Pipelines run on: - Push to main branch - Merge requests - Tag creation - Manual trigger</p>
+</section>
+<section id="pipeline-monitoring" class="level3">
+<h3 class="anchored" data-anchor-id="pipeline-monitoring">Pipeline Monitoring</h3>
+<p>View pipeline status:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Opens pipelines page</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise settings <span class="at">--section</span> pipelines</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="exercise-metadata" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-metadata">Exercise Metadata</h2>
+<p>Exercises contain metadata in <code>.franklin.yml</code>:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">course</span><span class="kw">:</span><span class="at"> intro-bio</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> week1-intro</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">1.0.0</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">difficulty</span><span class="kw">:</span><span class="at"> beginner</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">topics</span><span class="kw">:</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> data-analysis</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> visualization</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> pandas</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="fu">estimated_time</span><span class="kw">:</span><span class="at"> </span><span class="dv">90</span><span class="co">  # minutes</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="fu">prerequisites</span><span class="kw">:</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> python-basics</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> jupyter-intro</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="fu">learning_objectives</span><span class="kw">:</span></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Load and explore datasets</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Create basic visualizations</span></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Perform simple analyses</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="dependency-scanning" class="level2">
+<h2 class="anchored" data-anchor-id="dependency-scanning">Dependency Scanning</h2>
+<p>Franklin scans for dependencies in: 1. <strong>Import statements</strong> in notebooks 2. <strong>Requirements</strong> in markdown cells 3. <strong>Magic commands</strong> like <code>%pip install</code></p>
+<p>Detected packages are added to pixi.toml with appropriate versions.</p>
+</section>
+<section id="solution-management" class="level2">
+<h2 class="anchored" data-anchor-id="solution-management">Solution Management</h2>
+<p>Solutions are stored separately: - <code>solutions/</code>: Solution notebooks - <code>.solutions.yml</code>: Solution metadata - Excluded from student downloads - Included in educator clones</p>
+<p><strong>Best practice:</strong></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In exercise notebook</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Calculate the mean of the data</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>mean_value <span class="op">=</span> <span class="va">None</span>  <span class="co"># Your code here</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># In solution notebook</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>mean_value <span class="op">=</span> data.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+<section id="troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<section id="common-issues" class="level3">
+<h3 class="anchored" data-anchor-id="common-issues">Common Issues</h3>
+<section id="ssh-key-problems" class="level4">
+<h4 class="anchored" data-anchor-id="ssh-key-problems">SSH Key Problems</h4>
+<p><strong>Problem</strong>: “Permission denied (publickey)”</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution: Configure SSH key</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> ed25519 <span class="at">-C</span> <span class="st">"your-email@au.dk"</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add public key to GitLab profile</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="permission-denied" class="level4">
+<h4 class="anchored" data-anchor-id="permission-denied">Permission Denied</h4>
+<p><strong>Problem</strong>: “You don’t have permission”</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution: Verify educator role</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Contact course coordinator for access</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="docker-build-failures" class="level4">
+<h4 class="anchored" data-anchor-id="docker-build-failures">Docker Build Failures</h4>
+<p><strong>Problem</strong>: “Docker build failed”</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution: Check Dockerfile syntax</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build . <span class="at">--no-cache</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify base image exists</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check dependency conflicts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="test-failures" class="level4">
+<h4 class="anchored" data-anchor-id="test-failures">Test Failures</h4>
+<p><strong>Problem</strong>: “Tests failed”</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution: Run tests locally</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise test <span class="at">--verbose</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check test configuration</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify notebook outputs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="debug-mode" class="level3">
+<h3 class="anchored" data-anchor-id="debug-mode">Debug Mode</h3>
+<p>Enable verbose output:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FRANKLIN_DEBUG</span><span class="op">=</span>true</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Shows: - Git commands executed - Docker build output - Test details - API calls made</p>
+<hr>
+</section>
+</section>
+<section id="best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="best-practices">Best Practices</h2>
+<section id="exercise-design" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-design">Exercise Design</h3>
+<ol type="1">
+<li><strong>Start Simple</strong>: Begin with working example</li>
+<li><strong>Clear Instructions</strong>: Use markdown cells liberally</li>
+<li><strong>Incremental Difficulty</strong>: Build complexity gradually</li>
+<li><strong>Test Everything</strong>: Include comprehensive tests</li>
+<li><strong>Provide Hints</strong>: Guide without giving away solutions</li>
+</ol>
+</section>
+<section id="dependency-management-1" class="level3">
+<h3 class="anchored" data-anchor-id="dependency-management-1">Dependency Management</h3>
+<ol type="1">
+<li><strong>Minimal Dependencies</strong>: Only what’s needed</li>
+<li><strong>Pin Major Versions</strong>: Avoid breaking changes</li>
+<li><strong>Test Compatibility</strong>: Verify versions work together</li>
+<li><strong>Document Requirements</strong>: List in README</li>
+</ol>
+</section>
+<section id="version-control" class="level3">
+<h3 class="anchored" data-anchor-id="version-control">Version Control</h3>
+<ol type="1">
+<li><strong>Meaningful Commits</strong>: Describe changes clearly</li>
+<li><strong>Tag Releases</strong>: Mark stable versions</li>
+<li><strong>Branch Features</strong>: Develop in branches</li>
+<li><strong>Test Before Merge</strong>: Ensure CI passes</li>
+</ol>
+</section>
+<section id="student-experience" class="level3">
+<h3 class="anchored" data-anchor-id="student-experience">Student Experience</h3>
+<ol type="1">
+<li><strong>Fast Startup</strong>: Optimize Docker images</li>
+<li><strong>Clear Errors</strong>: Helpful error messages</li>
+<li><strong>Example Outputs</strong>: Show expected results</li>
+<li><strong>Resource Limits</strong>: Consider student hardware</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="command-reference" class="level2">
+<h2 class="anchored" data-anchor-id="command-reference">Command Reference</h2>
+<section id="quick-reference-table" class="level3">
+<h3 class="anchored" data-anchor-id="quick-reference-table">Quick Reference Table</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Purpose</th>
+<th>Common Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>exercise new</code></td>
+<td>Create new exercise</td>
+<td><code>franklin exercise new</code></td>
+</tr>
+<tr class="even">
+<td><code>exercise edit</code></td>
+<td>Edit with live testing</td>
+<td><code>franklin exercise edit</code></td>
+</tr>
+<tr class="odd">
+<td><code>exercise clone</code></td>
+<td>Clone for development</td>
+<td><code>franklin exercise clone</code></td>
+</tr>
+<tr class="even">
+<td><code>exercise test</code></td>
+<td>Run test suite</td>
+<td><code>franklin exercise test</code></td>
+</tr>
+<tr class="odd">
+<td><code>exercise build</code></td>
+<td>Build Docker image</td>
+<td><code>franklin exercise build</code></td>
+</tr>
+<tr class="even">
+<td><code>exercise publish</code></td>
+<td>Push to registry</td>
+<td><code>franklin exercise publish</code></td>
+</tr>
+<tr class="odd">
+<td><code>exercise settings</code></td>
+<td>Open GitLab settings</td>
+<td><code>franklin exercise settings</code></td>
+</tr>
+<tr class="even">
+<td><code>exercise archive</code></td>
+<td>Hide from students</td>
+<td><code>franklin exercise archive</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="command-aliases" class="level3">
+<h3 class="anchored" data-anchor-id="command-aliases">Command Aliases</h3>
+<p>Some commands have shortcuts: - <code>franklin ex</code> → <code>franklin exercise</code> - <code>franklin exercise create</code> → <code>franklin exercise new</code> - <code>franklin exercise hide</code> → <code>franklin exercise archive</code></p>
+<hr>
+</section>
+</section>
+<section id="integration-with-core-franklin" class="level2">
+<h2 class="anchored" data-anchor-id="integration-with-core-franklin">Integration with Core Franklin</h2>
+<p>Educator commands integrate with core Franklin:</p>
+<p><strong>Testing student experience:</strong></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># As educator, test what students see</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise clone      <span class="co"># Get exercise</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download            <span class="co"># Test student download</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter            <span class="co"># Test student environment</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Workflow example:</strong></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and test exercise</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise new</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise test</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise publish</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify student experience</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download  <span class="co"># As student would</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> exercise-name</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter   <span class="co"># As student would</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+<section id="future-features" class="level2">
+<h2 class="anchored" data-anchor-id="future-features">Future Features</h2>
+<p>Planned enhancements: - <strong>Auto-grading</strong>: Automatic submission grading - <strong>Analytics</strong>: Track student progress - <strong>Collaboration</strong>: Multi-educator workflows - <strong>Templates</strong>: More exercise templates - <strong>Import/Export</strong>: Course package management</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/munch-group\.github\.io\/franklin\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

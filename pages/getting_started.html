@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Franklin – franklin</title>
+<title>Getting started – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/getting_started_beginners.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../pages/commands_core.html" rel="next">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -77,6 +76,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -110,10 +112,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
-<meta name="mermaid-theme" content="neutral">
-<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../api/_styles-quartodoc.css">
@@ -167,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/getting_started.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../pages/getting_started.html">Franklin</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/getting_started.html">Getting started</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -181,14 +179,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin</span></a>
+  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Getting started</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Getting Started</span></a>
+ <span class="menu-text">Franklin commands</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -196,97 +194,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Franklin</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/getting_started_beginners.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin for Beginners</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/quick_reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin Quick Reference</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">User Guides</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/python_users_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin for Python &amp; Jupyter Users</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../pages/commands_core.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Running exercises</span></a>
+ <span class="menu-text">Student/Core Commands</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/commands_edu.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Developing exercises</span></a>
+ <span class="menu-text">Educator Commands</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/commands_admin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Admin tools</span></a>
+ <span class="menu-text">Administrator Commands</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Educator Guides</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Developer Resources</span></a>
+ <span class="menu-text">Tutorials</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/developer_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin Developer Guide</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Developing exercises</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Outline and infrastructure</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
@@ -351,64 +289,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Setup &amp; Configuration</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/computer_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Computer setup</span></a>
+  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/automatic_updates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Automatic Updates</span></a>
+  <a href="../pages/installing_python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">On Mac</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/pixi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">pixi.html</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/conda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Conda</span></a>
+  <a href="../pages/pixi_and_conda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Package Managers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/docker.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Docker</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction to GitLab</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Reference</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -421,6 +330,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../pages/git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Git</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to GitLab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Administration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/admin_quick_reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin Quick Reference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/automatic_updates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Automatic Updates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Developer Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/python_users_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin for Python &amp; Jupyter Users</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/developer_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin Developer Guide</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Developing exercises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Outline and infrastructure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/devel_quick_reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin Quick Reference</span></a>
   </div>
 </li>
       </ul>
@@ -458,41 +437,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#key-features" id="toc-key-features" class="nav-link active" data-scroll-target="#key-features">Key Features</a></li>
-  <li><a href="#get-started" id="toc-get-started" class="nav-link" data-scroll-target="#get-started">Get started</a>
-  <ul class="collapse">
-  <li><a href="#educator-workflow" id="toc-educator-workflow" class="nav-link" data-scroll-target="#educator-workflow">Educator Workflow</a></li>
-  </ul></li>
-  <li><a href="#system-architecture" id="toc-system-architecture" class="nav-link" data-scroll-target="#system-architecture">System Architecture</a></li>
-  <li><a href="#community-support" id="toc-community-support" class="nav-link" data-scroll-target="#community-support">Community &amp; Support</a></li>
-  <li><a href="#latest-updates" id="toc-latest-updates" class="nav-link" data-scroll-target="#latest-updates">Latest Updates</a></li>
-  <li><a href="#technologies" id="toc-technologies" class="nav-link" data-scroll-target="#technologies">Technologies</a></li>
-  <li><a href="#ready-to-start" id="toc-ready-to-start" class="nav-link" data-scroll-target="#ready-to-start">Ready to Start?</a></li>
-  <li><a href="#the-student-interface" id="toc-the-student-interface" class="nav-link" data-scroll-target="#the-student-interface">The student interface</a></li>
-  <li><a href="#the-educator-interface" id="toc-the-educator-interface" class="nav-link" data-scroll-target="#the-educator-interface">The educator interface</a></li>
-  <li><a href="#installing-pixi-package-manager" id="toc-installing-pixi-package-manager" class="nav-link" data-scroll-target="#installing-pixi-package-manager">Installing Pixi Package Manager</a>
-  <ul class="collapse">
-  <li><a href="#quick-install" id="toc-quick-install" class="nav-link" data-scroll-target="#quick-install">Quick Install</a></li>
-  </ul></li>
-  <li><a href="#installing-franklin" id="toc-installing-franklin" class="nav-link" data-scroll-target="#installing-franklin">Installing Franklin</a>
-  <ul class="collapse">
-  <li><a href="#for-students-1" id="toc-for-students-1" class="nav-link" data-scroll-target="#for-students-1">For Students</a></li>
-  <li><a href="#for-educators-1" id="toc-for-educators-1" class="nav-link" data-scroll-target="#for-educators-1">For Educators</a></li>
-  <li><a href="#alternative-conda-installation" id="toc-alternative-conda-installation" class="nav-link" data-scroll-target="#alternative-conda-installation">Alternative: Conda Installation</a></li>
-  </ul></li>
-  <li><a href="#automatic-updates" id="toc-automatic-updates" class="nav-link" data-scroll-target="#automatic-updates">Automatic Updates</a></li>
-  <li><a href="#gitlab-administrator-setup" id="toc-gitlab-administrator-setup" class="nav-link" data-scroll-target="#gitlab-administrator-setup">GitLab administrator setup</a></li>
-  <li><a href="#about-this-documentation" id="toc-about-this-documentation" class="nav-link" data-scroll-target="#about-this-documentation">About this documentation</a></li>
+  <li><a href="#installing" id="toc-installing" class="nav-link active" data-scroll-target="#installing">Installing</a></li>
+  <li><a href="#using-franklin" id="toc-using-franklin" class="nav-link" data-scroll-target="#using-franklin">Using Franklin</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/getting_started.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../pages/getting_started.html">Franklin</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Franklin</h1>
-<p class="subtitle lead">Making Jupyter-based Education Accessible to Everyone</p>
+<h1 class="title">Getting started</h1>
 </div>
 
 
@@ -509,720 +464,194 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- 
-::: {.hero-banner}
-
-## Welcome to Franklin
-
-Franklin is an open-source platform that makes teaching and learning with Jupyter notebooks simple, reliable, and accessible—regardless of technical expertise.
-:::
-
-## Choose Your Path
-
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-4}
-### Students
-New to programming? Start here for a gentle introduction.
-
-- [Beginner's Guide](pages/getting_started_beginners.qmd) - Complete setup walkthrough
-- [Quick Reference](pages/quick_reference.qmd) - All commands at a glance
-- [Troubleshooting](pages/troubleshooting.qmd) - Solutions to common issues
-
-Get started in 5 minutes:
-```bash
-# Install Pixi (one-time setup)
-curl -fsSL https://pixi.sh/install.sh | bash
-
-# Install Franklin
-pixi global install franklin --channel conda-forge --channel munch-group
-
-# Start working
-franklin download
-franklin jupyter
-```
-:::
-
-::: {.g-col-12 .g-col-md-4}
-### Educators
-Create and distribute exercises that work everywhere.
-
-- [Educator Guide](pages/commands_edu.qmd) - Exercise management
-- [Python Users Guide](pages/python_users_guide.qmd) - Advanced workflows
-- [Development Tips](pages/developing.qmd) - Best practices
-
-**Create your first exercise:**
-```bash
-pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
-franklin exercise new
-franklin exercise edit
-```
-:::
-
-::: {.g-col-12 .g-col-md-4}
-### Developers
-Extend Franklin or contribute to the project.
-
-- [Developer Guide](pages/developer_guide.qmd) - Architecture & contributing
-- [API Reference](api/index.qmd) - Complete API documentation
-- [Plugin Development](pages/developer_guide.qmd#plugin-development) - Build extensions
-
-**Set up development:**
-```bash
-git clone https://github.com/munch-group/franklin
-pip install -e .
-```
-:::
-
-::: -->
-<!-- ## Why Franklin? -->
-<!-- ::: {.features} -->
-<!-- ::: {.smaller}
-
-**Zero Setup Frustration**: Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically. <br>
-**Works Everywhere**: Same experience on Windows, Mac, and Linux. No more "works on my machine" problems. Every student sees identical results. <br>
-**Smart Dependencies**: Automatic dependency detection from notebook imports. Uses Pixi, a modern, fast package manager that ensures reproducible environments across all platforms. <br>
-**Container Isolation**: Each exercise runs in its own Docker container. No conflicts between courses, no pollution of system Python, complete isolation. <br>
-**Auto Updates**: Franklin and exercises update automatically. Bug fixes and improvements reach all students instantly without manual intervention. <br>
-**Education Focused**: Designed specifically for teaching. Features like exercise templates, automated testing, and GitLab integration streamline the educational workflow. <br>
-**Empowering**: Acquired skills not limited to the a outside cloud-based learning environment. Franklin opens JupyterLab in your own browser, using your own CPU to run notebooks in your own folders. <br>
-
-::: -->
-<!-- ::: -->
 <p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"></p>
-<div class="grid">
-<div class="g-col-12 g-col-md-4">
-<p><i class="bi bi-cup-hot"></i> <strong>No Setup Frustration</strong>: <br>Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically.</p>
-</div>
-<div class="g-col-12 g-col-md-4">
-<p><i class="bi bi-laptop"></i> <strong>No Platform Issues</strong>: <br>Same experience on Windows, Mac, and Linux. No more “it worked on my machine” problems for educators. Every student sees identical comparable results.</p>
-</div>
-<div class="g-col-12 g-col-md-4">
-<p><i class="bi bi-arrow-repeat"></i> <strong>Smart Dependencies</strong>: <br>Automatic dependency detection from notebook imports. Uses Pixi, a fast package manager that ensures reproducible environments across platforms.</p>
-</div>
-<div class="g-col-12 g-col-md-4">
-<p><i class="bi bi-box-seam"></i> <strong>Container Isolation</strong>: <br>Each exercise is developed and run in its own Docker container. No conflicts between courses or exercises, no pollution of system Python, complete isolation.</p>
-</div>
-<div class="g-col-12 g-col-md-4">
-<p><i class="bi bi-cloud-download"></i> <strong>Auto Updates</strong>: <br>Franklin and its plugins update automatically. Bug fixes and improvements reach all students instantly. No more manual intervention or repeated trouble shooting.</p>
-</div>
-<div class="g-col-12 g-col-md-4">
-<p><i class="bi bi-bug"></i> <strong>Automatic error reports</strong>: Should Franklin crash, it submits a fully documented GitHub issue, unless the same issue is already submitted. No more troubleshooting with students.</p>
-</div>
-<div class="g-col-12 g-col-md-4">
-<p><i class="bi bi-git"></i> <strong>Backed by Git</strong>: <br>Uses institution GitLab server for hosting exercise repositories grouped by course. Uses GitLab pipelines to automate building and hosting of Docker images.</p>
-</div>
-<!-- ::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
-
-::: -->
-<div class="g-col-12 g-col-md-4">
-<p><i class="bi bi-battery-full"></i> <strong>Batteries included</strong>: <br>Multilayered design supports educators at any skill levels. Example notebooks provide plug an play notebook templates for developing exercises.</p>
-</div>
-<div class="g-col-12 g-col-md-4">
-<p><i class="bi bi-rocket-takeoff"></i> <strong>Student Empowering</strong>: <br>Acquired skills not limited to some cloud-based learning environment. Franklin opens JupyterLab in your own browser, uses your own CPU to run notebooks in your own folders.</p>
-</div>
-</div>
-<section id="key-features" class="level2">
-<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">For Students</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">For Educators</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">For Administrators</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">As a Student</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">As an Educator</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<ul>
-<li><strong>Simple Commands</strong>: Just <code>franklin download</code> and <code>franklin jupyter</code></li>
-<li><strong>Automatic Setup</strong>: All dependencies installed automatically</li>
-<li><strong>Consistent Environment</strong>: Same setup as classmates and instructors</li>
-<li><strong>Exercise Management</strong>: Download, work on, and submit exercises easily</li>
-<li><strong>Integrated Help</strong>: Built-in troubleshooting and documentation</li>
-</ul>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/wo9vZccmqwc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<ul>
-<li><strong>Exercise Creation</strong>: Templates and scaffolding for new exercises</li>
-<li><strong>Version Control</strong>: Git integration for exercise development</li>
-<li><strong>Automated Testing</strong>: Validate exercises before distribution</li>
-<li><strong>Dependency Management</strong>: Automatic detection and installation</li>
-<li><strong>Multi-role Support</strong>: Different access levels for TAs and professors</li>
-</ul>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<ul>
-<li><strong>User Management</strong>: Bulk user creation and role assignment</li>
-<li><strong>GitLab Integration</strong>: Centralized exercise repository management</li>
-<li><strong>Access Control</strong>: Fine-grained permissions for courses and exercises</li>
-<li><strong>Usage Analytics</strong>: Monitor platform usage and performance</li>
-<li><strong>Deployment Options</strong>: On-premise or cloud deployment</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>%% https://mermaid.js.org/syntax/userJourney.html</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>journey</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    Week One</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    Double lecture</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      Functions: 5: Python</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      Blast: 3: Bioinf</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    section Go home</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      Alignment: 5: Bioinf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">%% https://mermaid.js.org/syntax/userJourney.html
-journey
-    Week One
-    Double lecture
-      Functions: 5: Python
-      Blast: 3: Bioinf
-    section Go home
-      Alignment: 5: Bioinf
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode dot code-with-copy"><code class="sourceCode dot"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">graph</span> <span class="va">G</span> <span class="ot">{</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">layout</span><span class="ot">=</span><span class="va">neato</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">run</span><span class="co"> -- </span><span class="va">intr</span><span class="ot">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">intr</span><span class="co"> -- </span><span class="va">runbl</span><span class="ot">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">runbl</span><span class="co"> -- </span><span class="va">run</span><span class="ot">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">run</span><span class="co"> -- </span><span class="va">kernel</span><span class="ot">;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">kernel</span><span class="co"> -- </span><span class="va">zombie</span><span class="ot">;</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">kernel</span><span class="co"> -- </span><span class="va">sleep</span><span class="ot">;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">kernel</span><span class="co"> -- </span><span class="va">runmem</span><span class="ot">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">sleep</span><span class="co"> -- </span><span class="va">swap</span><span class="ot">;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">swap</span><span class="co"> -- </span><span class="va">runswap</span><span class="ot">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">runswap</span><span class="co"> -- </span><span class="va">new</span><span class="ot">;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">runswap</span><span class="co"> -- </span><span class="va">runmem</span><span class="ot">;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">new</span><span class="co"> -- </span><span class="va">runmem</span><span class="ot">;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">sleep</span><span class="co"> -- </span><span class="va">runmem</span><span class="ot">;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ot">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="672" height="480" viewbox="0.00 0.00 370.99 246.71" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 242.71)">
-<title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-242.71 366.99,-242.71 366.99,4 -4,4"></polygon>
-<!-- run -->
-<g id="node1" class="node">
-<title>run</title>
-<ellipse fill="none" stroke="black" cx="105.22" cy="-110.03" rx="27" ry="18"></ellipse>
-<text text-anchor="middle" x="105.22" y="-105.83" font-family="Times,serif" font-size="14.00">run</text>
-</g>
-<!-- intr -->
-<g id="node2" class="node">
-<title>intr</title>
-<ellipse fill="none" stroke="black" cx="48.11" cy="-59.71" rx="27" ry="18"></ellipse>
-<text text-anchor="middle" x="48.11" y="-55.51" font-family="Times,serif" font-size="14.00">intr</text>
-</g>
-<!-- run&#45;&#45;intr -->
-<g id="edge1" class="edge">
-<title>run--intr</title>
-<path fill="none" stroke="black" d="M88.7,-95.48C81.19,-88.86 72.32,-81.04 64.79,-74.4"></path>
-</g>
-<!-- kernel -->
-<g id="node4" class="node">
-<title>kernel</title>
-<ellipse fill="none" stroke="black" cx="180.95" cy="-137.54" rx="35.33" ry="18"></ellipse>
-<text text-anchor="middle" x="180.95" y="-133.34" font-family="Times,serif" font-size="14.00">kernel</text>
-</g>
-<!-- run&#45;&#45;kernel -->
-<g id="edge4" class="edge">
-<title>run--kernel</title>
-<path fill="none" stroke="black" d="M129.18,-118.73C136.46,-121.38 144.54,-124.31 152.1,-127.06"></path>
-</g>
-<!-- runbl -->
-<g id="node3" class="node">
-<title>runbl</title>
-<ellipse fill="none" stroke="black" cx="31.42" cy="-126.16" rx="31.34" ry="18"></ellipse>
-<text text-anchor="middle" x="31.42" y="-121.96" font-family="Times,serif" font-size="14.00">runbl</text>
-</g>
-<!-- intr&#45;&#45;runbl -->
-<g id="edge2" class="edge">
-<title>intr--runbl</title>
-<path fill="none" stroke="black" d="M43.64,-77.51C41.25,-87.05 38.3,-98.76 35.91,-108.3"></path>
-</g>
-<!-- runbl&#45;&#45;run -->
-<g id="edge3" class="edge">
-<title>runbl--run</title>
-<path fill="none" stroke="black" d="M61.01,-119.7C67.11,-118.36 73.48,-116.97 79.43,-115.67"></path>
-</g>
-<!-- zombie -->
-<g id="node5" class="node">
-<title>zombie</title>
-<ellipse fill="none" stroke="black" cx="168.31" cy="-220.71" rx="39.42" ry="18"></ellipse>
-<text text-anchor="middle" x="168.31" y="-216.51" font-family="Times,serif" font-size="14.00">zombie</text>
-</g>
-<!-- kernel&#45;&#45;zombie -->
-<g id="edge5" class="edge">
-<title>kernel--zombie</title>
-<path fill="none" stroke="black" d="M178.21,-155.58C176.09,-169.54 173.17,-188.76 171.05,-202.7"></path>
-</g>
-<!-- sleep -->
-<g id="node6" class="node">
-<title>sleep</title>
-<ellipse fill="none" stroke="black" cx="253.25" cy="-154.97" rx="30.76" ry="18"></ellipse>
-<text text-anchor="middle" x="253.25" y="-150.77" font-family="Times,serif" font-size="14.00">sleep</text>
-</g>
-<!-- kernel&#45;&#45;sleep -->
-<g id="edge6" class="edge">
-<title>kernel--sleep</title>
-<path fill="none" stroke="black" d="M212.87,-145.23C216.81,-146.18 220.81,-147.15 224.69,-148.08"></path>
-</g>
-<!-- runmem -->
-<g id="node7" class="node">
-<title>runmem</title>
-<ellipse fill="none" stroke="black" cx="240.17" cy="-83.36" rx="43.44" ry="18"></ellipse>
-<text text-anchor="middle" x="240.17" y="-79.16" font-family="Times,serif" font-size="14.00">runmem</text>
-</g>
-<!-- kernel&#45;&#45;runmem -->
-<g id="edge7" class="edge">
-<title>kernel--runmem</title>
-<path fill="none" stroke="black" d="M198.4,-121.57C205.9,-114.71 214.67,-106.69 222.23,-99.77"></path>
-</g>
-<!-- sleep&#45;&#45;runmem -->
-<g id="edge13" class="edge">
-<title>sleep--runmem</title>
-<path fill="none" stroke="black" d="M249.95,-136.9C247.98,-126.13 245.49,-112.49 243.51,-101.67"></path>
-</g>
-<!-- swap -->
-<g id="node8" class="node">
-<title>swap</title>
-<ellipse fill="none" stroke="black" cx="330.95" cy="-148.25" rx="30.77" ry="18"></ellipse>
-<text text-anchor="middle" x="330.95" y="-144.05" font-family="Times,serif" font-size="14.00">swap</text>
-</g>
-<!-- sleep&#45;&#45;swap -->
-<g id="edge8" class="edge">
-<title>sleep--swap</title>
-<path fill="none" stroke="black" d="M283.96,-152.31C289.3,-151.85 294.86,-151.37 300.21,-150.91"></path>
-</g>
-<!-- runswap -->
-<g id="node9" class="node">
-<title>runswap</title>
-<ellipse fill="none" stroke="black" cx="319.23" cy="-73.46" rx="43.51" ry="18"></ellipse>
-<text text-anchor="middle" x="319.23" y="-69.26" font-family="Times,serif" font-size="14.00">runswap</text>
-</g>
-<!-- swap&#45;&#45;runswap -->
-<g id="edge9" class="edge">
-<title>swap--runswap</title>
-<path fill="none" stroke="black" d="M328.11,-130.15C326.28,-118.47 323.91,-103.35 322.08,-91.66"></path>
-</g>
-<!-- runswap&#45;&#45;runmem -->
-<g id="edge11" class="edge">
-<title>runswap--runmem</title>
-<path fill="none" stroke="black" d="M276.92,-78.76C276.78,-78.77 276.63,-78.79 276.48,-78.81"></path>
-</g>
-<!-- new -->
-<g id="node10" class="node">
-<title>new</title>
-<ellipse fill="none" stroke="black" cx="278.31" cy="-18" rx="27.25" ry="18"></ellipse>
-<text text-anchor="middle" x="278.31" y="-13.8" font-family="Times,serif" font-size="14.00">new</text>
-</g>
-<!-- runswap&#45;&#45;new -->
-<g id="edge10" class="edge">
-<title>runswap--new</title>
-<path fill="none" stroke="black" d="M306.51,-56.21C301.35,-49.22 295.42,-41.18 290.33,-34.29"></path>
-</g>
-<!-- new&#45;&#45;runmem -->
-<g id="edge12" class="edge">
-<title>new--runmem</title>
-<path fill="none" stroke="black" d="M268.49,-34.83C263.01,-44.21 256.2,-55.89 250.62,-65.44"></path>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="get-started" class="level2">
-<h2 class="anchored" data-anchor-id="get-started">Get started</h2>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">As Student</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">As Educator</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/wo9vZccmqwc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/wo9vZccmqwc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </div>
 </div>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Install Franklin (one-time setup)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Download an exercise</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># → Select your course</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># → Select the exercise</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Start working</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># → JupyterLab opens in your browser</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># → Complete the exercise</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># → Save your work</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="educator-workflow" class="level3">
-<h3 class="anchored" data-anchor-id="educator-workflow">Educator Workflow</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Install Franklin with educator tools</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin franklin-educator <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Create a new exercise</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise new</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># → Name your course and exercise</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># → Edit the template notebook</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Test locally</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run test-notebook</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Publish for students</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise publish</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="installing" class="level3">
+<h3 class="anchored" data-anchor-id="installing">Installing</h3>
+<section id="install-python" class="level5">
+<h5 class="anchored" data-anchor-id="install-python">Install Python</h5>
+<p>If you have not done so already, you should <a href="Installing_python.qmd">install a modern version of Python</a>.</p>
 </section>
+<section id="install-chrome" class="level5">
+<h5 class="anchored" data-anchor-id="install-chrome">Install Chrome</h5>
+<p>Franklin is built to interact with the Chrome browser. So you need to make sure that is installed on your computer. If not, you can download it <a href="https://www.google.com/intl/en_uk/chrome/">here</a>.</p>
 </section>
-<section id="system-architecture" class="level2">
-<h2 class="anchored" data-anchor-id="system-architecture">System Architecture</h2>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>graph LR</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    A[Student] --&gt;|franklin download| B[GitLab]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    B --&gt;|Exercise + Docker Image| C[Local Machine]</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    C --&gt;|franklin jupyter| D[Docker Container]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    D --&gt;|Isolated Environment| E[JupyterLab]</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    F[Educator] --&gt;|franklin exercise| B</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    B --&gt;|CI/CD Pipeline| G[Container Registry]</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    G --&gt;|Base Images| D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR
-    A[Student] --&gt;|franklin download| B[GitLab]
-    B --&gt;|Exercise + Docker Image| C[Local Machine]
-    C --&gt;|franklin jupyter| D[Docker Container]
-    D --&gt;|Isolated Environment| E[JupyterLab]
-    
-    F[Educator] --&gt;|franklin exercise| B
-    B --&gt;|CI/CD Pipeline| G[Container Registry]
-    G --&gt;|Base Images| D
-</pre>
+<section id="install-docker-desktop" class="level5">
+<h5 class="anchored" data-anchor-id="install-docker-desktop">Install Docker Desktop</h5>
+<p>Docker is a tool that can run a small linux world in your computer. Franklin uses it to make sure Jupyter runs your exercise in exactly the same way, no matter which kind of computer you have. You do not need to known anything about Docker. Franklin will take care of the whole thing for you. If you are interested, though, you can have a look at this <a href="docker.html">brief introduction to Docker</a>.</p>
+<p>Before you to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac. If you are downloading docker on a AU computer remember to activate admin privileges by activating Heimdal.</p>
+<p>If you are unsure of how to activate Heimdal, follow the instructions given on <a href="https://medarbejdere.au.dk/administration/it/vejledninger/sikkerhed/aktiver-administratorrettigheder-paa-medarbejdercomputer-heimdal">this page</a></p>
+<p>Go to <a href="https://www.docker.com/products/docker-desktop/">this page</a> and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. On a Mac, you can find the name of your chip by clicking the apple icon in the upper left corner and choose “about this mac” in the dropdown menu. Apple silicon chips include M1, M2 and M3. Apple intel chips are named intel.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Skærmbillede 2025-06-03 kl. 13.28.40.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/Skærmbillede 2025-06-03 kl. 13.28.40.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
+</figure>
 </div>
-<p></p></figure><p></p>
+<p>On Windows, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip.</p>
+<p>Download the version of Docker Desktop that matches your operating system and computer chip. Once downloaded, follow the installation instructions for your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens, a window pops up and asks if you want to sign in or create and account. An account is not necessary for using docker with franklin, so you can just click “skip” when prompted.</p>
+<p>When the installation procedure is complete and Docker is done starting up, you must it down. Just closing the blue Docker Dashboard window does not shut down Docker. You need to explicitly quit the program. To make sure it has quit, you can look for the little docker whale icon. In Mac is it in the menu bar. On Windows it is in the small popup menu at the right end of you task bar. If you see a small whale, Docker is still running. Click the whale icon and quit Docker.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Skærmbillede 2025-06-03 kl. 14.27.12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="alt text"><img src="images/Skærmbillede 2025-06-03 kl. 14.27.12.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
+</figure>
 </div>
-</div>
-</div>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>%% https://mermaid.js.org/syntax/architecture.html</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>architecture-beta</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    group api(cloud)[API]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    service db(database)[Database] in api</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    service disk1(disk)[Storage] in api</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    service disk2(disk)[Storage] in api</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    service server(server)[Server] in api</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    db:L -- R:server</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    disk1:T -- B:server</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    disk2:T -- B:db</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">%% https://mermaid.js.org/syntax/architecture.html
-
-architecture-beta
-    group api(cloud)[API]
-
-    service db(database)[Database] in api
-    service disk1(disk)[Storage] in api
-    service disk2(disk)[Storage] in api
-    service server(server)[Server] in api
-
-    db:L -- R:server
-    disk1:T -- B:server
-    disk2:T -- B:db
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>%% https://mermaid.js.org/syntax/gitgraph.html</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>title: Example Git diagram</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>gitGraph</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>   commit</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>   commit</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>   branch develop</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>   checkout develop</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>   commit</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>   commit</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>   checkout main</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>   merge develop</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>   commit</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>   commit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">%% https://mermaid.js.org/syntax/gitgraph.html
----
-title: Example Git diagram
----
-gitGraph
-   commit
-   commit
-   branch develop
-   checkout develop
-   commit
-   commit
-   checkout main
-   merge develop
-   commit
-   commit
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="community-support" class="level2">
-<h2 class="anchored" data-anchor-id="community-support">Community &amp; Support</h2>
-<div class="grid">
-<section id="get-help" class="level3 g-col-12 g-col-md-6">
-<h3 class="anchored" data-anchor-id="get-help">Get Help</h3>
-<ul>
-<li>📚 <a href="pages/getting_started.qmd">Documentation</a> - Comprehensive guides</li>
-<li>🐛 <a href="https://github.com/munch-group/franklin/issues">Issue Tracker</a> - Report bugs</li>
-<li>💬 <a href="https://github.com/munch-group/franklin/discussions">Discussions</a> - Ask questions</li>
-<li>📧 <a href="mailto:kaspermunch@birc.au.dk">Contact</a> - Direct support</li>
-</ul>
-</section>
-<section id="contribute" class="level3 g-col-12 g-col-md-6">
-<h3 class="anchored" data-anchor-id="contribute">Contribute</h3>
-<ul>
-<li>🔧 <a href="pages/developer_guide.qmd">Developer Guide</a> - Start contributing</li>
-<li>🌟 <a href="https://github.com/munch-group/franklin">GitHub</a> - Star the project</li>
-<li>🔌 <a href="pages/developer_guide.qmd#plugin-development">Plugins</a> - Extend Franklin</li>
-<li>📝 <a href="https://hypothes.is/groups/99akKdQZ/franklin">Documentation</a> - Improve docs</li>
-</ul>
-</section>
-</div>
-</section>
-<section id="latest-updates" class="level2">
-<h2 class="anchored" data-anchor-id="latest-updates">Latest Updates</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Version 0.24.165
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Improved plugin architecture with stable interfaces</li>
-<li>Centralized authentication module</li>
-<li>Enhanced Docker container management</li>
-<li>Better error messages and debugging tools</li>
-<li>Comprehensive documentation for all user levels</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="technologies" class="level2">
-<h2 class="anchored" data-anchor-id="technologies">Technologies</h2>
-<p>Franklin is built on modern, reliable technologies:</p>
-<ul>
-<li><strong><a href="https://python.org">Python</a></strong> - Core implementation language</li>
-<li><strong><a href="https://click.palletsprojects.com">Click</a></strong> - CLI framework with plugin support</li>
-<li><strong><a href="https://docker.com">Docker</a></strong> - Container isolation and reproducibility</li>
-<li><strong><a href="https://jupyter.org">JupyterLab</a></strong> - Interactive notebook interface</li>
-<li><strong><a href="https://pixi.sh">Pixi</a></strong> - Modern conda-compatible package manager</li>
-<li><strong><a href="https://gitlab.com">GitLab</a></strong> - Exercise distribution and version control</li>
-</ul>
-</section>
-<section id="ready-to-start" class="level2">
-<h2 class="anchored" data-anchor-id="ready-to-start">Ready to Start?</h2>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Next Steps
+WSL
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ol type="1">
-<li><strong>New Users</strong>: Start with the <a href="pages/getting_started_beginners.qmd">Beginner’s Guide</a></li>
-<li><strong>Python Users</strong>: Jump to the <a href="pages/python_users_guide.qmd">Python Users Guide</a></li>
-<li><strong>Developers</strong>: Explore the <a href="pages/developer_guide.qmd">Developer Guide</a></li>
-<li><strong>Quick Help</strong>: Check the <a href="pages/troubleshooting.qmd">Troubleshooting Guide</a></li>
-</ol>
-</div>
-</div>
-<hr>
-<p><em>Franklin is developed and maintained by the <a href="https://munch-group.org">Munch Group</a> at Aarhus University.</em></p>
-<p><strong>franklin</strong> is an open source project with the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.</p>
-<p>The tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.</p>
-</section>
-<section id="the-student-interface" class="level2">
-<h2 class="anchored" data-anchor-id="the-student-interface">The student interface</h2>
-<p>The student run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies.</p>
-<p>On both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.</p>
+<p>On Windows, Docker Desktop may give you an error message saying “WSL 2 is required”. In that case, install WSL by running the following command into your terminal:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>Terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb8" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">wsl</span> <span class="at">--install</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student’s computer with all required dependencies preinstalled.</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb9" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.</p>
-</section>
-<section id="the-educator-interface" class="level2">
-<h2 class="anchored" data-anchor-id="the-educator-interface">The educator interface</h2>
-<p>Educators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.</p>
-<p>Running the following command prompts the educator for course and exercise name and creates a new exercise.</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb10" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise new</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The following command command prompts the educator for course and exercise. It then retrieves the exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb11" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise edit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="installing-pixi-package-manager" class="level2">
-<h2 class="anchored" data-anchor-id="installing-pixi-package-manager">Installing Pixi Package Manager</h2>
-<p>Franklin uses <a href="https://pixi.sh/latest/">Pixi</a>, a modern, fast package manager that’s fully compatible with conda packages but offers better performance and reliability.</p>
-<section id="quick-install" class="level3">
-<h3 class="anchored" data-anchor-id="quick-install">Quick Install</h3>
+<!-- 
+### Create a conda environment for Franklin
+
+<img src="https://docs.conda.io/en/latest/_images/conda_logo.svg" align="right" width="200" height="100" />
+
+You must install packages and programs for your analyses and pipelines. Sometimes, however, the packages you need for one project conflict with the ones you need for other projects you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small world insulated from the rest of your Anaconda installation? Then, that small world would only contain the packages you needed for a single project. If each project had its isolated world, then there would be no such conflicts. 
+
+Fortunately, a tool lets you do just that, and its name is Conda. Conda's small worlds are called "environments," and you can create as many as you like. You can then switch between them as you switch between your bioinformatics projects. Conda also downloads and installs the packages for you, ensuring that the packages you install in each environment are compatible. It even makes sure to install packages (dependencies) required by the packages you install. By creating an environment for each project, the libraries installed for each project do not interfere. You can read more about conda environments and how to use them in [this introduction](conda.html).
+
+Create an environment called franklin with franklin installed.
+
+```{.bash filename="Terminal"}
+conda create -y -n franklin -c conda-forge -c munch-group franklin
+```
+
+::: callout-important
+
+## For educators
+
+Educators should also install `franklin-educator` like this:
+
+```{.bash filename="Terminal"}
+conda create -y -n franklin -c conda-forge -c munch-group franklin franklin-educator
+```
+
+:::
+
+## Test your setup
+
+If you succesfully completed all the above steps, you should now be able to activate your franklin environment:
+
+```{.bash filename="Terminal"}
+conda activate franklin
+```
+
+and run this command to update franklin to its newest version:
+
+```{.bash filename="Terminal"}
+franklin update
+```
+
+You can learn about how to use franklin on [this page](commands_core.html).
+ -->
+<p>Franklin uses <a href="https://pixi.sh/latest/">Pixi</a>, a modern, fast package manager that’s fully compatible with conda packages but offers better performance and reliability. If you already installed Miniforge Python as described in the <a href="../pages/installing_python.html">Installing Python</a> tutorial, you already have Conda installed, but you may need to install Pixi. To learn about Pixi or Conda, visit the tutorial on <a href="../pages/pixi_and_conda.html">pixi and conda</a>.</p>
+<p><strong>With Pixi (recommended):</strong></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">macOS/Linux</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Windows</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Install as Student</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Install as Educator</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Verify installation:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Educators also include the educator tools in their installation:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin franklin-educator <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Verify installation:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p><strong>With Conda:</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Install as Students</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Install as Educator</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb12" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Activate your conda environment and run:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Verify installation:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>PowerShell</strong></pre>
-</div>
-<div class="sourceCode" id="cb13" data-filename="PowerShell"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iwr</span> <span class="op">-</span>useb https<span class="op">://</span>pixi<span class="op">.</span><span class="fu">sh</span><span class="op">/</span>install<span class="op">.</span><span class="fu">ps1</span> <span class="op">|</span> <span class="fu">iex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<p>Educators also include the educator tools in their installation. Activate your conda environment and run:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin franklin-educator <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Verify installation:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>After installation, restart your terminal to ensure pixi is in your PATH.</p>
-</section>
-</section>
-<section id="installing-franklin" class="level2">
-<h2 class="anchored" data-anchor-id="installing-franklin">Installing Franklin</h2>
-<section id="for-students-1" class="level3">
-<h3 class="anchored" data-anchor-id="for-students-1">For Students</h3>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb14" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the Franklin channel</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify installation</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="for-educators-1" class="level3">
-<h3 class="anchored" data-anchor-id="for-educators-1">For Educators</h3>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb15" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install Franklin with educator tools</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin franklin-educator <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify installation</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="alternative-conda-installation" class="level3">
-<h3 class="anchored" data-anchor-id="alternative-conda-installation">Alternative: Conda Installation</h3>
-<p>If you prefer using conda/mamba:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb16" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Students</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Educators</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin franklin-educator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
-<section id="automatic-updates" class="level2">
-<h2 class="anchored" data-anchor-id="automatic-updates">Automatic Updates</h2>
-<p>Once installed, Franklin updates automatically through pixi’s global sync mechanism. This ensures that any update or bugfix is automatically available to students.</p>
-<p>To manually check for updates:</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
+<section id="using-franklin" class="level2">
+<h2 class="anchored" data-anchor-id="using-franklin">Using Franklin</h2>
+<p>Simple and robust command line interface in Terminal/PowerShell:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Students</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Educators</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p><i class="bi bi-terminal"></i> <strong>Download an exercise</strong>:</p>
+<ol type="1">
+<li>Run <code>franklin download</code></li>
+<li>Select your course</li>
+<li>Select the exercise notebook to download</li>
+</ol>
+<p><i class="bi bi-terminal"></i> <strong>Start working</strong>:</p>
+<ol type="1">
+<li>Run <code>franklin jupyter</code></li>
+<li>Select your course and exercise to make JupyterLab opens in the Chrome browser.</li>
+<li>Work on the exercise</li>
+<li>Save your progress</li>
+<li>Close browser window to stop Franklin.</li>
+</ol>
+<p>See <a href="core_commands.qmd">Franklin core commands</a> for the full documentation.</p>
 </div>
-<div class="sourceCode" id="cb17" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using pixi</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global update franklin</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using conda</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> update <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p><i class="bi bi-terminal"></i> <strong>Create a new exercise from an example template</strong>:</p>
+<ol type="1">
+<li>Run <code>franklin exercise new</code></li>
+<li>Select your course and name exercise</li>
+<li>Edit exercise visibility in browser window.</li>
+<li>Wait a few minutes while the new image builds.</li>
+</ol>
+<p><i class="bi bi-terminal"></i> <strong>Edit exercise notebook</strong>:</p>
+<ol type="1">
+<li>Run <code>franklin exercise edit</code></li>
+<li>Select your course and exercise to clone the repository pull image.</li>
+<li>Edit notebook in JupyterLab opening in Chrome.</li>
+<li>Save your work.</li>
+<li>Closing the browser window will add, commit, and push your changes to the GitLab exercise repository and initiate the building of an updated Docker image.</li>
+</ol>
+<p>See <a href="../pages/commands_core.html">Core commands</a>, <a href="../pages/commands_edu.html">Educator commands</a>, and <a href="../pages/commands_admin.html">Admin commands</a> for the full documentation.</p>
 </div>
-</section>
-<section id="gitlab-administrator-setup" class="level2">
-<h2 class="anchored" data-anchor-id="gitlab-administrator-setup">GitLab administrator setup</h2>
-<p>Franklin only requires a GitLab group named ‘Franklin’, with subgroups for each course holding the exercise repositories.</p>
-</section>
-<section id="about-this-documentation" class="level2">
-<h2 class="anchored" data-anchor-id="about-this-documentation">About this documentation</h2>
-<p>These pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click “Sign up” to create a Hypothes.is account. Once you are logged in to that, you click <a href="https://hypothes.is/groups/99akKdQZ/franklin">this invite link</a> to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click “Annotate” to add your suggestion/comment.</p>
-<p>Should you come across a bug or find yourself missing some functionality, you are welcome to <a href="https://github.com/munch-group/franklin/issues">submit an issue</a>.</p>
+</div>
+</div>
 
 
 </section>
@@ -1629,17 +1058,46 @@ Next Steps
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Franklin">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Franklin</span>
-      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/getting_started_beginners.html" class="pagination-link" aria-label="Franklin for Beginners">
-        <span class="nav-page-text">Franklin for Beginners</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/commands_core.html" class="pagination-link" aria-label="Student/Core Commands">
+        <span class="nav-page-text">Student/Core Commands</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

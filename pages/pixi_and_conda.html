@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Franklin for Beginners – franklin</title>
+<title>Package Managers – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/quick_reference.html" rel="next">
-<link href="../pages/getting_started.html" rel="prev">
+<link href="../pages/docker.html" rel="next">
+<link href="../pages/installing_python.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -77,8 +77,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -165,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/getting_started.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../pages/getting_started_beginners.html">Franklin for Beginners</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/terminal.html">Reference</a></li><li class="breadcrumb-item"><a href="../pages/pixi_and_conda.html">Package Managers</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,14 +177,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin</span></a>
+  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting started</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Getting Started</span></a>
+ <span class="menu-text">Franklin commands</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -194,97 +192,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/getting_started_beginners.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Franklin for Beginners</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/quick_reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin Quick Reference</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">User Guides</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/python_users_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin for Python &amp; Jupyter Users</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../pages/commands_core.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Running exercises</span></a>
+ <span class="menu-text">Student/Core Commands</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/commands_edu.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Developing exercises</span></a>
+ <span class="menu-text">Educator Commands</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/commands_admin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Admin tools</span></a>
+ <span class="menu-text">Administrator Commands</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Educator Guides</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Developer Resources</span></a>
+ <span class="menu-text">Tutorials</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/developer_guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin Developer Guide</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Developing exercises</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Outline and infrastructure</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
@@ -349,64 +287,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Setup &amp; Configuration</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Reference</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/computer_setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Computer setup</span></a>
+  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/automatic_updates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Automatic Updates</span></a>
+  <a href="../pages/installing_python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">On Mac</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/pixi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">pixi.html</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/conda.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Conda</span></a>
+  <a href="../pages/pixi_and_conda.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Package Managers</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/docker.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Docker</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction to GitLab</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Reference</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction to the Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -419,6 +328,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../pages/git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to Git</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/gitlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to GitLab</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Administration</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/admin_quick_reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin Quick Reference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/automatic_updates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Automatic Updates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Developer Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/python_users_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin for Python &amp; Jupyter Users</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/developer_guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin Developer Guide</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Developing exercises</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Outline and infrastructure</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/devel_quick_reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Franklin Quick Reference</span></a>
   </div>
 </li>
       </ul>
@@ -456,45 +435,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome-to-franklin" id="toc-welcome-to-franklin" class="nav-link active" data-scroll-target="#welcome-to-franklin">Welcome to Franklin!</a></li>
-  <li><a href="#what-is-franklin" id="toc-what-is-franklin" class="nav-link" data-scroll-target="#what-is-franklin">What is Franklin?</a></li>
-  <li><a href="#before-you-start" id="toc-before-you-start" class="nav-link" data-scroll-target="#before-you-start">Before You Start</a>
+  <li><a href="#pixi-the-modern-approach" id="toc-pixi-the-modern-approach" class="nav-link active" data-scroll-target="#pixi-the-modern-approach">Pixi: The Modern Approach</a>
   <ul class="collapse">
-  <li><a href="#step-1-install-pixi-one-time-setup" id="toc-step-1-install-pixi-one-time-setup" class="nav-link" data-scroll-target="#step-1-install-pixi-one-time-setup">Step 1: Install Pixi (One-Time Setup)</a></li>
-  <li><a href="#step-2-install-franklin" id="toc-step-2-install-franklin" class="nav-link" data-scroll-target="#step-2-install-franklin">Step 2: Install Franklin</a></li>
-  <li><a href="#alternative-using-conda" id="toc-alternative-using-conda" class="nav-link" data-scroll-target="#alternative-using-conda">Alternative: Using Conda</a></li>
+  <li><a href="#installing-pixi" id="toc-installing-pixi" class="nav-link" data-scroll-target="#installing-pixi">Installing Pixi</a></li>
+  <li><a href="#using-pixi" id="toc-using-pixi" class="nav-link" data-scroll-target="#using-pixi">Using Pixi</a></li>
   </ul></li>
-  <li><a href="#your-first-exercise" id="toc-your-first-exercise" class="nav-link" data-scroll-target="#your-first-exercise">Your First Exercise</a>
+  <li><a href="#conda-the-traditional-standard" id="toc-conda-the-traditional-standard" class="nav-link" data-scroll-target="#conda-the-traditional-standard">Conda: The Traditional Standard</a>
   <ul class="collapse">
-  <li><a href="#downloading-an-exercise" id="toc-downloading-an-exercise" class="nav-link" data-scroll-target="#downloading-an-exercise">Downloading an Exercise</a></li>
-  <li><a href="#working-on-your-exercise" id="toc-working-on-your-exercise" class="nav-link" data-scroll-target="#working-on-your-exercise">Working on Your Exercise</a></li>
-  <li><a href="#saving-and-submitting-your-work" id="toc-saving-and-submitting-your-work" class="nav-link" data-scroll-target="#saving-and-submitting-your-work">Saving and Submitting Your Work</a></li>
+  <li><a href="#how-conda-works" id="toc-how-conda-works" class="nav-link" data-scroll-target="#how-conda-works">How Conda Works</a></li>
+  <li><a href="#create-making-a-new-environment" id="toc-create-making-a-new-environment" class="nav-link" data-scroll-target="#create-making-a-new-environment">Create: Making a New Environment</a></li>
+  <li><a href="#activate-and-deactivate-switching-environments" id="toc-activate-and-deactivate-switching-environments" class="nav-link" data-scroll-target="#activate-and-deactivate-switching-environments">Activate and Deactivate: Switching Environments</a></li>
+  <li><a href="#install-adding-packages" id="toc-install-adding-packages" class="nav-link" data-scroll-target="#install-adding-packages">Install: Adding Packages</a></li>
   </ul></li>
-  <li><a href="#common-tasks" id="toc-common-tasks" class="nav-link" data-scroll-target="#common-tasks">Common Tasks</a>
+  <li><a href="#try-it-out" id="toc-try-it-out" class="nav-link" data-scroll-target="#try-it-out">Try it out</a>
   <ul class="collapse">
-  <li><a href="#checking-franklin-version" id="toc-checking-franklin-version" class="nav-link" data-scroll-target="#checking-franklin-version">Checking Franklin Version</a></li>
-  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting Help</a></li>
-  <li><a href="#updating-franklin" id="toc-updating-franklin" class="nav-link" data-scroll-target="#updating-franklin">Updating Franklin</a></li>
+  <li><a href="#your-first-pixi-project" id="toc-your-first-pixi-project" class="nav-link" data-scroll-target="#your-first-pixi-project">Your First Pixi Project</a></li>
+  <li><a href="#your-first-conda-environment" id="toc-your-first-conda-environment" class="nav-link" data-scroll-target="#your-first-conda-environment">Your First Conda Environment</a></li>
   </ul></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
-  <ul class="collapse">
-  <li><a href="#command-not-found" id="toc-command-not-found" class="nav-link" data-scroll-target="#command-not-found">“Command not found”</a></li>
-  <li><a href="#no-exercises-available" id="toc-no-exercises-available" class="nav-link" data-scroll-target="#no-exercises-available">“No exercises available”</a></li>
-  <li><a href="#browser-doesnt-open" id="toc-browser-doesnt-open" class="nav-link" data-scroll-target="#browser-doesnt-open">Browser doesn’t open</a></li>
-  <li><a href="#cant-find-your-exercise-folder" id="toc-cant-find-your-exercise-folder" class="nav-link" data-scroll-target="#cant-find-your-exercise-folder">Can’t find your exercise folder</a></li>
-  </ul></li>
-  <li><a href="#tips-for-success" id="toc-tips-for-success" class="nav-link" data-scroll-target="#tips-for-success">Tips for Success</a></li>
-  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/getting_started.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../pages/getting_started_beginners.html">Franklin for Beginners</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/terminal.html">Reference</a></li><li class="breadcrumb-item"><a href="../pages/pixi_and_conda.html">Package Managers</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Franklin for Beginners</h1>
-<p class="subtitle lead">A Complete Guide for Users New to Programming</p>
+<h1 class="title">Package Managers</h1>
+<p class="subtitle lead">Pixi and Conda for Scientific Computing</p>
 </div>
 
 
@@ -511,251 +478,151 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="welcome-to-franklin" class="level2">
-<h2 class="anchored" data-anchor-id="welcome-to-franklin">Welcome to Franklin!</h2>
-<p>Franklin is a tool that makes it easy to learn programming and data science, even if you’ve never written code before. Think of Franklin as your personal assistant that handles all the technical setup so you can focus on learning.</p>
-</section>
-<section id="what-is-franklin" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-franklin">What is Franklin?</h2>
-<p>Franklin is like having a teaching assistant who:</p>
-<ul>
-<li><strong>Sets up your computer</strong> with all the software you need</li>
-<li><strong>Downloads exercises</strong> from your instructors<br>
-</li>
-<li><strong>Ensures everything works</strong> the same way on every computer</li>
-<li><strong>Keeps everything updated</strong> automatically</li>
-</ul>
-<p>You don’t need to understand how it works – just follow the simple commands below!</p>
-</section>
-<section id="before-you-start" class="level2">
-<h2 class="anchored" data-anchor-id="before-you-start">Before You Start</h2>
-<section id="step-1-install-pixi-one-time-setup" class="level3">
-<h3 class="anchored" data-anchor-id="step-1-install-pixi-one-time-setup">Step 1: Install Pixi (One-Time Setup)</h3>
-<p>Pixi is a modern package manager that Franklin uses. It’s fast, reliable, and easy to install.</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="100%" height="400" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="Installing Pixi Package Manager (2 min)"><source src="videos/install-pixi-overview.mp4"></video></div>
+<p>When you work with Python for scientific computing or data analysis, you need a way to install and manage software packages – collections of code that others have written to help you analyze data, create visualizations, or perform calculations. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create small insulated worlds for each project, which then only contained the packages needed for each particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there are tools like Pixi and Conda that lets you do just that. The small worlds that are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else.</p>
+<p>This is where package managers come in. A package manager is a tool that handles all the complexity of downloading, installing, and organizing these packages for you. It’s like having an app store for your scientific computing needs. We’ll introduce two package managers: <strong>Pixi</strong> (a modern, fast tool) and <strong>Conda</strong> (the traditional aging standard). Both do the same job but in slightly different ways. We’ll start with Pixi because it’s simpler and faster for beginners.</p>
+<p>Package management might seem complex at first, but it quickly becomes second nature. Every data scientist and researcher uses these tools daily – with a little practice, you’ll wonder how you ever worked without them.</p>
+<section id="pixi-the-modern-approach" class="level2">
+<h2 class="anchored" data-anchor-id="pixi-the-modern-approach">Pixi: The Modern Approach</h2>
+<p>Imagine you’re starting a new research project. You create a folder on your computer for all your project files – your data, your analysis scripts, your results. Pixi works within this project folder, creating a self-contained environment just for this project.</p>
+<p>When you initialize Pixi in your project folder, it creates a special file called <code>pixi.toml</code> that acts like a shopping list of all the packages your project needs. Every time you add a package, Pixi updates this list. This means if you share your project with a colleague or move it to another computer, Pixi can read this list and install exactly the same packages, ensuring your analysis works the same way everywhere.</p>
+<p>Pixi stores all the installed packages in a hidden folder called <code>.pixi</code> within your project. This keeps everything organized and separate from other projects on your computer. Different projects can use different versions of the same package without interfering with each other.</p>
+<section id="installing-pixi" class="level3">
+<h3 class="anchored" data-anchor-id="installing-pixi">Installing Pixi</h3>
+<p>Before you can use Pixi, you need to install it on your computer. The installation is a one-time process.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Windows</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Mac</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Linux</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">On Mac/Linux</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">On Windows</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<ol type="1">
-<li><p>Open PowerShell as Administrator:</p>
-<ul>
-<li>Press Windows key</li>
-<li>Type “PowerShell”</li>
-<li>Right-click and select “Run as Administrator”</li>
-</ul></li>
-<li><p>Copy and paste this command, then press Enter:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iwr</span> <span class="op">-</span>useb https<span class="op">://</span>pixi<span class="op">.</span><span class="fu">sh</span><span class="op">/</span>install<span class="op">.</span><span class="fu">ps1</span> <span class="op">|</span> <span class="fu">iex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Close PowerShell and open a new regular PowerShell window</p></li>
-<li><p>Verify installation:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pixi <span class="op">--</span>version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ol>
+<p>Open the Terminal and run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>After installation, close and reopen your terminal to make sure your computer recognizes the new <code>pixi</code> command.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Open PowerShell and run:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iwr</span> <span class="op">-</span>useb https<span class="op">://</span>pixi<span class="op">.</span><span class="fu">sh</span><span class="op">/</span>install<span class="op">.</span><span class="fu">ps1</span> <span class="op">|</span> <span class="fu">iex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>After installation, close and reopen your powershell to make sure your computer recognizes the new <code>pixi</code> command.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="using-pixi" class="level3">
+<h3 class="anchored" data-anchor-id="using-pixi">Using Pixi</h3>
+<section id="global-install-system-wide-tools" class="level4">
+<h4 class="anchored" data-anchor-id="global-install-system-wide-tools">Global Install: System-Wide Tools</h4>
+<p>Sometimes you want to install a tool that you’ll use across many projects, not just one specific project. These are tools that are not directly involved in any projects. Pixi’s <code>global install</code> feature is perfect for this. It’s like installing a program on your computer that you can use anywhere (by way of mention, this is also the way we would install franklin).</p>
+<p>For example, to install git (a popular tool for version control in computing) globally:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>After this command completes, you can start JupyterLab from anywhere on your computer by typing <code>git</code> in your terminal. The tool is available system-wide, not tied to any specific project.</p>
+</section>
+<section id="add-installing-packages-for-your-project" class="level4">
+<h4 class="anchored" data-anchor-id="add-installing-packages-for-your-project">Add: Installing Packages for Your Project</h4>
+<p>When you’re working on a specific project and need packages just for that project, you use the <code>add</code> command. A special feature of Pixi is that it is is tied to and lives in the root folder of your project. So before you begin, navigate to your project folder in the terminal, then initialize Pixi if you haven’t already:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This creates the <code>pixi.toml</code> file we mentioned earlier. Now you can add packages to your project. For example, if you’re doing data analysis, you might need pandas (for data manipulation) and matplotlib (for creating graphs):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add pandas matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Pixi will download these packages and all their dependencies (other packages they need to work properly), storing them in your project’s <code>.pixi</code> folder. It also updates your <code>pixi.toml</code> file to remember what you’ve installed.</p>
+<p>You can add as many packages as you need:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add numpy scipy scikit-learn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you need a package from PyPI (Python’s main package repository) that isn’t available in the conda ecosystem, you can add it with the <code>--pypi</code> flag:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--pypi</span> requests beautifulsoup4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="shell-activating-your-project-environment" class="level4">
+<h4 class="anchored" data-anchor-id="shell-activating-your-project-environment">Shell: Activating Your Project Environment</h4>
+<p>Once you’ve added packages to your project, you need to “activate” the project environment to use them. This is like telling your computer “I want to work on this specific project now, so please use the packages I’ve installed for it.”</p>
+<p>To activate your project environment:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> shell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Your terminal prompt will change to show you’re now working in the Pixi environment. Now when you run Python or any of your installed packages, you’ll be using the versions specific to this project.</p>
+<p>While in the shell, you can: - Run Python scripts that use your installed packages - Start Jupyter notebooks - Use any command-line tools you’ve added to the project</p>
+<p>To leave the project environment and return to your normal terminal, simply type:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+<section id="conda-the-traditional-standard" class="level2">
+<h2 class="anchored" data-anchor-id="conda-the-traditional-standard">Conda: The Traditional Standard</h2>
+<section id="how-conda-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-conda-works">How Conda Works</h3>
+<p>Conda takes a different approach from Pixi and its environments are not tied to specific folders. Instead, Conda creates named environments that live in a central location on your computer. Think of it like having different workspaces that you can switch between, each with its own set of installed packages.</p>
+<p>When you create a Conda environment, you give it a name. This environment is like a separate Python installation with its own packages. You can have multiple environments – perhaps one for each project, or one for teaching, one for research, and one for experiments. You switch between these environments by “activating” the one you want to use.</p>
+<p>Conda has been around much longer than Pixi and has an enormous collection of packages available, especially for scientific computing. It’s widely used in academia and industry.</p>
+<blockquote class="blockquote">
+<p>The reason we still prefer Pixi is that it manages conda packages better than Conda itself, in addition to being faster and more robust.</p>
+</blockquote>
+</section>
+<section id="create-making-a-new-environment" class="level3">
+<h3 class="anchored" data-anchor-id="create-making-a-new-environment">Create: Making a New Environment</h3>
+<p>Creating a new Conda environment is like setting up a fresh workspace. You give it a name and specify which version of Python you want to use.</p>
+<p>To create a new environment called “myproject” with Python 3.11:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> myproject python=3.11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>-n</code> flag stands for “name”. Conda will ask you to confirm before creating the environment – just type ‘y’ and press Enter.</p>
+<p>You can create as many environments as you need, each with a descriptive name:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> data-analysis python=3.11</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> machine-learning python=3.10</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> web-scraping python=3.11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each environment is independent, so you can have different Python versions and different packages in each one.</p>
+</section>
+<section id="activate-and-deactivate-switching-environments" class="level3">
+<h3 class="anchored" data-anchor-id="activate-and-deactivate-switching-environments">Activate and Deactivate: Switching Environments</h3>
+<p>Before you can use a Conda environment, you need to activate it. This tells your computer which set of packages to use.</p>
+<p>To activate an environment:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate myproject</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You’ll see your terminal prompt change to show the environment name in parentheses, like <code>(myproject)</code>. This reminds you which environment you’re currently using.</p>
+<p>While an environment is activated, any Python scripts you run or packages you install will use that environment’s Python and packages.</p>
+<p>To switch to a different environment, just activate it:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate data-analysis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When you’re done working and want to return to your default system Python, deactivate the environment:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can activate and deactivate environments as often as you like – it’s instant and doesn’t affect the packages or files in the environment.</p>
+</section>
+<section id="install-adding-packages" class="level3">
+<h3 class="anchored" data-anchor-id="install-adding-packages">Install: Adding Packages</h3>
+<p>Once you’ve created and activated an environment, you can install packages into it. The install command downloads and sets up packages in your current environment.</p>
+<p>First, make sure you’ve activated the environment where you want to install packages:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate myproject</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then install packages:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install numpy pandas matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Conda will show you what it plans to install and ask for confirmation. Type ‘y’ and press Enter to proceed.</p>
+<p>You can install multiple packages at once or one at a time:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install scipy</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If a package isn’t available in the default Conda repository, you might need to use the conda-forge channel (a community-maintained collection):</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge plotly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>-c</code> flag specifies the channel to use for that installation.</p>
+</section>
+</section>
+<section id="try-it-out" class="level2">
+<h2 class="anchored" data-anchor-id="try-it-out">Try it out</h2>
+<p>Here’s a simple example to get you started with each tool:</p>
+<section id="your-first-pixi-project" class="level3">
+<h3 class="anchored" data-anchor-id="your-first-pixi-project">Your First Pixi Project</h3>
 <ol type="1">
-<li><p>Open Terminal (find it in Applications → Utilities)</p></li>
-<li><p>Copy and paste this command, then press Enter:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Close Terminal and open a new Terminal window</p></li>
-<li><p>Verify installation:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Create a new folder for your project and navigate to it:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> my-analysis</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> my-analysis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Initialize Pixi:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Add the packages you need:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add python numpy pandas matplotlib jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Start working:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> shell</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> notebook</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ol>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+</section>
+<section id="your-first-conda-environment" class="level3">
+<h3 class="anchored" data-anchor-id="your-first-conda-environment">Your First Conda Environment</h3>
 <ol type="1">
-<li><p>Open your terminal</p></li>
-<li><p>Copy and paste this command, then press Enter:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Restart your terminal</p></li>
-<li><p>Verify installation:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Create a new environment:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> my-first-env python=3.11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Activate it:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate my-first-env</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Install packages:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install numpy pandas matplotlib jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Start working:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> notebook</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ol>
-</div>
-</div>
-</div>
-</section>
-<section id="step-2-install-franklin" class="level3">
-<h3 class="anchored" data-anchor-id="step-2-install-franklin">Step 2: Install Franklin</h3>
-<p>Now we’ll install Franklin itself. This only takes a minute!</p>
-<ol type="1">
-<li><p>Open your terminal/command prompt:</p>
-<ul>
-<li><strong>Windows</strong>: Open PowerShell (press Windows key, type “PowerShell”, press Enter)</li>
-<li><strong>Mac/Linux</strong>: Open Terminal</li>
-</ul></li>
-<li><p>Copy and paste this command, then press Enter:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Verify Franklin is installed:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ol>
-<p>That’s it! Franklin is now installed and will keep itself updated automatically.</p>
-</section>
-<section id="alternative-using-conda" class="level3">
-<h3 class="anchored" data-anchor-id="alternative-using-conda">Alternative: Using Conda</h3>
-<p>If your instructor specifically requires conda/miniforge:</p>
-<ol type="1">
-<li><p>Install <a href="https://conda-forge.org/download/">Miniforge</a> following their instructions</p></li>
-<li><p>Install Franklin:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ol>
-</section>
-</section>
-<section id="your-first-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="your-first-exercise">Your First Exercise</h2>
-<div class="quarto-video"><video id="video_shortcode_videojs_video2" width="100%" height="400" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="Complete Student Workflow Demo (5 min)"><source src="videos/first-exercise-complete-workflow.mp4"></video></div>
-<section id="downloading-an-exercise" class="level3">
-<h3 class="anchored" data-anchor-id="downloading-an-exercise">Downloading an Exercise</h3>
-<p>Your instructor will give you an exercise to work on. Here’s how to get it:</p>
-<ol type="1">
-<li><p>Open your terminal (Miniforge Prompt on Windows, Terminal on Mac)</p></li>
-<li><p>Type this command and press Enter:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Franklin will show you a list of available courses:</p>
-<pre><code>Select course:
-→ Introduction to Python
-  Data Science Basics
-  Statistics with Python</code></pre>
-<p>Use arrow keys to select your course, press Enter</p></li>
-<li><p>Next, select the exercise:</p>
-<pre><code>Select exercise:
-→ Week 1 - Getting Started
-  Week 2 - Variables and Types</code></pre>
-<p>Use arrow keys to select, press Enter</p></li>
-<li><p>Franklin downloads the exercise to a folder on your computer and tells you where it is:</p>
-<pre><code>Exercise downloaded to: /Users/yourname/Week 1 - Getting Started</code></pre></li>
-</ol>
-</section>
-<section id="working-on-your-exercise" class="level3">
-<h3 class="anchored" data-anchor-id="working-on-your-exercise">Working on Your Exercise</h3>
-<p>Now let’s open your exercise in Jupyter (the program where you’ll write and run code):</p>
-<div class="quarto-video"><video id="video_shortcode_videojs_video3" width="100%" height="400" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title="Working with Jupyter Notebooks (3 min)"><source src="videos/working-in-jupyterlab.mp4"></video></div>
-<ol type="1">
-<li><p>In the same terminal, type:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Select your course and exercise again (same as before)</p></li>
-<li><p>Franklin will:</p>
-<ul>
-<li>Set up everything needed for the exercise</li>
-<li>Open your web browser</li>
-<li>Show you JupyterLab (looks like a document editor)</li>
-</ul></li>
-<li><p>In JupyterLab:</p>
-<ul>
-<li>Click on the notebook file (ends with <code>.ipynb</code>)</li>
-<li>Read the instructions in each cell</li>
-<li>Type your code where it says “Your code here”</li>
-<li>Press <strong>Shift+Enter</strong> to run each cell</li>
-<li>Save your work with <strong>Ctrl+S</strong> (Windows) or <strong>Cmd+S</strong> (Mac)</li>
-</ul></li>
-</ol>
-</section>
-<section id="saving-and-submitting-your-work" class="level3">
-<h3 class="anchored" data-anchor-id="saving-and-submitting-your-work">Saving and Submitting Your Work</h3>
-<p>Your work is automatically saved in the exercise folder. To submit:</p>
-<ol type="1">
-<li>Find your exercise folder (Franklin told you where it is)</li>
-<li>The completed notebook is there</li>
-<li>Submit according to your instructor’s directions (usually upload to your course website)</li>
-</ol>
-</section>
-</section>
-<section id="common-tasks" class="level2">
-<h2 class="anchored" data-anchor-id="common-tasks">Common Tasks</h2>
-<section id="checking-franklin-version" class="level3">
-<h3 class="anchored" data-anchor-id="checking-franklin-version">Checking Franklin Version</h3>
-<p>To see which version you have:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="getting-help" class="level3">
-<h3 class="anchored" data-anchor-id="getting-help">Getting Help</h3>
-<p>If something isn’t working:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="updating-franklin" class="level3">
-<h3 class="anchored" data-anchor-id="updating-franklin">Updating Franklin</h3>
-<p>Franklin updates automatically, but you can force an update:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using pixi</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global update franklin</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using conda (if you installed with conda)</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> update franklin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="command-not-found" class="level3">
-<h3 class="anchored" data-anchor-id="command-not-found">“Command not found”</h3>
-<p><strong>Problem</strong>: Terminal says <code>franklin: command not found</code></p>
-<p><strong>Solution</strong>: 1. Make sure you installed Miniforge first 2. Close your terminal completely and open a new one 3. Try the install command again</p>
-</section>
-<section id="no-exercises-available" class="level3">
-<h3 class="anchored" data-anchor-id="no-exercises-available">“No exercises available”</h3>
-<p><strong>Problem</strong>: No courses or exercises appear when you run <code>franklin download</code></p>
-<p><strong>Solution</strong>: 1. Check with your instructor that exercises have been published 2. Make sure you’re connected to the internet 3. Try again in a few minutes</p>
-</section>
-<section id="browser-doesnt-open" class="level3">
-<h3 class="anchored" data-anchor-id="browser-doesnt-open">Browser doesn’t open</h3>
-<p><strong>Problem</strong>: After running <code>franklin jupyter</code>, nothing happens</p>
-<p><strong>Solution</strong>: 1. Look in your terminal for a line like: <code>JupyterLab URL: http://localhost:8888/lab?token=...</code> 2. Copy that entire URL 3. Open your web browser manually 4. Paste the URL in the address bar</p>
-</section>
-<section id="cant-find-your-exercise-folder" class="level3">
-<h3 class="anchored" data-anchor-id="cant-find-your-exercise-folder">Can’t find your exercise folder</h3>
-<p><strong>Problem</strong>: Don’t know where Franklin saved your exercise</p>
-<p><strong>Solution</strong>: 1. Run <code>franklin download</code> again 2. When it asks “Exercise already exists. Overwrite?”, type <code>n</code> for no 3. It will show you the exact location</p>
-</section>
-</section>
-<section id="tips-for-success" class="level2">
-<h2 class="anchored" data-anchor-id="tips-for-success">Tips for Success</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Best Practices
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li><strong>Create a course folder</strong>: Keep all exercises for one course in the same place</li>
-<li><strong>Name files clearly</strong>: When saving additional files, use descriptive names</li>
-<li><strong>Save often</strong>: Press Ctrl+S (or Cmd+S on Mac) frequently</li>
-<li><strong>Read carefully</strong>: Exercise instructions often contain hints</li>
-<li><strong>Don’t panic</strong>: If something goes wrong, you can always re-download the exercise</li>
-</ol>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Remember
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>You don’t need to understand how Franklin works internally</li>
-<li>Just follow the commands exactly as shown</li>
-<li>Your instructor is there to help if you get stuck</li>
-<li>Every student’s Franklin setup works the same way – you can help each other!</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="next-steps" class="level2">
-<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
-<p>Once you’re comfortable with the basics:</p>
-<ol type="1">
-<li>Read through the exercises carefully before starting</li>
-<li>Try experimenting with the code to see what happens</li>
-<li>Ask questions when something doesn’t make sense</li>
-<li>Help classmates who might be struggling</li>
-</ol>
-<p>Welcome to your programming journey with Franklin! 🚀</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1160,20 +1027,17 @@ Remember
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/getting_started.html" class="pagination-link" aria-label="Franklin">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Franklin</span>
+      <a href="../pages/installing_python.html" class="pagination-link" aria-label="On Mac">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">On Mac</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/quick_reference.html" class="pagination-link" aria-label="Franklin Quick Reference">
-        <span class="nav-page-text">Franklin Quick Reference</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/docker.html" class="pagination-link" aria-label="Introduction to Docker">
+        <span class="nav-page-text">Introduction to Docker</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-<script>videojs(video_shortcode_videojs_video1);</script>
-<script>videojs(video_shortcode_videojs_video2);</script>
-<script>videojs(video_shortcode_videojs_video3);</script>
 
 
 

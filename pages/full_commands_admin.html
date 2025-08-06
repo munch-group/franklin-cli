@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Administrator Commands – franklin</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+<link rel="stylesheet" href="../api/_styles-quartodoc.css">
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">franklin</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../api/"> 
+<span class="menu-text">API reference</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../pages/student/"> 
+<span class="menu-text">Student site</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="http://munch-group.org/jupyterlite"> 
+<span class="menu-text">Sandbox</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/munch-group/franklin/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a>
+  <ul class="collapse">
+  <li><a href="#using-conda" id="toc-using-conda" class="nav-link" data-scroll-target="#using-conda">Using Conda</a></li>
+  <li><a href="#using-pixi" id="toc-using-pixi" class="nav-link" data-scroll-target="#using-pixi">Using Pixi</a></li>
+  </ul></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#user-management" id="toc-user-management" class="nav-link" data-scroll-target="#user-management">User Management</a></li>
+  <li><a href="#franklin-admin" id="toc-franklin-admin" class="nav-link" data-scroll-target="#franklin-admin"><code>franklin admin</code></a>
+  <ul class="collapse">
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#subcommands" id="toc-subcommands" class="nav-link" data-scroll-target="#subcommands">Subcommands</a></li>
+  <li><a href="#options" id="toc-options" class="nav-link" data-scroll-target="#options">Options</a></li>
+  </ul></li>
+  <li><a href="#franklin-admin-users" id="toc-franklin-admin-users" class="nav-link" data-scroll-target="#franklin-admin-users"><code>franklin admin users</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-1" id="toc-usage-1" class="nav-link" data-scroll-target="#usage-1">Usage</a></li>
+  <li><a href="#subcommands-1" id="toc-subcommands-1" class="nav-link" data-scroll-target="#subcommands-1">Subcommands</a></li>
+  <li><a href="#franklin-admin-users-list" id="toc-franklin-admin-users-list" class="nav-link" data-scroll-target="#franklin-admin-users-list"><code>franklin admin users list</code></a></li>
+  <li><a href="#franklin-admin-users-add" id="toc-franklin-admin-users-add" class="nav-link" data-scroll-target="#franklin-admin-users-add"><code>franklin admin users add</code></a></li>
+  <li><a href="#franklin-admin-users-remove" id="toc-franklin-admin-users-remove" class="nav-link" data-scroll-target="#franklin-admin-users-remove"><code>franklin admin users remove</code></a></li>
+  <li><a href="#franklin-admin-users-update" id="toc-franklin-admin-users-update" class="nav-link" data-scroll-target="#franklin-admin-users-update"><code>franklin admin users update</code></a></li>
+  </ul></li>
+  <li><a href="#franklin-admin-groups" id="toc-franklin-admin-groups" class="nav-link" data-scroll-target="#franklin-admin-groups"><code>franklin admin groups</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-2" id="toc-usage-2" class="nav-link" data-scroll-target="#usage-2">Usage</a></li>
+  <li><a href="#subcommands-2" id="toc-subcommands-2" class="nav-link" data-scroll-target="#subcommands-2">Subcommands</a></li>
+  <li><a href="#franklin-admin-groups-create" id="toc-franklin-admin-groups-create" class="nav-link" data-scroll-target="#franklin-admin-groups-create"><code>franklin admin groups create</code></a></li>
+  <li><a href="#franklin-admin-groups-list" id="toc-franklin-admin-groups-list" class="nav-link" data-scroll-target="#franklin-admin-groups-list"><code>franklin admin groups list</code></a></li>
+  <li><a href="#franklin-admin-groups-settings" id="toc-franklin-admin-groups-settings" class="nav-link" data-scroll-target="#franklin-admin-groups-settings"><code>franklin admin groups settings</code></a></li>
+  </ul></li>
+  <li><a href="#permission-management" id="toc-permission-management" class="nav-link" data-scroll-target="#permission-management">Permission Management</a></li>
+  <li><a href="#franklin-admin-permissions" id="toc-franklin-admin-permissions" class="nav-link" data-scroll-target="#franklin-admin-permissions"><code>franklin admin permissions</code></a>
+  <ul class="collapse">
+  <li><a href="#gitlab-permission-levels" id="toc-gitlab-permission-levels" class="nav-link" data-scroll-target="#gitlab-permission-levels">GitLab Permission Levels</a></li>
+  <li><a href="#role-recommendations" id="toc-role-recommendations" class="nav-link" data-scroll-target="#role-recommendations">Role Recommendations</a></li>
+  <li><a href="#batch-permission-management" id="toc-batch-permission-management" class="nav-link" data-scroll-target="#batch-permission-management">Batch Permission Management</a></li>
+  </ul></li>
+  <li><a href="#token-management" id="toc-token-management" class="nav-link" data-scroll-target="#token-management">Token Management</a></li>
+  <li><a href="#franklin-token" id="toc-franklin-token" class="nav-link" data-scroll-target="#franklin-token"><code>franklin token</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-3" id="toc-usage-3" class="nav-link" data-scroll-target="#usage-3">Usage</a></li>
+  <li><a href="#subcommands-3" id="toc-subcommands-3" class="nav-link" data-scroll-target="#subcommands-3">Subcommands</a></li>
+  <li><a href="#franklin-token-set" id="toc-franklin-token-set" class="nav-link" data-scroll-target="#franklin-token-set"><code>franklin token set</code></a></li>
+  <li><a href="#franklin-token-get" id="toc-franklin-token-get" class="nav-link" data-scroll-target="#franklin-token-get"><code>franklin token get</code></a></li>
+  <li><a href="#franklin-token-verify" id="toc-franklin-token-verify" class="nav-link" data-scroll-target="#franklin-token-verify"><code>franklin token verify</code></a></li>
+  <li><a href="#franklin-token-rotate" id="toc-franklin-token-rotate" class="nav-link" data-scroll-target="#franklin-token-rotate"><code>franklin token rotate</code></a></li>
+  </ul></li>
+  <li><a href="#password-management" id="toc-password-management" class="nav-link" data-scroll-target="#password-management">Password Management</a></li>
+  <li><a href="#franklin-password" id="toc-franklin-password" class="nav-link" data-scroll-target="#franklin-password"><code>franklin password</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-4" id="toc-usage-4" class="nav-link" data-scroll-target="#usage-4">Usage</a></li>
+  <li><a href="#subcommands-4" id="toc-subcommands-4" class="nav-link" data-scroll-target="#subcommands-4">Subcommands</a></li>
+  <li><a href="#franklin-password-set" id="toc-franklin-password-set" class="nav-link" data-scroll-target="#franklin-password-set"><code>franklin password set</code></a></li>
+  <li><a href="#franklin-password-change" id="toc-franklin-password-change" class="nav-link" data-scroll-target="#franklin-password-change"><code>franklin password change</code></a></li>
+  </ul></li>
+  <li><a href="#user-discovery" id="toc-user-discovery" class="nav-link" data-scroll-target="#user-discovery">User Discovery</a></li>
+  <li><a href="#franklin-finger" id="toc-franklin-finger" class="nav-link" data-scroll-target="#franklin-finger"><code>franklin finger</code></a>
+  <ul class="collapse">
+  <li><a href="#usage-5" id="toc-usage-5" class="nav-link" data-scroll-target="#usage-5">Usage</a></li>
+  <li><a href="#options-1" id="toc-options-1" class="nav-link" data-scroll-target="#options-1">Options</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#output" id="toc-output" class="nav-link" data-scroll-target="#output">Output</a></li>
+  </ul></li>
+  <li><a href="#bulk-operations" id="toc-bulk-operations" class="nav-link" data-scroll-target="#bulk-operations">Bulk Operations</a></li>
+  <li><a href="#franklin-admin-bulk" id="toc-franklin-admin-bulk" class="nav-link" data-scroll-target="#franklin-admin-bulk"><code>franklin admin bulk</code></a>
+  <ul class="collapse">
+  <li><a href="#import-users-from-csv" id="toc-import-users-from-csv" class="nav-link" data-scroll-target="#import-users-from-csv">Import Users from CSV</a></li>
+  <li><a href="#export-users-to-csv" id="toc-export-users-to-csv" class="nav-link" data-scroll-target="#export-users-to-csv">Export Users to CSV</a></li>
+  <li><a href="#audit-permissions" id="toc-audit-permissions" class="nav-link" data-scroll-target="#audit-permissions">Audit Permissions</a></li>
+  </ul></li>
+  <li><a href="#security-best-practices" id="toc-security-best-practices" class="nav-link" data-scroll-target="#security-best-practices">Security Best Practices</a>
+  <ul class="collapse">
+  <li><a href="#token-security" id="toc-token-security" class="nav-link" data-scroll-target="#token-security">Token Security</a></li>
+  <li><a href="#password-security" id="toc-password-security" class="nav-link" data-scroll-target="#password-security">Password Security</a></li>
+  <li><a href="#permission-security" id="toc-permission-security" class="nav-link" data-scroll-target="#permission-security">Permission Security</a></li>
+  </ul></li>
+  <li><a href="#automation-scripts" id="toc-automation-scripts" class="nav-link" data-scroll-target="#automation-scripts">Automation Scripts</a>
+  <ul class="collapse">
+  <li><a href="#semester-setup-script" id="toc-semester-setup-script" class="nav-link" data-scroll-target="#semester-setup-script">Semester Setup Script</a></li>
+  <li><a href="#end-of-semester-cleanup" id="toc-end-of-semester-cleanup" class="nav-link" data-scroll-target="#end-of-semester-cleanup">End of Semester Cleanup</a></li>
+  </ul></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#common-issues" id="toc-common-issues" class="nav-link" data-scroll-target="#common-issues">Common Issues</a></li>
+  <li><a href="#debug-mode" id="toc-debug-mode" class="nav-link" data-scroll-target="#debug-mode">Debug Mode</a></li>
+  </ul></li>
+  <li><a href="#api-token-scopes" id="toc-api-token-scopes" class="nav-link" data-scroll-target="#api-token-scopes">API Token Scopes</a>
+  <ul class="collapse">
+  <li><a href="#for-administrators" id="toc-for-administrators" class="nav-link" data-scroll-target="#for-administrators">For Administrators</a></li>
+  <li><a href="#for-course-coordinators" id="toc-for-course-coordinators" class="nav-link" data-scroll-target="#for-course-coordinators">For Course Coordinators</a></li>
+  <li><a href="#for-teaching-assistants" id="toc-for-teaching-assistants" class="nav-link" data-scroll-target="#for-teaching-assistants">For Teaching Assistants</a></li>
+  </ul></li>
+  <li><a href="#command-reference" id="toc-command-reference" class="nav-link" data-scroll-target="#command-reference">Command Reference</a>
+  <ul class="collapse">
+  <li><a href="#quick-reference-table" id="toc-quick-reference-table" class="nav-link" data-scroll-target="#quick-reference-table">Quick Reference Table</a></li>
+  </ul></li>
+  <li><a href="#integration-with-other-plugins" id="toc-integration-with-other-plugins" class="nav-link" data-scroll-target="#integration-with-other-plugins">Integration with Other Plugins</a>
+  <ul class="collapse">
+  <li><a href="#with-franklin-educator" id="toc-with-franklin-educator" class="nav-link" data-scroll-target="#with-franklin-educator">With Franklin-Educator</a></li>
+  <li><a href="#with-core-franklin" id="toc-with-core-franklin" class="nav-link" data-scroll-target="#with-core-franklin">With Core Franklin</a></li>
+  </ul></li>
+  <li><a href="#compliance-and-auditing" id="toc-compliance-and-auditing" class="nav-link" data-scroll-target="#compliance-and-auditing">Compliance and Auditing</a>
+  <ul class="collapse">
+  <li><a href="#gdpr-compliance" id="toc-gdpr-compliance" class="nav-link" data-scroll-target="#gdpr-compliance">GDPR Compliance</a></li>
+  <li><a href="#audit-logging" id="toc-audit-logging" class="nav-link" data-scroll-target="#audit-logging">Audit Logging</a></li>
+  </ul></li>
+  <li><a href="#future-features" id="toc-future-features" class="nav-link" data-scroll-target="#future-features">Future Features</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Administrator Commands</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The <code>franklin-admin</code> plugin provides administrative tools for managing users, permissions, and course infrastructure. This reference documents all administrator commands and workflows.</p>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>Administrator commands require the franklin-admin plugin:</p>
+<section id="using-conda" class="level3">
+<h3 class="anchored" data-anchor-id="using-conda">Using Conda</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge <span class="at">-c</span> munch-group franklin-admin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="using-pixi" class="level3">
+<h3 class="anchored" data-anchor-id="using-pixi">Using Pixi</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group franklin-admin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The admin plugin automatically installs both franklin and franklin-educator as dependencies.</p>
+</section>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>Administrator commands require: - GitLab account with Owner or Maintainer role in Franklin group - API token with full access permissions - SSH key configured for GitLab - Secure password for token encryption</p>
+</section>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Admin commands are organized into three main groups:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin <span class="pp">[</span><span class="ss">SUBCOMMAND</span><span class="pp">]</span>     <span class="co"># User management</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> password <span class="pp">[</span><span class="ss">SUBCOMMAND</span><span class="pp">]</span>  <span class="co"># Password management</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token <span class="pp">[</span><span class="ss">SUBCOMMAND</span><span class="pp">]</span>     <span class="co"># API token management</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+<section id="user-management" class="level2">
+<h2 class="anchored" data-anchor-id="user-management">User Management</h2>
+</section>
+<section id="franklin-admin" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-admin"><code>franklin admin</code></h2>
+<p>Parent command for user and permission management.</p>
+<section id="usage" class="level3">
+<h3 class="anchored" data-anchor-id="usage">Usage</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> COMMAND <span class="pp">[</span><span class="ss">ARGS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="subcommands" class="level3">
+<h3 class="anchored" data-anchor-id="subcommands">Subcommands</h3>
+<ul>
+<li><code>users</code>: List and search users</li>
+<li><code>groups</code>: Manage GitLab groups</li>
+<li><code>permissions</code>: Set user permissions</li>
+<li><code>finger</code>: Find users by name</li>
+</ul>
+</section>
+<section id="options" class="level3">
+<h3 class="anchored" data-anchor-id="options">Options</h3>
+<ul>
+<li><code>--help</code>: Show help message</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="franklin-admin-users" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-admin-users"><code>franklin admin users</code></h2>
+<p>Manages GitLab users and their roles.</p>
+<section id="usage-1" class="level3">
+<h3 class="anchored" data-anchor-id="usage-1">Usage</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> COMMAND</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="subcommands-1" class="level3">
+<h3 class="anchored" data-anchor-id="subcommands-1">Subcommands</h3>
+</section>
+<section id="franklin-admin-users-list" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-admin-users-list"><code>franklin admin users list</code></h3>
+<p>Lists all users in a GitLab group.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users list <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--group GROUP_NAME</code>: Specify group (default: franklin) - <code>--role ROLE</code>: Filter by role (Guest/Reporter/Developer/Maintainer/Owner) - <code>--format FORMAT</code>: Output format (table/json/csv)</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all users in franklin group</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users list</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List only maintainers in a course group</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users list <span class="at">--group</span> intro-bio <span class="at">--role</span> Maintainer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Output:</strong></p>
+<pre><code>USERNAME        NAME                ROLE        EMAIL
+johndoe         John Doe           Owner       john@au.dk
+janedoe         Jane Doe           Maintainer  jane@au.dk
+student1        Alice Student      Reporter    alice@au.dk</code></pre>
+</section>
+<section id="franklin-admin-users-add" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-admin-users-add"><code>franklin admin users add</code></h3>
+<p>Adds a user to a GitLab group with specific role.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users add USERNAME <span class="at">--group</span> GROUP <span class="at">--role</span> ROLE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--group GROUP_NAME</code>: Target group (required) - <code>--role ROLE</code>: Permission level (required) - <code>--expires-at DATE</code>: Access expiration date (YYYY-MM-DD)</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add TA as Developer to course group</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users add ta_username <span class="at">--group</span> intro-bio <span class="at">--role</span> Developer</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add guest access expiring at semester end</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users add guest_user <span class="at">--group</span> franklin <span class="at">--role</span> Guest <span class="at">--expires-at</span> 2024-12-31</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="franklin-admin-users-remove" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-admin-users-remove"><code>franklin admin users remove</code></h3>
+<p>Removes a user from a GitLab group.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users remove USERNAME <span class="at">--group</span> GROUP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--group GROUP_NAME</code>: Group to remove from (required) - <code>--confirm</code>: Skip confirmation prompt</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users remove old_ta <span class="at">--group</span> intro-bio <span class="at">--confirm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="franklin-admin-users-update" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-admin-users-update"><code>franklin admin users update</code></h3>
+<p>Updates a user’s role in a group.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users update USERNAME <span class="at">--group</span> GROUP <span class="at">--role</span> NEW_ROLE</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Promote TA to Maintainer</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users update ta_username <span class="at">--group</span> intro-bio <span class="at">--role</span> Maintainer</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Downgrade to Reporter</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users update student1 <span class="at">--group</span> franklin <span class="at">--role</span> Reporter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="franklin-admin-groups" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-admin-groups"><code>franklin admin groups</code></h2>
+<p>Manages GitLab groups and subgroups.</p>
+<section id="usage-2" class="level3">
+<h3 class="anchored" data-anchor-id="usage-2">Usage</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> COMMAND</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="subcommands-2" class="level3">
+<h3 class="anchored" data-anchor-id="subcommands-2">Subcommands</h3>
+</section>
+<section id="franklin-admin-groups-create" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-admin-groups-create"><code>franklin admin groups create</code></h3>
+<p>Creates a new course subgroup.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups create GROUP_NAME <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--parent PARENT_GROUP</code>: Parent group (default: franklin) - <code>--description TEXT</code>: Group description - <code>--visibility LEVEL</code>: public/internal/private (default: private)</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new course group</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups create molecular-biology <span class="dt">\</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--description</span> <span class="st">"Molecular Biology Fall 2024"</span> <span class="dt">\</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--visibility</span> private</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="franklin-admin-groups-list" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-admin-groups-list"><code>franklin admin groups list</code></h3>
+<p>Lists all subgroups.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups list <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--parent PARENT_GROUP</code>: Parent group to list from - <code>--details</code>: Show detailed information</p>
+<p><strong>Output:</strong></p>
+<pre><code>GROUP PATH              VISIBILITY  PROJECTS  MEMBERS
+franklin/intro-bio      private     12        25
+franklin/chemistry      private     8         18
+franklin/data-science   public      15        32</code></pre>
+</section>
+<section id="franklin-admin-groups-settings" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-admin-groups-settings"><code>franklin admin groups settings</code></h3>
+<p>Opens group settings in browser.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups settings GROUP_NAME</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="permission-management" class="level2">
+<h2 class="anchored" data-anchor-id="permission-management">Permission Management</h2>
+</section>
+<section id="franklin-admin-permissions" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-admin-permissions"><code>franklin admin permissions</code></h2>
+<p>Manages user permissions across courses.</p>
+<section id="gitlab-permission-levels" class="level3">
+<h3 class="anchored" data-anchor-id="gitlab-permission-levels">GitLab Permission Levels</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 19%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>View Code</th>
+<th>Push Code</th>
+<th>Merge MR</th>
+<th>Manage CI/CD</th>
+<th>Delete Project</th>
+<th>Manage Members</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Guest</strong></td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr class="even">
+<td><strong>Reporter</strong></td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr class="odd">
+<td><strong>Developer</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr class="even">
+<td><strong>Maintainer</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅ (limited)</td>
+</tr>
+<tr class="odd">
+<td><strong>Owner</strong></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="role-recommendations" class="level3">
+<h3 class="anchored" data-anchor-id="role-recommendations">Role Recommendations</h3>
+<p><strong>Course Coordinator</strong>: Owner of course subgroup - Can create/delete exercises - Manages course TAs - Full control over course content</p>
+<p><strong>Teaching Assistant</strong>: Maintainer of course subgroup - Can merge student submissions - Manages exercise settings - Cannot delete course</p>
+<p><strong>Educator (Other Courses)</strong>: Reporter in main group - Can view exercises for reference - Cannot modify content</p>
+<p><strong>Student</strong>: Guest or no access - Can only see public repositories - Cannot push code</p>
+</section>
+<section id="batch-permission-management" class="level3">
+<h3 class="anchored" data-anchor-id="batch-permission-management">Batch Permission Management</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin permissions set-course-staff COURSE_NAME <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--coordinator USERNAME</code>: Set course coordinator (Owner) - <code>--tas USERNAME1,USERNAME2</code>: Add TAs (Maintainer) - <code>--remove-old</code>: Remove users not in new list</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up course staff for new semester</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin permissions set-course-staff intro-bio <span class="dt">\</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--coordinator</span> prof_smith <span class="dt">\</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--tas</span> ta_jones,ta_williams,ta_brown <span class="dt">\</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--remove-old</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="token-management" class="level2">
+<h2 class="anchored" data-anchor-id="token-management">Token Management</h2>
+</section>
+<section id="franklin-token" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-token"><code>franklin token</code></h2>
+<p>Manages API tokens for GitLab access.</p>
+<section id="usage-3" class="level3">
+<h3 class="anchored" data-anchor-id="usage-3">Usage</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> COMMAND</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="subcommands-3" class="level3">
+<h3 class="anchored" data-anchor-id="subcommands-3">Subcommands</h3>
+</section>
+<section id="franklin-token-set" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-token-set"><code>franklin token set</code></h3>
+<p>Stores an encrypted API token for a user.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token set <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Interactive prompts:</strong> 1. Username 2. Password (for encryption) 3. API token (hidden input)</p>
+<p><strong>Process:</strong> - Token is encrypted with password - Stored in secure local storage - Never transmitted or logged</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token set</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter username: admin_user</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter password: ********</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter API token: ********</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="ex">✓</span> Token stored securely</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="franklin-token-get" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-token-get"><code>franklin token get</code></h3>
+<p>Retrieves and decrypts stored API token.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token get <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Interactive prompts:</strong> 1. Username 2. Password (for decryption)</p>
+<p><strong>Output:</strong></p>
+<pre><code>Stored personal access token: glpat-xxxxxxxxxxxxxxxxxxxx</code></pre>
+<p><strong>Security Note:</strong> Only display tokens in secure environments.</p>
+</section>
+<section id="franklin-token-verify" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-token-verify"><code>franklin token verify</code></h3>
+<p>Verifies that stored token is valid.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token verify <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--user USERNAME</code>: Specify user - <code>--quiet</code>: Only show success/failure</p>
+<p><strong>Output:</strong></p>
+<pre><code>✓ Token is valid
+  User: admin_user
+  Scopes: api, read_user, write_repository
+  Expires: 2024-12-31</code></pre>
+</section>
+<section id="franklin-token-rotate" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-token-rotate"><code>franklin token rotate</code></h3>
+<p>Rotates (replaces) an API token.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token rotate <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Process:</strong> 1. Creates new token with same permissions 2. Updates stored encrypted token 3. Revokes old token</p>
+<hr>
+</section>
+</section>
+<section id="password-management" class="level2">
+<h2 class="anchored" data-anchor-id="password-management">Password Management</h2>
+</section>
+<section id="franklin-password" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-password"><code>franklin password</code></h2>
+<p>Manages passwords for encrypted token storage.</p>
+<section id="usage-4" class="level3">
+<h3 class="anchored" data-anchor-id="usage-4">Usage</h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> password <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span> COMMAND</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="subcommands-4" class="level3">
+<h3 class="anchored" data-anchor-id="subcommands-4">Subcommands</h3>
+</section>
+<section id="franklin-password-set" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-password-set"><code>franklin password set</code></h3>
+<p>Sets password for a user (requires admin token).</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> password set USER PASSWORD <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--admin ADMIN_USER</code>: Admin username - <code>--password ADMIN_PASS</code>: Admin password</p>
+<p><strong>Use case:</strong> Initial setup for new administrators</p>
+</section>
+<section id="franklin-password-change" class="level3">
+<h3 class="anchored" data-anchor-id="franklin-password-change"><code>franklin password change</code></h3>
+<p>Changes your own password.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> password change <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Interactive prompts:</strong> 1. Username 2. Current password 3. New password 4. Confirm new password</p>
+<p><strong>Process:</strong> - Verifies current password - Re-encrypts token with new password - Updates stored credentials</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> password change</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter username: my_user</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter current password: ********</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter new password: ********</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm new password: ********</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="ex">✓</span> Password changed successfully</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="user-discovery" class="level2">
+<h2 class="anchored" data-anchor-id="user-discovery">User Discovery</h2>
+</section>
+<section id="franklin-finger" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-finger"><code>franklin finger</code></h2>
+<p>Searches for GitLab users by name or username.</p>
+<section id="usage-5" class="level3">
+<h3 class="anchored" data-anchor-id="usage-5">Usage</h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> finger SEARCH_TERMS <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="options-1" class="level3">
+<h3 class="anchored" data-anchor-id="options-1">Options</h3>
+<ul>
+<li><code>--user USERNAME</code>: Your username for authentication</li>
+<li><code>--password PASSWORD</code>: Your password</li>
+<li><code>--format FORMAT</code>: Output format (table/json/csv)</li>
+</ul>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search for user by name</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> finger <span class="st">"John Doe"</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Search by username pattern</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> finger <span class="st">"ta_*"</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Search with authentication</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> finger <span class="st">"Smith"</span> <span class="at">--user</span> admin <span class="at">--password</span> <span class="pp">********</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="output" class="level3">
+<h3 class="anchored" data-anchor-id="output">Output</h3>
+<pre><code>USERNAME        NAME                EMAIL           STATE
+jdoe            John Doe           jdoe@au.dk      active
+jsmith          Jane Smith         jsmith@au.dk    active
+tjsmith         Tom J Smith        tjs@au.dk       blocked</code></pre>
+<hr>
+</section>
+</section>
+<section id="bulk-operations" class="level2">
+<h2 class="anchored" data-anchor-id="bulk-operations">Bulk Operations</h2>
+</section>
+<section id="franklin-admin-bulk" class="level2">
+<h2 class="anchored" data-anchor-id="franklin-admin-bulk"><code>franklin admin bulk</code></h2>
+<p>Performs bulk operations on users and permissions.</p>
+<section id="import-users-from-csv" class="level3">
+<h3 class="anchored" data-anchor-id="import-users-from-csv">Import Users from CSV</h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin bulk import-users FILE.csv <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>CSV Format:</strong></p>
+<pre class="csv"><code>username,email,name,group,role
+student1,s1@au.dk,Alice Student,intro-bio,Reporter
+student2,s2@au.dk,Bob Student,intro-bio,Reporter
+ta1,ta1@au.dk,Carol TA,intro-bio,Developer</code></pre>
+<p><strong>Options:</strong> - <code>--dry-run</code>: Preview changes without applying - <code>--skip-existing</code>: Don’t update existing users - <code>--notify</code>: Send email invitations</p>
+</section>
+<section id="export-users-to-csv" class="level3">
+<h3 class="anchored" data-anchor-id="export-users-to-csv">Export Users to CSV</h3>
+<div class="sourceCode" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin bulk export-users <span class="at">--group</span> GROUP <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--output FILE</code>: Output filename (default: users.csv) - <code>--include-tokens</code>: Include API token status</p>
+</section>
+<section id="audit-permissions" class="level3">
+<h3 class="anchored" data-anchor-id="audit-permissions">Audit Permissions</h3>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin bulk audit <span class="pp">[</span><span class="ss">OPTIONS</span><span class="pp">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Options:</strong> - <code>--group GROUP</code>: Audit specific group - <code>--fix-issues</code>: Automatically fix permission issues - <code>--report FILE</code>: Save audit report</p>
+<p><strong>Audit checks:</strong> - Orphaned users (no group membership) - Excessive permissions - Expired access - Inactive users</p>
+<hr>
+</section>
+</section>
+<section id="security-best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="security-best-practices">Security Best Practices</h2>
+<section id="token-security" class="level3">
+<h3 class="anchored" data-anchor-id="token-security">Token Security</h3>
+<ol type="1">
+<li><strong>Never share API tokens</strong> - Treat like passwords</li>
+<li><strong>Use token expiration</strong> - Set reasonable expiration dates</li>
+<li><strong>Rotate regularly</strong> - Change tokens periodically</li>
+<li><strong>Limit scope</strong> - Only request needed permissions</li>
+<li><strong>Revoke unused tokens</strong> - Clean up old tokens</li>
+</ol>
+</section>
+<section id="password-security" class="level3">
+<h3 class="anchored" data-anchor-id="password-security">Password Security</h3>
+<ol type="1">
+<li><strong>Use strong passwords</strong> - Minimum 12 characters</li>
+<li><strong>Unique passwords</strong> - Don’t reuse passwords</li>
+<li><strong>Change regularly</strong> - Update every semester</li>
+<li><strong>Use password manager</strong> - Store securely</li>
+<li><strong>Enable 2FA</strong> - On GitLab account</li>
+</ol>
+</section>
+<section id="permission-security" class="level3">
+<h3 class="anchored" data-anchor-id="permission-security">Permission Security</h3>
+<ol type="1">
+<li><strong>Principle of least privilege</strong> - Minimum necessary access</li>
+<li><strong>Regular audits</strong> - Review permissions each semester</li>
+<li><strong>Remove old users</strong> - Clean up after course ends</li>
+<li><strong>Document changes</strong> - Keep permission change log</li>
+<li><strong>Use groups</strong> - Manage permissions via groups, not individual</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="automation-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="automation-scripts">Automation Scripts</h2>
+<section id="semester-setup-script" class="level3">
+<h3 class="anchored" data-anchor-id="semester-setup-script">Semester Setup Script</h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># setup-semester.sh</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create course groups for new semester</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups create bio-fall2024 <span class="at">--description</span> <span class="st">"Biology Fall 2024"</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups create chem-fall2024 <span class="at">--description</span> <span class="st">"Chemistry Fall 2024"</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Import users from registration</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin bulk import-users fall2024-students.csv</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up course coordinators</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users add prof_smith <span class="at">--group</span> bio-fall2024 <span class="at">--role</span> Owner</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users add prof_jones <span class="at">--group</span> chem-fall2024 <span class="at">--role</span> Owner</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add TAs</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin bulk import-users fall2024-tas.csv</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Audit and report</span></span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin bulk audit <span class="at">--report</span> fall2024-setup.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="end-of-semester-cleanup" class="level3">
+<h3 class="anchored" data-anchor-id="end-of-semester-cleanup">End of Semester Cleanup</h3>
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cleanup-semester.sh</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Export final user list for records</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin bulk export-users <span class="at">--group</span> bio-fall2024 <span class="at">--output</span> bio-fall2024-final.csv</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Archive course groups</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups archive bio-fall2024</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups archive chem-fall2024</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove student access</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin bulk remove-users fall2024-students.csv</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Revoke temporary tokens</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token rotate <span class="at">--all-expired</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<section id="common-issues" class="level3">
+<h3 class="anchored" data-anchor-id="common-issues">Common Issues</h3>
+<section id="authentication-failed" class="level4">
+<h4 class="anchored" data-anchor-id="authentication-failed">Authentication Failed</h4>
+<p><strong>Problem</strong>: “Invalid username or password”</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution: Verify credentials</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token verify <span class="at">--user</span> USERNAME</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset if needed</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> password change</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="permission-denied" class="level4">
+<h4 class="anchored" data-anchor-id="permission-denied">Permission Denied</h4>
+<p><strong>Problem</strong>: “You don’t have permission to perform this action”</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution: Check your role</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users list <span class="at">--group</span> GROUP <span class="kw">|</span> <span class="fu">grep</span> USERNAME</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Request elevation from group owner</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="token-expired" class="level4">
+<h4 class="anchored" data-anchor-id="token-expired">Token Expired</h4>
+<p><strong>Problem</strong>: “401 Unauthorized”</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution: Create new token in GitLab</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Profile → Access Tokens → Create new token</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Update stored token</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> token set</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="group-not-found" class="level4">
+<h4 class="anchored" data-anchor-id="group-not-found">Group Not Found</h4>
+<p><strong>Problem</strong>: “404 Group not found”</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution: List available groups</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups list</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check spelling and path</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="debug-mode" class="level3">
+<h3 class="anchored" data-anchor-id="debug-mode">Debug Mode</h3>
+<p>Enable detailed logging:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FRANKLIN_ADMIN_DEBUG</span><span class="op">=</span>true</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Shows: - API endpoints called - Request/response details - Permission checks - Error details</p>
+<hr>
+</section>
+</section>
+<section id="api-token-scopes" class="level2">
+<h2 class="anchored" data-anchor-id="api-token-scopes">API Token Scopes</h2>
+<p>When creating GitLab API tokens, use appropriate scopes:</p>
+<section id="for-administrators" class="level3">
+<h3 class="anchored" data-anchor-id="for-administrators">For Administrators</h3>
+<p>Required scopes: - <code>api</code>: Full API access - <code>read_user</code>: Read user information - <code>write_repository</code>: Manage repositories - <code>read_registry</code>: Access container registry - <code>write_registry</code>: Push to registry</p>
+</section>
+<section id="for-course-coordinators" class="level3">
+<h3 class="anchored" data-anchor-id="for-course-coordinators">For Course Coordinators</h3>
+<p>Required scopes: - <code>api</code>: Full API access (limited by role) - <code>read_user</code>: Read user information - <code>write_repository</code>: Manage exercises</p>
+</section>
+<section id="for-teaching-assistants" class="level3">
+<h3 class="anchored" data-anchor-id="for-teaching-assistants">For Teaching Assistants</h3>
+<p>Required scopes: - <code>read_api</code>: Read-only API access - <code>read_user</code>: Read user information - <code>read_repository</code>: View exercises</p>
+<hr>
+</section>
+</section>
+<section id="command-reference" class="level2">
+<h2 class="anchored" data-anchor-id="command-reference">Command Reference</h2>
+<section id="quick-reference-table" class="level3">
+<h3 class="anchored" data-anchor-id="quick-reference-table">Quick Reference Table</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Purpose</th>
+<th>Common Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>admin users list</code></td>
+<td>List group members</td>
+<td><code>franklin admin users list --group intro-bio</code></td>
+</tr>
+<tr class="even">
+<td><code>admin users add</code></td>
+<td>Add user to group</td>
+<td><code>franklin admin users add USERNAME --group GROUP --role ROLE</code></td>
+</tr>
+<tr class="odd">
+<td><code>admin groups create</code></td>
+<td>Create course group</td>
+<td><code>franklin admin groups create course-name</code></td>
+</tr>
+<tr class="even">
+<td><code>admin permissions</code></td>
+<td>Manage permissions</td>
+<td><code>franklin admin permissions set-course-staff COURSE</code></td>
+</tr>
+<tr class="odd">
+<td><code>token set</code></td>
+<td>Store API token</td>
+<td><code>franklin token set</code></td>
+</tr>
+<tr class="even">
+<td><code>token get</code></td>
+<td>Retrieve token</td>
+<td><code>franklin token get</code></td>
+</tr>
+<tr class="odd">
+<td><code>password change</code></td>
+<td>Change password</td>
+<td><code>franklin password change</code></td>
+</tr>
+<tr class="even">
+<td><code>finger</code></td>
+<td>Find users</td>
+<td><code>franklin finger "NAME"</code></td>
+</tr>
+<tr class="odd">
+<td><code>admin bulk import</code></td>
+<td>Import users</td>
+<td><code>franklin admin bulk import-users file.csv</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="integration-with-other-plugins" class="level2">
+<h2 class="anchored" data-anchor-id="integration-with-other-plugins">Integration with Other Plugins</h2>
+<section id="with-franklin-educator" class="level3">
+<h3 class="anchored" data-anchor-id="with-franklin-educator">With Franklin-Educator</h3>
+<p>Admins can assist educators:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create course infrastructure</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin groups create new-course</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up educator access</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users add educator <span class="at">--group</span> new-course <span class="at">--role</span> Maintainer</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Educator creates exercises</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise new  <span class="co"># Now works in new-course</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="with-core-franklin" class="level3">
+<h3 class="anchored" data-anchor-id="with-core-franklin">With Core Franklin</h3>
+<p>Admins can test student experience:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Impersonate student view</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin permissions simulate-student</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test as student would see</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="compliance-and-auditing" class="level2">
+<h2 class="anchored" data-anchor-id="compliance-and-auditing">Compliance and Auditing</h2>
+<section id="gdpr-compliance" class="level3">
+<h3 class="anchored" data-anchor-id="gdpr-compliance">GDPR Compliance</h3>
+<p>For EU data protection:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export user data</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users export <span class="at">--user</span> USERNAME <span class="at">--full</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete user data</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin users delete <span class="at">--user</span> USERNAME <span class="at">--purge</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Anonymize old records</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin bulk anonymize <span class="at">--older-than</span> 2years</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="audit-logging" class="level3">
+<h3 class="anchored" data-anchor-id="audit-logging">Audit Logging</h3>
+<p>Track administrative actions:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Enable audit logging</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FRANKLIN_AUDIT_LOG</span><span class="op">=</span>/var/log/franklin-audit.log</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View recent actions</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin audit-log <span class="at">--recent</span> 100</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate compliance report</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> admin audit-log <span class="at">--report</span> compliance-2024.pdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="future-features" class="level2">
+<h2 class="anchored" data-anchor-id="future-features">Future Features</h2>
+<p>Planned enhancements: - <strong>LDAP Integration</strong>: Sync with university directory - <strong>Automated Provisioning</strong>: Create courses from registration system - <strong>Role Templates</strong>: Predefined permission sets - <strong>Approval Workflows</strong>: Multi-step permission changes - <strong>Activity Monitoring</strong>: Track usage and access patterns</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/munch-group\.github\.io\/franklin\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
