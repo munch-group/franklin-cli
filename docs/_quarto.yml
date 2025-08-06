@@ -4,6 +4,11 @@ project:
   # resources:
     # - objects.txt
     # - objects-test.txt
+  render:
+    - "*.qmd"
+    - "*.ipynb"
+    - "!CLAUDE.md"
+    # - "!ignored-dir/"    
   post-render: 
     # - quarto render --profile slides
     - quarto render pages/student/
@@ -61,23 +66,16 @@ website:
       style: floating
       align: left
       contents:
-        - index.qmd
-        - section: "Getting Started"
+        # - index.qmd
+        - pages/getting_started.qmd
+        - section: "Franklin commands"
           contents:
-            - pages/getting_started.qmd
-            - pages/getting_started_beginners.qmd
-            - pages/quick_reference.qmd
-        - section: "User Guides"
-          contents:
-            - pages/python_users_guide.qmd
+            # - pages/quick_reference.qmd #
             - pages/commands_core.qmd
             - pages/commands_edu.qmd
             - pages/commands_admin.qmd
-        - section: "Developer Resources"
+        - section: "Educator Guides"
           contents:
-            - pages/developer_guide.qmd
-            - pages/developing.qmd
-            - pages/overview.qmd
         - section: "Tutorials"
           contents:
             - pages/jupyterlab.ipynb
@@ -90,20 +88,26 @@ website:
             - pages/python_r_julia_expanded.qmd
             - pages/widgets.ipynb
             - pages/widgets_expanded.ipynb
-
-        - section: "Setup & Configuration"
-          contents:
-            - pages/computer_setup.qmd
-            - pages/automatic_updates.qmd
-            - pages/pixi.qmd
-            - pages/conda.qmd
-            - pages/docker.qmd
-            - pages/gitlab.qmd
         - section: "Reference"
           contents:
             - pages/terminal.qmd
+            - pages/installing_python.qmd
+            - pages/pixi_and_conda.qmd
+            - pages/docker.qmd
             - pages/ssh.qmd
             - pages/git.qmd
+            - pages/gitlab.qmd
+        - section: "Administration"
+          contents:
+            - pages/admin_quick_reference.qmd #
+            - pages/automatic_updates.qmd
+        - section: "Developer Resources"
+          contents:
+            - pages/python_users_guide.qmd 
+            - pages/developer_guide.qmd
+            - pages/developing.qmd
+            - pages/overview.qmd
+            - pages/devel_quick_reference.qmd #
         - section: "Help & Support"
           contents:
             - pages/troubleshooting.qmd

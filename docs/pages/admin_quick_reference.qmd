@@ -1,11 +1,12 @@
 ---
-title: "Franklin Commands"
+title: "Franklin Quick Reference"
 subtitle: "All Commands at a Glance"
 ---
 
+
 ::: {.panel-tabset}
 
-## Core Commands
+## Core Commands (Students)
 
 ### Basic Operations
 ```bash
@@ -22,24 +23,6 @@ franklin list                   # List available exercises
 franklin cleanup                # Remove old containers
 ```
 
-### Advanced Options
-```bash
-# Download with options
-franklin download \
-  --course "Data Science" \
-  --exercise "Lab 1" \
-  --output ~/exercises
-
-# Launch Jupyter with resources
-franklin jupyter \
-  --memory 4g \
-  --cpus 2 \
-  --port 8889
-
-# Cleanup old containers
-franklin cleanup --days 7       # Remove containers older than 7 days
-franklin cleanup --all          # Remove all Franklin containers
-```
 
 ## Educator Commands
 
@@ -70,8 +53,6 @@ pixi run test-notebook
 # 4. Publish for students
 franklin exercise publish
 ```
-
-:::
 
 ### Git Integration
 ```bash
@@ -123,6 +104,84 @@ Inside Jupyter notebooks:
 %franklin -c pytorch pytorch torchvision
 ```
 
+## Docker Commands
+
+### Container Management
+```bash
+# List Franklin containers
+docker ps -a | grep franklin
+
+# Stop all Franklin containers
+docker stop $(docker ps -q --filter "label=franklin")
+
+# Remove Franklin containers
+docker rm $(docker ps -aq --filter "label=franklin")
+
+# Access container shell
+franklin shell                  # Interactive shell in container
+franklin shell --exercise "Lab1"
+```
+
+### Image Management
+```bash
+# List Franklin images
+docker images | grep franklin
+
+# Pull latest base image
+docker pull registry.gitlab.com/franklin/base:latest
+
+# Remove unused images
+docker image prune
+```
+
+## Configuration
+
+### Settings File
+```bash
+# Location: ~/.franklin/settings.json
+{
+  "default_course": "Data Science",
+  "jupyter_port": 8888,
+  "auto_update": true,
+  "max_containers": 5,
+  "default_memory": "4g",
+  "default_cpus": 2
+}
+```
+
+### Environment Variables
+```bash
+# Debug mode
+export FRANKLIN_DEBUG=1
+
+# Custom config location
+export FRANKLIN_CONFIG=/path/to/config.json
+
+# GitLab settings
+export GITLAB_URL=https://gitlab.example.com
+export GITLAB_TOKEN=your-token
+
+# Docker settings
+export DOCKER_HOST=tcp://localhost:2375
+```
+
+## File Locations
+
+### Default Paths
+```bash
+# Configuration
+~/.franklin/config.json         # User configuration
+~/.franklin/settings.json       # User settings
+~/.franklin/cache/              # Downloaded exercises cache
+
+# Exercises
+~/franklin-exercises/           # Default exercise directory
+~/Desktop/                      # Alternative on Windows
+
+# Logs
+~/.franklin/logs/               # Franklin logs
+~/.franklin/crash-reports/      # Crash reports
+```
 
 ### Exercise Structure
 ```

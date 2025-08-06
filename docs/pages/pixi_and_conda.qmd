@@ -1,0 +1,248 @@
+---
+title: Package Managers
+subtitle: Pixi and Conda for Scientific Computing
+---
+
+When you work with Python for scientific computing or data analysis, you need a way to install and manage software packages – collections of code that others have written to help you analyze data, create visualizations, or perform calculations. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create small insulated worlds for each project, which then only contained the packages needed for each particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there are tools like Pixi and Conda that lets you do just that. The small worlds that are called "environments". You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else. 
+
+This is where package managers come in. A package manager is a tool that handles all the complexity of downloading, installing, and organizing these packages for you. It's like having an app store for your scientific computing needs. We'll introduce two package managers: **Pixi** (a modern, fast tool) and **Conda** (the traditional aging standard). Both do the same job but in slightly different ways. We'll start with Pixi because it's simpler and faster for beginners.
+
+Package management might seem complex at first, but it quickly becomes second nature. Every data scientist and researcher uses these tools daily – with a little practice, you'll wonder how you ever worked without them.
+
+## Pixi: The Modern Approach
+
+Imagine you're starting a new research project. You create a folder on your computer for all your project files – your data, your analysis scripts, your results. Pixi works within this project folder, creating a self-contained environment just for this project.
+
+When you initialize Pixi in your project folder, it creates a special file called `pixi.toml` that acts like a shopping list of all the packages your project needs. Every time you add a package, Pixi updates this list. This means if you share your project with a colleague or move it to another computer, Pixi can read this list and install exactly the same packages, ensuring your analysis works the same way everywhere.
+
+Pixi stores all the installed packages in a hidden folder called `.pixi` within your project. This keeps everything organized and separate from other projects on your computer. Different projects can use different versions of the same package without interfering with each other.
+
+### Installing Pixi
+
+Before you can use Pixi, you need to install it on your computer. The installation is a one-time process.
+
+::: {.panel-tabset}
+
+### On Mac/Linux
+
+Open the Terminal and run:
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | bash
+```
+
+After installation, close and reopen your terminal to make sure your computer recognizes the new `pixi` command.
+
+### On Windows
+
+Open PowerShell and run:
+
+```powershell
+iwr -useb https://pixi.sh/install.ps1 | iex
+```
+
+After installation, close and reopen your powershell to make sure your computer recognizes the new `pixi` command.
+
+:::
+
+### Using Pixi
+
+
+#### Global Install: System-Wide Tools
+
+Sometimes you want to install a tool that you'll use across many projects, not just one specific project. These are tools that are not directly involved in any projects. Pixi's `global install` feature is perfect for this. It's like installing a program on your computer that you can use anywhere (by way of mention, this is also the way we would install franklin).
+
+For example, to install git (a popular tool for version control in computing) globally:
+
+```bash
+pixi global install git
+```
+
+After this command completes, you can start JupyterLab from anywhere on your computer by typing `git` in your terminal. The tool is available system-wide, not tied to any specific project.
+
+#### Add: Installing Packages for Your Project
+
+When you're working on a specific project and need packages just for that project, you use the `add` command. A special feature of Pixi is that it is is tied to and lives in the root folder of your project. So before you begin, navigate to your project folder in the terminal, then initialize Pixi if you haven't already:
+
+```bash
+pixi init
+```
+
+This creates the `pixi.toml` file we mentioned earlier. Now you can add packages to your project. For example, if you're doing data analysis, you might need pandas (for data manipulation) and matplotlib (for creating graphs):
+
+```bash
+pixi add pandas matplotlib
+```
+
+Pixi will download these packages and all their dependencies (other packages they need to work properly), storing them in your project's `.pixi` folder. It also updates your `pixi.toml` file to remember what you've installed.
+
+You can add as many packages as you need:
+```bash
+pixi add numpy scipy scikit-learn
+```
+
+If you need a package from PyPI (Python's main package repository) that isn't available in the conda ecosystem, you can add it with the `--pypi` flag:
+```bash
+pixi add --pypi requests beautifulsoup4
+```
+
+#### Shell: Activating Your Project Environment
+
+Once you've added packages to your project, you need to "activate" the project environment to use them. This is like telling your computer "I want to work on this specific project now, so please use the packages I've installed for it."
+
+To activate your project environment:
+```bash
+pixi shell
+```
+
+Your terminal prompt will change to show you're now working in the Pixi environment. Now when you run Python or any of your installed packages, you'll be using the versions specific to this project.
+
+While in the shell, you can:
+- Run Python scripts that use your installed packages
+- Start Jupyter notebooks
+- Use any command-line tools you've added to the project
+
+To leave the project environment and return to your normal terminal, simply type:
+```bash
+exit
+```
+
+## Conda: The Traditional Standard
+
+### How Conda Works
+
+Conda takes a different approach from Pixi and its environments are not tied to specific folders. Instead, Conda creates named environments that live in a central location on your computer. Think of it like having different workspaces that you can switch between, each with its own set of installed packages.
+
+When you create a Conda environment, you give it a name. This environment is like a separate Python installation with its own packages. You can have multiple environments – perhaps one for each project, or one for teaching, one for research, and one for experiments. You switch between these environments by "activating" the one you want to use.
+
+Conda has been around much longer than Pixi and has an enormous collection of packages available, especially for scientific computing. It's widely used in academia and industry.
+
+> The reason we still prefer Pixi is that it manages conda packages better than Conda itself, in addition to being faster and more robust. 
+
+### Create: Making a New Environment
+
+Creating a new Conda environment is like setting up a fresh workspace. You give it a name and specify which version of Python you want to use.
+
+To create a new environment called "myproject" with Python 3.11:
+```bash
+conda create -n myproject python=3.11
+```
+
+The `-n` flag stands for "name". Conda will ask you to confirm before creating the environment – just type 'y' and press Enter.
+
+You can create as many environments as you need, each with a descriptive name:
+```bash
+conda create -n data-analysis python=3.11
+conda create -n machine-learning python=3.10
+conda create -n web-scraping python=3.11
+```
+
+Each environment is independent, so you can have different Python versions and different packages in each one.
+
+### Activate and Deactivate: Switching Environments
+
+Before you can use a Conda environment, you need to activate it. This tells your computer which set of packages to use.
+
+To activate an environment:
+```bash
+conda activate myproject
+```
+
+You'll see your terminal prompt change to show the environment name in parentheses, like `(myproject)`. This reminds you which environment you're currently using.
+
+While an environment is activated, any Python scripts you run or packages you install will use that environment's Python and packages.
+
+To switch to a different environment, just activate it:
+```bash
+conda activate data-analysis
+```
+
+When you're done working and want to return to your default system Python, deactivate the environment:
+```bash
+conda deactivate
+```
+
+You can activate and deactivate environments as often as you like – it's instant and doesn't affect the packages or files in the environment.
+
+### Install: Adding Packages
+
+Once you've created and activated an environment, you can install packages into it. The install command downloads and sets up packages in your current environment.
+
+First, make sure you've activated the environment where you want to install packages:
+```bash
+conda activate myproject
+```
+
+Then install packages:
+```bash
+conda install numpy pandas matplotlib
+```
+
+Conda will show you what it plans to install and ask for confirmation. Type 'y' and press Enter to proceed.
+
+You can install multiple packages at once or one at a time:
+```bash
+conda install scipy
+conda install jupyter
+```
+
+If a package isn't available in the default Conda repository, you might need to use the conda-forge channel (a community-maintained collection):
+```bash
+conda install -c conda-forge plotly
+```
+
+The `-c` flag specifies the channel to use for that installation.
+
+
+## Try it out
+
+Here's a simple example to get you started with each tool:
+
+### Your First Pixi Project
+
+1. Create a new folder for your project and navigate to it:
+   ```bash
+   mkdir my-analysis
+   cd my-analysis
+   ```
+
+2. Initialize Pixi:
+   ```bash
+   pixi init
+   ```
+
+3. Add the packages you need:
+   ```bash
+   pixi add python numpy pandas matplotlib jupyter
+   ```
+
+4. Start working:
+   ```bash
+   pixi shell
+   jupyter notebook
+   ```
+
+### Your First Conda Environment
+
+1. Create a new environment:
+   ```bash
+   conda create -n my-first-env python=3.11
+   ```
+
+2. Activate it:
+   ```bash
+   conda activate my-first-env
+   ```
+
+3. Install packages:
+   ```bash
+   conda install numpy pandas matplotlib jupyter
+   ```
+
+4. Start working:
+   ```bash
+   jupyter notebook
+   ```
+
+
+

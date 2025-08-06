@@ -1,0 +1,959 @@
+---
+title: Exercise Development Workflow
+subtitle: Complete Guide to Creating Franklin Exercises
+---
+
+This guide walks through the complete process of creating a Franklin exercise, from initial setup to final publication. We'll create a real data analysis exercise as our example, showing best practices and advanced techniques.
+
+## Overview
+
+Creating a Franklin exercise involves:
+1. Initial setup and repository creation
+2. Developing content in notebooks
+3. Managing dependencies
+4. Testing and validation
+5. Publishing for student use
+
+We'll explore three development approaches:
+- **JupyterLab** (beginner-friendly)
+- **VSCode with DevContainers** (advanced)
+- **Hybrid workflow** (best of both)
+
+## Example Exercise: Data Analysis with Penguins
+
+We'll create an exercise teaching data analysis using the Palmer Penguins dataset. Students will learn data loading, exploration, visualization, and basic statistics.
+
+---
+
+## Step 1: Create the Exercise Repository
+
+### Initialize the Exercise
+
+Start by creating a new exercise repository:
+
+```bash
+franklin exercise new
+```
+
+**Interactive selections:**
+1. Choose course: "Introduction to Data Science"
+2. Enter name: `penguins-analysis`
+3. Select template: "Standard"
+
+The command creates:
+```
+penguins-analysis/
+├── exercise.ipynb       # Main notebook
+├── Dockerfile           # Container configuration
+├── pixi.toml           # Dependencies
+├── README.md           # Student instructions
+├── .gitlab-ci.yml      # CI/CD pipeline
+└── tests/              # Test directory
+```
+
+### Configure Repository Settings
+
+Franklin opens the GitLab settings page. Complete these steps:
+
+1. **Set Visibility**: Change to "Public" under General → Visibility
+2. **Add Description**: "Analyzing Palmer Penguins Dataset"
+3. **Configure CI/CD Variables** (if needed):
+   - `REGISTRY_USER`: Your GitLab username
+   - `REGISTRY_PASSWORD`: Your access token
+
+### Clone Locally
+
+Clone the repository to start development:
+
+```bash
+franklin exercise clone
+# Select: Introduction to Data Science → penguins-analysis
+cd penguins-analysis
+```
+
+---
+
+## Step 2: Develop Content with JupyterLab
+
+### Launch Development Environment
+
+Use Franklin's automated workflow for live development:
+
+```bash
+franklin exercise edit
+```
+
+This:
+- Builds a Docker container with dependencies
+- Launches JupyterLab
+- Watches for file changes
+- Auto-saves to Git
+
+### Structure the Exercise Notebook
+
+Open `exercise.ipynb` and structure it with clear sections:
+
+```python
+# Cell 1: Title and Introduction (Markdown)
+"""
+# Analyzing Palmer Penguins Dataset
+
+In this exercise, you'll explore a dataset about penguins in Antarctica.
+You'll learn to:
+- Load and inspect data
+- Create visualizations
+- Calculate statistics
+- Draw conclusions
+
+## Learning Objectives
+By the end of this exercise, you will be able to:
+1. Load data using pandas
+2. Explore data with descriptive statistics
+3. Create meaningful visualizations
+4. Interpret results
+"""
+
+# Cell 2: Setup and Imports (Code)
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Configure visualization defaults
+sns.set_theme(style="whitegrid")
+plt.rcParams['figure.figsize'] = (10, 6)
+
+print("Libraries loaded successfully!")
+
+# Cell 3: Load Data (Code)
+# Load the penguins dataset
+url = "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/inst/extdata/penguins.csv"
+penguins = pd.read_csv(url)
+
+print(f"Dataset loaded: {penguins.shape[0]} penguins, {penguins.shape[1]} features")
+penguins.head()
+```
+
+### Add Student Tasks
+
+Create cells with clear TODO markers:
+
+```python
+# Cell 4: Data Exploration Task (Markdown)
+"""
+## Task 1: Data Exploration
+
+Explore the dataset structure:
+1. Display basic information about the dataset
+2. Check for missing values
+3. Show summary statistics
+"""
+
+# Cell 5: Student Code Cell (Code)
+# TODO: Display information about the dataset
+# Hint: Use penguins.info()
+
+
+# TODO: Check for missing values
+# Hint: Use penguins.isnull().sum()
+
+
+# TODO: Show summary statistics
+# Hint: Use penguins.describe()
+```
+
+### Provide Examples and Scaffolding
+
+Include worked examples before tasks:
+
+```python
+# Cell 6: Visualization Example (Code)
+# Example: Creating a scatter plot
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    data=penguins,
+    x='flipper_length_mm',
+    y='body_mass_g',
+    hue='species',
+    style='sex',
+    s=100
+)
+plt.title('Penguin Body Mass vs Flipper Length')
+plt.xlabel('Flipper Length (mm)')
+plt.ylabel('Body Mass (g)')
+plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.tight_layout()
+plt.show()
+
+# Cell 7: Student Visualization Task (Markdown)
+"""
+## Task 2: Create Your Own Visualization
+
+Create a plot showing the relationship between bill length and bill depth,
+colored by species.
+"""
+
+# Cell 8: Student Code Cell (Code)
+# TODO: Create a scatter plot of bill_length_mm vs bill_depth_mm
+# Color points by species
+# Add appropriate title and labels
+```
+
+### Add Interactive Elements
+
+Use widgets for exploration:
+
+```python
+# Cell 9: Interactive Widget (Code)
+from ipywidgets import interact, widgets
+
+@interact(
+    species=widgets.Dropdown(
+        options=['All'] + list(penguins['species'].unique()),
+        value='All',
+        description='Species:'
+    )
+)
+def plot_distribution(species):
+    if species == 'All':
+        data = penguins
+    else:
+        data = penguins[penguins['species'] == species]
+    
+    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    
+    # Histogram
+    axes[0].hist(data['body_mass_g'].dropna(), bins=20, edgecolor='black')
+    axes[0].set_xlabel('Body Mass (g)')
+    axes[0].set_ylabel('Count')
+    axes[0].set_title(f'Body Mass Distribution - {species}')
+    
+    # Box plot
+    data.boxplot(column='body_mass_g', by='sex', ax=axes[1])
+    axes[1].set_xlabel('Sex')
+    axes[1].set_ylabel('Body Mass (g)')
+    axes[1].set_title(f'Body Mass by Sex - {species}')
+    plt.suptitle('')  # Remove default title
+    
+    plt.tight_layout()
+    plt.show()
+```
+
+---
+
+## Step 3: Using Magic Commands
+
+Franklin supports Jupyter magic commands for enhanced functionality.
+
+### Package Management Magic
+
+```python
+# Cell: Install additional packages (Code)
+# Install packages not in base image
+%pip install -q plotly
+
+# For conda packages
+%conda install -y -q scikit-learn
+
+# Reload modules after installation
+%load_ext autoreload
+%autoreload 2
+```
+
+### System Commands
+
+```python
+# Cell: System information (Code)
+# Check Python version
+!python --version
+
+# List files in current directory
+!ls -la
+
+# Check memory usage
+!free -h
+
+# Download data files
+!wget -q https://example.com/data.csv -O data/penguins_extended.csv
+```
+
+### Timing and Profiling
+
+```python
+# Cell: Performance testing (Code)
+# Time a single statement
+%timeit penguins.groupby('species')['body_mass_g'].mean()
+
+# Time entire cell
+%%time
+result = penguins.groupby(['species', 'island']).agg({
+    'body_mass_g': ['mean', 'std'],
+    'flipper_length_mm': ['mean', 'std']
+})
+print(result)
+
+# Profile memory usage
+%load_ext memory_profiler
+%memit penguins.describe()
+```
+
+### Display Enhancements
+
+```python
+# Cell: Rich display options (Code)
+from IPython.display import display, HTML, Markdown, Image
+
+# Display formatted markdown
+display(Markdown("""
+### Summary Statistics
+
+The dataset contains **{}** penguins from **{}** species.
+""".format(len(penguins), penguins['species'].nunique())))
+
+# Display HTML table with styling
+styled = penguins.head().style.highlight_max(axis=0)
+display(styled)
+
+# Display external images
+display(Image(url='https://example.com/penguin.jpg', width=400))
+```
+
+---
+
+## Step 4: Managing Dependencies
+
+### Automatic Dependency Detection
+
+Franklin scans notebooks for imports and updates `pixi.toml`:
+
+```toml
+# pixi.toml - automatically updated
+[project]
+name = "penguins-analysis"
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
+
+[dependencies]
+python = "3.11.*"
+pandas = ">=2.0"
+numpy = ">=1.24"
+matplotlib = ">=3.7"
+seaborn = ">=0.12"
+jupyter = "*"
+ipywidgets = ">=8.0"
+
+[pypi-dependencies]
+plotly = "*"
+```
+
+### Manual Dependency Management
+
+Add specific versions or additional packages:
+
+```bash
+# Add a package with version constraint
+pixi add "scikit-learn>=1.3"
+
+# Add from PyPI
+pixi add --pypi pandas-profiling
+
+# Add development dependencies
+pixi add --feature test pytest nbval
+
+# Add system dependencies
+pixi add gcc cmake
+```
+
+### Dependency Best Practices
+
+1. **Pin major versions** for stability:
+   ```toml
+   pandas = "2.0.*"  # Allow patch updates only
+   ```
+
+2. **Group related packages**:
+   ```toml
+   [feature.viz]
+   dependencies = { matplotlib = "*", seaborn = "*", plotly = "*" }
+   
+   [feature.ml]
+   dependencies = { scikit-learn = "*", xgboost = "*" }
+   ```
+
+3. **Document special requirements**:
+   ```python
+   # In notebook
+   # Note: This exercise requires plotly for interactive plots
+   # It will be installed automatically
+   import plotly.express as px
+   ```
+
+---
+
+## Step 5: Testing the Exercise
+
+### Notebook Validation Tests
+
+Create `tests/test_notebook.py`:
+
+```python
+import nbformat
+from nbconvert.preprocessors import ExecutePreprocessor
+import pytest
+import os
+
+def test_notebook_runs():
+    """Test that the exercise notebook executes without errors."""
+    notebook_path = "exercise.ipynb"
+    
+    with open(notebook_path) as f:
+        nb = nbformat.read(f, as_version=4)
+    
+    # Remove solution cells for testing
+    nb.cells = [cell for cell in nb.cells 
+                if 'solution' not in cell.metadata.get('tags', [])]
+    
+    ep = ExecutePreprocessor(timeout=60, kernel_name='python3')
+    ep.preprocess(nb, {'metadata': {'path': './'}})
+    
+    print("✓ Notebook executed successfully")
+
+def test_required_imports():
+    """Test that all required packages can be imported."""
+    required = ['pandas', 'numpy', 'matplotlib', 'seaborn']
+    
+    for package in required:
+        try:
+            __import__(package)
+            print(f"✓ {package} imported successfully")
+        except ImportError:
+            pytest.fail(f"Failed to import {package}")
+
+def test_data_loading():
+    """Test that data can be loaded."""
+    import pandas as pd
+    
+    url = "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/inst/extdata/penguins.csv"
+    df = pd.read_csv(url)
+    
+    assert len(df) > 0, "Dataset is empty"
+    assert 'species' in df.columns, "Missing species column"
+    print(f"✓ Data loaded: {len(df)} rows")
+
+def test_expected_outputs():
+    """Test that notebook produces expected outputs."""
+    # This would check for specific plots, tables, etc.
+    # Implementation depends on exercise requirements
+    pass
+```
+
+### Run Tests Locally
+
+```bash
+# Run all tests
+franklin exercise test
+
+# Run specific test
+franklin exercise test --notebook exercise.ipynb
+
+# Verbose output
+franklin exercise test --verbose
+```
+
+### Continuous Integration Testing
+
+The `.gitlab-ci.yml` automatically tests on push:
+
+```yaml
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  image: mambaforge:latest
+  script:
+    - pixi install
+    - pixi run pytest tests/
+    - pixi run python -m nbval exercise.ipynb
+  artifacts:
+    reports:
+      junit: test-results.xml
+
+build:
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE .
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - main
+```
+
+---
+
+## Step 6: VSCode Development with DevContainers
+
+### Why Use VSCode?
+
+VSCode with DevContainers offers:
+- Full IDE features (IntelliSense, debugging)
+- Git integration
+- Extension ecosystem
+- Consistent environment
+- Better for complex exercises
+
+### Setup DevContainer
+
+Create `.devcontainer/devcontainer.json`:
+
+```json
+{
+  "name": "Franklin Exercise Development",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "ms-vscode.live-server",
+        "yzhang.markdown-all-in-one",
+        "github.copilot"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/opt/conda/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.provider": "black",
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestArgs": ["tests"],
+        "jupyter.widgetScriptSources": ["jsdelivr.com", "unpkg.com"],
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "forwardPorts": [8888],
+  "postCreateCommand": "pixi install && pip install -e .",
+  "remoteUser": "jovyan",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  }
+}
+```
+
+### Open in VSCode
+
+1. Install VSCode and Remote-Containers extension
+2. Open the exercise folder in VSCode
+3. Command Palette: "Remote-Containers: Reopen in Container"
+4. Wait for container to build and start
+
+### VSCode Notebook Features
+
+#### Cell Execution and Debugging
+
+```python
+# Set breakpoint by clicking left of line number
+def analyze_species(df, species_name):
+    """Analyze a specific species."""
+    species_data = df[df['species'] == species_name]
+    
+    stats = {
+        'count': len(species_data),
+        'mean_mass': species_data['body_mass_g'].mean(),
+        'mean_flipper': species_data['flipper_length_mm'].mean()
+    }
+    
+    return stats  # Breakpoint here
+
+# Debug this cell
+result = analyze_species(penguins, 'Adelie')
+print(result)
+```
+
+#### Variable Explorer
+
+- View all variables in the current kernel
+- Inspect DataFrames in table view
+- Plot variables directly
+- Export data
+
+#### Interactive Window
+
+```python
+# Use # %% to create code cells in .py files
+# %% [markdown]
+# # Data Analysis Script
+# This can be run as a notebook or script
+
+# %%
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# %%
+# Load and process data
+data = pd.read_csv('data.csv')
+processed = data.groupby('category').mean()
+
+# %%
+# Create visualization
+processed.plot(kind='bar')
+plt.show()
+```
+
+### VSCode Testing Integration
+
+#### Configure Testing
+
+In `settings.json`:
+```json
+{
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": [
+    "tests",
+    "--cov=.",
+    "--cov-report=html"
+  ],
+  "python.testing.autoTestDiscoverOnSaveEnabled": true
+}
+```
+
+#### Run Tests from VSCode
+
+- Click test icons in gutter
+- Use Testing sidebar
+- View test output in terminal
+- Debug failed tests
+
+### Git Integration
+
+VSCode provides excellent Git support:
+
+1. **Source Control panel**: Stage, commit, push
+2. **GitLens extension**: Blame, history, comparisons
+3. **Merge conflicts**: Visual resolution
+4. **Branch management**: Create, switch, merge
+
+---
+
+## Step 7: Creating Solution Notebooks
+
+### Separate Solutions
+
+Create `solutions/exercise_solution.ipynb`:
+
+```python
+# Complete solution with all code filled in
+# This file is excluded from student downloads
+
+# Task 1 Solution
+penguins.info()
+print("\nMissing values:")
+print(penguins.isnull().sum())
+print("\nSummary statistics:")
+print(penguins.describe())
+
+# Task 2 Solution
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    data=penguins,
+    x='bill_length_mm',
+    y='bill_depth_mm',
+    hue='species',
+    s=100
+)
+plt.title('Penguin Bill Dimensions by Species')
+plt.xlabel('Bill Length (mm)')
+plt.ylabel('Bill Depth (mm)')
+plt.legend(title='Species')
+plt.tight_layout()
+plt.show()
+```
+
+### Inline Solutions (Hidden)
+
+Use cell metadata to hide solutions:
+
+```python
+# In exercise.ipynb
+# Cell metadata: {"tags": ["solution"]}
+
+# SOLUTION - This cell is removed for students
+def calculate_statistics(df):
+    return df.groupby('species').agg({
+        'body_mass_g': ['mean', 'std'],
+        'flipper_length_mm': ['mean', 'std']
+    })
+
+result = calculate_statistics(penguins)
+print(result)
+```
+
+---
+
+## Step 8: Publishing the Exercise
+
+### Final Checklist
+
+Before publishing, verify:
+
+- [ ] Notebook runs without errors
+- [ ] All TODOs have corresponding solutions
+- [ ] Dependencies are properly specified
+- [ ] Tests pass locally
+- [ ] README has clear instructions
+- [ ] Repository is public
+- [ ] CI/CD pipeline succeeds
+
+### Build and Publish
+
+```bash
+# Run final tests
+franklin exercise test
+
+# Build Docker image
+franklin exercise build
+
+# Publish to registry
+franklin exercise publish
+```
+
+### Test Student Experience
+
+```bash
+# In a different directory
+cd /tmp
+
+# Test as student would
+franklin download
+# Select: Introduction to Data Science → penguins-analysis
+
+cd penguins-analysis
+franklin jupyter
+
+# Verify notebook opens and runs
+```
+
+---
+
+## Advanced Techniques
+
+### Multi-Notebook Exercises
+
+Create exercises with multiple notebooks:
+
+```
+exercise/
+├── 01_data_loading.ipynb
+├── 02_exploration.ipynb
+├── 03_visualization.ipynb
+├── 04_modeling.ipynb
+└── utils.py  # Shared functions
+```
+
+Link notebooks:
+```python
+# In 01_data_loading.ipynb
+# Save processed data
+penguins_clean.to_csv('data/penguins_clean.csv', index=False)
+print("Data saved to data/penguins_clean.csv")
+print("Continue with 02_exploration.ipynb")
+
+# In 02_exploration.ipynb
+# Load processed data
+penguins_clean = pd.read_csv('data/penguins_clean.csv')
+print("Data loaded from previous notebook")
+```
+
+### Progressive Disclosure
+
+Reveal complexity gradually:
+
+```python
+# Basic task
+"""
+## Level 1: Simple Visualization
+Create a bar chart showing the count of each species.
+"""
+
+# Intermediate task
+"""
+## Level 2: Grouped Visualization
+Create a grouped bar chart showing counts by species and island.
+"""
+
+# Advanced task
+"""
+## Level 3: Complex Analysis
+Create a multi-panel figure with:
+- Species distribution by island
+- Correlation heatmap
+- Statistical test results
+"""
+```
+
+### Adaptive Difficulty
+
+Use widgets for difficulty selection:
+
+```python
+from ipywidgets import interact, widgets
+
+difficulty = widgets.RadioButtons(
+    options=['Beginner', 'Intermediate', 'Advanced'],
+    value='Beginner',
+    description='Difficulty:'
+)
+
+@interact(level=difficulty)
+def show_task(level):
+    tasks = {
+        'Beginner': "Calculate the mean body mass for all penguins",
+        'Intermediate': "Calculate mean body mass by species",
+        'Advanced': "Perform ANOVA test on body mass across species"
+    }
+    print(f"Task: {tasks[level]}")
+```
+
+### Automated Feedback
+
+Provide immediate validation:
+
+```python
+def check_answer(student_result, expected):
+    """Check student answer and provide feedback."""
+    if student_result is None:
+        return "⚠️ No answer provided yet"
+    
+    if abs(student_result - expected) < 0.01:
+        return "✅ Correct! Well done!"
+    elif abs(student_result - expected) < 1:
+        return "⚠️ Close! Check your calculation"
+    else:
+        return "❌ Not quite right. Try again!"
+
+# Student calculates mean
+student_mean = None  # TODO: Calculate mean body mass
+
+# Check answer
+expected_mean = penguins['body_mass_g'].mean()
+print(check_answer(student_mean, expected_mean))
+```
+
+---
+
+## Best Practices Summary
+
+### Exercise Design
+
+1. **Clear Learning Objectives**: State what students will learn
+2. **Incremental Complexity**: Build from simple to complex
+3. **Frequent Checkpoints**: Let students verify progress
+4. **Rich Feedback**: Provide hints and validation
+5. **Real-World Relevance**: Use meaningful datasets
+
+### Code Quality
+
+1. **Consistent Style**: Use black formatter
+2. **Type Hints**: Add where helpful
+3. **Docstrings**: Document functions
+4. **Error Handling**: Graceful failures
+5. **Performance**: Consider student hardware
+
+### Testing Strategy
+
+1. **Smoke Tests**: Notebook runs
+2. **Unit Tests**: Functions work
+3. **Integration Tests**: Full workflow
+4. **Visual Tests**: Plots generated
+5. **Student Tests**: Exercises completable
+
+### Documentation
+
+1. **README**: Clear setup instructions
+2. **Comments**: Explain complex code
+3. **Markdown**: Rich explanations
+4. **Examples**: Show expected output
+5. **Resources**: Link to references
+
+---
+
+## Troubleshooting Common Issues
+
+### Import Errors
+
+**Problem**: Package not found
+```python
+ModuleNotFoundError: No module named 'plotly'
+```
+
+**Solution**: Add to pixi.toml and rebuild
+```bash
+pixi add --pypi plotly
+franklin exercise build --no-cache
+```
+
+### Kernel Crashes
+
+**Problem**: Kernel dies on large computations
+
+**Solution**: Increase memory limits in Dockerfile
+```dockerfile
+ENV JUPYTER_MEMORY_LIMIT=4g
+```
+
+### Slow Performance
+
+**Problem**: Notebook takes too long to run
+
+**Solutions**:
+1. Cache downloaded data
+2. Use smaller sample datasets
+3. Optimize algorithms
+4. Add progress bars
+
+```python
+from tqdm.notebook import tqdm
+tqdm.pandas()
+
+# Shows progress bar
+result = penguins.progress_apply(complex_function, axis=1)
+```
+
+### Git Conflicts
+
+**Problem**: Merge conflicts in notebooks
+
+**Solution**: Use nbdime for better diffs
+```bash
+pip install nbdime
+nbdime config-git --enable
+git mergetool  # Visual merge tool
+```
+
+---
+
+## Conclusion
+
+This workflow provides a complete approach to creating Franklin exercises. Key takeaways:
+
+- Start with clear learning objectives
+- Use appropriate development tools (JupyterLab vs VSCode)
+- Test thoroughly at each stage
+- Leverage automation (dependency detection, CI/CD)
+- Consider the student experience throughout
+
+Remember: Great exercises are iterative. Collect feedback, monitor student performance, and continuously improve your content.

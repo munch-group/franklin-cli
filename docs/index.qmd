@@ -25,13 +25,13 @@ toc: false
 
 ::: {.g-col-12 .g-col-md-4}
 
-<i class="bi bi-arrow-repeat"></i> **Smart Dependencies**: <br>Automatic dependency detection from notebook imports. Uses Pixi, a fast package manager that ensures reproducible environments across platforms. 
+<i class="bi bi-rocket-takeoff"></i> **Student Empowering**: <br>Acquired skills not limited to some cloud-based learning environment. Franklin opens JupyterLab in your own browser, uses your own CPU to run notebooks in your own folders.
 
 :::
 
 ::: {.g-col-12 .g-col-md-4}
 
-<i class="bi bi-rocket-takeoff"></i> **Student Empowering**: <br>Acquired skills not limited to some cloud-based learning environment. Franklin opens JupyterLab in your own browser, uses your own CPU to run notebooks in your own folders.
+<i class="bi bi-arrow-repeat"></i> **Smart Dependencies**: <br>Automatic dependency detection from notebook imports. Uses Pixi, a fast package manager that ensures reproducible environments across platforms. 
 
 :::
 
@@ -65,309 +65,30 @@ toc: false
 
 :::
 
-
-
-
 :::
 
 
-## Simple command line interface
-
-### Student Workflows
-
-Download an exercise:
-
-1. Run `franklin download`
-2. Select your course
-3. Select the exercise notebook to download
-
-Start working:
-
-1. Run `franklin jupyter`
-2. Select your course and exercise to make JupyterLab opens in the Chrome browser.
-3. Work on the exercise
-4. Save your progress
-5. Close browser window to stop Franklin.
-
-### Educator Workflows
-
-Create a new exercise from an example template:
-
-1. Run `franklin exercise new`
-2. Select your course and name exercise
-3. Edit exercise visibility in browser window.
-
-Edit exercise notebook:
-
-1. Run `franklin exercise edit`
-2. 
-
-# 3. Test locally
-pixi run test-notebook
-
-# 4. Publish for students
-franklin exercise publish
-```
-
-
-
-
-
-```{mermaid}
-%% https://mermaid.js.org/syntax/userJourney.html
-journey
-    Week One
-    Double lecture
-      Functions: 5: Python
-      Blast: 3: Bioinf
-    section Go home
-      Alignment: 5: Bioinf
-```
-
-
-## Get started
-
-::: {.panel-tabset}
-
-### As Student
-
-{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
-
-### As Educator
-
-{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
-
-:::
-
-## System Architecture
-
-```{mermaid}
-graph LR
-    A[Student] -->|franklin download| B[GitLab]
-    B -->|Exercise + Docker Image| C[Local Machine]
-    C -->|franklin jupyter| D[Docker Container]
-    D -->|Isolated Environment| E[JupyterLab]
-    
-    F[Educator] -->|franklin exercise| B
-    B -->|CI/CD Pipeline| G[Container Registry]
-    G -->|Base Images| D
-```
-
-
-```{mermaid}
-%% https://mermaid.js.org/syntax/architecture.html
-
-architecture-beta
-    group api(cloud)[API]
-
-    service db(database)[Database] in api
-    service disk1(disk)[Storage] in api
-    service disk2(disk)[Storage] in api
-    service server(server)[Server] in api
-
-    db:L -- R:server
-    disk1:T -- B:server
-    disk2:T -- B:db
-```
-
-```{mermaid}
-%% https://mermaid.js.org/syntax/gitgraph.html
 ---
-title: Example Git diagram
----
-gitGraph
-   commit
-   commit
-   branch develop
-   checkout develop
-   commit
-   commit
-   checkout main
-   merge develop
-   commit
-   commit
-```
-
-## Community & Support
 
 ::: {.grid}
 
 ::: {.g-col-12 .g-col-md-6}
-### Get Help
+### Get Started Or Get Help
 
-- 📚 [Documentation](pages/getting_started.qmd) - Comprehensive guides
-- 🐛 [Issue Tracker](https://github.com/munch-group/franklin/issues) - Report bugs
-- 💬 [Discussions](https://github.com/munch-group/franklin/discussions) - Ask questions
-- 📧 [Contact](mailto:kaspermunch@birc.au.dk) - Direct support
+- <i class="bi bi-box-seam"></i> [Documentation](pages/getting_started.qmd) - Comprehensive guides
+- <i class="bi bi-box-seam"></i> [Issue Tracker](https://github.com/munch-group/franklin/issues) - Report bugs
+- <i class="bi bi-box-seam"></i> [Contact](mailto:kaspermunch@birc.au.dk) - Direct support
 :::
 
 ::: {.g-col-12 .g-col-md-6}
 ### Contribute
 
-- 🔧 [Developer Guide](pages/developer_guide.qmd) - Start contributing
-- 🌟 [GitHub](https://github.com/munch-group/franklin) - Star the project
-- 🔌 [Plugins](pages/developer_guide.qmd#plugin-development) - Extend Franklin
-- 📝 [Documentation](https://hypothes.is/groups/99akKdQZ/franklin) - Improve docs
-:::
+- <i class="bi bi-box-seam"></i> [Developer Guide](pages/developer_guide.qmd) - Start contributing
+- <i class="bi bi-box-seam"></i> [GitHub](https://github.com/munch-group/franklin) - Star the project
+- <i class="bi bi-box-seam"></i> [Plugins](pages/developer_guide.qmd#plugin-development) - Extend Franklin
 
 :::
 
-## Latest Updates
-
-::: {.callout-note}
-## Version 0.24.165
-- Improved plugin architecture with stable interfaces
-- Centralized authentication module
-- Enhanced Docker container management
-- Better error messages and debugging tools
-- Comprehensive documentation for all user levels
 :::
 
-## Technologies
 
-Franklin is built on modern, reliable technologies:
-
-- **[Python](https://python.org)** - Core implementation language
-- **[Click](https://click.palletsprojects.com)** - CLI framework with plugin support
-- **[Docker](https://docker.com)** - Container isolation and reproducibility
-- **[JupyterLab](https://jupyter.org)** - Interactive notebook interface
-- **[Pixi](https://pixi.sh)** - Modern conda-compatible package manager
-- **[GitLab](https://gitlab.com)** - Exercise distribution and version control
-
-## Ready to Start?
-
-::: {.callout-tip}
-## Next Steps
-
-1. **New Users**: Start with the [Beginner's Guide](pages/getting_started_beginners.qmd)
-2. **Python Users**: Jump to the [Python Users Guide](pages/python_users_guide.qmd)
-3. **Developers**: Explore the [Developer Guide](pages/developer_guide.qmd)
-4. **Quick Help**: Check the [Troubleshooting Guide](pages/troubleshooting.qmd)
-:::
-
----
-
-*Franklin is developed and maintained by the [Munch Group](https://munch-group.org) at Aarhus University.*
-
-
-
-
-
-**franklin** is an open source project with the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.
-
-The tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.
-
-## The student interface
-
-The student run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies. 
-
-On both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.
-
-```{.bash filename="Terminal"}
-franklin download
-```
-
-The student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student's computer with all required dependencies preinstalled.
-
-```{.bash filename="Terminal"}
-franklin jupyter
-```
-
-The environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.
-
-## The educator interface
-
-Educators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.
-
-Running the following command prompts the educator for course and exercise name and creates a new exercise. 
-
-```{.bash filename="Terminal"}
-franklin exercise new
-```
-
-The following command command prompts the educator for course and exercise. It then retrieves the exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.
-
-```{.bash filename="Terminal"}
-franklin exercise edit
-```
-
-## Installing Pixi Package Manager
-
-Franklin uses [Pixi](https://pixi.sh/latest/), a modern, fast package manager that's fully compatible with conda packages but offers better performance and reliability.
-
-### Quick Install
-
-::: {.panel-tabset}
-
-### macOS/Linux
-```{.bash filename="Terminal"}
-curl -fsSL https://pixi.sh/install.sh | bash
-```
-
-### Windows
-```{.powershell filename="PowerShell"}
-iwr -useb https://pixi.sh/install.ps1 | iex
-```
-
-:::
-
-After installation, restart your terminal to ensure pixi is in your PATH.
-
-## Installing Franklin
-
-### For Students
-
-```{.bash filename="Terminal"}
-# Add the Franklin channel
-pixi global install franklin --channel conda-forge --channel munch-group
-
-# Verify installation
-franklin --version
-```
-
-### For Educators
-
-```{.bash filename="Terminal"}
-# Install Franklin with educator tools
-pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
-
-# Verify installation
-franklin --version
-franklin exercise --help
-```
-
-### Alternative: Conda Installation
-
-If you prefer using conda/mamba:
-
-```{.bash filename="Terminal"}
-# Students
-conda install -c conda-forge -c munch-group franklin
-
-# Educators
-conda install -c conda-forge -c munch-group franklin franklin-educator
-```
-
-## Automatic Updates
-
-Once installed, Franklin updates automatically through pixi's global sync mechanism. This ensures that any update or bugfix is automatically available to students.
-
-To manually check for updates:
-
-```{.bash filename="Terminal"}
-# Using pixi
-pixi global update franklin
-
-# Using conda
-conda update -c conda-forge -c munch-group franklin
-```
-
-## GitLab administrator setup
-
-Franklin only requires a GitLab group named 'Franklin', with subgroups for each course holding the exercise repositories.
-
-## About this documentation
-
-These pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click "Sign up" to create a Hypothes.is account. Once you are logged in to that, you click [this invite link](https://hypothes.is/groups/99akKdQZ/franklin) to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click "Annotate" to add your suggestion/comment. 
-
-Should you come across a bug or find yourself missing some functionality, you are welcome to [submit an issue](https://github.com/munch-group/franklin/issues).

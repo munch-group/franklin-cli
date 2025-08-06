@@ -1,521 +1,222 @@
 ---
-title: Franklin
-subtitle: "Making Jupyter-based Education Accessible to Everyone"
-# aliases:
-#   - ../index.html
+title: Getting started
 ---
-
-<!-- 
-::: {.hero-banner}
-
-## Welcome to Franklin
-
-Franklin is an open-source platform that makes teaching and learning with Jupyter notebooks simple, reliable, and accessible—regardless of technical expertise.
-:::
-
-## Choose Your Path
-
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-4}
-### Students
-New to programming? Start here for a gentle introduction.
-
-- [Beginner's Guide](pages/getting_started_beginners.qmd) - Complete setup walkthrough
-- [Quick Reference](pages/quick_reference.qmd) - All commands at a glance
-- [Troubleshooting](pages/troubleshooting.qmd) - Solutions to common issues
-
-Get started in 5 minutes:
-```bash
-# Install Pixi (one-time setup)
-curl -fsSL https://pixi.sh/install.sh | bash
-
-# Install Franklin
-pixi global install franklin --channel conda-forge --channel munch-group
-
-# Start working
-franklin download
-franklin jupyter
-```
-:::
-
-::: {.g-col-12 .g-col-md-4}
-### Educators
-Create and distribute exercises that work everywhere.
-
-- [Educator Guide](pages/commands_edu.qmd) - Exercise management
-- [Python Users Guide](pages/python_users_guide.qmd) - Advanced workflows
-- [Development Tips](pages/developing.qmd) - Best practices
-
-**Create your first exercise:**
-```bash
-pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
-franklin exercise new
-franklin exercise edit
-```
-:::
-
-::: {.g-col-12 .g-col-md-4}
-### Developers
-Extend Franklin or contribute to the project.
-
-- [Developer Guide](pages/developer_guide.qmd) - Architecture & contributing
-- [API Reference](api/index.qmd) - Complete API documentation
-- [Plugin Development](pages/developer_guide.qmd#plugin-development) - Build extensions
-
-**Set up development:**
-```bash
-git clone https://github.com/munch-group/franklin
-pip install -e .
-```
-:::
-
-::: -->
-
-
-<!-- ## Why Franklin? -->
-
-<!-- ::: {.features} -->
-
-<!-- ::: {.smaller}
-
-**Zero Setup Frustration**: Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically. <br>
-**Works Everywhere**: Same experience on Windows, Mac, and Linux. No more "works on my machine" problems. Every student sees identical results. <br>
-**Smart Dependencies**: Automatic dependency detection from notebook imports. Uses Pixi, a modern, fast package manager that ensures reproducible environments across all platforms. <br>
-**Container Isolation**: Each exercise runs in its own Docker container. No conflicts between courses, no pollution of system Python, complete isolation. <br>
-**Auto Updates**: Franklin and exercises update automatically. Bug fixes and improvements reach all students instantly without manual intervention. <br>
-**Education Focused**: Designed specifically for teaching. Features like exercise templates, automated testing, and GitLab integration streamline the educational workflow. <br>
-**Empowering**: Acquired skills not limited to the a outside cloud-based learning environment. Franklin opens JupyterLab in your own browser, using your own CPU to run notebooks in your own folders. <br>
-
-::: -->
-
-<!-- ::: -->
-
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
 
-
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-cup-hot"></i> **No Setup Frustration**: <br>Students focus on learning, not troubleshooting. Franklin handles all environment setup, dependency management, and platform differences automatically.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-laptop"></i> **No Platform Issues**: <br>Same experience on Windows, Mac, and Linux. No more "it worked on my machine" problems for educators. Every student sees identical comparable results.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-arrow-repeat"></i> **Smart Dependencies**: <br>Automatic dependency detection from notebook imports. Uses Pixi, a fast package manager that ensures reproducible environments across platforms. 
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-box-seam"></i> **Container Isolation**: <br>Each exercise is developed and run in its own Docker container. No conflicts between courses or exercises, no pollution of system Python, complete isolation. 
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-cloud-download"></i> **Auto Updates**: <br>Franklin and its plugins update automatically. Bug fixes and improvements reach all students instantly. No more manual intervention or repeated trouble shooting. 
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-bug"></i> **Automatic error reports**: Should Franklin crash, it submits a fully documented GitHub issue, unless the same issue is already submitted. No more troubleshooting with students.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-git"></i> **Backed by Git**: <br>Uses institution GitLab server for hosting exercise repositories grouped by course. Uses GitLab pipelines to automate building and hosting of Docker images.
-
-:::
-
-<!-- ::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-arrow-repeat"></i> **GitLab automation**: <br> Committing edits to an exercise repository trigger automated GitLab pipelines that test and rebuild a new Docker images available to students.
-
-::: -->
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-battery-full"></i> **Batteries included**: <br>Multilayered design supports educators at any skill levels. Example notebooks provide plug an play notebook templates for developing exercises.
-
-:::
-
-::: {.g-col-12 .g-col-md-4}
-
-<i class="bi bi-rocket-takeoff"></i> **Student Empowering**: <br>Acquired skills not limited to some cloud-based learning environment. Franklin opens JupyterLab in your own browser, uses your own CPU to run notebooks in your own folders.
-
-:::
-
-:::
-
-
-
-
-
-
-
-## Key Features
-
 ::: {.panel-tabset}
 
-### For Students
-
-- **Simple Commands**: Just `franklin download` and `franklin jupyter`
-- **Automatic Setup**: All dependencies installed automatically
-- **Consistent Environment**: Same setup as classmates and instructors
-- **Exercise Management**: Download, work on, and submit exercises easily
-- **Integrated Help**: Built-in troubleshooting and documentation
-
-### For Educators
-
-- **Exercise Creation**: Templates and scaffolding for new exercises
-- **Version Control**: Git integration for exercise development
-- **Automated Testing**: Validate exercises before distribution
-- **Dependency Management**: Automatic detection and installation
-- **Multi-role Support**: Different access levels for TAs and professors
-
-### For Administrators
-
-- **User Management**: Bulk user creation and role assignment
-- **GitLab Integration**: Centralized exercise repository management
-- **Access Control**: Fine-grained permissions for courses and exercises
-- **Usage Analytics**: Monitor platform usage and performance
-- **Deployment Options**: On-premise or cloud deployment
-
-:::
-
-
-```{mermaid}
-%% https://mermaid.js.org/syntax/userJourney.html
-journey
-    Week One
-    Double lecture
-      Functions: 5: Python
-      Blast: 3: Bioinf
-    section Go home
-      Alignment: 5: Bioinf
-```
-
-```{dot}
-graph G {
-  layout=neato
-  run -- intr;
-  intr -- runbl;
-  runbl -- run;
-  run -- kernel;
-  kernel -- zombie;
-  kernel -- sleep;
-  kernel -- runmem;
-  sleep -- swap;
-  swap -- runswap;
-  runswap -- new;
-  runswap -- runmem;
-  new -- runmem;
-  sleep -- runmem;
-}
-```
-
-## Get started
-
-::: {.panel-tabset}
-
-### As Student
+### As a Student
 
 {{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
 
-### As Educator
+### As an Educator
 
 {{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
 
 :::
 
-```bash
-# 1. Install Franklin (one-time setup)
-pixi global install franklin --channel conda-forge --channel munch-group
+### Installing
 
-# 2. Download an exercise
-franklin download
-# → Select your course
-# → Select the exercise
+##### Install Python
 
-# 3. Start working
-franklin jupyter
-# → JupyterLab opens in your browser
-# → Complete the exercise
-# → Save your work
-```
+If you have not done so already, you should [install a modern version of Python](Installing_python.qmd). 
 
-### Educator Workflow
+##### Install Chrome
 
-```bash
-# 1. Install Franklin with educator tools
-pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
+Franklin is built to interact with the Chrome browser. So you need to make sure that is installed on your computer. If not, you can download it [here](https://www.google.com/intl/en_uk/chrome/).
 
-# 2. Create a new exercise
-franklin exercise new
-# → Name your course and exercise
-# → Edit the template notebook
+##### Install Docker Desktop
 
-# 3. Test locally
-pixi run test-notebook
+Docker is a tool that can run a small linux world in your computer. Franklin uses it to make sure Jupyter runs your exercise in exactly the same way, no matter which kind of computer you have. You do not need to known anything about Docker. Franklin will take care of the whole thing for you. If you are interested, though, you can have a look at this [brief introduction to Docker](docker.html).
 
-# 4. Publish for students
-franklin exercise publish
-```
+Before you to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac. If you are downloading docker on a AU computer remember to activate admin privileges by activating Heimdal. 
 
-## System Architecture
+If you are unsure of how to activate Heimdal, follow the instructions given on [this page](https://medarbejdere.au.dk/administration/it/vejledninger/sikkerhed/aktiver-administratorrettigheder-paa-medarbejdercomputer-heimdal)
 
-```{mermaid}
-graph LR
-    A[Student] -->|franklin download| B[GitLab]
-    B -->|Exercise + Docker Image| C[Local Machine]
-    C -->|franklin jupyter| D[Docker Container]
-    D -->|Isolated Environment| E[JupyterLab]
-    
-    F[Educator] -->|franklin exercise| B
-    B -->|CI/CD Pipeline| G[Container Registry]
-    G -->|Base Images| D
-```
+Go to [this page](https://www.docker.com/products/docker-desktop/) and press on "Download Docker Desktop". When you have done that you will be presented with different options which depends on which chip your computer has. On a Mac, you can find the name of your chip by clicking the apple icon in the upper left corner and choose "about this mac" in the dropdown menu. Apple silicon chips include M1, M2 and M3. Apple intel chips are named intel.
 
+![alt text](<images/Skærmbillede 2025-06-03 kl. 13.28.40.png>)
 
-```{mermaid}
-%% https://mermaid.js.org/syntax/architecture.html
+On Windows, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip.
 
-architecture-beta
-    group api(cloud)[API]
+Download the version of Docker Desktop that matches your operating system and computer chip. Once downloaded, follow the installation instructions for your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens, a window pops up and asks if you want to sign in or create and account. An account is not necessary for using docker with franklin, so you can just click "skip" when prompted. 
 
-    service db(database)[Database] in api
-    service disk1(disk)[Storage] in api
-    service disk2(disk)[Storage] in api
-    service server(server)[Server] in api
+When the installation procedure is complete and Docker is done starting up, you must it down. Just closing the blue Docker Dashboard window does not shut down Docker. You need to explicitly quit the program. To make sure it has quit, you can look for the little docker whale icon. In Mac is it in the menu bar. On Windows it is in the small popup menu at the right end of you task bar. If you see a small whale, Docker is still running. Click the whale icon and quit Docker.
 
-    db:L -- R:server
-    disk1:T -- B:server
-    disk2:T -- B:db
-```
+![alt text](<images/Skærmbillede 2025-06-03 kl. 14.27.12.png>)
 
-```{mermaid}
-%% https://mermaid.js.org/syntax/gitgraph.html
----
-title: Example Git diagram
----
-gitGraph
-   commit
-   commit
-   branch develop
-   checkout develop
-   commit
-   commit
-   checkout main
-   merge develop
-   commit
-   commit
-```
+::: callout-tip
 
-## Community & Support
+## WSL
 
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-6}
-### Get Help
-
-- 📚 [Documentation](pages/getting_started.qmd) - Comprehensive guides
-- 🐛 [Issue Tracker](https://github.com/munch-group/franklin/issues) - Report bugs
-- 💬 [Discussions](https://github.com/munch-group/franklin/discussions) - Ask questions
-- 📧 [Contact](mailto:kaspermunch@birc.au.dk) - Direct support
-:::
-
-::: {.g-col-12 .g-col-md-6}
-### Contribute
-
-- 🔧 [Developer Guide](pages/developer_guide.qmd) - Start contributing
-- 🌟 [GitHub](https://github.com/munch-group/franklin) - Star the project
-- 🔌 [Plugins](pages/developer_guide.qmd#plugin-development) - Extend Franklin
-- 📝 [Documentation](https://hypothes.is/groups/99akKdQZ/franklin) - Improve docs
-:::
-
-:::
-
-## Latest Updates
-
-::: {.callout-note}
-## Version 0.24.165
-- Improved plugin architecture with stable interfaces
-- Centralized authentication module
-- Enhanced Docker container management
-- Better error messages and debugging tools
-- Comprehensive documentation for all user levels
-:::
-
-## Technologies
-
-Franklin is built on modern, reliable technologies:
-
-- **[Python](https://python.org)** - Core implementation language
-- **[Click](https://click.palletsprojects.com)** - CLI framework with plugin support
-- **[Docker](https://docker.com)** - Container isolation and reproducibility
-- **[JupyterLab](https://jupyter.org)** - Interactive notebook interface
-- **[Pixi](https://pixi.sh)** - Modern conda-compatible package manager
-- **[GitLab](https://gitlab.com)** - Exercise distribution and version control
-
-## Ready to Start?
-
-::: {.callout-tip}
-## Next Steps
-
-1. **New Users**: Start with the [Beginner's Guide](pages/getting_started_beginners.qmd)
-2. **Python Users**: Jump to the [Python Users Guide](pages/python_users_guide.qmd)
-3. **Developers**: Explore the [Developer Guide](pages/developer_guide.qmd)
-4. **Quick Help**: Check the [Troubleshooting Guide](pages/troubleshooting.qmd)
-:::
-
----
-
-*Franklin is developed and maintained by the [Munch Group](https://munch-group.org) at Aarhus University.*
-
-
-
-
-
-**franklin** is an open source project with the goal of making teaching through Jupyter notebooks available to educators and students with little to no computational experience.
-
-The tool allows students to focus on computational learning and to allow educators with non-computer science professors to use juptyer notebooks in their teaching without having to worry that exercises stop working or whether they work on every Windows and Mac computer in a large cohort of students.
-
-## The student interface
-
-The student run a jupyter notebook on their own computer in a way that lets them focus on content and learning without the frustration by library incompatibilities and platform specific dependencies. 
-
-On both Mac and Windows, running the following command, prompts the student to select course and exercise and then downloads a folder with a jupyter notebook.
+On Windows, Docker Desktop may give you an error message saying "WSL 2 is required". In that case, install WSL by running the following command into your terminal:
 
 ```{.bash filename="Terminal"}
-franklin download
+wsl --install
 ```
 
-The student runs the following command, which again prompts for course and exercise and launches JupyterLab from an environment on the student's computer with all required dependencies preinstalled.
+:::
+
+
+<!-- 
+### Create a conda environment for Franklin
+
+<img src="https://docs.conda.io/en/latest/_images/conda_logo.svg" align="right" width="200" height="100" />
+
+You must install packages and programs for your analyses and pipelines. Sometimes, however, the packages you need for one project conflict with the ones you need for other projects you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create a small world insulated from the rest of your Anaconda installation? Then, that small world would only contain the packages you needed for a single project. If each project had its isolated world, then there would be no such conflicts. 
+
+Fortunately, a tool lets you do just that, and its name is Conda. Conda's small worlds are called "environments," and you can create as many as you like. You can then switch between them as you switch between your bioinformatics projects. Conda also downloads and installs the packages for you, ensuring that the packages you install in each environment are compatible. It even makes sure to install packages (dependencies) required by the packages you install. By creating an environment for each project, the libraries installed for each project do not interfere. You can read more about conda environments and how to use them in [this introduction](conda.html).
+
+Create an environment called franklin with franklin installed.
 
 ```{.bash filename="Terminal"}
-franklin jupyter
+conda create -y -n franklin -c conda-forge -c munch-group franklin
 ```
 
-The environment and notebook is exactly the same, wether on Mac or Windows, allowing them to work together, compare results, and receive uniform and unambiguous feedback from instructors.
+::: callout-important
 
-## The educator interface
+## For educators
 
-Educators with limited computational skills can develop and distribute jupyter exercises that will run year on year on the the diverse Mac and Windows computers of large cohorts of students.
-
-Running the following command prompts the educator for course and exercise name and creates a new exercise. 
+Educators should also install `franklin-educator` like this:
 
 ```{.bash filename="Terminal"}
-franklin exercise new
+conda create -y -n franklin -c conda-forge -c munch-group franklin franklin-educator
 ```
 
-The following command command prompts the educator for course and exercise. It then retrieves the exercise, launches jupyter in an appropriate environment, waits while the educator edits the notebook, and then automatically makes the edited notebook available to students in an environment automatically generated to accommodate any new dependencies resulting from changes to the notebook.
+:::
+
+## Test your setup
+
+If you succesfully completed all the above steps, you should now be able to activate your franklin environment:
 
 ```{.bash filename="Terminal"}
-franklin exercise edit
+conda activate franklin
 ```
 
-## Installing Pixi Package Manager
+and run this command to update franklin to its newest version:
 
-Franklin uses [Pixi](https://pixi.sh/latest/), a modern, fast package manager that's fully compatible with conda packages but offers better performance and reliability.
+```{.bash filename="Terminal"}
+franklin update
+```
 
-### Quick Install
+You can learn about how to use franklin on [this page](commands_core.html).
+ -->
+
+
+Franklin uses [Pixi](https://pixi.sh/latest/), a modern, fast package manager that's fully compatible with conda packages but offers better performance and reliability. If you already installed Miniforge Python as described in the [Installing Python](installing_python.qmd) tutorial, you already have Conda installed, but you may need to install Pixi. To learn about Pixi or Conda, visit the tutorial on [pixi and conda](pixi_and_conda.qmd).
+
+**With Pixi (recommended):**
 
 ::: {.panel-tabset}
 
-### macOS/Linux
-```{.bash filename="Terminal"}
-curl -fsSL https://pixi.sh/install.sh | bash
-```
+### Install as Student
 
-### Windows
-```{.powershell filename="PowerShell"}
-iwr -useb https://pixi.sh/install.ps1 | iex
-```
-
-:::
-
-After installation, restart your terminal to ensure pixi is in your PATH.
-
-## Installing Franklin
-
-### For Students
-
-```{.bash filename="Terminal"}
-# Add the Franklin channel
+```{.bash}
 pixi global install franklin --channel conda-forge --channel munch-group
+```
 
-# Verify installation
+Verify installation:
+
+```{.bash}
 franklin --version
 ```
 
-### For Educators
+### Install as Educator
 
-```{.bash filename="Terminal"}
-# Install Franklin with educator tools
+Educators also include the educator tools in their installation:
+
+```{.bash}
 pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
+```
 
-# Verify installation
+Verify installation:
+
+```{.bash}
 franklin --version
 franklin exercise --help
 ```
 
-### Alternative: Conda Installation
+:::
 
-If you prefer using conda/mamba:
+**With Conda:**
 
-```{.bash filename="Terminal"}
-# Students
+::: {.panel-tabset}
+
+### Install as Students
+
+Activate your conda environment and run:
+
+```{.bash}
 conda install -c conda-forge -c munch-group franklin
-
-# Educators
-conda install -c conda-forge -c munch-group franklin franklin-educator
 ```
 
-## Automatic Updates
+Verify installation:
 
-Once installed, Franklin updates automatically through pixi's global sync mechanism. This ensures that any update or bugfix is automatically available to students.
-
-To manually check for updates:
-
-```{.bash filename="Terminal"}
-# Using pixi
-pixi global update franklin
-
-# Using conda
-conda update -c conda-forge -c munch-group franklin
+```{.bash}
+franklin --version
 ```
 
-## GitLab administrator setup
+### Install as Educator
 
-Franklin only requires a GitLab group named 'Franklin', with subgroups for each course holding the exercise repositories.
+Educators also include the educator tools in their installation. Activate your conda environment and run:
 
-## About this documentation
+```{.bash}
+pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
+```
 
-These pages are linked to Hypothes.is, that lets you suggest changes or additions to these pages. Click the small arrow icon at the top right of the page. In the sidebar that expands, you click "Sign up" to create a Hypothes.is account. Once you are logged in to that, you click [this invite link](https://hypothes.is/groups/99akKdQZ/franklin) to add yourself to the Franklin group on Hypothe.is. Then you can just highlight some text on a page and click "Annotate" to add your suggestion/comment. 
+Verify installation:
 
-Should you come across a bug or find yourself missing some functionality, you are welcome to [submit an issue](https://github.com/munch-group/franklin/issues).
+```{.bash}
+franklin --version
+franklin exercise --help
+```
+
+:::
+
+## Using Franklin
+
+Simple and robust command line interface in Terminal/PowerShell:
+
+::: {.panel-tabset}
+
+### Students
+
+<i class="bi bi-terminal"></i> **Download an exercise**:
+
+1. Run `franklin download`
+2. Select your course
+3. Select the exercise notebook to download
+
+<i class="bi bi-terminal"></i> **Start working**: 
+
+1. Run `franklin jupyter`
+2. Select your course and exercise to make JupyterLab opens in the Chrome browser.
+3. Work on the exercise
+4. Save your progress
+5. Close browser window to stop Franklin.
+
+See [Franklin core commands](core_commands.qmd) for the full documentation.
+
+### Educators
+
+<i class="bi bi-terminal"></i> **Create a new exercise from an example template**:
+
+1. Run `franklin exercise new`
+2. Select your course and name exercise
+3. Edit exercise visibility in browser window.
+4. Wait a few minutes while the new image builds.
+
+<i class="bi bi-terminal"></i> **Edit exercise notebook**:
+
+1. Run `franklin exercise edit`
+2. Select your course and exercise to clone the repository pull image.
+3. Edit notebook in JupyterLab opening in Chrome.
+4. Save your work.
+5. Closing the browser window will add, commit, and push your changes to the GitLab exercise repository and initiate the building of an updated Docker image.
+
+See [Core commands](commands_core.qmd), [Educator commands](commands_edu.qmd), and [Admin commands](commands_admin.qmd) for the full documentation.
+
+:::
+

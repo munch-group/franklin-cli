@@ -1,72 +1,939 @@
 ---
-title: Developing exercises
+title: Educator Commands
+subtitle: Complete Franklin-Educator Command Reference
 ---
 
-Franklin is built for developing stable exercises, as well as for running them. The additional tools required for exercise creation and development are not part the core `franklin` package. Instead, it is distributed as the `franklin-educator` plugin. This setup ensures that educators use exactly the same code for testing exercises as students, while keeping the core student API lean and simple. To develop exercises, you must install both packages in an existing conda environment like this:
+The `franklin-educator` plugin extends Franklin with commands for creating and managing exercises. This reference documents all educator-specific commands and workflows.
 
-```{.bash filename="Terminal"}
+## Installation
+
+Before using educator commands, install the franklin-educator plugin:
+
+### Using Conda
+
+```bash
 conda install -c conda-forge -c munch-group franklin-educator
 ```
 
-Or make a new environment for just these packages using this command:
+### Using Pixi
 
-```{.bash filename="Terminal"}
-conda create -n franklin -c conda-forge -c munch-group franklin-educator
+```bash
+pixi global install --channel conda-forge --channel munch-group franklin-educator
 ```
 
+The educator plugin automatically installs the base Franklin package as a dependency.
 
-::: {.callout-note }  
-## Pixi 
+## Overview
 
-If you know your way around [Pixi](https://pixi.sh/latest/), you can also use that to install:
+Educator commands are accessed through the `franklin exercise` command group:
 
-```{.bash}
-pixi workspace channel add munch-group
-pixi add franklin-educator
+```bash
+franklin exercise [SUBCOMMAND] [OPTIONS]
 ```
 
-:::
+All educator commands require:
+- GitLab account with appropriate permissions
+- SSH key configured for GitLab access
+- Educator role in the Franklin GitLab group
 
-## Create a new exercise 
+## Main Command Group
 
-To create a new blank exercise, you use the command:
+## `franklin exercise`
 
-```{.bash filename="Terminal"}
+Parent command for all exercise management operations.
+
+### Usage
+
+```bash
+franklin exercise [OPTIONS] COMMAND [ARGS]
+```
+
+### Options
+
+- `--help`: Show help message and list all subcommands
+
+### Available Subcommands
+
+```bash
+franklin exercise --help
+```
+
+**Output:**
+```
+Commands:
+  new        Create a new exercise
+  edit       Edit an existing exercise
+  clone      Clone exercise repository for editing
+  test       Test exercise locally
+  build      Build Docker image for exercise
+  publish    Publish exercise to registry
+  settings   Open exercise settings in GitLab
+  archive    Archive (hide) an exercise
+```
+
+---
+
+## Creating Exercises
+
+## `franklin exercise new`
+
+Creates a new exercise repository with starter template.
+
+### Usage
+
+```bash
+franklin exercise new [OPTIONS]
+```
+
+### Options
+
+- `--course COURSE_NAME`: Specify course (skips interactive selection)
+- `--name EXERCISE_NAME`: Specify exercise name (skips prompt)
+- `--template TEMPLATE_NAME`: Use specific template (default: standard)
+- `--help`: Show help message
+
+### Interactive Mode
+
+```bash
 franklin exercise new
 ```
 
-The command presents you with menus to select your course and the name of the GitLab repository for the exercise. It then launches the GitLab settings page for the repository so you can add a title/name to the exercise and to make the repository public.
+**Process:**
+1. **Course Selection**: Choose target course from list
+2. **Name Input**: Enter repository name (lowercase, no spaces)
+3. **Template Selection**: Choose exercise template
+4. **Repository Creation**: Creates GitLab repository
+5. **Initial Setup**: Adds template files
+6. **Browser Launch**: Opens repository settings
 
+**Example interaction:**
+```
+Select course:
+  1. Introduction to Biology
+  2. Advanced Chemistry
+  3. Data Science Fundamentals
+Select course number: 1
 
-{{< video https://www.youtube.com/embed/BCnmQsXGO8k aspect-ratio="16x9" >}}
+Enter exercise repository name (e.g., 'week1-intro'): week1-intro
 
+Select template:
+  1. Standard (notebook + tests)
+  2. Advanced (multiple notebooks)
+  3. Minimal (single notebook)
+Select template number: 1
 
-## Exercise edit workflow
+Creating exercise repository...
+✓ Repository created: https://gitlab.au.dk/franklin/intro-bio/week1-intro
+✓ Template files added
+✓ Opening settings page in browser...
+```
 
-To accommodate educators with different computational skill levels, franklin supports two different development workflows:
+### Direct Mode
 
-- **Automated:** A fully automated (but rigid) workflow for absolute beginners and for quick edits by more advanced users.
-- **Assisted:** A semi-automated workflow for intermediate users allowing more flexibility.
-- **Supported:** A fully flexible approach based on vscode devcontainers catering for skilled users.
+Create exercise with all parameters:
 
+```bash
+franklin exercise new --course intro-bio --name week1-intro --template standard
+```
 
-To begin an automated edit workflow, just run the command below and follow instructions carefully:
+### Templates
 
-```{.bash filename="Terminal"}
+**Standard Template** includes:
+- `exercise.ipynb`: Starter notebook
+- `Dockerfile`: Container configuration
+- `pixi.toml`: Dependency specification
+- `README.md`: Student instructions
+- `.gitlab-ci.yml`: CI/CD pipeline
+- `tests/`: Test directory structure
+
+**Advanced Template** adds:
+- Multiple notebook files
+- `data/`: Sample data directory
+- `src/`: Helper modules
+- Extended test suite
+
+**Minimal Template** contains:
+- Single notebook file
+- Basic Dockerfile
+- Minimal dependencies
+
+### Post-Creation Steps
+
+After creation, you should:
+1. **Set repository visibility** to "Public" in GitLab settings
+2. **Add exercise title** in repository description
+3. **Configure CI/CD variables** if needed
+4. **Clone locally** for development
+
+### Behind the Scenes
+
+<details>
+<summary>Technical details of exercise creation</summary>
+
+1. **Permission Check**: Verifies educator role in target course
+2. **Name Validation**: Ensures name follows GitLab conventions
+3. **Repository Creation**: Uses GitLab API to create project
+4. **Template Copy**: Copies template files from Franklin package
+5. **Git Operations**: Initializes repo, adds files, makes initial commit
+6. **Pipeline Trigger**: Starts CI/CD to build initial Docker image
+7. **Settings Launch**: Opens browser to repository settings
+
+</details>
+
+---
+
+## Editing Exercises
+
+## `franklin exercise edit`
+
+Launches exercise editing workflow with live testing.
+
+### Usage
+
+```bash
+franklin exercise edit [OPTIONS]
+```
+
+### Options
+
+- `--workflow WORKFLOW`: Choose workflow (automated/assisted/manual)
+- `--no-browser`: Don't auto-launch browser
+- `--port PORT`: Jupyter port (default: 8888)
+- `--help`: Show help message
+
+### Workflows
+
+### Automated Workflow (Default)
+
+Best for quick edits and beginners:
+
+```bash
 franklin exercise edit
 ```
 
-For more information about edit workflows, see the tutorial about developing exercises.
+**Process:**
+1. **Exercise Selection**: Choose exercise to edit
+2. **Clone Repository**: Downloads to temporary directory
+3. **Launch Environment**: Starts Docker with exercise
+4. **Open JupyterLab**: Browser opens with files
+5. **File Watching**: Auto-saves changes to Git
+6. **Test on Save**: Runs tests automatically
+7. **Commit & Push**: Pushes changes when done
 
+**Features:**
+- No Git knowledge required
+- Automatic dependency detection
+- Live test feedback
+- Guided commit messages
 
+### Assisted Workflow
 
+For users comfortable with Git:
 
-## Removing (archiving) an exercise 
+```bash
+franklin exercise edit --workflow assisted
+```
 
-GitLab exercises are not deleted. We archive them instead, which makes them invisible to students. To archive a repository, first run this command which opens the the repository settings page:
+**Process:**
+1. **Clone Repository**: To current directory
+2. **Branch Creation**: Makes feature branch
+3. **Launch Environment**: Docker with hot-reload
+4. **Manual Editing**: Use any editor
+5. **Test Command**: Run tests manually
+6. **Git Operations**: Commit and push yourself
 
-```{.bash filename="Terminal"}
+**Features:**
+- Full Git control
+- Choice of editors
+- Branch-based workflow
+- Manual test timing
+
+### Manual Workflow
+
+For advanced users:
+
+```bash
+franklin exercise edit --workflow manual
+```
+
+Simply clones the repository and exits. You handle everything:
+- Environment setup
+- Testing
+- Git operations
+- CI/CD monitoring
+
+### File Watching
+
+In automated mode, Franklin watches for changes to:
+- `*.ipynb`: Notebook files
+- `*.py`: Python modules
+- `Dockerfile`: Container configuration
+- `pixi.toml`: Dependencies
+- `tests/*.py`: Test files
+
+Changes trigger:
+1. Auto-save to Git staging
+2. Test execution
+3. Feedback in terminal
+
+### Dependency Management
+
+Franklin automatically detects and adds dependencies:
+1. **Import Detection**: Scans notebooks for imports
+2. **Version Resolution**: Finds compatible versions
+3. **pixi.toml Update**: Adds to dependency list
+4. **Image Rebuild**: Triggers if needed
+
+**Example:**
+```python
+# In notebook cell:
+import pandas as pd
+import seaborn as sns
+```
+
+Franklin detects and adds:
+```toml
+# In pixi.toml:
+[dependencies]
+pandas = ">=2.0"
+seaborn = ">=0.12"
+```
+
+---
+
+## `franklin exercise clone`
+
+Clones exercise repository for local development.
+
+### Usage
+
+```bash
+franklin exercise clone [OPTIONS] [URL]
+```
+
+### Arguments
+
+- `URL` (optional): Direct repository URL to clone
+
+### Options
+
+- `--branch BRANCH`: Checkout specific branch
+- `--depth DEPTH`: Shallow clone depth (default: full)
+- `--help`: Show help message
+
+### Interactive Mode
+
+```bash
+franklin exercise clone
+```
+
+**Process:**
+1. Shows course selection menu
+2. Shows exercise selection menu
+3. Clones selected repository
+4. Preserves all files (including solutions)
+
+### Direct Mode
+
+```bash
+franklin exercise clone https://gitlab.au.dk/franklin/course/exercise.git
+```
+
+### Difference from Student Download
+
+| Aspect | `exercise clone` | `download` |
+|--------|-----------------|------------|
+| Target Users | Educators | Students |
+| Files Included | All files | Student files only |
+| Git History | Preserved | Removed |
+| Branch Access | All branches | Main only |
+| Push Rights | Yes | No |
+
+---
+
+## Testing Exercises
+
+## `franklin exercise test`
+
+Runs exercise test suite locally.
+
+### Usage
+
+```bash
+franklin exercise test [OPTIONS]
+```
+
+### Options
+
+- `--notebook NOTEBOOK`: Test specific notebook (default: all)
+- `--verbose`: Show detailed test output
+- `--no-docker`: Run tests in current environment
+- `--help`: Show help message
+
+### Default Behavior
+
+```bash
+franklin exercise test
+```
+
+**Process:**
+1. **Detection**: Finds exercise in current directory
+2. **Image Build**: Builds Docker image if needed
+3. **Container Start**: Launches test container
+4. **Test Execution**: Runs all tests in `tests/`
+5. **Notebook Execution**: Validates notebooks run
+6. **Output Check**: Verifies expected outputs
+7. **Cleanup**: Removes test container
+
+### Test Types
+
+**Notebook Tests:**
+- Cell execution without errors
+- Output presence verification
+- Variable state checking
+- Plot generation validation
+
+**Unit Tests:**
+- Helper function testing
+- Data loading verification
+- Model correctness checks
+
+**Integration Tests:**
+- Full workflow execution
+- Multi-notebook pipelines
+- Data flow validation
+
+### Test Configuration
+
+Tests are configured in `tests/test_config.yml`:
+
+```yaml
+notebooks:
+  - name: exercise.ipynb
+    timeout: 60
+    check_outputs: true
+    allowed_errors: []
+    
+  - name: advanced.ipynb
+    timeout: 120
+    check_outputs: false
+    allowed_errors: ['DeprecationWarning']
+
+unit_tests:
+  - tests/test_helpers.py
+  - tests/test_data.py
+
+integration_tests:
+  - tests/test_full_workflow.py
+```
+
+### Writing Tests
+
+**Notebook test example:**
+```python
+# tests/test_notebook.py
+def test_exercise_notebook():
+    """Test that exercise notebook runs without errors."""
+    notebook_path = "exercise.ipynb"
+    
+    # Execute notebook
+    with open(notebook_path) as f:
+        nb = nbformat.read(f, as_version=4)
+    
+    ep = ExecutePreprocessor(timeout=60)
+    ep.preprocess(nb, {'metadata': {'path': './'}})
+    
+    # Check for specific outputs
+    assert any('plot' in cell.source for cell in nb.cells)
+    assert any('result' in cell.source for cell in nb.cells)
+```
+
+### Common Test Failures
+
+- **Import Error**: Missing dependency in pixi.toml
+- **Timeout**: Notebook takes too long (increase timeout)
+- **Output Mismatch**: Expected output not found
+- **File Not Found**: Data files not included
+
+---
+
+## Building and Publishing
+
+## `franklin exercise build`
+
+Builds Docker image for exercise.
+
+### Usage
+
+```bash
+franklin exercise build [OPTIONS]
+```
+
+### Options
+
+- `--tag TAG`: Image tag (default: latest)
+- `--no-cache`: Build without cache
+- `--push`: Push after building
+- `--help`: Show help message
+
+### Build Process
+
+```bash
+franklin exercise build
+```
+
+**Steps:**
+1. **Validation**: Checks Dockerfile exists
+2. **Dependency Resolution**: Processes pixi.toml
+3. **Image Build**: Runs Docker build
+4. **Layer Caching**: Optimizes rebuild speed
+5. **Tagging**: Applies repository tags
+6. **Size Check**: Warns if >2GB
+
+### Build Optimization
+
+**Dockerfile best practices:**
+```dockerfile
+# Good: Dependencies before code
+FROM mambaforge:latest
+COPY pixi.toml .
+RUN pixi install
+COPY . .
+
+# Bad: Code changes bust cache
+FROM mambaforge:latest
+COPY . .
+RUN pixi install
+```
+
+### Multi-stage Builds
+
+For smaller images:
+```dockerfile
+# Build stage
+FROM mambaforge:latest as builder
+COPY pixi.toml .
+RUN pixi install
+
+# Runtime stage
+FROM python:3.11-slim
+COPY --from=builder /opt/conda /opt/conda
+COPY . .
+```
+
+---
+
+## `franklin exercise publish`
+
+Publishes exercise to GitLab registry.
+
+### Usage
+
+```bash
+franklin exercise publish [OPTIONS]
+```
+
+### Options
+
+- `--tag TAG`: Image tag (default: latest)
+- `--force`: Overwrite existing tag
+- `--test`: Run tests before publishing
+- `--help`: Show help message
+
+### Publishing Process
+
+```bash
+franklin exercise publish
+```
+
+**Steps:**
+1. **Test Execution**: Runs test suite (unless skipped)
+2. **Image Build**: Builds Docker image
+3. **Registry Login**: Authenticates with GitLab
+4. **Image Push**: Uploads to registry
+5. **Tag Update**: Updates latest tag
+6. **Visibility Check**: Ensures image is accessible
+
+### Version Tagging
+
+Best practice for versions:
+```bash
+franklin exercise publish --tag v1.0
+franklin exercise publish --tag fall2024
+franklin exercise publish --tag latest
+```
+
+Students always get `latest` unless specified otherwise.
+
+### Registry Structure
+
+Images are organized as:
+```
+registry.gitlab.au.dk/
+└── franklin/
+    └── [course-name]/
+        └── [exercise-name]:tag
+```
+
+Example:
+```
+registry.gitlab.au.dk/franklin/intro-bio/week1-intro:latest
+```
+
+---
+
+## Repository Management
+
+## `franklin exercise settings`
+
+Opens exercise GitLab settings page.
+
+### Usage
+
+```bash
+franklin exercise settings [OPTIONS]
+```
+
+### Options
+
+- `--section SECTION`: Specific settings section
+- `--help`: Show help message
+
+### Interactive Mode
+
+```bash
 franklin exercise settings
 ```
 
-Then find expand the "Advanced" section as the bottom and click the blue button that says "Archive project".
+Opens general settings page after exercise selection.
+
+### Direct Navigation
+
+```bash
+franklin exercise settings --section visibility
+franklin exercise settings --section ci-cd
+franklin exercise settings --section members
+```
+
+### Common Settings Tasks
+
+**Make Repository Public:**
+1. Run `franklin exercise settings --section visibility`
+2. Change "Project visibility" to "Public"
+3. Save changes
+
+**Add Teaching Assistants:**
+1. Run `franklin exercise settings --section members`
+2. Click "Invite members"
+3. Add users with "Developer" role
+
+**Configure CI/CD:**
+1. Run `franklin exercise settings --section ci-cd`
+2. Add variables for registry credentials
+3. Configure pipeline triggers
+
+---
+
+## `franklin exercise archive`
+
+Archives (hides) an exercise from students.
+
+### Usage
+
+```bash
+franklin exercise archive [OPTIONS]
+```
+
+### Options
+
+- `--confirm`: Skip confirmation prompt
+- `--help`: Show help message
+
+### Archive Process
+
+```bash
+franklin exercise archive
+```
+
+**Steps:**
+1. **Exercise Selection**: Choose exercise to archive
+2. **Confirmation**: Confirm archival intent
+3. **API Call**: Sets repository to archived state
+4. **Registry Update**: Removes from student view
+
+### Effects of Archiving
+
+**What happens:**
+- Repository becomes read-only
+- Hidden from student exercise lists
+- Image remains in registry
+- Can be unarchived later
+
+**What's preserved:**
+- All code and history
+- Issues and merge requests
+- CI/CD pipelines
+- Docker images
+
+### Unarchiving
+
+To restore an archived exercise:
+1. Go to GitLab settings
+2. Expand "Advanced" section
+3. Click "Unarchive project"
+
+---
+
+## Advanced Features
+
+## Continuous Integration
+
+All exercises include GitLab CI/CD pipelines:
+
+**.gitlab-ci.yml template:**
+```yaml
+stages:
+  - test
+  - build
+  - publish
+
+test:
+  stage: test
+  script:
+    - pixi run test
+    - pixi run notebook-test
+
+build:
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE .
+
+publish:
+  stage: publish
+  script:
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - main
+```
+
+### Pipeline Triggers
+
+Pipelines run on:
+- Push to main branch
+- Merge requests
+- Tag creation
+- Manual trigger
+
+### Pipeline Monitoring
+
+View pipeline status:
+```bash
+# Opens pipelines page
+franklin exercise settings --section pipelines
+```
+
+## Exercise Metadata
+
+Exercises contain metadata in `.franklin.yml`:
+
+```yaml
+course: intro-bio
+name: week1-intro
+version: 1.0.0
+difficulty: beginner
+topics:
+  - data-analysis
+  - visualization
+  - pandas
+
+estimated_time: 90  # minutes
+prerequisites:
+  - python-basics
+  - jupyter-intro
+
+learning_objectives:
+  - Load and explore datasets
+  - Create basic visualizations
+  - Perform simple analyses
+```
+
+## Dependency Scanning
+
+Franklin scans for dependencies in:
+1. **Import statements** in notebooks
+2. **Requirements** in markdown cells
+3. **Magic commands** like `%pip install`
+
+Detected packages are added to pixi.toml with appropriate versions.
+
+## Solution Management
+
+Solutions are stored separately:
+- `solutions/`: Solution notebooks
+- `.solutions.yml`: Solution metadata
+- Excluded from student downloads
+- Included in educator clones
+
+**Best practice:**
+```python
+# In exercise notebook
+# TODO: Calculate the mean of the data
+mean_value = None  # Your code here
+
+# In solution notebook
+mean_value = data.mean()
+```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+#### SSH Key Problems
+
+**Problem**: "Permission denied (publickey)"
+```bash
+# Solution: Configure SSH key
+ssh-keygen -t ed25519 -C "your-email@au.dk"
+# Add public key to GitLab profile
+```
+
+#### Permission Denied
+
+**Problem**: "You don't have permission"
+```bash
+# Solution: Verify educator role
+# Contact course coordinator for access
+```
+
+#### Docker Build Failures
+
+**Problem**: "Docker build failed"
+```bash
+# Solution: Check Dockerfile syntax
+docker build . --no-cache
+# Verify base image exists
+# Check dependency conflicts
+```
+
+#### Test Failures
+
+**Problem**: "Tests failed"
+```bash
+# Solution: Run tests locally
+franklin exercise test --verbose
+# Check test configuration
+# Verify notebook outputs
+```
+
+### Debug Mode
+
+Enable verbose output:
+```bash
+export FRANKLIN_DEBUG=true
+franklin exercise edit
+```
+
+Shows:
+- Git commands executed
+- Docker build output
+- Test details
+- API calls made
+
+---
+
+## Best Practices
+
+### Exercise Design
+
+1. **Start Simple**: Begin with working example
+2. **Clear Instructions**: Use markdown cells liberally
+3. **Incremental Difficulty**: Build complexity gradually
+4. **Test Everything**: Include comprehensive tests
+5. **Provide Hints**: Guide without giving away solutions
+
+### Dependency Management
+
+1. **Minimal Dependencies**: Only what's needed
+2. **Pin Major Versions**: Avoid breaking changes
+3. **Test Compatibility**: Verify versions work together
+4. **Document Requirements**: List in README
+
+### Version Control
+
+1. **Meaningful Commits**: Describe changes clearly
+2. **Tag Releases**: Mark stable versions
+3. **Branch Features**: Develop in branches
+4. **Test Before Merge**: Ensure CI passes
+
+### Student Experience
+
+1. **Fast Startup**: Optimize Docker images
+2. **Clear Errors**: Helpful error messages
+3. **Example Outputs**: Show expected results
+4. **Resource Limits**: Consider student hardware
+
+---
+
+## Command Reference
+
+### Quick Reference Table
+
+| Command | Purpose | Common Usage |
+|---------|---------|--------------|
+| `exercise new` | Create new exercise | `franklin exercise new` |
+| `exercise edit` | Edit with live testing | `franklin exercise edit` |
+| `exercise clone` | Clone for development | `franklin exercise clone` |
+| `exercise test` | Run test suite | `franklin exercise test` |
+| `exercise build` | Build Docker image | `franklin exercise build` |
+| `exercise publish` | Push to registry | `franklin exercise publish` |
+| `exercise settings` | Open GitLab settings | `franklin exercise settings` |
+| `exercise archive` | Hide from students | `franklin exercise archive` |
+
+### Command Aliases
+
+Some commands have shortcuts:
+- `franklin ex` → `franklin exercise`
+- `franklin exercise create` → `franklin exercise new`
+- `franklin exercise hide` → `franklin exercise archive`
+
+---
+
+## Integration with Core Franklin
+
+Educator commands integrate with core Franklin:
+
+**Testing student experience:**
+```bash
+# As educator, test what students see
+franklin exercise clone      # Get exercise
+franklin download            # Test student download
+franklin jupyter            # Test student environment
+```
+
+**Workflow example:**
+```bash
+# Create and test exercise
+franklin exercise new
+franklin exercise edit
+franklin exercise test
+franklin exercise publish
+
+# Verify student experience
+cd /tmp
+franklin download  # As student would
+cd exercise-name
+franklin jupyter   # As student would
+```
+
+---
+
+## Future Features
+
+Planned enhancements:
+- **Auto-grading**: Automatic submission grading
+- **Analytics**: Track student progress
+- **Collaboration**: Multi-educator workflows
+- **Templates**: More exercise templates
+- **Import/Export**: Course package management
