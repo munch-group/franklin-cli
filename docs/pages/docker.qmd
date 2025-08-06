@@ -27,7 +27,11 @@ With Docker:
 
 ### Containers vs Virtual Machines
 
-```mermaid
+```{mermaid}
+%%| echo: false
+%%| label: fig-containers-vs-virtual
+%%| fig-cap: "Containers vs. virtual machines"
+
 graph TB
     subgraph "Virtual Machine"
         VM[Guest OS<br/>20GB+] --> APP1[App A]
@@ -67,7 +71,10 @@ Franklin uses Docker to ensure exercises run identically for all students:
 
 ### How Franklin Uses Docker
 
-```mermaid
+```{mermaid}
+%%| echo: false
+%%| label: fig-franklin-and-docker
+%%| fig-cap: "Franklin and Docker"
 graph LR
     A[Franklin Exercise] --> B[Docker Image]
     B --> C[Container Starts]

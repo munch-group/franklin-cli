@@ -44,7 +44,10 @@ git commit -m "Add data analysis function"  # Commit with message
 
 Files in Git exist in three states:
 
-```mermaid
+```{mermaid}
+%%| echo: false
+%%| label: fig-git-file-states
+%%| fig-cap: "Git file states"
 graph LR
     A[Working Directory] -->|git add| B[Staging Area]
     B -->|git commit| C[Repository]

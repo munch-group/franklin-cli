@@ -9,8 +9,8 @@ project:
     - "*.ipynb"
     - "!CLAUDE.md"
     # - "!ignored-dir/"    
-  # post-render: 
-  #   - quarto render pages/student/
+  post-render: 
+    - quarto render pages/student/
 
 execute:
   freeze: auto
@@ -73,6 +73,10 @@ website:
             - pages/commands_core.qmd
             - pages/commands_edu.qmd
             - pages/commands_admin.qmd
+        - section: "Setup"
+          contents:
+            - pages/installing_python.qmd
+            - pages/installing_docker.qmd
         - section: "Educator Guides"
           contents:
         - section: "Tutorials"
@@ -90,7 +94,6 @@ website:
         - section: "Reference"
           contents:
             - pages/terminal.qmd
-            - pages/installing_python.qmd
             - pages/pixi_and_conda.qmd
             - pages/docker.qmd
             - pages/ssh.qmd

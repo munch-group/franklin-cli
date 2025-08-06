@@ -1,5 +1,5 @@
 ---
-title: Student/Core Commands
+title: Main Commands
 ---
 
 Franklin is a command-line tool that manages Jupyter notebook exercises through Docker containers.

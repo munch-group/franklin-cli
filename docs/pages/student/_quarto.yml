@@ -92,20 +92,15 @@ book:
     background: "white"      
   chapters:
     - index.qmd
-#    - ../computer_setup.qmd
+    - ../getting_started.qmd
     - ../commands_core.qmd
     - ../faq.qmd
-    - part: "Tutorials"
-      chapters:              
-        - ../terminal.qmd
-        - ../jupyterlab.ipynb
-        - ../numpy_and_pandas.ipynb
-        - ../plotting.ipynb
+    - ../installing_python.qmd
+    - ../installing_docker.qmd      
     - part: "About"
       chapters:  
         - ../terminal.qmd
         - ../pixi_and_conda.qmd
-        - ../jupyterlab.ipynb
         - ../gitlab.qmd
         - ../docker.qmd                  
 

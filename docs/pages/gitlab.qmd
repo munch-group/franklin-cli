@@ -33,7 +33,10 @@ Educational institutions often choose GitLab because:
 
 GitLab hosts Git repositories with additional features:
 
-```mermaid
+```{mermaid}
+%%| echo: false
+%%| label: fig-repository-management
+%%| fig-cap: "Repository management"
 graph LR
     A[Local Code] -->|git push| B[GitLab Repo]
     B -->|git pull| C[Collaborator]
@@ -231,7 +234,10 @@ Merge Requests are GitLab's way of proposing changes:
 
 GitLab CI/CD runs automated tasks when you push code:
 
-```mermaid
+```{mermaid}
+%%| echo: false
+%%| label: fig-pipelines
+%%| fig-cap: "Pipelines"
 graph LR
     A[Push Code] --> B[Pipeline Triggers]
     B --> C[Build Stage]

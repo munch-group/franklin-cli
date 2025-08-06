@@ -9,7 +9,11 @@ This guide is for developers who want to contribute to Franklin or build extensi
 
 ## Architecture Overview
 
-```mermaid
+```{mermaid}
+%%| echo: false
+%%| label: fig-architecture
+%%| fig-cap: "Architecture graphical outline"
+
 graph TB
     subgraph "Franklin Core"
         CLI[CLI Interface]

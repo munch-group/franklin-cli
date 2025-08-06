@@ -1,12 +1,12 @@
 ---
-Title: Installing Python
+title: Installing Python
 ---
 
 You will need to install a modern distribution of Python on your computer. We recommend Miniforge. It is free, lightweight, and comes pre-configured with the community-maintained conda-forge channel, which has the most up-to-date scientific packages.
 
 ::: {.panel-tabset}
 
-### On Mac
+## On Mac
 
 First, you need to know if your Mac has an Intel processor or Apple Silicon (M1, M2, M3). To check, click the Apple menu in the top-left corner and choose "About This Mac". Look for the Chip or Processor information.
 
@@ -51,7 +51,7 @@ First, you need to know if your Mac has an Intel processor or Apple Silicon (M1,
    ```
    You should see something like `conda 23.x.x`
 
-### On Linux
+## On Linux
 
 1. Download the installer by opening a terminal and running:
    ```bash
@@ -78,7 +78,7 @@ First, you need to know if your Mac has an Intel processor or Apple Silicon (M1,
    ```
    You should see something like `conda 23.x.x`
 
-### On Windows
+## On Windows
 
 1. Download the installer from: 
    [https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe](https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe)
@@ -119,3 +119,5 @@ The Miniforge installer has set up a "base" environment for you that is automati
 ```bash
 conda config --set auto_activate_base false
 ```
+
+Back to @installing.
