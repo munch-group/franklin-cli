@@ -1601,7 +1601,7 @@
     "href": "pages/gitlab.html#core-gitlab-features",
     "title": "Introduction to GitLab",
     "section": "Core GitLab Features",
-    "text": "Core GitLab Features\n\nRepository Management\nGitLab hosts Git repositories with additional features:\ngraph LR\n    A[Local Code] --&gt;|git push| B[GitLab Repo]\n    B --&gt;|git pull| C[Collaborator]\n    B --&gt;|Merge Request| D[Code Review]\n    D --&gt;|Approved| E[Main Branch]\n\n\nProject Organization\nGitLab Instance\n├── Groups (Courses)\n│   ├── Subgroups (Semesters)\n│   └── Projects (Exercises)\n└── Personal Projects\n    └── Student Work\n\n\nCI/CD Pipelines\nAutomatic testing and deployment:\n# .gitlab-ci.yml\ntest:\n  script:\n    - python -m pytest\n    - pixi run test-notebook\n  \ndeploy:\n  script:\n    - franklin exercise publish",
+    "text": "Core GitLab Features\n\nRepository Management\nGitLab hosts Git repositories with additional features:\n\n\n\n\n\n\ngraph LR\n    A[Local Code] --&gt;|git push| B[GitLab Repo]\n    B --&gt;|git pull| C[Collaborator]\n    B --&gt;|Merge Request| D[Code Review]\n    D --&gt;|Approved| E[Main Branch]\n\n\n\n\nFigure 1: Repository management\n\n\n\n\n\n\n\nProject Organization\nGitLab Instance\n├── Groups (Courses)\n│   ├── Subgroups (Semesters)\n│   └── Projects (Exercises)\n└── Personal Projects\n    └── Student Work\n\n\nCI/CD Pipelines\nAutomatic testing and deployment:\n# .gitlab-ci.yml\ntest:\n  script:\n    - python -m pytest\n    - pixi run test-notebook\n  \ndeploy:\n  script:\n    - franklin exercise publish",
     "crumbs": [
       "Reference",
       "Introduction to GitLab"
@@ -1645,7 +1645,7 @@
     "href": "pages/gitlab.html#gitlab-cicd",
     "title": "Introduction to GitLab",
     "section": "GitLab CI/CD",
-    "text": "GitLab CI/CD\n\nUnderstanding Pipelines\nGitLab CI/CD runs automated tasks when you push code:\ngraph LR\n    A[Push Code] --&gt; B[Pipeline Triggers]\n    B --&gt; C[Build Stage]\n    C --&gt; D[Test Stage]\n    D --&gt; E[Deploy Stage]\n    E --&gt; F[Success/Failure]\n\n\nBasic Pipeline Configuration\nCreate .gitlab-ci.yml in your repository:\n# Define stages\nstages:\n  - build\n  - test\n  - deploy\n\n# Build job\nbuild:\n  stage: build\n  script:\n    - echo \"Building project...\"\n    - pip install -r requirements.txt\n\n# Test job\ntest:\n  stage: test\n  script:\n    - echo \"Running tests...\"\n    - python -m pytest\n    - python -m mypy .\n\n# Deploy job (only on main branch)\ndeploy:\n  stage: deploy\n  script:\n    - echo \"Deploying...\"\n    - franklin exercise publish\n  only:\n    - main\n\n\nPipeline Status\nView pipeline status: - Green checkmark ✓ = Passed - Red X = Failed - Yellow circle = Running - Gray circle = Pending",
+    "text": "GitLab CI/CD\n\nUnderstanding Pipelines\nGitLab CI/CD runs automated tasks when you push code:\n\n\n\n\n\n\ngraph LR\n    A[Push Code] --&gt; B[Pipeline Triggers]\n    B --&gt; C[Build Stage]\n    C --&gt; D[Test Stage]\n    D --&gt; E[Deploy Stage]\n    E --&gt; F[Success/Failure]\n\n\n\n\nFigure 2: Pipelines\n\n\n\n\n\n\n\nBasic Pipeline Configuration\nCreate .gitlab-ci.yml in your repository:\n# Define stages\nstages:\n  - build\n  - test\n  - deploy\n\n# Build job\nbuild:\n  stage: build\n  script:\n    - echo \"Building project...\"\n    - pip install -r requirements.txt\n\n# Test job\ntest:\n  stage: test\n  script:\n    - echo \"Running tests...\"\n    - python -m pytest\n    - python -m mypy .\n\n# Deploy job (only on main branch)\ndeploy:\n  stage: deploy\n  script:\n    - echo \"Deploying...\"\n    - franklin exercise publish\n  only:\n    - main\n\n\nPipeline Status\nView pipeline status: - Green checkmark ✓ = Passed - Red X = Failed - Yellow circle = Running - Gray circle = Pending",
     "crumbs": [
       "Reference",
       "Introduction to GitLab"
@@ -1740,11 +1740,21 @@
     ]
   },
   {
+    "objectID": "pages/getting_started.html#installing",
+    "href": "pages/getting_started.html#installing",
+    "title": "Getting started",
+    "section": "Installing",
+    "text": "Installing\nInstall Dependencies:\nFranklin depends on a few external tools that you need to install on your computer before you install Franklin:\n\nIf you have not installed Python already, you can follow the tutorial on how to install a modern version of Python and come back here to continue.\nFranklin is built to interact with the Chrome browser. So make sure is installed on your computer or download it here.\nFranklin uses Docker isolate the setup for each exercise, so you need to install Docker Desktop too. Follow the tutorial on installing Docker and come back here to continue.\n\nWe use Pixi to install Franklin. Pixi is a modern, fast package manager that’s fully compatible with conda packages but offers better performance and reliability. On the page about pixi and conda, you can see how to install it.\nInstall Franklin with Pixi:\n\nStudentEducator\n\n\npixi global install franklin --channel conda-forge --channel munch-group\nVerify installation:\nfranklin --version\n\n\n(Click if you absolutely must install with Conda - not recommended)\n\nActivate your conda environment and run:\nconda install -c conda-forge -c munch-group franklin\nVerify installation:\nfranklin --version\n\n\n\nEducators also include the educator tools in their installation:\npixi global install franklin franklin-educator --channel conda-forge --channel munch-group\nVerify installation:\nfranklin --version\nfranklin exercise --help\n\n\n(Click if you absolutely must install with Conda - not recommended)\n\npixi global install franklin franklin-educator --channel conda-forge --channel munch-group\nVerify installation:\nfranklin --version\nfranklin exercise --help",
+    "crumbs": [
+      "Getting started"
+    ]
+  },
+  {
     "objectID": "pages/getting_started.html#using-franklin",
     "href": "pages/getting_started.html#using-franklin",
     "title": "Getting started",
     "section": "Using Franklin",
-    "text": "Using Franklin\nSimple and robust command line interface in Terminal/PowerShell:\n\nStudentsEducators\n\n\n Download an exercise:\n\nRun franklin download\nSelect your course\nSelect the exercise notebook to download\n\n Start working:\n\nRun franklin jupyter\nSelect your course and exercise to make JupyterLab opens in the Chrome browser.\nWork on the exercise\nSave your progress\nClose browser window to stop Franklin.\n\nSee Franklin core commands for the full documentation.\n\n\n Create a new exercise from an example template:\n\nRun franklin exercise new\nSelect your course and name exercise\nEdit exercise visibility in browser window.\nWait a few minutes while the new image builds.\n\n Edit exercise notebook:\n\nRun franklin exercise edit\nSelect your course and exercise to clone the repository pull image.\nEdit notebook in JupyterLab opening in Chrome.\nSave your work.\nClosing the browser window will add, commit, and push your changes to the GitLab exercise repository and initiate the building of an updated Docker image.\n\nSee Core commands, Educator commands, and Admin commands for the full documentation.",
+    "text": "Using Franklin\nSimple and robust command line interface in Terminal/PowerShell:\n\nStudentEducator\n\n\n Download an exercise:\n\nRun franklin download\nSelect your course\nSelect the exercise notebook to download\n\n Start working:\n\nRun franklin jupyter\nSelect your course and exercise to make JupyterLab opens in the Chrome browser.\nWork on the exercise\nSave your progress\nClose browser window to stop Franklin.\n\nSee Franklin core commands for the full documentation.\n\n\n Create a new exercise from an example template:\n\nRun franklin exercise new\nSelect your course and name exercise\nEdit exercise visibility in browser window.\nWait a few minutes while the new image builds.\n\n Edit exercise notebook:\n\nRun franklin exercise edit\nSelect your course and exercise to clone the repository pull image.\nEdit notebook in JupyterLab opening in Chrome.\nSave your work.\nClosing the browser window will add, commit, and push your changes to the GitLab exercise repository and initiate the building of an updated Docker image.\n\nSee Core commands, Educator commands, and Admin commands for the full documentation.",
     "crumbs": [
       "Getting started"
     ]
@@ -1829,7 +1839,7 @@
     "href": "pages/docker.html#how-docker-works",
     "title": "Introduction to Docker",
     "section": "How Docker Works",
-    "text": "How Docker Works\n\nContainers vs Virtual Machines\ngraph TB\n    subgraph \"Virtual Machine\"\n        VM[Guest OS&lt;br/&gt;20GB+] --&gt; APP1[App A]\n        VM --&gt; APP2[App B]\n        HOST1[Host OS] --&gt; HYP[Hypervisor] --&gt; VM\n    end\n    \n    subgraph \"Docker Container\"\n        HOST2[Host OS] --&gt; DOC[Docker Engine]\n        DOC --&gt; CON1[Container A&lt;br/&gt;~100MB]\n        DOC --&gt; CON2[Container B&lt;br/&gt;~100MB]\n    end\nVirtual Machines: - Full operating system per VM - Heavy resource usage (GB of RAM) - Slow to start (minutes) - Complete isolation\nDocker Containers: - Share host OS kernel - Lightweight (MB of RAM) - Fast to start (seconds) - Process-level isolation\n\n\nCore Docker Concepts\n\nImage: A blueprint or template for creating containers (like a recipe)\nContainer: A running instance of an image (like a cooked meal)\nDockerfile: Instructions for building an image (like writing a recipe)\nRegistry: Storage for sharing images (like a cookbook library)",
+    "text": "How Docker Works\n\nContainers vs Virtual Machines\n\n\n\n\n\n\ngraph TB\n    subgraph \"Virtual Machine\"\n        VM[Guest OS&lt;br/&gt;20GB+] --&gt; APP1[App A]\n        VM --&gt; APP2[App B]\n        HOST1[Host OS] --&gt; HYP[Hypervisor] --&gt; VM\n    end\n    \n    subgraph \"Docker Container\"\n        HOST2[Host OS] --&gt; DOC[Docker Engine]\n        DOC --&gt; CON1[Container A&lt;br/&gt;~100MB]\n        DOC --&gt; CON2[Container B&lt;br/&gt;~100MB]\n    end\n\n\n\n\nFigure 1: Containers vs. virtual machines\n\n\n\n\n\nVirtual Machines: - Full operating system per VM - Heavy resource usage (GB of RAM) - Slow to start (minutes) - Complete isolation\nDocker Containers: - Share host OS kernel - Lightweight (MB of RAM) - Fast to start (seconds) - Process-level isolation\n\n\nCore Docker Concepts\n\nImage: A blueprint or template for creating containers (like a recipe)\nContainer: A running instance of an image (like a cooked meal)\nDockerfile: Instructions for building an image (like writing a recipe)\nRegistry: Storage for sharing images (like a cookbook library)",
     "crumbs": [
       "Reference",
       "Introduction to Docker"
@@ -1840,7 +1850,7 @@
     "href": "pages/docker.html#docker-for-franklin-users",
     "title": "Introduction to Docker",
     "section": "Docker for Franklin Users",
-    "text": "Docker for Franklin Users\nFranklin uses Docker to ensure exercises run identically for all students:\n\nHow Franklin Uses Docker\ngraph LR\n    A[Franklin Exercise] --&gt; B[Docker Image]\n    B --&gt; C[Container Starts]\n    C --&gt; D[JupyterLab Runs]\n    D --&gt; E[Student Works]\n    E --&gt; F[Work Saved Locally]\n\nExercise includes Docker configuration\nFranklin pulls required image\nCreates isolated container\nMounts your files inside\nRuns JupyterLab in container\nYour work is saved on your computer\n\n\n\nStudent Perspective\nAs a Franklin student, Docker works behind the scenes:\n# Franklin handles Docker automatically\nfranklin jupyter\n# → Downloads Docker image if needed\n# → Starts container\n# → Opens JupyterLab\n# → Everything just works!\nYou don’t need to know Docker commands—Franklin manages everything.",
+    "text": "Docker for Franklin Users\nFranklin uses Docker to ensure exercises run identically for all students:\n\nHow Franklin Uses Docker\n\n\n\n\n\n\ngraph LR\n    A[Franklin Exercise] --&gt; B[Docker Image]\n    B --&gt; C[Container Starts]\n    C --&gt; D[JupyterLab Runs]\n    D --&gt; E[Student Works]\n    E --&gt; F[Work Saved Locally]\n\n\n\n\nFigure 2: Franklin and Docker\n\n\n\n\n\n\nExercise includes Docker configuration\nFranklin pulls required image\nCreates isolated container\nMounts your files inside\nRuns JupyterLab in container\nYour work is saved on your computer\n\n\n\nStudent Perspective\nAs a Franklin student, Docker works behind the scenes:\n# Franklin handles Docker automatically\nfranklin jupyter\n# → Downloads Docker image if needed\n# → Starts container\n# → Opens JupyterLab\n# → Everything just works!\nYou don’t need to know Docker commands—Franklin manages everything.",
     "crumbs": [
       "Reference",
       "Introduction to Docker"
@@ -2016,7 +2026,7 @@
     "href": "pages/developer_guide.html#architecture-overview",
     "title": "Franklin Developer Guide",
     "section": "Architecture Overview",
-    "text": "Architecture Overview\ngraph TB\n    subgraph \"Franklin Core\"\n        CLI[CLI Interface]\n        PM[Plugin Manager]\n        DM[Docker Manager]\n        GM[GitLab Manager]\n        JM[Jupyter Manager]\n        AUTH[Auth Module]\n    end\n    \n    subgraph \"Plugins\"\n        EDU[franklin-educator]\n        ADMIN[franklin-admin]\n        MAGIC[franklin-container]\n    end\n    \n    subgraph \"External Services\"\n        DOCKER[Docker Engine]\n        GITLAB[GitLab API]\n        PIXI[Pixi Package Manager]\n    end\n    \n    CLI --&gt; PM\n    PM --&gt; EDU\n    PM --&gt; ADMIN\n    EDU --&gt; ADMIN\n    \n    DM --&gt; DOCKER\n    GM --&gt; GITLAB\n    JM --&gt; DOCKER\n    MAGIC --&gt; PIXI\n\nCore Components\n\nCLI Framework: Built with Click, supports plugins via entry points\nPlugin System: Dynamic command registration through importlib.metadata\nDocker Integration: Container lifecycle management for isolated environments\nGitLab Integration: Exercise distribution and version control\nAuthentication: Centralized token and encryption management",
+    "text": "Architecture Overview\n\n\n\n\n\n\ngraph TB\n    subgraph \"Franklin Core\"\n        CLI[CLI Interface]\n        PM[Plugin Manager]\n        DM[Docker Manager]\n        GM[GitLab Manager]\n        JM[Jupyter Manager]\n        AUTH[Auth Module]\n    end\n    \n    subgraph \"Plugins\"\n        EDU[franklin-educator]\n        ADMIN[franklin-admin]\n        MAGIC[franklin-container]\n    end\n    \n    subgraph \"External Services\"\n        DOCKER[Docker Engine]\n        GITLAB[GitLab API]\n        PIXI[Pixi Package Manager]\n    end\n    \n    CLI --&gt; PM\n    PM --&gt; EDU\n    PM --&gt; ADMIN\n    EDU --&gt; ADMIN\n    \n    DM --&gt; DOCKER\n    GM --&gt; GITLAB\n    JM --&gt; DOCKER\n    MAGIC --&gt; PIXI\n\n\n\n\nFigure 1: Architecture graphical outline\n\n\n\n\n\n\nCore Components\n\nCLI Framework: Built with Click, supports plugins via entry points\nPlugin System: Dynamic command registration through importlib.metadata\nDocker Integration: Container lifecycle management for isolated environments\nGitLab Integration: Exercise distribution and version control\nAuthentication: Centralized token and encryption management",
     "crumbs": [
       "Developer Resources",
       "Franklin Developer Guide"
@@ -2379,7 +2389,172 @@
     "href": "pages/admin_quick_reference.html",
     "title": "Franklin Quick Reference",
     "section": "",
-    "text": "Core Commands (Students)Educator CommandsAdministrator CommandsJupyter Magic CommandsDocker CommandsConfigurationFile LocationsPixi CommandsGit Commands for ExercisesTroubleshooting CommandsKeyboard ShortcutsCommon WorkflowsPackage ManagementCI/CD IntegrationHelp and Support\n\n\n\nBasic Operations\nfranklin --version              # Check version\nfranklin --help                 # Show help\nfranklin update                 # Update Franklin\n\n\nWorking with Exercises\nfranklin download               # Download exercise (interactive)\nfranklin jupyter                # Launch Jupyter for exercise\nfranklin list                   # List available exercises\nfranklin cleanup                # Remove old containers\n\n\n\n\nExercise Management\nfranklin exercise new           # Create new exercise\nfranklin exercise edit          # Edit existing exercise\nfranklin exercise list          # List your exercises\nfranklin exercise publish       # Publish to students\nfranklin exercise test          # Test exercise locally\n\n\nExercise Development Workflow\n# 1. Create new exercise\nfranklin exercise new\n&gt; Course: Introduction to Python\n&gt; Exercise: Variables and Types\n&gt; Template: default\n\n# 2. Edit exercise\ncd \"Variables and Types\"\njupyter lab exercise.ipynb\n\n# 3. Test locally\npixi run test-notebook\n\n# 4. Publish for students\nfranklin exercise publish\n\n\nGit Integration\nfranklin exercise clone &lt;url&gt;   # Clone exercise repository\nfranklin exercise push          # Push changes to GitLab\nfranklin exercise pull          # Pull latest changes\nfranklin exercise status        # Check git status\n\n\n\n\nUser Management\nfranklin finger &lt;username&gt;      # Get user information\nfranklin grant &lt;role&gt; &lt;user&gt;    # Grant role to user\nfranklin token create &lt;user&gt;    # Create API token\nfranklin password set &lt;user&gt;    # Set user password\n\n\nRoles and Permissions\n# Available roles\nfranklin grant student &lt;username&gt;\nfranklin grant ta &lt;username&gt;          # Teaching assistant\nfranklin grant educator &lt;username&gt;\nfranklin grant admin &lt;username&gt;\n\n# Bulk operations\nfranklin grant student --file students.txt\nfranklin grant educator --course \"CS101\" &lt;username&gt;\n\n\n\nInside Jupyter notebooks:\n# Load Franklin magic\n%load_ext magic\n\n# Install packages\n%franklin numpy pandas matplotlib\n%pixi_install scikit-learn tensorflow\n\n# Install specific versions\n%franklin numpy==1.24.0 pandas&gt;=2.0\n\n# Install from different channels\n%franklin -c pytorch pytorch torchvision\n\n\n\nContainer Management\n# List Franklin containers\ndocker ps -a | grep franklin\n\n# Stop all Franklin containers\ndocker stop $(docker ps -q --filter \"label=franklin\")\n\n# Remove Franklin containers\ndocker rm $(docker ps -aq --filter \"label=franklin\")\n\n# Access container shell\nfranklin shell                  # Interactive shell in container\nfranklin shell --exercise \"Lab1\"\n\n\nImage Management\n# List Franklin images\ndocker images | grep franklin\n\n# Pull latest base image\ndocker pull registry.gitlab.com/franklin/base:latest\n\n# Remove unused images\ndocker image prune\n\n\n\n\nSettings File\n# Location: ~/.franklin/settings.json\n{\n  \"default_course\": \"Data Science\",\n  \"jupyter_port\": 8888,\n  \"auto_update\": true,\n  \"max_containers\": 5,\n  \"default_memory\": \"4g\",\n  \"default_cpus\": 2\n}\n\n\nEnvironment Variables\n# Debug mode\nexport FRANKLIN_DEBUG=1\n\n# Custom config location\nexport FRANKLIN_CONFIG=/path/to/config.json\n\n# GitLab settings\nexport GITLAB_URL=https://gitlab.example.com\nexport GITLAB_TOKEN=your-token\n\n# Docker settings\nexport DOCKER_HOST=tcp://localhost:2375\n\n\n\n\nDefault Paths\n# Configuration\n~/.franklin/config.json         # User configuration\n~/.franklin/settings.json       # User settings\n~/.franklin/cache/              # Downloaded exercises cache\n\n# Exercises\n~/franklin-exercises/           # Default exercise directory\n~/Desktop/                      # Alternative on Windows\n\n# Logs\n~/.franklin/logs/               # Franklin logs\n~/.franklin/crash-reports/      # Crash reports\n\n\nExercise Structure\nexercise-name/\n├── Dockerfile                  # Container configuration\n├── pixi.toml                  # Dependencies\n├── exercise.ipynb             # Main notebook\n├── README.md                  # Instructions\n├── data/                      # Data files\n├── tests/                     # Test files\n└── .gitlab-ci.yml            # CI/CD pipeline\n\n\n\n\nIn Exercise Directory\npixi install                    # Install dependencies\npixi add numpy                  # Add package\npixi remove pandas              # Remove package\npixi list                       # List installed packages\npixi run test-notebook          # Run tests\npixi shell                      # Activate environment\n\n\nGlobal Pixi\npixi global install jupyter     # Install globally\npixi global list               # List global packages\npixi global update             # Update all packages\n\n\n\n# Check status\ngit status\n\n# Save your work\ngit add -A\ngit commit -m \"Complete exercise 1\"\n\n# Create your own repository\ngit remote add personal https://github.com/you/solutions\ngit push personal main\n\n# Get updates\ngit pull origin main\n\n# View history\ngit log --oneline\n\n\n\nDiagnostic Commands\nfranklin doctor                 # System diagnostics\nfranklin doctor --verbose       # Detailed diagnostics\n\n# Check components\ndocker --version\ngit --version\npython --version\npixi --version\n\n\nReset and Repair\n# Reset Franklin configuration\nfranklin reset --config\n\n# Clear cache\nfranklin cache clear\n\n# Reinstall Franklin\nconda remove franklin\nconda install -c conda-forge -c munch-group franklin\n\n# Fix permissions (Linux/Mac)\nsudo chown -R $USER:$USER ~/.franklin\n\n\nLogs and Debugging\n# View logs\nfranklin logs                   # Recent logs\nfranklin logs --tail 50         # Last 50 lines\nfranklin logs --follow          # Follow log output\n\n# Debug mode\nFRANKLIN_DEBUG=1 franklin download\n\n# Verbose output\nfranklin --verbose jupyter\n\n\n\n\nJupyterLab\nShift+Enter    Run cell and move to next\nCtrl+Enter     Run cell\nAlt+Enter      Run cell and insert below\nEsc           Command mode\nEnter         Edit mode\nA             Insert cell above\nB             Insert cell below\nDD            Delete cell\nZ             Undo cell deletion\nCtrl+S        Save notebook\n\n\nTerminal (During Franklin Prompts)\n↑/↓           Navigate options\nEnter         Select option\nCtrl+C        Cancel operation\nTab           Auto-complete\nCtrl+L        Clear screen\n\n\n\n\nStudent Workflow\n# 1. Download exercise\nfranklin download\n\n# 2. Work on exercise\nfranklin jupyter\n\n# 3. Save and submit\n# (Work is auto-saved in exercise folder)\n\n\nEducator Workflow\n# 1. Create exercise\nfranklin exercise new\n\n# 2. Develop and test\ncd exercise-folder\njupyter lab\npixi run test-notebook\n\n# 3. Publish\nfranklin exercise publish\n\n\nAdministrator Workflow\n# 1. Setup course\nfranklin grant educator prof@university.edu\nfranklin grant ta assistant@university.edu\n\n# 2. Add students\nfranklin grant student --file roster.csv\n\n# 3. Monitor usage\nfranklin stats --course \"CS101\"\n\n\n\n\nAdding Dependencies to Exercise\n# In exercise directory\npixi add numpy pandas           # Add to pixi.toml\n\n# Or in notebook\n%franklin numpy pandas\n\n# For specific versions\npixi add \"numpy&gt;=1.24,&lt;2.0\"\n\n\nCreating Requirements File\n# Export from pixi\npixi list --export &gt; requirements.txt\n\n# Export from conda\nconda env export &gt; environment.yml\n\n\n\n\nGitLab CI\n# .gitlab-ci.yml in exercise\ntest:\n  image: registry.gitlab.com/franklin/base:latest\n  script:\n    - pixi install\n    - pixi run test-notebook\n\n\nGitHub Actions\n# .github/workflows/test.yml\nname: Test Exercise\non: [push]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n      - run: |\n          pixi install\n          pixi run test-notebook\n\n\n\n# Get help\nfranklin --help                 # General help\nfranklin download --help        # Command-specific help\n\n# Version information\nfranklin --version\n\n# Submit issues\n# https://github.com/munch-group/franklin/issues\n\n# Documentation\n# https://munch-group.org/franklin",
+    "text": "franklin --version              # Check version\nfranklin --help                 # Show help\nfranklin update                 # Update Franklin\n\n\n\nfranklin download               # Download exercise (interactive)\nfranklin jupyter                # Launch Jupyter for exercise\nfranklin list                   # List available exercises\nfranklin cleanup                # Remove old containers",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#core-commands-students",
+    "href": "pages/admin_quick_reference.html#core-commands-students",
+    "title": "Franklin Quick Reference",
+    "section": "",
+    "text": "franklin --version              # Check version\nfranklin --help                 # Show help\nfranklin update                 # Update Franklin\n\n\n\nfranklin download               # Download exercise (interactive)\nfranklin jupyter                # Launch Jupyter for exercise\nfranklin list                   # List available exercises\nfranklin cleanup                # Remove old containers",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#educator-commands",
+    "href": "pages/admin_quick_reference.html#educator-commands",
+    "title": "Franklin Quick Reference",
+    "section": "Educator Commands",
+    "text": "Educator Commands\n\nExercise Management\nfranklin exercise new           # Create new exercise\nfranklin exercise edit          # Edit existing exercise\nfranklin exercise list          # List your exercises\nfranklin exercise publish       # Publish to students\nfranklin exercise test          # Test exercise locally\n\n\nExercise Development Workflow\n# 1. Create new exercise\nfranklin exercise new\n&gt; Course: Introduction to Python\n&gt; Exercise: Variables and Types\n&gt; Template: default\n\n# 2. Edit exercise\ncd \"Variables and Types\"\njupyter lab exercise.ipynb\n\n# 3. Test locally\npixi run test-notebook\n\n# 4. Publish for students\nfranklin exercise publish\n\n\nGit Integration\nfranklin exercise clone &lt;url&gt;   # Clone exercise repository\nfranklin exercise push          # Push changes to GitLab\nfranklin exercise pull          # Pull latest changes\nfranklin exercise status        # Check git status",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#administrator-commands",
+    "href": "pages/admin_quick_reference.html#administrator-commands",
+    "title": "Franklin Quick Reference",
+    "section": "Administrator Commands",
+    "text": "Administrator Commands\n\nUser Management\nfranklin finger &lt;username&gt;      # Get user information\nfranklin grant &lt;role&gt; &lt;user&gt;    # Grant role to user\nfranklin token create &lt;user&gt;    # Create API token\nfranklin password set &lt;user&gt;    # Set user password\n\n\nRoles and Permissions\n# Available roles\nfranklin grant student &lt;username&gt;\nfranklin grant ta &lt;username&gt;          # Teaching assistant\nfranklin grant educator &lt;username&gt;\nfranklin grant admin &lt;username&gt;\n\n# Bulk operations\nfranklin grant student --file students.txt\nfranklin grant educator --course \"CS101\" &lt;username&gt;",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#jupyter-magic-commands",
+    "href": "pages/admin_quick_reference.html#jupyter-magic-commands",
+    "title": "Franklin Quick Reference",
+    "section": "Jupyter Magic Commands",
+    "text": "Jupyter Magic Commands\nInside Jupyter notebooks:\n# Load Franklin magic\n%load_ext magic\n\n# Install packages\n%franklin numpy pandas matplotlib\n%pixi_install scikit-learn tensorflow\n\n# Install specific versions\n%franklin numpy==1.24.0 pandas&gt;=2.0\n\n# Install from different channels\n%franklin -c pytorch pytorch torchvision",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#docker-commands",
+    "href": "pages/admin_quick_reference.html#docker-commands",
+    "title": "Franklin Quick Reference",
+    "section": "Docker Commands",
+    "text": "Docker Commands\n\nContainer Management\n# List Franklin containers\ndocker ps -a | grep franklin\n\n# Stop all Franklin containers\ndocker stop $(docker ps -q --filter \"label=franklin\")\n\n# Remove Franklin containers\ndocker rm $(docker ps -aq --filter \"label=franklin\")\n\n# Access container shell\nfranklin shell                  # Interactive shell in container\nfranklin shell --exercise \"Lab1\"\n\n\nImage Management\n# List Franklin images\ndocker images | grep franklin\n\n# Pull latest base image\ndocker pull registry.gitlab.com/franklin/base:latest\n\n# Remove unused images\ndocker image prune",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#configuration",
+    "href": "pages/admin_quick_reference.html#configuration",
+    "title": "Franklin Quick Reference",
+    "section": "Configuration",
+    "text": "Configuration\n\nSettings File\n# Location: ~/.franklin/settings.json\n{\n  \"default_course\": \"Data Science\",\n  \"jupyter_port\": 8888,\n  \"auto_update\": true,\n  \"max_containers\": 5,\n  \"default_memory\": \"4g\",\n  \"default_cpus\": 2\n}\n\n\nEnvironment Variables\n# Debug mode\nexport FRANKLIN_DEBUG=1\n\n# Custom config location\nexport FRANKLIN_CONFIG=/path/to/config.json\n\n# GitLab settings\nexport GITLAB_URL=https://gitlab.example.com\nexport GITLAB_TOKEN=your-token\n\n# Docker settings\nexport DOCKER_HOST=tcp://localhost:2375",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#file-locations",
+    "href": "pages/admin_quick_reference.html#file-locations",
+    "title": "Franklin Quick Reference",
+    "section": "File Locations",
+    "text": "File Locations\n\nDefault Paths\n# Configuration\n~/.franklin/config.json         # User configuration\n~/.franklin/settings.json       # User settings\n~/.franklin/cache/              # Downloaded exercises cache\n\n# Exercises\n~/franklin-exercises/           # Default exercise directory\n~/Desktop/                      # Alternative on Windows\n\n# Logs\n~/.franklin/logs/               # Franklin logs\n~/.franklin/crash-reports/      # Crash reports\n\n\nExercise Structure\nexercise-name/\n├── Dockerfile                  # Container configuration\n├── pixi.toml                  # Dependencies\n├── exercise.ipynb             # Main notebook\n├── README.md                  # Instructions\n├── data/                      # Data files\n├── tests/                     # Test files\n└── .gitlab-ci.yml            # CI/CD pipeline",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#pixi-commands",
+    "href": "pages/admin_quick_reference.html#pixi-commands",
+    "title": "Franklin Quick Reference",
+    "section": "Pixi Commands",
+    "text": "Pixi Commands\n\nIn Exercise Directory\npixi install                    # Install dependencies\npixi add numpy                  # Add package\npixi remove pandas              # Remove package\npixi list                       # List installed packages\npixi run test-notebook          # Run tests\npixi shell                      # Activate environment\n\n\nGlobal Pixi\npixi global install jupyter     # Install globally\npixi global list               # List global packages\npixi global update             # Update all packages",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#git-commands-for-exercises",
+    "href": "pages/admin_quick_reference.html#git-commands-for-exercises",
+    "title": "Franklin Quick Reference",
+    "section": "Git Commands for Exercises",
+    "text": "Git Commands for Exercises\n# Check status\ngit status\n\n# Save your work\ngit add -A\ngit commit -m \"Complete exercise 1\"\n\n# Create your own repository\ngit remote add personal https://github.com/you/solutions\ngit push personal main\n\n# Get updates\ngit pull origin main\n\n# View history\ngit log --oneline",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#troubleshooting-commands",
+    "href": "pages/admin_quick_reference.html#troubleshooting-commands",
+    "title": "Franklin Quick Reference",
+    "section": "Troubleshooting Commands",
+    "text": "Troubleshooting Commands\n\nDiagnostic Commands\nfranklin doctor                 # System diagnostics\nfranklin doctor --verbose       # Detailed diagnostics\n\n# Check components\ndocker --version\ngit --version\npython --version\npixi --version\n\n\nReset and Repair\n# Reset Franklin configuration\nfranklin reset --config\n\n# Clear cache\nfranklin cache clear\n\n# Reinstall Franklin\nconda remove franklin\nconda install -c conda-forge -c munch-group franklin\n\n# Fix permissions (Linux/Mac)\nsudo chown -R $USER:$USER ~/.franklin\n\n\nLogs and Debugging\n# View logs\nfranklin logs                   # Recent logs\nfranklin logs --tail 50         # Last 50 lines\nfranklin logs --follow          # Follow log output\n\n# Debug mode\nFRANKLIN_DEBUG=1 franklin download\n\n# Verbose output\nfranklin --verbose jupyter",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#keyboard-shortcuts",
+    "href": "pages/admin_quick_reference.html#keyboard-shortcuts",
+    "title": "Franklin Quick Reference",
+    "section": "Keyboard Shortcuts",
+    "text": "Keyboard Shortcuts\n\nJupyterLab\nShift+Enter    Run cell and move to next\nCtrl+Enter     Run cell\nAlt+Enter      Run cell and insert below\nEsc           Command mode\nEnter         Edit mode\nA             Insert cell above\nB             Insert cell below\nDD            Delete cell\nZ             Undo cell deletion\nCtrl+S        Save notebook\n\n\nTerminal (During Franklin Prompts)\n↑/↓           Navigate options\nEnter         Select option\nCtrl+C        Cancel operation\nTab           Auto-complete\nCtrl+L        Clear screen",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#common-workflows",
+    "href": "pages/admin_quick_reference.html#common-workflows",
+    "title": "Franklin Quick Reference",
+    "section": "Common Workflows",
+    "text": "Common Workflows\n\nStudent Workflow\n# 1. Download exercise\nfranklin download\n\n# 2. Work on exercise\nfranklin jupyter\n\n# 3. Save and submit\n# (Work is auto-saved in exercise folder)\n\n\nEducator Workflow\n# 1. Create exercise\nfranklin exercise new\n\n# 2. Develop and test\ncd exercise-folder\njupyter lab\npixi run test-notebook\n\n# 3. Publish\nfranklin exercise publish\n\n\nAdministrator Workflow\n# 1. Setup course\nfranklin grant educator prof@university.edu\nfranklin grant ta assistant@university.edu\n\n# 2. Add students\nfranklin grant student --file roster.csv\n\n# 3. Monitor usage\nfranklin stats --course \"CS101\"",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#package-management",
+    "href": "pages/admin_quick_reference.html#package-management",
+    "title": "Franklin Quick Reference",
+    "section": "Package Management",
+    "text": "Package Management\n\nAdding Dependencies to Exercise\n# In exercise directory\npixi add numpy pandas           # Add to pixi.toml\n\n# Or in notebook\n%franklin numpy pandas\n\n# For specific versions\npixi add \"numpy&gt;=1.24,&lt;2.0\"\n\n\nCreating Requirements File\n# Export from pixi\npixi list --export &gt; requirements.txt\n\n# Export from conda\nconda env export &gt; environment.yml",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#cicd-integration",
+    "href": "pages/admin_quick_reference.html#cicd-integration",
+    "title": "Franklin Quick Reference",
+    "section": "CI/CD Integration",
+    "text": "CI/CD Integration\n\nGitLab CI\n# .gitlab-ci.yml in exercise\ntest:\n  image: registry.gitlab.com/franklin/base:latest\n  script:\n    - pixi install\n    - pixi run test-notebook\n\n\nGitHub Actions\n# .github/workflows/test.yml\nname: Test Exercise\non: [push]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n      - run: |\n          pixi install\n          pixi run test-notebook",
+    "crumbs": [
+      "Administration",
+      "Franklin Quick Reference"
+    ]
+  },
+  {
+    "objectID": "pages/admin_quick_reference.html#help-and-support",
+    "href": "pages/admin_quick_reference.html#help-and-support",
+    "title": "Franklin Quick Reference",
+    "section": "Help and Support",
+    "text": "Help and Support\n# Get help\nfranklin --help                 # General help\nfranklin download --help        # Command-specific help\n\n# Version information\nfranklin --version\n\n# Submit issues\n# https://github.com/munch-group/franklin/issues\n\n# Documentation\n# https://munch-group.org/franklin",
     "crumbs": [
       "Administration",
       "Franklin Quick Reference"
@@ -2430,7 +2605,7 @@
     "href": "CLAUDE.html",
     "title": "ADDING CODE EXPLANATIONS JUPYTER NOTEBOOKS",
     "section": "",
-    "text": "Add a markdown cell after each code cell with an explanation the code. The explanation should be formatted as a Markdown list wrapped in a html detail tag\n\n## Code cell \n\n\n::: {#26364d6d .cell execution_count=1}\n``` {.python .cell-code}\nx = \"hello\"\nprint(x)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\nhello\n```\n:::\n:::\n\n\n## Markdown cell \n\n&lt;details&gt;\n&lt;summary&gt;&lt;small&gt;Click to see what Franklin does&lt;/small&gt;&lt;/summary&gt;\n\n- First `x` is assigned the value `\"hello\"`\n- Then the `print` function prints the value that the `x` value points to (`\"hello\"`).\n\n&lt;/details&gt;\n\n\nTemplate for simple documentation Click command\n\n### Download an exercise\n\nThis command downloads an exercise repository to your computer.\n\n```bash\nfranklin download\n```\n\n::: {.panel-tabset}\n\n# This happens\n\n1. You are prompted to select your course\n2. You are prompted to select the exercise to download  \n3. Franklin downloads the exercise to a subfolder of your current folder\n4. Instructor-only files (solutions, etc.) are removed\n\n# Tips  \n\n- Run from an empty folder or a dedicated exercises directory\n- Create one folder per course to keep exercises organized\n- The exercise will be downloaded into a new subfolder named after the exercise\n\n:::\n\n&lt;details&gt;\n&lt;summary&gt;Technical details of the process&lt;/summary&gt;\n\n1. **Registry Discovery**: Queries GitLab API for available courses in the Franklin group\n2. **Image Matching**: Matches Docker images in the registry to exercise repositories\n3. **Permission Check**: Verifies user has access to selected repository\n4. **Repository Clone**: Uses git to clone the exercise repository\n5. **Cleanup**: Removes `.git` folder, solution files, and instructor notes\n6. **Validation**: Ensures exercise contains required files (Dockerfile, notebook, etc.)\n\n&lt;/details&gt;\n\n\n\nTemplate for full documentation of Click command\nFormat like Click command documentation but ducument ALL features"
+    "text": "Add a markdown cell after each code cell with an explanation the code. The explanation should be formatted as a Markdown list wrapped in a html detail tag\n\n## Code cell \n\n\n::: {#9fe1b69a .cell execution_count=1}\n``` {.python .cell-code}\nx = \"hello\"\nprint(x)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\nhello\n```\n:::\n:::\n\n\n## Markdown cell \n\n&lt;details&gt;\n&lt;summary&gt;&lt;small&gt;Click to see what Franklin does&lt;/small&gt;&lt;/summary&gt;\n\n- First `x` is assigned the value `\"hello\"`\n- Then the `print` function prints the value that the `x` value points to (`\"hello\"`).\n\n&lt;/details&gt;\n\n\nTemplate for simple documentation Click command\n\n### Download an exercise\n\nThis command downloads an exercise repository to your computer.\n\n```bash\nfranklin download\n```\n\n::: {.panel-tabset}\n\n# This happens\n\n1. You are prompted to select your course\n2. You are prompted to select the exercise to download  \n3. Franklin downloads the exercise to a subfolder of your current folder\n4. Instructor-only files (solutions, etc.) are removed\n\n# Tips  \n\n- Run from an empty folder or a dedicated exercises directory\n- Create one folder per course to keep exercises organized\n- The exercise will be downloaded into a new subfolder named after the exercise\n\n:::\n\n&lt;details&gt;\n&lt;summary&gt;Technical details of the process&lt;/summary&gt;\n\n1. **Registry Discovery**: Queries GitLab API for available courses in the Franklin group\n2. **Image Matching**: Matches Docker images in the registry to exercise repositories\n3. **Permission Check**: Verifies user has access to selected repository\n4. **Repository Clone**: Uses git to clone the exercise repository\n5. **Cleanup**: Removes `.git` folder, solution files, and instructor notes\n6. **Validation**: Ensures exercise contains required files (Dockerfile, notebook, etc.)\n\n&lt;/details&gt;\n\n\n\nTemplate for full documentation of Click command\nFormat like Click command documentation but ducument ALL features"
   },
   {
     "objectID": "api/index.html",
@@ -2637,78 +2812,78 @@
   {
     "objectID": "pages/commands_core.html",
     "href": "pages/commands_core.html",
-    "title": "Student/Core Commands",
+    "title": "Main Commands",
     "section": "",
     "text": "Franklin is a command-line tool that manages Jupyter notebook exercises through Docker containers.",
     "crumbs": [
       "Franklin commands",
-      "Student/Core Commands"
+      "Main Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#overview",
     "href": "pages/commands_core.html#overview",
-    "title": "Student/Core Commands",
+    "title": "Main Commands",
     "section": "Overview",
     "text": "Overview\nFranklin uses a hierarchical command structure:\nfranklin [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS] [ARGUMENTS]\nGlobal options: - --version shows the installed Franklin version and exits - --help shows help message for Franklin or any subcommand\nExample:\nfranklin --help            # Show main help\nfranklin download --help   # Show download command help",
     "crumbs": [
       "Franklin commands",
-      "Student/Core Commands"
+      "Main Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#main-commands",
     "href": "pages/commands_core.html#main-commands",
-    "title": "Student/Core Commands",
+    "title": "Main Commands",
     "section": "Main Commands",
     "text": "Main Commands\n\nDownload an exercise\nThis command downloads an exercise repository to your computer.\nfranklin download\n\nThis happensTips\n\n\n\nYou are prompted to select your course\nYou are prompted to select the exercise to download\n\nFranklin downloads the exercise to a subfolder of your current folder\nInstructor-only files (solutions, etc.) are removed\n\n\n\n\nRun from an empty folder or a dedicated exercises directory\nCreate one folder per course to keep exercises organized\nThe exercise will be downloaded into a new subfolder named after the exercise\n\n\n\n\n\n\nTechnical details of the process\n\n\nRegistry Discovery: Queries GitLab API for available courses in the Franklin group\nImage Matching: Matches Docker images in the registry to exercise repositories\nPermission Check: Verifies user has access to selected repository\nRepository Clone: Uses git to clone the exercise repository\nCleanup: Removes .git folder, solution files, and instructor notes\nValidation: Ensures exercise contains required files (Dockerfile, notebook, etc.)\n\n\n\nDownload with URL\nYou can download a specific exercise directly using its GitLab URL.\nfranklin download https://gitlab.au.dk/course-name/exercise-name.git\n\nThis happensTips\n\n\n\nFranklin validates the URL format\nChecks your access permissions\nDownloads the exercise to a subfolder of your current folder\n\n\n\n\nGet the URL from your course page or instructor\nThe URL must be a GitLab repository URL\nYou need access rights to the repository\n\n\n\n\n\n\n\nLaunch Jupyter\nThis command launches JupyterLab in a Docker container configured for the current exercise.\nfranklin jupyter\n\nThis happensTips\n\n\n\nDetects exercise in current folder (or prompts for selection)\nPulls Docker image with exercise dependencies if needed\nStarts container and mounts current folder\nOpens JupyterLab in your browser\nWaits for you to close the browser\nCleans up the container\n\n\n\n\nRun from inside the exercise folder for automatic detection\nFranklin finds an available port starting from 8888\nKeep Docker Desktop running during work sessions\nYour work is saved in the exercise folder, not the container\n\n\n\n\n\n\nTechnical details of the process\n\n\nDocker Check: Ensures Docker Desktop is installed and running\nDisk Space: Verifies at least 5GB free space\nImage Pull: Downloads Docker image if not cached locally\nContainer Start: Launches container with current directory mounted at /home/jovyan/work\nPort Management: Finds available port starting from 8888\nBrowser Launch: Opens Chrome/default browser with authentication token\nCleanup: Stops container when browser closes\n\n\n\nLaunch with image URL\nYou can launch a specific Docker image directly.\nfranklin jupyter registry.gitlab.au.dk/franklin/course/exercise:latest\n\nThis happensTips\n\n\n\nPulls the specified Docker image\nStarts container with current folder mounted\nOpens JupyterLab in browser\n\n\n\n\nUse when you know the exact image you need\nUseful for testing or special configurations\nThe image URL is shown in exercise documentation\n\n\n\n\n\n\nOptions\n\n--allow-subdirs-at-your-own-risk: Bypass subdirectory safety check (not recommended)\n\n\n\n\nUpdate Franklin\nThis command updates Franklin to the latest version.\nfranklin update\n\nThis happensTips\n\n\n\nDetects how Franklin was installed (Conda, Pixi, or pip)\nChecks for available updates\nUpdates Franklin and any installed plugins\nRestarts Franklin if updated\n\n\n\n\nFranklin checks for updates automatically when started\nUpdates are cached for 6 hours to avoid repeated checks\nUpdate before each semester for the latest features\nThe update includes franklin-educator and franklin-admin if installed\n\n\n\n\n\n\nTechnical details of the process\n\n\nInstallation Detection: Checks Python executable path for conda/pixi markers\nVersion Query: Fetches latest version from package repository\nPackage Manager: Uses appropriate command (conda update, pixi update, or pip install –upgrade)\nPlugin Updates: Also updates franklin-educator and franklin-admin if installed\nCache Management: Updates are cached to avoid repeated version checks\n\n\n\nCheck for updates\nCheck for updates without installing them.\nfranklin update --check\n\nThis happensTips\n\n\n\nQueries the package repository for latest version\nCompares with your installed version\nReports if an update is available\n\n\n\n\nUse to see if updates are available before installing\nNo changes are made to your system\nShows version numbers for comparison\n\n\n\n\n\n\nForce update\nForce a reinstall even if already up-to-date.\nfranklin update --force\n\nThis happensTips\n\n\n\nReinstalls Franklin regardless of version\nUseful for fixing corrupted installations\nAlso reinstalls plugins if present\n\n\n\n\nUse when Franklin is behaving strangely\nFixes most installation-related issues\nTakes longer than a regular update\n\n\n\n\n\n\n\nClean up Docker images\nThis command removes Docker images and containers to free disk space.\nfranklin cleanup\n\nThis happensTips\n\n\n\nLists all Franklin-related Docker images\nShows size of each image\nLets you select which to remove (y/n for each)\nRemoves selected images\nShows total space freed\n\n\n\n\nImages can be re-downloaded when needed\nYour exercise files are never deleted\nRun weekly to keep disk usage under control\nConsider removing old course images at semester end\n\n\n\n\n\n\nTechnical details of the process\n\n\nImage Discovery: Lists all Docker images matching Franklin patterns\nContainer Check: Identifies stopped containers from those images\nSpace Calculation: Computes disk space for each image\nSafe Removal: Only removes images not currently in use\nCache Pruning: Optionally runs docker system prune for additional cleanup\n\n\n\n\nShow Docker resources\n\nShow images\nList all Docker images on your system.\nfranklin show images\n\nThis happensTips\n\n\n\nQueries Docker for all images\nDisplays them in a formatted table\nShows repository, tag, ID, and size\n\n\n\n\nUse before cleanup to see what’s installed\nLarge images (&gt;2GB) are exercise environments\nSmall images (&lt;1GB) are usually base images\n\n\n\n\n\n\nShow containers\nList all Docker containers (running and stopped).\nfranklin show containers\n\nThis happensTips\n\n\n\nQueries Docker for all containers\nShows both running and stopped containers\nDisplays ID, image, status, and ports\n\n\n\n\nRunning containers show “Up” status\nStopped containers show “Exited” status\nUse to check if Jupyter is still running\n\n\n\n\n\n\nShow storage\nDisplay Docker disk usage summary.\nfranklin show storage\n\nThis happensTips\n\n\n\nCalculates space used by images\nCalculates space used by containers\nShows total and reclaimable space\n\n\n\n\nUse before and after cleanup to see space saved\nCheck when Docker seems slow\nLarge build cache can often be cleared safely",
     "crumbs": [
       "Franklin commands",
-      "Student/Core Commands"
+      "Main Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#troubleshooting",
     "href": "pages/commands_core.html#troubleshooting",
-    "title": "Student/Core Commands",
+    "title": "Main Commands",
     "section": "Troubleshooting",
     "text": "Troubleshooting\n\nDocker not running\nProblem: “Docker is not running”\nSolution: Start Docker Desktop - macOS: Open Docker from Applications or run open -a Docker - Windows: Start Docker Desktop from Start Menu - Linux: Run sudo systemctl start docker\n\n\nPermission denied\nProblem: “Permission denied” when downloading\nSolution: Check GitLab access - Ensure you’re logged into GitLab - Verify course enrollment with instructor - Check that repository is public or you have access\n\n\nNo space left\nProblem: “No space left on device”\nSolution: Free up Docker space\nfranklin cleanup           # Interactive cleanup\ndocker system prune -a    # Nuclear option (removes everything)\n\n\nNetwork issues\nProblem: “Cannot reach GitLab” or “Image pull failed”\nSolution: Check network and retry - Check network connection: ping gitlab.au.dk - Check if behind proxy/firewall - Run franklin cleanup to remove corrupted images - Try again with franklin jupyter\n\n\nDebug mode\nEnable detailed logging for troubleshooting:\nexport FRANKLIN_LOG_LEVEL=DEBUG\nfranklin jupyter  # Now shows detailed logs",
     "crumbs": [
       "Franklin commands",
-      "Student/Core Commands"
+      "Main Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#tips-and-best-practices",
     "href": "pages/commands_core.html#tips-and-best-practices",
-    "title": "Student/Core Commands",
+    "title": "Main Commands",
     "section": "Tips and Best Practices",
     "text": "Tips and Best Practices\n\nOrganization\nCreate a dedicated folder structure:\n~/exercises/\n├── biology/\n│   ├── exercise1/\n│   ├── exercise2/\n├── chemistry/\n│   ├── lab1/\n│   ├── lab2/\n\n\nWorkflow\n\nStart of semester: Update Franklin\nfranklin update --force\nWeekly routine: Clean up Docker images\nfranklin cleanup\nfranklin show storage\nBefore exercises: Ensure Docker is running\nopen -a Docker  # macOS\n\n\n\nPerformance\n\nKeep Docker Desktop running during work sessions\nDownload exercises when on fast internet\nClose unused Jupyter tabs to free memory\nUse cleanup regularly - images can be re-downloaded\n\n\n\nSecurity\n\nNever run from system directories (/, /usr, etc.)\nDon’t use --allow-subdirs-at-your-own-risk unless necessary\nKeep Franklin updated for security patches\nBe cautious with unknown exercise URLs",
     "crumbs": [
       "Franklin commands",
-      "Student/Core Commands"
+      "Main Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#environment-variables",
     "href": "pages/commands_core.html#environment-variables",
-    "title": "Student/Core Commands",
+    "title": "Main Commands",
     "section": "Environment Variables",
     "text": "Environment Variables\nConfigure Franklin’s behavior:\nexport FRANKLIN_AUTO_UPDATE=false    # Disable automatic updates\nexport FRANKLIN_DOCKER_TIMEOUT=120   # Docker startup timeout (seconds)\nexport FRANKLIN_BROWSER=chrome       # Preferred browser for Jupyter\nexport FRANKLIN_JUPYTER_PORT=8888    # Preferred Jupyter port\nexport FRANKLIN_LOG_LEVEL=DEBUG      # Enable debug logging\nAdd to your shell profile (~/.bashrc or ~/.zshrc) to make permanent.",
     "crumbs": [
       "Franklin commands",
-      "Student/Core Commands"
+      "Main Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#getting-help",
     "href": "pages/commands_core.html#getting-help",
-    "title": "Student/Core Commands",
+    "title": "Main Commands",
     "section": "Getting Help",
     "text": "Getting Help\n\nBuilt-in help: franklin COMMAND --help\nDocumentation: This guide and other resources\nCourse support: Contact your instructor for exercise-specific issues\nBug reports: Report issues to the Franklin development team",
     "crumbs": [
       "Franklin commands",
-      "Student/Core Commands"
+      "Main Commands"
     ]
   },
   {
@@ -3441,7 +3616,7 @@
     "href": "pages/git.html#core-concepts",
     "title": "Introduction to Git",
     "section": "Core Concepts",
-    "text": "Core Concepts\n\nRepository (Repo)\nA repository is a folder that Git tracks. It contains all your project files and the entire history of changes.\n# Turn any folder into a Git repository\ngit init\n\n\nCommits\nA commit is a snapshot of your work at a specific point in time. Each commit has: - A unique ID (hash) - Author information - Timestamp - A message describing the changes\n# Create a commit\ngit add myfile.py          # Stage the file\ngit commit -m \"Add data analysis function\"  # Commit with message\n\n\nThe Three States\nFiles in Git exist in three states:\ngraph LR\n    A[Working Directory] --&gt;|git add| B[Staging Area]\n    B --&gt;|git commit| C[Repository]\n    C --&gt;|git checkout| A\n\nWorking Directory: Where you edit files\nStaging Area: Where you prepare changes for commit\nRepository: Where Git permanently stores snapshots",
+    "text": "Core Concepts\n\nRepository (Repo)\nA repository is a folder that Git tracks. It contains all your project files and the entire history of changes.\n# Turn any folder into a Git repository\ngit init\n\n\nCommits\nA commit is a snapshot of your work at a specific point in time. Each commit has: - A unique ID (hash) - Author information - Timestamp - A message describing the changes\n# Create a commit\ngit add myfile.py          # Stage the file\ngit commit -m \"Add data analysis function\"  # Commit with message\n\n\nThe Three States\nFiles in Git exist in three states:\n\n\n\n\n\n\ngraph LR\n    A[Working Directory] --&gt;|git add| B[Staging Area]\n    B --&gt;|git commit| C[Repository]\n    C --&gt;|git checkout| A\n\n\n\n\nFigure 1: Git file states\n\n\n\n\n\n\nWorking Directory: Where you edit files\nStaging Area: Where you prepare changes for commit\nRepository: Where Git permanently stores snapshots",
     "crumbs": [
       "Reference",
       "Introduction to Git"
@@ -3571,23 +3746,23 @@
   {
     "objectID": "pages/installing_python.html",
     "href": "pages/installing_python.html",
-    "title": "franklin",
+    "title": "Installing Python",
     "section": "",
     "text": "You will need to install a modern distribution of Python on your computer. We recommend Miniforge. It is free, lightweight, and comes pre-configured with the community-maintained conda-forge channel, which has the most up-to-date scientific packages.\nOnce Miniforge is installed, you have Conda on your system! The installation also: - Sets up a “base” environment (your default Python environment) - Configures conda-forge as your default package channel (where packages come from) - Adds the conda command to your system so you can use it from any terminal\nIf the conda --version command doesn’t work, try closing and reopening your terminal again. On some systems, you might need to log out and log back in for the changes to take full effect.",
     "crumbs": [
-      "Reference",
-      "On Mac"
+      "Setup",
+      "Installing Python"
     ]
   },
   {
     "objectID": "pages/installing_python.html#important-step-after-installation",
     "href": "pages/installing_python.html#important-step-after-installation",
-    "title": "franklin",
+    "title": "Installing Python",
     "section": "Important Step After Installation",
-    "text": "Important Step After Installation\nThe Miniforge installer has set up a “base” environment for you that is automatically activated when you open your terminal. You should not install anything into that environment so you are better off disabling the automatic activation like this:\nconda config --set auto_activate_base false",
+    "text": "Important Step After Installation\nThe Miniforge installer has set up a “base” environment for you that is automatically activated when you open your terminal. You should not install anything into that environment so you are better off disabling the automatic activation like this:\nconda config --set auto_activate_base false\nBack to @installing.",
     "crumbs": [
-      "Reference",
-      "On Mac"
+      "Setup",
+      "Installing Python"
     ]
   },
   {
