@@ -1,0 +1,792 @@
+---
+title: Administrator Commands
+---
+
+The `franklin-admin` plugin provides administrative tools for managing users, permissions, and course infrastructure. This reference documents all administrator commands and workflows.
+
+## Installation
+
+Administrator commands require the franklin-admin plugin:
+
+### Using Conda
+
+```bash
+conda install -c conda-forge -c munch-group franklin-admin
+```
+
+### Using Pixi
+
+```bash
+pixi global install --channel conda-forge --channel munch-group franklin-admin
+```
+
+The admin plugin automatically installs both franklin and franklin-educator as dependencies.
+
+## Prerequisites
+
+Administrator commands require:
+- GitLab account with Owner or Maintainer role in Franklin group
+- API token with full access permissions
+- SSH key configured for GitLab
+- Secure password for token encryption
+
+## Overview
+
+Admin commands are organized into three main groups:
+
+```bash
+franklin admin [SUBCOMMAND]     # User management
+franklin password [SUBCOMMAND]  # Password management
+franklin token [SUBCOMMAND]     # API token management
+```
+
+---
+
+## User Management
+
+## `franklin admin`
+
+Parent command for user and permission management.
+
+### Usage
+
+```bash
+franklin admin [OPTIONS] COMMAND [ARGS]
+```
+
+### Subcommands
+
+- `users`: List and search users
+- `groups`: Manage GitLab groups
+- `permissions`: Set user permissions
+- `finger`: Find users by name
+
+### Options
+
+- `--help`: Show help message
+
+---
+
+## `franklin admin users`
+
+Manages GitLab users and their roles.
+
+### Usage
+
+```bash
+franklin admin users [OPTIONS] COMMAND
+```
+
+### Subcommands
+
+### `franklin admin users list`
+
+Lists all users in a GitLab group.
+
+```bash
+franklin admin users list [OPTIONS]
+```
+
+**Options:**
+- `--group GROUP_NAME`: Specify group (default: franklin)
+- `--role ROLE`: Filter by role (Guest/Reporter/Developer/Maintainer/Owner)
+- `--format FORMAT`: Output format (table/json/csv)
+
+**Example:**
+```bash
+# List all users in franklin group
+franklin admin users list
+
+# List only maintainers in a course group
+franklin admin users list --group intro-bio --role Maintainer
+```
+
+**Output:**
+```
+USERNAME        NAME                ROLE        EMAIL
+johndoe         John Doe           Owner       john@au.dk
+janedoe         Jane Doe           Maintainer  jane@au.dk
+student1        Alice Student      Reporter    alice@au.dk
+```
+
+### `franklin admin users add`
+
+Adds a user to a GitLab group with specific role.
+
+```bash
+franklin admin users add USERNAME --group GROUP --role ROLE
+```
+
+**Options:**
+- `--group GROUP_NAME`: Target group (required)
+- `--role ROLE`: Permission level (required)
+- `--expires-at DATE`: Access expiration date (YYYY-MM-DD)
+
+**Example:**
+```bash
+# Add TA as Developer to course group
+franklin admin users add ta_username --group intro-bio --role Developer
+
+# Add guest access expiring at semester end
+franklin admin users add guest_user --group franklin --role Guest --expires-at 2024-12-31
+```
+
+### `franklin admin users remove`
+
+Removes a user from a GitLab group.
+
+```bash
+franklin admin users remove USERNAME --group GROUP
+```
+
+**Options:**
+- `--group GROUP_NAME`: Group to remove from (required)
+- `--confirm`: Skip confirmation prompt
+
+**Example:**
+```bash
+franklin admin users remove old_ta --group intro-bio --confirm
+```
+
+### `franklin admin users update`
+
+Updates a user's role in a group.
+
+```bash
+franklin admin users update USERNAME --group GROUP --role NEW_ROLE
+```
+
+**Example:**
+```bash
+# Promote TA to Maintainer
+franklin admin users update ta_username --group intro-bio --role Maintainer
+
+# Downgrade to Reporter
+franklin admin users update student1 --group franklin --role Reporter
+```
+
+---
+
+## `franklin admin groups`
+
+Manages GitLab groups and subgroups.
+
+### Usage
+
+```bash
+franklin admin groups [OPTIONS] COMMAND
+```
+
+### Subcommands
+
+### `franklin admin groups create`
+
+Creates a new course subgroup.
+
+```bash
+franklin admin groups create GROUP_NAME [OPTIONS]
+```
+
+**Options:**
+- `--parent PARENT_GROUP`: Parent group (default: franklin)
+- `--description TEXT`: Group description
+- `--visibility LEVEL`: public/internal/private (default: private)
+
+**Example:**
+```bash
+# Create new course group
+franklin admin groups create molecular-biology \
+  --description "Molecular Biology Fall 2024" \
+  --visibility private
+```
+
+### `franklin admin groups list`
+
+Lists all subgroups.
+
+```bash
+franklin admin groups list [OPTIONS]
+```
+
+**Options:**
+- `--parent PARENT_GROUP`: Parent group to list from
+- `--details`: Show detailed information
+
+**Output:**
+```
+GROUP PATH              VISIBILITY  PROJECTS  MEMBERS
+franklin/intro-bio      private     12        25
+franklin/chemistry      private     8         18
+franklin/data-science   public      15        32
+```
+
+### `franklin admin groups settings`
+
+Opens group settings in browser.
+
+```bash
+franklin admin groups settings GROUP_NAME
+```
+
+---
+
+## Permission Management
+
+## `franklin admin permissions`
+
+Manages user permissions across courses.
+
+### GitLab Permission Levels
+
+| Role | View Code | Push Code | Merge MR | Manage CI/CD | Delete Project | Manage Members |
+|------|-----------|-----------|----------|--------------|----------------|----------------|
+| **Guest** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Reporter** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Developer** | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ |
+| **Maintainer** | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ (limited) |
+| **Owner** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+### Role Recommendations
+
+**Course Coordinator**: Owner of course subgroup
+- Can create/delete exercises
+- Manages course TAs
+- Full control over course content
+
+**Teaching Assistant**: Maintainer of course subgroup
+- Can merge student submissions
+- Manages exercise settings
+- Cannot delete course
+
+**Educator (Other Courses)**: Reporter in main group
+- Can view exercises for reference
+- Cannot modify content
+
+**Student**: Guest or no access
+- Can only see public repositories
+- Cannot push code
+
+### Batch Permission Management
+
+```bash
+franklin admin permissions set-course-staff COURSE_NAME [OPTIONS]
+```
+
+**Options:**
+- `--coordinator USERNAME`: Set course coordinator (Owner)
+- `--tas USERNAME1,USERNAME2`: Add TAs (Maintainer)
+- `--remove-old`: Remove users not in new list
+
+**Example:**
+```bash
+# Set up course staff for new semester
+franklin admin permissions set-course-staff intro-bio \
+  --coordinator prof_smith \
+  --tas ta_jones,ta_williams,ta_brown \
+  --remove-old
+```
+
+---
+
+## Token Management
+
+## `franklin token`
+
+Manages API tokens for GitLab access.
+
+### Usage
+
+```bash
+franklin token [OPTIONS] COMMAND
+```
+
+### Subcommands
+
+### `franklin token set`
+
+Stores an encrypted API token for a user.
+
+```bash
+franklin token set [OPTIONS]
+```
+
+**Interactive prompts:**
+1. Username
+2. Password (for encryption)
+3. API token (hidden input)
+
+**Process:**
+- Token is encrypted with password
+- Stored in secure local storage
+- Never transmitted or logged
+
+**Example:**
+```bash
+franklin token set
+# Enter username: admin_user
+# Enter password: ********
+# Enter API token: ********
+✓ Token stored securely
+```
+
+### `franklin token get`
+
+Retrieves and decrypts stored API token.
+
+```bash
+franklin token get [OPTIONS]
+```
+
+**Interactive prompts:**
+1. Username
+2. Password (for decryption)
+
+**Output:**
+```
+Stored personal access token: glpat-xxxxxxxxxxxxxxxxxxxx
+```
+
+**Security Note:** Only display tokens in secure environments.
+
+### `franklin token verify`
+
+Verifies that stored token is valid.
+
+```bash
+franklin token verify [OPTIONS]
+```
+
+**Options:**
+- `--user USERNAME`: Specify user
+- `--quiet`: Only show success/failure
+
+**Output:**
+```
+✓ Token is valid
+  User: admin_user
+  Scopes: api, read_user, write_repository
+  Expires: 2024-12-31
+```
+
+### `franklin token rotate`
+
+Rotates (replaces) an API token.
+
+```bash
+franklin token rotate [OPTIONS]
+```
+
+**Process:**
+1. Creates new token with same permissions
+2. Updates stored encrypted token
+3. Revokes old token
+
+---
+
+## Password Management
+
+## `franklin password`
+
+Manages passwords for encrypted token storage.
+
+### Usage
+
+```bash
+franklin password [OPTIONS] COMMAND
+```
+
+### Subcommands
+
+### `franklin password set`
+
+Sets password for a user (requires admin token).
+
+```bash
+franklin password set USER PASSWORD [OPTIONS]
+```
+
+**Options:**
+- `--admin ADMIN_USER`: Admin username
+- `--password ADMIN_PASS`: Admin password
+
+**Use case:** Initial setup for new administrators
+
+### `franklin password change`
+
+Changes your own password.
+
+```bash
+franklin password change [OPTIONS]
+```
+
+**Interactive prompts:**
+1. Username
+2. Current password
+3. New password
+4. Confirm new password
+
+**Process:**
+- Verifies current password
+- Re-encrypts token with new password
+- Updates stored credentials
+
+**Example:**
+```bash
+franklin password change
+# Enter username: my_user
+# Enter current password: ********
+# Enter new password: ********
+# Confirm new password: ********
+✓ Password changed successfully
+```
+
+---
+
+## User Discovery
+
+## `franklin finger`
+
+Searches for GitLab users by name or username.
+
+### Usage
+
+```bash
+franklin finger SEARCH_TERMS [OPTIONS]
+```
+
+### Options
+
+- `--user USERNAME`: Your username for authentication
+- `--password PASSWORD`: Your password
+- `--format FORMAT`: Output format (table/json/csv)
+
+### Examples
+
+```bash
+# Search for user by name
+franklin finger "John Doe"
+
+# Search by username pattern
+franklin finger "ta_*"
+
+# Search with authentication
+franklin finger "Smith" --user admin --password ********
+```
+
+### Output
+
+```
+USERNAME        NAME                EMAIL           STATE
+jdoe            John Doe           jdoe@au.dk      active
+jsmith          Jane Smith         jsmith@au.dk    active
+tjsmith         Tom J Smith        tjs@au.dk       blocked
+```
+
+---
+
+## Bulk Operations
+
+## `franklin admin bulk`
+
+Performs bulk operations on users and permissions.
+
+### Import Users from CSV
+
+```bash
+franklin admin bulk import-users FILE.csv [OPTIONS]
+```
+
+**CSV Format:**
+```csv
+username,email,name,group,role
+student1,s1@au.dk,Alice Student,intro-bio,Reporter
+student2,s2@au.dk,Bob Student,intro-bio,Reporter
+ta1,ta1@au.dk,Carol TA,intro-bio,Developer
+```
+
+**Options:**
+- `--dry-run`: Preview changes without applying
+- `--skip-existing`: Don't update existing users
+- `--notify`: Send email invitations
+
+### Export Users to CSV
+
+```bash
+franklin admin bulk export-users --group GROUP [OPTIONS]
+```
+
+**Options:**
+- `--output FILE`: Output filename (default: users.csv)
+- `--include-tokens`: Include API token status
+
+### Audit Permissions
+
+```bash
+franklin admin bulk audit [OPTIONS]
+```
+
+**Options:**
+- `--group GROUP`: Audit specific group
+- `--fix-issues`: Automatically fix permission issues
+- `--report FILE`: Save audit report
+
+**Audit checks:**
+- Orphaned users (no group membership)
+- Excessive permissions
+- Expired access
+- Inactive users
+
+---
+
+## Security Best Practices
+
+### Token Security
+
+1. **Never share API tokens** - Treat like passwords
+2. **Use token expiration** - Set reasonable expiration dates
+3. **Rotate regularly** - Change tokens periodically
+4. **Limit scope** - Only request needed permissions
+5. **Revoke unused tokens** - Clean up old tokens
+
+### Password Security
+
+1. **Use strong passwords** - Minimum 12 characters
+2. **Unique passwords** - Don't reuse passwords
+3. **Change regularly** - Update every semester
+4. **Use password manager** - Store securely
+5. **Enable 2FA** - On GitLab account
+
+### Permission Security
+
+1. **Principle of least privilege** - Minimum necessary access
+2. **Regular audits** - Review permissions each semester
+3. **Remove old users** - Clean up after course ends
+4. **Document changes** - Keep permission change log
+5. **Use groups** - Manage permissions via groups, not individual
+
+---
+
+## Automation Scripts
+
+### Semester Setup Script
+
+```bash
+#!/bin/bash
+# setup-semester.sh
+
+# Create course groups for new semester
+franklin admin groups create bio-fall2024 --description "Biology Fall 2024"
+franklin admin groups create chem-fall2024 --description "Chemistry Fall 2024"
+
+# Import users from registration
+franklin admin bulk import-users fall2024-students.csv
+
+# Set up course coordinators
+franklin admin users add prof_smith --group bio-fall2024 --role Owner
+franklin admin users add prof_jones --group chem-fall2024 --role Owner
+
+# Add TAs
+franklin admin bulk import-users fall2024-tas.csv
+
+# Audit and report
+franklin admin bulk audit --report fall2024-setup.txt
+```
+
+### End of Semester Cleanup
+
+```bash
+#!/bin/bash
+# cleanup-semester.sh
+
+# Export final user list for records
+franklin admin bulk export-users --group bio-fall2024 --output bio-fall2024-final.csv
+
+# Archive course groups
+franklin admin groups archive bio-fall2024
+franklin admin groups archive chem-fall2024
+
+# Remove student access
+franklin admin bulk remove-users fall2024-students.csv
+
+# Revoke temporary tokens
+franklin token rotate --all-expired
+```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+#### Authentication Failed
+
+**Problem**: "Invalid username or password"
+```bash
+# Solution: Verify credentials
+franklin token verify --user USERNAME
+
+# Reset if needed
+franklin password change
+```
+
+#### Permission Denied
+
+**Problem**: "You don't have permission to perform this action"
+```bash
+# Solution: Check your role
+franklin admin users list --group GROUP | grep USERNAME
+
+# Request elevation from group owner
+```
+
+#### Token Expired
+
+**Problem**: "401 Unauthorized"
+```bash
+# Solution: Create new token in GitLab
+# Profile → Access Tokens → Create new token
+
+# Update stored token
+franklin token set
+```
+
+#### Group Not Found
+
+**Problem**: "404 Group not found"
+```bash
+# Solution: List available groups
+franklin admin groups list
+
+# Check spelling and path
+```
+
+### Debug Mode
+
+Enable detailed logging:
+```bash
+export FRANKLIN_ADMIN_DEBUG=true
+franklin admin users list
+```
+
+Shows:
+- API endpoints called
+- Request/response details
+- Permission checks
+- Error details
+
+---
+
+## API Token Scopes
+
+When creating GitLab API tokens, use appropriate scopes:
+
+### For Administrators
+Required scopes:
+- `api`: Full API access
+- `read_user`: Read user information
+- `write_repository`: Manage repositories
+- `read_registry`: Access container registry
+- `write_registry`: Push to registry
+
+### For Course Coordinators
+Required scopes:
+- `api`: Full API access (limited by role)
+- `read_user`: Read user information
+- `write_repository`: Manage exercises
+
+### For Teaching Assistants
+Required scopes:
+- `read_api`: Read-only API access
+- `read_user`: Read user information
+- `read_repository`: View exercises
+
+---
+
+## Command Reference
+
+### Quick Reference Table
+
+| Command | Purpose | Common Usage |
+|---------|---------|--------------|
+| `admin users list` | List group members | `franklin admin users list --group intro-bio` |
+| `admin users add` | Add user to group | `franklin admin users add USERNAME --group GROUP --role ROLE` |
+| `admin groups create` | Create course group | `franklin admin groups create course-name` |
+| `admin permissions` | Manage permissions | `franklin admin permissions set-course-staff COURSE` |
+| `token set` | Store API token | `franklin token set` |
+| `token get` | Retrieve token | `franklin token get` |
+| `password change` | Change password | `franklin password change` |
+| `finger` | Find users | `franklin finger "NAME"` |
+| `admin bulk import` | Import users | `franklin admin bulk import-users file.csv` |
+
+---
+
+## Integration with Other Plugins
+
+### With Franklin-Educator
+
+Admins can assist educators:
+```bash
+# Create course infrastructure
+franklin admin groups create new-course
+
+# Set up educator access
+franklin admin users add educator --group new-course --role Maintainer
+
+# Educator creates exercises
+franklin exercise new  # Now works in new-course
+```
+
+### With Core Franklin
+
+Admins can test student experience:
+```bash
+# Impersonate student view
+franklin admin permissions simulate-student
+
+# Test as student would see
+franklin download
+franklin jupyter
+```
+
+---
+
+## Compliance and Auditing
+
+### GDPR Compliance
+
+For EU data protection:
+```bash
+# Export user data
+franklin admin users export --user USERNAME --full
+
+# Delete user data
+franklin admin users delete --user USERNAME --purge
+
+# Anonymize old records
+franklin admin bulk anonymize --older-than 2years
+```
+
+### Audit Logging
+
+Track administrative actions:
+```bash
+# Enable audit logging
+export FRANKLIN_AUDIT_LOG=/var/log/franklin-audit.log
+
+# View recent actions
+franklin admin audit-log --recent 100
+
+# Generate compliance report
+franklin admin audit-log --report compliance-2024.pdf
+```
+
+---
+
+## Future Features
+
+Planned enhancements:
+- **LDAP Integration**: Sync with university directory
+- **Automated Provisioning**: Create courses from registration system
+- **Role Templates**: Predefined permission sets
+- **Approval Workflows**: Multi-step permission changes
+- **Activity Monitoring**: Track usage and access patterns

@@ -1,0 +1,191 @@
+---
+title: Running exercises
+---
+
+Franklin is a command line tool that your run from a terminal. If you are not famililiar with terminals, have a look at [this brief introduction](about/terminal.html) before you go on. 
+
+Franklin uses the [click](https://click.palletsprojects.com/en/stable/) library to define a hierarchy of commands and subcommands that you can run in the terminal. `franklin` is the main command and has the subcommands `download`, `jupyter`, `update`, `show`, and `cleanup`. To run each subcommand, you simply append it to `franklin`, E.g. `franklin jupyter`. The following sections explain what each subcommand do. Should you forget, you can always just run the main `franklin` command like this:
+
+```{.bash filename="Terminal"}
+franklin
+```
+
+That will print the following help text to remind you. 
+
+```txt
+Usage: franklin [OPTIONS] COMMAND [ARGS]...
+
+  A tool to download notebook exercises and run jupyter  in a way that fits
+  each exercise.
+
+Options:
+  --version  Show the version and exit.
+  --help     Show this message and exit.
+
+Commands:
+  cleanup   Cleanup Franklin storage
+  download  Download an exercise
+  jupyter   Run jupyter for an exercise
+  show      Commands for showing Docker content.
+  update    Update Franklin
+```
+
+
+
+### Download an exercise
+
+The jupyter exercises are available for you to download onto your own computer. To do so, you just run the command below. You will be presented with menus to select the course and exercise you want to download. The downloaded exercise will appear as a subfolder in your current folder (you can run `ls` to see it). If the exercise is called `cool-exercise`, you can change to that folder by running `cd cool-exercise`.
+
+```{.bash filename="Terminal"}
+franklin download
+```
+
+<details>
+<summary><small>Click to see what Franklin does</small></summary>
+
+- Finds the course git repositories in the franklin group.
+- Presents you with a list of courses to choose from.
+- Finds the git repositories in the course group that are visible to students.
+- Match docker images in the registry to exercise repositories.
+- Presents you with a list of exercises to choose from.
+- Clones the git repository for the exercise from the AU GitLab website
+- Gives the downloaded folder the name of the exercise.
+- Removes the repository files not relevant to students.
+
+</details>
+
+
+<!-- You will use this command when you want do download an exercise. After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses.
+![alt text](<images/Skærmbillede 2025-05-28 kl. 14.52.02.png>)
+
+You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to do. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise)
+
+After running this command a selection menu will pop out and in this menu you will be able to pick between the different courses.
+![alt text](<images/Skærmbillede 2025-05-28 kl. 14.52.02.png>)
+
+You choose your course by using the arrow keys and a new selection menu will appear where you can select the specific exercise that you want to download. Franklin then places the downloaded assignment in your the empty folder where you first started franklin. Now before you can do the next step you will have to go to the exercise folder you just downloaded (use cd folder_name_of_exercise) -->
+
+
+
+## Run Jupyter
+
+In order to open and run the downloaded jupyter notebook, you need a running jupyter with all the required dependencies installed. To spare you the trouble and to make sure everyone run the exercise the same way, franklin can run jupyter in way that exactly fits each exercise. To run jupyter for your downloaded exercise, first make sure you have navigated to the exercise folder using the terminal. Then run this command:
+
+```{.bash filename="Terminal"}
+franklin jupyter
+```
+
+<details>
+<summary><small>Click to see what Franklin does</small></summary>
+
+- check for updates
+- check internet connection
+- check enough disk space is available
+- checks that docker is installed
+- starts docker in the background
+- Finds the course git repositories in the franklin group.
+- Presents you with a list of courses to choose from.
+- Finds the git repositories in the course group that are visible to students.
+- Match docker images in the registry to exercise repositories.
+- Presents you with a list of exercises to choose from.
+- Starts docker and waits for its engine boot up.
+- Pulls the docker image from the registry if it is not already on your computer.
+- Launches a Linux docker container running with all dependencies installed.
+- Makes the container mount the folder with your local files so you can open them in JupyterLab.
+- Find an open port if port 8888 is already in use.
+- Launches JupyterLab and forwards the display to a dedicated Google Chrome browser window.
+- Waits until you close the Chrome window.
+- Stops jupyter and the docker container it runs in.
+- Closes Docker Desktop
+
+</details>
+
+JupyterLab opens in your browser. In the file menu in the right pane, you should be able to see your newly downloaded exercise. Open it by double-clicking it and you are ready to begin the exercise. To stop jupyter, simply close the browser window or press `Ctrl-C` in the terminal window (remember to save your notebook first).
+
+::: {.callout-note }  
+## Subdirectories
+
+If the your terminal shows a message saying "You have subdirectories in your current directory", the folder (directory) from which you ran the `franklin jupyter` command has other directory in it. For security reasons, Franklin does not allow this. You need to either change to the exercise folder (which has no directory in it), or launch Franklin from another without any subdirectories. 
+
+:::
+
+
+
+## Update franklin
+
+Franklin should update automatically when you start it, but if you should need to update it manually you can do it running this command:
+
+```{.bash filename="Terminal"}
+franklin update
+```
+
+<details>
+<summary><small>Click to see what Franklin does</small></summary>
+
+- Checks for updates to franklin package using either Conda or Pixi dependeing on how franklin is installed.
+- Determines if you are a student or educator.
+- Updates franklin if a newer version exists.
+- Updates the franklin-educator package if you are an educator.
+- Closes franklin reporting the update if any.
+
+</details>
+
+You can also see which version of franklin you have installed by running `franklin --version`.
+
+
+
+## Cleanup after Franklin
+
+To free up disk space, you can run the command below. You will be prompted with a menu showing the "docker images" on your computer. Select all the ones you want to remove and press Enter. Deleting images will not delete any of your own files with saved work.
+
+```{.bash filename="Terminal"}
+franklin cleanup
+```
+
+<details>
+<summary><small>Click to see what Franklin does</small></summary>
+
+- Starts docker and waits for its engine boot up.
+- Finds the exercise stored as docker images on your computer.
+- Prompts you with the list of exercises (images), allowing you to select the ones you want to remove.
+- Closes all docker containers for those images.
+- Removes the selected images
+- Prunes all unused data cached by Docker.
+
+</details>
+
+Make a habit of running  `franklin cleanup` once in a while. This does not affect any of your own files. The only drawback is that you will have to wait a bit while Franklin downloads images again, should you need them at a later point. 
+
+
+## Show what Franklin has on your computer
+
+If you are curious, you can use the `franklin show` subcommands to see what Docker has stored on your computer. The sub commands are `images`, `containers`, and `storage`. To see a summary of how much disk space Docker takes up on your computer for what purpose, you can run this command:
+
+```{.bash filename="Terminal"}
+franklin show storage
+```
+
+Franklin downloads a linux "docker image" for every exercise. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later. To see the images downloaded to your computer and how much space they take up, you can run this command:
+
+```{.bash filename="Terminal"}
+franklin show images
+```
+
+Franklin starts a Docker Linux container when you run `franklin jupyter`. These can take up a lot of space on your computer. Fortunately, you only need each one, when you run the exercise it is made for. So you can delete the ones you are not using to free up space. Franklin will automatically download them again if you need them later. To see the images downloaded to your computer and how much space they take up, you can run this command:
+
+```{.bash filename="Terminal"}
+franklin show images
+```
+
+
+
+
+<!-- 
+![alt text](<images/Skærmbillede 2025-05-28 kl. 15.32.16.png>) -->
+
+<!-- Note: deleting the exercise enviroments like this DO NOT delete the exercise you have made yourself and of you would ever need a specific enviroment for an old exercise again, you simple download it once more. -->
+
+
+## Live action
+
+{{< video https://www.youtube.com/embed/BCnmQsXGO8k aspect-ratio="16x9" >}}

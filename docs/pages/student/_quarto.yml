@@ -92,7 +92,7 @@ book:
     background: "white"      
   chapters:
     - index.qmd
-    - ../computer_setup.qmd
+#    - ../computer_setup.qmd
     - ../commands_core.qmd
     - ../faq.qmd
     - part: "Tutorials"
@@ -104,8 +104,8 @@ book:
     - part: "About"
       chapters:  
         - ../terminal.qmd
+        - ../pixi_and_conda.qmd
         - ../jupyterlab.ipynb
-        - ../conda.qmd
         - ../gitlab.qmd
         - ../docker.qmd                  
 

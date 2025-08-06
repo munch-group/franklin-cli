@@ -1,9 +1,8 @@
 ---
-title: Core Commands
-subtitle: Complete Franklin Command Reference
+title: Student/Core Commands
 ---
 
-Franklin is a command-line tool that manages Jupyter notebook exercises through Docker containers. This reference provides detailed documentation for every Franklin command and option.
+Franklin is a command-line tool that manages Jupyter notebook exercises through Docker containers.
 
 ## Overview
 
@@ -13,35 +12,11 @@ Franklin uses a hierarchical command structure:
 franklin [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS] [ARGUMENTS]
 ```
 
-Global options apply to all commands, while command-specific options apply only to individual commands.
+Global options:
+- `--version` shows the installed Franklin version and exits
+- `--help` shows help message for Franklin or any subcommand
 
-## Global Options
-
-### `--version`
-Shows the installed Franklin version and exits.
-
-```bash
-franklin --version
-```
-
-**Output example:**
-```
-franklin, version 0.25.1
-```
-
-### `--update / --no-update`
-Controls automatic updates when Franklin starts.
-
-```bash
-franklin --update          # Force update check (default)
-franklin --no-update       # Skip update check
-```
-
-**Default:** Enabled. Franklin checks for updates on each run.
-
-### `--help`
-Shows help message for Franklin or any subcommand.
-
+Example:
 ```bash
 franklin --help            # Show main help
 franklin download --help   # Show download command help
@@ -49,63 +24,33 @@ franklin download --help   # Show download command help
 
 ## Main Commands
 
-## `franklin download`
+### Download an exercise
 
-Downloads an exercise repository from GitLab to your local machine.
-
-### Usage
-
-```bash
-franklin download [OPTIONS] [URL]
-```
-
-### Arguments
-
-- `URL` (optional): Direct GitLab repository URL to download. If not provided, interactive selection menus will appear.
-
-### Options
-
-- `--help`: Show help message for the download command
-
-### Interactive Mode (No URL)
-
-When run without a URL, `download` presents interactive menus:
-
-1. **Course Selection**: Choose from available courses
-2. **Exercise Selection**: Choose from exercises in the selected course
+This command downloads an exercise repository to your computer.
 
 ```bash
 franklin download
 ```
 
-**What happens:**
-- Fetches available courses from GitLab registry
-- Shows numbered list of courses
-- After course selection, fetches exercises for that course
-- Shows numbered list of exercises
-- Clones the selected exercise repository
-- Removes instructor-only files (solutions, etc.)
-- Creates exercise folder in current directory
+::: {.panel-tabset}
 
-### Direct Mode (With URL)
+# This happens
 
-Downloads a specific exercise directly:
+1. You are prompted to select your course
+2. You are prompted to select the exercise to download  
+3. Franklin downloads the exercise to a subfolder of your current folder
+4. Instructor-only files (solutions, etc.) are removed
 
-```bash
-franklin download https://gitlab.au.dk/course-name/exercise-name.git
-```
+# Tips  
 
-**What happens:**
-- Validates the URL format
-- Checks access permissions
-- Clones the repository
-- Removes instructor-only files
-- Creates exercise folder in current directory
+- Run from an empty folder or a dedicated exercises directory
+- Create one folder per course to keep exercises organized
+- The exercise will be downloaded into a new subfolder named after the exercise
 
-### Behind the Scenes
+:::
 
 <details>
-<summary>Technical details of the download process</summary>
+<summary>Technical details of the process</summary>
 
 1. **Registry Discovery**: Queries GitLab API for available courses in the Franklin group
 2. **Image Matching**: Matches Docker images in the registry to exercise repositories
@@ -116,607 +61,408 @@ franklin download https://gitlab.au.dk/course-name/exercise-name.git
 
 </details>
 
-### Common Issues
+#### Download with URL
 
-- **"You have subdirectories"**: Run from an empty folder or the parent directory
-- **"Access denied"**: You don't have permission to access this exercise
-- **"Repository not found"**: The URL might be incorrect or the exercise was removed
-
----
-
-## `franklin jupyter`
-
-Launches JupyterLab in a Docker container configured for the current exercise.
-
-### Usage
+You can download a specific exercise directly using its GitLab URL.
 
 ```bash
-franklin jupyter [OPTIONS] [IMAGE_URL]
+franklin download https://gitlab.au.dk/course-name/exercise-name.git
 ```
 
-### Arguments
+::: {.panel-tabset}
 
-- `IMAGE_URL` (optional): Direct Docker image URL. If not provided, Franklin detects the exercise or shows selection menu.
+# This happens
 
-### Options
+1. Franklin validates the URL format
+2. Checks your access permissions
+3. Downloads the exercise to a subfolder of your current folder
 
-- `--allow-subdirs-at-your-own-risk`: Bypass the subdirectory safety check (not recommended)
-- `--help`: Show help message
+# Tips
 
-### Automatic Mode (In Exercise Folder)
+- Get the URL from your course page or instructor
+- The URL must be a GitLab repository URL
+- You need access rights to the repository
 
-When run inside a downloaded exercise folder:
+:::
 
-```bash
-cd my-exercise
-franklin jupyter
-```
+### Launch Jupyter
 
-**What happens:**
-- Detects exercise configuration from current folder
-- Pulls corresponding Docker image if needed
-- Starts container with exercise dependencies
-- Mounts current folder into container
-- Launches JupyterLab in browser
-- Waits for browser to close
-- Cleans up container
-
-### Interactive Mode (No Exercise Detected)
-
-When run outside an exercise folder without an image URL:
+This command launches JupyterLab in a Docker container configured for the current exercise.
 
 ```bash
 franklin jupyter
 ```
 
-**What happens:**
-- Shows course selection menu
-- Shows exercise selection menu
-- Pulls selected Docker image
-- Continues as automatic mode
+::: {.panel-tabset}
 
-### Direct Mode (With Image URL)
+# This happens
 
-Launches specific Docker image:
+1. Detects exercise in current folder (or prompts for selection)
+2. Pulls Docker image with exercise dependencies if needed
+3. Starts container and mounts current folder
+4. Opens JupyterLab in your browser
+5. Waits for you to close the browser
+6. Cleans up the container
+
+# Tips
+
+- Run from inside the exercise folder for automatic detection
+- Franklin finds an available port starting from 8888
+- Keep Docker Desktop running during work sessions
+- Your work is saved in the exercise folder, not the container
+
+:::
+
+<details>
+<summary>Technical details of the process</summary>
+
+1. **Docker Check**: Ensures Docker Desktop is installed and running
+2. **Disk Space**: Verifies at least 5GB free space
+3. **Image Pull**: Downloads Docker image if not cached locally
+4. **Container Start**: Launches container with current directory mounted at `/home/jovyan/work`
+5. **Port Management**: Finds available port starting from 8888
+6. **Browser Launch**: Opens Chrome/default browser with authentication token
+7. **Cleanup**: Stops container when browser closes
+
+</details>
+
+#### Launch with image URL
+
+You can launch a specific Docker image directly.
 
 ```bash
 franklin jupyter registry.gitlab.au.dk/franklin/course/exercise:latest
 ```
 
-### Port Management
+::: {.panel-tabset}
 
-Franklin automatically finds an available port starting from 8888:
-- First tries port 8888
-- If occupied, tries 8889, 8890, etc.
-- Shows the selected port in terminal output
+# This happens
 
-### Behind the Scenes
+1. Pulls the specified Docker image
+2. Starts container with current folder mounted
+3. Opens JupyterLab in browser
 
-<details>
-<summary>Technical details of the jupyter process</summary>
+# Tips
 
-1. **Docker Check**: Ensures Docker Desktop is installed and running
-2. **Disk Space**: Verifies at least 5GB free space
-3. **Image Pull**: Downloads Docker image if not cached locally
-4. **Container Start**: Launches container with:
-   - Current directory mounted at `/home/jovyan/work`
-   - Port forwarding for Jupyter
-   - Isolated environment with exercise dependencies
-5. **Browser Launch**: Opens Chrome/default browser to Jupyter URL
-6. **Token Handling**: Automatically includes authentication token
-7. **Cleanup**: Stops container when browser closes
+- Use when you know the exact image you need
+- Useful for testing or special configurations
+- The image URL is shown in exercise documentation
 
-</details>
+:::
 
-### Common Issues
+#### Options
 
-- **"Docker is not running"**: Start Docker Desktop first
-- **"Port already in use"**: Franklin will try the next port automatically
-- **"Insufficient disk space"**: Need at least 5GB free space
-- **"You have subdirectories"**: For security, run from exercise folder or use `--allow-subdirs-at-your-own-risk`
+- `--allow-subdirs-at-your-own-risk`: Bypass subdirectory safety check (not recommended)
 
----
+### Update Franklin
 
-## `franklin update`
-
-Updates Franklin and related packages to the latest version.
-
-### Usage
-
-```bash
-franklin update [OPTIONS]
-```
-
-### Options
-
-- `--check`: Only check for updates without installing
-- `--force`: Force update even if current version is latest
-- `--help`: Show help message
-
-### Default Behavior
+This command updates Franklin to the latest version.
 
 ```bash
 franklin update
 ```
 
-**What happens:**
-- Detects installation method (Conda, Pixi, or pip)
-- Checks for latest version
-- If update available, installs it
-- Updates franklin-educator if installed
-- Updates franklin-admin if installed
-- Restarts Franklin if updated
+::: {.panel-tabset}
 
-### Check Mode
+# This happens
 
-See if updates are available without installing:
+1. Detects how Franklin was installed (Conda, Pixi, or pip)
+2. Checks for available updates
+3. Updates Franklin and any installed plugins
+4. Restarts Franklin if updated
+
+# Tips
+
+- Franklin checks for updates automatically when started
+- Updates are cached for 6 hours to avoid repeated checks
+- Update before each semester for the latest features
+- The update includes franklin-educator and franklin-admin if installed
+
+:::
+
+<details>
+<summary>Technical details of the process</summary>
+
+1. **Installation Detection**: Checks Python executable path for conda/pixi markers
+2. **Version Query**: Fetches latest version from package repository
+3. **Package Manager**: Uses appropriate command (conda update, pixi update, or pip install --upgrade)
+4. **Plugin Updates**: Also updates franklin-educator and franklin-admin if installed
+5. **Cache Management**: Updates are cached to avoid repeated version checks
+
+</details>
+
+#### Check for updates
+
+Check for updates without installing them.
 
 ```bash
 franklin update --check
 ```
 
-**Output example:**
-```
-Current version: 0.25.1
-Latest version: 0.25.2
-Update available! Run 'franklin update' to install.
-```
+::: {.panel-tabset}
 
-### Force Mode
+# This happens
 
-Force reinstall even if up-to-date:
+1. Queries the package repository for latest version
+2. Compares with your installed version
+3. Reports if an update is available
+
+# Tips
+
+- Use to see if updates are available before installing
+- No changes are made to your system
+- Shows version numbers for comparison
+
+:::
+
+#### Force update
+
+Force a reinstall even if already up-to-date.
 
 ```bash
 franklin update --force
 ```
 
-### Package Detection
+::: {.panel-tabset}
 
-Franklin automatically detects how it was installed:
-- **Conda**: Uses `conda update` or `mamba update`
-- **Pixi**: Uses `pixi update` or `pixi global update`
-- **Pip**: Uses `pip install --upgrade`
+# This happens
 
-### Behind the Scenes
+1. Reinstalls Franklin regardless of version
+2. Useful for fixing corrupted installations
+3. Also reinstalls plugins if present
 
-<details>
-<summary>Technical details of the update process</summary>
+# Tips
 
-1. **Installation Detection**: Checks Python executable path for conda/pixi markers
-2. **Version Query**: Fetches latest version from package repository
-3. **Comparison**: Compares installed vs. available versions
-4. **Update Execution**: Runs appropriate package manager command
-5. **Plugin Check**: Looks for educator/admin plugins to update
-6. **Cache Management**: Updates are cached for 6 hours to avoid repeated checks
+- Use when Franklin is behaving strangely
+- Fixes most installation-related issues
+- Takes longer than a regular update
 
-</details>
+:::
 
----
+### Clean up Docker images
 
-## `franklin cleanup`
-
-Removes Docker images and containers to free disk space.
-
-### Usage
-
-```bash
-franklin cleanup [OPTIONS]
-```
-
-### Options
-
-- `--help`: Show help message
-
-### Interactive Cleanup
+This command removes Docker images and containers to free disk space.
 
 ```bash
 franklin cleanup
 ```
 
-**What happens:**
-- Starts Docker if not running
-- Lists all Franklin-related Docker images
-- Shows multi-select menu (y/n for each)
-- Removes selected images
-- Optionally prunes Docker system cache
-- Shows space freed
+::: {.panel-tabset}
 
-### Selection Process
+# This happens
 
-The cleanup command shows each image with:
-- Image name and tag
-- Size on disk
-- Last used date
+1. Lists all Franklin-related Docker images
+2. Shows size of each image
+3. Lets you select which to remove (y/n for each)
+4. Removes selected images
+5. Shows total space freed
 
-**Example interaction:**
-```
-Select containers to remove (y/n for each):
-  registry.gitlab.au.dk/franklin/bio/exercise1:latest (2.3 GB)? y
-  registry.gitlab.au.dk/franklin/chem/exercise2:latest (1.8 GB)? n
-  registry.gitlab.au.dk/franklin/math/exercise3:latest (3.1 GB)? y
+# Tips
 
-Removed 2 images, freed 5.4 GB
-```
+- Images can be re-downloaded when needed
+- Your exercise files are never deleted
+- Run weekly to keep disk usage under control
+- Consider removing old course images at semester end
 
-### What Gets Removed
-
-- **Docker Images**: Downloaded exercise environments
-- **Stopped Containers**: Leftover containers from previous runs
-- **Docker Cache**: Build cache and dangling images (optional)
-
-### What Is Preserved
-
-- Your exercise files and notebooks
-- Any changes you made to exercises
-- Running containers (won't be stopped)
-
-### Behind the Scenes
+:::
 
 <details>
-<summary>Technical details of the cleanup process</summary>
+<summary>Technical details of the process</summary>
 
 1. **Image Discovery**: Lists all Docker images matching Franklin patterns
 2. **Container Check**: Identifies stopped containers from those images
 3. **Space Calculation**: Computes disk space for each image
 4. **Safe Removal**: Only removes images not currently in use
-5. **Cache Pruning**: Optionally runs `docker system prune`
+5. **Cache Pruning**: Optionally runs `docker system prune` for additional cleanup
 
 </details>
 
----
+### Show Docker resources
 
-## `franklin show`
+#### Show images
 
-Display information about Docker resources on your system.
-
-### Usage
-
-```bash
-franklin show SUBCOMMAND [OPTIONS]
-```
-
-### Subcommands
-
-### `franklin show images`
-
-Lists all Docker images on your system.
+List all Docker images on your system.
 
 ```bash
 franklin show images
 ```
 
-**Output includes:**
-- Image repository and tag
-- Image ID
-- Creation date
-- Size on disk
+::: {.panel-tabset}
 
-**Example output:**
-```
-REPOSITORY                                          TAG      SIZE
-registry.gitlab.au.dk/franklin/bio/exercise1       latest   2.3GB
-registry.gitlab.au.dk/franklin/chem/exercise2      latest   1.8GB
-python                                              3.11     889MB
-```
+# This happens
 
-### `franklin show containers`
+1. Queries Docker for all images
+2. Displays them in a formatted table
+3. Shows repository, tag, ID, and size
 
-Lists all Docker containers (running and stopped).
+# Tips
+
+- Use before cleanup to see what's installed
+- Large images (>2GB) are exercise environments
+- Small images (<1GB) are usually base images
+
+:::
+
+#### Show containers
+
+List all Docker containers (running and stopped).
 
 ```bash
 franklin show containers
 ```
 
-**Output includes:**
-- Container ID
-- Image name
-- Status (running/exited)
-- Ports
-- Name
+::: {.panel-tabset}
 
-**Example output:**
-```
-CONTAINER ID   IMAGE                                    STATUS
-a1b2c3d4e5f6   registry.gitlab.au.dk/.../exercise1    Up 2 hours
-f6e5d4c3b2a1   registry.gitlab.au.dk/.../exercise2    Exited
-```
+# This happens
 
-### `franklin show storage`
+1. Queries Docker for all containers
+2. Shows both running and stopped containers
+3. Displays ID, image, status, and ports
 
-Shows Docker disk usage summary.
+# Tips
+
+- Running containers show "Up" status
+- Stopped containers show "Exited" status
+- Use to check if Jupyter is still running
+
+:::
+
+#### Show storage
+
+Display Docker disk usage summary.
 
 ```bash
 franklin show storage
 ```
 
-**Output includes:**
-- Total space used by images
-- Space used by containers
-- Space used by volumes
-- Build cache size
-- Reclaimable space
+::: {.panel-tabset}
 
-**Example output:**
-```
-TYPE            TOTAL     ACTIVE    RECLAIMABLE
-Images          15.3GB    8.2GB     7.1GB
-Containers      248MB     0B        248MB
-Volumes         1.2GB     450MB     750MB
-Build Cache     3.5GB     0B        3.5GB
-----------------------------------------------
-Total           20.2GB    8.6GB     11.6GB
-```
+# This happens
 
-### Behind the Scenes
+1. Calculates space used by images
+2. Calculates space used by containers
+3. Shows total and reclaimable space
 
-<details>
-<summary>Technical details of the show commands</summary>
+# Tips
 
-1. **Docker API**: Queries Docker daemon for resource information
-2. **Filtering**: Identifies Franklin-related resources by naming patterns
-3. **Size Calculation**: Computes actual disk usage (not virtual sizes)
-4. **Status Check**: Determines container states and image usage
+- Use before and after cleanup to see space saved
+- Check when Docker seems slow
+- Large build cache can often be cleared safely
 
-</details>
-
----
-
-## `franklin docker`
-
-Advanced Docker management commands (hidden by default).
-
-### Usage
-
-```bash
-franklin docker SUBCOMMAND [OPTIONS]
-```
-
-### Subcommands
-
-### `franklin docker ps`
-
-Lists running containers (similar to `docker ps`).
-
-```bash
-franklin docker ps
-```
-
-### `franklin docker images`
-
-Lists Docker images (similar to `docker images`).
-
-```bash
-franklin docker images
-```
-
-### `franklin docker stop`
-
-Stops running containers.
-
-```bash
-franklin docker stop [CONTAINER_ID]
-```
-
-### `franklin docker remove`
-
-Removes stopped containers or images.
-
-```bash
-franklin docker remove [RESOURCE_ID]
-```
-
-### Why Hidden?
-
-These commands are hidden because:
-- They duplicate Docker's native commands
-- They're primarily for debugging
-- Regular users should use `cleanup` and `show` instead
-
-To see hidden commands:
-
-```bash
-franklin docker --help
-```
-
----
-
-## Configuration
-
-Franklin's behavior can be configured through environment variables.
-
-### Environment Variables
-
-All Franklin environment variables start with `FRANKLIN_`:
-
-```bash
-export FRANKLIN_AUTO_UPDATE=false    # Disable automatic updates
-export FRANKLIN_DOCKER_TIMEOUT=120   # Docker startup timeout (seconds)
-export FRANKLIN_BROWSER=chrome       # Preferred browser for Jupyter
-```
-
-### Common Variables
-
-- `FRANKLIN_AUTO_UPDATE`: Enable/disable automatic updates (true/false)
-- `FRANKLIN_GITLAB_TOKEN`: GitLab API token for private repositories
-- `FRANKLIN_DOCKER_TIMEOUT`: Timeout for Docker operations (seconds)
-- `FRANKLIN_JUPYTER_PORT`: Preferred port for Jupyter (default: 8888)
-- `FRANKLIN_LOG_LEVEL`: Logging verbosity (DEBUG, INFO, WARNING, ERROR)
-
-### Configuration Files
-
-Franklin looks for configuration in:
-1. Environment variables (highest priority)
-2. `.franklin/config.json` in user home directory
-3. Default settings (lowest priority)
-
----
+:::
 
 ## Troubleshooting
 
-### Common Problems and Solutions
+### Docker not running
 
-#### Docker Issues
+**Problem:** "Docker is not running"
 
-**Problem**: "Docker is not running"
+**Solution:** Start Docker Desktop
+- **macOS**: Open Docker from Applications or run `open -a Docker`
+- **Windows**: Start Docker Desktop from Start Menu
+- **Linux**: Run `sudo systemctl start docker`
+
+### Permission denied
+
+**Problem:** "Permission denied" when downloading
+
+**Solution:** Check GitLab access
+- Ensure you're logged into GitLab
+- Verify course enrollment with instructor
+- Check that repository is public or you have access
+
+### No space left
+
+**Problem:** "No space left on device"
+
+**Solution:** Free up Docker space
 ```bash
-# Solution: Start Docker Desktop
-# On macOS:
-open -a Docker
-# On Windows:
-# Start Docker Desktop from Start Menu
-# On Linux:
-sudo systemctl start docker
-```
-
-**Problem**: "Cannot connect to Docker daemon"
-```bash
-# Solution: Ensure user is in docker group (Linux)
-sudo usermod -aG docker $USER
-# Log out and back in
-```
-
-#### Permission Issues
-
-**Problem**: "Permission denied" when downloading
-```bash
-# Solution: Check GitLab access
-# Ensure you're logged into GitLab
-# Verify course enrollment
-```
-
-**Problem**: "Cannot write to directory"
-```bash
-# Solution: Check folder permissions
-ls -la .
-# Ensure you own the current directory
-```
-
-#### Network Issues
-
-**Problem**: "Cannot reach GitLab"
-```bash
-# Solution: Check network connection
-ping gitlab.au.dk
-# Check if behind proxy/firewall
-```
-
-**Problem**: "Image pull failed"
-```bash
-# Solution: Retry with cleanup
-franklin cleanup  # Remove corrupted images
-franklin jupyter  # Try again
-```
-
-#### Space Issues
-
-**Problem**: "No space left on device"
-```bash
-# Solution: Free up Docker space
 franklin cleanup           # Interactive cleanup
 docker system prune -a    # Nuclear option (removes everything)
 ```
 
-### Debug Mode
+### Network issues
 
-Enable debug output for troubleshooting:
+**Problem:** "Cannot reach GitLab" or "Image pull failed"
 
+**Solution:** Check network and retry
+- Check network connection: `ping gitlab.au.dk`
+- Check if behind proxy/firewall
+- Run `franklin cleanup` to remove corrupted images
+- Try again with `franklin jupyter`
+
+### Debug mode
+
+Enable detailed logging for troubleshooting:
 ```bash
 export FRANKLIN_LOG_LEVEL=DEBUG
 franklin jupyter  # Now shows detailed logs
 ```
 
-### Getting Help
-
-1. **Built-in Help**: `franklin COMMAND --help`
-2. **Documentation**: Visit the Franklin documentation site
-3. **Issue Tracker**: Report bugs on GitHub
-4. **Support**: Contact course instructors for exercise-specific issues
-
----
-
 ## Tips and Best Practices
 
-### Workflow Tips
+### Organization
 
-1. **Create a dedicated folder** for exercises:
-   ```bash
-   mkdir ~/exercises
-   cd ~/exercises
-   franklin download
-   ```
+Create a dedicated folder structure:
+```
+~/exercises/
+├── biology/
+│   ├── exercise1/
+│   ├── exercise2/
+├── chemistry/
+│   ├── lab1/
+│   ├── lab2/
+```
 
-2. **Regular cleanup** to save disk space:
-   ```bash
-   # Weekly cleanup routine
-   franklin cleanup
-   franklin show storage
-   ```
+### Workflow
 
-3. **Update before semester** starts:
+1. **Start of semester**: Update Franklin
    ```bash
    franklin update --force
    ```
 
-### Performance Tips
-
-1. **Keep Docker running** during work sessions to avoid startup time
-2. **Download exercises in advance** when on fast internet
-3. **Close unused Jupyter tabs** to free memory
-4. **Use cleanup regularly** - images can be re-downloaded
-
-### Security Tips
-
-1. **Never run from system directories** (/, /usr, etc.)
-2. **Don't use `--allow-subdirs-at-your-own-risk`** unless necessary
-3. **Keep Franklin updated** for security patches
-4. **Be cautious with unknown exercise URLs**
-
-### Organization Tips
-
-1. **One folder per course**:
-   ```
-   ~/exercises/
-   ├── biology/
-   │   ├── exercise1/
-   │   ├── exercise2/
-   ├── chemistry/
-   │   ├── lab1/
-   │   ├── lab2/
+2. **Weekly routine**: Clean up Docker images
+   ```bash
+   franklin cleanup
+   franklin show storage
    ```
 
-2. **Use descriptive names** when saving notebooks
-3. **Commit your work** to git if you know how
-4. **Backup important exercises** before cleanup
+3. **Before exercises**: Ensure Docker is running
+   ```bash
+   open -a Docker  # macOS
+   ```
 
----
+### Performance
 
-## Command Summary
+- Keep Docker Desktop running during work sessions
+- Download exercises when on fast internet
+- Close unused Jupyter tabs to free memory
+- Use cleanup regularly - images can be re-downloaded
 
-| Command | Purpose | Common Usage |
-|---------|---------|--------------|
-| `download` | Get exercise from GitLab | `franklin download` |
-| `jupyter` | Start JupyterLab | `franklin jupyter` |
-| `update` | Update Franklin | `franklin update` |
-| `cleanup` | Free disk space | `franklin cleanup` |
-| `show images` | List Docker images | `franklin show images` |
-| `show containers` | List containers | `franklin show containers` |
-| `show storage` | Show disk usage | `franklin show storage` |
+### Security
 
----
+- Never run from system directories (/, /usr, etc.)
+- Don't use `--allow-subdirs-at-your-own-risk` unless necessary
+- Keep Franklin updated for security patches
+- Be cautious with unknown exercise URLs
 
-## Version History
+## Environment Variables
 
-Franklin follows semantic versioning (MAJOR.MINOR.PATCH):
-- **MAJOR**: Breaking changes requiring user action
-- **MINOR**: New features, backward compatible
-- **PATCH**: Bug fixes and minor improvements
+Configure Franklin's behavior:
 
-To see your version:
 ```bash
-franklin --version
+export FRANKLIN_AUTO_UPDATE=false    # Disable automatic updates
+export FRANKLIN_DOCKER_TIMEOUT=120   # Docker startup timeout (seconds)
+export FRANKLIN_BROWSER=chrome       # Preferred browser for Jupyter
+export FRANKLIN_JUPYTER_PORT=8888    # Preferred Jupyter port
+export FRANKLIN_LOG_LEVEL=DEBUG      # Enable debug logging
 ```
 
-To see what's new:
-```bash
-franklin update --check
-```
+Add to your shell profile (`~/.bashrc` or `~/.zshrc`) to make permanent.
+
+## Getting Help
+
+1. **Built-in help**: `franklin COMMAND --help`
+2. **Documentation**: This guide and other resources
+3. **Course support**: Contact your instructor for exercise-specific issues
+4. **Bug reports**: Report issues to the Franklin development team

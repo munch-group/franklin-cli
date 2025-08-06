@@ -1,0 +1,73 @@
+
+
+# ADDING CODE EXPLANATIONS JUPYTER NOTEBOOKS
+
+Add a markdown cell after each code cell with an explanation the code. The explanation should be formatted as a Markdown list wrapped in a html detail tag
+
+````
+
+## Code cell 
+
+```{python}
+x = "hello"
+print(x)
+```
+
+## Markdown cell 
+
+<details>
+<summary><small>Click to see what Franklin does</small></summary>
+
+- First `x` is assigned the value `"hello"`
+- Then the `print` function prints the value that the `x` value points to (`"hello"`).
+
+</details>
+
+````
+
+# Template for simple documentation Click command 
+
+````
+
+### Download an exercise
+
+This command downloads an exercise repository to your computer.
+
+```bash
+franklin download
+```
+
+::: {.panel-tabset}
+
+# This happens
+
+1. You are prompted to select your course
+2. You are prompted to select the exercise to download  
+3. Franklin downloads the exercise to a subfolder of your current folder
+4. Instructor-only files (solutions, etc.) are removed
+
+# Tips  
+
+- Run from an empty folder or a dedicated exercises directory
+- Create one folder per course to keep exercises organized
+- The exercise will be downloaded into a new subfolder named after the exercise
+
+:::
+
+<details>
+<summary>Technical details of the process</summary>
+
+1. **Registry Discovery**: Queries GitLab API for available courses in the Franklin group
+2. **Image Matching**: Matches Docker images in the registry to exercise repositories
+3. **Permission Check**: Verifies user has access to selected repository
+4. **Repository Clone**: Uses git to clone the exercise repository
+5. **Cleanup**: Removes `.git` folder, solution files, and instructor notes
+6. **Validation**: Ensures exercise contains required files (Dockerfile, notebook, etc.)
+
+</details>
+
+````
+
+# Template for full documentation of Click command
+
+Format like Click command documentation but ducument ALL features
