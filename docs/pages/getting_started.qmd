@@ -5,13 +5,13 @@ title: Getting started
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
 
-::: {.panel-tabset}
+::: {.panel-tabset group="role"}
 
-### As a Student
+## Student
 
 {{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
 
-### As an Educator
+## Educator
 
 {{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
 
@@ -31,9 +31,9 @@ We use **Pixi** to install Franklin. [Pixi](https://pixi.sh/latest/) is a modern
 
 **Install Franklin with Pixi:**
 
-::: {.panel-tabset}
+::: {.panel-tabset group="role"}
 
-### Install as Student
+## Student
 
 ```{.bash}
 pixi global install franklin --channel conda-forge --channel munch-group
@@ -63,7 +63,7 @@ franklin --version
 
 </details>
 
-### Install as Educator
+## Educator
 
 Educators also include the educator tools in their installation:
 
@@ -97,54 +97,13 @@ franklin exercise --help
 :::
 
 
-
-
-
-<!-- **With Conda:**
-
-::: {.panel-tabset}
-
-### Install as Student
-
-Activate your conda environment and run:
-
-```{.bash}
-conda install -c conda-forge -c munch-group franklin
-```
-
-Verify installation:
-
-```{.bash}
-franklin --version
-```
-
-### Install as Educator
-
-Educators also include the educator tools in their installation. Activate your conda environment and run:
-
-```{.bash}
-pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
-```
-
-Verify installation:
-
-```{.bash}
-franklin --version
-franklin exercise --help
-``` 
-
-:::
--->
-
-
-
 ## Using Franklin
 
 Simple and robust command line interface in Terminal/PowerShell:
 
-::: {.panel-tabset}
+::: {.panel-tabset group="role"}
 
-### Students
+## Student
 
 <i class="bi bi-terminal"></i> **Download an exercise**:
 
@@ -162,7 +121,7 @@ Simple and robust command line interface in Terminal/PowerShell:
 
 See [Franklin core commands](commands_core.qmd) for the full documentation.
 
-### Educators
+## Educator
 
 <i class="bi bi-terminal"></i> **Create a new exercise from an example template**:
 

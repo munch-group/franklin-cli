@@ -9,8 +9,8 @@ project:
     - "*.ipynb"
     - "!CLAUDE.md"
     # - "!ignored-dir/"    
-  post-render: 
-    - quarto render pages/student/
+  # post-render: 
+  #   - quarto render pages/student/
 
 execute:
   freeze: auto
