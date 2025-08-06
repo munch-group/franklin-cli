@@ -93,3 +93,21 @@ cmd = "pip install -e ."
 description = "Install the package in development mode"
 
 
+
+#################
+
+
+# devel feature
+[tool.pixi.feature.devel.target.osx-arm64.dependencies]
+setuptools = ">=65.0"
+wheel = "*"
+
+# [tool.pixi.feature.prod.target.linux-64.pypi-dependencies]
+# jupyterlab-quarto = "*"
+
+[tool.pixi.environments]
+devel = ["devel"]
+
+
+
+
