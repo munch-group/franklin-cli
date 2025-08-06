@@ -151,6 +151,7 @@ format:
       search: true  
     mermaid:
       theme: neutral     
+    smooth-scroll: true      
 
 quartodoc:
   style: pkgdown
