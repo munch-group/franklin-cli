@@ -9,5 +9,5 @@ if [[ `git status --porcelain` ]]; then
 else
   v=$(python setup.py --version) || exit
   git tag -a "v${v}" -m "${1:-Release}" && git push origin --tags && echo -e "${GREEN}Released version v${v} ${NC}" && exit
-  echo -e "${RED}failed${NC}"
+  echo -e "${RED}Failed${NC}"
 fi

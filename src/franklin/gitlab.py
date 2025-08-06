@@ -647,32 +647,33 @@ def pick_exercise(course: str, danish_course_name: str, exercises_images: Option
 
     # hide_hidden = not is_educator()
     is_edu = is_educator()
-    while True:
-        exercise_names = get_exercise_names(course)
-        # only use those with listed images and not with 'HIDDEN' in the name
+    # while True:
+        
+    exercise_names = get_exercise_names(course)
+    # only use those with listed images and not with 'HIDDEN' in the name
 
-        for key, val in list(exercise_names.items()):            
-            hidden_to_students = 'HIDDEN' in val
-            image_required = exercises_images is not None
-            has_image = exercises_images and (course, key) in exercises_images
+    for key, val in list(exercise_names.items()):            
+        hidden_to_students = 'HIDDEN' in val
+        image_required = exercises_images is not None
+        has_image = exercises_images and (course, key) in exercises_images
 
-            if is_edu:
-                if image_required and not has_image:
-                     del exercise_names[key]
-                else:
-                    if hidden_to_students:
-                        exercise_names[key] = val + ' (hidden from students)'
-                    if not has_image:
-                        exercise_names[key] = val + ' (no docker image)'
-            else:
-                # student
-                if not has_image or hidden_to_students:
+        if is_edu:
+            if image_required and not has_image:
                     del exercise_names[key]
+            else:
+                if hidden_to_students:
+                    exercise_names[key] = val + ' (hidden from students)'
+                if not has_image:
+                    exercise_names[key] = val + ' (no docker image)'
+        else:
+            # student
+            if not has_image or hidden_to_students:
+                del exercise_names[key]
 
-        if exercise_names:
-            break
-        term.secho(f"\n  >>No exercises for {danish_course_name}<<", fg='red')
+    if not exercise_names:
+        term.secho(f"\n  >>No exercises available for {danish_course_name}<<", fg='red')
         time.sleep(2)
+        click.Abort()
 
     exercise_repo_names, listed_exercise_names = \
         zip(*sorted(exercise_names.items(), key=itemgetter(1)))
