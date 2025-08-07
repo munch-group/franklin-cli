@@ -20,7 +20,7 @@ This guide provides a comprehensive comparison of Python, R, and Julia for data 
 
 ## Setup and Libraries
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -70,7 +70,7 @@ Random.seed!(42)
 
 ## Creating Data Structures
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -146,7 +146,7 @@ nt = (name="Alice", age=25)
 
 ## Data Import/Export
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -216,7 +216,7 @@ write_parquet("output.parquet", df)
 
 ## Basic Data Inspection
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -287,7 +287,7 @@ sum(ismissing.(df.name))
 
 ## Selecting Data
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -360,7 +360,7 @@ df |>
 
 ## Data Manipulation
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -437,7 +437,7 @@ df.age_group = [x < 30 ? "Young" : "Adult" for x in df.age]
 
 ## Grouping and Aggregation
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -536,7 +536,7 @@ transform!(groupby(df, :age_group),
 
 ## Joining/Merging Data
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -618,7 +618,7 @@ merged = leftjoin(df1, df2, on = :id1 => :id2)
 
 ## Reshaping Data
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -699,7 +699,7 @@ x -> unstack(x, :id, :variable, :value)
 
 ## Missing Data Handling
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -773,7 +773,7 @@ end
 
 ## String Operations
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -852,7 +852,7 @@ df.full_name = df.first .* " " .* df.last
 
 ## Date and Time
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -926,7 +926,7 @@ dates = Date(2023,1,1):Day(1):Date(2023,12,31)
 
 ## Statistical Operations
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -1008,7 +1008,7 @@ CorrelationTest(x, y)
 
 ## Visualization Basics
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -1079,7 +1079,7 @@ plot(x, [y1 y2 y3], label=["Series 1" "Series 2" "Series 3"])
 
 ## Performance Optimization
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python
@@ -1158,7 +1158,7 @@ end
 
 ## Machine Learning Basics
 
-::: panel-tabset
+::: {.panel-tabset group="language"}
 ### Python
 
 ```python

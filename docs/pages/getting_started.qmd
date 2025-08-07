@@ -68,7 +68,7 @@ franklin --version
 Educators also include the educator tools in their installation:
 
 ```{.bash}
-pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
+pixi global install franklin-educator --channel conda-forge --channel munch-group
 ```
 
 Verify installation:
@@ -82,7 +82,7 @@ franklin exercise --help
 <summary>(Click if you absolutely must install with Conda - not recommended)</summary>
 
 ```{.bash}
-pixi global install franklin franklin-educator --channel conda-forge --channel munch-group
+pixi global install franklin-educator --channel conda-forge --channel munch-group
 ```
 
 Verify installation:
@@ -93,6 +93,40 @@ franklin exercise --help
 ```
 
 </details>
+
+## Administrator
+
+Educators also include the educator tools in their installation:
+
+```{.bash}
+pixi global install franklin-admin --channel conda-forge --channel munch-group
+```
+
+Verify installation:
+
+```{.bash}
+franklin --version
+franklin exercise --help
+```
+
+<details>
+<summary>(Click if you absolutely must install with Conda - not recommended)</summary>
+
+```{.bash}
+pixi global install franklin-admin --channel conda-forge --channel munch-group
+```
+
+Verify installation:
+
+```{.bash}
+franklin --version
+franklin finger --help
+```
+
+</details>
+
+
+
 
 :::
 
@@ -139,6 +173,13 @@ See [Franklin core commands](commands_core.qmd) for the full documentation.
 5. Closing the browser window will add, commit, and push your changes to the GitLab exercise repository and initiate the building of an updated Docker image.
 
 See [Core commands](commands_core.qmd), [Educator commands](commands_edu.qmd), and [Admin commands](commands_admin.qmd) for the full documentation.
+
+## Administrator
+
+<i class="bi bi-terminal"></i> **List users**:
+
+1. 
+
 
 :::
 

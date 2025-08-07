@@ -4,27 +4,6 @@ title: Educator Commands
 
 The `franklin-educator` plugin extends Franklin with commands for creating and managing exercises.
 
-## Installation
-
-Install the franklin-educator plugin:
-
-::: {.panel-tabset}
-
-# Using Conda
-
-```bash
-conda install -c conda-forge -c munch-group franklin-educator
-```
-
-# Using Pixi
-
-```bash
-pixi global install --channel conda-forge --channel munch-group franklin-educator
-```
-
-:::
-
-The educator plugin automatically installs the base Franklin package as a dependency.
 
 ## Prerequisites
 

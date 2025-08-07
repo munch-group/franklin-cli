@@ -9,41 +9,56 @@ parser = argparse.ArgumentParser(description='Release tag script')
 parser.add_argument('--major', action='store_true', help='Bump major version number')
 parser.add_argument('--minor', action='store_true', help='Bump minor version number') 
 parser.add_argument('--patch', action='store_true', help='Bump patch version number')
+parser.add_argument('--dev', action='store_true', help='Bump patch dev number')
 args = parser.parse_args()
 major = int(args.major)
 minor = int(args.minor)
 patch = int(args.patch)
+dev = int(args.dev)
 
-if sum([major, minor, patch]) != 1:
-    print("Please specify exactly one of --major, --minor, or --patch")
+if sum([major, minor, patch, dev]) != 1:
+    print("Please specify exactly one of --major, --minor, --patch or --dev")
     sys.exit(1)
 
 # file, regex pairs
 spec = {
-    'pyproject.toml':  r"(version = ')(\d+)\.(\d+)\.(\d+)(')",
+    'pyproject.toml':  r'(version = ")(\d+)\.(\d+)\.(\d+)(?:.dev(\d+))?(")',
 }
 
-def bump(content, m):
-    global major, minor, patch
+def bump(content, regex):
+    global major, minor, patch, dev
+    m = re.search(regex, content)
     assert m is not None, "Version not found"
     prefix = m.group(1)
     _major = int(m.group(2))
     _minor = int(m.group(3))
     _patch = int(m.group(4))
-    postfix = m.group(5)
-    version = f'{_major}.{_minor}.{_patch}'
+    _dev = int(m.group(5)) if m.group(5) else 0
+    postfix = m.group(6)
+    if _dev:
+        version = f'{_major}.{_minor}.{_patch}.dev{_dev}'
+    else:
+        version = f'{_major}.{_minor}.{_patch}'
 
+    if major or minor or patch:
+        dev = -_dev
     if major or minor:
         patch = -_patch
     if major:
         minor = -_minor
 
-    new_version = f'{_major+major}.{_minor+minor}.{_patch+patch}'
-    match = f'{version}'
+    if major or minor or patch:
+        new_version = f'{_major+major}.{_minor+minor}.{_patch+patch}'
+    else:
+        new_version = f'{_major+major}.{_minor+minor}.{_patch+patch}.dev{_dev+dev}'
+
+    print(version, new_version)
+
+    # match = f'{version}'
     repl = f'{new_version}'
     # match = f'{prefix}{version}{postfix}'
     # repl = f'{prefix}{new_version}{postfix}'
-    new_content = content.replace(match, repl)
+    new_content = re.sub(regex, f'version = "{new_version}"', content)
     assert new_content != content
     return new_content, new_version
 
@@ -52,8 +67,7 @@ new_versions = []
 for file, regex in spec.items():
     with open(file, 'r') as f:
         content = f.read()
-    m = re.search(regex, content)
-    new_content, new_version = bump(content, m)
+    new_content, new_version = bump(content, regex)
     new_contents[file] = new_content
     new_versions.append(new_version)
 
@@ -62,11 +76,12 @@ assert len(new_versions) == len(spec)
 assert len(set(new_versions)) == 1, new_versions
 new_version = list(new_versions)[0]
 
-_major, _minor, _patch = map(int, new_version.split('.'))
-old_version = f'{_major-major}.{_minor-minor}.{_patch-patch}'
+# _major, _minor, _patch = map(int, new_version.split('.'))
+# old_version = f'{_major-major}.{_minor-minor}.{_patch-patch}'
 
 just = max([len(x) for x in spec.keys()])
-print(f"Version bump:\n  {old_version} -> {new_version}\nFiles changed:")
+# print(f"Version bump:\n  {old_version} -> {new_version}\nFiles changed:")
+print(f"Version bump to:\n {new_version}\nFiles changed:")
 for file, content in new_contents.items():
     print(f"  {file.ljust(just)}  (replaced {len(re.findall(new_version, content))} instance)")
     with open(file, 'w') as f:

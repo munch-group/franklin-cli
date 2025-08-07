@@ -1,5 +1,5 @@
 ---
-title: "Franklin Quick Reference"
+title: "Quick Reference"
 subtitle: "All Commands at a Glance"
 ---
 

@@ -1,194 +1,159 @@
 ---
-title: "Introduction to the Terminal"
+title: "The Terminal"
 subtitle: "Your Command Line Interface"
 ---
 
 ## What is a Terminal?
 
-A terminal (also called command line, shell, or console) is a text-based interface for interacting with your computer. Instead of clicking buttons and icons, you type commands to tell the computer what to do. While it might seem intimidating at first, the terminal is an incredibly powerful tool that gives you precise control over your system.
+A terminal (also called command line, shell, or console) is a text-based interface for interacting with your computer. Instead of clicking buttons and icons, you type commands to tell the computer what to do. While it might seem intimidating at first, the terminal is an incredibly powerful tool that gives you precise control over your system. 
 
-### Why Learn the Terminal?
+::: {.tab-set}
 
-- **Power**: Many tasks are faster and more efficient in the terminal
-- **Automation**: Chain commands together and create scripts
-- **Remote Access**: Control servers and other computers remotely
-- **Development**: Essential for programming and data science
-- **Franklin**: Many Franklin commands work best from the terminal
+## Mac
 
-## Opening Your Terminal
+On Mac, it is called *Terminal*. You can find it by typing "Terminal" in Spotlight Search. When you start, you will see something like @fig-terminal. You may be presented with the following text:
 
-::: {.panel-tabset}
-
-### macOS
-
-1. Press `Cmd + Space` to open Spotlight
-2. Type "Terminal" and press Enter
-3. Or: Find Terminal in Applications → Utilities
-
-You'll see something like:
-```bash
-username@MacBook-Pro ~ %
+```
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
 ```
 
-### Windows
+Do __*not*__ update your account to zsh! (If you did so by mistake, you change back using this command: `chsh -s /bin/bash`).
 
-1. Press `Windows Key`
-2. Type "PowerShell" or "Command Prompt"
-3. Or: Right-click Start Menu → Windows Terminal
+![The Terminal app on Mac](./images/terminal.png){#fig-terminal width=85%} 
 
-You'll see something like:
-```powershell
-PS C:\Users\username>
-```
+## Windows
 
-### Linux
+On Windows, the tool you need is called the Anaconda Powershell Prompt, which was installed along with Anaconda Python. You should be able to find it from the Start menu. If you open *Powershell*, you should see something like @fig-anacondaprompt.
 
-1. Press `Ctrl + Alt + T` (most distributions)
-2. Or: Find Terminal in your applications menu
-
-You'll see something like:
-```bash
-username@computer:~$
-```
+![Anaconda Powershell Prompt app on Windows](./images/powershellprompt.png){#fig-anacondaprompt width=75%}
 
 :::
 
-## Understanding the Prompt
+What is *Powershell* and this *Terminal* thing? Both programs are what we call *terminal emulators*. They are used to run other programs, like  the ones you will write yourself. We informally refer to both *Terminal* and *Powershell* as "the terminal or "the shell". So if you read something like "open the terminal," you should open *Powershell* if you are running Windows and the *Terminal* application if you are running OS X.
 
-The prompt shows you important information:
-
-```bash
-username@hostname:current_directory$
-```
-
-- **username**: Your user account name
-- **hostname**: Your computer's name
-- **current_directory**: Where you are in the file system
-- **$** or **%**: Indicates you can type a command
-
-## Essential Navigation Commands
-
-### Where Am I? (`pwd`)
-
-The `pwd` command (print working directory) shows your current location:
+To use the terminal, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You type the command you want and then hit enter. The place where you type is called a prompt (or command prompt), and it may look a little different depending on which terminal emulator you use. In this book, we represent the prompt with the character `$`. So, a command in the examples below is the line of text to the left of the `$`. When you open the terminal, you'll be redirected to a folder. You can see which folder you are in by typing `pwd`, and then press `Enter` on the keyboard. When you press `Enter`, you tell the terminal to execute your written command. In this case, the command you typed tells you the path to the folder we are in. If I do it, I get:
 
 ```bash
-pwd
-# Output: /Users/username/Documents
+$ pwd
+/Users/kasper/programming
 ```
 
-### What's Here? (`ls`)
-
-The `ls` command lists files and folders:
+If I had been on a Windows machine, it would have looked something like this: 
 
 ```bash
-# Basic listing
-ls
-
-# Detailed listing with sizes and dates
-ls -l
-
-# Show hidden files (starting with .)
-ls -a
-
-# Human-readable file sizes
-ls -lh
+$ cd
+C:\Users\kasper\programming
 ```
 
-### Moving Around (`cd`)
+## Navigating folders
 
-The `cd` command (change directory) moves between folders:
+So, right now, I am in the `programming` folder. `/Users/kasper/programming` is the folder's path or "full address" with dashes (or backslashes on Windows) separating nested folders. So `programming` is a subfolder of `kasper`, a subfolder of `Users`. That way, you know which folder you are in and where that folder is. Let us see what is in this folder. You can use the `ls` command (l as in Lima and s as in Sierra). When I do that and press `Enter` I get the following:
 
 ```bash
-# Go to a specific folder
-cd Documents
-
-# Go to home directory
-cd ~
-# or just
-cd
-
-# Go up one level
-cd ..
-
-# Go up two levels
-cd ../..
-
-# Go to previous directory
-cd -
-
-# Use absolute path
-cd /Users/username/Documents
-
-# Use relative path
-cd ./subfolder
+$ ls
+notes projects
 ```
+
+There seem to be two other folders, one called `notes` and another called `projects`. If you are curious about what is inside the `notes` folder, you can "walk" into the folder with the `cd` command. To use this command, you must specify which folder you want to walk into (in this case, `notes`). We do this by typing `cd`, then a space, and then the folder's name. When I press `Enter` I get the following:
+
+```bash
+$ cd notes
+$
+```
+
+It seems that nothing really happened, but if I run the `pwd` command now to see which folder I am in, I get the following:
+
+```bash
+$ pwd
+/Users/kasper/programming/notes
+```
+
+Just to keep track of what is happening: before we ran the `cd` command, we were in the directory `/Users/kasper/programming` folder, and now we're in `/Users/kasper/programming/notes`. This means that we can now use the `ls` command to see what is in the `notes` folder:
+
+```bash
+$ ls
+$
+```
+
+Again, it seems like nothing happened. Well, `ls` and `dir` do not show anything if the folder we are in is empty. So `notes` must be empty. Let us go back to where we came from. To walk "back" or "up" to `/Users/kasper/programming`, we again use the `cd` command, but we do not need to name a folder this time. Instead, we use the special name `..` to say that we wish to go to the parent folder called `programming`, i.e., the folder we just came from:
+
+```bash
+$ cd ..
+$ pwd
+/Users/kasper/programming
+```
+
+When we run the `pwd` command, we see that we are back where we started. Let us see if the two folders are still there:
+
+```bash
+$ ls
+notes projects
+```
+
+They are! 
 
 ## Working with Files and Folders
 
-### Creating Files and Folders
+Create a new folder:
 
 ```bash
-# Create a new folder
 mkdir my_project
-mkdir -p projects/python/data_analysis  # Create nested folders
-
-# Create an empty file
-touch notes.txt
-
-# Create and write to a file
-echo "Hello World" > greeting.txt
-
-# Append to a file
-echo "Another line" >> greeting.txt
 ```
 
-### Viewing File Contents
+View entire file:
 
 ```bash
-# View entire file
 cat filename.txt
-
-# View with pagination
-less filename.txt  # Press 'q' to quit
-
-# View first 10 lines
-head filename.txt
-
-# View last 10 lines
-tail filename.txt
-
-# View last lines as file updates (great for logs)
-tail -f logfile.log
 ```
 
-### Copying, Moving, and Deleting
+Copy file:
 
 ```bash
-# Copy file
 cp source.txt destination.txt
+```
 
-# Copy folder recursively
+Copy folder recursively:
+
+```bash
 cp -r source_folder destination_folder
+```
 
-# Move/rename file or folder
+Move/rename file or folder:
+
+```bash
 mv old_name.txt new_name.txt
 mv file.txt /path/to/destination/
+```
 
-# Delete file
+Delete file:
+
+```bash
 rm file.txt
+```
 
-# Delete empty folder
-rmdir empty_folder
+Delete with confirmation:
 
-# Delete folder and contents (careful!)
-rm -r folder_name
-
-# Delete with confirmation
+```bash
 rm -i file.txt
 ```
 
-## Useful Shortcuts and Tips
+Delete *empty* folder:
+
+```bash
+rmdir empty_folder
+```
+
+Delete folder *and* all of its content:
+
+```bash
+rm -r folder_name
+```
+
+> **Careful with this command!** if you delete some important folder, like your user folder, the command *will* delete it along with everything inside it - without asking for confirmation! 
+
+## Tips and Tricks
 
 ### Keyboard Shortcuts
 
@@ -203,391 +168,30 @@ rm -i file.txt
 | `Ctrl + R` | Search command history |
 | `Ctrl + D` | Exit terminal |
 
-### Command History
-
-```bash
-# View command history
-history
-
-# Run previous command
-!!
-
-# Run command from history
-!123  # Run command number 123
-
-# Search history
-history | grep "git"
-```
-
-### Wildcards and Patterns
-
-```bash
-# * matches any characters
-ls *.txt           # All .txt files
-rm temp_*          # All files starting with temp_
-
-# ? matches single character
-ls file?.txt       # Matches file1.txt, file2.txt, etc.
-
-# [...] matches any character in brackets
-ls file[123].txt   # Matches file1.txt, file2.txt, file3.txt
-```
-
-## Finding Things
-
-### Finding Files
-
-```bash
-# Find files by name
-find . -name "*.py"
-
-# Find folders
-find . -type d -name "data"
-
-# Find files modified in last 24 hours
-find . -mtime -1
-
-# Find and execute command
-find . -name "*.txt" -exec cat {} \;
-```
-
-### Searching File Contents
-
-```bash
-# Search for text in file
-grep "search term" file.txt
-
-# Search recursively in all files
-grep -r "TODO" .
-
-# Case-insensitive search
-grep -i "python" file.txt
-
-# Show line numbers
-grep -n "error" logfile.log
-
-# Search for files containing text
-grep -l "import pandas" *.py
-```
-
-## Working with Processes
-
-### Running Programs
-
-```bash
-# Run a Python script
-python script.py
-
-# Run in background
-python long_script.py &
-
-# Run and disconnect from terminal
-nohup python script.py &
-```
-
-### Managing Processes
-
-```bash
-# List running processes
-ps aux
-
-# Find specific process
-ps aux | grep python
-
-# Kill a process
-kill 1234  # Kill process with ID 1234
-
-# Force kill
-kill -9 1234
-
-# Interactive process viewer
-top  # Press 'q' to quit
-```
-
-## Input/Output Redirection
-
-### Redirecting Output
-
-```bash
-# Redirect output to file
-ls > file_list.txt
-
-# Append to file
-ls >> file_list.txt
-
-# Redirect errors
-command 2> errors.txt
-
-# Redirect both output and errors
-command &> all_output.txt
-```
-
-### Pipes
-
-Chain commands together:
-
-```bash
-# Count Python files
-ls | grep ".py" | wc -l
-
-# Find and sort
-find . -name "*.txt" | sort
-
-# View processes using most memory
-ps aux | sort -k4 -r | head
-```
-
-## Environment Variables
-
-```bash
-# View all environment variables
-env
-
-# View specific variable
-echo $PATH
-echo $HOME
-
-# Set temporary variable
-export MY_VAR="value"
-
-# Add to PATH
-export PATH=$PATH:/new/path
-```
-
-## Franklin in the Terminal
-
-Franklin is designed to work seamlessly from the terminal:
-
-```bash
-# Check Franklin installation
-franklin --version
-
-# Download exercises
-franklin download
-
-# Start Jupyter
-franklin jupyter
-
-# Get help
-franklin --help
-franklin jupyter --help
-```
-
-### Common Franklin Workflows
-
-```bash
-# Student workflow
-cd ~/Documents/Courses
-franklin download
-cd "Exercise Name"
-franklin jupyter
-
-# Educator workflow
-franklin exercise new
-cd my-exercise
-franklin exercise edit
-franklin exercise test
-franklin exercise publish
-```
-
-## Terminal for Different Shells
-
-::: {.panel-tabset}
-
-### Bash (Linux/Mac)
-
-Most common shell with extensive features:
-
-```bash
-# Check current shell
-echo $SHELL
-
-# Bash-specific features
-alias ll='ls -la'
-source ~/.bashrc
-```
-
-### Zsh (Mac default)
-
-Enhanced Bash with better completion:
-
-```bash
-# Zsh configuration
-~/.zshrc
-
-# Powerful tab completion
-cd /u/l/b<Tab>  # Expands to /usr/local/bin
-```
-
-### PowerShell (Windows)
-
-Object-oriented shell:
-
-```powershell
-# PowerShell commands
-Get-ChildItem  # Like ls
-Set-Location   # Like cd
-Get-Content    # Like cat
-
-# Aliases work too
-ls
-cd
-cat
-```
-
-:::
-
-## Terminal Customization
-
-### Creating Aliases
-
-Make shortcuts for common commands:
-
-```bash
-# Add to ~/.bashrc or ~/.zshrc
-alias ll='ls -la'
-alias gs='git status'
-alias jp='franklin jupyter'
-alias py='python'
-
-# Reload configuration
-source ~/.bashrc
-```
-
-### Customizing Prompt
-
-```bash
-# Simple prompt
-PS1='\u@\h:\w\$ '
-
-# Colorful prompt
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-```
-
-## Best Practices
-
-### Safety First
-- ✅ Use `ls` before `rm` to verify what you're deleting
-- ✅ Use `-i` flag with `rm` for confirmation
-- ✅ Make backups before major operations
-- ✅ Test commands on sample data first
-
-### Efficiency Tips
-- ✅ Use Tab completion extensively
-- ✅ Create aliases for repetitive commands
-- ✅ Learn keyboard shortcuts
-- ✅ Use command history
-
-### Organization
-- ✅ Use descriptive file and folder names
-- ✅ Organize projects in dedicated directories
-- ✅ Keep your home directory clean
-- ✅ Use version control (Git) for code
-
-## Common Terminal Tasks
-
-### Quick File Backup
-
-```bash
-# Backup single file
-cp important.txt important_backup.txt
-
-# Backup with date
-cp important.txt important_$(date +%Y%m%d).txt
-
-# Backup entire folder
-tar -czf backup.tar.gz my_folder/
-```
-
-### Batch Operations
-
-```bash
-# Rename multiple files
-for file in *.txt; do
-    mv "$file" "backup_$file"
-done
-
-# Convert all CSV to lowercase names
-for file in *.CSV; do
-    mv "$file" "${file,,}"
-done
-```
-
-### Quick System Info
-
-```bash
-# Disk usage
-df -h
-
-# Folder sizes
-du -sh *
-
-# Memory usage
-free -h  # Linux
-top      # Mac/Linux
-
-# Network info
-ifconfig  # or ip addr
-```
-
-## Troubleshooting Common Issues
-
-### Permission Denied
-
-```bash
-# Check permissions
-ls -l file.txt
-
-# Make executable
-chmod +x script.sh
-
-# Change ownership
-sudo chown username file.txt
-```
-
-### Command Not Found
-
-```bash
-# Check if program installed
-which python
-
-# Check PATH
-echo $PATH
-
-# Install missing command
-# Mac: brew install program
-# Linux: apt install program
-# Windows: winget install program
-```
-
 ### Stuck Terminal
-
 - **Ctrl + C**: Stop current command
 - **Ctrl + D**: Exit/logout
-- **Ctrl + Z**: Suspend process (use `fg` to resume)
-- **Ctrl + L**: Clear screen
+
+### Safety First
+- Use `ls` before `rm` to verify what you're deleting
+- Use `-i` flag with `rm` for confirmation
+- Make backups before major operations
+- Test commands on sample data first
+
+### Efficiency
+- Use Tab completion extensively
+- Create aliases for repetitive commands
+- Learn keyboard shortcuts
+- Use command history
+
+### Organization
+- Use descriptive file and folder names
+- Organize projects in dedicated directories
+- Keep your home directory clean
+
 
 ## Resources for Learning More
 
-### Interactive Tutorials
 - [Command Line Tutorial](https://ubuntu.com/tutorials/command-line-for-beginners)
 - [Learn Shell](https://www.learnshell.org/)
 - [Bash Guide](https://mywiki.wooledge.org/BashGuide)
-
-### Practice
-1. Start with navigation: `pwd`, `ls`, `cd`
-2. Create and manipulate files
-3. Learn one new command per day
-4. Automate repetitive tasks
-
-## Summary
-
-The terminal is your direct line of communication with the computer. While graphical interfaces are convenient, the terminal offers:
-
-- **Speed**: Type faster than you can click
-- **Power**: Access to thousands of commands
-- **Automation**: Script repetitive tasks
-- **Remote Access**: Work on distant servers
-- **Development**: Essential for programming
-
-Start with basic navigation, gradually add commands to your toolkit, and soon you'll wonder how you ever lived without it!

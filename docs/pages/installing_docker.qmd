@@ -1,0 +1,36 @@
+
+---
+title: Installing Docker Desktop
+---
+
+Docker is a tool that can run a small linux world in your computer. Franklin uses it to make sure Jupyter runs your exercise in exactly the same way, no matter which kind of computer you have. You do not need to known anything about Docker. Franklin will take care of the whole thing for you. If you are interested, though, you can have a look at this [brief introduction to Docker](docker.qmd).
+
+Before you to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac. If you are downloading docker on a AU computer remember to activate admin privileges by activating Heimdal. 
+
+If you are unsure of how to activate Heimdal, follow the instructions given on [this page](https://medarbejdere.au.dk/administration/it/vejledninger/sikkerhed/aktiver-administratorrettigheder-paa-medarbejdercomputer-heimdal)
+
+Go to [this page](https://www.docker.com/products/docker-desktop/) and press on "Download Docker Desktop". When you have done that you will be presented with different options which depends on which chip your computer has. On a Mac, you can find the name of your chip by clicking the apple icon in the upper left corner and choose "about this mac" in the dropdown menu. Apple silicon chips include M1, M2 and M3. Apple intel chips are named intel.
+
+![alt text](<images/Skærmbillede 2025-06-03 kl. 13.28.40.png>)
+
+On Windows, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip.
+
+Download the version of Docker Desktop that matches your operating system and computer chip. Once downloaded, follow the installation instructions for your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens, a window pops up and asks if you want to sign in or create and account. An account is not necessary for using docker with franklin, so you can just click "skip" when prompted. 
+
+When the installation procedure is complete and Docker is done starting up, you must it down. Just closing the blue Docker Dashboard window does not shut down Docker. You need to explicitly quit the program. To make sure it has quit, you can look for the little docker whale icon. In Mac is it in the menu bar. On Windows it is in the small popup menu at the right end of you task bar. If you see a small whale, Docker is still running. Click the whale icon and quit Docker.
+
+![alt text](<images/Skærmbillede 2025-06-03 kl. 14.27.12.png>)
+
+::: callout-tip
+
+## WSL
+
+On Windows, Docker Desktop may give you an error message saying "WSL 2 is required". In that case, install WSL by running the following command into your terminal:
+
+```{.bash filename="Terminal"}
+wsl --install
+```
+
+:::
+
+Back to @installing.
