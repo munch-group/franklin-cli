@@ -19,6 +19,7 @@ from typing import Tuple, List, Dict, Callable, Any, Optional
 from packaging.version import Version, InvalidVersion
 from pathlib import Path
 from datetime import datetime, timedelta
+from importlib.metadata import version, PackageNotFoundError
 
 from . import config as cfg
 from . import utils
@@ -220,9 +221,10 @@ def conda_latest_version(package: str, include_dev: bool = False) -> Optional[Ve
         versions = []
         for x in data[package]:
             try:
-                version = Version(x['version'])
+                # version = Version(x['version'])
+                version = x['version']
                 # Skip development versions unless explicitly requested
-                if not include_dev and version.is_devrelease:
+                if not include_dev and Version(version).is_devrelease:
                     logger.debug(f"Skipping development version {version}")
                     continue
                 versions.append(version)
@@ -233,8 +235,8 @@ def conda_latest_version(package: str, include_dev: bool = False) -> Optional[Ve
         if not versions:
             logger.warning(f"No {'stable ' if not include_dev else ''}update found for {package}")
             return None
-            
-        latest = max(versions)
+
+        latest = max(versions, key=Version)
         logger.debug(f"Latest {'(including dev) ' if include_dev else ''}update of {package}: {latest}")
         return latest
         
@@ -382,7 +384,7 @@ def conda_reinstall(package: str, status: UpdateStatus, include_dev: bool = Fals
     return False
 
 
-def pixi_installed_version(package: str) -> Optional[Version]:
+def installed_version(package: str) -> Optional[Version]:
     """
     Get the installed version of a package in pixi environment.
     
@@ -396,67 +398,10 @@ def pixi_installed_version(package: str) -> Optional[Version]:
     Optional[Version]
         Installed version, or None if not found.
     """
+
     try:
-        # First check if we're in a pixi environment with the package
-        # Use --global flag to check global pixi packages
-        try:
-            # Try global pixi first (where Franklin is likely installed)
-            output = subprocess.check_output(
-                'pixi global list --json', 
-                shell=True, text=True, stderr=subprocess.DEVNULL
-            )
-            packages = json.loads(output)
-            
-            # Check if package is in global list
-            if isinstance(packages, dict) and 'environments' in packages:
-                # New pixi format with environments
-                for env_name, env_data in packages['environments'].items():
-                    if 'packages' in env_data:
-                        for pkg in env_data['packages']:
-                            if pkg == package or (isinstance(pkg, dict) and pkg.get('name') == package):
-                                logger.debug(f"Package {package} found in pixi global environment {env_name}")
-                                # Get version from pixi info
-                                try:
-                                    info_output = subprocess.check_output(
-                                        f'pixi global info {package}',
-                                        shell=True, text=True, stderr=subprocess.DEVNULL
-                                    )
-                                    # Parse version from info output
-                                    for line in info_output.split('\n'):
-                                        if 'version' in line.lower():
-                                            version_str = line.split(':')[-1].strip()
-                                            return Version(version_str)
-                                except:
-                                    pass
-            elif isinstance(packages, list):
-                # Old pixi format
-                for pkg in packages:
-                    if isinstance(pkg, dict) and pkg.get('name') == package:
-                        return Version(pkg['version'])
-        except (CalledProcessError, json.JSONDecodeError):
-            logger.debug("No global pixi packages found")
-        
-        # If not in global, check local project environment
-        # But only if we're actually in a pixi environment
-        if '.pixi' in sys.executable:
-            try:
-                output = subprocess.check_output(
-                    'pixi list --json', 
-                    shell=True, text=True, stderr=subprocess.DEVNULL
-                )
-                packages = json.loads(output)
-                
-                for pkg in packages:
-                    if isinstance(pkg, dict) and pkg.get('name') == package:
-                        return Version(pkg['version'])
-            except (CalledProcessError, json.JSONDecodeError) as e:
-                logger.debug(f"Failed to check local pixi environment: {e}")
-                
-        logger.debug(f"Package {package} not found in pixi environment")
-        return None
-        
-    except (InvalidVersion, Exception) as e:
-        logger.error(f"Failed to get pixi version for {package}: {e}")
+        return str(version(package))
+    except PackageNotFoundError:
         return None
 
 
@@ -484,66 +429,33 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False, inc
     # logger.info(f"Checking for pixi updates to {package} (global={is_global})")
     term.secho(f"Checking for {'global' if is_global else 'local'} pixi updates to {package}")
     
+    before_version = installed_version(package)
+    after_version = conda_latest_version(package, include_dev=include_dev)
 
-
-    try:
-        before_version = pixi_installed_version(package)
-        after_version = conda_latest_version(package, include_dev=include_dev)
-        if before_version == after_version:
-            logger.debug(f"{package} is already up to date (global)")
-            return False
-        if is_global:
+    if before_version == after_version:
+        logger.debug(f"{package} is already up to date (global)")
+        return False
+    if is_global:
+        output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge {package}={after_version}')
+        return installed_version(package) == after_version
+    else:
+        # Local package update
+        # First check if we're in a pixi project
+        if not os.path.exists('pixi.toml'):
+            # This shouldn't happen as we detect installation method before calling this
+            # But if it does, try global update as fallback
+            logger.warning(f"Not in a pixi project directory but package marked as local. Trying global update...")
+            logger.debug(f"Fallback to global install")
             output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge {package}={after_version}')
-            return pixi_installed_version(package) == after_version
-        else:
-            # Local package update
-            # First check if we're in a pixi project
-            if not os.path.exists('pixi.toml'):
-                # This shouldn't happen as we detect installation method before calling this
-                # But if it does, try global update as fallback
-                logger.warning(f"Not in a pixi project directory but package marked as local. Trying global update...")
-                cmd = f'pixi global update "{package}"'
-                logger.debug(f"Fallback to global install")
-                output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge {package}={after_version}')
 
-
-            cmd = f'pixi add "{package}={after_version}"'
-            result = subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
-            
-            after_version == pixi_installed_version(package)
-            
-            if before_version != after_version:
-                logger.info(f"Updated {package} from {before_version} to {after_version}")
-                return True
-
-            
-    except CalledProcessError as e:
-        error_details = {
-            'package': package,
-            'command': cmd if 'cmd' in locals() else 'unknown',
-            'error': str(e),
-            'stdout': e.stdout if hasattr(e, 'stdout') else '',
-            'stderr': e.stderr if hasattr(e, 'stderr') else '',
-            'is_global': is_global
-        }
-        status.record_failure("Update failed for {package}", error_details)
+        cmd = f'pixi add "{package}={after_version}"'
+        result = subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
         
-        if is_global:
-            raise UpdateCrash(
-                f"Failed to update {package} using pixi global",
-                "The pixi global update command failed.",
-                "",
-                "To update manually, run:",
-                f"  pixi global update {package}"
-            )
-        else:
-            raise UpdateCrash(
-                f"Failed to update {package} using pixi",
-                "The pixi update command failed.",
-                "",
-                "To update manually, run:",
-                f"  pixi update {package}"
-            )
+        after_version == installed_version(package)
+        
+        if before_version != after_version:
+            logger.info(f"Updated {package} from {before_version} to {after_version}")
+            return True
 
 
 def update_client_conda(status: UpdateStatus, include_dev: bool = False) -> int:
@@ -595,7 +507,7 @@ def update_client_conda(status: UpdateStatus, include_dev: bool = False) -> int:
     return updated_count
 
 
-def update_client_pixi(status: UpdateStatus, include_dev: bool = False) -> int:
+def update_client_pixi(status: UpdateStatus, include_dev: bool = False, is_global: bool = False) -> int:
     """
     Update Franklin and plugins using pixi.
     
@@ -611,9 +523,9 @@ def update_client_pixi(status: UpdateStatus, include_dev: bool = False) -> int:
     """
     updated_count = 0
     
-    # Check if Franklin is globally installed
-    franklin_install = detect_installation_method('franklin')
-    is_global = franklin_install == 'pixi-global'
+    # # Check if Franklin is globally installed
+    # franklin_install = detect_installation_method('franklin')
+    # is_global = franklin_install == 'pixi-global'
     
     # Update core franklin package
     try:
@@ -621,7 +533,10 @@ def update_client_pixi(status: UpdateStatus, include_dev: bool = False) -> int:
             updated_count += 1
     except UpdateCrash:
         raise
-    
+    except Exception as e:
+        logger.error(f"Unexpected error updating franklin: {e}")
+        raise
+
     # Update plugins if installed
     for plugin in ['franklin-educator', 'franklin-admin']:
         try:
@@ -659,114 +574,28 @@ def detect_installation_method(package: str = 'franklin') -> str:
     str
         Installation method: 'conda', 'pixi', 'pixi-global', or 'unknown'.
     """
-    # Always check global installation first for Franklin and its plugins
-    # This prevents confusion when running from a pixi project directory
-    if package in ['franklin', 'franklin-educator', 'franklin-admin']:
-        logger.debug(f"Checking global installation first for {package}")
-    
-    # First, check if we're running from a pixi global environment
-    # This is the most reliable way to detect pixi global installation
-    pixi_home = os.environ.get('PIXI_HOME', os.path.expanduser('~/.pixi'))
-    if pixi_home in sys.executable:
-        logger.debug(f"Running from pixi global environment (executable: {sys.executable})")
-        return 'pixi-global'
-    
-    # Also check if the franklin command is in a pixi global bin directory
-    # This handles cases where franklin might be exposed as a global command
-    franklin_cmd = shutil.which('franklin')
-    if franklin_cmd and pixi_home in franklin_cmd:
-        logger.debug(f"Franklin command found in pixi global: {franklin_cmd}")
-        return 'pixi-global'
-    
-    try:
-        # Check pixi global installation explicitly
-        try:
-            output = subprocess.check_output(
-                'pixi global list --json', 
-                shell=True, text=True, stderr=subprocess.DEVNULL
-            )
-            packages = json.loads(output)
-            
-            # Check if package is globally installed in pixi
-            if isinstance(packages, dict) and 'environments' in packages:
-                for env_name, env_data in packages['environments'].items():
-                    if 'packages' in env_data:
-                        for pkg in env_data['packages']:
-                            if pkg == package or (isinstance(pkg, dict) and pkg.get('name') == package):
-                                logger.debug(f"{package} found in pixi global environment {env_name}")
-                                return 'pixi-global'
-        except Exception as e:
-            logger.debug(f"Error checking pixi global list: {e}")
-        
-        # For Franklin packages, skip local pixi check if not actually in pixi environment
-        # This prevents false positives when in a pixi project directory
-        if package in ['franklin', 'franklin-educator', 'franklin-admin']:
-            # Only check local pixi if we're actually running from a pixi environment
-            if '.pixi' not in sys.executable:
-                logger.debug(f"Skipping local pixi check for {package} (not running from pixi env)")
-            else:
-                # Check local pixi environment
-                pixi_version = pixi_installed_version(package)
-                if pixi_version is not None:
-                    logger.debug(f"{package} found in local pixi environment (version {pixi_version})")
-                    return 'pixi'
+    bin_dir = Path(shutil.which('franklin')).parent
+    is_global = bin_dir == Path().home() / '.pixi' / 'bin'
+    is_pixi = '.pixi' in str(bin_dir) 
+    is_conda  = (bin_dir / 'conda').exists()
+
+    if is_pixi and is_conda:
+        raise UpdateCrash(f"{package} detected as both pixi and conda")
+    if is_pixi:
+        if is_global:
+            logger.debug(f"Detected global pixi installation for {package}")
+            return 'pixi-global'
         else:
-            # For other packages, check local pixi normally
-            pixi_version = pixi_installed_version(package)
-            if pixi_version is not None:
-                logger.debug(f"{package} found in pixi environment (version {pixi_version})")
-                return 'pixi'
-                
-    except Exception as e:
-        logger.debug(f"Error checking pixi installation: {e}")
-    
-    # Only check conda if we haven't already determined it's a pixi installation
-    # This prevents mistaking pixi global installations for conda
-    try:
-        # Check if package exists in conda environment
-        # But be careful - pixi global also uses conda packages internally
-        conda_info = subprocess.check_output(
-            f'conda list "^{package}$" --json', 
-            shell=True, text=True, stderr=subprocess.DEVNULL
+            logger.debug(f"Detected local pixi installation for {package}")
+            return 'pixi'
+    elif is_conda:
+        logger.debug(f"Detected global conda installation for {package}")
+        return 'conda'
+    else:
+        raise UpdateCrash(
+            f"Could not determine installation method for {package}. "
+            "Please ensure it is installed via pixi or conda."
         )
-        conda_packages = json.loads(conda_info)
-        
-        if conda_packages:
-            # Package found in conda environment
-            # But we need to check if this is actually a conda install or pixi masquerading
-            # Check the executable path to be sure
-            pixi_indicators = ['.pixi', os.path.expanduser('~/.pixi')]
-            if not any(indicator in sys.executable for indicator in pixi_indicators):
-                logger.debug(f"{package} found in conda environment")
-                # Check if it's from the expected channel
-                for pkg in conda_packages:
-                    if pkg['name'] == package:
-                        channel = pkg.get('channel', 'unknown')
-                        logger.debug(f"{package} installed from channel: {channel}")
-                        return 'conda'
-            else:
-                logger.debug(f"{package} found in conda list but running from pixi - ignoring conda")
-    except Exception as e:
-        logger.debug(f"Error checking conda installation: {e}")
-    
-    # Check pip as fallback (development install)
-    try:
-        pip_info = subprocess.check_output(
-            [sys.executable, '-m', 'pip', 'show', package],
-            stderr=subprocess.DEVNULL, text=True
-        )
-        if pip_info:
-            logger.debug(f"{package} found via pip (likely development install)")
-            # For pip installs, fall back to environment detection
-            if '.pixi' in sys.executable:
-                return 'pixi'
-            else:
-                return 'conda'
-    except:
-        pass
-    
-    logger.warning(f"Could not determine installation method for {package}")
-    return 'unknown'
 
 
 def  _update(include_dev: bool = False) -> int:
@@ -792,47 +621,36 @@ def  _update(include_dev: bool = False) -> int:
     
     status.record_check()
     
-    try:
-        # Detect how franklin was installed
-        installation_method = detect_installation_method('franklin')
-        logger.info(f"Detected installation method for franklin: {installation_method}")
-        logger.debug(f"Python executable: {sys.executable}")
-        
-        if installation_method == 'unknown':
-            # Fall back to environment detection
-            if '.pixi' in sys.executable or '/.pixi/' in sys.executable:
-                logger.warning('Franklin installation method unknown, using pixi based on environment')
-                installation_method = 'pixi'
-            else:
-                logger.warning('Franklin installation method unknown, using conda based on environment')
-                installation_method = 'conda'
-        
-        # Use the appropriate update method matching the installation
-        if installation_method == 'pixi-global':
-            logger.info('Franklin was installed with pixi global, using pixi global update')
-            updated_count = update_client_pixi(status, include_dev=include_dev)
-        elif installation_method == 'pixi':
-            logger.info('Franklin was installed with pixi (local), using pixi update')
-            updated_count = update_client_pixi(status, include_dev=include_dev)
+    # Detect how franklin was installed
+    installation_method = detect_installation_method('franklin')
+    logger.info(f"Detected installation method for franklin: {installation_method}")
+    logger.debug(f"Python executable: {sys.executable}")
+    
+    if installation_method == 'unknown':
+        # Fall back to environment detection
+        if '.pixi' in sys.executable or '/.pixi/' in sys.executable:
+            logger.warning('Franklin installation method unknown, using pixi based on environment')
+            installation_method = 'pixi'
         else:
-            logger.info(f'Franklin was installed with {installation_method}, using conda for updates')
-            updated_count = update_client_conda(status, include_dev=include_dev)
-        
-        if updated_count > 0:
-            status.record_success()
-            logger.info(f"Successfully updated {updated_count} packages")
-        
-        return updated_count
-        
-    except Exception as e:
-        # Record failure for any unhandled exceptions
-        if not isinstance(e, UpdateCrash):
-            status.record_failure(
-                f"Unhandled exception: {type(e).__name__}",
-                {'error': str(e), 'executable': sys.executable, 
-                 'installation_method': locals().get('installation_method', 'unknown')}
-            )
-        raise
+            logger.warning('Franklin installation method unknown, using conda based on environment')
+            installation_method = 'conda'
+    
+    # Use the appropriate update method matching the installation
+    logger.info(f'Franklin was installed with {installation_method}')
+    if installation_method == 'pixi-global':
+        updated_count = update_client_pixi(status, include_dev=include_dev, is_global=True)
+    elif installation_method == 'pixi':
+        updated_count = update_client_pixi(status, include_dev=include_dev, is_global=False)
+    elif installation_method == 'conda':
+        updated_count = update_client_conda(status, include_dev=include_dev)
+    else:
+        raise UpdateCrash("This should not happen - unknown installation method detected")
+    
+    if updated_count > 0:
+        status.record_success()
+        logger.info(f"Successfully updated {updated_count} packages")
+    
+    return updated_count
 
 
 @crash_report

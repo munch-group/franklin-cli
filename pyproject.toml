@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = "0.25.4.dev1"
+version = "0.25.4.dev2"
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -107,6 +107,9 @@ wheel = "*"
 
 [tool.pixi.environments]
 devel = ["devel"]
+
+[tool.pixi.dependencies]
+franklin = "0.25.4.*"
 
 
 
