@@ -5,8 +5,8 @@ variables:
 
 stages:
   - build
-  - test
-  - push
+  # - test
+  # - push
   
 build_image:  
   stage: build
@@ -16,21 +16,23 @@ build_image:
   script:
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
     - docker build --no-cache -t $COMMIT_TAG -t $LATEST_TAG .
-    
-test_notebooks_with_image:
-  stage: test
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
-  script:
-    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
-    - docker run --rm -p 8050:8050 -p 8888:8888 $CI_REGISTRY_IMAGE ./test-notebook.sh
-
-push_image_to_registry:
-  stage: push
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind  
-  script:
-    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker run --entrypoint /bin/test-notebook.sh $CI_REGISTRY_IMAGE
     - docker push $CI_REGISTRY_IMAGE --all-tags 
+
+# test_notebooks_with_image:
+#   stage: test
+#   image: docker:20.10.16
+#   services:
+#     - docker:20.10.16-dind
+#   script:
+#     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+#     - docker run --entrypoint /bin/test-notebook.sh $CI_REGISTRY_IMAGE
+
+# push_image_to_registry:
+#   stage: push
+#   image: docker:20.10.16
+#   services:
+#     - docker:20.10.16-dind  
+#   script:
+#     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+#     - docker push $CI_REGISTRY_IMAGE --all-tags 
