@@ -568,11 +568,13 @@ def detect_installation_method(package: str = 'franklin') -> str:
     str
         Installation method: 'conda', 'pixi', 'pixi-global', or 'unknown'.
     """
-    bin_dir = Path(shutil.which('franklin')).parent
-    is_global = bin_dir == Path().home() / '.pixi' / 'bin'
-    
-    is_pixi = '.pixi' in str(bin_dir) 
+
+    bin_dir = Path(shutil.which('franklin')).parents[3]
+    is_global = bin_dir == Path().home() / '.pixi'
+
+    is_pixi = '.pixi' in str(bin_dir)
     is_conda  = (bin_dir / 'conda').exists()
+
 
     if is_pixi and is_conda:
         raise UpdateCrash(f"{package} detected as both pixi and conda")
@@ -718,7 +720,7 @@ def update(post: bool) -> None:
     
     # Run update with user feedback
     if post:
-        term.secho("Checking for updates (including development versions)...", fg='blue')
+        term.secho("Checking for updates (including post-release versions)...", fg='blue')
     else:
         term.secho("Checking for stable updates...", fg='blue')
     update_packages(include_post=post)
