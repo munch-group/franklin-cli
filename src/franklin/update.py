@@ -570,9 +570,7 @@ def detect_installation_method(package: str = 'franklin') -> str:
     """
     bin_dir = Path(shutil.which('franklin')).parent
     is_global = bin_dir == Path().home() / '.pixi' / 'bin'
-
-    # logger.debug(is_global,  bin_dir, Path().home() / '.pixi' / 'bin')
-
+    
     is_pixi = '.pixi' in str(bin_dir) 
     is_conda  = (bin_dir / 'conda').exists()
 
