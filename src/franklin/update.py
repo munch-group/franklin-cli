@@ -185,7 +185,7 @@ def retry_on_failure(func: Callable) -> Callable:
 
 
 @retry_on_failure
-def conda_latest_version(package: str) -> Optional[Version]:
+def conda_latest_version(package: str, include_dev: bool = False) -> Optional[Version]:
     """
     Get the latest available version of a package from conda.
     
@@ -193,6 +193,8 @@ def conda_latest_version(package: str) -> Optional[Version]:
     ----------
     package : str
         Name of the package to check.
+    include_dev : bool, optional
+        Whether to include development versions, by default False.
     
     Returns
     -------
@@ -205,7 +207,7 @@ def conda_latest_version(package: str) -> Optional[Version]:
         If version check fails after retries.
     """
     try:
-        logger.debug(f"Checking latest conda version for {package}")
+        logger.debug(f"Checking latest conda version for {package} (include_dev={include_dev})")
         cmd = f'conda search {cfg.conda_channel}::{package} --json'
         output = utils.run_cmd(cmd)
         
@@ -213,13 +215,29 @@ def conda_latest_version(package: str) -> Optional[Version]:
         if package not in data:
             logger.warning(f"Package {package} not found in channel {cfg.conda_channel}")
             return None
+        
+        versions = []
+        for x in data[package]:
+            try:
+                version = Version(x['version'])
+                # Skip development versions unless explicitly requested
+                if not include_dev and version.is_devrelease:
+                    logger.debug(f"Skipping development version {version}")
+                    continue
+                versions.append(version)
+            except InvalidVersion:
+                logger.debug(f"Skipping invalid version: {x['version']}")
+                continue
+                
+        if not versions:
+            logger.warning(f"No {'stable ' if not include_dev else ''}versions found for {package}")
+            return None
             
-        versions = [Version(x['version']) for x in data[package]]
         latest = max(versions)
-        logger.debug(f"Latest version of {package}: {latest}")
+        logger.debug(f"Latest {'(including dev) ' if include_dev else ''}version of {package}: {latest}")
         return latest
         
-    except (CalledProcessError, json.JSONDecodeError, InvalidVersion) as e:
+    except (CalledProcessError, json.JSONDecodeError) as e:
         logger.error(f"Failed to get latest version for {package}: {e}")
         raise UpdateCrash(
             f"Failed to check latest version of {package}",
@@ -230,7 +248,7 @@ def conda_latest_version(package: str) -> Optional[Version]:
         )
 
 
-def conda_update(package: str, status: UpdateStatus) -> bool:
+def conda_update(package: str, status: UpdateStatus, include_dev: bool = False) -> bool:
     """
     Update a package using conda with comprehensive error handling.
     
@@ -240,6 +258,8 @@ def conda_update(package: str, status: UpdateStatus) -> bool:
         Name of the package to update.
     status : UpdateStatus
         Update status tracker for error recording.
+    include_dev : bool, optional
+        Whether to include development versions, by default False.
     
     Returns
     -------
@@ -251,7 +271,7 @@ def conda_update(package: str, status: UpdateStatus) -> bool:
     UpdateCrash
         If update fails after retries.
     """
-    logger.info(f"Checking for updates to {package}")
+    logger.info(f"Checking for updates to {package} (include_dev={include_dev})")
     
     try:
         current_version = system.package_version(package)
@@ -259,7 +279,7 @@ def conda_update(package: str, status: UpdateStatus) -> bool:
             logger.warning(f"Package {package} not currently installed")
             return False
             
-        latest_version = conda_latest_version(package)
+        latest_version = conda_latest_version(package, include_dev=include_dev)
         if latest_version is None:
             return False
             
@@ -315,7 +335,7 @@ def conda_update(package: str, status: UpdateStatus) -> bool:
         raise
 
 
-def conda_reinstall(package: str, status: UpdateStatus) -> bool:
+def conda_reinstall(package: str, status: UpdateStatus, include_dev: bool = False) -> bool:
     """
     Force reinstall a package using conda.
     
@@ -325,17 +345,19 @@ def conda_reinstall(package: str, status: UpdateStatus) -> bool:
         Name of the package to reinstall.
     status : UpdateStatus
         Update status tracker for error recording.
+    include_dev : bool, optional
+        Whether to include development versions, by default False.
     
     Returns
     -------
     bool
         True if package was reinstalled with a new version.
     """
-    logger.info(f"Force reinstalling {package}")
+    logger.info(f"Force reinstalling {package} (include_dev={include_dev})")
     
     try:
         current_version = system.package_version(package)
-        latest_version = conda_latest_version(package)
+        latest_version = conda_latest_version(package, include_dev=include_dev)
         
         if latest_version and (current_version is None or latest_version > Version(current_version)):
             cmd = f'conda install -y -c conda-forge -c {cfg.conda_channel} --force-reinstall {package}'
@@ -533,7 +555,7 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False) -> 
             )
 
 
-def update_client_conda(status: UpdateStatus) -> int:
+def update_client_conda(status: UpdateStatus, include_dev: bool = False) -> int:
     """
     Update Franklin and plugins using conda.
     
@@ -541,6 +563,8 @@ def update_client_conda(status: UpdateStatus) -> int:
     ----------
     status : UpdateStatus
         Update status tracker.
+    include_dev : bool, optional
+        Whether to include development versions, by default False.
     
     Returns
     -------
@@ -551,7 +575,7 @@ def update_client_conda(status: UpdateStatus) -> int:
     
     # Update core franklin package
     try:
-        if conda_update('franklin', status):
+        if conda_update('franklin', status, include_dev=include_dev):
             updated_count += 1
     except UpdateCrash:
         # Re-raise to let caller handle
@@ -567,7 +591,7 @@ def update_client_conda(status: UpdateStatus) -> int:
             importlib.import_module(plugin.replace('-', '_'))
             
             # Try to reinstall plugin for compatibility
-            if conda_reinstall(plugin, status):
+            if conda_reinstall(plugin, status, include_dev=include_dev):
                 updated_count += 1
                 
         except ModuleNotFoundError:
@@ -729,9 +753,14 @@ def detect_installation_method(package: str = 'franklin') -> str:
     return 'unknown'
 
 
-def _update() -> int:
+def _update(include_dev: bool = False) -> int:
     """
     Internal update function with proper installation method detection.
+    
+    Parameters
+    ----------
+    include_dev : bool, optional
+        Whether to include development versions, by default False.
     
     Returns
     -------
@@ -763,10 +792,11 @@ def _update() -> int:
         # Use the appropriate update method
         if installation_method in ['pixi', 'pixi-global']:
             logger.info(f'Franklin was installed with {installation_method}, using pixi for updates')
+            # Note: Pixi doesn't have dev versions in the same way, so we ignore include_dev for pixi
             updated_count = update_client_pixi(status)
         else:
             logger.info('Franklin was installed with conda, using conda for updates')
-            updated_count = update_client_conda(status)
+            updated_count = update_client_conda(status, include_dev=include_dev)
         
         if updated_count > 0:
             status.record_success()
@@ -787,7 +817,7 @@ def _update() -> int:
 
 @crash_report
 @system.internet_ok
-def update_packages() -> None:
+def update_packages(include_dev: bool = False) -> None:
     """
     Update Franklin packages with user feedback.
     
@@ -795,15 +825,20 @@ def update_packages() -> None:
     during Franklin startup. It checks for updates and provides
     appropriate user feedback.
     
+    Parameters
+    ----------
+    include_dev : bool, optional
+        Whether to include development versions, by default False.
+    
     Raises
     ------
     SystemExit
         If updates were installed (exit code 1 to restart).
     """
-    logger.debug('Starting automatic update check')
+    logger.debug(f'Starting automatic update check (include_dev={include_dev})')
     
     try:
-        updated_count = _update()
+        updated_count = _update(include_dev=include_dev)
         
         if updated_count > 0:
             term.echo()
@@ -835,7 +870,8 @@ def update_packages() -> None:
 
 
 @click.command()
-def update() -> None:
+@click.option('--dev', is_flag=True, hidden=True, help='Include development versions')
+def update(dev: bool) -> None:
     """Update Franklin packages manually.
     
     This command forces an update check even if one was recently performed.
@@ -848,5 +884,8 @@ def update() -> None:
     status.save()
     
     # Run update with user feedback
-    term.secho("Checking for Franklin updates...", fg='blue')
-    update_packages()
+    if dev:
+        term.secho("Checking for Franklin updates (including development versions)...", fg='blue')
+    else:
+        term.secho("Checking for Franklin updates...", fg='blue')
+    update_packages(include_dev=dev)
