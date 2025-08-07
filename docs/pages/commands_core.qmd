@@ -22,7 +22,7 @@ franklin --help            # Show main help
 franklin download --help   # Show download command help
 ```
 
-## Main Commands
+## Exercise Commands
 
 ### Download an exercise
 
@@ -60,14 +60,6 @@ franklin download
 6. **Validation**: Ensures exercise contains required files (Dockerfile, notebook, etc.)
 
 </details>
-
-#### Download with URL
-
-You can download a specific exercise directly using its GitLab URL.
-
-```bash
-franklin download https://gitlab.au.dk/course-name/exercise-name.git
-```
 
 ::: {.panel-tabset}
 
@@ -126,14 +118,6 @@ franklin jupyter
 
 </details>
 
-#### Launch with image URL
-
-You can launch a specific Docker image directly.
-
-```bash
-franklin jupyter registry.gitlab.au.dk/franklin/course/exercise:latest
-```
-
 ::: {.panel-tabset}
 
 # This happens
@@ -150,11 +134,7 @@ franklin jupyter registry.gitlab.au.dk/franklin/course/exercise:latest
 
 :::
 
-#### Options
-
-- `--allow-subdirs-at-your-own-risk`: Bypass subdirectory safety check (not recommended)
-
-### Update Franklin
+## Updating Franklin
 
 This command updates Franklin to the latest version.
 
@@ -191,7 +171,7 @@ franklin update
 
 </details>
 
-#### Check for updates
+### Check for updates
 
 Check for updates without installing them.
 
@@ -215,7 +195,7 @@ franklin update --check
 
 :::
 
-#### Force update
+### Force update
 
 Force a reinstall even if already up-to-date.
 
@@ -238,6 +218,83 @@ franklin update --force
 - Takes longer than a regular update
 
 :::
+
+
+## Docker resources
+
+### Show images
+
+List all Docker images on your system.
+
+```bash
+franklin show images
+```
+
+::: {.panel-tabset}
+
+# This happens
+
+1. Queries Docker for all images
+2. Displays them in a formatted table
+3. Shows repository, tag, ID, and size
+
+# Tips
+
+- Use before cleanup to see what's installed
+- Large images (>2GB) are exercise environments
+- Small images (<1GB) are usually base images
+
+:::
+
+### Show containers
+
+List all Docker containers (running and stopped).
+
+```bash
+franklin show containers
+```
+
+::: {.panel-tabset}
+
+# This happens
+
+1. Queries Docker for all containers
+2. Shows both running and stopped containers
+3. Displays ID, image, status, and ports
+
+# Tips
+
+- Running containers show "Up" status
+- Stopped containers show "Exited" status
+- Use to check if Jupyter is still running
+
+:::
+
+### Show storage
+
+Display Docker disk usage summary.
+
+```bash
+franklin show storage
+```
+
+::: {.panel-tabset}
+
+# This happens
+
+1. Calculates space used by images
+2. Calculates space used by containers
+3. Shows total and reclaimable space
+
+# Tips
+
+- Use before and after cleanup to see space saved
+- Check when Docker seems slow
+- Large build cache can often be cleared safely
+
+:::
+
+## Manage Docker Disk Usage
 
 ### Clean up Docker images
 
@@ -277,192 +334,3 @@ franklin cleanup
 
 </details>
 
-### Show Docker resources
-
-#### Show images
-
-List all Docker images on your system.
-
-```bash
-franklin show images
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Queries Docker for all images
-2. Displays them in a formatted table
-3. Shows repository, tag, ID, and size
-
-# Tips
-
-- Use before cleanup to see what's installed
-- Large images (>2GB) are exercise environments
-- Small images (<1GB) are usually base images
-
-:::
-
-#### Show containers
-
-List all Docker containers (running and stopped).
-
-```bash
-franklin show containers
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Queries Docker for all containers
-2. Shows both running and stopped containers
-3. Displays ID, image, status, and ports
-
-# Tips
-
-- Running containers show "Up" status
-- Stopped containers show "Exited" status
-- Use to check if Jupyter is still running
-
-:::
-
-#### Show storage
-
-Display Docker disk usage summary.
-
-```bash
-franklin show storage
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Calculates space used by images
-2. Calculates space used by containers
-3. Shows total and reclaimable space
-
-# Tips
-
-- Use before and after cleanup to see space saved
-- Check when Docker seems slow
-- Large build cache can often be cleared safely
-
-:::
-
-## Troubleshooting
-
-### Docker not running
-
-**Problem:** "Docker is not running"
-
-**Solution:** Start Docker Desktop
-- **macOS**: Open Docker from Applications or run `open -a Docker`
-- **Windows**: Start Docker Desktop from Start Menu
-- **Linux**: Run `sudo systemctl start docker`
-
-### Permission denied
-
-**Problem:** "Permission denied" when downloading
-
-**Solution:** Check GitLab access
-- Ensure you're logged into GitLab
-- Verify course enrollment with instructor
-- Check that repository is public or you have access
-
-### No space left
-
-**Problem:** "No space left on device"
-
-**Solution:** Free up Docker space
-```bash
-franklin cleanup           # Interactive cleanup
-docker system prune -a    # Nuclear option (removes everything)
-```
-
-### Network issues
-
-**Problem:** "Cannot reach GitLab" or "Image pull failed"
-
-**Solution:** Check network and retry
-- Check network connection: `ping gitlab.au.dk`
-- Check if behind proxy/firewall
-- Run `franklin cleanup` to remove corrupted images
-- Try again with `franklin jupyter`
-
-### Debug mode
-
-Enable detailed logging for troubleshooting:
-```bash
-export FRANKLIN_LOG_LEVEL=DEBUG
-franklin jupyter  # Now shows detailed logs
-```
-
-## Tips and Best Practices
-
-### Organization
-
-Create a dedicated folder structure:
-```
-~/exercises/
-├── biology/
-│   ├── exercise1/
-│   ├── exercise2/
-├── chemistry/
-│   ├── lab1/
-│   ├── lab2/
-```
-
-### Workflow
-
-1. **Start of semester**: Update Franklin
-   ```bash
-   franklin update --force
-   ```
-
-2. **Weekly routine**: Clean up Docker images
-   ```bash
-   franklin cleanup
-   franklin show storage
-   ```
-
-3. **Before exercises**: Ensure Docker is running
-   ```bash
-   open -a Docker  # macOS
-   ```
-
-### Performance
-
-- Keep Docker Desktop running during work sessions
-- Download exercises when on fast internet
-- Close unused Jupyter tabs to free memory
-- Use cleanup regularly - images can be re-downloaded
-
-### Security
-
-- Never run from system directories (/, /usr, etc.)
-- Don't use `--allow-subdirs-at-your-own-risk` unless necessary
-- Keep Franklin updated for security patches
-- Be cautious with unknown exercise URLs
-
-## Environment Variables
-
-Configure Franklin's behavior:
-
-```bash
-export FRANKLIN_AUTO_UPDATE=false    # Disable automatic updates
-export FRANKLIN_DOCKER_TIMEOUT=120   # Docker startup timeout (seconds)
-export FRANKLIN_BROWSER=chrome       # Preferred browser for Jupyter
-export FRANKLIN_JUPYTER_PORT=8888    # Preferred Jupyter port
-export FRANKLIN_LOG_LEVEL=DEBUG      # Enable debug logging
-```
-
-Add to your shell profile (`~/.bashrc` or `~/.zshrc`) to make permanent.
-
-## Getting Help
-
-1. **Built-in help**: `franklin COMMAND --help`
-2. **Documentation**: This guide and other resources
-3. **Course support**: Contact your instructor for exercise-specific issues
-4. **Bug reports**: Report issues to the Franklin development team

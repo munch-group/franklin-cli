@@ -505,16 +505,36 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False) -> 
             # Local package update
             # First check if we're in a pixi project
             if not os.path.exists('pixi.toml'):
-                logger.warning(f"Not in a pixi project directory, cannot update local {package}")
-                return False
+                # This shouldn't happen as we detect installation method before calling this
+                # But if it does, try global update as fallback
+                logger.warning(f"Not in a pixi project directory but package marked as local. Trying global update...")
+                cmd = f'pixi global update "{package}"'
+                logger.debug(f"Running fallback: {cmd}")
+                try:
+                    result = subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
+                    if 'already up-to-date' in result.stdout.lower() or 'already up to date' in result.stdout.lower():
+                        logger.debug(f"{package} is already up to date (global)")
+                        return False
+                    else:
+                        logger.info(f"Successfully updated global {package} (fallback)")
+                        return True
+                except CalledProcessError:
+                    logger.error(f"Both local and global update failed for {package}")
+                    return False
                 
-            # Run pixi upgrade
-            cmd = f'pixi upgrade "{package}"'
+            # Use pixi update for local packages (not upgrade)
+            # pixi update updates the lock file and environment
+            # pixi upgrade modifies the manifest file requirements
+            cmd = f'pixi update "{package}"'
             logger.debug(f"Running: {cmd}")
-            subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
+            result = subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
             
-            # Run pixi install to ensure consistency
-            subprocess.run('pixi install', check=True, shell=True, capture_output=True, text=True)
+            # Check output to see if package was actually updated
+            if 'up-to-date' in result.stdout.lower() or 'up to date' in result.stdout.lower():
+                logger.debug(f"{package} is already up to date")
+                # Still check version change to be sure
+            elif 'updated' in result.stdout.lower() or 'updating' in result.stdout.lower():
+                logger.info(f"Updated {package} via pixi update")
             
             after_version = pixi_installed_version(package)
             
@@ -547,11 +567,10 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False) -> 
         else:
             raise UpdateCrash(
                 f"Failed to update {package} using pixi",
-                "The pixi upgrade command failed.",
+                "The pixi update command failed.",
                 "",
                 "To update manually, run:",
-                f"  pixi upgrade {package}",
-                "  pixi install"
+                f"  pixi update {package}"
             )
 
 
@@ -668,9 +687,10 @@ def detect_installation_method(package: str = 'franklin') -> str:
     str
         Installation method: 'conda', 'pixi', 'pixi-global', or 'unknown'.
     """
-    # Check if in a local pixi project directory (but not for Franklin)
-    if os.path.exists('pixi.toml') and package == 'franklin':
-        logger.debug("In pixi project directory, but checking for Franklin installation method")
+    # Always check global installation first for Franklin and its plugins
+    # This prevents confusion when running from a pixi project directory
+    if package in ['franklin', 'franklin-educator', 'franklin-admin']:
+        logger.debug(f"Checking global installation first for {package}")
     
     try:
         # Check pixi global installation first
@@ -692,24 +712,25 @@ def detect_installation_method(package: str = 'franklin') -> str:
         except:
             pass
         
-        # Then check local pixi environment
-        pixi_version = pixi_installed_version(package)
-        if pixi_version is not None:
-            logger.debug(f"{package} found in pixi environment (version {pixi_version})")
-            
-            # Double-check it's not also in conda (shouldn't happen but good to verify)
-            try:
-                conda_info = subprocess.check_output(
-                    f'conda list "^{package}$" --json', 
-                    shell=True, text=True, stderr=subprocess.DEVNULL
-                )
-                conda_packages = json.loads(conda_info)
-                if conda_packages:
-                    logger.warning(f"{package} found in both pixi and conda - using pixi")
-            except:
-                pass
+        # For Franklin packages, skip local pixi check if not actually in pixi environment
+        # This prevents false positives when in a pixi project directory
+        if package in ['franklin', 'franklin-educator', 'franklin-admin']:
+            # Only check local pixi if we're actually running from a pixi environment
+            if '.pixi' not in sys.executable:
+                logger.debug(f"Skipping local pixi check for {package} (not running from pixi env)")
+            else:
+                # Check local pixi environment
+                pixi_version = pixi_installed_version(package)
+                if pixi_version is not None:
+                    logger.debug(f"{package} found in local pixi environment (version {pixi_version})")
+                    return 'pixi'
+        else:
+            # For other packages, check local pixi normally
+            pixi_version = pixi_installed_version(package)
+            if pixi_version is not None:
+                logger.debug(f"{package} found in pixi environment (version {pixi_version})")
+                return 'pixi'
                 
-            return 'pixi'
     except Exception as e:
         logger.debug(f"Error checking pixi installation: {e}")
     

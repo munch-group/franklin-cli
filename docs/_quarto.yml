@@ -73,6 +73,7 @@ website:
             - pages/commands_core.qmd
             - pages/commands_edu.qmd
             - pages/commands_admin.qmd
+            - pages/trouble_shooting.qmd
         - section: "Setup"
           contents:
             - pages/installing_python.qmd
