@@ -862,45 +862,45 @@
   {
     "objectID": "pages/pixi_and_conda.html",
     "href": "pages/pixi_and_conda.html",
-    "title": "Package Managers",
+    "title": "Pixi and Conda",
     "section": "",
     "text": "When you work with Python for scientific computing or data analysis, you need a way to install and manage software packages – collections of code that others have written to help you analyze data, create visualizations, or perform calculations. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create small insulated worlds for each project, which then only contained the packages needed for each particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there are tools like Pixi and Conda that lets you do just that. The small worlds that are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else.\nThis is where package managers come in. A package manager is a tool that handles all the complexity of downloading, installing, and organizing these packages for you. It’s like having an app store for your scientific computing needs. We’ll introduce two package managers: Pixi (a modern, fast tool) and Conda (the traditional aging standard). Both do the same job but in slightly different ways. We’ll start with Pixi because it’s simpler and faster for beginners.\nPackage management might seem complex at first, but it quickly becomes second nature. Every data scientist and researcher uses these tools daily – with a little practice, you’ll wonder how you ever worked without them.",
     "crumbs": [
       "Reference",
-      "Package Managers"
+      "Pixi and Conda"
     ]
   },
   {
     "objectID": "pages/pixi_and_conda.html#pixi-the-modern-approach",
     "href": "pages/pixi_and_conda.html#pixi-the-modern-approach",
-    "title": "Package Managers",
+    "title": "Pixi and Conda",
     "section": "Pixi: The Modern Approach",
     "text": "Pixi: The Modern Approach\nImagine you’re starting a new research project. You create a folder on your computer for all your project files – your data, your analysis scripts, your results. Pixi works within this project folder, creating a self-contained environment just for this project.\nWhen you initialize Pixi in your project folder, it creates a special file called pixi.toml that acts like a shopping list of all the packages your project needs. Every time you add a package, Pixi updates this list. This means if you share your project with a colleague or move it to another computer, Pixi can read this list and install exactly the same packages, ensuring your analysis works the same way everywhere.\nPixi stores all the installed packages in a hidden folder called .pixi within your project. This keeps everything organized and separate from other projects on your computer. Different projects can use different versions of the same package without interfering with each other.\n\nInstalling Pixi\nBefore you can use Pixi, you need to install it on your computer. The installation is a one-time process.\n\nOn Mac/LinuxOn Windows\n\n\nOpen the Terminal and run:\ncurl -fsSL https://pixi.sh/install.sh | bash\nAfter installation, close and reopen your terminal to make sure your computer recognizes the new pixi command.\n\n\nOpen PowerShell and run:\niwr -useb https://pixi.sh/install.ps1 | iex\nAfter installation, close and reopen your powershell to make sure your computer recognizes the new pixi command.\n\n\n\n\n\nUsing Pixi\n\nGlobal Install: System-Wide Tools\nSometimes you want to install a tool that you’ll use across many projects, not just one specific project. These are tools that are not directly involved in any projects. Pixi’s global install feature is perfect for this. It’s like installing a program on your computer that you can use anywhere (by way of mention, this is also the way we would install franklin).\nFor example, to install git (a popular tool for version control in computing) globally:\npixi global install git\nAfter this command completes, you can start JupyterLab from anywhere on your computer by typing git in your terminal. The tool is available system-wide, not tied to any specific project.\n\n\nAdd: Installing Packages for Your Project\nWhen you’re working on a specific project and need packages just for that project, you use the add command. A special feature of Pixi is that it is is tied to and lives in the root folder of your project. So before you begin, navigate to your project folder in the terminal, then initialize Pixi if you haven’t already:\npixi init\nThis creates the pixi.toml file we mentioned earlier. Now you can add packages to your project. For example, if you’re doing data analysis, you might need pandas (for data manipulation) and matplotlib (for creating graphs):\npixi add pandas matplotlib\nPixi will download these packages and all their dependencies (other packages they need to work properly), storing them in your project’s .pixi folder. It also updates your pixi.toml file to remember what you’ve installed.\nYou can add as many packages as you need:\npixi add numpy scipy scikit-learn\nIf you need a package from PyPI (Python’s main package repository) that isn’t available in the conda ecosystem, you can add it with the --pypi flag:\npixi add --pypi requests beautifulsoup4\n\n\nShell: Activating Your Project Environment\nOnce you’ve added packages to your project, you need to “activate” the project environment to use them. This is like telling your computer “I want to work on this specific project now, so please use the packages I’ve installed for it.”\nTo activate your project environment:\npixi shell\nYour terminal prompt will change to show you’re now working in the Pixi environment. Now when you run Python or any of your installed packages, you’ll be using the versions specific to this project.\nWhile in the shell, you can: - Run Python scripts that use your installed packages - Start Jupyter notebooks - Use any command-line tools you’ve added to the project\nTo leave the project environment and return to your normal terminal, simply type:\nexit",
     "crumbs": [
       "Reference",
-      "Package Managers"
+      "Pixi and Conda"
     ]
   },
   {
     "objectID": "pages/pixi_and_conda.html#conda-the-traditional-standard",
     "href": "pages/pixi_and_conda.html#conda-the-traditional-standard",
-    "title": "Package Managers",
+    "title": "Pixi and Conda",
     "section": "Conda: The Traditional Standard",
     "text": "Conda: The Traditional Standard\n\nHow Conda Works\nConda takes a different approach from Pixi and its environments are not tied to specific folders. Instead, Conda creates named environments that live in a central location on your computer. Think of it like having different workspaces that you can switch between, each with its own set of installed packages.\nWhen you create a Conda environment, you give it a name. This environment is like a separate Python installation with its own packages. You can have multiple environments – perhaps one for each project, or one for teaching, one for research, and one for experiments. You switch between these environments by “activating” the one you want to use.\nConda has been around much longer than Pixi and has an enormous collection of packages available, especially for scientific computing. It’s widely used in academia and industry.\n\nThe reason we still prefer Pixi is that it manages conda packages better than Conda itself, in addition to being faster and more robust.\n\n\n\nCreate: Making a New Environment\nCreating a new Conda environment is like setting up a fresh workspace. You give it a name and specify which version of Python you want to use.\nTo create a new environment called “myproject” with Python 3.11:\nconda create -n myproject python=3.11\nThe -n flag stands for “name”. Conda will ask you to confirm before creating the environment – just type ‘y’ and press Enter.\nYou can create as many environments as you need, each with a descriptive name:\nconda create -n data-analysis python=3.11\nconda create -n machine-learning python=3.10\nconda create -n web-scraping python=3.11\nEach environment is independent, so you can have different Python versions and different packages in each one.\n\n\nActivate and Deactivate: Switching Environments\nBefore you can use a Conda environment, you need to activate it. This tells your computer which set of packages to use.\nTo activate an environment:\nconda activate myproject\nYou’ll see your terminal prompt change to show the environment name in parentheses, like (myproject). This reminds you which environment you’re currently using.\nWhile an environment is activated, any Python scripts you run or packages you install will use that environment’s Python and packages.\nTo switch to a different environment, just activate it:\nconda activate data-analysis\nWhen you’re done working and want to return to your default system Python, deactivate the environment:\nconda deactivate\nYou can activate and deactivate environments as often as you like – it’s instant and doesn’t affect the packages or files in the environment.\n\n\nInstall: Adding Packages\nOnce you’ve created and activated an environment, you can install packages into it. The install command downloads and sets up packages in your current environment.\nFirst, make sure you’ve activated the environment where you want to install packages:\nconda activate myproject\nThen install packages:\nconda install numpy pandas matplotlib\nConda will show you what it plans to install and ask for confirmation. Type ‘y’ and press Enter to proceed.\nYou can install multiple packages at once or one at a time:\nconda install scipy\nconda install jupyter\nIf a package isn’t available in the default Conda repository, you might need to use the conda-forge channel (a community-maintained collection):\nconda install -c conda-forge plotly\nThe -c flag specifies the channel to use for that installation.",
     "crumbs": [
       "Reference",
-      "Package Managers"
+      "Pixi and Conda"
     ]
   },
   {
     "objectID": "pages/pixi_and_conda.html#try-it-out",
     "href": "pages/pixi_and_conda.html#try-it-out",
-    "title": "Package Managers",
+    "title": "Pixi and Conda",
     "section": "Try it out",
     "text": "Try it out\nHere’s a simple example to get you started with each tool:\n\nYour First Pixi Project\n\nCreate a new folder for your project and navigate to it:\nmkdir my-analysis\ncd my-analysis\nInitialize Pixi:\npixi init\nAdd the packages you need:\npixi add python numpy pandas matplotlib jupyter\nStart working:\npixi shell\njupyter notebook\n\n\n\nYour First Conda Environment\n\nCreate a new environment:\nconda create -n my-first-env python=3.11\nActivate it:\nconda activate my-first-env\nInstall packages:\nconda install numpy pandas matplotlib jupyter\nStart working:\njupyter notebook",
     "crumbs": [
       "Reference",
-      "Package Managers"
+      "Pixi and Conda"
     ]
   },
   {
@@ -928,177 +928,177 @@
   {
     "objectID": "pages/gitlab.html",
     "href": "pages/gitlab.html",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "",
     "text": "GitLab is a complete DevOps platform that combines Git repository hosting with powerful collaboration and automation tools. While GitHub might be more familiar, GitLab offers unique advantages for educational environments, especially when self-hosted by universities.\n\n\n\n\n\nFeature\nGitLab\nGitHub\n\n\n\n\nHosting\nSelf-hosted or cloud\nPrimarily cloud\n\n\nCI/CD\nBuilt-in, unlimited\nActions with limits\n\n\nPrivacy\nComplete control (self-hosted)\nMicrosoft-owned\n\n\nFree Features\nMore generous\nMore limited\n\n\nIntegration\nAll-in-one platform\nRequires multiple tools",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#what-is-gitlab",
     "href": "pages/gitlab.html#what-is-gitlab",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "",
     "text": "GitLab is a complete DevOps platform that combines Git repository hosting with powerful collaboration and automation tools. While GitHub might be more familiar, GitLab offers unique advantages for educational environments, especially when self-hosted by universities.\n\n\n\n\n\nFeature\nGitLab\nGitHub\n\n\n\n\nHosting\nSelf-hosted or cloud\nPrimarily cloud\n\n\nCI/CD\nBuilt-in, unlimited\nActions with limits\n\n\nPrivacy\nComplete control (self-hosted)\nMicrosoft-owned\n\n\nFree Features\nMore generous\nMore limited\n\n\nIntegration\nAll-in-one platform\nRequires multiple tools",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#why-gitlab-for-education",
     "href": "pages/gitlab.html#why-gitlab-for-education",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Why GitLab for Education?",
     "text": "Why GitLab for Education?\nEducational institutions often choose GitLab because:\n\nData Control: Self-hosted instances keep student work on university servers\nUnlimited CI/CD: No minute limits for automated testing and deployment\nPrivate Projects: Free private repositories for all students\nIntegration: Works seamlessly with university authentication (LDAP, SAML)\nCompliance: Meets educational privacy requirements",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#core-gitlab-features",
     "href": "pages/gitlab.html#core-gitlab-features",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Core GitLab Features",
     "text": "Core GitLab Features\n\nRepository Management\nGitLab hosts Git repositories with additional features:\n\n\n\n\n\n\ngraph LR\n    A[Local Code] --&gt;|git push| B[GitLab Repo]\n    B --&gt;|git pull| C[Collaborator]\n    B --&gt;|Merge Request| D[Code Review]\n    D --&gt;|Approved| E[Main Branch]\n\n\n\n\nFigure 1: Repository management\n\n\n\n\n\n\n\nProject Organization\nGitLab Instance\n├── Groups (Courses)\n│   ├── Subgroups (Semesters)\n│   └── Projects (Exercises)\n└── Personal Projects\n    └── Student Work\n\n\nCI/CD Pipelines\nAutomatic testing and deployment:\n# .gitlab-ci.yml\ntest:\n  script:\n    - python -m pytest\n    - pixi run test-notebook\n  \ndeploy:\n  script:\n    - franklin exercise publish",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#getting-started-with-gitlab",
     "href": "pages/gitlab.html#getting-started-with-gitlab",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Getting Started with GitLab",
     "text": "Getting Started with GitLab\n\nStep 1: Access Your GitLab Instance\nUniversities typically host GitLab at: - gitlab.university.edu - git.university.edu - code.university.edu\n# Example URLs\nhttps://gitlab.au.dk        # Aarhus University\nhttps://gitlab.ethz.ch      # ETH Zurich\nhttps://gitlab.com          # Public GitLab\n\n\nStep 2: Sign In\nMost university GitLab instances use Single Sign-On (SSO):\n\nNavigate to your GitLab instance\nClick “Sign in with SSO” or “University Login”\nEnter your university credentials\nAuthorize GitLab access\n\n\n\n\n\n\n\nFirst Time Login\n\n\n\nOn first login, GitLab may ask to: - Confirm your email - Set up two-factor authentication - Complete your profile\n\n\n\n\nStep 3: Set Up SSH Keys\nSSH keys enable secure, password-less access to GitLab.\n\nGenerate SSH Keys\n# Check for existing keys\nls -la ~/.ssh\n\n# Generate new Ed25519 key (recommended)\nssh-keygen -t ed25519 -C \"your.email@university.edu\"\n\n# Or RSA key (fallback)\nssh-keygen -t rsa -b 4096 -C \"your.email@university.edu\"\nWhen prompted: 1. Press Enter for default location 2. Enter a passphrase (optional but recommended) 3. Confirm passphrase\n\n\nAdd SSH Key to GitLab\n\nCopy your public key:\n# For Ed25519\ncat ~/.ssh/id_ed25519.pub\n\n# For RSA\ncat ~/.ssh/id_rsa.pub\nAdd to GitLab:\n\nClick your avatar → Preferences\nNavigate to SSH Keys in sidebar\nPaste your public key\nGive it a title (e.g., “Laptop”)\nSet expiration (optional)\nClick Add key\n\nTest connection:\nssh -T git@gitlab.university.edu\n# Should see: \"Welcome to GitLab, @username!\"",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#working-with-gitlab-projects",
     "href": "pages/gitlab.html#working-with-gitlab-projects",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Working with GitLab Projects",
     "text": "Working with GitLab Projects\n\nCreating a Project\n\nClick New project button\nChoose creation method:\n\nCreate blank project: Start from scratch\nCreate from template: Use predefined templates\nImport project: From GitHub, Bitbucket, etc.\n\nConfigure project:\nProject name: my-assignment\nProject URL: gitlab.university.edu/username/\nVisibility: Private (default for coursework)\nInitialize with README: Yes\n\n\n\nCloning a Project\n# With SSH (recommended)\ngit clone git@gitlab.university.edu:username/project.git\n\n# With HTTPS (requires password)\ngit clone https://gitlab.university.edu/username/project.git\n\n# Clone into specific folder\ngit clone git@gitlab.university.edu:username/project.git my-folder\n\n\nBasic GitLab Workflow\n# 1. Clone project\ngit clone git@gitlab.university.edu:course/exercise.git\ncd exercise\n\n# 2. Create feature branch\ngit checkout -b my-solution\n\n# 3. Make changes\necho \"Solution code\" &gt; solution.py\n\n# 4. Commit changes\ngit add solution.py\ngit commit -m \"Add solution for problem 1\"\n\n# 5. Push to GitLab\ngit push origin my-solution\n\n# 6. Create Merge Request in GitLab UI",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#merge-requests-mrs",
     "href": "pages/gitlab.html#merge-requests-mrs",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Merge Requests (MRs)",
     "text": "Merge Requests (MRs)\nMerge Requests are GitLab’s way of proposing changes:\n\nCreating a Merge Request\n\nPush your branch to GitLab\nGitLab shows banner: “Create merge request”\nFill in details:\n\nTitle: Clear description of changes\nDescription: Detailed explanation\nAssignee: Person to review\nMilestone: Related deadline\nLabels: Categories (bug, feature, etc.)\n\n\n\n\nMerge Request Features\n\nCode Review: Line-by-line comments\nCI/CD Integration: Automatic testing\nDiscussions: Threaded conversations\nApprovals: Require reviews before merging\nDiffs: Visual comparison of changes",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#gitlab-cicd",
     "href": "pages/gitlab.html#gitlab-cicd",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "GitLab CI/CD",
     "text": "GitLab CI/CD\n\nUnderstanding Pipelines\nGitLab CI/CD runs automated tasks when you push code:\n\n\n\n\n\n\ngraph LR\n    A[Push Code] --&gt; B[Pipeline Triggers]\n    B --&gt; C[Build Stage]\n    C --&gt; D[Test Stage]\n    D --&gt; E[Deploy Stage]\n    E --&gt; F[Success/Failure]\n\n\n\n\nFigure 2: Pipelines\n\n\n\n\n\n\n\nBasic Pipeline Configuration\nCreate .gitlab-ci.yml in your repository:\n# Define stages\nstages:\n  - build\n  - test\n  - deploy\n\n# Build job\nbuild:\n  stage: build\n  script:\n    - echo \"Building project...\"\n    - pip install -r requirements.txt\n\n# Test job\ntest:\n  stage: test\n  script:\n    - echo \"Running tests...\"\n    - python -m pytest\n    - python -m mypy .\n\n# Deploy job (only on main branch)\ndeploy:\n  stage: deploy\n  script:\n    - echo \"Deploying...\"\n    - franklin exercise publish\n  only:\n    - main\n\n\nPipeline Status\nView pipeline status: - Green checkmark ✓ = Passed - Red X = Failed - Yellow circle = Running - Gray circle = Pending",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#gitlab-for-franklin-users",
     "href": "pages/gitlab.html#gitlab-for-franklin-users",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "GitLab for Franklin Users",
     "text": "GitLab for Franklin Users\n\nStudent Workflow\nFranklin integrates seamlessly with GitLab:\n# Download exercise from GitLab\nfranklin download\n# → Automatically uses GitLab API\n# → Clones with proper authentication\n\n# Work on exercise\nfranklin jupyter\n\n# Commit changes\ngit add -A\ngit commit -m \"Complete exercise\"\ngit push\n\n\nEducator Workflow\n# Create exercise repository\nfranklin exercise new\n\n# Set up GitLab project\ngit remote add origin git@gitlab.university.edu:course/exercise.git\ngit push -u origin main\n\n# Configure CI/CD\ncat &gt; .gitlab-ci.yml &lt;&lt; EOF\ntest:\n  image: python:3.10\n  script:\n    - pip install pixi\n    - pixi run test-notebook\nEOF\n\n# Publish to students\nfranklin exercise publish\n\n\nGitLab Groups for Courses\nOrganize courses using GitLab groups:\ngitlab.university.edu/\n├── cs101-fall2024/          # Course group\n│   ├── exercises/            # Subgroup\n│   │   ├── week1/           # Exercise project\n│   │   ├── week2/\n│   │   └── final-project/\n│   └── solutions/            # Private subgroup\n└── cs102-spring2025/",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#advanced-gitlab-features",
     "href": "pages/gitlab.html#advanced-gitlab-features",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Advanced GitLab Features",
     "text": "Advanced GitLab Features\n\nIssue Tracking\nTrack tasks, bugs, and questions:\n# Issue Template\n## Problem Description\nDescribe the issue...\n\n## Steps to Reproduce\n1. Run `franklin jupyter`\n2. Open notebook\n3. Error appears\n\n## Expected Behavior\nWhat should happen...\n\n## Environment\n- OS: Windows 11\n- Franklin: 0.24.165\n\n\nWiki Pages\nDocument your project: - Project overview - API documentation - Installation guide - Troubleshooting\n\n\nProtected Branches\nPrevent accidental changes: 1. Settings → Repository → Protected branches 2. Select branch (e.g., main) 3. Configure: - Allowed to merge: Maintainers - Allowed to push: No one\n\n\nAccess Tokens\nFor automation and scripts:\n# Create personal access token\n# GitLab → Settings → Access Tokens\n\n# Use in scripts\ngit clone https://oauth2:YOUR_TOKEN@gitlab.university.edu/project.git\n\n# Or with Franklin\nexport GITLAB_TOKEN=YOUR_TOKEN\nfranklin download --token",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#troubleshooting-gitlab",
     "href": "pages/gitlab.html#troubleshooting-gitlab",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Troubleshooting GitLab",
     "text": "Troubleshooting GitLab\n\nSSH Connection Issues\n# Debug SSH connection\nssh -vvv git@gitlab.university.edu\n\n# Common fixes:\n# 1. Check SSH agent\nssh-add -l\n\n# 2. Add key to agent\nssh-add ~/.ssh/id_ed25519\n\n# 3. Check permissions\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/id_ed25519\n\n\nAuthentication Problems\n# HTTPS credentials\ngit config --global credential.helper store\n\n# SSH configuration\ncat &gt;&gt; ~/.ssh/config &lt;&lt; EOF\nHost gitlab.university.edu\n    User git\n    IdentityFile ~/.ssh/id_ed25519\n    Port 22\nEOF\n\n\nPush Rejected\nCommon reasons and solutions:\n\nProtected branch: Create merge request instead\nNo permissions: Check project access level\nLarge files: Use Git LFS for files &gt;100MB\nOutdated branch: Pull and merge first\n\n# Update your branch\ngit pull origin main\ngit merge main\ngit push",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#gitlab-best-practices",
     "href": "pages/gitlab.html#gitlab-best-practices",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "GitLab Best Practices",
     "text": "GitLab Best Practices\n\nFor Students\n✅ Do: - Use descriptive commit messages - Create merge requests for review - Keep repositories organized - Use issues for questions - Tag releases for submissions\n❌ Don’t: - Commit sensitive data (passwords, keys) - Force push to shared branches - Delete other people’s branches - Ignore CI/CD failures\n\n\nFor Educators\n✅ Do: - Use templates for consistency - Set up CI/CD for auto-grading - Create protected branches - Document requirements in README - Use milestones for deadlines\n❌ Don’t: - Store solutions in public repos - Forget to test pipelines - Ignore student access issues - Skip documentation",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#gitlab-vs-local-git",
     "href": "pages/gitlab.html#gitlab-vs-local-git",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "GitLab vs Local Git",
     "text": "GitLab vs Local Git\n\n\n\nOperation\nLocal Git\nGitLab\n\n\n\n\nVersion control\n✓\n✓\n\n\nBranching\n✓\n✓\n\n\nCollaboration\n✗\n✓\n\n\nBackup\n✗\n✓\n\n\nCI/CD\n✗\n✓\n\n\nIssue tracking\n✗\n✓\n\n\nCode review\n✗\n✓\n\n\nWiki/Docs\n✗\n✓",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#quick-reference",
     "href": "pages/gitlab.html#quick-reference",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Quick Reference",
     "text": "Quick Reference\n\nEssential GitLab Commands\n# Clone project\ngit clone git@gitlab.university.edu:project.git\n\n# Add GitLab remote\ngit remote add origin git@gitlab.university.edu:project.git\n\n# Push new branch\ngit push -u origin feature-branch\n\n# Update from GitLab\ngit pull origin main\n\n# Check remote\ngit remote -v\n\n\nGitLab CLI (Optional)\n# Install GitLab CLI\nbrew install glab        # macOS\nwinget install glab      # Windows\n\n# Authenticate\nglab auth login\n\n# Create MR from terminal\nglab mr create --title \"Add feature\"\n\n# View pipelines\nglab pipeline list",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#resources",
     "href": "pages/gitlab.html#resources",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Resources",
     "text": "Resources\n\nDocumentation\n\nGitLab Docs\nGitLab University\nGit Basics\n\n\n\nLearning\n\nGitLab 101\nCI/CD Examples\nGitLab Flow",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
     "objectID": "pages/gitlab.html#summary",
     "href": "pages/gitlab.html#summary",
-    "title": "Introduction to GitLab",
+    "title": "GitLab",
     "section": "Summary",
     "text": "Summary\nGitLab is more than just Git hosting—it’s a complete platform for: - Version Control: Track all changes to your code - Collaboration: Work with classmates and instructors - Automation: Test and deploy automatically - Organization: Manage projects, issues, and documentation\nFor Franklin users, GitLab provides the infrastructure for distributing exercises, submitting solutions, and automated grading. Master these GitLab basics, and you’ll be ready for both academic work and professional software development!",
     "crumbs": [
       "Reference",
-      "Introduction to GitLab"
+      "GitLab"
     ]
   },
   {
@@ -1460,67 +1460,67 @@
   {
     "objectID": "pages/commands_core.html",
     "href": "pages/commands_core.html",
-    "title": "Main Commands",
+    "title": "Core Commands",
     "section": "",
     "text": "Franklin is a command-line tool that manages Jupyter notebook exercises through Docker containers.",
     "crumbs": [
       "Franklin commands",
-      "Main Commands"
+      "Core Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#overview",
     "href": "pages/commands_core.html#overview",
-    "title": "Main Commands",
+    "title": "Core Commands",
     "section": "Overview",
     "text": "Overview\nFranklin uses a hierarchical command structure:\nfranklin [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS] [ARGUMENTS]\nGlobal options: - --version shows the installed Franklin version and exits - --help shows help message for Franklin or any subcommand\nExample:\nfranklin --help            # Show main help\nfranklin download --help   # Show download command help",
     "crumbs": [
       "Franklin commands",
-      "Main Commands"
+      "Core Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#exercise-commands",
     "href": "pages/commands_core.html#exercise-commands",
-    "title": "Main Commands",
+    "title": "Core Commands",
     "section": "Exercise Commands",
     "text": "Exercise Commands\n\nDownload an exercise\nThis command downloads an exercise repository to your computer.\nfranklin download\n\nThis happensTips\n\n\n\nYou are prompted to select your course\nYou are prompted to select the exercise to download\n\nFranklin downloads the exercise to a subfolder of your current folder\nInstructor-only files (solutions, etc.) are removed\n\n\n\n\nRun from an empty folder or a dedicated exercises directory\nCreate one folder per course to keep exercises organized\nThe exercise will be downloaded into a new subfolder named after the exercise\n\n\n\n\n\n\nTechnical details of the process\n\n\nRegistry Discovery: Queries GitLab API for available courses in the Franklin group\nImage Matching: Matches Docker images in the registry to exercise repositories\nPermission Check: Verifies user has access to selected repository\nRepository Clone: Uses git to clone the exercise repository\nCleanup: Removes .git folder, solution files, and instructor notes\nValidation: Ensures exercise contains required files (Dockerfile, notebook, etc.)\n\n\n\nThis happensTips\n\n\n\nFranklin validates the URL format\nChecks your access permissions\nDownloads the exercise to a subfolder of your current folder\n\n\n\n\nGet the URL from your course page or instructor\nThe URL must be a GitLab repository URL\nYou need access rights to the repository\n\n\n\n\n\n\nLaunch Jupyter\nThis command launches JupyterLab in a Docker container configured for the current exercise.\nfranklin jupyter\n\nThis happensTips\n\n\n\nDetects exercise in current folder (or prompts for selection)\nPulls Docker image with exercise dependencies if needed\nStarts container and mounts current folder\nOpens JupyterLab in your browser\nWaits for you to close the browser\nCleans up the container\n\n\n\n\nRun from inside the exercise folder for automatic detection\nFranklin finds an available port starting from 8888\nKeep Docker Desktop running during work sessions\nYour work is saved in the exercise folder, not the container\n\n\n\n\n\n\nTechnical details of the process\n\n\nDocker Check: Ensures Docker Desktop is installed and running\nDisk Space: Verifies at least 5GB free space\nImage Pull: Downloads Docker image if not cached locally\nContainer Start: Launches container with current directory mounted at /home/jovyan/work\nPort Management: Finds available port starting from 8888\nBrowser Launch: Opens Chrome/default browser with authentication token\nCleanup: Stops container when browser closes\n\n\n\nThis happensTips\n\n\n\nPulls the specified Docker image\nStarts container with current folder mounted\nOpens JupyterLab in browser\n\n\n\n\nUse when you know the exact image you need\nUseful for testing or special configurations\nThe image URL is shown in exercise documentation",
     "crumbs": [
       "Franklin commands",
-      "Main Commands"
+      "Core Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#updating-franklin",
     "href": "pages/commands_core.html#updating-franklin",
-    "title": "Main Commands",
+    "title": "Core Commands",
     "section": "Updating Franklin",
     "text": "Updating Franklin\nThis command updates Franklin to the latest version.\nfranklin update\n\nThis happensTips\n\n\n\nDetects how Franklin was installed (Conda, Pixi, or pip)\nChecks for available updates\nUpdates Franklin and any installed plugins\nRestarts Franklin if updated\n\n\n\n\nFranklin checks for updates automatically when started\nUpdates are cached for 6 hours to avoid repeated checks\nUpdate before each semester for the latest features\nThe update includes franklin-educator and franklin-admin if installed\n\n\n\n\n\n\nTechnical details of the process\n\n\nInstallation Detection: Checks Python executable path for conda/pixi markers\nVersion Query: Fetches latest version from package repository\nPackage Manager: Uses appropriate command (conda update, pixi update, or pip install –upgrade)\nPlugin Updates: Also updates franklin-educator and franklin-admin if installed\nCache Management: Updates are cached to avoid repeated version checks\n\n\n\nCheck for updates\nCheck for updates without installing them.\nfranklin update --check\n\nThis happensTips\n\n\n\nQueries the package repository for latest version\nCompares with your installed version\nReports if an update is available\n\n\n\n\nUse to see if updates are available before installing\nNo changes are made to your system\nShows version numbers for comparison\n\n\n\n\n\n\nForce update\nForce a reinstall even if already up-to-date.\nfranklin update --force\n\nThis happensTips\n\n\n\nReinstalls Franklin regardless of version\nUseful for fixing corrupted installations\nAlso reinstalls plugins if present\n\n\n\n\nUse when Franklin is behaving strangely\nFixes most installation-related issues\nTakes longer than a regular update",
     "crumbs": [
       "Franklin commands",
-      "Main Commands"
+      "Core Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#docker-resources",
     "href": "pages/commands_core.html#docker-resources",
-    "title": "Main Commands",
+    "title": "Core Commands",
     "section": "Docker resources",
     "text": "Docker resources\n\nShow images\nList all Docker images on your system.\nfranklin show images\n\nThis happensTips\n\n\n\nQueries Docker for all images\nDisplays them in a formatted table\nShows repository, tag, ID, and size\n\n\n\n\nUse before cleanup to see what’s installed\nLarge images (&gt;2GB) are exercise environments\nSmall images (&lt;1GB) are usually base images\n\n\n\n\n\n\nShow containers\nList all Docker containers (running and stopped).\nfranklin show containers\n\nThis happensTips\n\n\n\nQueries Docker for all containers\nShows both running and stopped containers\nDisplays ID, image, status, and ports\n\n\n\n\nRunning containers show “Up” status\nStopped containers show “Exited” status\nUse to check if Jupyter is still running\n\n\n\n\n\n\nShow storage\nDisplay Docker disk usage summary.\nfranklin show storage\n\nThis happensTips\n\n\n\nCalculates space used by images\nCalculates space used by containers\nShows total and reclaimable space\n\n\n\n\nUse before and after cleanup to see space saved\nCheck when Docker seems slow\nLarge build cache can often be cleared safely",
     "crumbs": [
       "Franklin commands",
-      "Main Commands"
+      "Core Commands"
     ]
   },
   {
     "objectID": "pages/commands_core.html#manage-docker-disk-usage",
     "href": "pages/commands_core.html#manage-docker-disk-usage",
-    "title": "Main Commands",
+    "title": "Core Commands",
     "section": "Manage Docker Disk Usage",
     "text": "Manage Docker Disk Usage\n\nClean up Docker images\nThis command removes Docker images and containers to free disk space.\nfranklin cleanup\n\nThis happensTips\n\n\n\nLists all Franklin-related Docker images\nShows size of each image\nLets you select which to remove (y/n for each)\nRemoves selected images\nShows total space freed\n\n\n\n\nImages can be re-downloaded when needed\nYour exercise files are never deleted\nRun weekly to keep disk usage under control\nConsider removing old course images at semester end\n\n\n\n\n\n\nTechnical details of the process\n\n\nImage Discovery: Lists all Docker images matching Franklin patterns\nContainer Check: Identifies stopped containers from those images\nSpace Calculation: Computes disk space for each image\nSafe Removal: Only removes images not currently in use\nCache Pruning: Optionally runs docker system prune for additional cleanup",
     "crumbs": [
       "Franklin commands",
-      "Main Commands"
+      "Core Commands"
     ]
   },
   {
@@ -1730,7 +1730,7 @@
     "href": "CLAUDE.html",
     "title": "ADDING CODE EXPLANATIONS JUPYTER NOTEBOOKS",
     "section": "",
-    "text": "Add a markdown cell after each code cell with an explanation the code. The explanation should be formatted as a Markdown list wrapped in a html detail tag\n\n## Code cell \n\n\n::: {#1b6f3b4c .cell execution_count=1}\n``` {.python .cell-code}\nx = \"hello\"\nprint(x)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\nhello\n```\n:::\n:::\n\n\n## Markdown cell \n\n&lt;details&gt;\n&lt;summary&gt;&lt;small&gt;Click to see what Franklin does&lt;/small&gt;&lt;/summary&gt;\n\n- First `x` is assigned the value `\"hello\"`\n- Then the `print` function prints the value that the `x` value points to (`\"hello\"`).\n\n&lt;/details&gt;\n\n\nTemplate for simple documentation Click command\n\n### Download an exercise\n\nThis command downloads an exercise repository to your computer.\n\n```bash\nfranklin download\n```\n\n::: {.panel-tabset}\n\n# This happens\n\n1. You are prompted to select your course\n2. You are prompted to select the exercise to download  \n3. Franklin downloads the exercise to a subfolder of your current folder\n4. Instructor-only files (solutions, etc.) are removed\n\n# Tips  \n\n- Run from an empty folder or a dedicated exercises directory\n- Create one folder per course to keep exercises organized\n- The exercise will be downloaded into a new subfolder named after the exercise\n\n:::\n\n&lt;details&gt;\n&lt;summary&gt;Technical details of the process&lt;/summary&gt;\n\n1. **Registry Discovery**: Queries GitLab API for available courses in the Franklin group\n2. **Image Matching**: Matches Docker images in the registry to exercise repositories\n3. **Permission Check**: Verifies user has access to selected repository\n4. **Repository Clone**: Uses git to clone the exercise repository\n5. **Cleanup**: Removes `.git` folder, solution files, and instructor notes\n6. **Validation**: Ensures exercise contains required files (Dockerfile, notebook, etc.)\n\n&lt;/details&gt;\n\n\n\nTemplate for full documentation of Click command\nFormat like Click command documentation but ducument ALL features"
+    "text": "Add a markdown cell after each code cell with an explanation the code. The explanation should be formatted as a Markdown list wrapped in a html detail tag\n\n## Code cell \n\n\n::: {#b392f0e4 .cell execution_count=1}\n``` {.python .cell-code}\nx = \"hello\"\nprint(x)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\nhello\n```\n:::\n:::\n\n\n## Markdown cell \n\n&lt;details&gt;\n&lt;summary&gt;&lt;small&gt;Click to see what Franklin does&lt;/small&gt;&lt;/summary&gt;\n\n- First `x` is assigned the value `\"hello\"`\n- Then the `print` function prints the value that the `x` value points to (`\"hello\"`).\n\n&lt;/details&gt;\n\n\nTemplate for simple documentation Click command\n\n### Download an exercise\n\nThis command downloads an exercise repository to your computer.\n\n```bash\nfranklin download\n```\n\n::: {.panel-tabset}\n\n# This happens\n\n1. You are prompted to select your course\n2. You are prompted to select the exercise to download  \n3. Franklin downloads the exercise to a subfolder of your current folder\n4. Instructor-only files (solutions, etc.) are removed\n\n# Tips  \n\n- Run from an empty folder or a dedicated exercises directory\n- Create one folder per course to keep exercises organized\n- The exercise will be downloaded into a new subfolder named after the exercise\n\n:::\n\n&lt;details&gt;\n&lt;summary&gt;Technical details of the process&lt;/summary&gt;\n\n1. **Registry Discovery**: Queries GitLab API for available courses in the Franklin group\n2. **Image Matching**: Matches Docker images in the registry to exercise repositories\n3. **Permission Check**: Verifies user has access to selected repository\n4. **Repository Clone**: Uses git to clone the exercise repository\n5. **Cleanup**: Removes `.git` folder, solution files, and instructor notes\n6. **Validation**: Ensures exercise contains required files (Dockerfile, notebook, etc.)\n\n&lt;/details&gt;\n\n\n\nTemplate for full documentation of Click command\nFormat like Click command documentation but ducument ALL features"
   },
   {
     "objectID": "api/launch_exercise.html",
@@ -2325,188 +2325,188 @@
   {
     "objectID": "pages/docker.html",
     "href": "pages/docker.html",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "",
     "text": "Docker is a platform that packages applications and their dependencies into portable containers. Think of a container as a lightweight, self-contained box that includes everything needed to run your software—the code, runtime, system tools, libraries, and settings. This ensures your application runs identically on any computer, regardless of the operating system or installed software.\n\n\nWithout Docker: - “It works on my machine!” but fails on yours - Different versions of Python, libraries, or system tools - Complex installation instructions that vary by OS - Conflicts between projects requiring different dependencies - Difficulty reproducing research or coursework\nWith Docker: - Same environment everywhere - No installation conflicts - One command to run complex applications - Perfect reproducibility - Isolation between projects",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#what-is-docker",
     "href": "pages/docker.html#what-is-docker",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "",
     "text": "Docker is a platform that packages applications and their dependencies into portable containers. Think of a container as a lightweight, self-contained box that includes everything needed to run your software—the code, runtime, system tools, libraries, and settings. This ensures your application runs identically on any computer, regardless of the operating system or installed software.\n\n\nWithout Docker: - “It works on my machine!” but fails on yours - Different versions of Python, libraries, or system tools - Complex installation instructions that vary by OS - Conflicts between projects requiring different dependencies - Difficulty reproducing research or coursework\nWith Docker: - Same environment everywhere - No installation conflicts - One command to run complex applications - Perfect reproducibility - Isolation between projects",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#how-docker-works",
     "href": "pages/docker.html#how-docker-works",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "How Docker Works",
     "text": "How Docker Works\n\nContainers vs Virtual Machines\n\n\n\n\n\n\ngraph TB\n    subgraph \"Virtual Machine\"\n        VM[Guest OS&lt;br/&gt;20GB+] --&gt; APP1[App A]\n        VM --&gt; APP2[App B]\n        HOST1[Host OS] --&gt; HYP[Hypervisor] --&gt; VM\n    end\n    \n    subgraph \"Docker Container\"\n        HOST2[Host OS] --&gt; DOC[Docker Engine]\n        DOC --&gt; CON1[Container A&lt;br/&gt;~100MB]\n        DOC --&gt; CON2[Container B&lt;br/&gt;~100MB]\n    end\n\n\n\n\nFigure 1: Containers vs. virtual machines\n\n\n\n\n\nVirtual Machines: - Full operating system per VM - Heavy resource usage (GB of RAM) - Slow to start (minutes) - Complete isolation\nDocker Containers: - Share host OS kernel - Lightweight (MB of RAM) - Fast to start (seconds) - Process-level isolation\n\n\nCore Docker Concepts\n\nImage: A blueprint or template for creating containers (like a recipe)\nContainer: A running instance of an image (like a cooked meal)\nDockerfile: Instructions for building an image (like writing a recipe)\nRegistry: Storage for sharing images (like a cookbook library)",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#docker-for-franklin-users",
     "href": "pages/docker.html#docker-for-franklin-users",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Docker for Franklin Users",
     "text": "Docker for Franklin Users\nFranklin uses Docker to ensure exercises run identically for all students:\n\nHow Franklin Uses Docker\n\n\n\n\n\n\ngraph LR\n    A[Franklin Exercise] --&gt; B[Docker Image]\n    B --&gt; C[Container Starts]\n    C --&gt; D[JupyterLab Runs]\n    D --&gt; E[Student Works]\n    E --&gt; F[Work Saved Locally]\n\n\n\n\nFigure 2: Franklin and Docker\n\n\n\n\n\n\nExercise includes Docker configuration\nFranklin pulls required image\nCreates isolated container\nMounts your files inside\nRuns JupyterLab in container\nYour work is saved on your computer\n\n\n\nStudent Perspective\nAs a Franklin student, Docker works behind the scenes:\n# Franklin handles Docker automatically\nfranklin jupyter\n# → Downloads Docker image if needed\n# → Starts container\n# → Opens JupyterLab\n# → Everything just works!\nYou don’t need to know Docker commands—Franklin manages everything.",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#installing-docker",
     "href": "pages/docker.html#installing-docker",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Installing Docker",
     "text": "Installing Docker\n\nWindowsmacOSLinux\n\n\n\nDownload Docker Desktop:\n\nVisit docker.com/products/docker-desktop\nDownload for Windows\nRun installer\n\nSystem Requirements:\n\nWindows 10/11 Pro, Enterprise, or Education\nWSL 2 enabled\n4GB RAM minimum\n\nPost-Installation:\n\nStart Docker Desktop\nWait for “Docker is running” status\nTest: docker --version\n\n\n\n\n\nDownload Docker Desktop:\n\nVisit docker.com/products/docker-desktop\nChoose Intel or Apple Silicon version\nRun installer\n\nSystem Requirements:\n\nmacOS 10.15 or newer\n4GB RAM minimum\n\nPost-Installation:\n\nStart Docker Desktop from Applications\nGrant necessary permissions\nTest: docker --version\n\n\n\n\n# Ubuntu/Debian\nsudo apt update\nsudo apt install docker.io\nsudo systemctl start docker\nsudo usermod -aG docker $USER\n# Log out and back in\n\n# Fedora\nsudo dnf install docker\nsudo systemctl start docker\nsudo usermod -aG docker $USER\n# Log out and back in\n\n# Test installation\ndocker --version\ndocker run hello-world",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#basic-docker-commands",
     "href": "pages/docker.html#basic-docker-commands",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Basic Docker Commands",
     "text": "Basic Docker Commands\nWhile Franklin handles Docker automatically, understanding basic commands helps troubleshooting:\n\nWorking with Images\n# List local images\ndocker images\n\n# Pull an image\ndocker pull python:3.10\n\n# Remove an image\ndocker rmi python:3.10\n\n# Search for images\ndocker search jupyter\n\n\nWorking with Containers\n# List running containers\ndocker ps\n\n# List all containers\ndocker ps -a\n\n# Stop a container\ndocker stop container_name\n\n# Remove a container\ndocker rm container_name\n\n# View container logs\ndocker logs container_name\n\n\nRunning Containers\n# Basic run\ndocker run python:3.10 python --version\n\n# Interactive mode\ndocker run -it python:3.10 bash\n\n# Run with port mapping\ndocker run -p 8888:8888 jupyter/base-notebook\n\n# Run with volume mount\ndocker run -v /local/path:/container/path python:3.10\n\n# Run in background\ndocker run -d nginx",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#understanding-dockerfiles",
     "href": "pages/docker.html#understanding-dockerfiles",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Understanding Dockerfiles",
     "text": "Understanding Dockerfiles\nA Dockerfile defines how to build an image:\n# Start from base image\nFROM python:3.10-slim\n\n# Set working directory\nWORKDIR /app\n\n# Copy requirements file\nCOPY requirements.txt .\n\n# Install dependencies\nRUN pip install -r requirements.txt\n\n# Copy application code\nCOPY . .\n\n# Define startup command\nCMD [\"python\", \"app.py\"]\n\nFranklin Exercise Dockerfile\nFranklin exercises typically use:\n# Base scientific Python image\nFROM munchgroup/franklin-jupyter:latest\n\n# Install exercise-specific packages\nRUN pip install pandas numpy matplotlib\n\n# Copy exercise files\nCOPY exercise.ipynb /home/jovyan/\n\n# Set up environment\nENV PYTHONPATH=/home/jovyan\n\n# Start JupyterLab\nCMD [\"jupyter\", \"lab\"]",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#docker-compose",
     "href": "pages/docker.html#docker-compose",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Docker Compose",
     "text": "Docker Compose\nFor multi-container applications:\n# docker-compose.yml\nversion: '3'\n\nservices:\n  web:\n    image: nginx\n    ports:\n      - \"80:80\"\n  \n  database:\n    image: postgres\n    environment:\n      POSTGRES_PASSWORD: secret\n    volumes:\n      - db-data:/var/lib/postgresql/data\n\nvolumes:\n  db-data:\nRun with:\ndocker-compose up    # Start services\ndocker-compose down  # Stop services",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#docker-for-development",
     "href": "pages/docker.html#docker-for-development",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Docker for Development",
     "text": "Docker for Development\n\nCreating Development Environments\n# Python development\ndocker run -it -v $(pwd):/workspace python:3.10 bash\n\n# Node.js development\ndocker run -it -v $(pwd):/app node:18 bash\n\n# Data science environment\ndocker run -p 8888:8888 -v $(pwd):/home/jovyan jupyter/scipy-notebook\n\n\nBuilding Custom Images\n\nCreate Dockerfile:\n\nFROM python:3.10\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install -r requirements.txt\nCOPY . .\n\nBuild image:\n\ndocker build -t my-app .\n\nRun container:\n\ndocker run my-app",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#docker-best-practices",
     "href": "pages/docker.html#docker-best-practices",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Docker Best Practices",
     "text": "Docker Best Practices\n\nImage Optimization\n✅ Do: - Use specific version tags (python:3.10, not python:latest) - Minimize layers by combining RUN commands - Use .dockerignore to exclude unnecessary files - Start with minimal base images (alpine, slim) - Clean up after installations\n❌ Don’t: - Include sensitive data in images - Run as root unnecessarily - Use large base images when smaller ones work - Ignore security updates\n\n\nContainer Management\n✅ Do: - Name your containers meaningfully - Use volumes for persistent data - Set resource limits - Use health checks - Clean up stopped containers\n❌ Don’t: - Store data inside containers - Expose unnecessary ports - Run multiple processes per container - Ignore container logs",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#troubleshooting-docker",
     "href": "pages/docker.html#troubleshooting-docker",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Troubleshooting Docker",
     "text": "Troubleshooting Docker\n\nCommon Issues\n\nDocker Daemon Not Running\n# Check status\ndocker version\n\n# Start Docker\n# macOS/Windows: Start Docker Desktop app\n# Linux:\nsudo systemctl start docker\n\n\nPermission Denied\n# Linux: Add user to docker group\nsudo usermod -aG docker $USER\n# Log out and back in\n\n# Or use sudo (not recommended)\nsudo docker run hello-world\n\n\nPort Already in Use\n# Find process using port\nlsof -i :8888  # macOS/Linux\nnetstat -ano | findstr :8888  # Windows\n\n# Use different port\ndocker run -p 8889:8888 image_name\n\n\nOut of Disk Space\n# Clean up unused resources\ndocker system prune -a\n\n# Remove unused images\ndocker image prune -a\n\n# Remove stopped containers\ndocker container prune\n\n# Remove unused volumes\ndocker volume prune\n\n\n\nFranklin-Specific Issues\n\nContainer Won’t Start\n# Check Franklin logs\nfranklin jupyter --debug\n\n# Manually pull image\ndocker pull munchgroup/franklin-jupyter:latest\n\n# Reset Franklin Docker settings\nfranklin docker reset\n\n\nFiles Not Visible\n# Check mount points\ndocker inspect container_name | grep Mounts\n\n# Verify permissions\nls -la exercise_folder/\n\n# Run with explicit mount\ndocker run -v $(pwd):/home/jovyan image_name",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#docker-in-research",
     "href": "pages/docker.html#docker-in-research",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Docker in Research",
     "text": "Docker in Research\n\nReproducible Research\nDocker ensures your research is reproducible:\n# Reproducible analysis environment\nFROM rocker/tidyverse:4.2.0\n\n# Install specific package versions\nRUN R -e \"install.packages('ggplot2', version='3.4.0')\"\n\n# Copy analysis scripts\nCOPY analysis.R /home/rstudio/\n\n# Document environment\nCOPY README.md /home/rstudio/\n\n\nSharing Research\n# Save image to file\ndocker save my-research &gt; research-env.tar\n\n# Load on another computer\ndocker load &lt; research-env.tar\n\n# Or push to registry\ndocker tag my-research username/research:v1\ndocker push username/research:v1",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#advanced-docker-topics",
     "href": "pages/docker.html#advanced-docker-topics",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Advanced Docker Topics",
     "text": "Advanced Docker Topics\n\nMulti-Stage Builds\nOptimize image size:\n# Build stage\nFROM python:3.10 AS builder\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.txt\n\n# Runtime stage\nFROM python:3.10-slim\nWORKDIR /app\nCOPY --from=builder /wheels /wheels\nRUN pip install --no-cache /wheels/*\nCOPY . .\nCMD [\"python\", \"app.py\"]\n\n\nDocker Networks\nConnect containers:\n# Create network\ndocker network create mynet\n\n# Run containers on network\ndocker run --network mynet --name db postgres\ndocker run --network mynet --name app my-app\n\n# Containers can now reach each other by name\n\n\nDocker Volumes\nPersist data:\n# Create named volume\ndocker volume create mydata\n\n# Use volume\ndocker run -v mydata:/data my-app\n\n# Backup volume\ndocker run --rm -v mydata:/source -v $(pwd):/backup \\\n  alpine tar czf /backup/backup.tar.gz -C /source .",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#docker-security",
     "href": "pages/docker.html#docker-security",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Docker Security",
     "text": "Docker Security\n\nSecurity Best Practices\n\nKeep Docker Updated: Regular security patches\nScan Images: Use docker scan image_name\nDon’t Run as Root: Use USER directive in Dockerfile\nLimit Resources: Set memory and CPU limits\nUse Official Images: Verified and maintained\nSign Images: Docker Content Trust\n\n\n\nSecurity Scanning\n# Scan for vulnerabilities\ndocker scan my-image\n\n# Check image layers\ndocker history my-image\n\n# Inspect image\ndocker inspect my-image",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#quick-reference",
     "href": "pages/docker.html#quick-reference",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Quick Reference",
     "text": "Quick Reference\n\nEssential Commands\n\n\n\nCommand\nPurpose\n\n\n\n\ndocker run image\nRun container from image\n\n\ndocker ps\nList running containers\n\n\ndocker images\nList local images\n\n\ndocker stop container\nStop container\n\n\ndocker rm container\nRemove container\n\n\ndocker rmi image\nRemove image\n\n\ndocker logs container\nView container logs\n\n\ndocker exec -it container bash\nEnter running container\n\n\ndocker build -t name .\nBuild image from Dockerfile\n\n\ndocker-compose up\nStart services\n\n\n\n\n\nUseful Flags\n\n\n\nFlag\nPurpose\n\n\n\n\n-d\nRun in background (detached)\n\n\n-it\nInteractive terminal\n\n\n-p 8080:80\nMap ports (host:container)\n\n\n-v /path:/path\nMount volume\n\n\n--rm\nRemove container after exit\n\n\n--name myname\nName container\n\n\n-e VAR=value\nSet environment variable",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#resources",
     "href": "pages/docker.html#resources",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Resources",
     "text": "Resources\n\nDocumentation\n\nDocker Docs\nDocker Hub\nDocker Compose\n\n\n\nLearning\n\nDocker 101 Tutorial\nPlay with Docker\nDocker for Data Science",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
     "objectID": "pages/docker.html#summary",
     "href": "pages/docker.html#summary",
-    "title": "Introduction to Docker",
+    "title": "Docker",
     "section": "Summary",
     "text": "Summary\nDocker revolutionizes software deployment by: - Ensuring Consistency: Same environment everywhere - Simplifying Setup: One command to run complex stacks - Enabling Isolation: No conflicts between projects - Supporting Reproducibility: Perfect for research and education\nFor Franklin users, Docker works invisibly to provide a consistent, reliable environment for all exercises. While you don’t need to be a Docker expert, understanding the basics helps you troubleshoot issues and leverage Docker for your own projects beyond Franklin.",
     "crumbs": [
       "Reference",
-      "Introduction to Docker"
+      "Docker"
     ]
   },
   {
@@ -2995,155 +2995,155 @@
   {
     "objectID": "pages/git.html",
     "href": "pages/git.html",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "",
     "text": "Git is a version control system that tracks changes to your files over time. Think of it as a sophisticated “undo” system that remembers every version of your work, allows you to collaborate with others, and helps you organize your coding projects.\n\n\nImagine you’re writing an essay: - You save multiple versions: essay_v1.doc, essay_v2.doc, essay_final.doc, essay_final_REALLY_final.doc - You accidentally delete an important paragraph - You want to see what you changed between versions - You’re working with a classmate and need to combine your changes\nGit solves all these problems elegantly for code (and any text files).",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#what-is-git",
     "href": "pages/git.html#what-is-git",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "",
     "text": "Git is a version control system that tracks changes to your files over time. Think of it as a sophisticated “undo” system that remembers every version of your work, allows you to collaborate with others, and helps you organize your coding projects.\n\n\nImagine you’re writing an essay: - You save multiple versions: essay_v1.doc, essay_v2.doc, essay_final.doc, essay_final_REALLY_final.doc - You accidentally delete an important paragraph - You want to see what you changed between versions - You’re working with a classmate and need to combine your changes\nGit solves all these problems elegantly for code (and any text files).",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#core-concepts",
     "href": "pages/git.html#core-concepts",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Core Concepts",
     "text": "Core Concepts\n\nRepository (Repo)\nA repository is a folder that Git tracks. It contains all your project files and the entire history of changes.\n# Turn any folder into a Git repository\ngit init\n\n\nCommits\nA commit is a snapshot of your work at a specific point in time. Each commit has: - A unique ID (hash) - Author information - Timestamp - A message describing the changes\n# Create a commit\ngit add myfile.py          # Stage the file\ngit commit -m \"Add data analysis function\"  # Commit with message\n\n\nThe Three States\nFiles in Git exist in three states:\n\n\n\n\n\n\ngraph LR\n    A[Working Directory] --&gt;|git add| B[Staging Area]\n    B --&gt;|git commit| C[Repository]\n    C --&gt;|git checkout| A\n\n\n\n\nFigure 1: Git file states\n\n\n\n\n\n\nWorking Directory: Where you edit files\nStaging Area: Where you prepare changes for commit\nRepository: Where Git permanently stores snapshots",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#essential-git-commands",
     "href": "pages/git.html#essential-git-commands",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Essential Git Commands",
     "text": "Essential Git Commands\n\nStarting a Project\n# Create a new repository\ngit init\n\n# Clone an existing repository\ngit clone https://github.com/username/project.git\n\n# Check repository status\ngit status\n\n\nMaking Changes\n# Stage specific files\ngit add filename.py\ngit add data.csv\n\n# Stage all changes\ngit add .\n\n# Commit staged changes\ngit commit -m \"Describe what you changed\"\n\n# See what changed\ngit diff                    # Changes not yet staged\ngit diff --staged          # Changes staged for commit\n\n\nViewing History\n# View commit history\ngit log\n\n# View history with graph\ngit log --oneline --graph --all\n\n# View specific commit\ngit show abc123\n\n# See who changed what\ngit blame filename.py\n\n\nUndoing Changes\n# Discard changes in working directory\ngit checkout -- filename.py\n\n# Unstage a file\ngit reset HEAD filename.py\n\n# Undo last commit (keep changes)\ngit reset --soft HEAD~1\n\n# Undo last commit (discard changes)\ngit reset --hard HEAD~1",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#branching-and-merging",
     "href": "pages/git.html#branching-and-merging",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Branching and Merging",
     "text": "Branching and Merging\nBranches allow you to work on different features without affecting the main code.\n\nWorking with Branches\n# Create new branch\ngit branch feature-name\n\n# Switch to branch\ngit checkout feature-name\n\n# Create and switch in one command\ngit checkout -b feature-name\n\n# List branches\ngit branch\n\n# Delete branch\ngit branch -d feature-name\n\n\nMerging Changes\n# Merge feature branch into current branch\ngit merge feature-name\n\n# Resolve merge conflicts manually, then:\ngit add conflicted-file.py\ngit commit -m \"Resolve merge conflict\"",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#remote-repositories",
     "href": "pages/git.html#remote-repositories",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Remote Repositories",
     "text": "Remote Repositories\nRemote repositories (like GitHub, GitLab) allow you to: - Back up your code - Collaborate with others - Share your work\n\nWorking with Remotes\n# Add remote repository\ngit remote add origin https://github.com/username/repo.git\n\n# View remotes\ngit remote -v\n\n# Push to remote\ngit push origin main\n\n# Pull from remote\ngit pull origin main\n\n# Fetch without merging\ngit fetch origin",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#git-with-franklin",
     "href": "pages/git.html#git-with-franklin",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Git with Franklin",
     "text": "Git with Franklin\nFranklin exercises are Git repositories, making version control seamless:\n\nStudent Workflow\n# After downloading an exercise\ncd \"Exercise Name\"\n\n# Check git status\ngit status\n\n# Save your work\ngit add exercise.ipynb\ngit commit -m \"Complete part 1 of exercise\"\n\n# Create your own backup\ngit remote add backup https://github.com/yourusername/solutions.git\ngit push backup main\n\n\nEducator Workflow\n# Creating an exercise\nfranklin exercise new\n\n# Track changes\ngit add -A\ngit commit -m \"Add exercise instructions\"\n\n# Update exercise\ngit commit -m \"Clarify problem 3\"\nfranklin exercise publish",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#best-practices",
     "href": "pages/git.html#best-practices",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Best Practices",
     "text": "Best Practices\n\nCommit Messages\nWrite clear, descriptive commit messages:\n# Good commit messages\ngit commit -m \"Add data validation to user input\"\ngit commit -m \"Fix bug in sorting algorithm\"\ngit commit -m \"Update documentation for API endpoints\"\n\n# Bad commit messages\ngit commit -m \"Fixed stuff\"\ngit commit -m \"asdf\"\ngit commit -m \"Monday's work\"\n\n\nCommit Frequency\n\nCommit often: Small, logical changes\nCommit working code: Don’t break the build\nCommit related changes: One commit = one purpose\n\n\n\n.gitignore\nUse .gitignore to exclude files from version control:\n# .gitignore file\n*.pyc               # Python compiled files\n__pycache__/        # Python cache directory\n.DS_Store           # Mac system files\n*.log               # Log files\nsecrets.txt         # Sensitive information\nvenv/               # Virtual environment",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#common-scenarios",
     "href": "pages/git.html#common-scenarios",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Common Scenarios",
     "text": "Common Scenarios\n\nScenario 1: Accidentally Committed a Large File\n# Remove file from history\ngit rm --cached large_file.zip\ngit commit -m \"Remove large file\"\n\n# Add to .gitignore\necho \"*.zip\" &gt;&gt; .gitignore\ngit add .gitignore\ngit commit -m \"Ignore zip files\"\n\n\nScenario 2: Need to Switch Tasks Quickly\n# Save current work without committing\ngit stash\n\n# Work on urgent fix\ngit checkout main\n# ... make fixes ...\ngit commit -m \"Emergency fix\"\n\n# Return to previous work\ngit checkout feature-branch\ngit stash pop\n\n\nScenario 3: Made Changes to Wrong Branch\n# Save changes\ngit stash\n\n# Switch to correct branch\ngit checkout correct-branch\n\n# Apply changes\ngit stash pop",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#git-vs-githubgitlab",
     "href": "pages/git.html#git-vs-githubgitlab",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Git vs GitHub/GitLab",
     "text": "Git vs GitHub/GitLab\nGit is the version control system that runs on your computer.\nGitHub/GitLab are web services that host Git repositories and add features like: - Web interface - Issue tracking - Pull/Merge requests - Collaboration tools - CI/CD pipelines",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#visual-git-tools",
     "href": "pages/git.html#visual-git-tools",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Visual Git Tools",
     "text": "Visual Git Tools\nWhile command line is powerful, visual tools can help:\n\nGUI Applications\n\nGitKraken: User-friendly, cross-platform\nSourceTree: Free, comprehensive\nGitHub Desktop: Simple, integrated with GitHub\nVS Code: Built-in Git support\n\n\n\nVS Code Git Integration\nVS Code has excellent Git integration: - See changes in the sidebar - Stage/unstage with clicks - Commit with UI - View diffs visually - Resolve merge conflicts",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#quick-reference",
     "href": "pages/git.html#quick-reference",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Quick Reference",
     "text": "Quick Reference\n\n\n\nCommand\nPurpose\n\n\n\n\ngit init\nStart tracking a folder\n\n\ngit clone [url]\nCopy a repository\n\n\ngit add [file]\nStage changes\n\n\ngit commit -m \"[message]\"\nSave snapshot\n\n\ngit status\nCheck what’s changed\n\n\ngit log\nView history\n\n\ngit branch [name]\nCreate branch\n\n\ngit checkout [branch]\nSwitch branches\n\n\ngit merge [branch]\nCombine branches\n\n\ngit push\nUpload to remote\n\n\ngit pull\nDownload from remote",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#learning-resources",
     "href": "pages/git.html#learning-resources",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Learning Resources",
     "text": "Learning Resources\n\nInteractive Tutorials\n\nLearn Git Branching - Visual and interactive\nGitHub’s Git Tutorial - Step-by-step guide\nAtlassian Git Tutorial - Comprehensive guide\n\n\n\nPractice\nThe best way to learn Git is to use it: 1. Start with a personal project 2. Make commits for every change 3. Try branching for new features 4. Push to GitHub/GitLab for backup",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
     "objectID": "pages/git.html#summary",
     "href": "pages/git.html#summary",
-    "title": "Introduction to Git",
+    "title": "Git",
     "section": "Summary",
     "text": "Summary\nGit might seem complex at first, but you only need a few commands to get started: 1. git add and git commit to save your work 2. git status to see what’s happening 3. git push and git pull to sync with remote\nAs you become comfortable with these basics, you can gradually explore more advanced features. Remember: Git is a safety net for your code—it’s there to help, not to complicate your workflow.",
     "crumbs": [
       "Reference",
-      "Introduction to Git"
+      "Git"
     ]
   },
   {
@@ -3615,276 +3615,276 @@
   {
     "objectID": "pages/ssh.html",
     "href": "pages/ssh.html",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "",
     "text": "SSH (Secure Shell) is a protocol that allows you to securely connect to remote computers over a network. Think of it as a secure telephone line between your computer and another computer—you can run commands, transfer files, and work on the remote machine as if you were sitting right in front of it.\n\n\n\nSecurity: All communication is encrypted\nRemote Work: Access servers and clusters from anywhere\nFile Transfer: Securely copy files between machines\nAutomation: Run scripts on remote servers\nGit Integration: Push/pull to GitHub/GitLab without passwords",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#what-is-ssh",
     "href": "pages/ssh.html#what-is-ssh",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "",
     "text": "SSH (Secure Shell) is a protocol that allows you to securely connect to remote computers over a network. Think of it as a secure telephone line between your computer and another computer—you can run commands, transfer files, and work on the remote machine as if you were sitting right in front of it.\n\n\n\nSecurity: All communication is encrypted\nRemote Work: Access servers and clusters from anywhere\nFile Transfer: Securely copy files between machines\nAutomation: Run scripts on remote servers\nGit Integration: Push/pull to GitHub/GitLab without passwords",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#how-ssh-works",
     "href": "pages/ssh.html#how-ssh-works",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "How SSH Works",
     "text": "How SSH Works\nSSH uses a pair of cryptographic keys for authentication:\ngraph LR\n    A[Your Computer&lt;br/&gt;Private Key 🔑] --&gt;|Encrypted Connection| B[Remote Server&lt;br/&gt;Public Key 🔓]\n    B --&gt;|Challenge| A\n    A --&gt;|Response| B\n\nPrivate Key: Secret key that never leaves your computer\nPublic Key: Can be shared freely, stored on servers\nAuthentication: Server verifies you have the matching private key",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#setting-up-ssh-keys",
     "href": "pages/ssh.html#setting-up-ssh-keys",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "Setting Up SSH Keys",
     "text": "Setting Up SSH Keys\n\nStep 1: Check for Existing Keys\nFirst, check if you already have SSH keys:\nls -la ~/.ssh\nLook for files like: - id_rsa (private key) - id_rsa.pub (public key) - id_ed25519 (newer algorithm private key) - id_ed25519.pub (newer algorithm public key)\n\n\nStep 2: Generate SSH Keys\nIf you don’t have keys, generate them:\n# Generate RSA key (traditional)\nssh-keygen -t rsa -b 4096 -C \"your.email@example.com\"\n\n# Or generate Ed25519 key (recommended, more secure)\nssh-keygen -t ed25519 -C \"your.email@example.com\"\nWhen prompted: 1. File location: Press Enter for default 2. Passphrase: Optional but recommended for extra security 3. Confirm passphrase: Re-enter if you set one\n\n\nStep 3: View Your Public Key\n# Display your public key\ncat ~/.ssh/id_rsa.pub\n# or\ncat ~/.ssh/id_ed25519.pub\nThis is the key you’ll share with servers and services.",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#using-ssh",
     "href": "pages/ssh.html#using-ssh",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "Using SSH",
     "text": "Using SSH\n\nBasic Connection\n# Connect to a remote server\nssh username@hostname\n\n# Examples\nssh john@192.168.1.100\nssh student@server.university.edu\nssh admin@myserver.com\n\n# Connect with specific port\nssh -p 2222 username@hostname\n\n\nFirst Connection\nWhen connecting to a new server:\nThe authenticity of host 'server.com (192.168.1.1)' can't be established.\nRSA key fingerprint is SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxx.\nAre you sure you want to continue connecting (yes/no/[fingerprint])? \nType yes if you trust the server.\n\n\nSSH with Password\nIf you haven’t set up key authentication:\nssh username@hostname\n# Enter password when prompted\n\n\nSSH with Key\nOnce your public key is on the server:\nssh username@hostname\n# No password needed!",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#setting-up-password-less-access",
     "href": "pages/ssh.html#setting-up-password-less-access",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "Setting Up Password-less Access",
     "text": "Setting Up Password-less Access\n\nMethod 1: ssh-copy-id (Easiest)\n# Copy your public key to the server\nssh-copy-id username@hostname\n\n# Enter your password one last time\n# Future connections won't need a password\n\n\nMethod 2: Manual Setup\n# 1. Copy your public key\ncat ~/.ssh/id_rsa.pub\n\n# 2. Connect to server\nssh username@hostname\n\n# 3. Add key to authorized_keys\nmkdir -p ~/.ssh\necho \"YOUR_PUBLIC_KEY_HERE\" &gt;&gt; ~/.ssh/authorized_keys\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/authorized_keys",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#ssh-config-file",
     "href": "pages/ssh.html#ssh-config-file",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "SSH Config File",
     "text": "SSH Config File\nSimplify connections with SSH config:\n\nCreate/Edit Config\nnano ~/.ssh/config\n\n\nAdd Server Configurations\n# ~/.ssh/config\n\nHost myserver\n    HostName server.example.com\n    User john\n    Port 22\n    IdentityFile ~/.ssh/id_rsa\n\nHost university\n    HostName cluster.uni.edu\n    User student123\n    Port 2222\n\nHost gitlab\n    HostName gitlab.com\n    User git\n    IdentityFile ~/.ssh/id_ed25519\n\n\nUse Simplified Names\n# Instead of:\nssh john@server.example.com\n\n# Just use:\nssh myserver",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#file-transfer-with-ssh",
     "href": "pages/ssh.html#file-transfer-with-ssh",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "File Transfer with SSH",
     "text": "File Transfer with SSH\n\nSCP (Secure Copy)\n# Copy file to remote\nscp localfile.txt username@hostname:/path/to/destination/\n\n# Copy file from remote\nscp username@hostname:/path/to/file.txt ./\n\n# Copy entire directory\nscp -r local_directory/ username@hostname:/path/to/destination/\n\n# Using SSH config alias\nscp file.txt myserver:~/documents/\n\n\nSFTP (Secure FTP)\n# Start SFTP session\nsftp username@hostname\n\n# SFTP commands\nsftp&gt; ls                    # List remote files\nsftp&gt; pwd                   # Show remote directory\nsftp&gt; cd /path/to/dir       # Change remote directory\nsftp&gt; get remote_file.txt   # Download file\nsftp&gt; put local_file.txt    # Upload file\nsftp&gt; exit                  # Close connection",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#ssh-with-git",
     "href": "pages/ssh.html#ssh-with-git",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "SSH with Git",
     "text": "SSH with Git\n\nGitHub SSH Setup\n\nAdd SSH key to GitHub:\n\nGo to GitHub → Settings → SSH and GPG keys\nClick “New SSH key”\nPaste your public key\n\nTest connection:\nssh -T git@github.com\nClone with SSH:\ngit clone git@github.com:username/repository.git\n\n\n\nGitLab SSH Setup\n\nAdd SSH key to GitLab:\n\nGo to GitLab → Settings → SSH Keys\nPaste your public key\n\nTest connection:\nssh -T git@gitlab.com\nUse SSH for Git:\ngit remote set-url origin git@gitlab.com:username/project.git",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#ssh-tunneling",
     "href": "pages/ssh.html#ssh-tunneling",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "SSH Tunneling",
     "text": "SSH Tunneling\nCreate secure tunnels for accessing remote services:\n\nLocal Port Forwarding\nAccess remote service through local port:\n# Access remote database locally\nssh -L 3306:localhost:3306 username@hostname\n\n# Access remote Jupyter notebook\nssh -L 8888:localhost:8888 username@hostname\n\n\nExample: Remote Jupyter\n# 1. On remote server, start Jupyter\njupyter notebook --no-browser --port=8888\n\n# 2. On local machine, create tunnel\nssh -L 8888:localhost:8888 username@hostname\n\n# 3. Open browser to http://localhost:8888",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#ssh-agent",
     "href": "pages/ssh.html#ssh-agent",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "SSH Agent",
     "text": "SSH Agent\nManage keys and passphrases efficiently:\n\nStart SSH Agent\n# Start agent\neval \"$(ssh-agent -s)\"\n\n# Add key to agent\nssh-add ~/.ssh/id_rsa\n\n# Add with passphrase caching\nssh-add -t 3600 ~/.ssh/id_rsa  # Cache for 1 hour\n\n\nList Loaded Keys\nssh-add -l",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#common-ssh-commands",
     "href": "pages/ssh.html#common-ssh-commands",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "Common SSH Commands",
     "text": "Common SSH Commands\n\n\n\nCommand\nPurpose\n\n\n\n\nssh user@host\nConnect to remote host\n\n\nssh -p 2222 user@host\nConnect on specific port\n\n\nssh-keygen\nGenerate SSH keys\n\n\nssh-copy-id user@host\nCopy public key to server\n\n\nscp file user@host:~/\nCopy file to remote\n\n\nsftp user@host\nStart SFTP session\n\n\nssh -L 8080:localhost:80 user@host\nCreate tunnel\n\n\nssh-add\nAdd key to SSH agent\n\n\nssh -X user@host\nEnable X11 forwarding",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#troubleshooting",
     "href": "pages/ssh.html#troubleshooting",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "Troubleshooting",
     "text": "Troubleshooting\n\nPermission Denied\n# Check key permissions\nls -la ~/.ssh/\n\n# Fix permissions\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/id_rsa\nchmod 644 ~/.ssh/id_rsa.pub\nchmod 600 ~/.ssh/config\n\n\nConnection Refused\n# Check if SSH service is running on server\nssh -v username@hostname  # Verbose mode\n\n# Common issues:\n# - Wrong port\n# - Firewall blocking connection\n# - SSH service not running\n\n\nKey Not Working\n# Debug authentication\nssh -vv username@hostname\n\n# Check authorized_keys on server\ncat ~/.ssh/authorized_keys\n\n# Ensure correct permissions on server\nchmod 700 ~/.ssh\nchmod 600 ~/.ssh/authorized_keys",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#security-best-practices",
     "href": "pages/ssh.html#security-best-practices",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "Security Best Practices",
     "text": "Security Best Practices\n\nDo’s\n\n✅ Use strong passphrases for keys\n✅ Use Ed25519 keys (more secure than RSA)\n✅ Keep private keys private\n✅ Use different keys for different services\n✅ Regularly rotate keys\n✅ Use SSH config for organization\n\n\n\nDon’ts\n\n❌ Share private keys\n❌ Use password authentication when keys are available\n❌ Ignore host key warnings\n❌ Use weak or no passphrases\n❌ Store private keys in insecure locations",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#ssh-with-franklin",
     "href": "pages/ssh.html#ssh-with-franklin",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "SSH with Franklin",
     "text": "SSH with Franklin\nFranklin exercises often involve SSH for:\n\nAccessing Remote Clusters\n# SSH to university cluster\nssh student@cluster.university.edu\n\n# Run Franklin on remote server\nfranklin jupyter --remote\n\n\nGit Operations\n# Configure SSH for GitLab\nssh-keygen -t ed25519 -C \"student@university.edu\"\n\n# Add to GitLab\ncat ~/.ssh/id_ed25519.pub\n# Copy and paste to GitLab → Settings → SSH Keys\n\n# Clone with SSH\ngit clone git@gitlab.university.edu:course/exercise.git",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#quick-setup-guide",
     "href": "pages/ssh.html#quick-setup-guide",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "Quick Setup Guide",
     "text": "Quick Setup Guide\nFor Franklin users, here’s a quick SSH setup:\n# 1. Generate key\nssh-keygen -t ed25519 -C \"your.email@university.edu\"\n\n# 2. Start SSH agent\neval \"$(ssh-agent -s)\"\nssh-add ~/.ssh/id_ed25519\n\n# 3. Copy public key\ncat ~/.ssh/id_ed25519.pub\n\n# 4. Add to GitHub/GitLab\n# Paste the key in settings\n\n# 5. Test connection\nssh -T git@github.com\nssh -T git@gitlab.com\n\n# 6. Configure Git to use SSH\ngit config --global url.\"git@github.com:\".insteadOf \"https://github.com/\"\ngit config --global url.\"git@gitlab.com:\".insteadOf \"https://gitlab.com/\"",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/ssh.html#summary",
     "href": "pages/ssh.html#summary",
-    "title": "Introduction to SSH",
+    "title": "SSH",
     "section": "Summary",
     "text": "Summary\nSSH is essential for: - Secure remote access to servers - Password-less Git operations - Secure file transfers - Running remote commands\nStart with basic key generation and connections, then explore advanced features like tunneling and agent forwarding as needed. Remember: your private key is like your password—keep it safe and never share it!",
     "crumbs": [
       "Reference",
-      "Introduction to SSH"
+      "SSH"
     ]
   },
   {
     "objectID": "pages/terminal.html",
     "href": "pages/terminal.html",
-    "title": "The Terminal",
+    "title": "Terminal",
     "section": "",
     "text": "A terminal (also called command line, shell, or console) is a text-based interface for interacting with your computer. Instead of clicking buttons and icons, you type commands to tell the computer what to do. While it might seem intimidating at first, the terminal is an incredibly powerful tool that gives you precise control over your system.\nWhat is Powershell and this Terminal thing? Both programs are what we call terminal emulators. They are used to run other programs, like the ones you will write yourself. We informally refer to both Terminal and Powershell as “the terminal or”the shell”. So if you read something like “open the terminal,” you should open Powershell if you are running Windows and the Terminal application if you are running OS X.\nTo use the terminal, you need to know a few basics. First of all, a terminal lets you execute commands on your computer. You type the command you want and then hit enter. The place where you type is called a prompt (or command prompt), and it may look a little different depending on which terminal emulator you use. In this book, we represent the prompt with the character $. So, a command in the examples below is the line of text to the left of the $. When you open the terminal, you’ll be redirected to a folder. You can see which folder you are in by typing pwd, and then press Enter on the keyboard. When you press Enter, you tell the terminal to execute your written command. In this case, the command you typed tells you the path to the folder we are in. If I do it, I get:\nIf I had been on a Windows machine, it would have looked something like this:",
     "crumbs": [
       "Reference",
-      "The Terminal"
+      "Terminal"
     ]
   },
   {
     "objectID": "pages/terminal.html#what-is-a-terminal",
     "href": "pages/terminal.html#what-is-a-terminal",
-    "title": "The Terminal",
+    "title": "Terminal",
     "section": "",
     "text": "A terminal (also called command line, shell, or console) is a text-based interface for interacting with your computer. Instead of clicking buttons and icons, you type commands to tell the computer what to do. While it might seem intimidating at first, the terminal is an incredibly powerful tool that gives you precise control over your system.",
     "crumbs": [
       "Reference",
-      "The Terminal"
+      "Terminal"
     ]
   },
   {
     "objectID": "pages/terminal.html#mac",
     "href": "pages/terminal.html#mac",
-    "title": "The Terminal",
+    "title": "Terminal",
     "section": "Mac",
     "text": "Mac\nOn Mac, it is called Terminal. You can find it by typing “Terminal” in Spotlight Search. When you start, you will see something like Figure 1. You may be presented with the following text:\nThe default interactive shell is now zsh.\nTo update your account to use zsh, please run `chsh -s /bin/zsh`.\nFor more details, please visit https://support.apple.com/kb/HT208050.\nDo not update your account to zsh! (If you did so by mistake, you change back using this command: chsh -s /bin/bash).\n\n\n\n\n\n\nFigure 1: The Terminal app on Mac",
     "crumbs": [
       "Reference",
-      "The Terminal"
+      "Terminal"
     ]
   },
   {
     "objectID": "pages/terminal.html#windows",
     "href": "pages/terminal.html#windows",
-    "title": "The Terminal",
+    "title": "Terminal",
     "section": "Windows",
     "text": "Windows\nOn Windows, the tool you need is called the Anaconda Powershell Prompt, which was installed along with Anaconda Python. You should be able to find it from the Start menu. If you open Powershell, you should see something like Figure 2.\n\n\n\n\n\n\nFigure 2: Anaconda Powershell Prompt app on Windows",
     "crumbs": [
       "Reference",
-      "The Terminal"
+      "Terminal"
     ]
   },
   {
     "objectID": "pages/terminal.html#navigating-folders",
     "href": "pages/terminal.html#navigating-folders",
-    "title": "The Terminal",
+    "title": "Terminal",
     "section": "Navigating folders",
     "text": "Navigating folders\nSo, right now, I am in the programming folder. /Users/kasper/programming is the folder’s path or “full address” with dashes (or backslashes on Windows) separating nested folders. So programming is a subfolder of kasper, a subfolder of Users. That way, you know which folder you are in and where that folder is. Let us see what is in this folder. You can use the ls command (l as in Lima and s as in Sierra). When I do that and press Enter I get the following:\n$ ls\nnotes projects\nThere seem to be two other folders, one called notes and another called projects. If you are curious about what is inside the notes folder, you can “walk” into the folder with the cd command. To use this command, you must specify which folder you want to walk into (in this case, notes). We do this by typing cd, then a space, and then the folder’s name. When I press Enter I get the following:\n$ cd notes\n$\nIt seems that nothing really happened, but if I run the pwd command now to see which folder I am in, I get the following:\n$ pwd\n/Users/kasper/programming/notes\nJust to keep track of what is happening: before we ran the cd command, we were in the directory /Users/kasper/programming folder, and now we’re in /Users/kasper/programming/notes. This means that we can now use the ls command to see what is in the notes folder:\n$ ls\n$\nAgain, it seems like nothing happened. Well, ls and dir do not show anything if the folder we are in is empty. So notes must be empty. Let us go back to where we came from. To walk “back” or “up” to /Users/kasper/programming, we again use the cd command, but we do not need to name a folder this time. Instead, we use the special name .. to say that we wish to go to the parent folder called programming, i.e., the folder we just came from:\n$ cd ..\n$ pwd\n/Users/kasper/programming\nWhen we run the pwd command, we see that we are back where we started. Let us see if the two folders are still there:\n$ ls\nnotes projects\nThey are!",
     "crumbs": [
       "Reference",
-      "The Terminal"
+      "Terminal"
     ]
   },
   {
     "objectID": "pages/terminal.html#working-with-files-and-folders",
     "href": "pages/terminal.html#working-with-files-and-folders",
-    "title": "The Terminal",
+    "title": "Terminal",
     "section": "Working with Files and Folders",
     "text": "Working with Files and Folders\nCreate a new folder:\nmkdir my_project\nView entire file:\ncat filename.txt\nCopy file:\ncp source.txt destination.txt\nCopy folder recursively:\ncp -r source_folder destination_folder\nMove/rename file or folder:\nmv old_name.txt new_name.txt\nmv file.txt /path/to/destination/\nDelete file:\nrm file.txt\nDelete with confirmation:\nrm -i file.txt\nDelete empty folder:\nrmdir empty_folder\nDelete folder and all of its content:\nrm -r folder_name\n\nCareful with this command! if you delete some important folder, like your user folder, the command will delete it along with everything inside it - without asking for confirmation!",
     "crumbs": [
       "Reference",
-      "The Terminal"
+      "Terminal"
     ]
   },
   {
     "objectID": "pages/terminal.html#tips-and-tricks",
     "href": "pages/terminal.html#tips-and-tricks",
-    "title": "The Terminal",
+    "title": "Terminal",
     "section": "Tips and Tricks",
     "text": "Tips and Tricks\n\nKeyboard Shortcuts\n\n\n\nShortcut\nAction\n\n\n\n\nTab\nAuto-complete file/folder names\n\n\n↑ / ↓\nNavigate command history\n\n\nCtrl + C\nCancel current command\n\n\nCtrl + A\nGo to beginning of line\n\n\nCtrl + E\nGo to end of line\n\n\nCtrl + L\nClear screen (or use clear)\n\n\nCtrl + R\nSearch command history\n\n\nCtrl + D\nExit terminal\n\n\n\n\n\nStuck Terminal\n\nCtrl + C: Stop current command\nCtrl + D: Exit/logout\n\n\n\nSafety First\n\nUse ls before rm to verify what you’re deleting\nUse -i flag with rm for confirmation\nMake backups before major operations\nTest commands on sample data first\n\n\n\nEfficiency\n\nUse Tab completion extensively\nCreate aliases for repetitive commands\nLearn keyboard shortcuts\nUse command history\n\n\n\nOrganization\n\nUse descriptive file and folder names\nOrganize projects in dedicated directories\nKeep your home directory clean",
     "crumbs": [
       "Reference",
-      "The Terminal"
+      "Terminal"
     ]
   },
   {
     "objectID": "pages/terminal.html#resources-for-learning-more",
     "href": "pages/terminal.html#resources-for-learning-more",
-    "title": "The Terminal",
+    "title": "Terminal",
     "section": "Resources for Learning More",
     "text": "Resources for Learning More\n\nCommand Line Tutorial\nLearn Shell\nBash Guide",
     "crumbs": [
       "Reference",
-      "The Terminal"
+      "Terminal"
     ]
   },
   {
