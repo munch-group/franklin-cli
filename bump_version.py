@@ -9,39 +9,39 @@ parser = argparse.ArgumentParser(description='Release tag script')
 parser.add_argument('--major', action='store_true', help='Bump major version number')
 parser.add_argument('--minor', action='store_true', help='Bump minor version number') 
 parser.add_argument('--patch', action='store_true', help='Bump patch version number')
-parser.add_argument('--dev', action='store_true', help='Bump patch dev number')
+parser.add_argument('--post', action='store_true', help='Bump post release number')
 args = parser.parse_args()
 major = int(args.major)
 minor = int(args.minor)
 patch = int(args.patch)
-dev = int(args.dev)
+post = int(args.post)
 
-if sum([major, minor, patch, dev]) != 1:
-    print("Please specify exactly one of --major, --minor, --patch or --dev")
+if sum([major, minor, patch, post]) != 1:
+    print("Please specify exactly one of --major, --minor, --patch or --post")
     sys.exit(1)
 
 # file, regex pairs
 spec = {
-    'pyproject.toml':  r'(version = ")(\d+)\.(\d+)\.(\d+)(?:.dev(\d+))?(")',
+    'pyproject.toml':  r'(version = ")(\d+)\.(\d+)\.(\d+)(?:.post(\d+))?(")',
 }
 
 def bump(content, regex):
-    global major, minor, patch, dev
+    global major, minor, patch, post
     m = re.search(regex, content)
     assert m is not None, "Version not found"
     prefix = m.group(1)
     _major = int(m.group(2))
     _minor = int(m.group(3))
     _patch = int(m.group(4))
-    _dev = int(m.group(5)) if m.group(5) else 0
+    _post = int(m.group(5)) if m.group(5) else 0
     postfix = m.group(6)
-    if _dev:
-        version = f'{_major}.{_minor}.{_patch}.dev{_dev}'
+    if _post:
+        version = f'{_major}.{_minor}.{_patch}.post{_post}'
     else:
         version = f'{_major}.{_minor}.{_patch}'
 
     if major or minor or patch:
-        dev = -_dev
+        post = -_post
     if major or minor:
         patch = -_patch
     if major:
@@ -50,7 +50,7 @@ def bump(content, regex):
     if major or minor or patch:
         new_version = f'{_major+major}.{_minor+minor}.{_patch+patch}'
     else:
-        new_version = f'{_major+major}.{_minor+minor}.{_patch+patch}.dev{_dev+dev}'
+        new_version = f'{_major+major}.{_minor+minor}.{_patch+patch}.post{_post+post}'
 
     print(version, new_version)
 
