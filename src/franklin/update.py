@@ -436,9 +436,11 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False, inc
         if not os.path.exists('pixi.toml'):
             # This shouldn't happen as we detect installation method before calling this
             # But if it does, try global update as fallback
-            logger.warning(f"Not in a pixi project directory but package marked as local. Trying global update...")
-            logger.debug(f"Fallback to global install")
-            output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge {package}={after_version}')
+            raise UpdateCrash(f"Not global and no poxi.toml in folder...")
+
+            # logger.warning(f"Not in a pixi project directory but package marked as local. Trying global update...")
+            # logger.debug(f"Fallback to global install")
+            # output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge {package}={after_version}')
 
         cmd = f'pixi add "{package}={after_version}"'
         result = subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
