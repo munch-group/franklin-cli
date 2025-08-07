@@ -62,6 +62,10 @@ COPY --from=build --chown=vscode:vscode /home/vscode/.pixi/envs/prod /home/vscod
 
 # copy scripts (should be at root)
 COPY --from=build --chown=vscode:vscode /shell-hook.sh /shell-hook.sh
+
+# COPY --from=build --chown=vscode:vscode /shell-hook.sh /etc/profile.d/pixi.sh
+# # Now the environment will be activated without the need for the pixi executable.
+
 COPY --from=build --chown=vscode:vscode /install_pixi.sh /install_pixi.sh
 
 # copy the exercise notebook

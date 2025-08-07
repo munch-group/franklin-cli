@@ -235,7 +235,7 @@ def conda_latest_version(package: str, include_post: bool = False) -> Optional[V
     if not versions:
         logger.warning(f"No {'stable ' if not include_post else ''}update found for {package}")
         return None
-    print(versions)
+
     latest = max(versions, key=Version)
     logger.debug(f"Latest {'(including dev) ' if include_post else ''}update of {package}: {latest}")
     return latest
@@ -568,6 +568,9 @@ def detect_installation_method(package: str = 'franklin') -> str:
     """
     bin_dir = Path(shutil.which('franklin')).parent
     is_global = bin_dir == Path().home() / '.pixi' / 'bin'
+
+    # logger.debug(is_global,  bin_dir, Path().home() / '.pixi' / 'bin')
+
     is_pixi = '.pixi' in str(bin_dir) 
     is_conda  = (bin_dir / 'conda').exists()
 
