@@ -209,6 +209,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Administrator Commands</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+ <span class="menu-text">pages/trouble_shooting.qmd</span>
+  </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -407,31 +410,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#main-commands" id="toc-main-commands" class="nav-link" data-scroll-target="#main-commands">Main Commands</a>
+  <li><a href="#exercise-commands" id="toc-exercise-commands" class="nav-link" data-scroll-target="#exercise-commands">Exercise Commands</a>
   <ul class="collapse">
   <li><a href="#download-an-exercise" id="toc-download-an-exercise" class="nav-link" data-scroll-target="#download-an-exercise">Download an exercise</a></li>
   <li><a href="#launch-jupyter" id="toc-launch-jupyter" class="nav-link" data-scroll-target="#launch-jupyter">Launch Jupyter</a></li>
-  <li><a href="#update-franklin" id="toc-update-franklin" class="nav-link" data-scroll-target="#update-franklin">Update Franklin</a></li>
+  </ul></li>
+  <li><a href="#updating-franklin" id="toc-updating-franklin" class="nav-link" data-scroll-target="#updating-franklin">Updating Franklin</a>
+  <ul class="collapse">
+  <li><a href="#check-for-updates" id="toc-check-for-updates" class="nav-link" data-scroll-target="#check-for-updates">Check for updates</a></li>
+  <li><a href="#force-update" id="toc-force-update" class="nav-link" data-scroll-target="#force-update">Force update</a></li>
+  </ul></li>
+  <li><a href="#docker-resources" id="toc-docker-resources" class="nav-link" data-scroll-target="#docker-resources">Docker resources</a>
+  <ul class="collapse">
+  <li><a href="#show-images" id="toc-show-images" class="nav-link" data-scroll-target="#show-images">Show images</a></li>
+  <li><a href="#show-containers" id="toc-show-containers" class="nav-link" data-scroll-target="#show-containers">Show containers</a></li>
+  <li><a href="#show-storage" id="toc-show-storage" class="nav-link" data-scroll-target="#show-storage">Show storage</a></li>
+  </ul></li>
+  <li><a href="#manage-docker-disk-usage" id="toc-manage-docker-disk-usage" class="nav-link" data-scroll-target="#manage-docker-disk-usage">Manage Docker Disk Usage</a>
+  <ul class="collapse">
   <li><a href="#clean-up-docker-images" id="toc-clean-up-docker-images" class="nav-link" data-scroll-target="#clean-up-docker-images">Clean up Docker images</a></li>
-  <li><a href="#show-docker-resources" id="toc-show-docker-resources" class="nav-link" data-scroll-target="#show-docker-resources">Show Docker resources</a></li>
   </ul></li>
-  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
-  <ul class="collapse">
-  <li><a href="#docker-not-running" id="toc-docker-not-running" class="nav-link" data-scroll-target="#docker-not-running">Docker not running</a></li>
-  <li><a href="#permission-denied" id="toc-permission-denied" class="nav-link" data-scroll-target="#permission-denied">Permission denied</a></li>
-  <li><a href="#no-space-left" id="toc-no-space-left" class="nav-link" data-scroll-target="#no-space-left">No space left</a></li>
-  <li><a href="#network-issues" id="toc-network-issues" class="nav-link" data-scroll-target="#network-issues">Network issues</a></li>
-  <li><a href="#debug-mode" id="toc-debug-mode" class="nav-link" data-scroll-target="#debug-mode">Debug mode</a></li>
-  </ul></li>
-  <li><a href="#tips-and-best-practices" id="toc-tips-and-best-practices" class="nav-link" data-scroll-target="#tips-and-best-practices">Tips and Best Practices</a>
-  <ul class="collapse">
-  <li><a href="#organization" id="toc-organization" class="nav-link" data-scroll-target="#organization">Organization</a></li>
-  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
-  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance">Performance</a></li>
-  <li><a href="#security" id="toc-security" class="nav-link" data-scroll-target="#security">Security</a></li>
-  </ul></li>
-  <li><a href="#environment-variables" id="toc-environment-variables" class="nav-link" data-scroll-target="#environment-variables">Environment Variables</a></li>
-  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting Help</a></li>
   </ul>
 </nav>
     </div>
@@ -467,8 +465,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--help</span>            <span class="co"># Show main help</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download <span class="at">--help</span>   <span class="co"># Show download command help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="main-commands" class="level2">
-<h2 class="anchored" data-anchor-id="main-commands">Main Commands</h2>
+<section id="exercise-commands" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-commands">Exercise Commands</h2>
 <section id="download-an-exercise" class="level3">
 <h3 class="anchored" data-anchor-id="download-an-exercise">Download an exercise</h3>
 <p>This command downloads an exercise repository to your computer.</p>
@@ -507,10 +505,6 @@ Technical details of the process
 <li><strong>Validation</strong>: Ensures exercise contains required files (Dockerfile, notebook, etc.)</li>
 </ol>
 </details>
-<section id="download-with-url" class="level4">
-<h4 class="anchored" data-anchor-id="download-with-url">Download with URL</h4>
-<p>You can download a specific exercise directly using its GitLab URL.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> download https://gitlab.au.dk/course-name/exercise-name.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Tips</a></li></ul>
 <div class="tab-content">
@@ -531,11 +525,10 @@ Technical details of the process
 </div>
 </div>
 </section>
-</section>
 <section id="launch-jupyter" class="level3">
 <h3 class="anchored" data-anchor-id="launch-jupyter">Launch Jupyter</h3>
 <p>This command launches JupyterLab in a Docker container configured for the current exercise.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Tips</a></li></ul>
 <div class="tab-content">
@@ -573,10 +566,6 @@ Technical details of the process
 <li><strong>Cleanup</strong>: Stops container when browser closes</li>
 </ol>
 </details>
-<section id="launch-with-image-url" class="level4">
-<h4 class="anchored" data-anchor-id="launch-with-image-url">Launch with image URL</h4>
-<p>You can launch a specific Docker image directly.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter registry.gitlab.au.dk/franklin/course/exercise:latest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Tips</a></li></ul>
 <div class="tab-content">
@@ -597,17 +586,11 @@ Technical details of the process
 </div>
 </div>
 </section>
-<section id="options" class="level4">
-<h4 class="anchored" data-anchor-id="options">Options</h4>
-<ul>
-<li><code>--allow-subdirs-at-your-own-risk</code>: Bypass subdirectory safety check (not recommended)</li>
-</ul>
 </section>
-</section>
-<section id="update-franklin" class="level3">
-<h3 class="anchored" data-anchor-id="update-franklin">Update Franklin</h3>
+<section id="updating-franklin" class="level2">
+<h2 class="anchored" data-anchor-id="updating-franklin">Updating Franklin</h2>
 <p>This command updates Franklin to the latest version.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> update</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> update</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Tips</a></li></ul>
 <div class="tab-content">
@@ -641,10 +624,10 @@ Technical details of the process
 <li><strong>Cache Management</strong>: Updates are cached to avoid repeated version checks</li>
 </ol>
 </details>
-<section id="check-for-updates" class="level4">
-<h4 class="anchored" data-anchor-id="check-for-updates">Check for updates</h4>
+<section id="check-for-updates" class="level3">
+<h3 class="anchored" data-anchor-id="check-for-updates">Check for updates</h3>
 <p>Check for updates without installing them.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> update <span class="at">--check</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> update <span class="at">--check</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Tips</a></li></ul>
 <div class="tab-content">
@@ -665,10 +648,10 @@ Technical details of the process
 </div>
 </div>
 </section>
-<section id="force-update" class="level4">
-<h4 class="anchored" data-anchor-id="force-update">Force update</h4>
+<section id="force-update" class="level3">
+<h3 class="anchored" data-anchor-id="force-update">Force update</h3>
 <p>Force a reinstall even if already up-to-date.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> update <span class="at">--force</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> update <span class="at">--force</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Tips</a></li></ul>
 <div class="tab-content">
@@ -690,14 +673,91 @@ Technical details of the process
 </div>
 </section>
 </section>
-<section id="clean-up-docker-images" class="level3">
-<h3 class="anchored" data-anchor-id="clean-up-docker-images">Clean up Docker images</h3>
-<p>This command removes Docker images and containers to free disk space.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> cleanup</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="docker-resources" class="level2">
+<h2 class="anchored" data-anchor-id="docker-resources">Docker resources</h2>
+<section id="show-images" class="level3">
+<h3 class="anchored" data-anchor-id="show-images">Show images</h3>
+<p>List all Docker images on your system.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show images</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Tips</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
+<ol type="1">
+<li>Queries Docker for all images</li>
+<li>Displays them in a formatted table</li>
+<li>Shows repository, tag, ID, and size</li>
+</ol>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<ul>
+<li>Use before cleanup to see what’s installed</li>
+<li>Large images (&gt;2GB) are exercise environments</li>
+<li>Small images (&lt;1GB) are usually base images</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="show-containers" class="level3">
+<h3 class="anchored" data-anchor-id="show-containers">Show containers</h3>
+<p>List all Docker containers (running and stopped).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show containers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Tips</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<ol type="1">
+<li>Queries Docker for all containers</li>
+<li>Shows both running and stopped containers</li>
+<li>Displays ID, image, status, and ports</li>
+</ol>
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<ul>
+<li>Running containers show “Up” status</li>
+<li>Stopped containers show “Exited” status</li>
+<li>Use to check if Jupyter is still running</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="show-storage" class="level3">
+<h3 class="anchored" data-anchor-id="show-storage">Show storage</h3>
+<p>Display Docker disk usage summary.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show storage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Tips</a></li></ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<ol type="1">
+<li>Calculates space used by images</li>
+<li>Calculates space used by containers</li>
+<li>Shows total and reclaimable space</li>
+</ol>
+</div>
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<ul>
+<li>Use before and after cleanup to see space saved</li>
+<li>Check when Docker seems slow</li>
+<li>Large build cache can often be cleared safely</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="manage-docker-disk-usage" class="level2">
+<h2 class="anchored" data-anchor-id="manage-docker-disk-usage">Manage Docker Disk Usage</h2>
+<section id="clean-up-docker-images" class="level3">
+<h3 class="anchored" data-anchor-id="clean-up-docker-images">Clean up Docker images</h3>
+<p>This command removes Docker images and containers to free disk space.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> cleanup</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Tips</a></li></ul>
+<div class="tab-content">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
 <ol type="1">
 <li>Lists all Franklin-related Docker images</li>
 <li>Shows size of each image</li>
@@ -706,7 +766,7 @@ Technical details of the process
 <li>Shows total space freed</li>
 </ol>
 </div>
-<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
 <ul>
 <li>Images can be re-downloaded when needed</li>
 <li>Your exercise files are never deleted</li>
@@ -728,178 +788,9 @@ Technical details of the process
 <li><strong>Cache Pruning</strong>: Optionally runs <code>docker system prune</code> for additional cleanup</li>
 </ol>
 </details>
-</section>
-<section id="show-docker-resources" class="level3">
-<h3 class="anchored" data-anchor-id="show-docker-resources">Show Docker resources</h3>
-<section id="show-images" class="level4">
-<h4 class="anchored" data-anchor-id="show-images">Show images</h4>
-<p>List all Docker images on your system.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show images</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Tips</a></li></ul>
-<div class="tab-content">
-<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
-<ol type="1">
-<li>Queries Docker for all images</li>
-<li>Displays them in a formatted table</li>
-<li>Shows repository, tag, ID, and size</li>
-</ol>
-</div>
-<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
-<ul>
-<li>Use before cleanup to see what’s installed</li>
-<li>Large images (&gt;2GB) are exercise environments</li>
-<li>Small images (&lt;1GB) are usually base images</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="show-containers" class="level4">
-<h4 class="anchored" data-anchor-id="show-containers">Show containers</h4>
-<p>List all Docker containers (running and stopped).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show containers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Tips</a></li></ul>
-<div class="tab-content">
-<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
-<ol type="1">
-<li>Queries Docker for all containers</li>
-<li>Shows both running and stopped containers</li>
-<li>Displays ID, image, status, and ports</li>
-</ol>
-</div>
-<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
-<ul>
-<li>Running containers show “Up” status</li>
-<li>Stopped containers show “Exited” status</li>
-<li>Use to check if Jupyter is still running</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<section id="show-storage" class="level4">
-<h4 class="anchored" data-anchor-id="show-storage">Show storage</h4>
-<p>Display Docker disk usage summary.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show storage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">This happens</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Tips</a></li></ul>
-<div class="tab-content">
-<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
-<ol type="1">
-<li>Calculates space used by images</li>
-<li>Calculates space used by containers</li>
-<li>Shows total and reclaimable space</li>
-</ol>
-</div>
-<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
-<ul>
-<li>Use before and after cleanup to see space saved</li>
-<li>Check when Docker seems slow</li>
-<li>Large build cache can often be cleared safely</li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="troubleshooting" class="level2">
-<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
-<section id="docker-not-running" class="level3">
-<h3 class="anchored" data-anchor-id="docker-not-running">Docker not running</h3>
-<p><strong>Problem:</strong> “Docker is not running”</p>
-<p><strong>Solution:</strong> Start Docker Desktop - <strong>macOS</strong>: Open Docker from Applications or run <code>open -a Docker</code> - <strong>Windows</strong>: Start Docker Desktop from Start Menu - <strong>Linux</strong>: Run <code>sudo systemctl start docker</code></p>
-</section>
-<section id="permission-denied" class="level3">
-<h3 class="anchored" data-anchor-id="permission-denied">Permission denied</h3>
-<p><strong>Problem:</strong> “Permission denied” when downloading</p>
-<p><strong>Solution:</strong> Check GitLab access - Ensure you’re logged into GitLab - Verify course enrollment with instructor - Check that repository is public or you have access</p>
-</section>
-<section id="no-space-left" class="level3">
-<h3 class="anchored" data-anchor-id="no-space-left">No space left</h3>
-<p><strong>Problem:</strong> “No space left on device”</p>
-<p><strong>Solution:</strong> Free up Docker space</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> cleanup           <span class="co"># Interactive cleanup</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> system prune <span class="at">-a</span>    <span class="co"># Nuclear option (removes everything)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="network-issues" class="level3">
-<h3 class="anchored" data-anchor-id="network-issues">Network issues</h3>
-<p><strong>Problem:</strong> “Cannot reach GitLab” or “Image pull failed”</p>
-<p><strong>Solution:</strong> Check network and retry - Check network connection: <code>ping gitlab.au.dk</code> - Check if behind proxy/firewall - Run <code>franklin cleanup</code> to remove corrupted images - Try again with <code>franklin jupyter</code></p>
-</section>
-<section id="debug-mode" class="level3">
-<h3 class="anchored" data-anchor-id="debug-mode">Debug mode</h3>
-<p>Enable detailed logging for troubleshooting:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FRANKLIN_LOG_LEVEL</span><span class="op">=</span>DEBUG</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> jupyter  <span class="co"># Now shows detailed logs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="tips-and-best-practices" class="level2">
-<h2 class="anchored" data-anchor-id="tips-and-best-practices">Tips and Best Practices</h2>
-<section id="organization" class="level3">
-<h3 class="anchored" data-anchor-id="organization">Organization</h3>
-<p>Create a dedicated folder structure:</p>
-<pre><code>~/exercises/
-├── biology/
-│   ├── exercise1/
-│   ├── exercise2/
-├── chemistry/
-│   ├── lab1/
-│   ├── lab2/</code></pre>
-</section>
-<section id="workflow" class="level3">
-<h3 class="anchored" data-anchor-id="workflow">Workflow</h3>
-<ol type="1">
-<li><p><strong>Start of semester</strong>: Update Franklin</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> update <span class="at">--force</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p><strong>Weekly routine</strong>: Clean up Docker images</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> cleanup</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> show storage</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p><strong>Before exercises</strong>: Ensure Docker is running</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">open</span> <span class="at">-a</span> Docker  <span class="co"># macOS</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ol>
-</section>
-<section id="performance" class="level3">
-<h3 class="anchored" data-anchor-id="performance">Performance</h3>
-<ul>
-<li>Keep Docker Desktop running during work sessions</li>
-<li>Download exercises when on fast internet</li>
-<li>Close unused Jupyter tabs to free memory</li>
-<li>Use cleanup regularly - images can be re-downloaded</li>
-</ul>
-</section>
-<section id="security" class="level3">
-<h3 class="anchored" data-anchor-id="security">Security</h3>
-<ul>
-<li>Never run from system directories (/, /usr, etc.)</li>
-<li>Don’t use <code>--allow-subdirs-at-your-own-risk</code> unless necessary</li>
-<li>Keep Franklin updated for security patches</li>
-<li>Be cautious with unknown exercise URLs</li>
-</ul>
-</section>
-</section>
-<section id="environment-variables" class="level2">
-<h2 class="anchored" data-anchor-id="environment-variables">Environment Variables</h2>
-<p>Configure Franklin’s behavior:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FRANKLIN_AUTO_UPDATE</span><span class="op">=</span>false    <span class="co"># Disable automatic updates</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FRANKLIN_DOCKER_TIMEOUT</span><span class="op">=</span>120   <span class="co"># Docker startup timeout (seconds)</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FRANKLIN_BROWSER</span><span class="op">=</span>chrome       <span class="co"># Preferred browser for Jupyter</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FRANKLIN_JUPYTER_PORT</span><span class="op">=</span>8888    <span class="co"># Preferred Jupyter port</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">FRANKLIN_LOG_LEVEL</span><span class="op">=</span>DEBUG      <span class="co"># Enable debug logging</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Add to your shell profile (<code>~/.bashrc</code> or <code>~/.zshrc</code>) to make permanent.</p>
-</section>
-<section id="getting-help" class="level2">
-<h2 class="anchored" data-anchor-id="getting-help">Getting Help</h2>
-<ol type="1">
-<li><strong>Built-in help</strong>: <code>franklin COMMAND --help</code></li>
-<li><strong>Documentation</strong>: This guide and other resources</li>
-<li><strong>Course support</strong>: Contact your instructor for exercise-specific issues</li>
-<li><strong>Bug reports</strong>: Report issues to the Franklin development team</li>
-</ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
