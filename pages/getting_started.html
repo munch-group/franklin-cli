@@ -226,13 +226,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">pages/installing_docker.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../pages/installing_docker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing Docker Desktop</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Educator Guides</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Educator guides</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Developing exercises</span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
@@ -245,62 +261,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/jupyterlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">JupyterLab Tutorial</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../pages/jupyterlab_complete.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">JupyterLab Complete Guide</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/numpy_and_pandas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">NumPy and Pandas</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/numpy_pandas_comprehensive.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">NumPy and Pandas Mastery</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/python_r_julia.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Python, R, and Julia for Data Science</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/plotting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Plotting with Python</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/plotting_expanded.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data Visualization with Python</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/python_r_julia_expanded.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Python, R, and Julia for Data Science</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/widgets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Showcase</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/widgets_expanded.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Interactive Widgets in Jupyter</span></a>
+ <span class="menu-text">JupyterLab Short Guide</span></a>
   </div>
 </li>
       </ul>
@@ -317,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/terminal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction to the Terminal</span></a>
+ <span class="menu-text">The Terminal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -364,7 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../pages/admin_quick_reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Franklin Quick Reference</span></a>
+ <span class="menu-text">Quick Reference</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -394,12 +356,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../pages/developer_guide.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Franklin Developer Guide</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../pages/developing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Developing exercises</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -495,12 +451,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>If you have not installed <strong>Python</strong> already, you can follow the tutorial on how to <a href="../pages/installing_python.html">install a modern version of Python</a> and come back here to continue.</li>
 <li>Franklin is built to interact with the <strong>Chrome</strong> browser. So make sure is installed on your computer or download it <a href="https://www.google.com/intl/en_uk/chrome/">here</a>.</li>
-<li>Franklin uses Docker isolate the setup for each exercise, so you need to install <strong>Docker Desktop</strong> too. Follow the tutorial on <a href="installing_docker.qmd">installing Docker</a> and come back here to continue.</li>
+<li>Franklin uses Docker isolate the setup for each exercise, so you need to install <strong>Docker Desktop</strong> too. Follow the tutorial on <a href="../pages/installing_docker.html">installing Docker</a> and come back here to continue.</li>
 </ol>
 <p>We use <strong>Pixi</strong> to install Franklin. <a href="https://pixi.sh/latest/">Pixi</a> is a modern, fast package manager that’s fully compatible with conda packages but offers better performance and reliability. On the page about <a href="../pages/pixi_and_conda.html">pixi and conda</a>, you can see how to install it.</p>
 <p><strong>Install Franklin with Pixi:</strong></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="role">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Student</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Educator</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Student</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Educator</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Administrator</a></li></ul>
 <div class="tab-content" data-group="role">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -518,7 +474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <p>Educators also include the educator tools in their installation:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin franklin-educator <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin-educator <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Verify installation:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -526,10 +482,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>
 (Click if you absolutely must install with Conda - not recommended)
 </summary>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin franklin-educator <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin-educator <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Verify installation:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>Educators also include the educator tools in their installation:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin-admin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Verify installation:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> exercise <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>
+(Click if you absolutely must install with Conda - not recommended)
+</summary>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install franklin-admin <span class="at">--channel</span> conda-forge <span class="at">--channel</span> munch-group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Verify installation:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> <span class="at">--version</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">franklin</span> finger <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>
@@ -539,7 +511,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="using-franklin">Using Franklin</h2>
 <p>Simple and robust command line interface in Terminal/PowerShell:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset" data-group="role">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Student</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Educator</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Student</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Educator</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Administrator</a></li></ul>
 <div class="tab-content" data-group="role">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p><i class="bi bi-terminal"></i> <strong>Download an exercise</strong>:</p>
@@ -575,6 +547,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Closing the browser window will add, commit, and push your changes to the GitLab exercise repository and initiate the building of an updated Docker image.</li>
 </ol>
 <p>See <a href="../pages/commands_core.html">Core commands</a>, <a href="../pages/commands_edu.html">Educator commands</a>, and <a href="../pages/commands_admin.html">Admin commands</a> for the full documentation.</p>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<p><i class="bi bi-terminal"></i> <strong>List users</strong>:</p>
+<ol type="1">
+<li></li>
+</ol>
 </div>
 </div>
 </div>

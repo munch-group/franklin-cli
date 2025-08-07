@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>JupyterLab Short Guide – franklin</title>
+<title>Installing Docker Desktop – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,15 +58,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/terminal.html" rel="next">
-<link href="../pages/developing.html" rel="prev">
+<link href="../pages/developing.html" rel="next">
+<link href="../pages/installing_python.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -114,39 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../api/_styles-quartodoc.css">
 <link rel="stylesheet" href="../styles.css">
@@ -199,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/jupyterlab_complete.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../pages/jupyterlab_complete.html">JupyterLab Short Guide</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/installing_python.html">Setup</a></li><li class="breadcrumb-item"><a href="../pages/installing_docker.html">Installing Docker Desktop</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -263,7 +231,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/installing_docker.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/installing_docker.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Installing Docker Desktop</span></a>
   </div>
 </li>
@@ -297,7 +265,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/jupyterlab_complete.html" class="sidebar-item-text sidebar-link active">
+  <a href="../pages/jupyterlab_complete.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterLab Short Guide</span></a>
   </div>
 </li>
@@ -436,72 +404,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#the-jupyterlab-interface" id="toc-the-jupyterlab-interface" class="nav-link active" data-scroll-target="#the-jupyterlab-interface">The JupyterLab Interface</a>
-  <ul class="collapse">
-  <li><a href="#main-areas" id="toc-main-areas" class="nav-link" data-scroll-target="#main-areas">Main Areas</a></li>
-  </ul></li>
-  <li><a href="#working-with-notebooks" id="toc-working-with-notebooks" class="nav-link" data-scroll-target="#working-with-notebooks">Working with Notebooks</a>
-  <ul class="collapse">
-  <li><a href="#creating-a-new-notebook" id="toc-creating-a-new-notebook" class="nav-link" data-scroll-target="#creating-a-new-notebook">Creating a New Notebook</a></li>
-  </ul></li>
-  <li><a href="#cell-types" id="toc-cell-types" class="nav-link" data-scroll-target="#cell-types">Cell Types</a>
-  <ul class="collapse">
-  <li><a href="#markdown-cells" id="toc-markdown-cells" class="nav-link" data-scroll-target="#markdown-cells">1. Markdown Cells</a></li>
-  <li><a href="#raw-cells" id="toc-raw-cells" class="nav-link" data-scroll-target="#raw-cells">2. Raw Cells</a></li>
-  <li><a href="#code-cells" id="toc-code-cells" class="nav-link" data-scroll-target="#code-cells">3. Code Cells</a></li>
-  </ul></li>
-  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices">Best Practices</a>
-  <ul class="collapse">
-  <li><a href="#cell-organization" id="toc-cell-organization" class="nav-link" data-scroll-target="#cell-organization">1. Cell Organization</a></li>
-  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">2. Reproducibility</a></li>
-  </ul></li>
-  <li><a href="#essential-keyboard-shortcuts" id="toc-essential-keyboard-shortcuts" class="nav-link" data-scroll-target="#essential-keyboard-shortcuts">Essential Keyboard Shortcuts</a>
-  <ul class="collapse">
-  <li><a href="#command-mode-shortcuts" id="toc-command-mode-shortcuts" class="nav-link" data-scroll-target="#command-mode-shortcuts">Command Mode Shortcuts</a></li>
-  <li><a href="#edit-mode-shortcuts" id="toc-edit-mode-shortcuts" class="nav-link" data-scroll-target="#edit-mode-shortcuts">Edit Mode Shortcuts</a></li>
-  </ul></li>
-  <li><a href="#two-kinds-of-undo" id="toc-two-kinds-of-undo" class="nav-link" data-scroll-target="#two-kinds-of-undo">Two kinds of “Undo”</a></li>
-  <li><a href="#moving-and-copypaste-cells" id="toc-moving-and-copypaste-cells" class="nav-link" data-scroll-target="#moving-and-copypaste-cells">Moving and copy/paste cells</a></li>
-  <li><a href="#spitting-ane-merging-cells" id="toc-spitting-ane-merging-cells" class="nav-link" data-scroll-target="#spitting-ane-merging-cells">Spitting ane merging cells</a></li>
-  <li><a href="#working-with-multiple-files" id="toc-working-with-multiple-files" class="nav-link" data-scroll-target="#working-with-multiple-files">Working with Multiple Files</a>
-  <ul class="collapse">
-  <li><a href="#split-view" id="toc-split-view" class="nav-link" data-scroll-target="#split-view">Split View</a></li>
-  <li><a href="#side-by-side-editing" id="toc-side-by-side-editing" class="nav-link" data-scroll-target="#side-by-side-editing">Side-by-Side Editing</a></li>
-  </ul></li>
-  <li><a href="#managing-kernels" id="toc-managing-kernels" class="nav-link" data-scroll-target="#managing-kernels">Managing Kernels</a>
-  <ul class="collapse">
-  <li><a href="#kernel-operations" id="toc-kernel-operations" class="nav-link" data-scroll-target="#kernel-operations">Kernel Operations</a></li>
-  </ul></li>
-  <li><a href="#exporting-notebooks" id="toc-exporting-notebooks" class="nav-link" data-scroll-target="#exporting-notebooks">Exporting Notebooks</a>
-  <ul class="collapse">
-  <li><a href="#export-formats" id="toc-export-formats" class="nav-link" data-scroll-target="#export-formats">Export Formats</a></li>
-  </ul></li>
-  <li><a href="#running-code-cells" id="toc-running-code-cells" class="nav-link" data-scroll-target="#running-code-cells">Running Code Cells</a>
-  <ul class="collapse">
-  <li><a href="#basic-execution" id="toc-basic-execution" class="nav-link" data-scroll-target="#basic-execution">Basic Execution</a></li>
-  <li><a href="#variables-persist-between-cells" id="toc-variables-persist-between-cells" class="nav-link" data-scroll-target="#variables-persist-between-cells">Variables Persist Between Cells</a></li>
-  <li><a href="#magic-commands" id="toc-magic-commands" class="nav-link" data-scroll-target="#magic-commands">Magic Commands</a></li>
-  </ul></li>
-  <li><a href="#rich-output-display" id="toc-rich-output-display" class="nav-link" data-scroll-target="#rich-output-display">Rich Output Display</a>
-  <ul class="collapse">
-  <li><a href="#displaying-data" id="toc-displaying-data" class="nav-link" data-scroll-target="#displaying-data">Displaying Data</a></li>
-  <li><a href="#inline-plots-and-visualizations" id="toc-inline-plots-and-visualizations" class="nav-link" data-scroll-target="#inline-plots-and-visualizations">Inline Plots and Visualizations</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/jupyterlab_complete.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../pages/jupyterlab_complete.html">JupyterLab Short Guide</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/installing_python.html">Setup</a></li><li class="breadcrumb-item"><a href="../pages/installing_docker.html">Installing Docker Desktop</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">JupyterLab Short Guide</h1>
-<p class="subtitle lead">Interactive Computing with Notebooks</p>
+<h1 class="title">Installing Docker Desktop</h1>
 </div>
 
 
@@ -518,460 +429,47 @@ window.Quarto = {
 </header>
 
 
-<section id="the-jupyterlab-interface" class="level2">
-<h2 class="anchored" data-anchor-id="the-jupyterlab-interface">The JupyterLab Interface</h2>
-<section id="main-areas" class="level3">
-<h3 class="anchored" data-anchor-id="main-areas">Main Areas</h3>
-<ol type="1">
-<li><strong>Menu Bar</strong>: File, Edit, View, Run, Kernel, Tabs, Settings, Help</li>
-<li><strong>Left Sidebar</strong>: File browser, running terminals/kernels, command palette, notebook tools</li>
-<li><strong>Main Work Area</strong>: Where notebooks, terminals, and other documents open</li>
-<li><strong>Status Bar</strong>: Information about current activity and keyboard mode</li>
-</ol>
-</section>
-</section>
-<section id="working-with-notebooks" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-notebooks">Working with Notebooks</h2>
-<section id="creating-a-new-notebook" class="level3">
-<h3 class="anchored" data-anchor-id="creating-a-new-notebook">Creating a New Notebook</h3>
-<ol type="1">
-<li>Click the <strong>+</strong> button in the file browser</li>
-<li>Select <strong>Python 3</strong> (or another kernel)</li>
-<li>Or use <code>File → New → Notebook</code></li>
-</ol>
-</section>
-</section>
-<section id="cell-types" class="level2">
-<h2 class="anchored" data-anchor-id="cell-types">Cell Types</h2>
-<p>Jupyter notebooks have three main cell types:</p>
-<section id="markdown-cells" class="level3">
-<h3 class="anchored" data-anchor-id="markdown-cells">1. Markdown Cells</h3>
-<p>Markdown cells contain formatted text, like this one. They support:</p>
-<section id="headers-at-different-levels" class="level4">
-<h4 class="anchored" data-anchor-id="headers-at-different-levels">Headers at Different Levels</h4>
-<p><strong>Bold</strong> and <em>italic</em> text. Inline <code>code</code> and <a href="https://quarto.org/docs/authoring/markdown-basics.html">links</a>.</p>
-<ul>
-<li>Lists</li>
-<li>of</li>
-<li>stuff</li>
-</ul>
-<ol type="1">
-<li>Numbered</li>
-<li>ones</li>
-<li>too</li>
-</ol>
-<p>An empty line separates a one paragraph of text.</p>
-<p>From another paragraph of text.</p>
-<p>Two spaces at the end makes the line break:</p>
-<p><strong>Question 1</strong>: some text<br>
-<strong>Question 2</strong>: some text<br>
-<strong>Question 3</strong>: some text</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Displayed code with syntax highlighting</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hello():</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"Hello, World!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">small</th>
-<th style="text-align: left;">table</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">foo</td>
-<td style="text-align: left;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">bar</td>
-<td style="text-align: left;">3</td>
-</tr>
-</tbody>
-</table>
-<p>HTML to include image with defined width or height:</p>
-<p><img src="https://www.tng-project.org/static/data/lab_logo_tng.png" alt="image" height="100"></p>
-<p>Formulas inline <span class="math inline">\(E = mc^2\)</span> or displayed:</p>
-<p><span class="math display">\[\sum_{i=0}^n i\]</span></p>
-</section>
-</section>
-<section id="raw-cells" class="level3">
-<h3 class="anchored" data-anchor-id="raw-cells">2. Raw Cells</h3>
-<p>Raw cells contain unformatted text that won’t be executed. Useful for including literal text or code that shouldn’t run.</p>
-</section>
-<section id="code-cells" class="level3">
-<h3 class="anchored" data-anchor-id="code-cells">3. Code Cells</h3>
-<p>Code cells contain executable code:</p>
-<div id="cell-7" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a code cell</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello, JupyterLab!"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Variables are preserved between cells</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="dv">42</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Result: </span><span class="sc">{</span>x<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Hello, JupyterLab!
-Result: 42</code></pre>
-</div>
-</div>
-<p>Beginning a line with an exclamation mark (!) lets you to run shell commands directly from a code cell, displaying the output.</p>
-<div id="cell-9" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span> pwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>/Users/kmt/franklin-ecosystem/franklin/docs/pages</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="best-practices" class="level2">
-<h2 class="anchored" data-anchor-id="best-practices">Best Practices</h2>
-<section id="cell-organization" class="level3">
-<h3 class="anchored" data-anchor-id="cell-organization">1. Cell Organization</h3>
-<ul>
-<li>Keep cells focused on one concept</li>
-<li>Use markdown cells for documentation</li>
-<li>Group related code logically</li>
-</ul>
-</section>
-<section id="reproducibility" class="level3">
-<h3 class="anchored" data-anchor-id="reproducibility">2. Reproducibility</h3>
-<ul>
-<li>Run cells in order</li>
-<li>Don’t rely on execution order</li>
-<li>Use “Restart &amp; Run All” to verify</li>
-</ul>
-</section>
-</section>
-<section id="essential-keyboard-shortcuts" class="level2">
-<h2 class="anchored" data-anchor-id="essential-keyboard-shortcuts">Essential Keyboard Shortcuts</h2>
-<p>JupyterLab has two modes: - <strong>Command Mode</strong> (blue cell border): Navigate and manipulate cells - <strong>Edit Mode</strong> (green cell border): Edit cell contents</p>
-<section id="command-mode-shortcuts" class="level3">
-<h3 class="anchored" data-anchor-id="command-mode-shortcuts">Command Mode Shortcuts</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Shortcut</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>Enter</code></td>
-<td>Enter edit mode</td>
-</tr>
-<tr class="even">
-<td><code>A</code></td>
-<td>Insert cell above</td>
-</tr>
-<tr class="odd">
-<td><code>B</code></td>
-<td>Insert cell below</td>
-</tr>
-<tr class="even">
-<td><code>D, D</code></td>
-<td>Delete cell</td>
-</tr>
-<tr class="odd">
-<td><code>Y</code></td>
-<td>Change to code cell</td>
-</tr>
-<tr class="even">
-<td><code>M</code></td>
-<td>Change to markdown cell</td>
-</tr>
-<tr class="odd">
-<td><code>C</code></td>
-<td>Copy cell</td>
-</tr>
-<tr class="even">
-<td><code>V</code></td>
-<td>Paste cell below</td>
-</tr>
-<tr class="odd">
-<td><code>Shift + V</code></td>
-<td>Paste cell above</td>
-</tr>
-<tr class="even">
-<td><code>Z</code></td>
-<td>Undo cell deletion</td>
-</tr>
-<tr class="odd">
-<td><code>Shift + M</code></td>
-<td>Merge selected cells</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="edit-mode-shortcuts" class="level3">
-<h3 class="anchored" data-anchor-id="edit-mode-shortcuts">Edit Mode Shortcuts</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Shortcut</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>Esc</code></td>
-<td>Enter command mode</td>
-</tr>
-<tr class="even">
-<td><code>Ctrl + Enter</code></td>
-<td>Run cell</td>
-</tr>
-<tr class="odd">
-<td><code>Shift + Enter</code></td>
-<td>Run cell, select below</td>
-</tr>
-<tr class="even">
-<td><code>Alt + Enter</code></td>
-<td>Run cell, insert below</td>
-</tr>
-<tr class="odd">
-<td><code>Tab</code></td>
-<td>Code completion/indent</td>
-</tr>
-<tr class="even">
-<td><code>Shift + Tab</code></td>
-<td>Tooltip/dedent</td>
-</tr>
-<tr class="odd">
-<td><code>Ctrl + ]</code></td>
-<td>Indent</td>
-</tr>
-<tr class="even">
-<td><code>Ctrl + [</code></td>
-<td>Dedent</td>
-</tr>
-<tr class="odd">
-<td><code>Ctrl + A</code></td>
-<td>Select all</td>
-</tr>
-<tr class="even">
-<td><code>Ctrl + Z</code></td>
-<td>Undo</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="two-kinds-of-undo" class="level2">
-<h2 class="anchored" data-anchor-id="two-kinds-of-undo">Two kinds of “Undo”</h2>
-<ul>
-<li><code>Edit/Undo</code> to undo stuff in the current cell</li>
-<li><code>Edit/Undo Cell Operation</code> to undo deleting, moving, merging cells</li>
-</ul>
-</section>
-<section id="moving-and-copypaste-cells" class="level2">
-<h2 class="anchored" data-anchor-id="moving-and-copypaste-cells">Moving and copy/paste cells</h2>
-<p>You can drag cells, or use <code>C</code> and <code>V</code> in command mode to copy and paste cells. You can also use the Edit menu if it feels safer.</p>
-<div id="cell-17" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Move this cell somewhere"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Move this cell somewhere</code></pre>
-</div>
-</div>
-</section>
-<section id="spitting-ane-merging-cells" class="level2">
-<h2 class="anchored" data-anchor-id="spitting-ane-merging-cells">Spitting ane merging cells</h2>
-<p>You do this using shortcuts or the menus. Try to split this cell into one containing only this.</p>
-<p>And one containing only this.<br>
-Then merge them back together.</p>
-</section>
-<section id="working-with-multiple-files" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-multiple-files">Working with Multiple Files</h2>
-<section id="split-view" class="level3">
-<h3 class="anchored" data-anchor-id="split-view">Split View</h3>
-<ol type="1">
-<li>Right-click on a notebook tab</li>
-<li>Select “New View for Notebook”</li>
-<li>Drag the new tab to create split view</li>
-</ol>
-</section>
-<section id="side-by-side-editing" class="level3">
-<h3 class="anchored" data-anchor-id="side-by-side-editing">Side-by-Side Editing</h3>
-<ul>
-<li>Drag tabs to arrange them horizontally or vertically</li>
-<li>Useful for comparing code or referencing documentation</li>
-</ul>
-</section>
-</section>
-<section id="managing-kernels" class="level2">
-<h2 class="anchored" data-anchor-id="managing-kernels">Managing Kernels</h2>
-<section id="kernel-operations" class="level3">
-<h3 class="anchored" data-anchor-id="kernel-operations">Kernel Operations</h3>
-<ul>
-<li><strong>Restart</strong>: Clear all variables and start fresh</li>
-<li><strong>Restart &amp; Run All</strong>: Restart and execute all cells</li>
-<li><strong>Interrupt</strong>: Stop currently executing code</li>
-<li><strong>Shutdown</strong>: Close the kernel completely</li>
-</ul>
-<p>Access via <code>Kernel</code> menu or keyboard shortcuts.</p>
-</section>
-</section>
-<section id="exporting-notebooks" class="level2">
-<h2 class="anchored" data-anchor-id="exporting-notebooks">Exporting Notebooks</h2>
-<section id="export-formats" class="level3">
-<h3 class="anchored" data-anchor-id="export-formats">Export Formats</h3>
-<p>JupyterLab can export notebooks to:</p>
-<ul>
-<li><strong>HTML</strong>: Static web page</li>
-<li><strong>PDF</strong>: Via LaTeX (requires LaTeX installation)</li>
-<li><strong>Markdown</strong>: Text format</li>
-<li><strong>Python</strong>: Pure Python script</li>
-<li><strong>LaTeX</strong>: For academic papers</li>
-</ul>
-<p>Use <code>File → Export Notebook As...</code></p>
-</section>
-</section>
-<section id="running-code-cells" class="level2">
-<h2 class="anchored" data-anchor-id="running-code-cells">Running Code Cells</h2>
-<section id="basic-execution" class="level3">
-<h3 class="anchored" data-anchor-id="basic-execution">Basic Execution</h3>
-<div id="cell-23" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run with Shift+Enter or Ctrl+Enter</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> square(x):</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Last expression is displayed</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>square(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>25</code></pre>
-</div>
-</div>
-</section>
-<section id="variables-persist-between-cells" class="level3">
-<h3 class="anchored" data-anchor-id="variables-persist-between-cells">Variables Persist Between Cells</h3>
-<div id="cell-25" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define variable in one cell</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>my_list <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-26" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use in another cell</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sum: </span><span class="sc">{</span><span class="bu">sum</span>(my_list)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Squared: </span><span class="sc">{</span>[square(x) <span class="cf">for</span> x <span class="kw">in</span> my_list]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Sum: 15
-Squared: [1, 4, 9, 16, 25]</code></pre>
-</div>
-</div>
-</section>
-<section id="magic-commands" class="level3">
-<h3 class="anchored" data-anchor-id="magic-commands">Magic Commands</h3>
-<p>JupyterLab supports <a href="https://ipython.readthedocs.io/en/stable/interactive/magics.html">IPython magic commands</a> (with a % prefix) for enhanced functionality. E.g. list all variable names or a a table including types and values:</p>
-<div id="cell-28" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>who</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>matplotlib   my_list     process_data    square  x   </code></pre>
-</div>
-</div>
-<div id="cell-29" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>whos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Variable       Type        Data/Info
-------------------------------------
-matplotlib     module      &lt;module 'matplotlib' from&lt;...&gt;/matplotlib/__init__.py'&gt;
-my_list        list        n=5
-process_data   function    &lt;function process_data at 0x12e8dfa60&gt;
-square         function    &lt;function square at 0x12e91e480&gt;
-x              int         42</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="rich-output-display" class="level2">
-<h2 class="anchored" data-anchor-id="rich-output-display">Rich Output Display</h2>
-<section id="displaying-data" class="level3">
-<h3 class="anchored" data-anchor-id="displaying-data">Displaying Data</h3>
-<div id="cell-31" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># DataFrames display as nice tables</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Name'</span>: [<span class="st">'Alice'</span>, <span class="st">'Bob'</span>, <span class="st">'Charlie'</span>],</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Age'</span>: [<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>],</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'City'</span>: [<span class="st">'New York'</span>, <span class="st">'Paris'</span>, <span class="st">'London'</span>]</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Name</th>
-<th data-quarto-table-cell-role="th">Age</th>
-<th data-quarto-table-cell-role="th">City</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Alice</td>
-<td>25</td>
-<td>New York</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Bob</td>
-<td>30</td>
-<td>Paris</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Charlie</td>
-<td>35</td>
-<td>London</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</section>
-<section id="inline-plots-and-visualizations" class="level3">
-<h3 class="anchored" data-anchor-id="inline-plots-and-visualizations">Inline Plots and Visualizations</h3>
-<div id="cell-33" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sample data</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span><span class="op">*</span>np.pi, <span class="dv">100</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>y_sin <span class="op">=</span> np.sin(x)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>y_cos <span class="op">=</span> np.cos(x)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an axis for each subplot</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>fig, (ax1, ax2) <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot sine wave</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>ax1.plot(x, y_sin, <span class="st">'b-'</span>, label<span class="op">=</span><span class="st">'sin(x)'</span>)</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'Sine Wave'</span>)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'x'</span>)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'y'</span>)</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>ax1.legend()</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cosine wave</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>ax2.plot(x, y_cos, <span class="st">'r-'</span>, label<span class="op">=</span><span class="st">'cos(x)'</span>)</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">'Cosine Wave'</span>)</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'x'</span>)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'y'</span>)</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>ax2.legend()</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
+<p>Docker is a tool that can run a small linux world in your computer. Franklin uses it to make sure Jupyter runs your exercise in exactly the same way, no matter which kind of computer you have. You do not need to known anything about Docker. Franklin will take care of the whole thing for you. If you are interested, though, you can have a look at this <a href="../pages/docker.html">brief introduction to Docker</a>.</p>
+<p>Before you to download docker, make sure the operating system on your computer has been updated. For docker to run on your device you will have to have Windows newer than Windows 10 or newer than macOS11 (Big Sur) on mac. If you are downloading docker on a AU computer remember to activate admin privileges by activating Heimdal.</p>
+<p>If you are unsure of how to activate Heimdal, follow the instructions given on <a href="https://medarbejdere.au.dk/administration/it/vejledninger/sikkerhed/aktiver-administratorrettigheder-paa-medarbejdercomputer-heimdal">this page</a></p>
+<p>Go to <a href="https://www.docker.com/products/docker-desktop/">this page</a> and press on “Download Docker Desktop”. When you have done that you will be presented with different options which depends on which chip your computer has. On a Mac, you can find the name of your chip by clicking the apple icon in the upper left corner and choose “about this mac” in the dropdown menu. Apple silicon chips include M1, M2 and M3. Apple intel chips are named intel.</p>
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="jupyterlab_complete_files/figure-html/cell-11-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="jupyterlab_complete_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></a></p>
+<p><a href="images/Skærmbillede 2025-06-03 kl. 13.28.40.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="images/Skærmbillede 2025-06-03 kl. 13.28.40.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
 </figure>
 </div>
+<p>On Windows, you can find the name of your chip by right clicking on the start button and click system. Under device specifications look for processor. This will tell you the chip name and whether it is a AMD chip or an ARM chip.</p>
+<p>Download the version of Docker Desktop that matches your operating system and computer chip. Once downloaded, follow the installation instructions for your device. You have to click accept when your computer asks you if you trust the provider. When docker desktop opens, a window pops up and asks if you want to sign in or create and account. An account is not necessary for using docker with franklin, so you can just click “skip” when prompted.</p>
+<p>When the installation procedure is complete and Docker is done starting up, you must it down. Just closing the blue Docker Dashboard window does not shut down Docker. You need to explicitly quit the program. To make sure it has quit, you can look for the little docker whale icon. In Mac is it in the menu bar. On Windows it is in the small popup menu at the right end of you task bar. If you see a small whale, Docker is still running. Click the whale icon and quit Docker.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/Skærmbillede 2025-06-03 kl. 14.27.12.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="alt text"><img src="images/Skærmbillede 2025-06-03 kl. 14.27.12.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+WSL
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>On Windows, Docker Desktop may give you an error message saying “WSL 2 is required”. In that case, install WSL by running the following command into your terminal:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="Terminal"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">wsl</span> <span class="at">--install</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Back to <span class="citation" data-cites="installing">@installing</span>.</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1375,13 +873,13 @@ x              int         42</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/developing.html" class="pagination-link" aria-label="Developing exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Developing exercises</span>
+      <a href="../pages/installing_python.html" class="pagination-link" aria-label="Installing Python">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Installing Python</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/terminal.html" class="pagination-link" aria-label="The Terminal">
-        <span class="nav-page-text">The Terminal</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/developing.html" class="pagination-link" aria-label="Developing exercises">
+        <span class="nav-page-text">Developing exercises</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
