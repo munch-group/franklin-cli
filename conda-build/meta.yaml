@@ -19,6 +19,7 @@ requirements:
     - python
     - pip
   run:  # your library dependencies
+    - python >=3.9
     {% for dep in pyproject.get("project").get("dependencies") %}
     - {{ dep.lower() }}
     {% endfor %}  

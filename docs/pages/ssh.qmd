@@ -1,5 +1,5 @@
 ---
-title: "Introduction to SSH"
+title: "SSH"
 subtitle: "Secure Shell for Remote Access"
 ---
 

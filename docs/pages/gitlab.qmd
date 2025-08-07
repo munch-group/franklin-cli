@@ -1,6 +1,6 @@
 ---
-title: "Introduction to GitLab"
-subtitle: "Code Collaboration and CI/CD Platform"
+title: "GitLab"
+subtitle: "Code Collaboration and CI Platform"
 ---
 
 ## What is GitLab?

@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Git"
+title: "Git"
 subtitle: "Version Control for Your Code"
 ---
 

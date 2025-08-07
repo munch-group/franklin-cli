@@ -1,5 +1,5 @@
 ---
-title: "The Terminal"
+title: "Terminal"
 subtitle: "Your Command Line Interface"
 ---
 

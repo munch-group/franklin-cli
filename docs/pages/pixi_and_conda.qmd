@@ -1,5 +1,5 @@
 ---
-title: Package Managers
+title: Pixi and Conda
 subtitle: Pixi and Conda for Scientific Computing
 ---
 
