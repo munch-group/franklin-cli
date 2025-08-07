@@ -604,6 +604,7 @@ def pick_course() -> Tuple[str, str]:
                               caption_indices=captions, selected_idx=0)
     return course_group_names[course_idx], course_danish_names[course_idx]
 
+
 def pick_exercise(course: str, danish_course_name: str, exercises_images: Optional[Dict[Tuple[str, str], str]]) -> Tuple[str, str]:
     """
     Interactively prompt user to select an exercise from a course.
@@ -670,21 +671,23 @@ def pick_exercise(course: str, danish_course_name: str, exercises_images: Option
             if not has_image or hidden_to_students:
                 del exercise_names[key]
 
-    if not exercise_names:
+    if exercise_names:
+        print(exercise_names)
+        exercise_repo_names, listed_exercise_names = \
+            zip(*sorted(exercise_names.items(), key=itemgetter(1)))
+        term.secho(f'\nUse arrow keys to select exercise in '
+                f'"{danish_course_name}" and press Enter:', fg='green')
+        captions = []
+        exercise_idx = cutie.select(listed_exercise_names, 
+                                    caption_indices=captions, selected_idx=0)
+        exercise = exercise_repo_names[exercise_idx]
+
+        return exercise, listed_exercise_names[exercise_idx]
+    else:
         term.secho(f"\n  >>No exercises available for {danish_course_name}<<", fg='red')
-        time.sleep(2)
-        click.Abort()
-
-    exercise_repo_names, listed_exercise_names = \
-        zip(*sorted(exercise_names.items(), key=itemgetter(1)))
-    term.secho(f'\nUse arrow keys to select exercise in '
-               f'"{danish_course_name}" and press Enter:', fg='green')
-    captions = []
-    exercise_idx = cutie.select(listed_exercise_names, 
-                                caption_indices=captions, selected_idx=0)
-    exercise = exercise_repo_names[exercise_idx]
-
-    return exercise, listed_exercise_names[exercise_idx]
+        term.echo()
+        time.sleep(1)
+        raise click.Abort()
 
 
 def select_exercise(exercises_images: Optional[Dict[Tuple[str, str], str]] = None) -> Tuple[Tuple[str, str], Tuple[str, str]]:
