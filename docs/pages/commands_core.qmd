@@ -171,55 +171,6 @@ franklin update
 
 </details>
 
-### Check for updates
-
-Check for updates without installing them.
-
-```bash
-franklin update --check
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Queries the package repository for latest version
-2. Compares with your installed version
-3. Reports if an update is available
-
-# Tips
-
-- Use to see if updates are available before installing
-- No changes are made to your system
-- Shows version numbers for comparison
-
-:::
-
-### Force update
-
-Force a reinstall even if already up-to-date.
-
-```bash
-franklin update --force
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Reinstalls Franklin regardless of version
-2. Useful for fixing corrupted installations
-3. Also reinstalls plugins if present
-
-# Tips
-
-- Use when Franklin is behaving strangely
-- Fixes most installation-related issues
-- Takes longer than a regular update
-
-:::
-
-
 ## Docker resources
 
 ### Show images

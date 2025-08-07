@@ -274,6 +274,10 @@ def conda_update(package: str, status: UpdateStatus, include_dev: bool = False) 
     """
     logger.info(f"Checking for updates to {package} (include_dev={include_dev})")
     
+    # logger.info(f"Checking for pixi updates to {package} (global={is_global})")
+    term.secho(f"Checking for conda updates to {package}")
+
+
     try:
         current_version = system.package_version(package)
         if current_version is None:
@@ -457,7 +461,7 @@ def pixi_installed_version(package: str) -> Optional[Version]:
 
 
 @retry_on_failure
-def pixi_update(package: str, status: UpdateStatus, is_global: bool = False) -> bool:
+def pixi_update(package: str, status: UpdateStatus, is_global: bool = False, include_dev: bool = False) -> bool:
     """
     Update a package using pixi with error handling.
     
@@ -469,39 +473,28 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False) -> 
         Update status tracker for error recording.
     is_global : bool, optional
         Whether package is globally installed, by default False.
+    include_dev : bool, optional
+        Whether to include development versions, by default False.
     
     Returns
     -------
     bool
         True if package was updated.
     """
-    logger.info(f"Checking for pixi updates to {package} (global={is_global})")
+    # logger.info(f"Checking for pixi updates to {package} (global={is_global})")
+    term.secho(f"Checking for {'global' if is_global else 'local'} pixi updates to {package}")
     
+
+
     try:
         before_version = pixi_installed_version(package)
-        
+        after_version = conda_latest_version(package, include_dev=include_dev)
+        if before_version == after_version:
+            logger.debug(f"{package} is already up to date (global)")
+            return False
         if is_global:
-            # For global packages, use pixi global update
-            cmd = f'pixi global update "{package}"'
-            logger.debug(f"Running: {cmd}")
-            result = subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
-            
-            # Check if update actually happened by parsing output
-            if 'already up-to-date' in result.stdout.lower() or 'already up to date' in result.stdout.lower():
-                logger.debug(f"{package} is already up to date")
-                return False
-            elif 'updated' in result.stdout.lower() or 'updating' in result.stdout.lower():
-                logger.info(f"Successfully updated global {package}")
-                return True
-            else:
-                # Try to detect version change
-                after_version = pixi_installed_version(package)
-                if before_version != after_version:
-                    logger.info(f"Updated {package} from {before_version} to {after_version}")
-                    return True
-                else:
-                    logger.debug(f"{package} appears to be up to date")
-                    return False
+            output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge {package}={after_version}')
+            return pixi_installed_version(package) == after_version
         else:
             # Local package update
             # First check if we're in a pixi project
@@ -510,41 +503,19 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False) -> 
                 # But if it does, try global update as fallback
                 logger.warning(f"Not in a pixi project directory but package marked as local. Trying global update...")
                 cmd = f'pixi global update "{package}"'
-                logger.debug(f"Running fallback: {cmd}")
-                try:
-                    result = subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
-                    if 'already up-to-date' in result.stdout.lower() or 'already up to date' in result.stdout.lower():
-                        logger.debug(f"{package} is already up to date (global)")
-                        return False
-                    else:
-                        logger.info(f"Successfully updated global {package} (fallback)")
-                        return True
-                except CalledProcessError:
-                    logger.error(f"Both local and global update failed for {package}")
-                    return False
-                
-            # Use pixi update for local packages (not upgrade)
-            # pixi update updates the lock file and environment
-            # pixi upgrade modifies the manifest file requirements
-            cmd = f'pixi update "{package}"'
-            logger.debug(f"Running: {cmd}")
+                logger.debug(f"Fallback to global install")
+                output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge {package}={after_version}')
+
+
+            cmd = f'pixi add "{package}={after_version}"'
             result = subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
             
-            # Check output to see if package was actually updated
-            if 'up-to-date' in result.stdout.lower() or 'up to date' in result.stdout.lower():
-                logger.debug(f"{package} is already up to date")
-                # Still check version change to be sure
-            elif 'updated' in result.stdout.lower() or 'updating' in result.stdout.lower():
-                logger.info(f"Updated {package} via pixi update")
-            
-            after_version = pixi_installed_version(package)
+            after_version == pixi_installed_version(package)
             
             if before_version != after_version:
                 logger.info(f"Updated {package} from {before_version} to {after_version}")
                 return True
-            else:
-                logger.debug(f"{package} is up to date")
-                return False
+
             
     except CalledProcessError as e:
         error_details = {
@@ -555,7 +526,7 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False) -> 
             'stderr': e.stderr if hasattr(e, 'stderr') else '',
             'is_global': is_global
         }
-        status.record_failure(f"pixi {'global ' if is_global else ''}update failed for {package}", error_details)
+        status.record_failure("Update failed for {package}", error_details)
         
         if is_global:
             raise UpdateCrash(
@@ -624,7 +595,7 @@ def update_client_conda(status: UpdateStatus, include_dev: bool = False) -> int:
     return updated_count
 
 
-def update_client_pixi(status: UpdateStatus) -> int:
+def update_client_pixi(status: UpdateStatus, include_dev: bool = False) -> int:
     """
     Update Franklin and plugins using pixi.
     
@@ -646,7 +617,7 @@ def update_client_pixi(status: UpdateStatus) -> int:
     
     # Update core franklin package
     try:
-        if pixi_update('franklin', status, is_global=is_global):
+        if pixi_update('franklin', status, is_global=is_global, include_dev=include_dev):
             updated_count += 1
     except UpdateCrash:
         raise
@@ -662,7 +633,7 @@ def update_client_pixi(status: UpdateStatus) -> int:
             plugin_is_global = plugin_install == 'pixi-global'
             
             # Update plugin
-            if pixi_update(plugin, status, is_global=plugin_is_global):
+            if pixi_update(plugin, status, is_global=plugin_is_global, include_dev=include_dev):
                 updated_count += 1
                 
         except ModuleNotFoundError:
@@ -839,10 +810,10 @@ def  _update(include_dev: bool = False) -> int:
         # Use the appropriate update method matching the installation
         if installation_method == 'pixi-global':
             logger.info('Franklin was installed with pixi global, using pixi global update')
-            updated_count = update_client_pixi(status)
+            updated_count = update_client_pixi(status, include_dev=include_dev)
         elif installation_method == 'pixi':
             logger.info('Franklin was installed with pixi (local), using pixi update')
-            updated_count = update_client_pixi(status)
+            updated_count = update_client_pixi(status, include_dev=include_dev)
         else:
             logger.info(f'Franklin was installed with {installation_method}, using conda for updates')
             updated_count = update_client_conda(status, include_dev=include_dev)
@@ -934,7 +905,7 @@ def update(dev: bool) -> None:
     
     # Run update with user feedback
     if dev:
-        term.secho("Checking for Franklin updates (including development versions)...", fg='blue')
+        term.secho("Checking for updates (including development versions)...", fg='blue')
     else:
-        term.secho("Checking for Franklin updates...", fg='blue')
+        term.secho("Checking for stable updates...", fg='blue')
     update_packages(include_dev=dev)
