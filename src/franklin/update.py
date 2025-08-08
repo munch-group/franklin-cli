@@ -224,8 +224,8 @@ def conda_latest_version(package: str, include_prereleases: bool = False) -> Opt
             # version = Version(x['version'])
             version = x['version']
             # Skip development versions unless explicitly requested
-            if not include_prereleases and Version(version).is_postrelease:
-                logger.debug(f"Skipping post release version {version}")
+            if not include_prereleases and Version(version).is_prerelease:
+                logger.debug(f"Skipping prerelease version {version}")
                 continue
             versions.append(version)
         except InvalidVersion:
@@ -237,7 +237,7 @@ def conda_latest_version(package: str, include_prereleases: bool = False) -> Opt
         return None
 
     latest = max(versions, key=Version)
-    logger.debug(f"Latest {'(including dev) ' if include_prereleases else ''}update of {package}: {latest}")
+    logger.debug(f"Latest {'(including prereleases) ' if include_prereleases else ''}update of {package}: {latest}")
     return latest
         
 
