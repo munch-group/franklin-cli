@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = "0.25.17.rc1"
+version = "0.25.17.rc2"
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -92,9 +92,8 @@ description = "Install the package in development mode"
 [tool.pixi.feature.devel.target.osx-arm64.dependencies]
 setuptools = ">=65.0"
 wheel = "*"
-
-# [tool.pixi.feature.prod.target.linux-64.pypi-dependencies]
-# jupyterlab-quarto = "*"
+anthropic = "*"
+gitpython = "*"
 
 [tool.pixi.environments]
 devel = ["devel"]
