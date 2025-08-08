@@ -20,16 +20,24 @@ patch = int(args.patch)
 pre = int(args.pre)
 release = int(args.release)
 
-if sum([pre, release]) > 1:
-    print("Please specify at most one of --pre and --release")
+# if sum([pre, release]) > 1:
+#     print("Please specify at most one of --pre and --release")
+#     sys.exit(1)
+
+if not sum([major, minor, patch, pre, release]): 
+    print("Please specify at least one flag")
     sys.exit(1)
 
-if pre and sum([major, minor, patch]) > 1:
-    print("When using --pre, give at most one of --major, --minor, or --patch")
-elif release and sum([major, minor, patch]) > 0:
+# if pre and sum([major, minor, patch]) == 0:
+#     print("When using --pre, give at most one of --major, --minor, or --patch")
+#     sys.exit(1)
+if release and sum([major, minor, patch]) > 0:
     print("When using --release, do not give any of --major, --minor, or --patch")
-else:
+    sys.exit(1)
+elif release and sum([major, minor, patch]) == 0:
     print("Please specify exactly one of --major, --minor, or --patch")
+    sys.exit(1)
+
 
 # file, regex pairs
 spec = {

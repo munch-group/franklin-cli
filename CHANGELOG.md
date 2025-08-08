@@ -1,4 +1,8 @@
 
+
+## [Unreleased] - 2025-08-08
+
+- [`ec2f1f2`](https://github.com/munch-group/franklin/commit/ec2f1f22f15505a2375db7c410f15533ce20e1ef) - Update project configuration in pyproject.toml file *(commit by [@kaspermunch](https://github.com/kaspermunch))*
 ## [v0.20.0] - 2025-05-11
 ### Bug Fixes
 - [`ca9665e`](https://github.com/munch-group/franklin/commit/ca9665e158c9d7361d5aeb896ad59b04b1efb381) - bug fixes and refactorization *(commit by [@kaspermunch](https://github.com/kaspermunch))*

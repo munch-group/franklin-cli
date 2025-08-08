@@ -718,8 +718,8 @@ def update(prereleases: bool) -> None:
     status.save()
     
     # Run update with user feedback
-    if post:
-        term.secho("Checking for updates (including post-release versions)...", fg='blue')
+    if prereleases:
+        term.secho("Checking for updates (including prerelease versions)...", fg='blue')
     else:
         term.secho("Checking for stable updates...", fg='blue')
     update_packages(include_prereleases=prereleases)
