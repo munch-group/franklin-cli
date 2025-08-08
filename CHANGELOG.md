@@ -2,6 +2,9 @@
 
 ## [Unreleased] - 2025-08-08
 
+- [`1b48314`](https://github.com/munch-group/franklin/commit/1b48314cf2bb3ffe94aa68d6df124b9d3933c7a1) - Update version number to pre-release patch version in project configuration *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+## [Unreleased] - 2025-08-08
+
 - [`ec2f1f2`](https://github.com/munch-group/franklin/commit/ec2f1f22f15505a2375db7c410f15533ce20e1ef) - Update project configuration in pyproject.toml file *(commit by [@kaspermunch](https://github.com/kaspermunch))*
 ## [v0.20.0] - 2025-05-11
 ### Bug Fixes
@@ -99,3 +102,5 @@
 [v0.19.18]: https://github.com/munch-group/franklin/compare/v0.19.16...v0.19.18
 [v0.19.19]: https://github.com/munch-group/franklin/compare/v0.19.18...v0.19.19
 [v0.20.0]: https://github.com/munch-group/franklin/compare/v0.19.19...v0.20.0
+
+
