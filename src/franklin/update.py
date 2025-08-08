@@ -188,7 +188,7 @@ def retry_on_failure(func: Callable) -> Callable:
 
 
 @retry_on_failure
-def conda_latest_version(package: str, include_post: bool = False) -> Optional[Version]:
+def conda_latest_version(package: str, include_prereleases: bool = False) -> Optional[Version]:
     """
     Get the latest available version of a package from conda.
     
@@ -196,7 +196,7 @@ def conda_latest_version(package: str, include_post: bool = False) -> Optional[V
     ----------
     package : str
         Name of the package to check.
-    include_post : bool, optional
+    include_prereleases : bool, optional
         Whether to include development versions, by default False.
     
     Returns
@@ -209,7 +209,7 @@ def conda_latest_version(package: str, include_post: bool = False) -> Optional[V
     UpdateCrash
         If version check fails after retries.
     """
-    logger.debug(f"Checking latest conda version for {package} (include_post={include_post})")
+    logger.debug(f"Checking latest conda version for {package} (include_prereleases={include_prereleases})")
     cmd = f'conda search {cfg.conda_channel}::{package} --json'
     output = utils.run_cmd(cmd)
     
@@ -224,8 +224,8 @@ def conda_latest_version(package: str, include_post: bool = False) -> Optional[V
             # version = Version(x['version'])
             version = x['version']
             # Skip development versions unless explicitly requested
-            if not include_post and Version(version).is_postrelease:
-                logger.debug(f"Skipping development version {version}")
+            if not include_prereleases and Version(version).is_postrelease:
+                logger.debug(f"Skipping post release version {version}")
                 continue
             versions.append(version)
         except InvalidVersion:
@@ -233,17 +233,17 @@ def conda_latest_version(package: str, include_post: bool = False) -> Optional[V
             continue
             
     if not versions:
-        logger.warning(f"No {'stable ' if not include_post else ''}update found for {package}")
+        logger.warning(f"No {'stable ' if not include_prereleases else ''}update found for {package}")
         return None
 
     latest = max(versions, key=Version)
-    logger.debug(f"Latest {'(including dev) ' if include_post else ''}update of {package}: {latest}")
+    logger.debug(f"Latest {'(including dev) ' if include_prereleases else ''}update of {package}: {latest}")
     return latest
         
 
 
 
-def conda_update(package: str, status: UpdateStatus, include_post: bool = False) -> bool:
+def conda_update(package: str, status: UpdateStatus, include_prereleases: bool = False) -> bool:
     """
     Update a package using conda with comprehensive error handling.
     
@@ -253,7 +253,7 @@ def conda_update(package: str, status: UpdateStatus, include_post: bool = False)
         Name of the package to update.
     status : UpdateStatus
         Update status tracker for error recording.
-    include_post : bool, optional
+    include_prereleases : bool, optional
         Whether to include development versions, by default False.
     
     Returns
@@ -266,7 +266,7 @@ def conda_update(package: str, status: UpdateStatus, include_post: bool = False)
     UpdateCrash
         If update fails after retries.
     """
-    logger.info(f"Checking for updates to {package} (include_post={include_post})")
+    logger.info(f"Checking for updates to {package} (include_prereleases={include_prereleases})")
     
     # logger.info(f"Checking for pixi updates to {package} (global={is_global})")
     term.secho(f"Checking for conda updates to {package}")
@@ -278,7 +278,7 @@ def conda_update(package: str, status: UpdateStatus, include_post: bool = False)
             logger.warning(f"Package {package} not currently installed")
             return False
             
-        latest_version = conda_latest_version(package, include_post=include_post)
+        latest_version = conda_latest_version(package, include_prereleases=include_prereleases)
         if latest_version is None:
             return False
             
@@ -334,7 +334,7 @@ def conda_update(package: str, status: UpdateStatus, include_post: bool = False)
         raise
 
 
-def conda_reinstall(package: str, status: UpdateStatus, include_post: bool = False) -> bool:
+def conda_reinstall(package: str, status: UpdateStatus, include_prereleases: bool = False) -> bool:
     """
     Force reinstall a package using conda.
     
@@ -344,7 +344,7 @@ def conda_reinstall(package: str, status: UpdateStatus, include_post: bool = Fal
         Name of the package to reinstall.
     status : UpdateStatus
         Update status tracker for error recording.
-    include_post : bool, optional
+    include_prereleases : bool, optional
         Whether to include development versions, by default False.
     
     Returns
@@ -352,11 +352,11 @@ def conda_reinstall(package: str, status: UpdateStatus, include_post: bool = Fal
     bool
         True if package was reinstalled with a new version.
     """
-    logger.info(f"Force reinstalling {package} (include_post={include_post})")
+    logger.info(f"Force reinstalling {package} (include_prereleases={include_prereleases})")
     
     try:
         current_version = system.package_version(package)
-        latest_version = conda_latest_version(package, include_post=include_post)
+        latest_version = conda_latest_version(package, include_prereleases=include_prereleases)
         
         if latest_version and (current_version is None or latest_version > Version(current_version)):
             cmd = f'conda install -y -c conda-forge -c {cfg.conda_channel} --force-reinstall {package}'
@@ -398,7 +398,7 @@ def installed_version(package: str) -> Optional[Version]:
 
 
 @retry_on_failure
-def pixi_update(package: str, status: UpdateStatus, is_global: bool = False, include_post: bool = False) -> bool:
+def pixi_update(package: str, status: UpdateStatus, is_global: bool = False, include_prereleases: bool = False) -> bool:
     """
     Update a package using pixi with error handling.
     
@@ -410,7 +410,7 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False, inc
         Update status tracker for error recording.
     is_global : bool, optional
         Whether package is globally installed, by default False.
-    include_post : bool, optional
+    include_prereleases : bool, optional
         Whether to include development versions, by default False.
     
     Returns
@@ -422,13 +422,13 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False, inc
     term.secho(f"Checking for {'global' if is_global else 'local'} pixi updates to {package}")
     
     before_version = installed_version(package)
-    after_version = conda_latest_version(package, include_post=include_post)
+    after_version = conda_latest_version(package, include_prereleases=include_prereleases)
 
     if before_version == after_version:
         logger.debug(f"{package} is already up to date (global)")
         return False
     if is_global:
-        output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge {package}={after_version}')
+        output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge "{package}=={after_version}"')
         return installed_version(package) == after_version
     else:
         # Local package update
@@ -442,7 +442,7 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False, inc
             # logger.debug(f"Fallback to global install")
             # output = utils.run_cmd(f'pixi global install -c munch-group -c conda-forge {package}={after_version}')
 
-        cmd = f'pixi add "{package}={after_version}"'
+        cmd = f'pixi add "{package}=={after_version}"'
         result = subprocess.run(cmd, check=True, shell=True, capture_output=True, text=True)
         
         after_version == installed_version(package)
@@ -452,7 +452,7 @@ def pixi_update(package: str, status: UpdateStatus, is_global: bool = False, inc
             return True
 
 
-def update_client_conda(status: UpdateStatus, include_post: bool = False) -> int:
+def update_client_conda(status: UpdateStatus, include_prereleases: bool = False) -> int:
     """
     Update Franklin and plugins using conda.
     
@@ -460,7 +460,7 @@ def update_client_conda(status: UpdateStatus, include_post: bool = False) -> int
     ----------
     status : UpdateStatus
         Update status tracker.
-    include_post : bool, optional
+    include_prereleases : bool, optional
         Whether to include development versions, by default False.
     
     Returns
@@ -472,7 +472,7 @@ def update_client_conda(status: UpdateStatus, include_post: bool = False) -> int
     
     # Update core franklin package
     try:
-        if conda_update('franklin', status, include_post=include_post):
+        if conda_update('franklin', status, include_prereleases=include_prereleases):
             updated_count += 1
     except UpdateCrash:
         # Re-raise to let caller handle
@@ -488,7 +488,7 @@ def update_client_conda(status: UpdateStatus, include_post: bool = False) -> int
             importlib.import_module(plugin.replace('-', '_'))
             
             # Try to reinstall plugin for compatibility
-            if conda_reinstall(plugin, status, include_post=include_post):
+            if conda_reinstall(plugin, status, include_prereleases=include_prereleases):
                 updated_count += 1
                 
         except ModuleNotFoundError:
@@ -501,7 +501,7 @@ def update_client_conda(status: UpdateStatus, include_post: bool = False) -> int
     return updated_count
 
 
-def update_client_pixi(status: UpdateStatus, include_post: bool = False, is_global: bool = False) -> int:
+def update_client_pixi(status: UpdateStatus, include_prereleases: bool = False, is_global: bool = False) -> int:
     """
     Update Franklin and plugins using pixi.
     
@@ -523,7 +523,7 @@ def update_client_pixi(status: UpdateStatus, include_post: bool = False, is_glob
     
     # Update core franklin package
     try:
-        if pixi_update('franklin', status, is_global=is_global, include_post=include_post):
+        if pixi_update('franklin', status, is_global=is_global, include_prereleases=include_prereleases):
             updated_count += 1
     except UpdateCrash:
         raise
@@ -542,7 +542,7 @@ def update_client_pixi(status: UpdateStatus, include_post: bool = False, is_glob
             plugin_is_global = plugin_install == 'pixi-global'
             
             # Update plugin
-            if pixi_update(plugin, status, is_global=plugin_is_global, include_post=include_post):
+            if pixi_update(plugin, status, is_global=plugin_is_global, include_prereleases=include_prereleases):
                 updated_count += 1
                 
         except ModuleNotFoundError:
@@ -594,13 +594,13 @@ def detect_installation_method(package: str = 'franklin') -> str:
         )
 
 
-def  _update(include_post: bool = False) -> int:
+def  _update(include_prereleases: bool = False) -> int:
     """
     Internal update function with proper installation method detection.
     
     Parameters
     ----------
-    include_post : bool, optional
+    include_prereleases : bool, optional
         Whether to include development versions, by default False.
     
     Returns
@@ -634,11 +634,11 @@ def  _update(include_post: bool = False) -> int:
     # Use the appropriate update method matching the installation
     logger.info(f'Franklin was installed with {installation_method}')
     if installation_method == 'pixi-global':
-        updated_count = update_client_pixi(status, include_post=include_post, is_global=True)
+        updated_count = update_client_pixi(status, include_prereleases=include_prereleases, is_global=True)
     elif installation_method == 'pixi':
-        updated_count = update_client_pixi(status, include_post=include_post, is_global=False)
+        updated_count = update_client_pixi(status, include_prereleases=include_prereleases, is_global=False)
     elif installation_method == 'conda':
-        updated_count = update_client_conda(status, include_post=include_post)
+        updated_count = update_client_conda(status, include_prereleases=include_prereleases)
     else:
         raise UpdateCrash("This should not happen - unknown installation method detected")
     
@@ -651,7 +651,7 @@ def  _update(include_post: bool = False) -> int:
 
 @crash_report
 @system.internet_ok
-def update_packages(include_post: bool = False) -> None:
+def update_packages(include_prereleases: bool = False) -> None:
     """
     Update Franklin packages with user feedback.
     
@@ -661,7 +661,7 @@ def update_packages(include_post: bool = False) -> None:
     
     Parameters
     ----------
-    include_post : bool, optional
+    include_prereleases : bool, optional
         Whether to include development versions, by default False.
     
     Raises
@@ -669,10 +669,10 @@ def update_packages(include_post: bool = False) -> None:
     SystemExit
         If updates were installed (exit code 1 to restart).
     """
-    logger.debug(f'Starting automatic update check (include_post={include_post})')
+    logger.debug(f'Starting automatic update check (include_prereleases={include_prereleases})')
     
     try:
-        updated_count = _update(include_post=include_post)
+        updated_count = _update(include_prereleases=include_prereleases)
         
         if updated_count > 0:
             term.echo()
@@ -704,8 +704,8 @@ def update_packages(include_post: bool = False) -> None:
 
 
 @click.command()
-@click.option('--post', is_flag=True, hidden=True, help='Include development versions')
-def update(post: bool) -> None:
+@click.option('--prereleases', is_flag=True, hidden=True, help='Include development versions')
+def update(prereleases: bool) -> None:
     """Update Franklin packages manually.
     
     This command forces an update check even if one was recently performed.
@@ -722,4 +722,4 @@ def update(post: bool) -> None:
         term.secho("Checking for updates (including post-release versions)...", fg='blue')
     else:
         term.secho("Checking for stable updates...", fg='blue')
-    update_packages(include_post=post)
+    update_packages(include_prereleases=prereleases)

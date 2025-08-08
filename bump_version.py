@@ -9,48 +9,66 @@ parser = argparse.ArgumentParser(description='Release tag script')
 parser.add_argument('--major', action='store_true', help='Bump major version number')
 parser.add_argument('--minor', action='store_true', help='Bump minor version number') 
 parser.add_argument('--patch', action='store_true', help='Bump patch version number')
-parser.add_argument('--post', action='store_true', help='Bump post release number')
+parser.add_argument('--pre', action='store_true', help='Add or bump prerelease rc suffix')
+parser.add_argument('--release', action='store_true', help='Remove prerelease rc suffix')
+
 args = parser.parse_args()
 major = int(args.major)
 minor = int(args.minor)
 patch = int(args.patch)
-post = int(args.post)
 
-if sum([major, minor, patch, post]) != 1:
-    print("Please specify exactly one of --major, --minor, --patch or --post")
+pre = int(args.pre)
+release = int(args.release)
+
+if sum([pre, release]) > 1:
+    print("Please specify at most one of --pre and --release")
     sys.exit(1)
+
+if pre and sum([major, minor, patch]) > 1:
+    print("When using --pre, give at most one of --major, --minor, or --patch")
+elif release and sum([major, minor, patch]) > 0:
+    print("When using --release, do not give any of --major, --minor, or --patch")
+else:
+    print("Please specify exactly one of --major, --minor, or --patch")
 
 # file, regex pairs
 spec = {
-    'pyproject.toml':  r'(version = ")(\d+)\.(\d+)\.(\d+)(?:.post(\d+))?(")',
+    'pyproject.toml':  r'(version = ")(\d+)\.(\d+)\.(\d+)(?:.rc(\d+))?(")',
 }
 
 def bump(content, regex):
-    global major, minor, patch, post
+    global major, minor, patch, post, pre, release
     m = re.search(regex, content)
     assert m is not None, "Version not found"
     prefix = m.group(1)
     _major = int(m.group(2))
     _minor = int(m.group(3))
     _patch = int(m.group(4))
-    _post = int(m.group(5)) if m.group(5) else 0
+    _pre = int(m.group(5)) if m.group(5) else 0
     postfix = m.group(6)
-    if _post:
-        version = f'{_major}.{_minor}.{_patch}.post{_post}'
+    if _pre:
+        version = f'{_major}.{_minor}.{_patch}.rc{_pre}'
     else:
         version = f'{_major}.{_minor}.{_patch}'
 
-    if major or minor or patch:
-        post = -_post
+    print(version)
+
+    assert not (_pre == 0 and release), "Cannot release a version with a pre-release tag"
+
+    # zero pre if other tag is bumped without --pre flag
+    if (major or minor or patch) and not pre:
+         pre = -_pre
+
+    # zero lower tags if higher tag is bumped
     if major or minor:
         patch = -_patch
     if major:
         minor = -_minor
 
-    if major or minor or patch:
+    if release or _pre+pre == 0:        
         new_version = f'{_major+major}.{_minor+minor}.{_patch+patch}'
     else:
-        new_version = f'{_major+major}.{_minor+minor}.{_patch+patch}.post{_post+post}'
+        new_version = f'{_major+major}.{_minor+minor}.{_patch+patch}.rc{_pre+pre}'
 
     print(version, new_version)
 
