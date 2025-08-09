@@ -1,0 +1,228 @@
+# Development Environment Installer
+# NSIS Script for Windows Installer Package
+# This creates a native Windows installer with GUI options
+
+!define PRODUCT_NAME "Development Environment Installer"
+!define PRODUCT_VERSION "1.0.0"
+!define PRODUCT_PUBLISHER "Development Team"
+!define PRODUCT_WEB_SITE "https://github.com/your-org/dev-env-installer"
+!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
+!define PRODUCT_UNINST_ROOT_KEY "HKLM"
+
+# Modern UI
+!include "MUI2.nsh"
+!include "nsDialogs.nsh"
+!include "LogicLib.nsh"
+
+# Installer settings
+Name "${PRODUCT_NAME}"
+OutFile "DevEnvironmentInstaller.exe"
+InstallDir "$PROGRAMFILES64\DevEnvironment"
+InstallDirRegKey HKLM "Software\${PRODUCT_NAME}" "InstallPath"
+RequestExecutionLevel admin
+
+# Variables for component selection
+Var Dialog
+Var Label
+Var Checkbox_Miniforge
+Var Checkbox_Pixi
+Var Checkbox_Docker
+Var Checkbox_Chrome
+Var Checkbox_Franklin
+Var Checkbox_Force
+Var Checkbox_ContinueOnError
+
+Var Install_Miniforge
+Var Install_Pixi
+Var Install_Docker
+Var Install_Chrome
+Var Install_Franklin
+Var Force_Install
+Var Continue_On_Error
+
+# Interface settings
+!define MUI_ABORTWARNING
+!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install.ico"
+!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
+!define MUI_HEADERIMAGE
+!define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\nsis3-branding.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Wizard\nsis3-branding.bmp"
+
+# Pages
+!insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_LICENSE "LICENSE.txt"
+Page custom ComponentSelectionPage ComponentSelectionPageLeave
+!insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_INSTFILES
+!insertmacro MUI_PAGE_FINISH
+
+# Uninstaller pages
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+
+# Languages
+!insertmacro MUI_LANGUAGE "English"
+
+# Custom page for component selection
+Function ComponentSelectionPage
+    nsDialogs::Create 1018
+    Pop $Dialog
+
+    ${If} $Dialog == error
+        Abort
+    ${EndIf}
+
+    # Title
+    ${NSD_CreateLabel} 0 0 100% 20u "Select Development Tools to Install"
+    Pop $Label
+    CreateFont $1 "$(^Font)" "12" "700"
+    SendMessage $Label ${WM_SETFONT} $1 0
+
+    # Components checkboxes
+    ${NSD_CreateCheckbox} 20u 30u 200u 12u "Install Miniforge (Python Distribution)"
+    Pop $Checkbox_Miniforge
+    ${NSD_Check} $Checkbox_Miniforge
+
+    ${NSD_CreateCheckbox} 20u 50u 200u 12u "Install Pixi (Package Manager)"
+    Pop $Checkbox_Pixi
+    ${NSD_Check} $Checkbox_Pixi
+
+    ${NSD_CreateCheckbox} 20u 70u 200u 12u "Install Docker Desktop"
+    Pop $Checkbox_Docker
+    ${NSD_Check} $Checkbox_Docker
+
+    ${NSD_CreateCheckbox} 20u 90u 200u 12u "Install Google Chrome"
+    Pop $Checkbox_Chrome
+    ${NSD_Check} $Checkbox_Chrome
+
+    ${NSD_CreateCheckbox} 20u 110u 200u 12u "Install Franklin (via Pixi)"
+    Pop $Checkbox_Franklin
+    ${NSD_Check} $Checkbox_Franklin
+
+    # Options
+    ${NSD_CreateLabel} 0 140u 100% 12u "Installation Options:"
+    Pop $Label
+
+    ${NSD_CreateCheckbox} 20u 160u 200u 12u "Force reinstall if already installed"
+    Pop $Checkbox_Force
+
+    ${NSD_CreateCheckbox} 20u 180u 200u 12u "Continue on error (don't stop if one fails)"
+    Pop $Checkbox_ContinueOnError
+
+    # Info text
+    ${NSD_CreateLabel} 0 210u 100% 40u "This installer will run PowerShell scripts to install the selected development tools. Make sure you have administrator privileges and a stable internet connection."
+    Pop $Label
+
+    nsDialogs::Show
+FunctionEnd
+
+Function ComponentSelectionPageLeave
+    # Get checkbox states
+    ${NSD_GetState} $Checkbox_Miniforge $Install_Miniforge
+    ${NSD_GetState} $Checkbox_Pixi $Install_Pixi
+    ${NSD_GetState} $Checkbox_Docker $Install_Docker
+    ${NSD_GetState} $Checkbox_Chrome $Install_Chrome
+    ${NSD_GetState} $Checkbox_Franklin $Install_Franklin
+    ${NSD_GetState} $Checkbox_Force $Force_Install
+    ${NSD_GetState} $Checkbox_ContinueOnError $Continue_On_Error
+FunctionEnd
+
+# Main installation section
+Section "MainSection" SEC01
+    SetOutPath "$INSTDIR"
+    SetOverwrite ifnewer
+
+    # Copy installation scripts
+    File "Install-Miniforge.ps1"
+    File "Install-Pixi.ps1"
+    File "Install-Docker-Desktop.ps1"
+    File "Install-Chrome.ps1"
+    File "Master-Installer.ps1"
+
+    # Create batch file to run the installer
+    FileOpen $0 "$INSTDIR\RunInstaller.bat" w
+    FileWrite $0 "@echo off$\r$\n"
+    FileWrite $0 "echo Development Environment Installer$\r$\n"
+    FileWrite $0 "echo =================================$\r$\n"
+    FileWrite $0 "echo.$\r$\n"
+    FileWrite $0 "cd /d $\"$INSTDIR$\"$\r$\n"
+    FileWrite $0 "echo Running PowerShell installer with selected options...$\r$\n"
+    FileWrite $0 "echo.$\r$\n"
+    
+    # Build PowerShell command based on selections
+    FileWrite $0 "powershell.exe -ExecutionPolicy Bypass -File $\"$INSTDIR\Master-Installer.ps1$\""
+    
+    # Add skip parameters for unchecked components
+    ${If} $Install_Miniforge == 0
+        FileWrite $0 " -SkipMiniforge"
+    ${EndIf}
+    ${If} $Install_Pixi == 0
+        FileWrite $0 " -SkipPixi"
+    ${EndIf}
+    ${If} $Install_Docker == 0
+        FileWrite $0 " -SkipDocker"
+    ${EndIf}
+    ${If} $Install_Chrome == 0
+        FileWrite $0 " -SkipChrome"
+    ${EndIf}
+    ${If} $Install_Franklin == 0
+        FileWrite $0 " -SkipFranklin"
+    ${EndIf}
+    ${If} $Force_Install == 1
+        FileWrite $0 " -Force"
+    ${EndIf}
+    ${If} $Continue_On_Error == 1
+        FileWrite $0 " -ContinueOnError"
+    ${EndIf}
+    
+    FileWrite $0 "$\r$\n"
+    FileWrite $0 "echo.$\r$\n"
+    FileWrite $0 "echo Installation process completed.$\r$\n"
+    FileWrite $0 "echo.$\r$\n"
+    FileWrite $0 "pause$\r$\n"
+    FileClose $0
+
+    # Run the installer
+    DetailPrint "Starting development environment installation..."
+    ExecWait '"$INSTDIR\RunInstaller.bat"' $0
+    
+    ${If} $0 != 0
+        MessageBox MB_ICONEXCLAMATION "Installation completed with some issues. Check the output for details."
+    ${Else}
+        MessageBox MB_ICONINFORMATION "Installation completed successfully!"
+    ${EndIf}
+
+    # Create uninstaller
+    WriteUninstaller "$INSTDIR\uninst.exe"
+    WriteRegStr HKLM "Software\${PRODUCT_NAME}" "InstallPath" "$INSTDIR"
+    WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
+    WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
+    WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\uninst.exe"
+    WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+    WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
+    WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
+SectionEnd
+
+# Uninstaller section
+Section Uninstall
+    # Remove installation directory
+    RMDir /r "$INSTDIR"
+
+    # Remove registry keys
+    DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
+    DeleteRegKey HKLM "Software\${PRODUCT_NAME}"
+
+    SetAutoClose true
+SectionEnd
+
+# Initialization function
+Function .onInit
+    # Initialize variables
+    StrCpy $Install_Miniforge 1
+    StrCpy $Install_Pixi 1
+    StrCpy $Install_Docker 1
+    StrCpy $Install_Chrome 1
+    StrCpy $Install_Franklin 1
+    StrCpy $Force_Install 0
+    StrCpy $Continue_On_Error 0
+FunctionEnd

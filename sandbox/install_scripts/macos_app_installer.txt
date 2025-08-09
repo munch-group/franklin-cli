@@ -1,0 +1,185 @@
+#!/usr/bin/osascript
+
+-- Development Environment Installer for macOS
+-- AppleScript Application Bundle
+
+-- This script creates a native macOS installer with GUI options
+-- Save this as "Development Environment Installer.app"
+
+-- Application properties
+property appName : "Development Environment Installer"
+property appVersion : "1.0.0"
+
+-- Component selection variables
+property installMiniforge : true
+property installPixi : true
+property installDocker : true
+property installChrome : true
+property installFranklin : true
+property forceInstall : false
+property continueOnError : false
+
+-- Main application handler
+on run
+    try
+        -- Show welcome dialog
+        set welcomeResult to display dialog "Welcome to the Development Environment Installer!" & return & return & "This installer will help you set up a complete development environment including Python, package managers, Docker, and more." & return & return & "Click Continue to select components, or Cancel to exit." buttons {"Cancel", "Continue"} default button "Continue" with icon note with title appName
+        
+        if button returned of welcomeResult is "Cancel" then
+            return
+        end if
+        
+        -- Show component selection dialog
+        showComponentSelection()
+        
+        -- Show installation options dialog
+        showInstallationOptions()
+        
+        -- Confirm installation
+        set confirmResult to display dialog "Ready to install the selected components!" & return & return & "Selected components:" & return & getSelectedComponentsList() & return & return & "Installation options:" & return & getSelectedOptionsList() & return & return & "This process may take several minutes. Continue?" buttons {"Cancel", "Install"} default button "Install" with icon caution with title appName
+        
+        if button returned of confirmResult is "Cancel" then
+            return
+        end if
+        
+        -- Run installation
+        runInstallation()
+        
+    on error errorMessage number errorNumber
+        display dialog "An error occurred: " & errorMessage buttons {"OK"} default button "OK" with icon stop with title appName
+    end try
+end run
+
+-- Show component selection dialog
+on showComponentSelection()
+    set componentDialog to "Select the development tools you want to install:" & return & return
+    
+    -- Create a simple selection dialog (macOS doesn't have native checkbox dialogs in AppleScript)
+    -- We'll use a choose from list approach
+    set availableComponents to {"Miniforge (Python Distribution)", "Pixi (Package Manager)", "Docker Desktop", "Google Chrome", "Franklin (via Pixi)"}
+    set selectedComponents to choose from list availableComponents with prompt "Select components to install (hold Cmd to select multiple):" default items availableComponents with multiple selections allowed
+    
+    if selectedComponents is false then
+        error "Installation cancelled by user."
+    end if
+    
+    -- Parse selections
+    set installMiniforge to false
+    set installPixi to false
+    set installDocker to false
+    set installChrome to false
+    set installFranklin to false
+    
+    repeat with selectedComponent in selectedComponents
+        if selectedComponent as string contains "Miniforge" then set installMiniforge to true
+        if selectedComponent as string contains "Pixi" then set installPixi to true
+        if selectedComponent as string contains "Docker" then set installDocker to true
+        if selectedComponent as string contains "Chrome" then set installChrome to true
+        if selectedComponent as string contains "Franklin" then set installFranklin to true
+    end repeat
+end showComponentSelection
+
+-- Show installation options dialog
+on showInstallationOptions()
+    set optionsResult to display dialog "Installation Options:" & return & return & "Force reinstall: Reinstall components even if already installed" & return & "Continue on error: Don't stop if one component fails" buttons {"Force + Continue", "Force Only", "Continue Only", "Default"} default button "Default" with title appName
+    
+    set selectedOption to button returned of optionsResult
+    
+    if selectedOption is "Force + Continue" then
+        set forceInstall to true
+        set continueOnError to true
+    else if selectedOption is "Force Only" then
+        set forceInstall to true
+        set continueOnError to false
+    else if selectedOption is "Continue Only" then
+        set forceInstall to false
+        set continueOnError to true
+    else
+        set forceInstall to false
+        set continueOnError to false
+    end if
+end showInstallationOptions
+
+-- Get list of selected components as string
+on getSelectedComponentsList()
+    set componentsList to ""
+    
+    if installMiniforge then set componentsList to componentsList & "• Miniforge (Python Distribution)" & return
+    if installPixi then set componentsList to componentsList & "• Pixi (Package Manager)" & return
+    if installDocker then set componentsList to componentsList & "• Docker Desktop" & return
+    if installChrome then set componentsList to componentsList & "• Google Chrome" & return
+    if installFranklin then set componentsList to componentsList & "• Franklin (via Pixi)" & return
+    
+    if componentsList is "" then
+        set componentsList to "• None selected"
+    end if
+    
+    return componentsList
+end getSelectedComponentsList
+
+-- Get list of selected options as string
+on getSelectedOptionsList()
+    set optionsList to ""
+    
+    if forceInstall then set optionsList to optionsList & "• Force reinstall enabled" & return
+    if continueOnError then set optionsList to optionsList & "• Continue on error enabled" & return
+    
+    if optionsList is "" then
+        set optionsList to "• Default options"
+    end if
+    
+    return optionsList
+end getSelectedOptionsList
+
+-- Run the installation process
+on runInstallation()
+    try
+        -- Get the path to the installer script
+        set appPath to (path to me) as string
+        set appBundle to POSIX path of appPath
+        set scriptPath to appBundle & "Contents/Resources/master-installer.sh"
+        
+        -- Build command line arguments
+        set commandArgs to ""
+        
+        -- Add skip flags for unselected components
+        if not installMiniforge then set commandArgs to commandArgs & " --skip-miniforge"
+        if not installPixi then set commandArgs to commandArgs & " --skip-pixi"
+        if not installDocker then set commandArgs to commandArgs & " --skip-docker"
+        if not installChrome then set commandArgs to commandArgs & " --skip-chrome"
+        if not installFranklin then set commandArgs to commandArgs & " --skip-franklin"
+        
+        -- Add option flags
+        if forceInstall then set commandArgs to commandArgs & " --force"
+        if continueOnError then set commandArgs to commandArgs & " --continue-on-error"
+        
+        -- Build full command
+        set fullCommand to "cd " & quoted form of (appBundle & "Contents/Resources") & " && chmod +x master-installer.sh && ./master-installer.sh" & commandArgs
+        
+        -- Show progress dialog
+        display dialog "Starting installation process..." & return & return & "A Terminal window will open to show the installation progress. Please wait for it to complete." buttons {"OK"} default button "OK" with icon note with title appName
+        
+        -- Run the command in Terminal
+        tell application "Terminal"
+            activate
+            set newWindow to do script fullCommand
+            
+            -- Wait for the script to complete (simple polling)
+            repeat
+                delay 2
+                if not busy of newWindow then exit repeat
+            end repeat
+        end tell
+        
+        -- Show completion dialog
+        display dialog "Installation process completed!" & return & return & "Check the Terminal window for detailed results. You may need to restart your terminal or shell to use the newly installed tools." buttons {"OK"} default button "OK" with icon note with title appName
+        
+    on error errorMessage number errorNumber
+        display dialog "Installation failed: " & errorMessage & return & return & "Please check that the installation scripts are present in the app bundle and try again." buttons {"OK"} default button "OK" with icon stop with title appName
+    end try
+end runInstallation
+
+-- Handler for when app is opened via Finder
+on open
+    run
+end open
