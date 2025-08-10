@@ -372,21 +372,21 @@ window.InstallerWidget = (function() {
     const installerConfig = {
         windows: {
             // url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-windows.exe',
-            url: 'https://munch-group/franklin/dist/Franklin-Installer-Windows.exe',
+            url: 'https://munch-group/franklin/installers/Franklin-Installer-Windows.exe',
             filename: 'Franklin-Installer-Windows.exe',
             size: '45.2 MB',
             version: '1.2.3'
         },
         macos: {
             // url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-macos.dmg',
-            url: 'https://munch-group/franklin/dist/Franklin-Installer-macOS.dmg',
+            url: 'https://munch-group/franklin/installers/Franklin-Installer-macOS.dmg',
             filename: 'Franklin-Installer-macOS.dmg',
             size: '52.1 MB',
             version: '1.2.3'
         },
         linux: {
-            url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-linux.AppImage',
-            filename: 'your-app-installer-linux.AppImage',
+            url: 'https://munch-group/franklin/installers/Franklin-Installer-Linux.AppImage',
+            filename: 'Franklin-Installer-Linux.AppImage',
             size: '48.7 MB',
             version: '1.2.3'
         }
