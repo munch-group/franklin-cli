@@ -1,0 +1,122 @@
+@echo off
+REM Build Windows Installer - Batch Wrapper
+REM Simple wrapper for the PowerShell build script
+
+setlocal enabledelayedexpansion
+
+echo.
+echo Windows Installer Builder
+echo ========================
+echo.
+
+REM Check if PowerShell is available
+powershell -Command "Write-Host 'PowerShell check passed'" >nul 2>&1
+if errorlevel 1 (
+    echo ERROR: PowerShell is not available or not in PATH
+    echo Please ensure PowerShell 5.1 or later is installed
+    pause
+    exit /b 1
+)
+
+REM Check if the PowerShell script exists
+if not exist "Build-WindowsInstaller.ps1" (
+    echo ERROR: Build-WindowsInstaller.ps1 not found
+    echo Please ensure the PowerShell build script is in the current directory
+    pause
+    exit /b 1
+)
+
+REM Parse command line arguments
+set "ARGS="
+set "VERBOSE="
+set "CLEAN="
+set "HELP="
+
+:parse_args
+if "%~1"=="" goto :run_build
+if /i "%~1"=="-v" set "VERBOSE=-Verbose"
+if /i "%~1"=="--verbose" set "VERBOSE=-Verbose"
+if /i "%~1"=="-c" set "CLEAN=-Clean"
+if /i "%~1"=="--clean" set "CLEAN=-Clean"
+if /i "%~1"=="-h" set "HELP=1"
+if /i "%~1"=="--help" set "HELP=1"
+if /i "%~1"=="/?" set "HELP=1"
+
+REM Pass through other arguments
+if not "%~1"=="-v" if not "%~1"=="--verbose" if not "%~1"=="-c" if not "%~1"=="--clean" if not "%~1"=="-h" if not "%~1"=="--help" if not "%~1"=="/?" (
+    set "ARGS=!ARGS! %~1"
+)
+
+shift
+goto :parse_args
+
+:run_build
+if "%HELP%"=="1" (
+    echo.
+    echo Usage: %~nx0 [OPTIONS]
+    echo.
+    echo Options:
+    echo   -v, --verbose    Enable verbose output
+    echo   -c, --clean      Clean build directory before building
+    echo   -h, --help       Show this help message
+    echo.
+    echo Examples:
+    echo   %~nx0                    # Basic build
+    echo   %~nx0 --verbose          # Verbose build
+    echo   %~nx0 --clean --verbose  # Clean build with verbose output
+    echo.
+    echo This script builds a Windows installer (.exe) using NSIS that wraps
+    echo the PowerShell installer scripts for development environment tools.
+    echo.
+    echo Prerequisites:
+    echo   - NSIS (Nullsoft Scriptable Install System) must be installed
+    echo   - PowerShell installer scripts must be present
+    echo   - Administrator privileges recommended
+    echo.
+    pause
+    exit /b 0
+)
+
+REM Show what we're about to do
+echo Starting Windows installer build...
+echo.
+if "%VERBOSE%"=="-Verbose" echo Verbose mode enabled
+if "%CLEAN%"=="-Clean" echo Clean build enabled
+if not "%ARGS%"=="" echo Additional arguments: %ARGS%
+echo.
+
+REM Run the PowerShell script
+echo Executing PowerShell build script...
+powershell -ExecutionPolicy Bypass -File "Build-WindowsInstaller.ps1" %VERBOSE% %CLEAN% %ARGS%
+
+REM Capture exit code
+set "BUILD_EXIT_CODE=%ERRORLEVEL%"
+
+echo.
+if %BUILD_EXIT_CODE% equ 0 (
+    echo ====================================
+    echo BUILD COMPLETED SUCCESSFULLY!
+    echo ====================================
+    echo.
+    echo The Windows installer has been built and is ready for distribution.
+    echo Check the 'dist' folder for the installer file.
+) else (
+    echo ====================================
+    echo BUILD FAILED
+    echo ====================================
+    echo.
+    echo The build process encountered errors. Please check the output above
+    echo for specific error messages and resolve any issues.
+    echo.
+    echo Common solutions:
+    echo   - Install NSIS from https://nsis.sourceforge.io/
+    echo   - Ensure all PowerShell scripts are present
+    echo   - Run as Administrator
+    echo   - Check internet connectivity
+)
+
+echo.
+echo Press any key to exit...
+pause >nul
+
+exit /b %BUILD_EXIT_CODE%
