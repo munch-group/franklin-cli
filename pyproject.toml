@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = "0.25.21"
+version = "0.25.22"
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -97,7 +97,7 @@ args = [
   { "arg" = "kind", "default" = "--patch" },  # can be --patch, --minor, --major
   { "arg" = "flag", "default" = "" },     # can be --pre, --release
 ]
-cmd = "./.scripts/bump_version.py {{ kind }} {{ flag }} &&  git add -u &&  git commit -m '{{ kind }} {{ flag }} version bump'"
+cmd = "./.scripts/bump_version.py {{ kind }} {{ flag }} &&  git add -u &&  git commit -m '{{ kind }} {{ flag }} version bump' && git push" 
 description = "Bump version patch and build/release conda packages"
 
 [tool.pixi.tasks.bump-changelog]
