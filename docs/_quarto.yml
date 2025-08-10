@@ -12,6 +12,13 @@ project:
   # post-render: 
   #   - quarto render pages/student/
 
+# jupyter:
+#   python: .pixi/envs/default/bin/python
+#   kernelspec:
+#     name: python3
+#     language: python
+#     display_name: "Python 3"
+      
 execute:
   freeze: auto
   echo: true
@@ -67,6 +74,7 @@ website:
       contents:
         # - index.qmd
         - pages/getting_started.qmd
+        - pages/download.qmd
         - section: "Franklin commands"
           contents:
             # - pages/quick_reference.qmd #

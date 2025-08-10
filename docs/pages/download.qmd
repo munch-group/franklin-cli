@@ -1,0 +1,672 @@
+---
+title: "Download the Installer"
+format: html
+---
+
+## Download the Installer
+
+```{=html}
+<div class="installer-widget-container">
+    <!-- Scoped Bootstrap CSS - only applies within this container -->
+    <style>
+    .installer-widget-container {
+        /* Bootstrap CSS variables */
+        --bs-primary: #0d6efd;
+        --bs-primary-rgb: 13, 110, 253;
+        --bs-primary-hover: #0b5ed7;
+        --bs-secondary: #6c757d;
+        --bs-secondary-rgb: 108, 117, 125;
+        --bs-secondary-hover: #5c636a;
+        --bs-success: #198754;
+        --bs-warning: #ffc107;
+        --bs-warning-rgb: 255, 193, 7;
+        --bs-danger: #dc3545;
+        --bs-info: #0dcaf0;
+        --bs-light: #f8f9fa;
+        --bs-dark: #212529;
+        --bs-white: #fff;
+        --bs-gray: #6c757d;
+        --bs-gray-dark: #343a40;
+        --bs-border-color: #dee2e6;
+        --bs-border-radius: 0.375rem;
+        --bs-border-radius-lg: 0.5rem;
+        --bs-border-radius-sm: 0.25rem;
+        font-family: inherit;
+    }
+    
+    /* Button base styles */
+    .installer-widget-container .btn {
+        display: inline-block;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        border-radius: var(--bs-border-radius);
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        font-family: inherit;
+    }
+    
+    .installer-widget-container .btn:hover {
+        text-decoration: none;
+    }
+    
+    .installer-widget-container .btn:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+    }
+    
+    .installer-widget-container .btn:disabled {
+        pointer-events: none;
+        opacity: 0.65;
+    }
+    
+    /* Button variants */
+    .installer-widget-container .btn-primary {
+        color: #fff;
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+    
+    .installer-widget-container .btn-primary:hover {
+        color: #fff;
+        background-color: var(--bs-primary-hover);
+        border-color: #0a58ca;
+    }
+    
+    .installer-widget-container .btn-primary:focus {
+        color: #fff;
+        background-color: var(--bs-primary-hover);
+        border-color: #0a58ca;
+        box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+    }
+    
+    .installer-widget-container .btn-secondary {
+        color: #fff;
+        background-color: var(--bs-secondary);
+        border-color: var(--bs-secondary);
+    }
+    
+    .installer-widget-container .btn-secondary:hover {
+        color: #fff;
+        background-color: var(--bs-secondary-hover);
+        border-color: #545b62;
+    }
+    
+    .installer-widget-container .btn-outline-secondary {
+        color: var(--bs-secondary);
+        border-color: var(--bs-secondary);
+        background-color: transparent;
+    }
+    
+    .installer-widget-container .btn-outline-secondary:hover {
+        color: #fff;
+        background-color: var(--bs-secondary);
+        border-color: var(--bs-secondary);
+    }
+    
+    /* Button sizes */
+    .installer-widget-container .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1.25rem;
+        border-radius: var(--bs-border-radius-lg);
+    }
+    
+    .installer-widget-container .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+        border-radius: var(--bs-border-radius-sm);
+    }
+    
+    /* Alert styles */
+    .installer-widget-container .alert {
+        position: relative;
+        padding: 1rem 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: var(--bs-border-radius);
+    }
+    
+    .installer-widget-container .alert-warning {
+        color: #664d03;
+        background-color: #fff3cd;
+        border-color: #ffecb5;
+    }
+    
+    .installer-widget-container .alert-danger {
+        color: #842029;
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+    }
+    
+    /* Utility classes */
+    .installer-widget-container .text-muted {
+        color: var(--bs-gray) !important;
+    }
+    
+    .installer-widget-container .text-primary {
+        color: var(--bs-primary) !important;
+    }
+    
+    .installer-widget-container .d-block {
+        display: block !important;
+    }
+    
+    .installer-widget-container .d-none {
+        display: none !important;
+    }
+    
+    .installer-widget-container .d-grid {
+        display: grid !important;
+    }
+    
+    /* Margin utilities */
+    .installer-widget-container .mt-1 { margin-top: 0.25rem !important; }
+    .installer-widget-container .mt-2 { margin-top: 0.5rem !important; }
+    .installer-widget-container .mt-3 { margin-top: 1rem !important; }
+    .installer-widget-container .mt-4 { margin-top: 1.5rem !important; }
+    .installer-widget-container .mb-1 { margin-bottom: 0.25rem !important; }
+    .installer-widget-container .mb-2 { margin-bottom: 0.5rem !important; }
+    .installer-widget-container .mb-3 { margin-bottom: 1rem !important; }
+    .installer-widget-container .mb-4 { margin-bottom: 1.5rem !important; }
+    .installer-widget-container .me-2 { margin-right: 0.5rem !important; }
+    .installer-widget-container .ms-2 { margin-left: 0.5rem !important; }
+    
+    /* Gap utilities */
+    .installer-widget-container .gap-2 {
+        gap: 0.5rem !important;
+    }
+    
+    /* Button group styles */
+    .installer-widget-container .btn-group-vertical {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    
+    .installer-widget-container .btn-group-vertical .btn {
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    
+    .installer-widget-container .btn-group-vertical .btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Progress bar styles */
+    .installer-widget-container .progress {
+        display: flex;
+        height: 1rem;
+        overflow: hidden;
+        font-size: 0.75rem;
+        background-color: #e9ecef;
+        border-radius: var(--bs-border-radius);
+    }
+    
+    .installer-widget-container .progress-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        background-color: var(--bs-primary);
+        transition: width 0.6s ease;
+    }
+    
+    .installer-widget-container .progress-bar-striped {
+        background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+        background-size: 1rem 1rem;
+    }
+    
+    .installer-widget-container .progress-bar-animated {
+        animation: installer-progress-bar-stripes 1s linear infinite;
+    }
+    
+    @keyframes installer-progress-bar-stripes {
+        0% { background-position-x: 1rem; }
+    }
+    
+    /* Toast styles */
+    .installer-widget-container .toast-container {
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding: 1rem;
+        z-index: 1055;
+    }
+    
+    .installer-widget-container .toast {
+        background-color: rgba(255, 255, 255, 0.95);
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        border-radius: var(--bs-border-radius);
+        min-width: 300px;
+        max-width: 350px;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .installer-widget-container .toast-header {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        color: #6c757d;
+        background-color: rgba(255, 255, 255, 0.85);
+        background-clip: padding-box;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        border-top-left-radius: calc(var(--bs-border-radius) - 1px);
+        border-top-right-radius: calc(var(--bs-border-radius) - 1px);
+    }
+    
+    .installer-widget-container .toast-body {
+        padding: 0.75rem;
+        word-wrap: break-word;
+    }
+    
+    .installer-widget-container .btn-close {
+        background: transparent;
+        border: 0;
+        font-size: 1rem;
+        cursor: pointer;
+        opacity: 0.5;
+        padding: 0.25rem;
+        margin: -0.125rem -0.125rem -0.125rem auto;
+    }
+    
+    .installer-widget-container .btn-close:hover {
+        opacity: 0.75;
+    }
+    
+    .installer-widget-container .btn-close::before {
+        content: "×";
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+    
+    /* Responsive behavior */
+    @media (min-width: 768px) {
+        .installer-widget-container .btn-group-vertical {
+            flex-direction: row;
+            align-items: center;
+        }
+        
+        .installer-widget-container .btn-group-vertical .btn {
+            margin-bottom: 0;
+            margin-right: 0.5rem;
+            width: auto;
+        }
+        
+        .installer-widget-container .btn-group-vertical .btn:last-child {
+            margin-right: 0;
+        }
+        
+        .installer-widget-container .d-md-block {
+            display: block !important;
+        }
+    }
+    
+    /* Custom installer-specific styles */
+    .installer-widget-container .installer-size-info {
+        font-size: 0.8em;
+        opacity: 0.8;
+    }
+    
+    .installer-widget-container .installer-version-info {
+        font-size: 0.875rem;
+        color: var(--bs-gray);
+    }
+    
+    .installer-widget-container .installer-system-info {
+        background-color: #f8f9fa;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        padding: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    .installer-widget-container .installer-system-info summary {
+        cursor: pointer;
+        outline: none;
+        font-weight: 500;
+    }
+    
+    .installer-widget-container .installer-system-info summary::-webkit-details-marker {
+        display: none;
+    }
+    
+    .installer-widget-container .installer-system-info summary::before {
+        /* content: "▶ "; */
+        content: "";
+        margin-right: 0.5rem;
+        transition: transform 0.2s ease;
+    }
+    
+    .installer-widget-container .installer-system-info[open] summary::before {
+        transform: rotate(90deg);
+    }
+    </style>
+    
+    <!-- Bootstrap Icons (external, minimal impact) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Widget HTML -->
+    <div id="platform-result" style="padding: 0px; background-color: transparent; border-radius: 0px;">
+        🔄 Loading platform information...
+    </div>
+</div>
+
+<script>
+window.InstallerWidget = (function() {
+    // Configuration object for installer downloads
+    const installerConfig = {
+        windows: {
+            url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-windows.exe',
+            filename: 'your-app-installer-windows.exe',
+            size: '45.2 MB',
+            version: '1.2.3'
+        },
+        macos: {
+            url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-macos.dmg',
+            filename: 'your-app-installer-macos.dmg',
+            size: '52.1 MB',
+            version: '1.2.3'
+        },
+        linux: {
+            url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-linux.AppImage',
+            filename: 'your-app-installer-linux.AppImage',
+            size: '48.7 MB',
+            version: '1.2.3'
+        }
+    };
+
+    function detectPlatform() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        const platform = navigator.platform.toLowerCase();
+        
+        if (/iphone/.test(userAgent)) return 'iOS (iPhone)';
+        if (/ipad/.test(userAgent)) return 'iOS (iPad)';
+        if (/android/.test(userAgent)) return 'Android';
+        if (platform.includes('win')) return 'Windows';
+        if (platform.includes('mac')) return 'macOS';
+        if (platform.includes('linux')) return 'Linux';
+        
+        return 'Unknown Platform';
+    }
+
+    function getBrowser() {
+        const userAgent = navigator.userAgent;
+        if (userAgent.includes('Edg')) return 'Edge';
+        if (userAgent.includes('Chrome')) return 'Chrome';
+        if (userAgent.includes('Firefox')) return 'Firefox';
+        if (userAgent.includes('Safari')) return 'Safari';
+        return 'Unknown';
+    }
+
+    function downloadInstaller(platform) {
+        const config = installerConfig[platform.toLowerCase()];
+        
+        if (!config) {
+            showErrorAlert(`Sorry, no installer available for ${platform}`);
+            return;
+        }
+        
+        showDownloadProgress(platform, config);
+        
+        if (config.url.startsWith('http')) {
+            // Real download from URL
+            window.open(config.url, '_blank');
+        } else {
+            // Fallback: generate mock installer
+            generateMockInstaller(platform, config);
+        }
+    }
+
+    function generateMockInstaller(platform, config) {
+        const installerContent = `# ${platform} Installer Package
+# Version: ${config.version}
+# Size: ${config.size}
+# Generated: ${new Date().toISOString()}
+
+This is a mock installer file for ${platform}.
+In a real application, this would contain the actual installer binary.
+
+Installation Instructions:
+${getInstallationInstructions(platform)}
+
+For support, visit: https://your-website.com/support
+`;
+        
+        downloadFile(config.filename, installerContent);
+    }
+
+    function getInstallationInstructions(platform) {
+        switch (platform.toLowerCase()) {
+            case 'windows':
+                return `1. Double-click the .exe file
+2. Follow the installation wizard
+3. Accept the license agreement
+4. Choose installation directory
+5. Complete the installation`;
+            case 'macos':
+                return `1. Double-click the .dmg file
+2. Drag the application to Applications folder
+3. Launch from Applications or Launchpad
+4. Allow app in System Preferences if prompted`;
+            case 'linux':
+                return `1. Make the AppImage executable: chmod +x ${installerConfig.linux.filename}
+2. Run the AppImage: ./${installerConfig.linux.filename}
+3. Or integrate with your desktop environment`;
+            default:
+                return 'Follow platform-specific installation instructions.';
+        }
+    }
+
+    function downloadFile(filename, content) {
+        const element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
+    function showDownloadProgress(platform, config) {
+        const toastHtml = `
+            <div class="toast-container">
+                <div id="downloadToast" class="toast show" role="alert">
+                    <div class="toast-header">
+                        <i class="bi bi-download text-primary me-2"></i>
+                        <strong class="me-auto">Downloading Installer</strong>
+                        <button type="button" class="btn-close" onclick="document.getElementById('downloadToast').remove()"></button>
+                    </div>
+                    <div class="toast-body">
+                        <strong>${platform} Installer</strong><br>
+                        <small class="text-muted">
+                            ${config.filename} (${config.size})
+                        </small>
+                        <div class="progress mt-2" style="height: 6px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                 style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Remove existing toast if any
+        const existingToast = document.getElementById('downloadToast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        // Add new toast to installer widget container
+        const container = document.querySelector('.installer-widget-container');
+        container.insertAdjacentHTML('beforeend', toastHtml);
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            const toast = document.getElementById('downloadToast');
+            if (toast) {
+                toast.remove();
+            }
+        }, 3000);
+    }
+
+    function showErrorAlert(message) {
+        const alertHtml = `
+            <div class="alert alert-danger mt-3" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                ${message}
+            </div>
+        `;
+        
+        const container = document.getElementById('platform-result');
+        container.insertAdjacentHTML('afterend', alertHtml);
+        
+        // Remove alert after 5 seconds
+        setTimeout(() => {
+            const alert = container.nextElementSibling;
+            if (alert && alert.classList.contains('alert-danger')) {
+                alert.remove();
+            }
+        }, 5000);
+    }
+
+    function getPlatformIcon(platform) {
+        switch (platform.toLowerCase()) {
+            case 'windows': return 'windows';
+            case 'macos': return 'apple';
+            case 'linux': return 'ubuntu';
+            case 'ios (iphone)':
+            case 'ios (ipad)': return 'apple';
+            case 'android': return 'android2';
+            default: return 'download';
+        }
+    }
+
+    function getRecommendedPlatform(detectedPlatform) {
+        switch (detectedPlatform.toLowerCase()) {
+            case 'windows': return 'windows';
+            case 'macos': return 'macos';
+            case 'linux': return 'linux';
+            default: return 'windows';
+        }
+    }
+
+    function initialize(containerId = 'platform-result') {
+        const platformInfo = detectPlatform();
+        const browserInfo = getBrowser();
+        const isMobile = /iPhone|iPad|Android/.test(navigator.userAgent);
+        const recommendedPlatform = getRecommendedPlatform(platformInfo);
+        const recommendedConfig = installerConfig[recommendedPlatform];
+        
+        let content = '';
+        
+        // Show mobile warning if detected
+        if (isMobile) {
+            content += `
+                <div class="alert alert-warning mb-3" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <strong>Mobile Device Detected</strong><br>
+                    Our desktop application is not available for mobile devices. 
+                    Please visit this page on a desktop computer to download the installer.
+                </div>
+            `;
+        }
+        
+        // Primary download button (recommended for detected platform)
+        if (!isMobile && recommendedConfig) {
+            content += `
+                <div class="mb-4">
+                    <button type="button" class="btn btn-primary btn-lg me-2" onclick="window.InstallerWidget.downloadInstaller('${recommendedPlatform}')">
+                        <i class="bi bi-${getPlatformIcon(platformInfo)} me-2"></i>
+                        Download for ${platformInfo}
+                    </button>
+                    <small class="d-block mt-1 installer-version-info">
+                        Recommended • Version ${recommendedConfig.version} • ${recommendedConfig.size}
+                    </small>
+                </div>
+            `;
+        }
+        
+        // All installers section
+        content += `
+            <div>
+                <p><strong>All Installers:</strong></p>
+                <div class="btn-group-vertical btn-group-sm d-grid gap-2 d-md-block">
+                    <button type="button" class="btn btn-outline-secondary" onclick="window.InstallerWidget.downloadInstaller('macos')">
+                        <i class="bi bi-apple me-2"></i>macOS 
+                        <span class="installer-size-info">(${installerConfig.macos.size})</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="window.InstallerWidget.downloadInstaller('windows')">
+                        <i class="bi bi-windows me-2"></i>Windows 
+                        <span class="installer-size-info">(${installerConfig.windows.size})</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="window.InstallerWidget.downloadInstaller('linux')">
+                        <i class="bi bi-ubuntu me-2"></i>Linux 
+                        <span class="installer-size-info">(${installerConfig.linux.size})</span>
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // System information (optional)
+        if (!isMobile) {
+            content += `
+                <details class="installer-system-info mt-4">
+                    <summary class="text-muted">
+                        <small>Detected System Information</small>
+                    </summary>
+                    <div class="mt-2">
+                        <small class="text-muted">
+                            <strong>Detected Platform:</strong> ${platformInfo}<br>
+                            <strong>Browser:</strong> ${browserInfo}<br>
+                            <strong>User Agent:</strong> <code style="font-size: 0.75em;">${navigator.userAgent}</code>
+                        </small>
+                    </div>
+                </details>
+            `;
+        }
+        
+        document.getElementById(containerId).innerHTML = content;
+    }
+
+    // Public API
+    return {
+        initialize: initialize,
+        downloadInstaller: downloadInstaller,
+        detectPlatform: detectPlatform
+    };
+})();
+
+// Auto-initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('platform-result')) {
+        window.InstallerWidget.initialize();
+    }
+});
+</script>
+```
+
+## Installation
+
+Download and run the Installer. Before installing Franklin, the installer will download and install the following dependencies if they are not available available on your computer:
+
+1. A Python 3 distribution - preferably [Miniforge](https://conda-forge.org/download/).
+2. The [Pixi](https://pixi.sh/latest/), a modern, fast package manager that's fully compatible with conda packages but offers better performance and reliability..
+3. The [Chrome](https://www.google.com/intl/en_uk/chrome/) browser that Franklin uses to display JupyterLab and web pages.
+4. The [Docker Desktop](https://www.docker.com/products/docker-desktop/) application that Franklin uses to containerize Jupyter environments.
+
+

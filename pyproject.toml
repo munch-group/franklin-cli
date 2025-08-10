@@ -89,6 +89,9 @@ cmd = "pip install -e ."
 description = "Install the package in development mode"
 
 
+# setup-kernel = "python -m ipykernel install --user --name franklin --display-name 'Franklin Python'"
+# quarto-render = { cmd = "quarto render", env = { QUARTO_PYTHON = ".pixi/envs/default/bin/python" } }
+
 [tool.pixi.tasks.bump-version]
 args = [
   { "arg" = "kind", "default" = "patch" },  # can be --patch, --minor, --major
@@ -120,11 +123,19 @@ setuptools = ">=65.0"
 wheel = "*"
 anthropic = "*"
 gitpython = "*"
+rpds-py = "*"
+
+[tool.pixi.feature.devel.dependencies]
+rpds-py = ">=0.27.0,<0.28"
+jsonschema = ">=4.25.0,<5"
+
 
 [tool.pixi.environments]
 devel = ["devel"]
 
 [tool.pixi.dependencies]
-franklin = "0.25.8.*"
+rpds-py = ">=0.27.0,<0.28"
+  
+#franklin = "0.25.8.*"
 
 
