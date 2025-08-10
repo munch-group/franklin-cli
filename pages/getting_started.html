@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/commands_core.html" rel="next">
+<link href="../pages/download.html" rel="next">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -179,6 +179,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../pages/getting_started.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Getting started</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../pages/download.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download the Installer</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -446,6 +452,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="installing" class="level2">
 <h2 class="anchored" data-anchor-id="installing">Installing</h2>
+<p>Franklin depends on a few external tools that you can install along with Franklin using the installer:</p>
+<div id="platform-result" style="padding: 0px; background-color: #ffffff; border-radius: 0px;">
+    🔄 Loading platform information...
+</div>
+
+
+<script>
+function detectPlatform() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const platform = navigator.platform.toLowerCase();
+    
+    if (/iphone/.test(userAgent)) return 'iOS (iPhone)';
+    if (/ipad/.test(userAgent)) return 'iOS (iPad)';
+    if (/android/.test(userAgent)) return 'Android';
+    if (platform.includes('win')) return 'Windows';
+    if (platform.includes('mac')) return 'macOS';
+    if (platform.includes('linux')) return 'Linux';
+    
+    return 'Unknown Platform';
+}
+
+function getBrowser() {
+    const userAgent = navigator.userAgent;
+    if (userAgent.includes('Edg')) return 'Edge';
+    if (userAgent.includes('Chrome')) return 'Chrome';
+    if (userAgent.includes('Firefox')) return 'Firefox';
+    if (userAgent.includes('Safari')) return 'Safari';
+    return 'Unknown';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const platformInfo = detectPlatform();
+    const browserInfo = getBrowser();
+    const isMobile = /iPhone|iPad|Android/.test(navigator.userAgent);
+    
+    document.getElementById('platform-result').innerHTML = `
+<p>
+<button type="button" class="btn btn-primary btn-lg"><i class="bi bi-${platformInfo=='macOS' ? 'apple' : 'windows'}"></i> ${platformInfo} Installer</button>
+<p/>
+
+<p><string>All Installers:</strong></p>
+
+<p>
+<button type="button" class="btn btn-secondary btn-sm"><i class="bi bi-apple"></i> macOS Installer</button>
+<button type="button" class="btn btn-secondary btn-sm"><i class="bi bi-windows"></i> Windows Installer</button>
+<button type="button" class="btn btn-secondary btn-sm"><i class="bi bi-ubuntu"></i> Linux Installer</button>
+</p>
+`;
+});
+</script>
 <p><strong>Install Dependencies:</strong></p>
 <p>Franklin depends on a few external tools that you need to install on your computer before you install Franklin:</p>
 <ol type="1">
@@ -964,8 +1020,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/commands_core.html" class="pagination-link" aria-label="Core Commands">
-        <span class="nav-page-text">Core Commands</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/download.html" class="pagination-link" aria-label="Download the Installer">
+        <span class="nav-page-text">Download the Installer</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

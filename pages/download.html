@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Pixi and Conda – franklin</title>
+<title>Download the Installer – franklin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../pages/docker.html" rel="next">
-<link href="../pages/terminal.html" rel="prev">
+<link href="../pages/commands_core.html" rel="next">
+<link href="../pages/getting_started.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -164,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/terminal.html">Reference</a></li><li class="breadcrumb-item"><a href="../pages/pixi_and_conda.html">Pixi and Conda</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/download.html">Download the Installer</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -184,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/download.html" class="sidebar-item-text sidebar-link">
+  <a href="../pages/download.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Download the Installer</span></a>
   </div>
 </li>
@@ -291,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../pages/pixi_and_conda.html" class="sidebar-item-text sidebar-link active">
+  <a href="../pages/pixi_and_conda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pixi and Conda</span></a>
   </div>
 </li>
@@ -412,33 +377,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pixi-the-modern-approach" id="toc-pixi-the-modern-approach" class="nav-link active" data-scroll-target="#pixi-the-modern-approach">Pixi: The Modern Approach</a>
-  <ul class="collapse">
-  <li><a href="#installing-pixi" id="toc-installing-pixi" class="nav-link" data-scroll-target="#installing-pixi">Installing Pixi</a></li>
-  <li><a href="#using-pixi" id="toc-using-pixi" class="nav-link" data-scroll-target="#using-pixi">Using Pixi</a></li>
-  </ul></li>
-  <li><a href="#conda-the-traditional-standard" id="toc-conda-the-traditional-standard" class="nav-link" data-scroll-target="#conda-the-traditional-standard">Conda: The Traditional Standard</a>
-  <ul class="collapse">
-  <li><a href="#how-conda-works" id="toc-how-conda-works" class="nav-link" data-scroll-target="#how-conda-works">How Conda Works</a></li>
-  <li><a href="#create-making-a-new-environment" id="toc-create-making-a-new-environment" class="nav-link" data-scroll-target="#create-making-a-new-environment">Create: Making a New Environment</a></li>
-  <li><a href="#activate-and-deactivate-switching-environments" id="toc-activate-and-deactivate-switching-environments" class="nav-link" data-scroll-target="#activate-and-deactivate-switching-environments">Activate and Deactivate: Switching Environments</a></li>
-  <li><a href="#install-adding-packages" id="toc-install-adding-packages" class="nav-link" data-scroll-target="#install-adding-packages">Install: Adding Packages</a></li>
-  </ul></li>
-  <li><a href="#try-it-out" id="toc-try-it-out" class="nav-link" data-scroll-target="#try-it-out">Try it out</a>
-  <ul class="collapse">
-  <li><a href="#your-first-pixi-project" id="toc-your-first-pixi-project" class="nav-link" data-scroll-target="#your-first-pixi-project">Your First Pixi Project</a></li>
-  <li><a href="#your-first-conda-environment" id="toc-your-first-conda-environment" class="nav-link" data-scroll-target="#your-first-conda-environment">Your First Conda Environment</a></li>
-  </ul></li>
+  <li><a href="#download-the-installer" id="toc-download-the-installer" class="nav-link active" data-scroll-target="#download-the-installer">Download the Installer</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../pages/terminal.html">Reference</a></li><li class="breadcrumb-item"><a href="../pages/pixi_and_conda.html">Pixi and Conda</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Pixi and Conda</h1>
-<p class="subtitle lead">Pixi and Conda for Scientific Computing</p>
+<h1 class="title">Download the Installer</h1>
 </div>
 
 
@@ -455,151 +404,672 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>When you work with Python for scientific computing or data analysis, you need a way to install and manage software packages – collections of code that others have written to help you analyze data, create visualizations, or perform calculations. Sometimes, however, the versions of packages you need for one project conflicts with the versions you need for other projects that you work on in parallel. Such conflicts seem like an unsolvable problem. Would it not be fantastic if you could create small insulated worlds for each project, which then only contained the packages needed for each particular project?. If each project had its own isolated world, then there would be no such version conflicts. Fortunately, there are tools like Pixi and Conda that lets you do just that. The small worlds that are called “environments”. You can create as many environments as you like, and then use each one for a separate bioinformatics project, a course, a bachelor project, or whatever you would like to insulate from everything else.</p>
-<p>This is where package managers come in. A package manager is a tool that handles all the complexity of downloading, installing, and organizing these packages for you. It’s like having an app store for your scientific computing needs. We’ll introduce two package managers: <strong>Pixi</strong> (a modern, fast tool) and <strong>Conda</strong> (the traditional aging standard). Both do the same job but in slightly different ways. We’ll start with Pixi because it’s simpler and faster for beginners.</p>
-<p>Package management might seem complex at first, but it quickly becomes second nature. Every data scientist and researcher uses these tools daily – with a little practice, you’ll wonder how you ever worked without them.</p>
-<section id="pixi-the-modern-approach" class="level2">
-<h2 class="anchored" data-anchor-id="pixi-the-modern-approach">Pixi: The Modern Approach</h2>
-<p>Imagine you’re starting a new research project. You create a folder on your computer for all your project files – your data, your analysis scripts, your results. Pixi works within this project folder, creating a self-contained environment just for this project.</p>
-<p>When you initialize Pixi in your project folder, it creates a special file called <code>pixi.toml</code> that acts like a shopping list of all the packages your project needs. Every time you add a package, Pixi updates this list. This means if you share your project with a colleague or move it to another computer, Pixi can read this list and install exactly the same packages, ensuring your analysis works the same way everywhere.</p>
-<p>Pixi stores all the installed packages in a hidden folder called <code>.pixi</code> within your project. This keeps everything organized and separate from other projects on your computer. Different projects can use different versions of the same package without interfering with each other.</p>
-<section id="installing-pixi" class="level3">
-<h3 class="anchored" data-anchor-id="installing-pixi">Installing Pixi</h3>
-<p>Before you can use Pixi, you need to install it on your computer. The installation is a one-time process.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">On Mac/Linux</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">On Windows</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Open the Terminal and run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://pixi.sh/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>After installation, close and reopen your terminal to make sure your computer recognizes the new <code>pixi</code> command.</p>
+<section id="download-the-installer" class="level2">
+<h2 class="anchored" data-anchor-id="download-the-installer">Download the Installer</h2>
+<div class="installer-widget-container">
+    <!-- Scoped Bootstrap CSS - only applies within this container -->
+    <style>
+    .installer-widget-container {
+        /* Bootstrap CSS variables */
+        --bs-primary: #0d6efd;
+        --bs-primary-rgb: 13, 110, 253;
+        --bs-primary-hover: #0b5ed7;
+        --bs-secondary: #6c757d;
+        --bs-secondary-rgb: 108, 117, 125;
+        --bs-secondary-hover: #5c636a;
+        --bs-success: #198754;
+        --bs-warning: #ffc107;
+        --bs-warning-rgb: 255, 193, 7;
+        --bs-danger: #dc3545;
+        --bs-info: #0dcaf0;
+        --bs-light: #f8f9fa;
+        --bs-dark: #212529;
+        --bs-white: #fff;
+        --bs-gray: #6c757d;
+        --bs-gray-dark: #343a40;
+        --bs-border-color: #dee2e6;
+        --bs-border-radius: 0.375rem;
+        --bs-border-radius-lg: 0.5rem;
+        --bs-border-radius-sm: 0.25rem;
+        font-family: inherit;
+    }
+    
+    /* Button base styles */
+    .installer-widget-container .btn {
+        display: inline-block;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        border-radius: var(--bs-border-radius);
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        font-family: inherit;
+    }
+    
+    .installer-widget-container .btn:hover {
+        text-decoration: none;
+    }
+    
+    .installer-widget-container .btn:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+    }
+    
+    .installer-widget-container .btn:disabled {
+        pointer-events: none;
+        opacity: 0.65;
+    }
+    
+    /* Button variants */
+    .installer-widget-container .btn-primary {
+        color: #fff;
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+    
+    .installer-widget-container .btn-primary:hover {
+        color: #fff;
+        background-color: var(--bs-primary-hover);
+        border-color: #0a58ca;
+    }
+    
+    .installer-widget-container .btn-primary:focus {
+        color: #fff;
+        background-color: var(--bs-primary-hover);
+        border-color: #0a58ca;
+        box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+    }
+    
+    .installer-widget-container .btn-secondary {
+        color: #fff;
+        background-color: var(--bs-secondary);
+        border-color: var(--bs-secondary);
+    }
+    
+    .installer-widget-container .btn-secondary:hover {
+        color: #fff;
+        background-color: var(--bs-secondary-hover);
+        border-color: #545b62;
+    }
+    
+    .installer-widget-container .btn-outline-secondary {
+        color: var(--bs-secondary);
+        border-color: var(--bs-secondary);
+        background-color: transparent;
+    }
+    
+    .installer-widget-container .btn-outline-secondary:hover {
+        color: #fff;
+        background-color: var(--bs-secondary);
+        border-color: var(--bs-secondary);
+    }
+    
+    /* Button sizes */
+    .installer-widget-container .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1.25rem;
+        border-radius: var(--bs-border-radius-lg);
+    }
+    
+    .installer-widget-container .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+        border-radius: var(--bs-border-radius-sm);
+    }
+    
+    /* Alert styles */
+    .installer-widget-container .alert {
+        position: relative;
+        padding: 1rem 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: var(--bs-border-radius);
+    }
+    
+    .installer-widget-container .alert-warning {
+        color: #664d03;
+        background-color: #fff3cd;
+        border-color: #ffecb5;
+    }
+    
+    .installer-widget-container .alert-danger {
+        color: #842029;
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+    }
+    
+    /* Utility classes */
+    .installer-widget-container .text-muted {
+        color: var(--bs-gray) !important;
+    }
+    
+    .installer-widget-container .text-primary {
+        color: var(--bs-primary) !important;
+    }
+    
+    .installer-widget-container .d-block {
+        display: block !important;
+    }
+    
+    .installer-widget-container .d-none {
+        display: none !important;
+    }
+    
+    .installer-widget-container .d-grid {
+        display: grid !important;
+    }
+    
+    /* Margin utilities */
+    .installer-widget-container .mt-1 { margin-top: 0.25rem !important; }
+    .installer-widget-container .mt-2 { margin-top: 0.5rem !important; }
+    .installer-widget-container .mt-3 { margin-top: 1rem !important; }
+    .installer-widget-container .mt-4 { margin-top: 1.5rem !important; }
+    .installer-widget-container .mb-1 { margin-bottom: 0.25rem !important; }
+    .installer-widget-container .mb-2 { margin-bottom: 0.5rem !important; }
+    .installer-widget-container .mb-3 { margin-bottom: 1rem !important; }
+    .installer-widget-container .mb-4 { margin-bottom: 1.5rem !important; }
+    .installer-widget-container .me-2 { margin-right: 0.5rem !important; }
+    .installer-widget-container .ms-2 { margin-left: 0.5rem !important; }
+    
+    /* Gap utilities */
+    .installer-widget-container .gap-2 {
+        gap: 0.5rem !important;
+    }
+    
+    /* Button group styles */
+    .installer-widget-container .btn-group-vertical {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    
+    .installer-widget-container .btn-group-vertical .btn {
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    
+    .installer-widget-container .btn-group-vertical .btn:last-child {
+        margin-bottom: 0;
+    }
+    
+    /* Progress bar styles */
+    .installer-widget-container .progress {
+        display: flex;
+        height: 1rem;
+        overflow: hidden;
+        font-size: 0.75rem;
+        background-color: #e9ecef;
+        border-radius: var(--bs-border-radius);
+    }
+    
+    .installer-widget-container .progress-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        background-color: var(--bs-primary);
+        transition: width 0.6s ease;
+    }
+    
+    .installer-widget-container .progress-bar-striped {
+        background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+        background-size: 1rem 1rem;
+    }
+    
+    .installer-widget-container .progress-bar-animated {
+        animation: installer-progress-bar-stripes 1s linear infinite;
+    }
+    
+    @keyframes installer-progress-bar-stripes {
+        0% { background-position-x: 1rem; }
+    }
+    
+    /* Toast styles */
+    .installer-widget-container .toast-container {
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding: 1rem;
+        z-index: 1055;
+    }
+    
+    .installer-widget-container .toast {
+        background-color: rgba(255, 255, 255, 0.95);
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        border-radius: var(--bs-border-radius);
+        min-width: 300px;
+        max-width: 350px;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .installer-widget-container .toast-header {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        color: #6c757d;
+        background-color: rgba(255, 255, 255, 0.85);
+        background-clip: padding-box;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        border-top-left-radius: calc(var(--bs-border-radius) - 1px);
+        border-top-right-radius: calc(var(--bs-border-radius) - 1px);
+    }
+    
+    .installer-widget-container .toast-body {
+        padding: 0.75rem;
+        word-wrap: break-word;
+    }
+    
+    .installer-widget-container .btn-close {
+        background: transparent;
+        border: 0;
+        font-size: 1rem;
+        cursor: pointer;
+        opacity: 0.5;
+        padding: 0.25rem;
+        margin: -0.125rem -0.125rem -0.125rem auto;
+    }
+    
+    .installer-widget-container .btn-close:hover {
+        opacity: 0.75;
+    }
+    
+    .installer-widget-container .btn-close::before {
+        content: "×";
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+    
+    /* Responsive behavior */
+    @media (min-width: 768px) {
+        .installer-widget-container .btn-group-vertical {
+            flex-direction: row;
+            align-items: center;
+        }
+        
+        .installer-widget-container .btn-group-vertical .btn {
+            margin-bottom: 0;
+            margin-right: 0.5rem;
+            width: auto;
+        }
+        
+        .installer-widget-container .btn-group-vertical .btn:last-child {
+            margin-right: 0;
+        }
+        
+        .installer-widget-container .d-md-block {
+            display: block !important;
+        }
+    }
+    
+    /* Custom installer-specific styles */
+    .installer-widget-container .installer-size-info {
+        font-size: 0.8em;
+        opacity: 0.8;
+    }
+    
+    .installer-widget-container .installer-version-info {
+        font-size: 0.875rem;
+        color: var(--bs-gray);
+    }
+    
+    .installer-widget-container .installer-system-info {
+        background-color: #f8f9fa;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        padding: 0.5rem;
+        margin-top: 1rem;
+    }
+    
+    .installer-widget-container .installer-system-info summary {
+        cursor: pointer;
+        outline: none;
+        font-weight: 500;
+    }
+    
+    .installer-widget-container .installer-system-info summary::-webkit-details-marker {
+        display: none;
+    }
+    
+    .installer-widget-container .installer-system-info summary::before {
+        /* content: "▶ "; */
+        content: "";
+        margin-right: 0.5rem;
+        transition: transform 0.2s ease;
+    }
+    
+    .installer-widget-container .installer-system-info[open] summary::before {
+        transform: rotate(90deg);
+    }
+    </style>
+    
+    <!-- Bootstrap Icons (external, minimal impact) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Widget HTML -->
+    <div id="platform-result" style="padding: 0px; background-color: transparent; border-radius: 0px;">
+        🔄 Loading platform information...
+    </div>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Open PowerShell and run:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iwr</span> <span class="op">-</span>useb https<span class="op">://</span>pixi<span class="op">.</span><span class="fu">sh</span><span class="op">/</span>install<span class="op">.</span><span class="fu">ps1</span> <span class="op">|</span> <span class="fu">iex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>After installation, close and reopen your powershell to make sure your computer recognizes the new <code>pixi</code> command.</p>
-</div>
-</div>
-</div>
+
+<script>
+window.InstallerWidget = (function() {
+    // Configuration object for installer downloads
+    const installerConfig = {
+        windows: {
+            url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-windows.exe',
+            filename: 'your-app-installer-windows.exe',
+            size: '45.2 MB',
+            version: '1.2.3'
+        },
+        macos: {
+            url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-macos.dmg',
+            filename: 'your-app-installer-macos.dmg',
+            size: '52.1 MB',
+            version: '1.2.3'
+        },
+        linux: {
+            url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-linux.AppImage',
+            filename: 'your-app-installer-linux.AppImage',
+            size: '48.7 MB',
+            version: '1.2.3'
+        }
+    };
+
+    function detectPlatform() {
+        const userAgent = navigator.userAgent.toLowerCase();
+        const platform = navigator.platform.toLowerCase();
+        
+        if (/iphone/.test(userAgent)) return 'iOS (iPhone)';
+        if (/ipad/.test(userAgent)) return 'iOS (iPad)';
+        if (/android/.test(userAgent)) return 'Android';
+        if (platform.includes('win')) return 'Windows';
+        if (platform.includes('mac')) return 'macOS';
+        if (platform.includes('linux')) return 'Linux';
+        
+        return 'Unknown Platform';
+    }
+
+    function getBrowser() {
+        const userAgent = navigator.userAgent;
+        if (userAgent.includes('Edg')) return 'Edge';
+        if (userAgent.includes('Chrome')) return 'Chrome';
+        if (userAgent.includes('Firefox')) return 'Firefox';
+        if (userAgent.includes('Safari')) return 'Safari';
+        return 'Unknown';
+    }
+
+    function downloadInstaller(platform) {
+        const config = installerConfig[platform.toLowerCase()];
+        
+        if (!config) {
+            showErrorAlert(`Sorry, no installer available for ${platform}`);
+            return;
+        }
+        
+        showDownloadProgress(platform, config);
+        
+        if (config.url.startsWith('http')) {
+            // Real download from URL
+            window.open(config.url, '_blank');
+        } else {
+            // Fallback: generate mock installer
+            generateMockInstaller(platform, config);
+        }
+    }
+
+    function generateMockInstaller(platform, config) {
+        const installerContent = `# ${platform} Installer Package
+# Version: ${config.version}
+# Size: ${config.size}
+# Generated: ${new Date().toISOString()}
+
+This is a mock installer file for ${platform}.
+In a real application, this would contain the actual installer binary.
+
+Installation Instructions:
+${getInstallationInstructions(platform)}
+
+For support, visit: https://your-website.com/support
+`;
+        
+        downloadFile(config.filename, installerContent);
+    }
+
+    function getInstallationInstructions(platform) {
+        switch (platform.toLowerCase()) {
+            case 'windows':
+                return `1. Double-click the .exe file
+2. Follow the installation wizard
+3. Accept the license agreement
+4. Choose installation directory
+5. Complete the installation`;
+            case 'macos':
+                return `1. Double-click the .dmg file
+2. Drag the application to Applications folder
+3. Launch from Applications or Launchpad
+4. Allow app in System Preferences if prompted`;
+            case 'linux':
+                return `1. Make the AppImage executable: chmod +x ${installerConfig.linux.filename}
+2. Run the AppImage: ./${installerConfig.linux.filename}
+3. Or integrate with your desktop environment`;
+            default:
+                return 'Follow platform-specific installation instructions.';
+        }
+    }
+
+    function downloadFile(filename, content) {
+        const element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
+    function showDownloadProgress(platform, config) {
+        const toastHtml = `
+            <div class="toast-container">
+                <div id="downloadToast" class="toast show" role="alert">
+                    <div class="toast-header">
+                        <i class="bi bi-download text-primary me-2"></i>
+                        <strong class="me-auto">Downloading Installer</strong>
+                        <button type="button" class="btn-close" onclick="document.getElementById('downloadToast').remove()"></button>
+                    </div>
+                    <div class="toast-body">
+                        <strong>${platform} Installer</strong><br>
+                        <small class="text-muted">
+                            ${config.filename} (${config.size})
+                        </small>
+                        <div class="progress mt-2" style="height: 6px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                 style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Remove existing toast if any
+        const existingToast = document.getElementById('downloadToast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        // Add new toast to installer widget container
+        const container = document.querySelector('.installer-widget-container');
+        container.insertAdjacentHTML('beforeend', toastHtml);
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            const toast = document.getElementById('downloadToast');
+            if (toast) {
+                toast.remove();
+            }
+        }, 3000);
+    }
+
+    function showErrorAlert(message) {
+        const alertHtml = `
+            <div class="alert alert-danger mt-3" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                ${message}
+            </div>
+        `;
+        
+        const container = document.getElementById('platform-result');
+        container.insertAdjacentHTML('afterend', alertHtml);
+        
+        // Remove alert after 5 seconds
+        setTimeout(() => {
+            const alert = container.nextElementSibling;
+            if (alert && alert.classList.contains('alert-danger')) {
+                alert.remove();
+            }
+        }, 5000);
+    }
+
+    function getPlatformIcon(platform) {
+        switch (platform.toLowerCase()) {
+            case 'windows': return 'windows';
+            case 'macos': return 'apple';
+            case 'linux': return 'ubuntu';
+            case 'ios (iphone)':
+            case 'ios (ipad)': return 'apple';
+            case 'android': return 'android2';
+            default: return 'download';
+        }
+    }
+
+    function getRecommendedPlatform(detectedPlatform) {
+        switch (detectedPlatform.toLowerCase()) {
+            case 'windows': return 'windows';
+            case 'macos': return 'macos';
+            case 'linux': return 'linux';
+            default: return 'windows';
+        }
+    }
+
+    function initialize(containerId = 'platform-result') {
+        const platformInfo = detectPlatform();
+        const browserInfo = getBrowser();
+        const isMobile = /iPhone|iPad|Android/.test(navigator.userAgent);
+        const recommendedPlatform = getRecommendedPlatform(platformInfo);
+        const recommendedConfig = installerConfig[recommendedPlatform];
+        
+        let content = '';
+        
+        // Show mobile warning if detected
+        if (isMobile) {
+            content += `
+                <div class="alert alert-warning mb-3" role="alert">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <strong>Mobile Device Detected</strong><br>
+                    Our desktop application is not available for mobile devices. 
+                    Please visit this page on a desktop computer to download the installer.
+                </div>
+            `;
+        }
+        
+        // Primary download button (recommended for detected platform)
+        if (!isMobile && recommendedConfig) {
+            content += `
+                <div class="mb-4">
+                    <button type="button" class="btn btn-primary btn-lg me-2" onclick="window.InstallerWidget.downloadInstaller('${recommendedPlatform}')">
+                        <i class="bi bi-${getPlatformIcon(platformInfo)} me-2"></i>
+                        Download for ${platformInfo}
+                    </button>
+                    <small class="d-block mt-1 installer-version-info">
+                        Recommended • Version ${recommendedConfig.version} • ${recommendedConfig.size}
+                    </small>
+                </div>
+            `;
+        }
+        
+        // All installers section
+        content += `
+            <div>
+                <p><strong>All Installers:</strong></p>
+                <div class="btn-group-vertical btn-group-sm d-grid gap-2 d-md-block">
+                    <button type="button" class="btn btn-outline-secondary" onclick="window.InstallerWidget.downloadInstaller('macos')">
+                        <i class="bi bi-apple me-2"></i>macOS 
+                        <span class="installer-size-info">(${installerConfig.macos.size})</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="window.InstallerWidget.downloadInstaller('windows')">
+                        <i class="bi bi-windows me-2"></i>Windows 
+                        <span class="installer-size-info">(${installerConfig.windows.size})</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="window.InstallerWidget.downloadInstaller('linux')">
+                        <i class="bi bi-ubuntu me-2"></i>Linux 
+                        <span class="installer-size-info">(${installerConfig.linux.size})</span>
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // System information (optional)
+        if (!isMobile) {
+            content += `
+                <details class="installer-system-info mt-4">
+                    <summary class="text-muted">
+                        <small>Detected System Information</small>
+                    </summary>
+                    <div class="mt-2">
+                        <small class="text-muted">
+                            <strong>Detected Platform:</strong> ${platformInfo}<br>
+                            <strong>Browser:</strong> ${browserInfo}<br>
+                            <strong>User Agent:</strong> <code style="font-size: 0.75em;">${navigator.userAgent}</code>
+                        </small>
+                    </div>
+                </details>
+            `;
+        }
+        
+        document.getElementById(containerId).innerHTML = content;
+    }
+
+    // Public API
+    return {
+        initialize: initialize,
+        downloadInstaller: downloadInstaller,
+        detectPlatform: detectPlatform
+    };
+})();
+
+// Auto-initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('platform-result')) {
+        window.InstallerWidget.initialize();
+    }
+});
+</script>
 </section>
-<section id="using-pixi" class="level3">
-<h3 class="anchored" data-anchor-id="using-pixi">Using Pixi</h3>
-<section id="global-install-system-wide-tools" class="level4">
-<h4 class="anchored" data-anchor-id="global-install-system-wide-tools">Global Install: System-Wide Tools</h4>
-<p>Sometimes you want to install a tool that you’ll use across many projects, not just one specific project. These are tools that are not directly involved in any projects. Pixi’s <code>global install</code> feature is perfect for this. It’s like installing a program on your computer that you can use anywhere (by way of mention, this is also the way we would install franklin).</p>
-<p>For example, to install git (a popular tool for version control in computing) globally:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> global install git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>After this command completes, you can start JupyterLab from anywhere on your computer by typing <code>git</code> in your terminal. The tool is available system-wide, not tied to any specific project.</p>
-</section>
-<section id="add-installing-packages-for-your-project" class="level4">
-<h4 class="anchored" data-anchor-id="add-installing-packages-for-your-project">Add: Installing Packages for Your Project</h4>
-<p>When you’re working on a specific project and need packages just for that project, you use the <code>add</code> command. A special feature of Pixi is that it is is tied to and lives in the root folder of your project. So before you begin, navigate to your project folder in the terminal, then initialize Pixi if you haven’t already:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This creates the <code>pixi.toml</code> file we mentioned earlier. Now you can add packages to your project. For example, if you’re doing data analysis, you might need pandas (for data manipulation) and matplotlib (for creating graphs):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add pandas matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Pixi will download these packages and all their dependencies (other packages they need to work properly), storing them in your project’s <code>.pixi</code> folder. It also updates your <code>pixi.toml</code> file to remember what you’ve installed.</p>
-<p>You can add as many packages as you need:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add numpy scipy scikit-learn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If you need a package from PyPI (Python’s main package repository) that isn’t available in the conda ecosystem, you can add it with the <code>--pypi</code> flag:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add <span class="at">--pypi</span> requests beautifulsoup4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="shell-activating-your-project-environment" class="level4">
-<h4 class="anchored" data-anchor-id="shell-activating-your-project-environment">Shell: Activating Your Project Environment</h4>
-<p>Once you’ve added packages to your project, you need to “activate” the project environment to use them. This is like telling your computer “I want to work on this specific project now, so please use the packages I’ve installed for it.”</p>
-<p>To activate your project environment:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> shell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Your terminal prompt will change to show you’re now working in the Pixi environment. Now when you run Python or any of your installed packages, you’ll be using the versions specific to this project.</p>
-<p>While in the shell, you can: - Run Python scripts that use your installed packages - Start Jupyter notebooks - Use any command-line tools you’ve added to the project</p>
-<p>To leave the project environment and return to your normal terminal, simply type:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-</section>
-<section id="conda-the-traditional-standard" class="level2">
-<h2 class="anchored" data-anchor-id="conda-the-traditional-standard">Conda: The Traditional Standard</h2>
-<section id="how-conda-works" class="level3">
-<h3 class="anchored" data-anchor-id="how-conda-works">How Conda Works</h3>
-<p>Conda takes a different approach from Pixi and its environments are not tied to specific folders. Instead, Conda creates named environments that live in a central location on your computer. Think of it like having different workspaces that you can switch between, each with its own set of installed packages.</p>
-<p>When you create a Conda environment, you give it a name. This environment is like a separate Python installation with its own packages. You can have multiple environments – perhaps one for each project, or one for teaching, one for research, and one for experiments. You switch between these environments by “activating” the one you want to use.</p>
-<p>Conda has been around much longer than Pixi and has an enormous collection of packages available, especially for scientific computing. It’s widely used in academia and industry.</p>
-<blockquote class="blockquote">
-<p>The reason we still prefer Pixi is that it manages conda packages better than Conda itself, in addition to being faster and more robust.</p>
-</blockquote>
-</section>
-<section id="create-making-a-new-environment" class="level3">
-<h3 class="anchored" data-anchor-id="create-making-a-new-environment">Create: Making a New Environment</h3>
-<p>Creating a new Conda environment is like setting up a fresh workspace. You give it a name and specify which version of Python you want to use.</p>
-<p>To create a new environment called “myproject” with Python 3.11:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> myproject python=3.11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>-n</code> flag stands for “name”. Conda will ask you to confirm before creating the environment – just type ‘y’ and press Enter.</p>
-<p>You can create as many environments as you need, each with a descriptive name:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> data-analysis python=3.11</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> machine-learning python=3.10</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> web-scraping python=3.11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Each environment is independent, so you can have different Python versions and different packages in each one.</p>
-</section>
-<section id="activate-and-deactivate-switching-environments" class="level3">
-<h3 class="anchored" data-anchor-id="activate-and-deactivate-switching-environments">Activate and Deactivate: Switching Environments</h3>
-<p>Before you can use a Conda environment, you need to activate it. This tells your computer which set of packages to use.</p>
-<p>To activate an environment:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate myproject</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You’ll see your terminal prompt change to show the environment name in parentheses, like <code>(myproject)</code>. This reminds you which environment you’re currently using.</p>
-<p>While an environment is activated, any Python scripts you run or packages you install will use that environment’s Python and packages.</p>
-<p>To switch to a different environment, just activate it:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate data-analysis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>When you’re done working and want to return to your default system Python, deactivate the environment:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You can activate and deactivate environments as often as you like – it’s instant and doesn’t affect the packages or files in the environment.</p>
-</section>
-<section id="install-adding-packages" class="level3">
-<h3 class="anchored" data-anchor-id="install-adding-packages">Install: Adding Packages</h3>
-<p>Once you’ve created and activated an environment, you can install packages into it. The install command downloads and sets up packages in your current environment.</p>
-<p>First, make sure you’ve activated the environment where you want to install packages:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate myproject</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then install packages:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install numpy pandas matplotlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Conda will show you what it plans to install and ask for confirmation. Type ‘y’ and press Enter to proceed.</p>
-<p>You can install multiple packages at once or one at a time:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install scipy</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If a package isn’t available in the default Conda repository, you might need to use the conda-forge channel (a community-maintained collection):</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge plotly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>-c</code> flag specifies the channel to use for that installation.</p>
-</section>
-</section>
-<section id="try-it-out" class="level2">
-<h2 class="anchored" data-anchor-id="try-it-out">Try it out</h2>
-<p>Here’s a simple example to get you started with each tool:</p>
-<section id="your-first-pixi-project" class="level3">
-<h3 class="anchored" data-anchor-id="your-first-pixi-project">Your First Pixi Project</h3>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>Download and run the Installer. Before installing Franklin, the installer will download and install the following dependencies if they are not available available on your computer:</p>
 <ol type="1">
-<li><p>Create a new folder for your project and navigate to it:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> my-analysis</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> my-analysis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Initialize Pixi:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Add the packages you need:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add python numpy pandas matplotlib jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Start working:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> shell</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> notebook</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ol>
-</section>
-<section id="your-first-conda-environment" class="level3">
-<h3 class="anchored" data-anchor-id="your-first-conda-environment">Your First Conda Environment</h3>
-<ol type="1">
-<li><p>Create a new environment:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> my-first-env python=3.11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Activate it:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate my-first-env</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Install packages:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install numpy pandas matplotlib jupyter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Start working:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> notebook</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li>A Python 3 distribution - preferably <a href="https://conda-forge.org/download/">Miniforge</a>.</li>
+<li>The <a href="https://pixi.sh/latest/">Pixi</a>, a modern, fast package manager that’s fully compatible with conda packages but offers better performance and reliability..</li>
+<li>The <a href="https://www.google.com/intl/en_uk/chrome/">Chrome</a> browser that Franklin uses to display JupyterLab and web pages.</li>
+<li>The <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a> application that Franklin uses to containerize Jupyter environments.</li>
 </ol>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1004,13 +1474,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../pages/terminal.html" class="pagination-link" aria-label="Terminal">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Terminal</span>
+      <a href="../pages/getting_started.html" class="pagination-link" aria-label="Getting started">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Getting started</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../pages/docker.html" class="pagination-link" aria-label="Docker">
-        <span class="nav-page-text">Docker</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../pages/commands_core.html" class="pagination-link" aria-label="Core Commands">
+        <span class="nav-page-text">Core Commands</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
