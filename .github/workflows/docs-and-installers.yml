@@ -6,12 +6,6 @@ on:
   release:
     types: [published]
   workflow_dispatch:
-    inputs:
-      build_installers:
-        description: 'Build installers'
-        required: false
-        type: boolean
-        default: false
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -28,7 +22,7 @@ concurrency:
 jobs:
   # Build job
   build:
-    runs-on: ${{ (github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.build_installers)) && 'macos-latest' || 'ubuntu-latest' }}
+    runs-on: macos-latest  # Always use macOS to build installers
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,15 +35,13 @@ jobs:
       - name: Install Python dependencies
         run: pip install jupyter pandas pyyaml tabulate
       
-      # Only install NSIS and build installers for releases
-      - name: Install NSIS (macOS only, for releases)
-        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.build_installers)
+      # Install NSIS and build installers every time
+      - name: Install NSIS
         run: |
           brew install makensis
           echo "✓ NSIS installed: $(makensis -VERSION)"
       
-      - name: Build installers (releases only)
-        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.build_installers)
+      - name: Build installers
         id: build-installers
         run: |
           cd src/franklin/dependencies
@@ -77,14 +69,14 @@ jobs:
           mkdir -p docs/installers
           
           # If installers were built, copy them
-          if [ -d "src/franklin/dependencies/dist" ]; then
-            echo "Copying built installers..."
-            cp -v src/franklin/dependencies/dist/*.dmg docs/installers/ 2>/dev/null || true
-            cp -v src/franklin/dependencies/dist/*.exe docs/installers/ 2>/dev/null || true
-            cp -v src/franklin/dependencies/dist/*.py docs/installers/ 2>/dev/null || true
-            
-            # Create index with download links
-            cat > docs/installers/index.md << 'EOF'
+          # Always copy installers since we're building them every time
+          echo "Copying built installers..."
+          cp -v src/franklin/dependencies/dist/*.dmg docs/installers/ 2>/dev/null || true
+          cp -v src/franklin/dependencies/dist/*.exe docs/installers/ 2>/dev/null || true
+          cp -v src/franklin/dependencies/dist/*.py docs/installers/ 2>/dev/null || true
+          
+          # Create index with download links
+          cat > docs/installers/index.md << 'EOF'
           # Franklin Installers
           
           ## Direct Downloads
@@ -94,27 +86,9 @@ jobs:
           - [Cross-platform Installer](franklin_installer_gui.py)
           - [Dependency Checker](dependency_checker.py)
           
-          Built: ${{ github.event.release.created_at || 'Manual build' }}
-          Version: ${{ github.event.release.tag_name || 'dev' }}
+          Built: ${{ github.event.release.created_at || github.event.head_commit.timestamp || 'Current build' }}
+          Version: ${{ github.event.release.tag_name || github.ref_name }}
           EOF
-          else
-            echo "No installers built, creating redirect page..."
-            # Create redirect to releases
-            cat > docs/installers/index.md << 'EOF'
-          # Franklin Installers
-          
-          ## Download from GitHub Releases
-          
-          Native installers are built for each official release.
-          
-          👉 **[Download latest release](https://github.com/${{ github.repository }}/releases/latest)**
-          
-          ### Available Downloads
-          - macOS: Franklin-Installer-macOS.dmg
-          - Windows: Franklin-Installer-Windows.exe
-          - Cross-platform: franklin_installer_gui.py
-          EOF
-          fi
       
       - name: Render Quarto documentation
         uses: quarto-dev/quarto-actions/render@v2
@@ -125,7 +99,6 @@ jobs:
           to: html
       
       - name: Copy installers to build directory
-        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.build_installers)
         run: |
           if [ -d "docs/_build" ] && [ -d "docs/installers" ]; then
             mkdir -p docs/_build/installers

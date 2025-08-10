@@ -21,57 +21,9 @@ title: Getting started
 
 Franklin depends on a few external tools that you can install along with Franklin using the installer:
 
-```{=html}
-<div id="platform-result" style="padding: 0px; background-color: #ffffff; border-radius: 0px;">
-    🔄 Loading platform information...
-</div>
 
 
-<script>
-function detectPlatform() {
-    const userAgent = navigator.userAgent.toLowerCase();
-    const platform = navigator.platform.toLowerCase();
-    
-    if (/iphone/.test(userAgent)) return 'iOS (iPhone)';
-    if (/ipad/.test(userAgent)) return 'iOS (iPad)';
-    if (/android/.test(userAgent)) return 'Android';
-    if (platform.includes('win')) return 'Windows';
-    if (platform.includes('mac')) return 'macOS';
-    if (platform.includes('linux')) return 'Linux';
-    
-    return 'Unknown Platform';
-}
 
-function getBrowser() {
-    const userAgent = navigator.userAgent;
-    if (userAgent.includes('Edg')) return 'Edge';
-    if (userAgent.includes('Chrome')) return 'Chrome';
-    if (userAgent.includes('Firefox')) return 'Firefox';
-    if (userAgent.includes('Safari')) return 'Safari';
-    return 'Unknown';
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const platformInfo = detectPlatform();
-    const browserInfo = getBrowser();
-    const isMobile = /iPhone|iPad|Android/.test(navigator.userAgent);
-    
-    document.getElementById('platform-result').innerHTML = `
-<p>
-<button type="button" class="btn btn-primary btn-lg"><i class="bi bi-${platformInfo=='macOS' ? 'apple' : 'windows'}"></i> ${platformInfo} Installer</button>
-<p/>
-
-<p><string>All Installers:</strong></p>
-
-<p>
-<button type="button" class="btn btn-secondary btn-sm"><i class="bi bi-apple"></i> macOS Installer</button>
-<button type="button" class="btn btn-secondary btn-sm"><i class="bi bi-windows"></i> Windows Installer</button>
-<button type="button" class="btn btn-secondary btn-sm"><i class="bi bi-ubuntu"></i> Linux Installer</button>
-</p>
-`;
-});
-</script>
-```
 
 **Install Dependencies:**
 
