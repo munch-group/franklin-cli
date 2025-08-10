@@ -371,14 +371,16 @@ window.InstallerWidget = (function() {
     // Configuration object for installer downloads
     const installerConfig = {
         windows: {
-            url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-windows.exe',
-            filename: 'your-app-installer-windows.exe',
+            // url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-windows.exe',
+            url: 'https://munch-group/franklin/dist/Franklin-Installer-Windows.exe',
+            filename: 'Franklin-Installer-Windows.exe',
             size: '45.2 MB',
             version: '1.2.3'
         },
         macos: {
-            url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-macos.dmg',
-            filename: 'your-app-installer-macos.dmg',
+            // url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-macos.dmg',
+            url: 'https://munch-group/franklin/dist/Franklin-Installer-macOS.dmg',
+            filename: 'Franklin-Installer-macOS.dmg',
             size: '52.1 MB',
             version: '1.2.3'
         },

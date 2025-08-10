@@ -1,0 +1,289 @@
+name: Build Documentation and Installers
+
+on:
+  push:
+    branches:
+      - main
+  release:
+    types: [published]  # Only on published releases, not prereleases or drafts
+  workflow_dispatch:
+    inputs:
+      build_installers:
+        description: 'Build installers (even if not a release)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  # Job 1: Build documentation only (for regular pushes)
+  build-docs-only:
+    name: Build Documentation Only
+    # Run for pushes to main, but not for releases
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && !inputs.build_installers)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install Python dependencies
+        run: pip install jupyter pandas pyyaml tabulate
+      
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+      
+      - name: Create placeholder installer page
+        run: |
+          mkdir -p docs/installers
+          cat > docs/installers/index.md << 'EOF'
+          # Franklin Installers
+          
+          ## Download Latest Release
+          
+          Installers are built for each official release.
+          
+          👉 **[Download latest release from GitHub Releases](https://github.com/${{ github.repository }}/releases/latest)**
+          
+          ### Available Installers
+          
+          Each release includes:
+          - **macOS**: Franklin-Installer-macOS.dmg
+          - **Windows**: Franklin-Installer-Windows.exe  
+          - **Linux/Cross-platform**: franklin_installer_gui.py
+          
+          ### Features
+          
+          - ✅ Radio button UI for Install/Reinstall/Uninstall
+          - ✅ Automatic dependency detection
+          - ✅ Smart option management (grays out irrelevant options)
+          - ✅ Native UI for each platform
+          
+          ### Manual Installation
+          
+          If you prefer to install components manually:
+          1. Install [Miniforge](https://github.com/conda-forge/miniforge)
+          2. Install [Pixi](https://pixi.sh)
+          3. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+          4. Install [Google Chrome](https://www.google.com/chrome/)
+          5. Install Franklin: `pixi global install -c munch-group -c conda-forge franklin`
+          EOF
+      
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: default
+        with:
+          path: docs
+          to: html
+      
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v3
+      
+      - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: docs/_build
+      
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        id: deployment
+        uses: actions/deploy-pages@v2
+
+  # Job 2: Build documentation with installers (for releases)
+  build-with-installers:
+    name: Build Documentation with Installers
+    # Run only for published releases or manual trigger with build_installers=true
+    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.build_installers)
+    runs-on: macos-latest  # Need macOS for building both macOS and Windows installers
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install Python dependencies
+        run: pip install jupyter pandas pyyaml tabulate
+      
+      - name: Install NSIS for Windows installer
+        run: |
+          brew install makensis
+          echo "✓ NSIS installed: $(makensis -VERSION)"
+      
+      - name: Build native installers
+        id: build-installers
+        run: |
+          cd src/franklin/dependencies
+          chmod +x build_native_installers.sh
+          chmod +x *.sh 2>/dev/null || true
+          
+          echo "Building installers for release ${GITHUB_REF_NAME:-manual}..."
+          ./build_native_installers.sh
+          
+          echo "Built installers:"
+          ls -lh dist/
+          
+          # Calculate sizes for output
+          echo "macos_size=$(du -h dist/Franklin-Installer-macOS.dmg | cut -f1)" >> $GITHUB_OUTPUT
+          echo "windows_size=$(du -h dist/Franklin-Installer-Windows.exe | cut -f1)" >> $GITHUB_OUTPUT
+          echo "python_size=$(du -h dist/franklin_installer_gui.py | cut -f1)" >> $GITHUB_OUTPUT
+      
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+      
+      - name: Prepare installer directory with built files
+        run: |
+          mkdir -p docs/installers
+          cp -v src/franklin/dependencies/dist/Franklin-Installer-macOS.dmg docs/installers/
+          cp -v src/franklin/dependencies/dist/Franklin-Installer-Windows.exe docs/installers/
+          cp -v src/franklin/dependencies/dist/franklin_installer_gui.py docs/installers/
+          cp -v src/franklin/dependencies/dist/dependency_checker.py docs/installers/
+          
+          # Create installer index with actual download links
+          cat > docs/installers/index.md << 'EOF'
+          # Franklin Installers
+          
+          ## Release: ${{ github.event.release.tag_name || 'Manual Build' }}
+          
+          ### Direct Downloads
+          
+          - 🍎 [**macOS Installer**](Franklin-Installer-macOS.dmg) - ${{ steps.build-installers.outputs.macos_size }}
+            - Native macOS application (.dmg)
+            - Requires macOS 10.14 or later
+          
+          - 🪟 [**Windows Installer**](Franklin-Installer-Windows.exe) - ${{ steps.build-installers.outputs.windows_size }}
+            - Windows executable (.exe)
+            - Requires Windows 10 or later
+          
+          - 🐧 [**Linux/Cross-platform Installer**](franklin_installer_gui.py) - ${{ steps.build-installers.outputs.python_size }}
+            - Python-based GUI installer
+            - Requires Python 3.7+ with tkinter
+          
+          - 🔧 [**Dependency Checker Module**](dependency_checker.py)
+            - Standalone dependency checking module
+          
+          ### Features
+          
+          All installers include:
+          - ✅ Interactive GUI with radio buttons
+          - ✅ Automatic detection of installed components
+          - ✅ Install/Reinstall/Uninstall options for each component
+          - ✅ Smart dependency management
+          - ✅ Progress tracking and error handling
+          
+          ### Included Components
+          
+          - **Miniforge** - Python distribution and conda package manager
+          - **Pixi** - Modern, fast package manager
+          - **Docker Desktop** - Container platform for development
+          - **Google Chrome** - Web browser for development
+          - **Franklin** - Educational platform (installed via Pixi)
+          
+          ---
+          
+          Built on: $(date -u +"%Y-%m-%d %H:%M UTC")
+          Version: ${{ github.event.release.tag_name || 'dev' }}
+          EOF
+      
+      - name: Update installer configuration for JavaScript
+        run: |
+          cat > docs/pages/installer-config.js << 'EOF'
+          // Auto-generated installer configuration
+          window.FranklinInstallers = {
+            baseUrl: './installers',
+            version: '${{ github.event.release.tag_name || 'dev' }}',
+            releaseDate: '$(date -u +"%Y-%m-%d")',
+            platforms: {
+              macos: {
+                filename: 'Franklin-Installer-macOS.dmg',
+                size: '${{ steps.build-installers.outputs.macos_size }}',
+                available: true
+              },
+              windows: {
+                filename: 'Franklin-Installer-Windows.exe',
+                size: '${{ steps.build-installers.outputs.windows_size }}',
+                available: true
+              },
+              linux: {
+                filename: 'franklin_installer_gui.py',
+                size: '${{ steps.build-installers.outputs.python_size }}',
+                available: true
+              }
+            }
+          };
+          EOF
+      
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: default
+        with:
+          path: docs
+          to: html
+      
+      - name: Ensure installers are in build directory
+        run: |
+          # Make sure installers are copied to the build output
+          if [ -d docs/_build ]; then
+            mkdir -p docs/_build/installers
+            cp -v docs/installers/* docs/_build/installers/
+            echo "Installers copied to _build directory"
+            ls -lh docs/_build/installers/
+          fi
+      
+      # Upload installers as release assets if this is a release
+      - name: Upload Release Assets
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            src/franklin/dependencies/dist/Franklin-Installer-macOS.dmg
+            src/franklin/dependencies/dist/Franklin-Installer-Windows.exe
+            src/franklin/dependencies/dist/franklin_installer_gui.py
+            src/franklin/dependencies/dist/dependency_checker.py
+          body_path: /dev/null  # Don't modify release body
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Deploy to GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: docs/_build
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+      
+      # Store artifacts for debugging/manual download
+      - name: Upload installer artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: franklin-installers-${{ github.event.release.tag_name || 'manual' }}
+          path: |
+            src/franklin/dependencies/dist/*.dmg
+            src/franklin/dependencies/dist/*.exe
+            src/franklin/dependencies/dist/*.py
+          retention-days: 90  # Keep for 90 days for releases

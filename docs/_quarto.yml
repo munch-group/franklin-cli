@@ -75,6 +75,7 @@ website:
         # - index.qmd
         - pages/getting_started.qmd
         - pages/download.qmd
+        # - pages/installer-download.qmd
         - section: "Franklin commands"
           contents:
             # - pages/quick_reference.qmd #
