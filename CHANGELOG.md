@@ -1,5 +1,13 @@
 
 
+## [Unreleased] - 2025-08-10
+
+- [`d5e9b01`](https://github.com/munch-group/franklin/commit/d5e9b0124614bd7e01da41d4c408b590ed7f120e) - Add GitHub Actions workflows for automated documentation building and installer generation *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+- [`c92690f`](https://github.com/munch-group/franklin/commit/c92690fc9776bf23ded402c54529227501b24335) - Add Windows-specific installer configuration files and build instructions *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+- [`008a655`](https://github.com/munch-group/franklin/commit/008a6553ef7bd36c5ac5a86f27bde6af07f66d55) - Add macOS support for building Windows NSIS installers using cross-platform tools *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+- [`34ae068`](https://github.com/munch-group/franklin/commit/34ae06870191e0d7aaffcb4ee9333930bca44238) - Add automatic platform detection and dedicated download page for user-friendly software distribution *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+- [`abe8535`](https://github.com/munch-group/franklin/commit/abe8535530f0785cb391fa55bd35c94841bec57d) - Add initial backend modules and cross-platform installation scripts for Chrome and Docker dependencies *(commit by [@kaspermunch](https://github.com/kaspermunch))*
+- [`2ea37d9`](https://github.com/munch-group/franklin/commit/2ea37d99f96b470561973ade991741d0d58f367a) - Add comprehensive installation automation scripts for Chrome and Docker Desktop across multiple platforms *(commit by [@kaspermunch](https://github.com/kaspermunch))*
 ## [Unreleased] - 2025-08-08
 
 - [`1b48314`](https://github.com/munch-group/franklin/commit/1b48314cf2bb3ffe94aa68d6df124b9d3933c7a1) - Update version number to pre-release patch version in project configuration *(commit by [@kaspermunch](https://github.com/kaspermunch))*
@@ -102,5 +110,7 @@
 [v0.19.18]: https://github.com/munch-group/franklin/compare/v0.19.16...v0.19.18
 [v0.19.19]: https://github.com/munch-group/franklin/compare/v0.19.18...v0.19.19
 [v0.20.0]: https://github.com/munch-group/franklin/compare/v0.19.19...v0.20.0
+
+
 
 
