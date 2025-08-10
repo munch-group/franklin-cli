@@ -1,0 +1,165 @@
+name: Documentation and Installers
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      build_installers:
+        description: 'Build installers'
+        required: false
+        type: boolean
+        default: false
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build:
+    runs-on: ${{ (github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.build_installers)) && 'macos-latest' || 'ubuntu-latest' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      
+      - name: Install Python dependencies
+        run: pip install jupyter pandas pyyaml tabulate
+      
+      # Only install NSIS and build installers for releases
+      - name: Install NSIS (macOS only, for releases)
+        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.build_installers)
+        run: |
+          brew install makensis
+          echo "✓ NSIS installed: $(makensis -VERSION)"
+      
+      - name: Build installers (releases only)
+        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.build_installers)
+        id: build-installers
+        run: |
+          cd src/franklin/dependencies
+          chmod +x build_native_installers.sh
+          chmod +x *.sh 2>/dev/null || true
+          
+          echo "Building installers..."
+          ./build_native_installers.sh
+          
+          echo "Built installers:"
+          ls -lh dist/
+          
+          # Set outputs
+          echo "macos_size=$(du -h dist/Franklin-Installer-macOS.dmg | cut -f1)" >> $GITHUB_OUTPUT
+          echo "windows_size=$(du -h dist/Franklin-Installer-Windows.exe | cut -f1)" >> $GITHUB_OUTPUT
+          echo "python_size=$(du -h dist/franklin_installer_gui.py | cut -f1)" >> $GITHUB_OUTPUT
+      
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+      
+      - name: Prepare installers directory
+        run: |
+          mkdir -p docs/installers
+          
+          # If installers were built, copy them
+          if [ -d "src/franklin/dependencies/dist" ]; then
+            echo "Copying built installers..."
+            cp -v src/franklin/dependencies/dist/*.dmg docs/installers/ 2>/dev/null || true
+            cp -v src/franklin/dependencies/dist/*.exe docs/installers/ 2>/dev/null || true
+            cp -v src/franklin/dependencies/dist/*.py docs/installers/ 2>/dev/null || true
+            
+            # Create index with download links
+            cat > docs/installers/index.md << 'EOF'
+          # Franklin Installers
+          
+          ## Direct Downloads
+          
+          - [macOS Installer](Franklin-Installer-macOS.dmg)
+          - [Windows Installer](Franklin-Installer-Windows.exe)
+          - [Cross-platform Installer](franklin_installer_gui.py)
+          - [Dependency Checker](dependency_checker.py)
+          
+          Built: ${{ github.event.release.created_at || 'Manual build' }}
+          Version: ${{ github.event.release.tag_name || 'dev' }}
+          EOF
+          else
+            echo "No installers built, creating redirect page..."
+            # Create redirect to releases
+            cat > docs/installers/index.md << 'EOF'
+          # Franklin Installers
+          
+          ## Download from GitHub Releases
+          
+          Native installers are built for each official release.
+          
+          👉 **[Download latest release](https://github.com/${{ github.repository }}/releases/latest)**
+          
+          ### Available Downloads
+          - macOS: Franklin-Installer-macOS.dmg
+          - Windows: Franklin-Installer-Windows.exe
+          - Cross-platform: franklin_installer_gui.py
+          EOF
+          fi
+      
+      - name: Render Quarto documentation
+        uses: quarto-dev/quarto-actions/render@v2
+        env:
+          QUARTO_PROFILE: default
+        with:
+          path: docs
+          to: html
+      
+      - name: Copy installers to build directory
+        if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && inputs.build_installers)
+        run: |
+          if [ -d "docs/_build" ] && [ -d "docs/installers" ]; then
+            mkdir -p docs/_build/installers
+            cp -rv docs/installers/* docs/_build/installers/
+          fi
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: docs/_build
+      
+      # Upload release assets if this is a release
+      - name: Upload Release Assets
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            src/franklin/dependencies/dist/*.dmg
+            src/franklin/dependencies/dist/*.exe
+            src/franklin/dependencies/dist/*.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
