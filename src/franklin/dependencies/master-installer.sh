@@ -376,21 +376,30 @@ install_franklin() {
     
     log_info "Installing Franklin using pixi global..."
     
-    # Refresh environment to ensure pixi is in PATH
-    if [ -f "$HOME/.bashrc" ]; then
-        log_info "Found and sourced .bashrc"
-        set +u  # Temporarily disable unbound variable check
-        source "$HOME/.bashrc" 2>/dev/null || true
-        set -u
-    fi
-    if [ -f "$HOME/.zshrc" ]; then
-        log_info "Found and sourced .zshrc"
-        set +u
-        source "$HOME/.zshrc" 2>/dev/null || true
-        set -u
+    # Refresh PATH to ensure pixi is available
+    # Note: We avoid sourcing shell configs as they may hang on interactive elements
+    log_info "Checking for pixi in common locations..."
+    
+    # Add common pixi installation paths to PATH if not already present (bash 3 compatible)
+    for p in "$HOME/.pixi/bin" "/opt/pixi/bin" "/usr/local/bin"; do
+        if [ -d "$p" ]; then
+            case ":$PATH:" in
+                *":$p:"*) ;;
+                *) export PATH="$p:$PATH"
+                   log_info "Added $p to PATH" ;;
+            esac
+        fi
+    done
+    
+    # Verify pixi is available
+    if command_exists pixi; then
+        log_info "Pixi found at: $(which pixi)"
+    else
+        log_warning "Pixi not found in PATH after refresh"
     fi
     
     # Determine which package to install based on user role
+    log_info "User role: $USER_ROLE"
     local package_name="franklin"
     case "$USER_ROLE" in
         educator)
@@ -406,6 +415,7 @@ install_franklin() {
             log_info "Installing standard Franklin package for student role"
             ;;
     esac
+    log_info "Package to install: $package_name"
     
     # Run pixi global install command
     log_info "Executing: pixi global install -c munch-group -c conda-forge $package_name"
