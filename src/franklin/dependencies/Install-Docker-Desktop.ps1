@@ -9,8 +9,24 @@ param(
 
 # Verify administrator privileges
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Error "Administrator privileges required"
-    exit 1
+    Write-Host ""
+    Write-Host "Administrator privileges required for Docker Desktop installation" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "User Password:" -ForegroundColor Green
+    Write-Host "Please approve the Administrator prompt that will appear..." -ForegroundColor Cyan
+    Write-Host ""
+    
+    # Attempt to restart script with elevation
+    $arguments = @()
+    if ($OrganizationName) { $arguments += "-OrganizationName", $OrganizationName }
+    if ($EnableWSL2) { $arguments += "-EnableWSL2" }
+    if ($DisableAnalytics) { $arguments += "-DisableAnalytics" }
+    if ($AutoRepairWSL) { $arguments += "-AutoRepairWSL" }
+    if ($Uninstall) { $arguments += "-Uninstall" }
+    if ($CleanUninstall) { $arguments += "-CleanUninstall" }
+    
+    Start-Process PowerShell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $($arguments -join ' ')" -Wait
+    exit $LASTEXITCODE
 }
 
 function Remove-DockerDesktop {
@@ -360,15 +376,50 @@ if ($DisableAnalytics) {
     }
 }
 
-# Close Docker Desktop to complete installation
-Write-Host "`nClosing Docker Desktop to complete installation..." -ForegroundColor Yellow
-Get-Process -Name "Docker Desktop" -ErrorAction SilentlyContinue | Stop-Process -Force
+# Stop Docker Desktop completely after installation
+Write-Host "`nStopping Docker Desktop to complete installation..." -ForegroundColor Yellow
+
+# Stop all Docker-related processes
+$dockerProcesses = @(
+    "Docker Desktop",
+    "com.docker.backend",
+    "com.docker.proxy",
+    "com.docker.helper",
+    "vpnkit",
+    "Docker"
+)
+
+foreach ($processName in $dockerProcesses) {
+    $processes = Get-Process -Name $processName -ErrorAction SilentlyContinue
+    if ($processes) {
+        Write-Host "Stopping $processName..." -ForegroundColor Cyan
+        $processes | Stop-Process -Force -ErrorAction SilentlyContinue
+    }
+}
+
+# Stop Docker service if running
+$dockerService = Get-Service -Name "com.docker.service" -ErrorAction SilentlyContinue
+if ($dockerService -and $dockerService.Status -eq 'Running') {
+    Write-Host "Stopping Docker service..." -ForegroundColor Cyan
+    Stop-Service -Name "com.docker.service" -Force -ErrorAction SilentlyContinue
+}
+
+# Wait to ensure complete shutdown
+Start-Sleep -Seconds 3
+
+# Verify Docker is stopped
+$stillRunning = Get-Process -Name "Docker*" -ErrorAction SilentlyContinue
+if ($stillRunning) {
+    Write-Host "Force stopping remaining Docker processes..." -ForegroundColor Yellow
+    $stillRunning | Stop-Process -Force -ErrorAction SilentlyContinue
+}
+
 Start-Sleep -Seconds 2
 
 Write-Host "`nInstallation and configuration complete!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Docker Desktop has been installed and configured." -ForegroundColor Green
-Write-Host "The application has been closed to complete the installation." -ForegroundColor Cyan
+Write-Host "Docker Desktop has been stopped and is NOT currently running." -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "1. Restart your computer to ensure group membership takes effect" -ForegroundColor White

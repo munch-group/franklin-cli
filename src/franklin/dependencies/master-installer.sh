@@ -288,6 +288,8 @@ install_docker_desktop() {
     
     local script_path
     if script_path=$(script_exists "$DOCKER_SCRIPT"); then
+        # Docker installation may require sudo - provide clear prompt
+        log_info "Docker Desktop installation may require administrator privileges"
         # if invoke_installer_script "Docker Desktop" "$script_path" "install"; then
         if invoke_installer_script "Docker Desktop" "$script_path"; then
             return 0

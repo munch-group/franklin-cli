@@ -282,6 +282,17 @@ function Install-DockerDesktop {
         }
     }
     
+    # Docker requires administrator privileges - provide clear prompt
+    $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+    if (-not $isAdmin) {
+        Write-Host ""
+        Write-Host "Docker Desktop requires Administrator privileges" -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "User Password:" -ForegroundColor Green
+        Write-Host "An Administrator prompt will appear when the Docker installer starts..." -ForegroundColor Cyan
+        Write-Host ""
+    }
+    
     return Invoke-InstallerScript -Name "Docker Desktop" -ScriptPath $scriptPath
 }
 

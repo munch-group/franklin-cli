@@ -197,6 +197,12 @@ uninstall_docker_desktop() {
     local helper_plist="/Library/LaunchDaemons/com.docker.vmnetd.plist"
     if [[ -f "$helper_plist" ]]; then
         log "Removing privileged helper..."
+        
+        # Prompt for password with clear message
+        echo
+        echo -e "\033[0;32mUser Password:\033[0m"
+        sudo -v  # Pre-authenticate sudo to cache credentials
+        
         sudo launchctl unload "$helper_plist" 2>/dev/null || true
         sudo rm -f "$helper_plist"
         sudo rm -f "/Library/PrivilegedHelperTools/com.docker.vmnetd"
@@ -300,6 +306,12 @@ install_via_dmg() {
     curl -L -o /tmp/Docker.dmg "$DOWNLOAD_URL"
     
     log "Installing Docker Desktop"
+    
+    # Prompt for password with clear message
+    echo
+    echo -e "\033[0;32mUser Password:\033[0m"
+    sudo -v  # Pre-authenticate sudo to cache credentials
+    
     sudo hdiutil attach /tmp/Docker.dmg -nobrowse
     sudo /Volumes/Docker/Docker.app/Contents/MacOS/install \
         --accept-license --user="$USERNAME"
@@ -409,23 +421,24 @@ configure_docker_desktop() {
             count=$((count + 1))
         done
         
-        # Now close Docker Desktop UI but keep daemon running
-        log "Closing Docker Desktop window..."
-        osascript << EOF 2>/dev/null || true
-tell application "System Events"
-    if exists (process "Docker Desktop") then
-        tell process "Docker Desktop"
-            set visible to false
-        end tell
-    end if
-end tell
-EOF
+        # Stop Docker Desktop completely after configuration
+        log "Stopping Docker Desktop after configuration..."
         
-        # Alternatively, quit the app entirely since daemon can run independently
-        sleep 2
+        # First try graceful quit
         osascript -e 'tell application "Docker" to quit' 2>/dev/null || true
+        sleep 3
         
-        log "Docker Desktop configuration applied. Docker daemon is available in the background."
+        # Force quit if still running
+        if pgrep -x "Docker Desktop" > /dev/null; then
+            log "Force stopping Docker Desktop..."
+            pkill -9 "Docker Desktop" 2>/dev/null || true
+        fi
+        
+        # Kill all Docker-related processes
+        pkill -f "com.docker" 2>/dev/null || true
+        pkill -f "Docker" 2>/dev/null || true
+        
+        log "Docker Desktop configuration applied and stopped."
         
     else
         rm "$temp_file"
@@ -493,27 +506,31 @@ main() {
     configure_docker_desktop
     log "Installation and configuration complete!"
     
-    # Close Docker Desktop window but keep daemon running
-    log "Closing Docker Desktop window..."
-    osascript << EOF 2>/dev/null || true
-tell application "System Events"
-    if exists (process "Docker Desktop") then
-        tell process "Docker Desktop"
-            set visible to false
-        end tell
-    end if
-end tell
-EOF
+    # Stop Docker Desktop completely after installation
+    log "Stopping Docker Desktop after installation..."
     
-    # Optionally quit Docker Desktop entirely (user can start it when needed)
-    sleep 2
+    # First try graceful quit
     osascript -e 'tell application "Docker" to quit' 2>/dev/null || true
+    sleep 3
+    
+    # Force quit if still running
+    if pgrep -x "Docker Desktop" > /dev/null; then
+        log "Force stopping Docker Desktop..."
+        pkill -9 "Docker Desktop" 2>/dev/null || true
+    fi
+    
+    # Kill related processes
+    pkill -f "com.docker" 2>/dev/null || true
+    pkill -f "Docker" 2>/dev/null || true
+    
+    # Wait to ensure complete shutdown
+    sleep 2
     
     echo ""
     echo "🐳 Docker Desktop installation completed successfully!"
     echo ""
     echo "Docker Desktop has been installed and configured."
-    echo "The application has been closed to complete the installation."
+    echo "Docker Desktop has been stopped and is NOT currently running."
     echo ""
     echo "Next steps:"
     echo "1. Start Docker Desktop from Applications when needed"
