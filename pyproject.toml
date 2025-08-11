@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = "0.25.37"
+version = "0.25.38"
 classifiers = [
   "Development Status :: 5 - Beta",
   "Intended Audience :: Education",
@@ -114,7 +114,6 @@ description = "git add commit push of tracked files with optional message"
 [tool.pixi.tasks.github-release]
 cmd = "./.scripts/release-tag.sh"
 description = "Release latest version on Github"
-
 
 
 # devel feature

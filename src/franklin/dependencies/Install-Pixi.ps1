@@ -113,19 +113,19 @@ function Get-Architecture {
     }
 }
 
-function Get-LatestPixiVersion {
-    <#
-    .SYNOPSIS
-        Get the latest pixi version from GitHub releases
-    #>
-    try {
-        $response = Invoke-RestMethod -Uri "https://api.github.com/repos/prefix-dev/pixi/releases/latest" -UseBasicParsing
-        return $response.tag_name -replace '^v', ''
-    } catch {
-        Write-Error "Could not determine latest version: $($_.Exception.Message)"
-        exit 1
-    }
-}
+# function Get-LatestPixiVersion {
+#     <#
+#     .SYNOPSIS
+#         Get the latest pixi version from GitHub releases
+#     #>
+#     try {
+#         $response = Invoke-RestMethod -Uri "https://api.github.com/repos/prefix-dev/pixi/releases/latest" -UseBasicParsing
+#         return $response.tag_name -replace '^v', ''
+#     } catch {
+#         Write-Error "Could not determine latest version: $($_.Exception.Message)"
+#         exit 1
+#     }
+# }
 
 function Test-ExistingPixi {
     <#
@@ -157,17 +157,35 @@ function Test-ExistingPixi {
     return $true
 }
 
+# function Install-PixiViaCurl {
+#     <#
+#     .SYNOPSIS
+#         Install pixi via official installer script
+#     #>
+#     Write-Info "Installing pixi via official installer..."
+    
+#     if (-not (Test-CommandExists "curl")) {
+#         Write-Error "curl is required for this installation method"
+#         return $false
+#     }
+    
+#     try {
+#         # Download and run official installer
+#         $installerScript = Invoke-WebRequest -Uri "https://pixi.sh/install.ps1" -UseBasicParsing
+#         Invoke-Expression $installerScript.Content
+#         return $true
+#     } catch {
+#         Write-Error "Official installer failed: $($_.Exception.Message)"
+#         return $false
+#     }
+# }
+
 function Install-PixiViaCurl {
     <#
     .SYNOPSIS
         Install pixi via official installer script
     #>
     Write-Info "Installing pixi via official installer..."
-    
-    if (-not (Test-CommandExists "curl")) {
-        Write-Error "curl is required for this installation method"
-        return $false
-    }
     
     try {
         # Download and run official installer
@@ -180,90 +198,92 @@ function Install-PixiViaCurl {
     }
 }
 
-function Install-PixiViaCargo {
-    <#
-    .SYNOPSIS
-        Install pixi via Rust cargo
-    #>
-    Write-Info "Installing pixi via cargo..."
-    
-    if (-not (Test-CommandExists "cargo")) {
-        Write-Error "Rust/Cargo is required for this installation method"
-        Write-Info "Install Rust from: https://rustup.rs/"
-        return $false
-    }
-    
-    try {
-        cargo install pixi
-        return $true
-    } catch {
-        Write-Error "Cargo installation failed: $($_.Exception.Message)"
-        return $false
-    }
-}
 
-function Install-PixiViaBinary {
-    <#
-    .SYNOPSIS
-        Install pixi via direct binary download
-    #>
-    Write-Info "Installing pixi via direct binary download..."
+# function Install-PixiViaCargo {
+#     <#
+#     .SYNOPSIS
+#         Install pixi via Rust cargo
+#     #>
+#     Write-Info "Installing pixi via cargo..."
     
-    $architecture = Get-Architecture
-    $targetVersion = $Version
+#     if (-not (Test-CommandExists "cargo")) {
+#         Write-Error "Rust/Cargo is required for this installation method"
+#         Write-Info "Install Rust from: https://rustup.rs/"
+#         return $false
+#     }
     
-    if ($targetVersion -eq "latest") {
-        $targetVersion = Get-LatestPixiVersion
-        Write-Info "Latest version: $targetVersion"
-    }
+#     try {
+#         cargo install pixi
+#         return $true
+#     } catch {
+#         Write-Error "Cargo installation failed: $($_.Exception.Message)"
+#         return $false
+#     }
+# }
+
+# function Install-PixiViaBinary {
+#     <#
+#     .SYNOPSIS
+#         Install pixi via direct binary download
+#     #>
+#     Write-Info "Installing pixi via direct binary download..."
     
-    # Construct download URL
-    $baseUrl = "https://github.com/prefix-dev/pixi/releases/download"
-    $filename = "pixi-$architecture-pc-windows-msvc.zip"
-    $downloadUrl = "$baseUrl/v$targetVersion/$filename"
+#     $architecture = Get-Architecture
+#     $targetVersion = $Version
     
-    Write-Info "Downloading from: $downloadUrl"
+#     if ($targetVersion -eq "latest") {
+#         $targetVersion = Get-LatestPixiVersion
+#         Write-Info "Latest version: $targetVersion"
+#     }
     
-    # Create temporary directory
-    $tempDir = New-TemporaryFile | ForEach-Object { Remove-Item $_; New-Item -ItemType Directory -Path $_ }
-    $downloadFile = Join-Path $tempDir $filename
+#     # Construct download URL
+#     $baseUrl = "https://github.com/prefix-dev/pixi/releases/download"
+#     $filename = "pixi-$architecture-pc-windows-msvc.zip"
+#     $downloadUrl = "$baseUrl/v$targetVersion/$filename"
     
-    try {
-        # Download the binary
-        Invoke-WebRequest -Uri $downloadUrl -OutFile $downloadFile -UseBasicParsing
+#     Write-Info "Downloading from: $downloadUrl"
+    
+#     # Create temporary directory
+#     $tempDir = New-TemporaryFile | ForEach-Object { Remove-Item $_; New-Item -ItemType Directory -Path $_ }
+#     $downloadFile = Join-Path $tempDir $filename
+    
+#     try {
+#         # Download the binary
+#         Invoke-WebRequest -Uri $downloadUrl -OutFile $downloadFile -UseBasicParsing
         
-        # Create binary directory if it doesn't exist
-        if (-not (Test-Path $BinDir)) {
-            New-Item -ItemType Directory -Path $BinDir -Force | Out-Null
-        }
+#         # Create binary directory if it doesn't exist
+#         if (-not (Test-Path $BinDir)) {
+#             New-Item -ItemType Directory -Path $BinDir -Force | Out-Null
+#         }
         
-        # Extract and install
-        Expand-Archive -Path $downloadFile -DestinationPath $tempDir -Force
+#         # Extract and install
+#         Expand-Archive -Path $downloadFile -DestinationPath $tempDir -Force
         
-        # Find the pixi binary in extracted contents
-        $pixiBinary = Get-ChildItem -Path $tempDir -Name "pixi.exe" -Recurse | Select-Object -First 1
+#         # Find the pixi binary in extracted contents
+#         $pixiBinary = Get-ChildItem -Path $tempDir -Name "pixi.exe" -Recurse | Select-Object -First 1
         
-        if ($pixiBinary) {
-            $sourcePath = Join-Path $tempDir $pixiBinary
-            $destPath = Join-Path $BinDir "pixi.exe"
-            Copy-Item -Path $sourcePath -Destination $destPath -Force
-            Write-Success "Binary installed to $destPath"
-            return $true
-        } else {
-            Write-Error "Could not find pixi.exe in downloaded archive"
-            return $false
-        }
+#         if ($pixiBinary) {
+#             $sourcePath = Join-Path $tempDir $pixiBinary
+#             $destPath = Join-Path $BinDir "pixi.exe"
+#             Copy-Item -Path $sourcePath -Destination $destPath -Force
+#             Write-Success "Binary installed to $destPath"
+#             return $true
+#         } else {
+#             Write-Error "Could not find pixi.exe in downloaded archive"
+#             return $false
+#         }
         
-    } catch {
-        Write-Error "Binary installation failed: $($_.Exception.Message)"
-        return $false
-    } finally {
-        # Clean up
-        if (Test-Path $tempDir) {
-            Remove-Item -Path $tempDir -Recurse -Force
-        }
-    }
-}
+#     } catch {
+#         Write-Error "Binary installation failed: $($_.Exception.Message)"
+#         return $false
+#     } finally {
+#         # Clean up
+#         if (Test-Path $tempDir) {
+#             Remove-Item -Path $tempDir -Recurse -Force
+#         }
+#     }
+# }
+
 
 function Update-EnvironmentPath {
     <#
@@ -347,30 +367,36 @@ function Install-Pixi {
         "Curl" {
             $installSuccess = Install-PixiViaCurl
         }
-        "Cargo" {
-            $installSuccess = Install-PixiViaCargo
-        }
-        "Binary" {
-            $installSuccess = Install-PixiViaBinary
-            if ($installSuccess) {
-                Update-EnvironmentPath
-                Update-PowerShellProfile
-            }
-        }
+        # "Cargo" {
+        #     $installSuccess = Install-PixiViaCargo
+        # }
+        # "Binary" {
+        #     $installSuccess = Install-PixiViaBinary
+        #     if ($installSuccess) {
+        #         Update-EnvironmentPath
+        #         Update-PowerShellProfile
+        #     }
+        # }
         "Auto" {
+
             # Try methods in order of preference
             if (Install-PixiViaCurl) {
                 $installSuccess = $true
-            } elseif (Install-PixiViaBinary) {
-                $installSuccess = $true
-                Update-EnvironmentPath
-                Update-PowerShellProfile
-            } elseif (Install-PixiViaCargo) {
-                $installSuccess = $true
-            } else {
-                Write-Error "All installation methods failed"
-                exit 1
-            }
+            } 
+
+            # # Try methods in order of preference
+            # if (Install-PixiViaCurl) {
+            #     $installSuccess = $true
+            # } elseif (Install-PixiViaBinary) {
+            #     $installSuccess = $true
+            #     Update-EnvironmentPath
+            #     Update-PowerShellProfile
+            # } elseif (Install-PixiViaCargo) {
+            #     $installSuccess = $true
+            # } else {
+            #     Write-Error "All installation methods failed"
+            #     exit 1
+            # }
         }
         default {
             Write-Error "Unknown installation method: $Method"

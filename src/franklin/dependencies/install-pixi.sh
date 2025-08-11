@@ -83,9 +83,11 @@ command_exists() {
 # Function to get latest pixi version
 get_latest_version() {
     if command_exists curl; then
-        curl -s https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
+        # curl -s https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
+        curl -fsSL https://pixi.sh/install.sh | sh
     elif command_exists wget; then
-        wget -qO- https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
+        # wget -qO- https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
+        wget -qO- https://pixi.sh/install.sh | sh        
     else
         log_error "Neither curl nor wget found. Cannot determine latest version."
         exit 1
