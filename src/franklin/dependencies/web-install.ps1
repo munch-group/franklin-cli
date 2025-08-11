@@ -119,7 +119,7 @@ function Write-ColorOutput {
 function Show-Banner {
     Write-Host ""
     Write-Host "╔════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-    Write-Host "║     Franklin Development Environment Installer        ║" -ForegroundColor Cyan
+    Write-Host "║     Franklin Development Environment Installer         ║" -ForegroundColor Cyan
     Write-Host "╚════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -229,26 +229,65 @@ function Download-Installers {
     
     Write-ColorOutput "Downloading installer scripts from: $BaseUrl" -Type Step
     
+    # Ensure TLS 1.2 is set
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    
     # Core installer
     $masterInstaller = Join-Path $TempDir "Master-Installer.ps1"
+    $downloadSuccess = $false
+    
+    # Try direct download with full error handling
     try {
-        # Download with redirect handling for PowerShell 5.1 compatibility
+        Write-ColorOutput "Attempting primary download method..." -Type Info
         $webClient = New-Object System.Net.WebClient
         $webClient.Headers.Add("User-Agent", "PowerShell/WebInstaller")
+        
+        # Add proxy settings if needed
+        $webClient.Proxy = [System.Net.WebRequest]::GetSystemWebProxy()
+        $webClient.Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+        
         $webClient.DownloadFile("$BaseUrl/Master-Installer.ps1", $masterInstaller)
         Write-ColorOutput "Downloaded Master-Installer.ps1" -Type Success
+        $downloadSuccess = $true
     }
     catch {
-        # Fallback to Invoke-WebRequest with proper parameters
-        try {
-            Invoke-WebRequest -Uri "$BaseUrl/Master-Installer.ps1" `
-                             -OutFile $masterInstaller `
-                             -UseBasicParsing `
-                             -MaximumRedirection 5
-            Write-ColorOutput "Downloaded Master-Installer.ps1 (fallback)" -Type Success
+        Write-ColorOutput "Primary download failed: $_" -Type Warn
+        
+        # Try alternative URL if GitHub Pages failed
+        if ($BaseUrl -match "github\.io") {
+            Write-ColorOutput "Trying direct GitHub raw URL..." -Type Info
+            try {
+                $altUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/Master-Installer.ps1"
+                $webClient = New-Object System.Net.WebClient
+                $webClient.Headers.Add("User-Agent", "PowerShell/WebInstaller")
+                $webClient.Proxy = [System.Net.WebRequest]::GetSystemWebProxy()
+                $webClient.Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+                $webClient.DownloadFile($altUrl, $masterInstaller)
+                Write-ColorOutput "Downloaded from alternative URL" -Type Success
+                $downloadSuccess = $true
+                
+                # Update BaseUrl for subsequent downloads
+                $BaseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies"
+            }
+            catch {
+                Write-ColorOutput "Alternative download also failed: $_" -Type Warn
+            }
         }
-        catch {
-            throw "Failed to download master installer: $_"
+        
+        # Final fallback
+        if (-not $downloadSuccess) {
+            try {
+                Write-ColorOutput "Trying Invoke-WebRequest fallback..." -Type Info
+                Invoke-WebRequest -Uri "$BaseUrl/Master-Installer.ps1" `
+                                 -OutFile $masterInstaller `
+                                 -UseBasicParsing `
+                                 -MaximumRedirection 5
+                Write-ColorOutput "Downloaded Master-Installer.ps1 (fallback)" -Type Success
+                $downloadSuccess = $true
+            }
+            catch {
+                throw "Failed to download master installer. Network error: $_"
+            }
         }
     }
     
@@ -262,23 +301,51 @@ function Download-Installers {
     
     foreach ($script in $scripts) {
         $scriptPath = Join-Path $TempDir $script
+        $componentSuccess = $false
+        
         try {
             Write-ColorOutput "Downloading $script..." -Type Info
-            # Use WebClient for better compatibility
+            # Use WebClient with full configuration
             $webClient = New-Object System.Net.WebClient
             $webClient.Headers.Add("User-Agent", "PowerShell/WebInstaller")
-            $webClient.DownloadFile("$BaseUrl/$script", $scriptPath)
-        }
-        catch {
-            # Try fallback with Invoke-WebRequest
+            $webClient.Proxy = [System.Net.WebRequest]::GetSystemWebProxy()
+            $webClient.Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+            
+            # First try with current BaseUrl
             try {
-                Invoke-WebRequest -Uri "$BaseUrl/$script" `
-                                 -OutFile $scriptPath `
-                                 -UseBasicParsing `
-                                 -MaximumRedirection 5
+                $webClient.DownloadFile("$BaseUrl/$script", $scriptPath)
+                $componentSuccess = $true
             }
             catch {
-                Write-ColorOutput "Failed to download $script (component may be skipped)" -Type Warn
+                # If BaseUrl was GitHub Pages and failed, try raw GitHub
+                if ($BaseUrl -match "github\.io" -or -not $componentSuccess) {
+                    $altUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/$script"
+                    Write-ColorOutput "Trying alternative URL for $script..." -Type Info
+                    $webClient.DownloadFile($altUrl, $scriptPath)
+                    $componentSuccess = $true
+                }
+            }
+        }
+        catch {
+            # Final fallback with Invoke-WebRequest
+            if (-not $componentSuccess) {
+                try {
+                    Write-ColorOutput "Using fallback for $script..." -Type Info
+                    $fallbackUrl = if ($BaseUrl -match "github\.io") {
+                        "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/$script"
+                    } else {
+                        "$BaseUrl/$script"
+                    }
+                    
+                    Invoke-WebRequest -Uri $fallbackUrl `
+                                     -OutFile $scriptPath `
+                                     -UseBasicParsing `
+                                     -MaximumRedirection 5
+                    $componentSuccess = $true
+                }
+                catch {
+                    Write-ColorOutput "Failed to download $script (component may be skipped): $_" -Type Warn
+                }
             }
         }
     }
@@ -392,8 +459,16 @@ function Main {
             }
         }
         
-        # Determine base URL
-        $baseUrl = Get-BaseUrl
+        # Determine base URL with fallback
+        $baseUrl = $null
+        try {
+            $baseUrl = Get-BaseUrl
+        }
+        catch {
+            Write-ColorOutput "Could not determine optimal URL, using direct GitHub" -Type Warn
+            $baseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies"
+        }
+        
         Write-ColorOutput "Using base URL: $baseUrl" -Type Info
         
         # Create temp directory
