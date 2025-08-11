@@ -31,16 +31,16 @@
     Show what would be installed without doing it
 
 .EXAMPLE
-    # Default installation (PowerShell) - using TLS 1.2
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://munch-group.org/installers/install.ps1 | iex
+    # Default installation (PowerShell) - recommended with TLS 1.2
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 -UseBasicParsing | iex
 
 .EXAMPLE
-    # With parameters (PowerShell)
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Role educator
+    # If GitHub Pages is set up
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://munch-group.github.io/franklin/installers/install.ps1 -UseBasicParsing | iex
 
 .EXAMPLE
-    # Alternative syntax with WebClient for better compatibility
-    (New-Object Net.WebClient).DownloadString('https://munch-group.org/installers/install.ps1') | iex
+    # Alternative with WebClient (most compatible, handles DNS issues better)
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1') | iex
 
 .NOTES
     Author: Franklin Project
@@ -69,7 +69,7 @@ $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 # Configuration
-$RepoOrg = if ($env:FRANKLIN_REPO_ORG) { $env:FRANKLIN_REPO_ORG } else { "franklin-project" }
+$RepoOrg = if ($env:FRANKLIN_REPO_ORG) { $env:FRANKLIN_REPO_ORG } else { "munch-group" }
 $RepoName = if ($env:FRANKLIN_REPO_NAME) { $env:FRANKLIN_REPO_NAME } else { "franklin" }
 $RepoBranch = if ($env:FRANKLIN_REPO_BRANCH) { $env:FRANKLIN_REPO_BRANCH } else { "main" }
 $InstallDir = if ($env:FRANKLIN_INSTALL_DIR) { $env:FRANKLIN_INSTALL_DIR } else { "$env:USERPROFILE\.franklin-installer" }
@@ -79,16 +79,22 @@ function Get-BaseUrl {
     $ghPagesUrl = "https://$RepoOrg.github.io/$RepoName/installers/scripts"
     $rawGithubUrl = "https://raw.githubusercontent.com/$RepoOrg/$RepoName/$RepoBranch/src/franklin/dependencies"
     
+    # Try GitHub Pages first, but handle DNS/network errors gracefully
     try {
-        # Try GitHub Pages URL first with redirect handling
-        $response = Invoke-WebRequest -Uri "$ghPagesUrl/Master-Installer.ps1" `
-                                     -Method Head `
-                                     -UseBasicParsing `
-                                     -MaximumRedirection 5 `
-                                     -ErrorAction Stop
+        # Use WebClient for better compatibility
+        $webClient = New-Object System.Net.WebClient
+        $webClient.Headers.Add("User-Agent", "PowerShell/Installer")
+        $testUrl = "$ghPagesUrl/Master-Installer.ps1"
+        
+        # Try to download just the headers
+        $webClient.OpenRead($testUrl).Close()
         return $ghPagesUrl
     }
     catch {
+        # Check if it's a DNS error
+        if ($_.Exception.Message -match "host|DNS|resolve") {
+            Write-ColorOutput "GitHub Pages not accessible, using direct GitHub URL" -Type Warn
+        }
         # Fall back to raw GitHub URL
         return $rawGithubUrl
     }
@@ -176,6 +182,26 @@ function Test-Requirements {
     if ($executionPolicy -eq 'Restricted') {
         Write-ColorOutput "Execution policy is Restricted. Attempting to bypass for this session..." -Type Warn
         Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+    }
+    
+    # Check network connectivity
+    try {
+        Write-ColorOutput "Checking network connectivity..." -Type Info
+        $testConnection = Test-NetConnection -ComputerName "github.com" -Port 443 -WarningAction SilentlyContinue -ErrorAction Stop
+        if (-not $testConnection.TcpTestSucceeded) {
+            throw "Cannot connect to GitHub. Please check your internet connection."
+        }
+    }
+    catch {
+        # Fallback for older PowerShell versions
+        try {
+            $webClient = New-Object System.Net.WebClient
+            $webClient.Headers.Add("User-Agent", "PowerShell/Test")
+            $webClient.OpenRead("https://github.com").Close()
+        }
+        catch {
+            throw "Cannot connect to GitHub. Please check your internet connection and DNS settings. Error: $_"
+        }
     }
     
     # Check Windows version
@@ -393,6 +419,28 @@ function Main {
     }
     catch {
         Write-ColorOutput $_.Exception.Message -Type Error
+        
+        # Provide specific help for common errors
+        if ($_.Exception.Message -match "host|DNS|resolve") {
+            Write-Host ""
+            Write-Host "DNS Resolution Error Detected!" -ForegroundColor Red
+            Write-Host "This usually means:" -ForegroundColor Yellow
+            Write-Host "  1. No internet connection" -ForegroundColor White
+            Write-Host "  2. DNS server issues" -ForegroundColor White
+            Write-Host "  3. Firewall/proxy blocking GitHub access" -ForegroundColor White
+            Write-Host ""
+            Write-Host "Try these solutions:" -ForegroundColor Cyan
+            Write-Host "  • Check your internet connection" -ForegroundColor White
+            Write-Host "  • Try using Google DNS (8.8.8.8) or Cloudflare DNS (1.1.1.1)" -ForegroundColor White
+            Write-Host "  • Disable VPN if connected" -ForegroundColor White
+            Write-Host "  • Check corporate firewall settings" -ForegroundColor White
+        }
+        elseif ($_.Exception.Message -match "connect|network|timeout") {
+            Write-Host ""
+            Write-Host "Network Connection Error!" -ForegroundColor Red
+            Write-Host "Cannot reach GitHub servers." -ForegroundColor Yellow
+        }
+        
         Write-Host ""
         Write-Host "For help, run:" -ForegroundColor Yellow
         Write-Host '  & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Help'
