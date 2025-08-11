@@ -675,7 +675,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ## Mac
 
-Open the installer dmg file and double-click the installer. The installer is not signed by Apple, so your operating system will initially refuse to run it. To run it, open your "System Settings App", select "Privacy and Security" in the sidebar and scroll down to find a button that says "Run Anyway". Click that to run the installer.
+Open the installer dmg file and double-click the installer. The installer is not signed by Apple, so your operating system will initially refuse to run it. To run it, use either method below:
+
+**Method 1: Right-Click to Open**
+
+1. Locate the Franklin Installer in your Downloads folder
+2. **Right-click** (or Control-click) on the installer
+3. Select **Open** from the context menu
+4. Click **Open** in the dialog that appears
+
+**Method 2: System Settings**
+
+1. Try to open the installer normally (double-click)
+2. When the warning appears, click **OK**
+3. Open **System Settings** → **Privacy & Security**
+4. Look for "Franklin Installer was blocked from use because it is not from an identified developer"
+5. Click **Open Anyway**
+6. Enter your password if prompted
+7. Click **Open** in the final dialog
 
 ## Windows
 

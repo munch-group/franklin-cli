@@ -19,7 +19,7 @@ title: Getting started
 
 ## Install Franklin as Student
 
-::: {.tab-set}
+::: {.panel-tabset group="platform"}
 
 ## Mac
 
@@ -42,7 +42,7 @@ irm https://tinyurl.com/franklin-win-student-install | iex
 
 ## Install Franklin as Educator
 
-::: {.tab-set}
+::: {.panel-tabset group="platform"}
 
 ## Mac
 
@@ -67,7 +67,7 @@ irm https://tinyurl.com/franklin-win-educator-install | iex
 
 Simple and robust command line interface in Terminal/PowerShell:
 
-::: {.panel-tabset group="role"}
+::: {.panel-tabset group="platform"}
 
 ## Student
 
