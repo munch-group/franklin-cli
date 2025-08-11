@@ -812,8 +812,10 @@ def select_image() -> str:
     return selected_image
 
 
+@click.option('--vscode', default=False, is_flag=True,
+              help='Include vscode devcontainer files in the download.')
 @click.command(epilog=f'See {cfg.documentation_url} for more details')
-def download() -> None:
+def download(vscode: bool) -> None:
     """
     Download a Franklin exercise repository to the local filesystem.
 
@@ -894,7 +896,11 @@ def download() -> None:
     template_dir = Path(os.path.dirname(__file__)) / 'data' / 'templates' / 'exercise'
     template_files = list(template_dir.glob('*'))
 
-    dev_files = [p for p in template_files if p.name != 'exercise.ipynb']
+    if vscode:
+        include_files = [p for p in template_files if p.name not in ['exercise.ipynb', '.devcontainer', 'Dockerfile']]
+    else:
+        include_files = [p for p in template_files if p.name not in ['exercise.ipynb']]
+    dev_files = [p for p in template_files if p.name not in include_files]
 
     for template_path in dev_files:
         path = os.path.join(repo_local_path, template_path.name)
