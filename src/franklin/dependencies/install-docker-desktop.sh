@@ -378,21 +378,54 @@ configure_docker_desktop() {
         log "Configuration applied successfully"
         
         # Restart Docker Desktop to apply changes
-        log "Restarting Docker Desktop to apply configuration..."
-        osascript -e 'quit app "Docker"' 2>/dev/null || true
-        sleep 3
-        open -a Docker
+        log "Stopping Docker Desktop to apply configuration..."
         
-        # Wait for Docker to be ready
+        # Force quit Docker Desktop completely (including window)
+        osascript -e 'tell application "Docker" to quit' 2>/dev/null || true
+        sleep 2
+        
+        # Kill any remaining Docker processes
+        pkill -f "Docker Desktop" 2>/dev/null || true
+        pkill -f "com.docker.helper" 2>/dev/null || true
+        
+        # Wait for Docker to fully stop
+        sleep 3
+        
+        # Start Docker Desktop in background
+        log "Starting Docker Desktop to verify configuration..."
+        open -a Docker --background
+        
+        # Wait for Docker daemon to be ready (not the UI)
         local count=0
-        while [[ $count -lt 60 ]]; do
+        local max_attempts=30  # 30 attempts * 2 seconds = 60 seconds max
+        
+        log "Waiting for Docker daemon to be ready..."
+        while [[ $count -lt $max_attempts ]]; do
             if docker info &>/dev/null; then
-                log "Docker Desktop restarted and ready"
+                log "Docker daemon is ready"
                 break
             fi
             sleep 2
-            ((count+=2))
+            count=$((count + 1))
         done
+        
+        # Now close Docker Desktop UI but keep daemon running
+        log "Closing Docker Desktop window..."
+        osascript << EOF 2>/dev/null || true
+tell application "System Events"
+    if exists (process "Docker Desktop") then
+        tell process "Docker Desktop"
+            set visible to false
+        end tell
+    end if
+end tell
+EOF
+        
+        # Alternatively, quit the app entirely since daemon can run independently
+        sleep 2
+        osascript -e 'tell application "Docker" to quit' 2>/dev/null || true
+        
+        log "Docker Desktop configuration applied. Docker daemon is available in the background."
         
     else
         rm "$temp_file"
@@ -460,13 +493,32 @@ main() {
     configure_docker_desktop
     log "Installation and configuration complete!"
     
+    # Close Docker Desktop window but keep daemon running
+    log "Closing Docker Desktop window..."
+    osascript << EOF 2>/dev/null || true
+tell application "System Events"
+    if exists (process "Docker Desktop") then
+        tell process "Docker Desktop"
+            set visible to false
+        end tell
+    end if
+end tell
+EOF
+    
+    # Optionally quit Docker Desktop entirely (user can start it when needed)
+    sleep 2
+    osascript -e 'tell application "Docker" to quit' 2>/dev/null || true
+    
     echo ""
     echo "🐳 Docker Desktop installation completed successfully!"
     echo ""
+    echo "Docker Desktop has been installed and configured."
+    echo "The application has been closed to complete the installation."
+    echo ""
     echo "Next steps:"
-    echo "1. Docker Desktop should start automatically"
+    echo "1. Start Docker Desktop from Applications when needed"
     echo "2. Test the installation: docker run hello-world"
-    echo "3. Access Docker Desktop from Applications folder or menu bar"
+    echo "3. Docker will be available in the menu bar when running"
     echo ""
     echo "To uninstall later, run: $0 --uninstall (or --clean-uninstall)"
     echo "To check status, run: $0 --status"

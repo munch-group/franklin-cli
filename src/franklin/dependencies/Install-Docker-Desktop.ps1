@@ -360,10 +360,20 @@ if ($DisableAnalytics) {
     }
 }
 
+# Close Docker Desktop to complete installation
+Write-Host "`nClosing Docker Desktop to complete installation..." -ForegroundColor Yellow
+Get-Process -Name "Docker Desktop" -ErrorAction SilentlyContinue | Stop-Process -Force
+Start-Sleep -Seconds 2
+
 Write-Host "`nInstallation and configuration complete!" -ForegroundColor Green
+Write-Host ""
+Write-Host "Docker Desktop has been installed and configured." -ForegroundColor Green
+Write-Host "The application has been closed to complete the installation." -ForegroundColor Cyan
+Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "1. Restart your computer to ensure group membership takes effect" -ForegroundColor White
-Write-Host "2. Start Docker Desktop manually or it will auto-start based on your settings" -ForegroundColor White
+Write-Host "2. Start Docker Desktop from the Start Menu when needed" -ForegroundColor White
+Write-Host "3. Docker will be available in the system tray when running" -ForegroundColor White
 
 if ($EnableWSL2) {
     Write-Host "3. Verify WSL2 integration by running: docker run hello-world" -ForegroundColor White
