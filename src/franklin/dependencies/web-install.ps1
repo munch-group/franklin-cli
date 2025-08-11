@@ -1,8 +1,8 @@
 #Requires -Version 5.0
 <#
 .SYNOPSIS
-    Franklin installer - Direct GitHub version (most reliable)
-    This version downloads directly from GitHub raw content, avoiding DNS issues
+    Franklin Development Environment - Simplified Web Installer for Windows
+    This version is optimized for the irm | iex pattern
 #>
 
 param(
@@ -17,90 +17,61 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-# Force TLS 1.2
+# Use TLS 1.2 for secure connections
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 Write-Host ""
-Write-Host "Franklin Development Environment Installer (Direct)" -ForegroundColor Cyan
-Write-Host "===================================================" -ForegroundColor Cyan
+Write-Host "Franklin Development Environment Installer" -ForegroundColor Cyan
+Write-Host "=========================================" -ForegroundColor Cyan
 Write-Host ""
 
-# Create temp directory
+# Download the main installer using WebClient for better compatibility
 $tempDir = Join-Path $env:TEMP "franklin-installer-$(Get-Random)"
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
 try {
-    # Direct GitHub raw URLs (no DNS redirects)
+    # Determine URLs
     $baseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies"
     
-    Write-Host "[INFO] Downloading from GitHub..." -ForegroundColor Green
-    
-    # Download function with robust error handling
-    function Download-File {
-        param($Url, $Path)
-        
-        $success = $false
-        $attempts = 0
-        $maxAttempts = 3
-        
-        while (-not $success -and $attempts -lt $maxAttempts) {
-            $attempts++
-            try {
-                Write-Host "[INFO] Downloading $(Split-Path -Leaf $Path) (attempt $attempts)..." -ForegroundColor Gray
-                
-                # Method 1: WebClient with proxy support
-                $webClient = New-Object System.Net.WebClient
-                $webClient.Headers.Add("User-Agent", "PowerShell/Franklin-Installer")
-                
-                # Configure proxy if system uses one
-                $webClient.Proxy = [System.Net.WebRequest]::GetSystemWebProxy()
-                $webClient.Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
-                
-                $webClient.DownloadFile($Url, $Path)
-                $success = $true
-                Write-Host "[OK] Downloaded successfully" -ForegroundColor Green
-            }
-            catch {
-                Write-Host "[WARN] Attempt $attempts failed: $_" -ForegroundColor Yellow
-                
-                if ($attempts -lt $maxAttempts) {
-                    Start-Sleep -Seconds 2
-                }
-                else {
-                    # Try one more time with Invoke-WebRequest
-                    try {
-                        Write-Host "[INFO] Trying alternative download method..." -ForegroundColor Yellow
-                        Invoke-WebRequest -Uri $Url -OutFile $Path -UseBasicParsing
-                        $success = $true
-                        Write-Host "[OK] Downloaded with alternative method" -ForegroundColor Green
-                    }
-                    catch {
-                        throw "Failed to download after $maxAttempts attempts: $_"
-                    }
-                }
-            }
+    # Try GitHub Pages first
+    try {
+        $testUrl = "https://munch-group.github.io/franklin/installers/scripts/Master-Installer.ps1"
+        $webClient = New-Object System.Net.WebClient
+        $webClient.Headers.Add("User-Agent", "PowerShell")
+        $testContent = $webClient.DownloadString($testUrl)
+        if ($testContent -match "Franklin") {
+            $baseUrl = "https://munch-group.github.io/franklin/installers/scripts"
         }
+    } catch {
+        # Use raw GitHub as fallback
     }
+    
+    Write-Host "[INFO] Using base URL: $baseUrl" -ForegroundColor Green
     
     # Download master installer
     $masterPath = Join-Path $tempDir "Master-Installer.ps1"
-    Download-File -Url "$baseUrl/Master-Installer.ps1" -Path $masterPath
+    Write-Host "[INFO] Downloading master installer..." -ForegroundColor Green
+    
+    $webClient = New-Object System.Net.WebClient
+    $webClient.Headers.Add("User-Agent", "PowerShell/Franklin")
+    $webClient.DownloadFile("$baseUrl/Master-Installer.ps1", $masterPath)
     
     # Download component installers
     $scripts = @(
         "Install-Miniforge.ps1",
-        "Install-Pixi.ps1",
+        "Install-Pixi.ps1", 
         "Install-Docker-Desktop.ps1",
         "Install-Chrome.ps1"
     )
     
     foreach ($script in $scripts) {
-        $scriptPath = Join-Path $tempDir $script
         try {
-            Download-File -Url "$baseUrl/$script" -Path $scriptPath
+            Write-Host "[INFO] Downloading $script..." -ForegroundColor Green
+            $scriptPath = Join-Path $tempDir $script
+            $webClient.DownloadFile("$baseUrl/$script", $scriptPath)
         }
         catch {
-            Write-Host "[WARN] Could not download $script (will be skipped)" -ForegroundColor Yellow
+            Write-Host "[WARN] Could not download $script" -ForegroundColor Yellow
         }
     }
     
@@ -126,29 +97,13 @@ try {
         } else {
             & $masterPath
         }
-        
-        Write-Host ""
-        Write-Host "[SUCCESS] Installation completed!" -ForegroundColor Green
     }
     finally {
         Pop-Location
     }
 }
 catch {
-    Write-Host ""
     Write-Host "[ERROR] Installation failed: $_" -ForegroundColor Red
-    
-    # Provide DNS-specific help
-    if ($_ -match "host|DNS|resolve|network|download") {
-        Write-Host ""
-        Write-Host "Network/DNS Troubleshooting:" -ForegroundColor Yellow
-        Write-Host "1. Check internet connection" -ForegroundColor White
-        Write-Host "2. Try disabling VPN if connected" -ForegroundColor White
-        Write-Host "3. Check firewall settings for GitHub access" -ForegroundColor White
-        Write-Host "4. Try manual download from:" -ForegroundColor White
-        Write-Host "   https://github.com/munch-group/franklin" -ForegroundColor Cyan
-    }
-    
     exit 1
 }
 finally {
