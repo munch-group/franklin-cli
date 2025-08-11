@@ -25,17 +25,13 @@ title: Getting started
 
 Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
-<i class="bi bi-apple"></i> **Mac**:
-
-Open your Terminal application, paste the command into the Terminal window and press Enter.
+<i class="bi bi-apple"></i> **Mac**: Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash
 ```
 
-<i class="bi bi-windows"></i> **Windows**:
-
-Open your PowerShell application, paste the command into the PowerShell window and press Enter.
+<i class="bi bi-windows"></i> **Windows**: Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
 irm https://tinyurl.com/franklin-win-student-install | iex
@@ -45,17 +41,13 @@ irm https://tinyurl.com/franklin-win-student-install | iex
 
 Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
-<i class="bi bi-apple"></i> **Mac**:
-
-Open your Terminal application, paste the command into the Terminal window and press Enter.
+<i class="bi bi-apple"></i> **Mac**: Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL https://tinyurl.com/franklin-mac-educator-install | bash
 ```
 
-<i class="bi bi-windows"></i> **Windows**:
-
-Open your PowerShell application, paste the command into the PowerShell window and press Enter.
+<i class="bi bi-windows"></i> **Windows**: Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
 irm https://tinyurl.com/franklin-win-educator-install | iex

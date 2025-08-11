@@ -32,15 +32,15 @@
 
 .EXAMPLE
     # Default installation (PowerShell)
-    irm https://franklin.io/install.ps1 | iex
+    irm https://munch-group.org/installers/install.ps1 | iex
 
 .EXAMPLE
     # With parameters (PowerShell)
-    & ([scriptblock]::Create((irm https://franklin.io/install.ps1))) -Role educator
+    & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Role educator
 
 .EXAMPLE
     # Alternative syntax
-    iex "& { $(irm https://franklin.io/install.ps1) } -Role educator"
+    iex "& { $(irm https://munch-group.org/installers/install.ps1) } -Role educator"
 
 .NOTES
     Author: Franklin Project
@@ -114,8 +114,8 @@ function Show-Help {
 Franklin Development Environment - Web Installer for Windows
 
 USAGE:
-    irm https://franklin.io/install.ps1 | iex
-    & ([scriptblock]::Create((irm https://franklin.io/install.ps1))) -Role educator
+    irm https://munch-group.org/installers/install.ps1 | iex
+    & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Role educator
 
 PARAMETERS:
     -Role           User role: student, educator, or administrator (default: student)
@@ -130,16 +130,16 @@ PARAMETERS:
 
 EXAMPLES:
     # Default installation (student)
-    irm https://franklin.io/install.ps1 | iex
+    irm https://munch-group.org/installers/install.ps1 | iex
 
     # Educator installation
-    iex "& { `$(irm https://franklin.io/install.ps1) } -Role educator"
+    iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -Role educator"
 
     # Skip Docker and Chrome
-    iex "& { `$(irm https://franklin.io/install.ps1) } -SkipDocker -SkipChrome"
+    iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -SkipDocker -SkipChrome"
 
     # Force reinstall everything
-    iex "& { `$(irm https://franklin.io/install.ps1) } -Force"
+    iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -Force"
 
 NOTES:
     - Requires PowerShell 5.0 or later
@@ -362,7 +362,7 @@ function Main {
         Write-ColorOutput $_.Exception.Message -Type Error
         Write-Host ""
         Write-Host "For help, run:" -ForegroundColor Yellow
-        Write-Host '  & ([scriptblock]::Create((irm https://franklin.io/install.ps1))) -Help'
+        Write-Host '  & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Help'
         exit 1
     }
 }
