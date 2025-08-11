@@ -7,11 +7,11 @@ title: Getting started
 
 ::: {.panel-tabset group="role"}
 
-## Student
+## <i class="bi bi-mortarboard-fill"></i> Students
 
 {{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
 
-## Educator
+## <i class="bi bi-bank"></i> Educators
 
 {{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
 
@@ -21,11 +21,11 @@ title: Getting started
 
 ::: {.panel-tabset group="role"}
 
-## Student
+## <i class="bi bi-mortarboard-fill"></i> Students
 
 Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
-**Mac**:
+<i class="bi bi-apple"></i> **Mac**:
 
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
@@ -33,7 +33,7 @@ Open your Terminal application, paste the command into the Terminal window and p
 curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash
 ```
 
-**Windows**:
+<i class="bi bi-windows"></i> **Windows**:
 
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
@@ -41,11 +41,11 @@ Open your PowerShell application, paste the command into the PowerShell window a
 irm https://tinyurl.com/franklin-win-student-install | iex
 ```
 
-## Educator
+## <i class="bi bi-bank"></i> Educators
 
 Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
-**Mac**:
+<i class="bi bi-apple"></i> **Mac**:
 
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
@@ -53,7 +53,7 @@ Open your Terminal application, paste the command into the Terminal window and p
 curl -fsSL https://tinyurl.com/franklin-mac-educator-install | bash
 ```
 
-**Windows**:
+<i class="bi bi-windows"></i> **Windows**:
 
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
@@ -70,7 +70,7 @@ Simple and robust command line interface in Terminal/PowerShell:
 
 ::: {.panel-tabset group="role"}
 
-## Student
+## <i class="bi bi-mortarboard-fill"></i> Students
 
 <i class="bi bi-terminal"></i> **Download an exercise**:
 
@@ -88,7 +88,7 @@ Simple and robust command line interface in Terminal/PowerShell:
 
 See [Franklin core commands](commands_core.qmd) for the full documentation.
 
-## Educator
+## <i class="bi bi-bank"></i> Educators
 
 <i class="bi bi-terminal"></i> **Create a new exercise from an example template**:
 
