@@ -17,9 +17,51 @@ title: Getting started
 
 :::
 
-## Install Franklin
+## Install Franklin as Student
 
-Before you proceed, [install Franklin](download.qmd) and come back here.
+::: {.tab-set}
+
+## Mac
+
+Open your Terminal application, copy the command below by clicking the small clipboard icon in the top right corner of the box. Paste the command into the Terminal and press Enter.
+
+```bash
+curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash
+```
+
+## Windows
+
+Open your PowerShell application, copy the command below by clicking the small clipboard icon in the top right corner of the box. Paste the command into the PowerShell and press Enter.
+
+```powershell
+irm https://tinyurl.com/franklin-win-student-install | iex
+```
+
+:::
+
+
+## Install Franklin as Educator
+
+::: {.tab-set}
+
+## Mac
+
+Open your Terminal application, copy the command below by clicking the small clipboard icon in the top right corner of the box. Paste the command into the Terminal and press Enter.
+
+```bash
+curl -fsSL https://tinyurl.com/franklin-mac-educator-install | bash
+```
+
+## Windows
+
+Open your PowerShell application, copy the command below by clicking the small clipboard icon in the top right corner of the box. Paste the command into the PowerShell and press Enter.
+
+```powershell
+irm https://tinyurl.com/franklin-win-educator-install | iex
+```
+
+:::
+
 
 ## Using Franklin
 
