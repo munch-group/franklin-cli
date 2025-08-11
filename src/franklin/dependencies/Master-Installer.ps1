@@ -484,15 +484,19 @@ function Show-InstallationSummary {
     
     if ($Script:SuccessfulInstallations -and $Script:SuccessfulInstallations.Count -gt 0) {
         Write-Success "Successfully installed:"
-        foreach ($item in $Script:SuccessfulInstallations) {
-            Write-Host "  ✓ $item" -ForegroundColor Green
+        if ($Script:SuccessfulInstallations) {
+            foreach ($item in $Script:SuccessfulInstallations) {
+                Write-Host "  ✓ $item" -ForegroundColor Green
+            }
         }
     }
     
     if ($Script:FailedInstallations -and $Script:FailedInstallations.Count -gt 0) {
         Write-Warning "Failed installations:"
-        foreach ($item in $Script:FailedInstallations) {
-            Write-Host "  ✗ $item" -ForegroundColor Red
+        if ($Script:FailedInstallations) {
+            foreach ($item in $Script:FailedInstallations) {
+                Write-Host "  ✗ $item" -ForegroundColor Red
+            }
         }
     }
     
