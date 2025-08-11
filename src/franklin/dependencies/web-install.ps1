@@ -31,16 +31,16 @@
     Show what would be installed without doing it
 
 .EXAMPLE
-    # Default installation (PowerShell) - recommended with TLS 1.2
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 -UseBasicParsing | iex
-
-.EXAMPLE
-    # If GitHub Pages is set up
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://munch-group.github.io/franklin/installers/install.ps1 -UseBasicParsing | iex
-
-.EXAMPLE
-    # Alternative with WebClient (most compatible, handles DNS issues better)
+    # RECOMMENDED - Most compatible method using WebClient
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1') | iex
+
+.EXAMPLE
+    # Alternative using Invoke-WebRequest (iwr) instead of irm
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iwr -useb https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 | iex
+
+.EXAMPLE
+    # If you must use irm, disable SSL validation (less secure)
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; irm https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 | iex
 
 .NOTES
     Author: Franklin Project
@@ -129,11 +129,11 @@ function Show-Help {
 Franklin Development Environment - Web Installer for Windows
 
 USAGE:
-    # Basic installation (with TLS 1.2 for security)
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://munch-group.org/installers/install.ps1 | iex
+    # RECOMMENDED - Use WebClient to avoid redirect issues
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1') | iex
     
-    # With parameters
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Role educator
+    # Alternative with iwr (Invoke-WebRequest)
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iwr -useb https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 | iex
 
 PARAMETERS:
     -Role           User role: student, educator, or administrator (default: student)
@@ -147,17 +147,18 @@ PARAMETERS:
     -Help           Show this help message
 
 EXAMPLES:
-    # Default installation (student) - recommended
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://munch-group.org/installers/install.ps1 | iex
+    # Default installation (student) - RECOMMENDED METHOD
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1') | iex
 
-    # Educator installation
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -Role educator"
+    # With parameters - educator role (avoid irm due to redirect issues)
+    `$url = 'https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1'
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    & ([scriptblock]::Create((New-Object Net.WebClient).DownloadString(`$url))) -Role educator
 
-    # Alternative using WebClient (most compatible)
-    (New-Object Net.WebClient).DownloadString('https://munch-group.org/installers/install.ps1') | iex
-
-    # Skip Docker and Chrome
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -SkipDocker -SkipChrome"
+    # Alternative with iwr (Invoke-WebRequest)
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    iwr -useb https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 | iex
 
 NOTES:
     - Requires PowerShell 5.0 or later
@@ -208,10 +209,10 @@ function Test-Requirements {
     $os = Get-CimInstance Win32_OperatingSystem
     Write-ColorOutput "Windows version: $($os.Caption) - $($os.Version)" -Type Info
     
-    # Check if running as admin (warn only)
-    if (-not (Test-Administrator)) {
-        Write-ColorOutput "Not running as Administrator. Some components may require elevation." -Type Warn
-    }
+    # # Check if running as admin (warn only)
+    # if (-not (Test-Administrator)) {
+    #     Write-ColorOutput "Not running as Administrator. Some components may require elevation." -Type Warn
+    # }
 }
 
 function Get-TempDirectory {
@@ -281,7 +282,8 @@ function Download-Installers {
                 Invoke-WebRequest -Uri "$BaseUrl/Master-Installer.ps1" `
                                  -OutFile $masterInstaller `
                                  -UseBasicParsing `
-                                 -MaximumRedirection 5
+                                 -MaximumRedirection 5 `
+                                 -ErrorAction Stop
                 Write-ColorOutput "Downloaded Master-Installer.ps1 (fallback)" -Type Success
                 $downloadSuccess = $true
             }
@@ -340,7 +342,8 @@ function Download-Installers {
                     Invoke-WebRequest -Uri $fallbackUrl `
                                      -OutFile $scriptPath `
                                      -UseBasicParsing `
-                                     -MaximumRedirection 5
+                                     -MaximumRedirection 5 `
+                                     -ErrorAction Stop
                     $componentSuccess = $true
                 }
                 catch {
@@ -517,8 +520,9 @@ function Main {
         }
         
         Write-Host ""
-        Write-Host "For help, run:" -ForegroundColor Yellow
-        Write-Host '  & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Help'
+        Write-Host "For help, use this command:" -ForegroundColor Yellow
+        Write-Host "  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12" -ForegroundColor White
+        Write-Host "  (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1') | iex" -ForegroundColor White
         exit 1
     }
 }
