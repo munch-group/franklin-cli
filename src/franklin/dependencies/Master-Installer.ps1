@@ -482,26 +482,22 @@ function Show-InstallationSummary {
     #>
     Write-Header "INSTALLATION SUMMARY"
     
-    if ($Script:SuccessfulInstallations -and $Script:SuccessfulInstallations.Count -gt 0) {
+    if ($Script:SuccessfulInstallations -and @($Script:SuccessfulInstallations).Count -gt 0) {
         Write-Success "Successfully installed:"
-        if ($Script:SuccessfulInstallations) {
-            foreach ($item in $Script:SuccessfulInstallations) {
-                Write-Host "  ✓ $item" -ForegroundColor Green
-            }
+        foreach ($item in $Script:SuccessfulInstallations) {
+            Write-Host "  ✓ $item" -ForegroundColor Green
         }
     }
     
-    if ($Script:FailedInstallations -and $Script:FailedInstallations.Count -gt 0) {
+    if ($Script:FailedInstallations -and @($Script:FailedInstallations).Count -gt 0) {
         Write-Warning "Failed installations:"
-        if ($Script:FailedInstallations) {
-            foreach ($item in $Script:FailedInstallations) {
-                Write-Host "  ✗ $item" -ForegroundColor Red
-            }
+        foreach ($item in $Script:FailedInstallations) {
+            Write-Host "  ✗ $item" -ForegroundColor Red
         }
     }
     
     Write-Host ""
-    if (-not $Script:FailedInstallations -or $Script:FailedInstallations.Count -eq 0) {
+    if (-not $Script:FailedInstallations -or @($Script:FailedInstallations).Count -eq 0) {
         Write-Success "All installations completed successfully!"
         Write-Info "Your development environment is ready to use."
     } else {
@@ -575,7 +571,7 @@ function Start-MasterInstallation {
         Write-Info "Total installation time: $($duration.ToString('hh\:mm\:ss'))"
         
         # Determine exit code
-        if (-not $Script:FailedInstallations -or $Script:FailedInstallations.Count -eq 0) {
+        if (-not $Script:FailedInstallations -or @($Script:FailedInstallations).Count -eq 0) {
             Write-Success "Master installation completed successfully!"
             exit 0
         } elseif ($ContinueOnError) {
