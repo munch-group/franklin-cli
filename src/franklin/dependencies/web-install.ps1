@@ -31,16 +31,16 @@
     Show what would be installed without doing it
 
 .EXAMPLE
-    # Default installation (PowerShell)
-    irm https://munch-group.org/installers/install.ps1 | iex
+    # Default installation (PowerShell) - using TLS 1.2
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://munch-group.org/installers/install.ps1 | iex
 
 .EXAMPLE
     # With parameters (PowerShell)
-    & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Role educator
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Role educator
 
 .EXAMPLE
-    # Alternative syntax
-    iex "& { $(irm https://munch-group.org/installers/install.ps1) } -Role educator"
+    # Alternative syntax with WebClient for better compatibility
+    (New-Object Net.WebClient).DownloadString('https://munch-group.org/installers/install.ps1') | iex
 
 .NOTES
     Author: Franklin Project
@@ -65,6 +65,9 @@ param(
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
+# Force TLS 1.2 for secure connections (required for GitHub)
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 # Configuration
 $RepoOrg = if ($env:FRANKLIN_REPO_ORG) { $env:FRANKLIN_REPO_ORG } else { "franklin-project" }
 $RepoName = if ($env:FRANKLIN_REPO_NAME) { $env:FRANKLIN_REPO_NAME } else { "franklin" }
@@ -77,10 +80,16 @@ function Get-BaseUrl {
     $rawGithubUrl = "https://raw.githubusercontent.com/$RepoOrg/$RepoName/$RepoBranch/src/franklin/dependencies"
     
     try {
-        $response = Invoke-WebRequest -Uri "$ghPagesUrl/Master-Installer.ps1" -Method Head -UseBasicParsing -ErrorAction Stop
+        # Try GitHub Pages URL first with redirect handling
+        $response = Invoke-WebRequest -Uri "$ghPagesUrl/Master-Installer.ps1" `
+                                     -Method Head `
+                                     -UseBasicParsing `
+                                     -MaximumRedirection 5 `
+                                     -ErrorAction Stop
         return $ghPagesUrl
     }
     catch {
+        # Fall back to raw GitHub URL
         return $rawGithubUrl
     }
 }
@@ -114,8 +123,11 @@ function Show-Help {
 Franklin Development Environment - Web Installer for Windows
 
 USAGE:
-    irm https://munch-group.org/installers/install.ps1 | iex
-    & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Role educator
+    # Basic installation (with TLS 1.2 for security)
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://munch-group.org/installers/install.ps1 | iex
+    
+    # With parameters
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; & ([scriptblock]::Create((irm https://munch-group.org/installers/install.ps1))) -Role educator
 
 PARAMETERS:
     -Role           User role: student, educator, or administrator (default: student)
@@ -129,17 +141,17 @@ PARAMETERS:
     -Help           Show this help message
 
 EXAMPLES:
-    # Default installation (student)
-    irm https://munch-group.org/installers/install.ps1 | iex
+    # Default installation (student) - recommended
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; irm https://munch-group.org/installers/install.ps1 | iex
 
     # Educator installation
-    iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -Role educator"
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -Role educator"
+
+    # Alternative using WebClient (most compatible)
+    (New-Object Net.WebClient).DownloadString('https://munch-group.org/installers/install.ps1') | iex
 
     # Skip Docker and Chrome
-    iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -SkipDocker -SkipChrome"
-
-    # Force reinstall everything
-    iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -Force"
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex "& { `$(irm https://munch-group.org/installers/install.ps1) } -SkipDocker -SkipChrome"
 
 NOTES:
     - Requires PowerShell 5.0 or later
@@ -194,13 +206,24 @@ function Download-Installers {
     # Core installer
     $masterInstaller = Join-Path $TempDir "Master-Installer.ps1"
     try {
-        Invoke-WebRequest -Uri "$BaseUrl/Master-Installer.ps1" `
-                         -OutFile $masterInstaller `
-                         -UseBasicParsing
+        # Download with redirect handling for PowerShell 5.1 compatibility
+        $webClient = New-Object System.Net.WebClient
+        $webClient.Headers.Add("User-Agent", "PowerShell/WebInstaller")
+        $webClient.DownloadFile("$BaseUrl/Master-Installer.ps1", $masterInstaller)
         Write-ColorOutput "Downloaded Master-Installer.ps1" -Type Success
     }
     catch {
-        throw "Failed to download master installer: $_"
+        # Fallback to Invoke-WebRequest with proper parameters
+        try {
+            Invoke-WebRequest -Uri "$BaseUrl/Master-Installer.ps1" `
+                             -OutFile $masterInstaller `
+                             -UseBasicParsing `
+                             -MaximumRedirection 5
+            Write-ColorOutput "Downloaded Master-Installer.ps1 (fallback)" -Type Success
+        }
+        catch {
+            throw "Failed to download master installer: $_"
+        }
     }
     
     # Component installers
@@ -215,12 +238,22 @@ function Download-Installers {
         $scriptPath = Join-Path $TempDir $script
         try {
             Write-ColorOutput "Downloading $script..." -Type Info
-            Invoke-WebRequest -Uri "$BaseUrl/$script" `
-                             -OutFile $scriptPath `
-                             -UseBasicParsing
+            # Use WebClient for better compatibility
+            $webClient = New-Object System.Net.WebClient
+            $webClient.Headers.Add("User-Agent", "PowerShell/WebInstaller")
+            $webClient.DownloadFile("$BaseUrl/$script", $scriptPath)
         }
         catch {
-            Write-ColorOutput "Failed to download $script (component may be skipped)" -Type Warn
+            # Try fallback with Invoke-WebRequest
+            try {
+                Invoke-WebRequest -Uri "$BaseUrl/$script" `
+                                 -OutFile $scriptPath `
+                                 -UseBasicParsing `
+                                 -MaximumRedirection 5
+            }
+            catch {
+                Write-ColorOutput "Failed to download $script (component may be skipped)" -Type Warn
+            }
         }
     }
     
