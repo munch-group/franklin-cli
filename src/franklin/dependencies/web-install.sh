@@ -3,9 +3,9 @@
 # Franklin Development Environment - Web Installer
 # 
 # Usage:
-#   curl -fsSL https://franklin-project.org/install.sh | bash
-#   curl -fsSL https://franklin-project.org/install.sh | bash -s -- --role educator
-#   curl -fsSL https://franklin-project.org/install.sh | bash -s -- --help
+#   curl -fsSL https://munch-group.org/installers/install.sh | bash
+#   curl -fsSL https://munch-group.org/installers/install.sh | bash -s -- --role educator
+#   curl -fsSL https://munch-group.org/installers/install.sh | bash -s -- --help
 #
 # This script downloads and runs the Franklin installer without requiring
 # users to deal with Gatekeeper or other OS-level security warnings.
@@ -27,7 +27,7 @@ log_error() { echo -e "${RED}[ERROR]${NC} $*" >&2; }
 log_step() { echo -e "${BLUE}[STEP]${NC} $*"; }
 
 # Configuration
-REPO_ORG="${FRANKLIN_REPO_ORG:-franklin-project}"
+REPO_ORG="${FRANKLIN_REPO_ORG:-munch-group}"
 REPO_NAME="${FRANKLIN_REPO_NAME:-franklin}"
 REPO_BRANCH="${FRANKLIN_REPO_BRANCH:-main}"
 INSTALL_DIR="${FRANKLIN_INSTALL_DIR:-$HOME/.franklin-installer}"
@@ -45,16 +45,16 @@ determine_base_url() {
 # Show banner
 show_banner() {
     echo -e "${BOLD}"
-    echo "╔════════════════════════════════════════════════════════╗"
-    echo "║     Franklin Development Environment Installer        ║"
-    echo "╚════════════════════════════════════════════════════════╝"
+    echo "╔═════════════════════════════════════════════════════╗"
+    echo "║     Franklin Development Environment Installer      ║"
+    echo "╚═════════════════════════════════════════════════════╝"
     echo -e "${NC}"
     echo ""
 }
 
 # Show help
 show_help() {
-    echo "Usage: curl -fsSL https://franklin-project.org/install.sh | bash -s -- [OPTIONS]"
+    echo "Usage: curl -fsSL https://munch-group.org/installers/install.sh | bash -s -- [OPTIONS]"
     echo ""
     echo "Options:"
     echo "  --role ROLE        Set user role: student, educator, or administrator (default: student)"
@@ -69,13 +69,13 @@ show_help() {
     echo ""
     echo "Examples:"
     echo "  # Default installation (student)"
-    echo "  curl -fsSL https://franklin-project.org/install.sh | bash"
+    echo "  curl -fsSL https://munch-group.org/installers/install.sh | bash"
     echo ""
     echo "  # Educator installation"
-    echo "  curl -fsSL https://franklin-project.org/install.sh | bash -s -- --role educator"
+    echo "  curl -fsSL https://munch-group.org/installers/install.sh | bash -s -- --role educator"
     echo ""
     echo "  # Skip Docker and Chrome"
-    echo "  curl -fsSL https://franklin-project.org/install.sh | bash -s -- --skip-docker --skip-chrome"
+    echo "  curl -fsSL https://munch-group.org/installers/install.sh | bash -s -- --skip-docker --skip-chrome"
 }
 
 # Detect OS
@@ -198,7 +198,7 @@ main() {
     
     if [[ "$os" == "windows" ]]; then
         log_error "This is a Unix/Linux installer. For Windows, use:"
-        echo "  irm https://franklin-project.org/install.ps1 | iex"
+        echo "  irm https://munch-group.org/install.ps1 | iex"
         exit 1
     fi
     
