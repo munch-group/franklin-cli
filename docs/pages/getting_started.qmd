@@ -17,44 +17,45 @@ title: Getting started
 
 :::
 
-## Install Franklin as Student
+## Install Franklin
 
-::: {.panel-tabset group="platform"}
+::: {.panel-tabset group="role"}
 
-## Mac
+## Student
 
-Open your Terminal application, copy the command below by clicking the small clipboard icon in the top right corner of the box. Paste the command into the Terminal and press Enter.
+Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
+
+**Mac**:
+
+Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash
 ```
 
-## Windows
+**Windows**:
 
-Open your PowerShell application, copy the command below by clicking the small clipboard icon in the top right corner of the box. Paste the command into the PowerShell and press Enter.
+Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
 irm https://tinyurl.com/franklin-win-student-install | iex
 ```
 
-:::
+## Educator
 
+Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
-## Install Franklin as Educator
+**Mac**:
 
-::: {.panel-tabset group="platform"}
-
-## Mac
-
-Open your Terminal application, copy the command below by clicking the small clipboard icon in the top right corner of the box. Paste the command into the Terminal and press Enter.
+Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL https://tinyurl.com/franklin-mac-educator-install | bash
 ```
 
-## Windows
+**Windows**:
 
-Open your PowerShell application, copy the command below by clicking the small clipboard icon in the top right corner of the box. Paste the command into the PowerShell and press Enter.
+Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
 irm https://tinyurl.com/franklin-win-educator-install | iex
@@ -67,7 +68,7 @@ irm https://tinyurl.com/franklin-win-educator-install | iex
 
 Simple and robust command line interface in Terminal/PowerShell:
 
-::: {.panel-tabset group="platform"}
+::: {.panel-tabset group="role"}
 
 ## Student
 
@@ -105,13 +106,6 @@ See [Franklin core commands](commands_core.qmd) for the full documentation.
 5. Closing the browser window will add, commit, and push your changes to the GitLab exercise repository and initiate the building of an updated Docker image.
 
 See [Core commands](commands_core.qmd), [Educator commands](commands_edu.qmd), and [Admin commands](commands_admin.qmd) for the full documentation.
-
-## Administrator
-
-<i class="bi bi-terminal"></i> **List users**:
-
-1. 
-
 
 :::
 
