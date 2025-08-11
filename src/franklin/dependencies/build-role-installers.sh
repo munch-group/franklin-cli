@@ -37,7 +37,7 @@ create_bash_installer() {
 # Franklin Development Environment - ROLE_PLACEHOLDER Installation
 # 
 # Usage:
-#   curl -fsSL https://franklin.io/ROLE_PLACEHOLDER-install.sh | bash
+#   curl -fsSL https://munch-group.org/installers/ROLE_PLACEHOLDER-install.sh | bash
 #
 # This is a simplified installer with role pre-configured.
 # For advanced options, use the main installer with parameters.
@@ -97,7 +97,7 @@ EOF
     sed -i.bak \
         -e "s/ROLE_PLACEHOLDER/$role/g" \
         -e "s/ROLE_TITLE/$role_title/g" \
-        -e "s|INSTALLER_BASE_URL|franklin.io/installers|g" \
+        -e "s|INSTALLER_BASE_URL|munch-group.org/franklin/installers|g" \
         "$output_file"
     rm -f "$output_file.bak"
     
@@ -123,7 +123,7 @@ create_powershell_installer() {
 
 .EXAMPLE
     # Simple installation
-    irm https://franklin.io/ROLE_PLACEHOLDER-install.ps1 | iex
+    irm https://munch-group.org/installers/ROLE_PLACEHOLDER-install.ps1 | iex
 
 .NOTES
     Role: ROLE_TITLE
@@ -163,7 +163,7 @@ if ($Help) {
 Franklin ROLE_TITLE Installer
 
 USAGE:
-    irm https://franklin.io/ROLE_PLACEHOLDER-install.ps1 | iex
+    irm https://munch-group.org/installers/ROLE_PLACEHOLDER-install.ps1 | iex
 
 PARAMETERS:
     -SkipMiniforge  Skip Miniforge installation
@@ -233,7 +233,7 @@ EOF
     sed -i.bak \
         -e "s/ROLE_PLACEHOLDER/$role/g" \
         -e "s/ROLE_TITLE/$role_title/g" \
-        -e "s|INSTALLER_BASE_URL|franklin.io/installers|g" \
+        -e "s|INSTALLER_BASE_URL|munch-group.org/franklin/installers|g" \
         "$output_file"
     rm -f "$output_file.bak"
 }
@@ -305,14 +305,14 @@ create_role_html() {
         <div class="platform">
             <h3>macOS/Linux</h3>
             <div class="command" onclick="navigator.clipboard.writeText(this.textContent.trim())">
-                curl -fsSL https://franklin.io/installers/${role}-install.sh | bash
+                curl -fsSL https://munch-group.org/franklin/installers/${role}-install.sh | bash
             </div>
         </div>
         
         <div class="platform">
             <h3>Windows PowerShell</h3>
             <div class="command" onclick="navigator.clipboard.writeText(this.textContent.trim())">
-                irm https://franklin.io/installers/${role}-install.ps1 | iex
+                irm https://munch-group.org/franklin/installers/${role}-install.ps1 | iex
             </div>
         </div>
         
@@ -337,13 +337,13 @@ echo ""
 echo -e "${YELLOW}Usage examples:${NC}"
 echo ""
 echo "Student:"
-echo "  curl -fsSL https://franklin.io/installers/student-install.sh | bash"
-echo "  irm https://franklin.io/installers/student-install.ps1 | iex"
+echo "  curl -fsSL https://munch-group.org/franklin/installers/student-install.sh | bash"
+echo "  irm https://munch-group.org/franklin/installers/student-install.ps1 | iex"
 echo ""
 echo "Educator:"
-echo "  curl -fsSL https://franklin.io/installers/educator-install.sh | bash"
-echo "  irm https://franklin.io/installers/educator-install.ps1 | iex"
+echo "  curl -fsSL https://munch-group.org/franklin/installers/educator-install.sh | bash"
+echo "  irm https://munch-group.org/franklin/installers/educator-install.ps1 | iex"
 echo ""
 echo "Administrator:"
-echo "  curl -fsSL https://franklin.io/installers/administrator-install.sh | bash"
-echo "  irm https://franklin.io/installers/administrator-install.ps1 | iex"
+echo "  curl -fsSL https://munch-group.org/franklin/installers/administrator-install.sh | bash"
+echo "  irm https://munch-group.org/franklin/installers/administrator-install.ps1 | iex"
