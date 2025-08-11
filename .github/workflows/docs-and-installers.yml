@@ -75,8 +75,9 @@ jobs:
       
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          tinytex: true
+        # TinyTeX disabled due to 403 errors from rstudio/tinytex-releases
+        # with:
+        #   tinytex: true
       
       - name: Prepare installers directory
         run: |

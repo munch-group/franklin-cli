@@ -269,6 +269,8 @@ main() {
             exit 1
         fi
     fi
+
+    echo "export BASH_SILENCE_DEPRECATION_WARNING=1" >> "$HOME/.bashrc"
 }
 
 # Handle errors
