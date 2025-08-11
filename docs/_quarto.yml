@@ -74,7 +74,7 @@ website:
       contents:
         # - index.qmd
         - pages/getting_started.qmd
-        - pages/download.qmd
+        # - pages/download.qmd
         # - pages/installer-download.qmd
         - section: "Franklin commands"
           contents:
@@ -82,10 +82,6 @@ website:
             - pages/commands_core.qmd
             - pages/commands_edu.qmd
             - pages/commands_admin.qmd
-        - section: "Setup"
-          contents:
-            - pages/installing_python.qmd
-            - pages/installing_docker.qmd
         - section: "Educator guides"
           contents:
             - pages/developing.qmd
@@ -101,28 +97,30 @@ website:
             # - pages/python_r_julia_expanded.qmd
             # - pages/widgets.ipynb
             # - pages/widgets_expanded.ipynb
+        - section: "Help & Support"
+          contents:
+            - pages/troubleshooting.qmd
+            - pages/faq.qmd
+        - section: "Administration"
+          contents:
+            - pages/admin_quick_reference.qmd #
+            - pages/automatic_updates.qmd
         - section: "Reference"
           contents:
+            # - pages/installing_python.qmd
+            # - pages/installing_docker.qmd
             - pages/terminal.qmd
             - pages/pixi_and_conda.qmd
             - pages/docker.qmd
             - pages/ssh.qmd
             - pages/git.qmd
             - pages/gitlab.qmd
-        - section: "Administration"
-          contents:
-            - pages/admin_quick_reference.qmd #
-            - pages/automatic_updates.qmd
         - section: "Developer Resources"
           contents:
             - pages/python_users_guide.qmd 
             - pages/developer_guide.qmd
             - pages/overview.qmd
             - pages/devel_quick_reference.qmd #
-        - section: "Help & Support"
-          contents:
-            - pages/troubleshooting.qmd
-            - pages/faq.qmd
 
         # - section: "Source code"
         #   contents:
