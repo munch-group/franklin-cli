@@ -410,14 +410,35 @@ install_franklin() {
     # Run pixi global install command
     log_info "Executing: pixi global install -c munch-group -c conda-forge $package_name"
     
-    log_info "pixi global install -c munch-group -c conda-forge $package_name"
-
-    if pixi global install -c munch-group -c conda-forge "$package_name"; then
+    # Capture the output and error for debugging
+    local install_output
+    local install_exit_code
+    
+    # Run the command and capture output
+    install_output=$(pixi global install -c munch-group -c conda-forge "$package_name" 2>&1)
+    install_exit_code=$?
+    
+    if [ $install_exit_code -eq 0 ]; then
         log_success "$package_name installed successfully via pixi global"
         add_to_successful_installations "Franklin ($USER_ROLE)"
         return 0
     else
-        log_error "$package_name installation failed"
+        log_error "$package_name installation failed with exit code: $install_exit_code"
+        log_error "Error output:"
+        echo "$install_output" | while IFS= read -r line; do
+            log_error "  $line"
+        done
+        
+        # Check for common issues
+        if echo "$install_output" | grep -q "not found"; then
+            log_error "Package '$package_name' not found in the specified channels"
+            log_info "Try updating pixi: pixi self-update"
+        elif echo "$install_output" | grep -q "permission"; then
+            log_error "Permission issue detected. Try running with appropriate permissions"
+        elif echo "$install_output" | grep -q "network\|connection"; then
+            log_error "Network issue detected. Check your internet connection"
+        fi
+        
         add_to_failed_installations "Franklin"
         return 1
     fi
