@@ -378,11 +378,13 @@ install_franklin() {
     
     # Refresh environment to ensure pixi is in PATH
     if [ -f "$HOME/.bashrc" ]; then
+        log_info "Found and sourced .bashrc"
         set +u  # Temporarily disable unbound variable check
         source "$HOME/.bashrc" 2>/dev/null || true
         set -u
     fi
     if [ -f "$HOME/.zshrc" ]; then
+        log_info "Found and sourced .zshrc"
         set +u
         source "$HOME/.zshrc" 2>/dev/null || true
         set -u
@@ -408,6 +410,8 @@ install_franklin() {
     # Run pixi global install command
     log_info "Executing: pixi global install -c munch-group -c conda-forge $package_name"
     
+    log_info "pixi global install -c munch-group -c conda-forge $package_name"
+
     if pixi global install -c munch-group -c conda-forge "$package_name"; then
         log_success "$package_name installed successfully via pixi global"
         add_to_successful_installations "Franklin ($USER_ROLE)"
