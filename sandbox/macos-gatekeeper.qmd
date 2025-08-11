@@ -1,0 +1,147 @@
+---
+title: "macOS Security and Code Signing"
+---
+
+## Gatekeeper Warning
+
+When you download and run the Franklin Installer on macOS, you may see a warning:
+
+> "Franklin Installer" cannot be opened because the developer cannot be verified.
+
+or
+
+> Apple could not verify "Franklin Installer" is free of malware that may harm your Mac or compromise your privacy.
+
+This is a standard macOS security feature called Gatekeeper that warns users about unsigned applications.
+
+## How to Open the Installer
+
+### Method 1: Right-Click to Open
+
+1. Locate the Franklin Installer in your Downloads folder
+2. **Right-click** (or Control-click) on the installer
+3. Select **Open** from the context menu
+4. Click **Open** in the dialog that appears
+
+### Method 2: System Settings
+
+1. Try to open the installer normally (double-click)
+2. When the warning appears, click **OK**
+3. Open **System Settings** → **Privacy & Security**
+4. Look for "Franklin Installer was blocked from use because it is not from an identified developer"
+5. Click **Open Anyway**
+6. Enter your password if prompted
+7. Click **Open** in the final dialog
+
+## For Developers: Code Signing
+
+To prevent users from seeing this warning, the Franklin installer needs to be code signed and notarized by Apple.
+
+### Prerequisites
+
+1. **Apple Developer Account** ($99/year)
+2. **Developer ID Application Certificate**
+3. **App-specific password** for notarization
+
+### Setting up Code Signing
+
+#### 1. Get a Developer ID Certificate
+
+1. Join the [Apple Developer Program](https://developer.apple.com/programs/)
+2. In Xcode: **Preferences** → **Accounts** → **Manage Certificates**
+3. Click **+** → **Developer ID Application**
+
+#### 2. Create an App-Specific Password
+
+1. Go to [appleid.apple.com](https://appleid.apple.com)
+2. Sign in and go to **Sign-In and Security**
+3. Select **App-Specific Passwords**
+4. Generate a new password for "Franklin Installer"
+
+#### 3. Configure GitHub Secrets
+
+Add these secrets to your GitHub repository:
+
+```bash
+# Your Developer ID certificate name (exactly as shown in Keychain)
+MACOS_CERTIFICATE_NAME="Developer ID Application: Your Name (TEAMID)"
+
+# Your Apple ID email
+APPLE_ID="your.email@example.com"
+
+# The app-specific password you generated
+APPLE_ID_PASSWORD="xxxx-xxxx-xxxx-xxxx"
+
+# Your Team ID (found in Apple Developer account)
+TEAM_ID="XXXXXXXXXX"
+```
+
+To add secrets:
+1. Go to your repository **Settings**
+2. Navigate to **Secrets and variables** → **Actions**
+3. Click **New repository secret**
+4. Add each secret with the appropriate name and value
+
+### Local Code Signing
+
+To sign the installer locally:
+
+```bash
+# Set environment variables
+export MACOS_CERTIFICATE_NAME="Developer ID Application: Your Name (TEAMID)"
+export APPLE_ID="your.email@example.com"
+export APPLE_ID_PASSWORD="xxxx-xxxx-xxxx-xxxx"
+export TEAM_ID="XXXXXXXXXX"
+
+# Build the installer
+cd src/franklin/dependencies
+./build_native_installers.sh
+```
+
+The build script will automatically:
+1. Sign the application bundle
+2. Create and sign the DMG
+3. Submit for notarization
+4. Staple the notarization ticket
+
+### Verification
+
+To verify the signature:
+
+```bash
+# Check app signature
+codesign --verify --verbose "Franklin Installer.app"
+
+# Check DMG signature
+codesign --verify --verbose "Franklin-Installer-macOS.dmg"
+
+# Check notarization
+spctl -a -t open --context context:primary-signature -v "Franklin-Installer-macOS.dmg"
+```
+
+## Windows Code Signing
+
+For Windows executables, you'll need:
+1. Code signing certificate from a Certificate Authority
+2. SignTool.exe (part of Windows SDK)
+
+This can be configured in the NSIS installer script, but requires additional setup.
+
+## Alternative: Self-Signed Certificate
+
+For internal or development use, you can create a self-signed certificate:
+
+```bash
+# Create self-signed certificate
+security create-keychain -p password build.keychain
+security default-keychain -s build.keychain
+security unlock-keychain -p password build.keychain
+
+# Generate certificate
+security add-certificates -k build.keychain
+
+# Use for signing (not recommended for distribution)
+codesign --force --sign "Self-Signed Developer" "Franklin Installer.app"
+```
+
+**Note:** Self-signed certificates will still trigger Gatekeeper warnings for other users.

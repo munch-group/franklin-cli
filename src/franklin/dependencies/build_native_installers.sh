@@ -117,11 +117,19 @@ fi
 touch "$APP_BUNDLE/Contents/Resources/AppIcon.icns"
 
 # Sign the app if developer certificate is available
-if security find-identity -p codesigning | grep -q "Developer ID Application"; then
-    echo -e "${YELLOW}Signing the application...${NC}"
-    codesign --deep --force --verify --verbose --sign "Developer ID Application" "$APP_BUNDLE"
+if [ -n "$MACOS_CERTIFICATE_NAME" ]; then
+    echo -e "${YELLOW}Signing the application with certificate: $MACOS_CERTIFICATE_NAME${NC}"
+    codesign --deep --force --verify --verbose --sign "$MACOS_CERTIFICATE_NAME" "$APP_BUNDLE"
+    
+    # Verify signature
+    codesign --verify --verbose "$APP_BUNDLE" || echo -e "${YELLOW}Warning: Signature verification failed${NC}"
+elif security find-identity -p codesigning | grep -q "Developer ID Application"; then
+    echo -e "${YELLOW}Signing the application with available Developer ID...${NC}"
+    CERT_NAME=$(security find-identity -p codesigning | grep "Developer ID Application" | head -1 | cut -d '"' -f 2)
+    codesign --deep --force --verify --verbose --sign "$CERT_NAME" "$APP_BUNDLE"
 else
-    echo -e "${YELLOW}No signing certificate found, app will not be signed${NC}"
+    echo -e "${YELLOW}No signing certificate found. Users will see Gatekeeper warning.${NC}"
+    echo -e "${YELLOW}To sign, set MACOS_CERTIFICATE_NAME environment variable or install a Developer ID certificate${NC}"
 fi
 
 # Create DMG installer
@@ -131,6 +139,38 @@ hdiutil create -volname "$DMG_NAME" \
     -srcfolder "$APP_BUNDLE" \
     -ov -format UDZO \
     "$DIST_DIR/$DMG_NAME.dmg"
+
+# Sign the DMG if certificate is available
+if [ -n "$MACOS_CERTIFICATE_NAME" ] || security find-identity -p codesigning | grep -q "Developer ID Application"; then
+    if [ -n "$MACOS_CERTIFICATE_NAME" ]; then
+        CERT_NAME="$MACOS_CERTIFICATE_NAME"
+    else
+        CERT_NAME=$(security find-identity -p codesigning | grep "Developer ID Application" | head -1 | cut -d '"' -f 2)
+    fi
+    
+    echo -e "${YELLOW}Signing DMG with certificate: $CERT_NAME${NC}"
+    codesign --force --sign "$CERT_NAME" "$DIST_DIR/$DMG_NAME.dmg"
+    
+    # Notarize if credentials are available (requires Apple Developer account)
+    if [ -n "$APPLE_ID" ] && [ -n "$APPLE_ID_PASSWORD" ] && [ -n "$TEAM_ID" ]; then
+        echo -e "${YELLOW}Notarizing DMG with Apple...${NC}"
+        xcrun notarytool submit "$DIST_DIR/$DMG_NAME.dmg" \
+            --apple-id "$APPLE_ID" \
+            --password "$APPLE_ID_PASSWORD" \
+            --team-id "$TEAM_ID" \
+            --wait || echo -e "${YELLOW}Notarization failed or timed out${NC}"
+        
+        # Staple the notarization ticket if successful
+        xcrun stapler staple "$DIST_DIR/$DMG_NAME.dmg" 2>/dev/null && \
+            echo -e "${GREEN}✓ DMG notarized and stapled successfully${NC}" || \
+            echo -e "${YELLOW}Could not staple notarization ticket${NC}"
+    else
+        echo -e "${YELLOW}Notarization skipped. To enable:${NC}"
+        echo -e "${YELLOW}  Set APPLE_ID (your Apple ID email)${NC}"
+        echo -e "${YELLOW}  Set APPLE_ID_PASSWORD (app-specific password)${NC}"
+        echo -e "${YELLOW}  Set TEAM_ID (your Apple Developer Team ID)${NC}"
+    fi
+fi
 
 echo -e "${GREEN}✓ macOS installer created: $DIST_DIR/$DMG_NAME.dmg${NC}"
 
@@ -252,6 +292,43 @@ EOF
     # Build NSIS installer
     echo -e "${YELLOW}Building Windows .exe installer with NSIS...${NC}"
     (cd "$BUILD_DIR/windows" && makensis installer.nsi)
+    
+    # Sign Windows executable if certificate is available
+    if [ -n "$WINDOWS_CERT_BASE64" ] && [ -n "$WINDOWS_CERT_PASSWORD" ]; then
+        if command -v osslsigncode >/dev/null 2>&1; then
+            echo -e "${YELLOW}Signing Windows executable...${NC}"
+            
+            # Decode certificate from base64
+            echo "$WINDOWS_CERT_BASE64" | base64 -d > "$BUILD_DIR/temp_cert.pfx"
+            
+            # Move unsigned exe
+            mv "$DIST_DIR/Franklin-Installer-Windows.exe" "$DIST_DIR/Franklin-Installer-Windows-unsigned.exe"
+            
+            # Sign with osslsigncode
+            osslsigncode sign \
+                -pkcs12 "$BUILD_DIR/temp_cert.pfx" \
+                -pass "$WINDOWS_CERT_PASSWORD" \
+                -n "Franklin Development Environment" \
+                -i "https://github.com/franklin-project" \
+                -t "http://timestamp.digicert.com" \
+                -in "$DIST_DIR/Franklin-Installer-Windows-unsigned.exe" \
+                -out "$DIST_DIR/Franklin-Installer-Windows.exe"
+            
+            # Clean up
+            rm "$BUILD_DIR/temp_cert.pfx"
+            rm "$DIST_DIR/Franklin-Installer-Windows-unsigned.exe"
+            
+            echo -e "${GREEN}✓ Windows executable signed successfully${NC}"
+        else
+            echo -e "${YELLOW}osslsigncode not found. Install with: brew install osslsigncode${NC}"
+            echo -e "${YELLOW}Windows executable will not be signed${NC}"
+        fi
+    else
+        echo -e "${YELLOW}Windows signing skipped. To enable:${NC}"
+        echo -e "${YELLOW}  Set WINDOWS_CERT_BASE64 (base64-encoded PFX certificate)${NC}"
+        echo -e "${YELLOW}  Set WINDOWS_CERT_PASSWORD (certificate password)${NC}"
+    fi
+    
     echo -e "${GREEN}✓ Windows installer created: $DIST_DIR/Franklin-Installer-Windows.exe${NC}"
 else
     echo -e "${YELLOW}NSIS not found, creating ZIP package instead...${NC}"
@@ -259,9 +336,11 @@ else
     echo -e "${GREEN}✓ Windows installer package created: $DIST_DIR/Franklin-Installer-Windows.zip${NC}"
 fi
 
-# Create cross-platform Python GUI installer as fallback
-echo -e "${BLUE}Creating cross-platform Python installer...${NC}"
-cat > "$DIST_DIR/franklin_installer_gui.py" << 'EOF'
+# Copy cross-platform Python GUI installer
+echo -e "${BLUE}Copying cross-platform Python installer...${NC}"
+cp "$SCRIPT_DIR/franklin_installer_gui.py" "$DIST_DIR/" || {
+    echo -e "${YELLOW}Warning: franklin_installer_gui.py not found, creating basic version${NC}"
+    cat > "$DIST_DIR/franklin_installer_gui.py" << 'EOF'
 #!/usr/bin/env python3
 """
 Cross-platform GUI installer with radio buttons
@@ -433,10 +512,12 @@ if __name__ == "__main__":
     app = InstallerGUI(root)
     root.mainloop()
 EOF
+}
 
+# Copy dependency checker
 cp "$SCRIPT_DIR/dependency_checker.py" "$DIST_DIR/"
 
-echo -e "${GREEN}✓ Cross-platform Python GUI created: $DIST_DIR/franklin_installer_gui.py${NC}"
+echo -e "${GREEN}✓ Cross-platform Python installer ready: $DIST_DIR/franklin_installer_gui.py${NC}"
 
 # Summary
 echo ""

@@ -1,0 +1,479 @@
+---
+title: "Web-Based Installation"
+subtitle: "One-line installer without security warnings"
+---
+
+## Overview
+
+Web-based installers using `curl | bash` bypass application-level security warnings (Gatekeeper/SmartScreen) because they run as shell commands rather than downloaded executables.
+
+## Quick Install Commands
+
+### Default Installation (Student)
+
+**macOS/Linux (bash/zsh):**
+```bash
+curl -fsSL https://franklin.io/install.sh | bash
+```
+
+**Windows PowerShell:**
+```powershell
+irm https://franklin.io/install.ps1 | iex
+```
+
+**Windows Command Prompt (cmd.exe):**
+```cmd
+powershell -Command "irm https://franklin.io/install.ps1 | iex"
+```
+
+### Role-Specific Installation
+
+**macOS/Linux:**
+```bash
+# Educator
+curl -fsSL https://franklin.io/install.sh | bash -s -- --role educator
+
+# Administrator
+curl -fsSL https://franklin.io/install.sh | bash -s -- --role administrator
+```
+
+**Windows PowerShell:**
+```powershell
+# Educator
+& ([scriptblock]::Create((irm https://franklin.io/install.ps1))) -Role educator
+
+# Administrator
+iex "& { $(irm https://franklin.io/install.ps1) } -Role administrator"
+```
+
+**Windows Command Prompt:**
+```cmd
+:: Educator
+powershell -Command "& ([scriptblock]::Create((irm https://franklin.io/install.ps1))) -Role educator"
+```
+
+## Advantages
+
+### ✅ No Security Warnings
+- No Gatekeeper warnings on macOS
+- No SmartScreen warnings on Windows
+- No code signing certificates needed ($0 cost)
+
+### ✅ User Experience
+- Single command to copy and paste
+- Works in any terminal
+- No files to download and manage
+- Automatic OS detection
+
+### ✅ Developer Benefits
+- No build process for installers
+- Easy to update (just change script on server)
+- Cross-platform with single codebase
+- Built-in analytics possible
+
+## Security Considerations
+
+### ⚠️ User Trust Issues
+
+The `curl | bash` pattern is controversial because:
+
+1. **Invisible execution**: Users can't inspect code before running
+2. **HTTPS hijacking**: Vulnerable to MITM attacks without certificate pinning
+3. **Server compromise**: If server is hacked, all users affected
+4. **No signature verification**: No cryptographic proof of authenticity
+
+### 🔒 Mitigation Strategies
+
+#### 1. Provide Inspection Option
+
+```bash
+# Let users inspect first
+curl -fsSL https://franklin-project.org/install.sh -o install.sh
+less install.sh  # Review the script
+bash install.sh
+```
+
+#### 2. Use Checksums
+
+```bash
+# Download and verify
+curl -fsSL https://franklin-project.org/install.sh -o install.sh
+curl -fsSL https://franklin-project.org/install.sh.sha256 -o install.sh.sha256
+shasum -a 256 -c install.sh.sha256
+bash install.sh
+```
+
+#### 3. Provide Multiple Options
+
+```markdown
+## Installation Options
+
+### Quick Install (if you trust us)
+curl -fsSL https://franklin-project.org/install.sh | bash
+
+### Careful Install (recommended)
+# 1. Download and inspect
+curl -fsSL https://franklin-project.org/install.sh -o install.sh
+cat install.sh
+
+# 2. Run if satisfied
+bash install.sh
+
+### Paranoid Install
+# Download from GitHub directly
+curl -fsSL https://raw.githubusercontent.com/franklin/franklin/main/install.sh | bash
+```
+
+## Implementation
+
+### Create Web Installer Script
+
+```bash
+#!/usr/bin/env bash
+# install.sh - Web installer for Franklin
+
+set -euo pipefail
+
+# Configuration
+REPO_URL="https://github.com/franklin-project/franklin"
+INSTALL_DIR="$HOME/.franklin-installer"
+VERSION="${VERSION:-latest}"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Logging functions
+log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
+log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
+log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
+
+# Detect OS
+detect_os() {
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "macos"
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        echo "linux"
+    elif [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "cygwin" ]]; then
+        echo "windows"
+    else
+        echo "unknown"
+    fi
+}
+
+# Parse arguments
+USER_ROLE="student"
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --role)
+            USER_ROLE="$2"
+            shift 2
+            ;;
+        --version)
+            VERSION="$2"
+            shift 2
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
+
+main() {
+    log_info "Franklin Development Environment Web Installer"
+    log_info "============================================"
+    
+    # Detect operating system
+    OS=$(detect_os)
+    log_info "Detected OS: $OS"
+    
+    # Create temporary directory
+    TEMP_DIR=$(mktemp -d)
+    trap "rm -rf $TEMP_DIR" EXIT
+    
+    log_info "Downloading installer scripts..."
+    
+    # Download appropriate installer
+    cd "$TEMP_DIR"
+    if [[ "$OS" == "macos" ]] || [[ "$OS" == "linux" ]]; then
+        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/master-installer.sh" -o master-installer.sh
+        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/install-miniforge.sh" -o install-miniforge.sh
+        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/install-pixi.sh" -o install-pixi.sh
+        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/install-docker-desktop.sh" -o install-docker-desktop.sh
+        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/install-chrome.sh" -o install-chrome.sh
+        
+        chmod +x *.sh
+        
+        log_info "Starting installation (Role: $USER_ROLE)..."
+        ./master-installer.sh --role "$USER_ROLE"
+    else
+        log_error "Unsupported OS: $OS"
+        exit 1
+    fi
+    
+    log_info "Installation complete!"
+    log_info "Run 'franklin --help' to get started"
+}
+
+# Run main function
+main "$@"
+```
+
+### Windows PowerShell Version
+
+```powershell
+# install.ps1 - Web installer for Franklin (Windows)
+
+$ErrorActionPreference = "Stop"
+
+# Configuration
+$RepoUrl = "https://github.com/franklin-project/franklin"
+$InstallDir = "$env:USERPROFILE\.franklin-installer"
+
+# Parse arguments
+$UserRole = "student"
+if ($args -contains "--role") {
+    $index = [array]::IndexOf($args, "--role")
+    if ($index -ne -1 -and $index + 1 -lt $args.Count) {
+        $UserRole = $args[$index + 1]
+    }
+}
+
+Write-Host "Franklin Development Environment Web Installer" -ForegroundColor Green
+Write-Host "============================================" -ForegroundColor Green
+
+# Create temp directory
+$TempDir = New-TemporaryFile | % { Remove-Item $_; New-Item -ItemType Directory -Path $_ }
+
+try {
+    Write-Host "[INFO] Downloading installer scripts..." -ForegroundColor Green
+    
+    # Download installer files
+    $files = @(
+        "Master-Installer.ps1",
+        "Install-Miniforge.ps1",
+        "Install-Pixi.ps1",
+        "Install-Docker-Desktop.ps1",
+        "Install-Chrome.ps1"
+    )
+    
+    foreach ($file in $files) {
+        $url = "$RepoUrl/raw/main/src/franklin/dependencies/$file"
+        $dest = Join-Path $TempDir $file
+        Invoke-WebRequest -Uri $url -OutFile $dest
+    }
+    
+    # Run installer
+    Write-Host "[INFO] Starting installation (Role: $UserRole)..." -ForegroundColor Green
+    & "$TempDir\Master-Installer.ps1" --role $UserRole
+    
+    Write-Host "[INFO] Installation complete!" -ForegroundColor Green
+    Write-Host "[INFO] Run 'franklin --help' to get started" -ForegroundColor Green
+}
+finally {
+    Remove-Item -Recurse -Force $TempDir -ErrorAction SilentlyContinue
+}
+```
+
+## Hosting Options
+
+### 1. GitHub Pages (Free)
+
+```yaml
+# .github/workflows/deploy-installer.yml
+name: Deploy Web Installer
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Copy installer scripts
+        run: |
+          mkdir -p public
+          cp src/franklin/dependencies/web-install.sh public/install.sh
+          cp src/franklin/dependencies/web-install.ps1 public/install.ps1
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+```
+
+### 2. CDN with Custom Domain
+
+```nginx
+# Nginx configuration
+server {
+    server_name install.franklin-project.org;
+    
+    location /install.sh {
+        alias /var/www/installers/install.sh;
+        add_header Content-Type "text/plain";
+        add_header X-Content-Type-Options "nosniff";
+    }
+    
+    location /install.ps1 {
+        alias /var/www/installers/install.ps1;
+        add_header Content-Type "text/plain";
+        add_header X-Content-Type-Options "nosniff";
+    }
+}
+```
+
+### 3. Redirect Service
+
+```javascript
+// Cloudflare Worker or similar
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+async function handleRequest(request) {
+  const url = new URL(request.url)
+  
+  // Detect OS from User-Agent
+  const ua = request.headers.get('User-Agent') || ''
+  const isWindows = ua.includes('Windows')
+  
+  // Redirect to appropriate script
+  if (url.pathname === '/install') {
+    const scriptUrl = isWindows 
+      ? 'https://raw.githubusercontent.com/franklin/franklin/main/install.ps1'
+      : 'https://raw.githubusercontent.com/franklin/franklin/main/install.sh'
+    
+    return Response.redirect(scriptUrl, 302)
+  }
+  
+  return new Response('Not Found', { status: 404 })
+}
+```
+
+## Comparison with Native Installers
+
+| Aspect | Native Installers | Web Installer (`curl \| bash`) |
+|--------|------------------|--------------------------------|
+| **Security Warnings** | Yes (without signing) | No |
+| **Cost** | $99-700/year for signing | $0 |
+| **User Trust** | Higher (signed) | Lower (controversial pattern) |
+| **Installation Steps** | Download → Open → Click | Copy → Paste → Enter |
+| **Offline Installation** | Yes | No |
+| **Update Mechanism** | Download new version | Re-run command |
+| **Inspection Before Run** | Can examine package | Must download separately |
+| **Rollback** | Difficult | Easy (delete and reinstall) |
+| **Analytics** | Limited | Full (server logs) |
+| **Corporate Environments** | Often allowed | Often blocked |
+
+## Best Practices
+
+### 1. Always Use HTTPS
+```bash
+# Good
+curl -fsSL https://example.com/install.sh | bash
+
+# Bad - vulnerable to MITM
+curl -fsSL http://example.com/install.sh | bash
+```
+
+### 2. Provide Multiple Formats
+```markdown
+## Install Franklin
+
+### Web Installer
+curl -fsSL https://install.franklin.io | bash
+
+### Package Managers
+brew install franklin          # macOS
+choco install franklin         # Windows
+conda install franklin         # Cross-platform
+
+### Manual Download
+https://github.com/franklin/releases
+```
+
+### 3. Version Pinning
+```bash
+# Latest version
+curl -fsSL https://install.franklin.io | bash
+
+# Specific version
+curl -fsSL https://install.franklin.io | bash -s -- --version 1.2.3
+```
+
+### 4. Clear Communication
+```bash
+#!/bin/bash
+echo "======================================"
+echo "Franklin Development Environment"
+echo "======================================"
+echo ""
+echo "This script will install:"
+echo "  • Miniforge (Python environment)"
+echo "  • Pixi (Package manager)"
+echo "  • Docker Desktop"
+echo "  • Google Chrome"
+echo "  • Franklin"
+echo ""
+read -p "Continue? (y/n) " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    exit 1
+fi
+```
+
+## Security Enhancements
+
+### GPG Signing
+```bash
+# Sign the installer
+gpg --detach-sign --armor install.sh
+
+# User verifies
+curl -fsSL https://install.franklin.io/install.sh -o install.sh
+curl -fsSL https://install.franklin.io/install.sh.asc -o install.sh.asc
+gpg --verify install.sh.asc install.sh
+bash install.sh
+```
+
+### Subresource Integrity
+```html
+<!-- On your website -->
+<pre>
+curl -fsSL https://install.franklin.io | bash
+</pre>
+<p>SHA256: <code>a7c4f2c8b1d3e5f7...</code></p>
+```
+
+### Rate Limiting
+```nginx
+# Prevent abuse
+limit_req_zone $binary_remote_addr zone=installer:10m rate=10r/m;
+
+location /install.sh {
+    limit_req zone=installer burst=2;
+    # ...
+}
+```
+
+## Conclusion
+
+Web installers are a viable alternative that:
+- ✅ Avoid app security warnings completely
+- ✅ Provide simple one-line installation
+- ✅ Cost nothing to implement
+- ⚠️ Require users to trust your server
+- ⚠️ May be blocked in corporate environments
+
+**Recommendation**: Offer both options:
+1. Web installer for quick setup
+2. Signed native installers for security-conscious users
+3. Package managers for developers
+4. Manual installation instructions for maximum control

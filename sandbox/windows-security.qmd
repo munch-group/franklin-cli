@@ -1,0 +1,248 @@
+---
+title: "Windows Security and Code Signing"
+---
+
+## Windows SmartScreen Warning
+
+When you download and run the Franklin Installer on Windows, you'll likely see a warning:
+
+> "Windows protected your PC - Microsoft Defender SmartScreen prevented an unrecognized app from starting."
+
+This is Windows SmartScreen, which is similar to macOS Gatekeeper - it warns users about unsigned or uncommon applications.
+
+## How to Run the Installer
+
+### Bypassing SmartScreen
+
+1. When the SmartScreen warning appears, click **More info**
+2. Click **Run anyway**
+3. If prompted by User Account Control (UAC), click **Yes**
+
+### Alternative: Disable SmartScreen (Not Recommended)
+
+For testing only:
+1. Open **Windows Security** settings
+2. Go to **App & browser control**
+3. Under **Check apps and files**, select **Warn** or **Off**
+
+**Important:** Re-enable SmartScreen after testing for security.
+
+## Additional Windows Restrictions
+
+### 1. PowerShell Execution Policy
+
+The installer uses PowerShell scripts, which may be blocked by execution policies:
+
+```powershell
+# Check current policy
+Get-ExecutionPolicy
+
+# Temporarily allow scripts (requires admin)
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+
+# Or run installer with bypass
+powershell.exe -ExecutionPolicy Bypass -File "windows_installer_ui.ps1"
+```
+
+### 2. User Account Control (UAC)
+
+Installing system-wide components (Docker Desktop, Chrome) requires administrator privileges:
+- The installer will prompt for elevation
+- Users need local administrator rights
+
+### 3. Antivirus Software
+
+Some antivirus programs may flag unsigned installers:
+- Windows Defender
+- Third-party antivirus (Norton, McAfee, etc.)
+
+Users may need to:
+1. Temporarily disable real-time protection
+2. Add an exception for the installer
+3. Restore from quarantine if flagged
+
+### 4. Mark of the Web (MOTW)
+
+Files downloaded from the internet have a special attribute:
+
+```powershell
+# Check if file has MOTW
+Get-Item "Franklin-Installer-Windows.exe" -Stream Zone.Identifier
+
+# Remove MOTW (unblock file)
+Unblock-File -Path "Franklin-Installer-Windows.exe"
+```
+
+## For Developers: Windows Code Signing
+
+### Prerequisites
+
+1. **Code Signing Certificate** from a Certificate Authority (~$200-500/year):
+   - DigiCert
+   - Sectigo (formerly Comodo)
+   - GlobalSign
+   - SSL.com
+
+2. **Extended Validation (EV) Certificate** (optional, ~$300-700/year):
+   - Immediate SmartScreen reputation
+   - Requires hardware token
+
+### Setting up Code Signing
+
+#### 1. Obtain a Certificate
+
+Standard Code Signing Certificate:
+- Takes time to build SmartScreen reputation
+- Lower cost
+- Software-based
+
+EV Code Signing Certificate:
+- Instant SmartScreen trust
+- Higher cost
+- Hardware token required
+
+#### 2. Sign the NSIS Installer
+
+Update the NSIS script to sign the executable:
+
+```nsis
+; After creating the installer exe
+!define SIGNTOOL "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe"
+!define CERT_THUMBPRINT "YOUR_CERT_THUMBPRINT"
+
+; Sign the uninstaller
+!system '"${SIGNTOOL}" sign /sha1 ${CERT_THUMBPRINT} /tr http://timestamp.digicert.com /td sha256 /fd sha256 "$%TEMP%\uninstaller.exe"'
+
+; Sign the final installer
+!system '"${SIGNTOOL}" sign /sha1 ${CERT_THUMBPRINT} /tr http://timestamp.digicert.com /td sha256 /fd sha256 "Franklin-Installer-Windows.exe"'
+```
+
+#### 3. Configure GitHub Actions
+
+Add Windows signing to the build script:
+
+```bash
+# In build_native_installers.sh, after building the Windows exe
+if [ -n "$WINDOWS_CERT_BASE64" ] && command -v osslsigncode >/dev/null 2>&1; then
+    echo "Signing Windows executable..."
+    
+    # Decode certificate from base64
+    echo "$WINDOWS_CERT_BASE64" | base64 -d > temp_cert.pfx
+    
+    # Sign with osslsigncode (cross-platform signing tool)
+    osslsigncode sign \
+        -pkcs12 temp_cert.pfx \
+        -pass "$WINDOWS_CERT_PASSWORD" \
+        -n "Franklin Development Environment" \
+        -i "https://franklin-project.org" \
+        -t "http://timestamp.digicert.com" \
+        -in "$DIST_DIR/Franklin-Installer-Windows-unsigned.exe" \
+        -out "$DIST_DIR/Franklin-Installer-Windows.exe"
+    
+    # Clean up certificate
+    rm temp_cert.pfx
+else
+    echo "Windows signing skipped (set WINDOWS_CERT_BASE64 and WINDOWS_CERT_PASSWORD)"
+fi
+```
+
+GitHub Secrets needed:
+- `WINDOWS_CERT_BASE64`: Base64-encoded PFX certificate
+- `WINDOWS_CERT_PASSWORD`: Certificate password
+
+### Local Signing on Windows
+
+```powershell
+# Using signtool (Windows SDK)
+signtool sign /f "certificate.pfx" /p "password" `
+    /tr http://timestamp.digicert.com /td sha256 /fd sha256 `
+    "Franklin-Installer-Windows.exe"
+
+# Verify signature
+signtool verify /pa "Franklin-Installer-Windows.exe"
+```
+
+### Local Signing on macOS/Linux
+
+```bash
+# Install osslsigncode
+brew install osslsigncode  # macOS
+apt-get install osslsigncode  # Ubuntu/Debian
+
+# Sign executable
+osslsigncode sign \
+    -pkcs12 certificate.pfx \
+    -pass "password" \
+    -n "Franklin Installer" \
+    -t http://timestamp.digicert.com \
+    -in Franklin-Installer-Windows-unsigned.exe \
+    -out Franklin-Installer-Windows.exe
+
+# Verify signature
+osslsigncode verify Franklin-Installer-Windows.exe
+```
+
+## SmartScreen Reputation Building
+
+Even with a valid signature, new applications need to build reputation:
+
+1. **Standard Certificate**: 
+   - May trigger SmartScreen for first ~few hundred downloads
+   - Reputation builds over time and downloads
+   - Eventually stops triggering warnings
+
+2. **EV Certificate**:
+   - Immediate SmartScreen trust
+   - No reputation building needed
+   - More expensive but better user experience
+
+## Security Comparison: Windows vs macOS
+
+| Feature | Windows | macOS |
+|---------|---------|-------|
+| **Warning System** | SmartScreen | Gatekeeper |
+| **Certificate Cost** | $200-700/year | $99/year (Developer Program) |
+| **Instant Trust** | EV Certificate | Notarization |
+| **Reputation System** | Download-based | Developer ID based |
+| **Bypass Method** | "More info" → "Run anyway" | Right-click → Open |
+| **Script Restrictions** | PowerShell Execution Policy | None for scripts |
+| **Admin Rights** | UAC prompts | Password prompts |
+
+## Best Practices
+
+1. **Always sign installers** for production distribution
+2. **Use EV certificates** for Windows if budget allows
+3. **Include clear instructions** for users to bypass warnings
+4. **Test on clean VMs** to see actual user experience
+5. **Consider MSI installers** as alternative (better enterprise support)
+6. **Implement auto-update** to reduce re-download friction
+
+## Alternative: Microsoft Store
+
+Publishing through the Microsoft Store:
+- Automatic signing and trust
+- No SmartScreen warnings
+- Requires MSIX packaging
+- Store review process
+- Limited to Windows 10/11
+
+## Workaround for Development
+
+For internal testing without certificates:
+
+```powershell
+# Create self-signed certificate (PowerShell as Admin)
+$cert = New-SelfSignedCertificate -Subject "CN=Franklin Dev" `
+    -CertStoreLocation "Cert:\CurrentUser\My" `
+    -Type CodeSigningCert
+
+# Export certificate
+$pwd = ConvertTo-SecureString -String "password" -Force -AsPlainText
+Export-PfxCertificate -Cert $cert -FilePath "dev-cert.pfx" -Password $pwd
+
+# Sign executable
+Set-AuthenticodeSignature -FilePath "installer.exe" `
+    -Certificate $cert -TimestampServer "http://timestamp.digicert.com"
+```
+
+**Note:** Self-signed certificates still trigger SmartScreen but show publisher name.

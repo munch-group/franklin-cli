@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franklin Installer - Universal</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 10px;
+        }
+        .install-box {
+            background: #f0f7ff;
+            border: 1px solid #007acc;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .command {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            position: relative;
+            margin: 10px 0;
+            user-select: all;
+            cursor: pointer;
+        }
+        .command:hover {
+            background: #1d1d1d;
+        }
+        .copy-hint {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #007acc;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .command:hover .copy-hint {
+            opacity: 1;
+        }
+        .copied {
+            background: #28a745 !important;
+        }
+        .platform-section {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        .platform-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: #007acc;
+            color: white;
+        }
+        .tab:hover:not(.active) {
+            background: #e0e0e0;
+        }
+        .role-selector {
+            margin: 20px 0;
+        }
+        .role-selector label {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .role-selector select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .alternative {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Franklin Development Environment Installer</h1>
+        
+        <p>Copy and paste the command below into your terminal to install Franklin:</p>
+        
+        <!-- Platform Detection -->
+        <div class="tabs">
+            <button class="tab" onclick="showPlatform('auto')">Auto-Detect</button>
+            <button class="tab" onclick="showPlatform('macos')">macOS</button>
+            <button class="tab" onclick="showPlatform('windows')">Windows</button>
+            <button class="tab" onclick="showPlatform('linux')">Linux</button>
+        </div>
+        
+        <!-- Role Selection -->
+        <div class="role-selector">
+            <label for="role">Select your role:</label>
+            <select id="role" onchange="updateCommands()">
+                <option value="student">Student (standard Franklin)</option>
+                <option value="educator">Educator (franklin-educator)</option>
+                <option value="administrator">Administrator (franklin-admin)</option>
+            </select>
+        </div>
+        
+        <!-- Auto-detected Platform -->
+        <div id="auto" class="platform-section">
+            <div class="install-box">
+                <h3>Quick Install for <span id="detected-os">Your System</span></h3>
+                <div class="command" onclick="copyCommand(this)" id="auto-command">
+                    Detecting your operating system...
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- macOS -->
+        <div id="macos" class="platform-section">
+            <div class="install-box">
+                <h3>macOS / Linux Installation</h3>
+                <div class="command" onclick="copyCommand(this)" id="macos-command">
+                    curl -fsSL https://franklin.io/install.sh | bash
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Windows -->
+        <div id="windows" class="platform-section">
+            <div class="install-box">
+                <h3>Windows PowerShell Installation</h3>
+                <div class="command" onclick="copyCommand(this)" id="windows-command">
+                    irm https://franklin.io/install.ps1 | iex
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+                
+                <h4>Windows Command Prompt (cmd.exe)</h4>
+                <div class="command" onclick="copyCommand(this)" id="windows-cmd-command">
+                    powershell -Command "irm https://franklin.io/install.ps1 | iex"
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Linux -->
+        <div id="linux" class="platform-section">
+            <div class="install-box">
+                <h3>Linux Installation</h3>
+                <div class="command" onclick="copyCommand(this)" id="linux-command">
+                    curl -fsSL https://franklin.io/install.sh | bash
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+                
+                <h4>Alternative (wget)</h4>
+                <div class="command" onclick="copyCommand(this)">
+                    wget -qO- https://franklin.io/install.sh | bash
+                    <span class="copy-hint">Click to copy</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Security Note -->
+        <div class="warning">
+            <strong>⚠️ Security Note:</strong> This installer will download and execute scripts from the internet. 
+            If you prefer to inspect the code first:
+            <ol>
+                <li>Download: <code>curl -fsSL https://franklin.io/install.sh -o install.sh</code></li>
+                <li>Inspect: <code>less install.sh</code></li>
+                <li>Run: <code>bash install.sh</code></li>
+            </ol>
+        </div>
+        
+        <!-- Alternatives -->
+        <div class="alternative">
+            <h3>Alternative Installation Methods</h3>
+            <ul>
+                <li><strong>Native Installers:</strong> <a href="/download">Download .dmg/.exe files</a></li>
+                <li><strong>Homebrew:</strong> <code>brew install franklin</code></li>
+                <li><strong>Conda:</strong> <code>conda install -c munch-group franklin</code></li>
+                <li><strong>From Source:</strong> <a href="https://github.com/franklin/franklin">GitHub Repository</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Detect operating system
+        function detectOS() {
+            const platform = navigator.platform.toLowerCase();
+            const userAgent = navigator.userAgent.toLowerCase();
+            
+            if (platform.includes('mac')) {
+                return 'macos';
+            } else if (platform.includes('win')) {
+                return 'windows';
+            } else if (platform.includes('linux')) {
+                return 'linux';
+            } else if (userAgent.includes('android')) {
+                return 'android';
+            } else if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
+                return 'ios';
+            }
+            return 'unknown';
+        }
+        
+        // Update commands based on role
+        function updateCommands() {
+            const role = document.getElementById('role').value;
+            const os = detectOS();
+            
+            // Determine if we're on GitHub Pages or local
+            const isGitHubPages = window.location.hostname.includes('.github.io');
+            const baseUrl = isGitHubPages 
+                ? window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '')
+                : 'https://franklin.io/installers';
+            
+            // Update macOS/Linux commands
+            let bashCmd = `curl -fsSL ${baseUrl}/install.sh | bash`;
+            if (role !== 'student') {
+                bashCmd = `curl -fsSL ${baseUrl}/install.sh | bash -s -- --role ${role}`;
+            }
+            
+            // Update Windows commands
+            let psCmd = `irm ${baseUrl}/install.ps1 | iex`;
+            let cmdCmd = `powershell -Command "irm ${baseUrl}/install.ps1 | iex"`;
+            if (role !== 'student') {
+                psCmd = `& ([scriptblock]::Create((irm ${baseUrl}/install.ps1))) -Role ${role}`;
+                cmdCmd = `powershell -Command "& ([scriptblock]::Create((irm ${baseUrl}/install.ps1))) -Role ${role}"`;
+            }
+            
+            // Update all command displays
+            document.getElementById('macos-command').firstChild.textContent = bashCmd;
+            document.getElementById('linux-command').firstChild.textContent = bashCmd;
+            document.getElementById('windows-command').firstChild.textContent = psCmd;
+            document.getElementById('windows-cmd-command').firstChild.textContent = cmdCmd;
+            
+            // Update auto-detect
+            if (os === 'windows') {
+                document.getElementById('auto-command').firstChild.textContent = psCmd;
+            } else if (os === 'macos' || os === 'linux') {
+                document.getElementById('auto-command').firstChild.textContent = bashCmd;
+            }
+        }
+        
+        // Show platform section
+        function showPlatform(platform) {
+            // Hide all sections
+            document.querySelectorAll('.platform-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected platform
+            if (platform === 'auto') {
+                const os = detectOS();
+                const displayName = {
+                    'macos': 'macOS',
+                    'windows': 'Windows',
+                    'linux': 'Linux',
+                    'android': 'Android (Not Supported)',
+                    'ios': 'iOS (Not Supported)',
+                    'unknown': 'Unknown OS'
+                }[os];
+                
+                document.getElementById('detected-os').textContent = displayName;
+                
+                if (os === 'android' || os === 'ios') {
+                    document.getElementById('auto-command').firstChild.textContent = 
+                        'Mobile devices are not supported. Please use a desktop computer.';
+                } else if (os === 'unknown') {
+                    document.getElementById('auto-command').firstChild.textContent = 
+                        'Could not detect OS. Please select your platform manually.';
+                }
+            }
+            
+            document.getElementById(platform).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Copy command to clipboard
+        function copyCommand(element) {
+            const command = element.firstChild.textContent.trim();
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(command).then(() => {
+                    const hint = element.querySelector('.copy-hint');
+                    hint.textContent = 'Copied!';
+                    hint.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        hint.textContent = 'Click to copy';
+                        hint.classList.remove('copied');
+                    }, 2000);
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = command;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+        }
+        
+        // Initialize on load
+        window.onload = function() {
+            const os = detectOS();
+            
+            // Set initial platform
+            if (os === 'macos' || os === 'windows' || os === 'linux') {
+                showPlatform(os);
+                document.querySelector(`.tab:nth-child(${os === 'macos' ? 2 : os === 'windows' ? 3 : 4})`).classList.add('active');
+            } else {
+                showPlatform('auto');
+                document.querySelector('.tab:first-child').classList.add('active');
+            }
+            
+            // Update commands for default role
+            updateCommands();
+        };
+    </script>
+</body>
+</html>

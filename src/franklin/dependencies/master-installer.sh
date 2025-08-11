@@ -15,7 +15,13 @@ SKIP_DOCKER=false
 SKIP_CHROME=false
 SKIP_FRANKLIN=false
 FORCE_INSTALL=false
+FORCE_MINIFORGE=false
+FORCE_PIXI=false
+FORCE_DOCKER=false
+FORCE_CHROME=false
+FORCE_FRANKLIN=false
 CONTINUE_ON_ERROR=false
+USER_ROLE="student"  # Default role: student, educator, or administrator
 
 # Script execution tracking (using simple counters and variables)
 EXECUTION_LOG_COUNT=0
@@ -196,8 +202,8 @@ install_miniforge() {
     fi
     
     # Check if already installed
-    if command_exists conda && [ "$FORCE_INSTALL" = false ]; then
-        log_info "Miniforge/Conda already installed. Use --force to reinstall."
+    if command_exists conda && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_MINIFORGE" = false ]; then
+        log_info "Miniforge/Conda already installed. Use --force or --force-miniforge to reinstall."
         add_to_successful_installations "Miniforge"
         return 0
     fi
@@ -235,8 +241,8 @@ install_pixi() {
     fi
     
     # Check if already installed
-    if command_exists pixi && [ "$FORCE_INSTALL" = false ]; then
-        log_info "Pixi already installed. Use --force to reinstall."
+    if command_exists pixi && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_PIXI" = false ]; then
+        log_info "Pixi already installed. Use --force or --force-pixi to reinstall."
         add_to_successful_installations "Pixi"
         return 0
     fi
@@ -274,8 +280,8 @@ install_docker_desktop() {
     fi
     
     # Check if already installed
-    if command_exists docker && [ "$FORCE_INSTALL" = false ]; then
-        log_info "Docker already installed. Use --force to reinstall."
+    if command_exists docker && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_DOCKER" = false ]; then
+        log_info "Docker already installed. Use --force or --force-docker to reinstall."
         add_to_successful_installations "Docker Desktop"
         return 0
     fi
@@ -314,12 +320,12 @@ install_chrome() {
     fi
     
     # Check if already installed (macOS specific check)
-    if [ "$(uname)" = "Darwin" ] && [ -d "/Applications/Google Chrome.app" ] && [ "$FORCE_INSTALL" = false ]; then
-        log_info "Chrome already installed. Use --force to reinstall."
+    if [ "$(uname)" = "Darwin" ] && [ -d "/Applications/Google Chrome.app" ] && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_CHROME" = false ]; then
+        log_info "Chrome already installed. Use --force or --force-chrome to reinstall."
         add_to_successful_installations "Chrome"
         return 0
-    elif command_exists google-chrome && [ "$FORCE_INSTALL" = false ]; then
-        log_info "Chrome already installed. Use --force to reinstall."
+    elif command_exists google-chrome && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_CHROME" = false ]; then
+        log_info "Chrome already installed. Use --force or --force-chrome to reinstall."
         add_to_successful_installations "Chrome"
         return 0
     fi
@@ -382,15 +388,32 @@ install_franklin() {
         set -u
     fi
     
-    # Run pixi global install command
-    log_info "Executing: pixi global install -c munch-group -c conda-forge franklin"
+    # Determine which package to install based on user role
+    local package_name="franklin"
+    case "$USER_ROLE" in
+        educator)
+            package_name="franklin-educator"
+            log_info "Installing Franklin Educator package for educator role"
+            ;;
+        administrator|admin)
+            package_name="franklin-admin"
+            log_info "Installing Franklin Administrator package for admin role"
+            ;;
+        student|*)
+            package_name="franklin"
+            log_info "Installing standard Franklin package for student role"
+            ;;
+    esac
     
-    if pixi global install -c munch-group -c conda-forge franklin; then
-        log_success "Franklin installed successfully via pixi global"
-        add_to_successful_installations "Franklin"
+    # Run pixi global install command
+    log_info "Executing: pixi global install -c munch-group -c conda-forge $package_name"
+    
+    if pixi global install -c munch-group -c conda-forge "$package_name"; then
+        log_success "$package_name installed successfully via pixi global"
+        add_to_successful_installations "Franklin ($USER_ROLE)"
         return 0
     else
-        log_error "Franklin installation failed"
+        log_error "$package_name installation failed"
         add_to_failed_installations "Franklin"
         return 1
     fi
@@ -585,14 +608,23 @@ Options:
     --skip-chrome          Skip Chrome installation
     --skip-franklin        Skip Franklin installation
     -f, --force            Force installation even if components already exist
+    --force-miniforge      Force reinstall Miniforge only
+    --force-pixi          Force reinstall Pixi only
+    --force-docker        Force reinstall Docker Desktop only
+    --force-chrome        Force reinstall Chrome only
+    --force-franklin      Force reinstall Franklin only
     -c, --continue-on-error Continue with remaining installations if one fails
+    --role ROLE           Set user role: student, educator, or administrator (default: student)
 
 Examples:
     ./master-installer.sh                          # Install all components
     ./master-installer.sh --skip-docker --skip-chrome  # Skip Docker and Chrome
     ./master-installer.sh --force                  # Force reinstall all components
+    ./master-installer.sh --force-docker          # Force reinstall Docker only
     ./master-installer.sh --continue-on-error      # Continue even if some fail
     ./master-installer.sh -d /path/to/scripts      # Use scripts from different directory
+    ./master-installer.sh --role educator          # Install educator version
+    ./master-installer.sh --role administrator     # Install admin version
 
 Required Scripts:
     - install-miniforge.sh
@@ -644,9 +676,47 @@ parse_arguments() {
                 FORCE_INSTALL=true
                 shift
                 ;;
+            --force-miniforge)
+                FORCE_MINIFORGE=true
+                shift
+                ;;
+            --force-pixi)
+                FORCE_PIXI=true
+                shift
+                ;;
+            --force-docker)
+                FORCE_DOCKER=true
+                shift
+                ;;
+            --force-chrome)
+                FORCE_CHROME=true
+                shift
+                ;;
+            --force-franklin)
+                FORCE_FRANKLIN=true
+                shift
+                ;;
             -c|--continue-on-error)
                 CONTINUE_ON_ERROR=true
                 shift
+                ;;
+            --role)
+                if [ -z "$2" ]; then
+                    log_error "Role argument requires a value"
+                    show_usage
+                    exit 1
+                fi
+                USER_ROLE="$2"
+                case "$USER_ROLE" in
+                    student|educator|administrator|admin)
+                        shift 2
+                        ;;
+                    *)
+                        log_error "Invalid role: $USER_ROLE. Must be student, educator, or administrator"
+                        show_usage
+                        exit 1
+                        ;;
+                esac
                 ;;
             *)
                 log_error "Unknown option: $1"

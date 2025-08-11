@@ -1,0 +1,394 @@
+---
+title: "Creating Trusted Installers"
+subtitle: "How to produce installers that run without security warnings"
+---
+
+## Overview
+
+This guide explains how to create installers for Franklin that users can double-click and run without security warnings on macOS and Windows.
+
+## Quick Summary
+
+To create installers that run without warnings:
+
+1. **macOS**: Requires code signing ($99/year Apple Developer Program) and notarization
+2. **Windows**: Requires code signing certificate ($200-700/year) from a Certificate Authority
+3. **Cross-platform**: Python scripts can run but require Python installed
+
+## macOS Installers
+
+### Requirements
+
+1. **Apple Developer Account** ($99/year)
+2. **Developer ID Application Certificate**
+3. **Xcode Command Line Tools**
+4. **App-specific password for notarization**
+
+### Step-by-Step Setup
+
+#### 1. Join Apple Developer Program
+
+1. Go to [developer.apple.com](https://developer.apple.com)
+2. Click "Account" → "Enroll"
+3. Pay the $99 annual fee
+4. Wait for approval (usually 24-48 hours)
+
+#### 2. Create Developer ID Certificate
+
+```bash
+# In Xcode (if installed)
+# Xcode → Preferences → Accounts → Manage Certificates → + → Developer ID Application
+
+# Or via command line
+security find-identity -p codesigning -v
+```
+
+#### 3. Create App-Specific Password
+
+1. Go to [appleid.apple.com](https://appleid.apple.com)
+2. Sign in → Sign-In and Security → App-Specific Passwords
+3. Click "+" and name it "Franklin Installer"
+4. Save the password (format: xxxx-xxxx-xxxx-xxxx)
+
+#### 4. Configure Environment Variables
+
+```bash
+# Add to your ~/.zshrc or ~/.bashrc
+export MACOS_CERTIFICATE_NAME="Developer ID Application: Your Name (TEAMID)"
+export APPLE_ID="your.email@example.com"
+export APPLE_ID_PASSWORD="xxxx-xxxx-xxxx-xxxx"  # App-specific password
+export TEAM_ID="XXXXXXXXXX"  # Found in Apple Developer account
+```
+
+#### 5. Build and Sign Installer
+
+```bash
+cd src/franklin/dependencies
+./build_native_installers.sh
+```
+
+The script will automatically:
+1. Build the .app bundle
+2. Sign with your Developer ID
+3. Create a DMG
+4. Submit for notarization
+5. Staple the notarization ticket
+
+### Verification
+
+```bash
+# Verify signature
+codesign --verify --verbose "dist/Franklin-Installer-macOS.dmg"
+
+# Check notarization
+spctl -a -t open --context context:primary-signature -v "dist/Franklin-Installer-macOS.dmg"
+```
+
+### GitHub Actions Setup
+
+Add these secrets to your repository:
+
+1. Go to Settings → Secrets and variables → Actions
+2. Add:
+   - `MACOS_CERTIFICATE_NAME`
+   - `APPLE_ID`
+   - `APPLE_ID_PASSWORD`
+   - `TEAM_ID`
+
+## Windows Installers
+
+### Requirements
+
+1. **Code Signing Certificate** ($200-700/year)
+2. **NSIS** (for creating installer)
+3. **SignTool** or **osslsigncode**
+
+### Certificate Options
+
+#### Standard Code Signing Certificate ($200-400/year)
+- **Providers**: DigiCert, Sectigo, GlobalSign, SSL.com
+- **Reputation building**: Takes time (~100+ downloads)
+- **Initial experience**: Users still see SmartScreen warning initially
+
+#### Extended Validation (EV) Certificate ($300-700/year)
+- **Providers**: Same as above
+- **Instant trust**: No SmartScreen warnings from day one
+- **Hardware token**: Required (USB device)
+- **Best for**: Production software with many users
+
+### Step-by-Step Setup
+
+#### 1. Purchase Certificate
+
+**For Standard Certificate:**
+1. Choose a Certificate Authority (e.g., [DigiCert](https://www.digicert.com))
+2. Purchase "Code Signing Certificate"
+3. Complete validation (business verification)
+4. Download certificate as PFX file
+
+**For EV Certificate:**
+1. Same process but select "EV Code Signing"
+2. Receive hardware token by mail
+3. Install drivers and certificate on token
+
+#### 2. Prepare Certificate for CI/CD
+
+**For GitHub Actions (Standard Cert):**
+
+```bash
+# Convert PFX to base64 for GitHub secrets
+base64 -i certificate.pfx -o certificate_base64.txt
+cat certificate_base64.txt | pbcopy  # Copies to clipboard on macOS
+```
+
+#### 3. Configure Environment Variables
+
+**Local signing:**
+```bash
+export WINDOWS_CERT_PATH="/path/to/certificate.pfx"
+export WINDOWS_CERT_PASSWORD="certificate_password"
+```
+
+**GitHub Actions:**
+```bash
+# Add as repository secrets:
+WINDOWS_CERT_BASE64  # Base64-encoded certificate
+WINDOWS_CERT_PASSWORD  # Certificate password
+```
+
+#### 4. Build and Sign Installer
+
+**On Windows:**
+```powershell
+# Install NSIS
+winget install NSIS
+
+# Build installer
+cd src\franklin\dependencies
+.\build_native_installers.bat
+```
+
+**On macOS/Linux (cross-compile):**
+```bash
+# Install tools
+brew install makensis osslsigncode
+
+# Build and sign
+cd src/franklin/dependencies
+./build_native_installers.sh
+```
+
+### Signing Methods
+
+#### Using SignTool (Windows)
+
+```powershell
+signtool sign /f certificate.pfx /p password `
+    /tr http://timestamp.digicert.com /td sha256 /fd sha256 `
+    "Franklin-Installer-Windows.exe"
+```
+
+#### Using osslsigncode (Cross-platform)
+
+```bash
+osslsigncode sign \
+    -pkcs12 certificate.pfx \
+    -pass "password" \
+    -n "Franklin Development Environment" \
+    -i "https://franklin-project.org" \
+    -t "http://timestamp.digicert.com" \
+    -in "installer-unsigned.exe" \
+    -out "installer-signed.exe"
+```
+
+### Verification
+
+```powershell
+# On Windows
+signtool verify /pa "Franklin-Installer-Windows.exe"
+
+# On macOS/Linux
+osslsigncode verify "Franklin-Installer-Windows.exe"
+```
+
+## GitHub Actions Automation
+
+### Complete Workflow
+
+```yaml
+name: Build and Sign Installers
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          brew install makensis osslsigncode
+      
+      - name: Build and sign installers
+        env:
+          # macOS signing
+          MACOS_CERTIFICATE_NAME: ${{ secrets.MACOS_CERTIFICATE_NAME }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          # Windows signing
+          WINDOWS_CERT_BASE64: ${{ secrets.WINDOWS_CERT_BASE64 }}
+          WINDOWS_CERT_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
+        run: |
+          cd src/franklin/dependencies
+          ./build_native_installers.sh
+      
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            src/franklin/dependencies/dist/*.dmg
+            src/franklin/dependencies/dist/*.exe
+```
+
+## Cost Comparison
+
+| Platform | Type | Annual Cost | Instant Trust | Notes |
+|----------|------|------------|---------------|-------|
+| **macOS** | Developer Program | $99 | Yes (with notarization) | Includes all Apple platforms |
+| **Windows** | Standard Certificate | $200-400 | No (builds reputation) | ~100 downloads for trust |
+| **Windows** | EV Certificate | $300-700 | Yes | Requires hardware token |
+| **Both** | Self-signed | $0 | No | Still shows warnings |
+
+## Testing Your Signed Installers
+
+### Test Environments
+
+1. **Clean Virtual Machines**: Test on fresh OS installs
+2. **Different OS Versions**: Test on multiple OS versions
+3. **No Developer Tools**: Test on machines without dev tools
+
+### Testing Checklist
+
+- [ ] Double-click installer on fresh macOS
+- [ ] Double-click installer on fresh Windows
+- [ ] Verify no security warnings appear
+- [ ] Test on different OS versions
+- [ ] Verify signature with command-line tools
+- [ ] Test auto-update functionality
+
+## Alternatives to Code Signing
+
+### 1. Package Managers
+
+Distribute through trusted package managers:
+
+```bash
+# Homebrew (macOS/Linux)
+brew install franklin
+
+# Chocolatey (Windows)
+choco install franklin
+
+# Conda
+conda install -c munch-group franklin
+```
+
+### 2. App Stores
+
+- **Mac App Store**: Automatic signing and distribution
+- **Microsoft Store**: Automatic signing for Windows 10/11
+- **Snap Store**: For Linux distributions
+
+### 3. Web-based Installers
+
+Create a web installer that users trust:
+
+```html
+<!-- Progressive Web App approach -->
+<script>
+  // Detect OS and provide appropriate installer
+  if (navigator.platform.includes('Mac')) {
+    window.location = '/installers/mac/install.sh';
+  } else if (navigator.platform.includes('Win')) {
+    window.location = '/installers/windows/install.ps1';
+  }
+</script>
+```
+
+## Troubleshooting
+
+### macOS Issues
+
+**"errSecInternalComponent" during signing:**
+```bash
+# Unlock keychain
+security unlock-keychain -p "password" ~/Library/Keychains/login.keychain
+
+# Reset keychain permissions
+security set-key-partition-list -S apple-tool:,apple:,codesign: \
+    -s -k "password" ~/Library/Keychains/login.keychain
+```
+
+**Notarization fails:**
+```bash
+# Check notarization status
+xcrun notarytool history --apple-id "$APPLE_ID" \
+    --password "$APPLE_ID_PASSWORD" --team-id "$TEAM_ID"
+
+# Get detailed log
+xcrun notarytool log [submission-id] --apple-id "$APPLE_ID" \
+    --password "$APPLE_ID_PASSWORD" --team-id "$TEAM_ID"
+```
+
+### Windows Issues
+
+**"SignTool Error: No certificates were found":**
+```powershell
+# List available certificates
+certutil -store My
+
+# Import PFX certificate
+certutil -f -user -p "password" -importpfx "certificate.pfx"
+```
+
+**SmartScreen still shows warning:**
+- Standard certificates need reputation building
+- Submit to Microsoft for malware analysis
+- Consider upgrading to EV certificate
+
+## Best Practices
+
+1. **Always timestamp**: Use timestamp servers to ensure signatures remain valid
+2. **Test thoroughly**: Test on clean VMs before release
+3. **Document bypass methods**: Provide clear instructions for unsigned versions
+4. **Consider your audience**: 
+   - Few technical users → Self-signed may be OK
+   - Many non-technical users → Invest in proper signing
+5. **Automate signing**: Use CI/CD to ensure consistent signing
+6. **Protect certificates**: Never commit certificates to repositories
+7. **Renew early**: Certificates expire; set reminders for renewal
+
+## Summary
+
+Creating installers that run without warnings requires:
+
+- **Investment**: $99-700/year depending on platform and certificate type
+- **Setup time**: 2-4 hours for initial configuration
+- **Maintenance**: Annual renewal and certificate management
+
+For the best user experience:
+1. Use Apple Developer Program for macOS ($99/year)
+2. Use EV Certificate for Windows ($300-700/year)
+3. Automate with GitHub Actions
+4. Test on clean systems
+
+For budget-conscious projects:
+1. Start with self-signed and clear bypass instructions
+2. Use package managers for distribution
+3. Build reputation with standard certificates
+4. Upgrade to EV certificates as user base grows

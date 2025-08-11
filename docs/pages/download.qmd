@@ -1,23 +1,22 @@
 ---
-title: "Download the Installer"
+title: "Install Franklin"
 format: html
 ---
 
-Download and run the Installer. Before installing Franklin, the installer will download and install the following dependencies if they are not available available on your computer:
+We have built native installers for both macOS and Windows to make installation as easy as possible. Before installing Franklin, the installer will download and install the following dependencies if they are not available available on your computer:
 
 1. A Python 3 distribution - preferably [Miniforge](https://conda-forge.org/download/).
 2. The [Pixi](https://pixi.sh/latest/), a modern, fast package manager that's fully compatible with conda packages but offers better performance and reliability..
 3. The [Chrome](https://www.google.com/intl/en_uk/chrome/) browser that Franklin uses to display JupyterLab and web pages.
 4. The [Docker Desktop](https://www.docker.com/products/docker-desktop/) application that Franklin uses to containerize Jupyter environments.
 
-
-## Download the Installer
+## Download the Installer.
 
 ```{=html}
 <div class="installer-widget-container">
     <!-- Scoped Bootstrap CSS - only applies within this container -->
     <style>
-    .installer-widget-container {
+    .installer-widget-container
         /* Bootstrap CSS variables */
         --bs-primary: #0d6efd;
         --bs-primary-rgb: 13, 110, 253;
@@ -383,20 +382,20 @@ window.InstallerWidget = (function() {
             url: 'https://munch-group.org/franklin/installers/Franklin-Installer-Windows.exe',
             filename: 'Franklin-Installer-Windows.exe',
             size: '45.2 MB',
-            version: '1.2.3'
+            version: '1.0.0'
         },
         macos: {
             // url: 'https://github.com/your-org/your-app/releases/latest/download/your-app-macos.dmg',
             url: 'https://munch-group.org/franklin/installers/Franklin-Installer-macOS.dmg',
             filename: 'Franklin-Installer-macOS.dmg',
             size: '52.1 MB',
-            version: '1.2.3'
+            version: '1.0.0'
         },
         linux: {
             url: 'https://munch-group.org/franklin/installers/Franklin-Installer-Linux.AppImage',
             filename: 'Franklin-Installer-Linux.AppImage',
             size: '48.7 MB',
-            version: '1.2.3'
+            version: '1.0.0'
         }
     };
 
@@ -669,3 +668,137 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 ```
+
+## Run the installer
+
+::: {.tab-set}
+
+## Mac
+
+Open the installer dmg file and double-click the installer. The installer is not signed by Apple, so your operating system will initially refuse to run it. To run it, open your "System Settings App", select "Privacy and Security" in the sidebar and scroll down to find a button that says "Run Anyway". Click that to run the installer.
+
+## Windows
+
+
+
+:::
+
+
+
+
+**For educators**: Having installed Franklin, educators must also install the `franklin-educator` tools (see below). 
+
+
+
+
+
+
+
+## Manual Installation
+
+**Install dependencies**:
+
+Franklin depends on a few external tools that you need to install yourself before installing Franklin:
+
+1. If you have not installed **Python** already, you can follow the tutorial on how to [install a modern version of Python](installing_python.qmd) and come back here to continue. 
+2. Franklin is built to interact with the **Chrome** browser. So make sure is installed on your computer or download it [here](https://www.google.com/intl/en_uk/chrome/).
+3. Franklin uses Docker isolate the setup for each exercise, so you need to install **Docker Desktop** too. Follow the tutorial on [installing Docker](installing_docker.qmd) and come back here to continue.
+4. We use **Pixi** to install Franklin. [Pixi](https://pixi.sh/latest/) is a modern, fast package manager that's fully compatible with conda packages but offers better performance and reliability. On the page about [pixi and conda](pixi_and_conda.qmd), you can see how to install it.
+
+
+```{.bash}
+pixi global install franklin --channel conda-forge --channel munch-group
+```
+
+Verify installation:
+
+```{.bash}
+franklin --version
+```
+
+<details>
+<summary>(Click if you absolutely must install with Conda - not recommended)</summary>
+
+Activate your conda environment and run:
+
+```{.bash}
+conda install -c conda-forge -c munch-group franklin
+```
+
+Verify installation:
+
+```{.bash}
+franklin --version
+```
+
+</details>
+
+
+## Installing Educator and Administration tools
+
+::: {.tab-set}
+
+## Educator
+
+Educators also include the educator tools in their installation:
+
+```{.bash}
+pixi global install franklin-educator --channel conda-forge --channel munch-group
+```
+
+Verify installation:
+
+```{.bash}
+franklin --version
+franklin exercise --help
+```
+
+<details>
+<summary>(Click if you absolutely must install with Conda - not recommended)</summary>
+
+```{.bash}
+pixi global install franklin-educator --channel conda-forge --channel munch-group
+```
+
+Verify installation:
+
+```{.bash}
+franklin --version
+franklin exercise --help
+```
+
+</details>
+
+## Administrator
+
+Educators also include the educator tools in their installation:
+
+```{.bash}
+pixi global install franklin-admin --channel conda-forge --channel munch-group
+```
+
+Verify installation:
+
+```{.bash}
+franklin --version
+franklin exercise --help
+```
+
+<details>
+<summary>(Click if you absolutely must install with Conda - not recommended)</summary>
+
+```{.bash}
+pixi global install franklin-admin --channel conda-forge --channel munch-group
+```
+
+Verify installation:
+
+```{.bash}
+franklin --version
+franklin finger --help
+```
+
+</details>
+
+:::
+

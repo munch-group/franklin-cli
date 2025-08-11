@@ -383,11 +383,57 @@ $installButton.Add_Click({
         }
     }
     
+    # Ask for user role if Franklin is being installed
+    $franklinDep = $dependencies | Where-Object { $_.Name -eq "franklin" }
+    $userRole = "student"
+    
+    if ($franklinDep -and ($franklinDep.SelectedAction -eq "Install" -or $franklinDep.SelectedAction -eq "Reinstall")) {
+        # Create role selection dialog
+        $roleForm = New-Object System.Windows.Forms.Form
+        $roleForm.Text = "Select User Role"
+        $roleForm.Size = New-Object System.Drawing.Size(400, 200)
+        $roleForm.StartPosition = "CenterParent"
+        
+        $roleLabel = New-Object System.Windows.Forms.Label
+        $roleLabel.Location = New-Object System.Drawing.Point(20, 20)
+        $roleLabel.Size = New-Object System.Drawing.Size(360, 30)
+        $roleLabel.Text = "Select your Franklin user role:"
+        $roleForm.Controls.Add($roleLabel)
+        
+        $roleCombo = New-Object System.Windows.Forms.ComboBox
+        $roleCombo.Location = New-Object System.Drawing.Point(20, 60)
+        $roleCombo.Size = New-Object System.Drawing.Size(360, 30)
+        $roleCombo.DropDownStyle = "DropDownList"
+        $roleCombo.Items.AddRange(@("Student (standard Franklin)", "Educator (franklin-educator)", "Administrator (franklin-admin)"))
+        $roleCombo.SelectedIndex = 0
+        $roleForm.Controls.Add($roleCombo)
+        
+        $roleOK = New-Object System.Windows.Forms.Button
+        $roleOK.Location = New-Object System.Drawing.Point(150, 110)
+        $roleOK.Size = New-Object System.Drawing.Size(100, 30)
+        $roleOK.Text = "OK"
+        $roleOK.DialogResult = [System.Windows.Forms.DialogResult]::OK
+        $roleForm.Controls.Add($roleOK)
+        
+        if ($roleForm.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
+            switch ($roleCombo.SelectedIndex) {
+                0 { $userRole = "student" }
+                1 { $userRole = "educator" }
+                2 { $userRole = "administrator" }
+            }
+            $scriptArgs += "--role", $userRole
+        }
+    }
+    
     # Confirm actions
     $message = "The following actions will be performed:`n`n"
     foreach ($dep in $dependencies) {
         if ($dep.SelectedAction -ne "None") {
-            $message += "• $($dep.DisplayName): $($dep.SelectedAction)`n"
+            $displayText = $dep.DisplayName
+            if ($dep.Name -eq "franklin" -and ($dep.SelectedAction -eq "Install" -or $dep.SelectedAction -eq "Reinstall")) {
+                $displayText = "Franklin ($userRole)"
+            }
+            $message += "• ${displayText}: $($dep.SelectedAction)`n"
         }
     }
     $message += "`nDo you want to proceed?"

@@ -215,8 +215,21 @@ on processInstallation(selections)
         end if
     end repeat
     
+    -- Ask for user role
+    set roleDialog to display dialog "Select your user role:" buttons {"Student", "Educator", "Administrator"} default button "Student" with icon note
+    set userRole to button returned of roleDialog
+    
+    -- Convert role to command line argument
+    if userRole is "Educator" then
+        set scriptArgs to scriptArgs & " --role educator"
+    else if userRole is "Administrator" then
+        set scriptArgs to scriptArgs & " --role administrator"
+    else
+        set scriptArgs to scriptArgs & " --role student"
+    end if
+    
     -- Show progress dialog
-    display dialog "Starting installation..." & return & return & "A Terminal window will open to show progress." buttons {"OK"} default button "OK" with icon note
+    display dialog "Starting installation as " & userRole & "..." & return & return & "A Terminal window will open to show progress." buttons {"OK"} default button "OK" with icon note
     
     -- Get the directory containing this script
     set scriptDir to do shell script "dirname " & quoted form of (POSIX path of (path to me))
