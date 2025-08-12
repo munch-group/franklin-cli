@@ -506,9 +506,10 @@ function Show-InstallationSummary {
         Write-Warning "Some installations failed. Check the error messages above."
         Write-Info "You may need to install the failed components manually."
     }
-
+    Write-Host ""
     Write-Info "You must restart PowerShell to use installed components"
-
+    Write-Host ""
+    
     # # Show next steps
     # Write-Host ""
     # Write-Info "NEXT STEPS:"

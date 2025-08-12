@@ -644,16 +644,20 @@ show_installation_summary() {
         log_info "You may need to install the failed components manually."
     fi
     
-    # Show next steps
-    echo
-    log_info "NEXT STEPS:"
-    log_info "1. Restart your terminal session to refresh environment variables"
-    log_info "2. Verify installations:"
-    log_info "   - conda --version"
-    log_info "   - pixi --version"
-    log_info "   - docker --version"
-    log_info "   - franklin --version (if installed)"
-    log_info "3. Check that Franklin is available via 'franklin' command"
+    Write-Host ""
+    Write-Info "You must restart the Terminal to use installed components"
+    Write-Host ""
+
+    # # Show next steps
+    # echo
+    # log_info "NEXT STEPS:"
+    # log_info "1. Restart your terminal session to refresh environment variables"
+    # log_info "2. Verify installations:"
+    # log_info "   - conda --version"
+    # log_info "   - pixi --version"
+    # log_info "   - docker --version"
+    # log_info "   - franklin --version (if installed)"
+    # log_info "3. Check that Franklin is available via 'franklin' command"
 }
 
 # Function to save installation log
