@@ -405,13 +405,13 @@ function Invoke-Installation {
             & $masterInstaller
         }
         
-        Write-Host ""
-        Write-ColorOutput "Installation completed successfully!" -Type Success
-        Write-Host ""
-        Write-Host "Next steps:" -ForegroundColor Cyan
-        Write-Host "  1. Restart your terminal"
-        Write-Host "  2. Verify installation: franklin --version"
-        Write-Host "  3. Get started: franklin --help"
+        # Write-Host ""
+        # Write-ColorOutput "Installation completed successfully!" -Type Success
+        # Write-Host ""
+        # Write-Host "Next steps:" -ForegroundColor Cyan
+        # Write-Host "  1. Restart your terminal"
+        # Write-Host "  2. Verify installation: franklin --version"
+        # Write-Host "  3. Get started: franklin --help"
     }
     catch {
         Write-ColorOutput "Installation failed: $_" -Type Error

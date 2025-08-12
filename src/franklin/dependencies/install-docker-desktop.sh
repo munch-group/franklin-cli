@@ -548,19 +548,19 @@ main() {
     # Wait to ensure complete shutdown
     sleep 2
     
-    echo ""
-    echo "🐳 Docker Desktop installation completed successfully!"
-    echo ""
-    echo "Docker Desktop has been installed and configured."
-    echo "Docker Desktop has been stopped and is NOT currently running."
-    echo ""
-    echo "Next steps:"
-    echo "1. Start Docker Desktop from Applications when needed"
-    echo "2. Test the installation: docker run hello-world"
-    echo "3. Docker will be available in the menu bar when running"
-    echo ""
-    echo "To uninstall later, run: $0 --uninstall (or --clean-uninstall)"
-    echo "To check status, run: $0 --status"
+    # echo ""
+    # echo "🐳 Docker Desktop installation completed successfully!"
+    # echo ""
+    # echo "Docker Desktop has been installed and configured."
+    # echo "Docker Desktop has been stopped and is NOT currently running."
+    # echo ""
+    # echo "Next steps:"
+    # echo "1. Start Docker Desktop from Applications when needed"
+    # echo "2. Test the installation: docker run hello-world"
+    # echo "3. Docker will be available in the menu bar when running"
+    # echo ""
+    # echo "To uninstall later, run: $0 --uninstall (or --clean-uninstall)"
+    # echo "To check status, run: $0 --status"
 }
 
 # Run main function

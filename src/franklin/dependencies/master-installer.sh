@@ -631,7 +631,7 @@ show_installation_summary() {
     if [ $FAILED_INSTALLATIONS_COUNT -gt 0 ]; then
         log_warning "Failed installations:"
         get_failed_installations | while read -r item; do
-            echo -e "  ${RED}✗ $item${NC}"
+            echo -e "  ${RED} $item${NC}"
         done
     fi
     
@@ -643,10 +643,10 @@ show_installation_summary() {
         log_warning "Some installations failed. Check the error messages above."
         log_info "You may need to install the failed components manually."
     fi
-    
-    log_info ""
-    log_info "You must restart the Terminal to use installed components"
-    log_info ""
+
+    echo ""
+    echo -e "  ${RED}You must now restart your computer to activate installed components${NC}"
+    echo ""
 
     # # Show next steps
     # echo

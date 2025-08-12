@@ -262,11 +262,11 @@ main() {
         if ./master-installer.sh "${args[@]}"; then
             echo ""
             log_info "${GREEN}${BOLD}Installation completed successfully!${NC}"
-            echo ""
-            echo "Next steps:"
-            echo "  1. Restart your terminal or run: source ~/.bashrc"
-            echo "  2. Verify installation: franklin --version"
-            echo "  3. Get started: franklin --help"
+            # echo ""
+            # echo "Next steps:"
+            # echo "  1. Restart your terminal or run: source ~/.bashrc"
+            # echo "  2. Verify installation: franklin --version"
+            # echo "  3. Get started: franklin --help"
         else
             log_error "Installation failed. Check the output above for errors."
             exit 1

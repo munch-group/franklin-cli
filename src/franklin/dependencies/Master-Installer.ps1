@@ -507,9 +507,9 @@ function Show-InstallationSummary {
         Write-Info "You may need to install the failed components manually."
     }
     Write-Host ""
-    Write-Info "You must restart PowerShell to use installed components"
+    Write-Error "You must now restart your computer to activate installed components"
     Write-Host ""
-    
+
     # # Show next steps
     # Write-Host ""
     # Write-Info "NEXT STEPS:"

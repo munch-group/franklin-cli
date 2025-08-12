@@ -418,13 +418,13 @@ Start-Sleep -Seconds 2
 
 Write-Host "`nInstallation and configuration complete!" -ForegroundColor Green
 Write-Host ""
-Write-Host "Docker Desktop has been installed and configured." -ForegroundColor Green
-Write-Host "Docker Desktop has been stopped and is NOT currently running." -ForegroundColor Cyan
-Write-Host ""
-Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "1. Restart your computer to ensure group membership takes effect" -ForegroundColor White
-Write-Host "2. Start Docker Desktop from the Start Menu when needed" -ForegroundColor White
-Write-Host "3. Docker will be available in the system tray when running" -ForegroundColor White
+# Write-Host "Docker Desktop has been installed and configured." -ForegroundColor Green
+# Write-Host "Docker Desktop has been stopped and is NOT currently running." -ForegroundColor Cyan
+# Write-Host ""
+# Write-Host "Next steps:" -ForegroundColor Yellow
+# Write-Host "1. Restart your computer to ensure group membership takes effect" -ForegroundColor White
+# Write-Host "2. Start Docker Desktop from the Start Menu when needed" -ForegroundColor White
+# Write-Host "3. Docker will be available in the system tray when running" -ForegroundColor White
 
 if ($EnableWSL2) {
     Write-Host "3. Verify WSL2 integration by running: docker run hello-world" -ForegroundColor White
@@ -908,16 +908,16 @@ main() {
     configure_docker_desktop
     log "Installation and configuration complete!"
     
-    echo ""
-    echo "🐳 Docker Desktop installation completed successfully!"
-    echo ""
-    echo "Next steps:"
-    echo "1. Docker Desktop should start automatically"
-    echo "2. Test the installation: docker run hello-world"
-    echo "3. Access Docker Desktop from Applications folder or menu bar"
-    echo ""
-    echo "To uninstall later, run: $0 --uninstall (or --clean-uninstall)"
-    echo "To check status, run: $0 --status"
+    # echo ""
+    # echo "🐳 Docker Desktop installation completed successfully!"
+    # echo ""
+    # echo "Next steps:"
+    # echo "1. Docker Desktop should start automatically"
+    # echo "2. Test the installation: docker run hello-world"
+    # echo "3. Access Docker Desktop from Applications folder or menu bar"
+    # echo ""
+    # echo "To uninstall later, run: $0 --uninstall (or --clean-uninstall)"
+    # echo "To check status, run: $0 --status"
 }
 
 # Run main function
