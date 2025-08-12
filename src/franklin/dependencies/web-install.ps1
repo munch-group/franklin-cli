@@ -364,15 +364,15 @@ function Build-Arguments {
     $args += '-Yes'
     
     if ($Role -and $Role -ne 'student') {
-        $args += '--role', $Role
+        $args += '-Role', $Role
     }
     
-    if ($SkipMiniforge) { $args += '--skip-miniforge' }
-    if ($SkipPixi) { $args += '--skip-pixi' }
-    if ($SkipDocker) { $args += '--skip-docker' }
-    if ($SkipChrome) { $args += '--skip-chrome' }
-    if ($SkipFranklin) { $args += '--skip-franklin' }
-    if ($Force) { $args += '--force' }
+    if ($SkipMiniforge) { $args += '-SkipMiniforge' }
+    if ($SkipPixi) { $args += '-SkipPixi' }
+    if ($SkipDocker) { $args += '-SkipDocker' }
+    if ($SkipChrome) { $args += '-SkipChrome' }
+    if ($SkipFranklin) { $args += '-SkipFranklin' }
+    if ($Force) { $args += '-Force' }
     
     return $args
 }

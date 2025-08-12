@@ -48,6 +48,8 @@
 [CmdletBinding()]
 param(
     [string]$ScriptPath,
+    [ValidateSet('student', 'educator', 'administrator')]
+    [string]$Role = 'student',
     [switch]$SkipMiniforge,
     [switch]$SkipPixi,
     [switch]$SkipDocker,
@@ -378,11 +380,18 @@ function Install-Franklin {
         $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "User") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "Machine")
         
         # Run pixi global install command
+        # Install the appropriate franklin package based on role
+        $franklinPackage = switch ($Role) {
+            'administrator' { 'franklin-admin' }
+            'educator' { 'franklin-educator' }
+            default { 'franklin' }
+        }
+        
         $pixiArgs = @(
             "global", "install",
             "-c", "munch-group",
             "-c", "conda-forge",
-            "franklin"
+            $franklinPackage
         )
         
         # Write-Info "Executing: pixi $($pixiArgs -join ' ')"
@@ -390,17 +399,17 @@ function Install-Franklin {
         $process = Start-Process -FilePath "pixi" -ArgumentList $pixiArgs -Wait -PassThru -NoNewWindow
         
         if ($process.ExitCode -eq 0) {
-            Write-Success "Franklin installed successfully via pixi global"
+            Write-Success "$franklinPackage installed successfully via pixi global"
             $Script:SuccessfulInstallations += "Franklin"
             return $true
         } else {
-            Write-Error "Franklin installation failed with exit code: $($process.ExitCode)"
+            Write-Error "$franklinPackage installation failed with exit code: $($process.ExitCode)"
             $Script:FailedInstallations += "Franklin"
             return $false
         }
         
     } catch {
-        Write-Error "Franklin installation failed: $($_.Exception.Message)"
+        Write-Error "$franklinPackage installation failed: $($_.Exception.Message)"
         $Script:FailedInstallations += "Franklin"
         return $false
     }
