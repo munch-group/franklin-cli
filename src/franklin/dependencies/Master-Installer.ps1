@@ -164,10 +164,8 @@ function Invoke-InstallerScript {
         $argList += $Arguments
         
         # Execute the script
-        $process = Start-Process -FilePath "powershell.exe" -ArgumentList @(
-            "-ExecutionPolicy", "Bypass",
-            "-File", $ScriptPath
-        ) + $argList -Wait -PassThru -NoNewWindow
+        $allArgs = @("-ExecutionPolicy", "Bypass", "-File", $ScriptPath) + $argList
+        $process = Start-Process -FilePath "powershell.exe" -ArgumentList $allArgs -Wait -PassThru -NoNewWindow
         
         if ($process.ExitCode -eq 0) {
             Write-Success "$Name installation completed successfully"
