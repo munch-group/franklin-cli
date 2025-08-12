@@ -74,10 +74,10 @@ if ! command -v curl &> /dev/null; then
     exit 1
 fi
 
-# Pass all arguments plus the hardcoded role
+# Pass all arguments plus the hardcoded role and the --yes flag
 # Users can still override with additional options like --skip-docker
 echo -e "${BLUE}[INFO]${NC} Downloading main installer from: $INSTALLER_URL"
-curl -fsSL "$INSTALLER_URL" | bash -s -- --role "$HARDCODED_ROLE" "$@"
+curl -fsSL "$INSTALLER_URL" | bash -s -- --yes --role "$HARDCODED_ROLE" "$@"
 EOF
     
     # Replace placeholders
