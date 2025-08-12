@@ -37,6 +37,8 @@ Open your PowerShell application, paste the command into the PowerShell window a
 
 ```powershell
 irm https://tinyurl.com/franklin-win-student-install | iex
+
+ powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/student-install.ps1" > inst.ps1 &&  powershell .\inst.ps1
 ```
 
 ## <i class="bi bi-bank"></i> Educators
