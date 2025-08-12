@@ -644,9 +644,9 @@ show_installation_summary() {
         log_info "You may need to install the failed components manually."
     fi
     
-    Write-Host ""
-    Write-Info "You must restart the Terminal to use installed components"
-    Write-Host ""
+    log_info ""
+    log_info "You must restart the Terminal to use installed components"
+    log_info ""
 
     # # Show next steps
     # echo
