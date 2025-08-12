@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 #
 # Franklin Development Environment - Web Installer
 # 
@@ -45,9 +45,9 @@ determine_base_url() {
 # Show banner
 show_banner() {
     echo -e "${BOLD}"
-    echo "╔═════════════════════════════════════════════════════╗"
-    echo "║     Franklin Development Environment Installer      ║"
-    echo "╚═════════════════════════════════════════════════════╝"
+    echo "+=====================================================+"
+    echo "|     Franklin Development Environment Installer      |"
+    echo "+=====================================================+"
     echo -e "${NC}"
     echo ""
 }
@@ -212,11 +212,11 @@ main() {
     if [[ "$dry_run" == "false" ]]; then
         echo ""
         echo -e "${BOLD}This script will install:${NC}"
-        echo "  • Miniforge (Python environment manager)"
-        echo "  • Pixi (Fast package manager)"
-        echo "  • Docker Desktop (Container platform)"
-        echo "  • Google Chrome (Web browser)"
-        echo "  • Franklin (Development environment)"
+        echo "  - Miniforge (Python environment manager)"
+        echo "  - Pixi (Fast package manager)"
+        echo "  - Docker Desktop (Container platform)"
+        echo "  - Google Chrome (Web browser)"
+        echo "  - Franklin (Development environment)"
         echo ""
         echo "Installation directory: $INSTALL_DIR"
         echo ""

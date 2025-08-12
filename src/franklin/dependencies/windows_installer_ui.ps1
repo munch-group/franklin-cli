@@ -217,22 +217,22 @@ foreach ($dep in $dependencies) {
     
     switch ($dep.State) {
         "Installed" {
-            $statusLabel.Text = "Status: ✓ Installed"
+            $statusLabel.Text = "Status: [OK] Installed"
             $statusLabel.ForeColor = [System.Drawing.Color]::Green
             if ($dep.Version) {
                 $statusLabel.Text += " (v$($dep.Version))"
             }
         }
         "Outdated" {
-            $statusLabel.Text = "Status: ⚠ Update Available"
+            $statusLabel.Text = "Status: [UPDATE] Update Available"
             $statusLabel.ForeColor = [System.Drawing.Color]::Orange
         }
         "Corrupted" {
-            $statusLabel.Text = "Status: ⚠ Corrupted"
+            $statusLabel.Text = "Status: [WARNING] Corrupted"
             $statusLabel.ForeColor = [System.Drawing.Color]::Red
         }
         default {
-            $statusLabel.Text = "Status: ✗ Not Installed"
+            $statusLabel.Text = "Status: [X] Not Installed"
             $statusLabel.ForeColor = [System.Drawing.Color]::Red
         }
     }
@@ -433,7 +433,7 @@ $installButton.Add_Click({
             if ($dep.Name -eq "franklin" -and ($dep.SelectedAction -eq "Install" -or $dep.SelectedAction -eq "Reinstall")) {
                 $displayText = "Franklin ($userRole)"
             }
-            $message += "• ${displayText}: $($dep.SelectedAction)`n"
+            $message += "- ${displayText}: $($dep.SelectedAction)`n"
         }
     }
     $message += "`nDo you want to proceed?"

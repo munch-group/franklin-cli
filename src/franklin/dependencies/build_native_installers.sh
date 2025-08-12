@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 #
 # Build script for native installers with radio button UI
 # Creates .app for macOS and helps prepare .exe for Windows
@@ -60,7 +60,7 @@ cat > "$APP_BUNDLE/Contents/Info.plist" << 'EOF'
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright © 2024 Franklin Project</string>
+    <string>Copyright (c) 2024 Franklin Project</string>
     <key>NSRequiresAquaSystemAppearance</key>
     <false/>
 </dict>
@@ -162,7 +162,7 @@ if [ -n "$MACOS_CERTIFICATE_NAME" ] || security find-identity -p codesigning | g
         
         # Staple the notarization ticket if successful
         xcrun stapler staple "$DIST_DIR/$DMG_NAME.dmg" 2>/dev/null && \
-            echo -e "${GREEN}✓ DMG notarized and stapled successfully${NC}" || \
+            echo -e "${GREEN}[OK] DMG notarized and stapled successfully${NC}" || \
             echo -e "${YELLOW}Could not staple notarization ticket${NC}"
     else
         echo -e "${YELLOW}Notarization skipped. To enable:${NC}"
@@ -172,7 +172,7 @@ if [ -n "$MACOS_CERTIFICATE_NAME" ] || security find-identity -p codesigning | g
     fi
 fi
 
-echo -e "${GREEN}✓ macOS installer created: $DIST_DIR/$DMG_NAME.dmg${NC}"
+echo -e "${GREEN}[OK] macOS installer created: $DIST_DIR/$DMG_NAME.dmg${NC}"
 
 # Build Windows installer preparation
 echo -e "${BLUE}Preparing Windows installer files...${NC}"
@@ -318,7 +318,7 @@ EOF
             rm "$BUILD_DIR/temp_cert.pfx"
             rm "$DIST_DIR/Franklin-Installer-Windows-unsigned.exe"
             
-            echo -e "${GREEN}✓ Windows executable signed successfully${NC}"
+            echo -e "${GREEN}[OK] Windows executable signed successfully${NC}"
         else
             echo -e "${YELLOW}osslsigncode not found. Install with: brew install osslsigncode${NC}"
             echo -e "${YELLOW}Windows executable will not be signed${NC}"
@@ -329,11 +329,11 @@ EOF
         echo -e "${YELLOW}  Set WINDOWS_CERT_PASSWORD (certificate password)${NC}"
     fi
     
-    echo -e "${GREEN}✓ Windows installer created: $DIST_DIR/Franklin-Installer-Windows.exe${NC}"
+    echo -e "${GREEN}[OK] Windows installer created: $DIST_DIR/Franklin-Installer-Windows.exe${NC}"
 else
     echo -e "${YELLOW}NSIS not found, creating ZIP package instead...${NC}"
     (cd "$BUILD_DIR/windows" && zip -r "../../dist/Franklin-Installer-Windows.zip" .)
-    echo -e "${GREEN}✓ Windows installer package created: $DIST_DIR/Franklin-Installer-Windows.zip${NC}"
+    echo -e "${GREEN}[OK] Windows installer package created: $DIST_DIR/Franklin-Installer-Windows.zip${NC}"
 fi
 
 # Copy cross-platform Python GUI installer
@@ -462,12 +462,12 @@ class InstallerGUI:
                 
                 # Update status label
                 if info.state == InstallState.INSTALLED:
-                    status.config(text=f"✓ Installed {f'v{info.version}' if info.version else ''}", 
+                    status.config(text=f"[OK] Installed {f'v{info.version}' if info.version else ''}", 
                                  foreground="green")
                 elif info.state == InstallState.NOT_INSTALLED:
-                    status.config(text="✗ Not Installed", foreground="red")
+                    status.config(text="[X] Not Installed", foreground="red")
                 elif info.state == InstallState.OUTDATED:
-                    status.config(text="⚠ Update Available", foreground="orange")
+                    status.config(text="[WARNING] Update Available", foreground="orange")
                 else:
                     status.config(text="? Unknown", foreground="gray")
                 
@@ -498,7 +498,7 @@ class InstallerGUI:
         # Confirm
         msg = "Execute the following actions?\n\n"
         for name, action in actions.items():
-            msg += f"• {name}: {action}\n"
+            msg += f"- {name}: {action}\n"
         
         if not messagebox.askyesno("Confirm", msg):
             return
@@ -517,23 +517,23 @@ EOF
 # Copy dependency checker
 cp "$SCRIPT_DIR/dependency_checker.py" "$DIST_DIR/"
 
-echo -e "${GREEN}✓ Cross-platform Python installer ready: $DIST_DIR/franklin_installer_gui.py${NC}"
+echo -e "${GREEN}[OK] Cross-platform Python installer ready: $DIST_DIR/franklin_installer_gui.py${NC}"
 
 # Summary
 echo ""
 echo -e "${GREEN}Build Complete!${NC}"
 echo "=============="
 echo "Created installers:"
-echo "  • macOS: $DIST_DIR/$DMG_NAME.dmg"
+echo "  - macOS: $DIST_DIR/$DMG_NAME.dmg"
 if [ -f "$DIST_DIR/Franklin-Installer-Windows.exe" ]; then
-    echo "  • Windows: $DIST_DIR/Franklin-Installer-Windows.exe"
+    echo "  - Windows: $DIST_DIR/Franklin-Installer-Windows.exe"
 else
-    echo "  • Windows: $DIST_DIR/Franklin-Installer-Windows.zip"
+    echo "  - Windows: $DIST_DIR/Franklin-Installer-Windows.zip"
 fi
-echo "  • Cross-platform: $DIST_DIR/franklin_installer_gui.py"
+echo "  - Cross-platform: $DIST_DIR/franklin_installer_gui.py"
 echo ""
 echo "Features:"
-echo "  ✓ Radio buttons for Install/Reinstall/Uninstall"
-echo "  ✓ Dependency state detection"
-echo "  ✓ Grayed out irrelevant options"
-echo "  ✓ Native UI for each platform"
+echo "  [OK] Radio buttons for Install/Reinstall/Uninstall"
+echo "  [OK] Dependency state detection"
+echo "  [OK] Grayed out irrelevant options"
+echo "  [OK] Native UI for each platform"

@@ -112,7 +112,7 @@ function Write-ColorOutput {
         'Warn' { Write-Host "[WARN] $Message" -ForegroundColor Yellow }
         'Error' { Write-Host "[ERROR] $Message" -ForegroundColor Red }
         'Step' { Write-Host "[STEP] $Message" -ForegroundColor Cyan }
-        'Success' { Write-Host "✓ $Message" -ForegroundColor Green }
+        'Success' { Write-Host "[OK] $Message" -ForegroundColor Green }
     }
 }
 
@@ -443,11 +443,11 @@ function Main {
         if (-not $DryRun) {
             Write-Host ""
             Write-Host "This script will install:" -ForegroundColor Cyan
-            if (-not $SkipMiniforge) { Write-Host "  • Miniforge (Python environment manager)" }
-            if (-not $SkipPixi) { Write-Host "  • Pixi (Fast package manager)" }
-            if (-not $SkipDocker) { Write-Host "  • Docker Desktop (Container platform)" }
-            if (-not $SkipChrome) { Write-Host "  • Google Chrome (Web browser)" }
-            if (-not $SkipFranklin) { Write-Host "  • Franklin $Role (Development environment)" }
+            if (-not $SkipMiniforge) { Write-Host "  - Miniforge (Python environment manager)" }
+            if (-not $SkipPixi) { Write-Host "  - Pixi (Fast package manager)" }
+            if (-not $SkipDocker) { Write-Host "  - Docker Desktop (Container platform)" }
+            if (-not $SkipChrome) { Write-Host "  - Google Chrome (Web browser)" }
+            if (-not $SkipFranklin) { Write-Host "  - Franklin $Role (Development environment)" }
             Write-Host ""
             Write-Host "Installation directory: $InstallDir"
             Write-Host ""
@@ -511,10 +511,10 @@ function Main {
             Write-Host "  3. Firewall/proxy blocking GitHub access" -ForegroundColor White
             Write-Host ""
             Write-Host "Try these solutions:" -ForegroundColor Cyan
-            Write-Host "  • Check your internet connection" -ForegroundColor White
-            Write-Host "  • Try using Google DNS (8.8.8.8) or Cloudflare DNS (1.1.1.1)" -ForegroundColor White
-            Write-Host "  • Disable VPN if connected" -ForegroundColor White
-            Write-Host "  • Check corporate firewall settings" -ForegroundColor White
+            Write-Host "  - Check your internet connection" -ForegroundColor White
+            Write-Host "  - Try using Google DNS (8.8.8.8) or Cloudflare DNS (1.1.1.1)" -ForegroundColor White
+            Write-Host "  - Disable VPN if connected" -ForegroundColor White
+            Write-Host "  - Check corporate firewall settings" -ForegroundColor White
         }
         elseif ($_.Exception.Message -match "connect|network|timeout") {
             Write-Host ""

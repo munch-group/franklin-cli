@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # Master Development Environment Installer for macOS/Linux
 # Orchestrates the installation of a complete development environment
@@ -502,17 +502,17 @@ check_prerequisites() {
         log_error "Bash 3.0 or higher is required. Current version: $BASH_VERSION"
         exit 1
     fi
-    log_info "Bash version: $BASH_VERSION ✓"
+    log_info "Bash version: $BASH_VERSION [OK]"
     
     # Check operating system
     local os_type
     os_type=$(uname -s)
     case "$os_type" in
         Darwin*)
-            log_info "Operating System: macOS ✓"
+            log_info "Operating System: macOS [OK]"
             ;;
         Linux*)
-            log_info "Operating System: Linux ✓"
+            log_info "Operating System: Linux [OK]"
             ;;
         *)
             log_warning "Operating System: $os_type (may not be fully supported)"
@@ -524,7 +524,7 @@ check_prerequisites() {
         log_error "Script directory not found: $SCRIPT_DIR"
         exit 1
     fi
-    log_info "Script directory: $SCRIPT_DIR ✓"
+    log_info "Script directory: $SCRIPT_DIR [OK]"
     
     # Check for available installer scripts (bash 3/4 compatible)
     local available_scripts=""
@@ -624,7 +624,7 @@ show_installation_summary() {
     if [ $SUCCESSFUL_INSTALLATIONS_COUNT -gt 0 ]; then
         log_success "Successfully installed:"
         get_successful_installations | while read -r item; do
-            echo -e "  ${GREEN}✓ $item${NC}"
+            echo -e "  ${GREEN}[OK] $item${NC}"
         done
     fi
     

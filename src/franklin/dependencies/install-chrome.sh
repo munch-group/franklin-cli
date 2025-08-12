@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 set -euo pipefail
 
 # Early OS check - this script is for macOS only
@@ -109,7 +109,7 @@ get_installation_status() {
     
     # Check if Chrome is installed
     if [[ -d "$CHROME_APP" ]]; then
-        echo "✅ Chrome: Installed"
+        echo "[OK] Chrome: Installed"
         
         # Get version info
         local version_plist="$CHROME_APP/Contents/Info.plist"
@@ -121,22 +121,22 @@ get_installation_status() {
         local bundle_id=$(defaults read "$version_plist" CFBundleIdentifier 2>/dev/null || echo "Unknown")
         echo "   Bundle ID: $bundle_id"
     else
-        echo "❌ Chrome: Not installed"
+        echo "[FAILED] Chrome: Not installed"
     fi
     
     # Check if Chrome is running
     if pgrep -x "Google Chrome" > /dev/null; then
-        echo "✅ Chrome: Running"
+        echo "[OK] Chrome: Running"
     else
-        echo "⚠️  Chrome: Not running"
+        echo "[WARNING]  Chrome: Not running"
     fi
     
     # Check default browser
     local default_browser=$(defaults read ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure | grep -A 1 "https" | grep "LSHandlerRoleAll" -A 1 | grep "com.google.chrome" || echo "")
     if [[ -n "$default_browser" ]]; then
-        echo "✅ Default Browser: Chrome"
+        echo "[OK] Default Browser: Chrome"
     else
-        echo "⚠️  Default Browser: Not Chrome"
+        echo "[WARNING]  Default Browser: Not Chrome"
     fi
     
     # Check user data
@@ -144,35 +144,35 @@ get_installation_status() {
     echo "User Data:"
     if [[ -d "$CHROME_USER_DATA" ]]; then
         local profiles=$(ls "$CHROME_USER_DATA" | grep -E "^(Default|Profile)" | wc -l | tr -d ' ')
-        echo "✅ User profiles: $profiles"
+        echo "[OK] User profiles: $profiles"
         
         local size=$(du -sh "$CHROME_USER_DATA" 2>/dev/null | cut -f1 || echo "Unknown")
         echo "   Data size: $size"
     else
-        echo "❌ User data: Not found"
+        echo "[FAILED] User data: Not found"
     fi
     
     # Check preferences
     if [[ -f "$CHROME_PREFERENCES" ]]; then
-        echo "✅ Preferences: Configured"
+        echo "[OK] Preferences: Configured"
     else
-        echo "⚠️  Preferences: Default"
+        echo "[WARNING]  Preferences: Default"
     fi
     
     # Check for managed policies
     local managed_prefs="/Library/Managed Preferences/$USERNAME/com.google.Chrome.plist"
     if [[ -f "$managed_prefs" ]]; then
-        echo "✅ Managed policies: Active"
+        echo "[OK] Managed policies: Active"
     else
-        echo "⚠️  Managed policies: None"
+        echo "[WARNING]  Managed policies: None"
     fi
     
     # Check updates
     local update_plist="$HOME/Library/Google/GoogleSoftwareUpdate/GoogleSoftwareUpdate.bundle/Contents/Info.plist"
     if [[ -f "$update_plist" ]]; then
-        echo "✅ Auto-update: Enabled"
+        echo "[OK] Auto-update: Enabled"
     else
-        echo "⚠️  Auto-update: Disabled/Not found"
+        echo "[WARNING]  Auto-update: Disabled/Not found"
     fi
 }
 
@@ -202,7 +202,7 @@ uninstall_chrome() {
     if [[ -d "$CHROME_APP" ]]; then
         log "Removing Chrome application..."
         rm -rf "$CHROME_APP"
-        echo "✅ Removed: $CHROME_APP"
+        echo "[OK] Removed: $CHROME_APP"
     fi
     
     # Remove Google Software Update
@@ -216,7 +216,7 @@ uninstall_chrome() {
     for path in "${update_paths[@]}"; do
         if [[ -d "$path" ]] && [[ "$keep_user_data" != "true" || "$path" == *"Library/Google"* || "$path" == *"SoftwareUpdate"* ]]; then
             rm -rf "$path" 2>/dev/null || true
-            echo "✅ Removed: $path"
+            echo "[OK] Removed: $path"
         fi
     done
     
@@ -237,7 +237,7 @@ uninstall_chrome() {
         for path in "${user_paths[@]}"; do
             if [[ -e "$path" ]]; then
                 rm -rf "$path"
-                echo "✅ Removed: $path"
+                echo "[OK] Removed: $path"
             fi
         done
     else
@@ -248,14 +248,14 @@ uninstall_chrome() {
     local managed_prefs="/Library/Managed Preferences/$USERNAME/com.google.Chrome.plist"
     if [[ -f "$managed_prefs" ]]; then
         sudo rm -f "$managed_prefs" 2>/dev/null || true
-        echo "✅ Removed managed preferences"
+        echo "[OK] Removed managed preferences"
     fi
     
     # Remove system-wide preferences
     local system_prefs="/Library/Preferences/com.google.Chrome.plist"
     if [[ -f "$system_prefs" ]]; then
         sudo rm -f "$system_prefs" 2>/dev/null || true
-        echo "✅ Removed system preferences"
+        echo "[OK] Removed system preferences"
     fi
     
     # Remove LaunchAgents
@@ -274,7 +274,7 @@ uninstall_chrome() {
                 launchctl unload "$agent" 2>/dev/null || true
                 rm -f "$agent"
             fi
-            echo "✅ Removed launch agent: $agent"
+            echo "[OK] Removed launch agent: $agent"
         fi
     done
     
@@ -284,14 +284,14 @@ uninstall_chrome() {
     log "Google Chrome uninstallation completed!"
     echo ""
     echo "Uninstallation Summary:"
-    echo "✅ Chrome application removed"
-    echo "✅ Google Update services removed"
-    echo "✅ Launch agents removed"
+    echo "[OK] Chrome application removed"
+    echo "[OK] Google Update services removed"
+    echo "[OK] Launch agents removed"
     
     if [[ "$keep_user_data" != "true" ]]; then
-        echo "✅ User data removed"
+        echo "[OK] User data removed"
     else
-        echo "⚠️  User data preserved"
+        echo "[WARNING]  User data preserved"
     fi
 }
 
@@ -328,7 +328,7 @@ install_chrome() {
     # Clean up
     rm -f /tmp/GoogleChrome.dmg
     
-    log "✅ Chrome installation completed"
+    log "[OK] Chrome installation completed"
 }
 
 configure_chrome() {
@@ -410,7 +410,7 @@ configure_chrome() {
         fi
     fi
     
-    log "✅ Chrome configuration completed"
+    log "[OK] Chrome configuration completed"
 }
 
 set_chrome_as_default() {
@@ -423,7 +423,7 @@ set_chrome_as_default() {
             sleep 2
             pkill "Google Chrome" 2>/dev/null || true
             
-            log "✅ Chrome set as default browser"
+            log "[OK] Chrome set as default browser"
         else
             log "WARNING: Chrome executable not found"
         fi
@@ -449,7 +449,7 @@ main() {
         local keep_data="true"
         if [[ "$CLEAN_UNINSTALL" == "true" ]]; then
             keep_data="false"
-            echo "⚠️  CLEAN UNINSTALL: This will remove ALL Chrome data including:"
+            echo "[WARNING]  CLEAN UNINSTALL: This will remove ALL Chrome data including:"
             echo "   - Bookmarks and browsing history"
             echo "   - Saved passwords and autofill data"
             echo "   - Extensions and their data"
@@ -493,7 +493,7 @@ main() {
     log "Installation and configuration complete!"
     
     # echo ""
-    # echo "🌐 Google Chrome installation completed successfully!"
+    # echo " Google Chrome installation completed successfully!"
     # echo ""
     # echo "Next steps:"
     # echo "1. Launch Chrome from Applications folder"

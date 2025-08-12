@@ -144,7 +144,7 @@ function Remove-GoogleChrome {
             if (Test-Path $path) {
                 Write-Host "Removing: $path" -ForegroundColor Yellow
                 Remove-Item $path -Recurse -Force -ErrorAction SilentlyContinue
-                Write-Host "✅ Removed: $path" -ForegroundColor Green
+                Write-Host "[OK] Removed: $path" -ForegroundColor Green
             }
         }
         
@@ -158,7 +158,7 @@ function Remove-GoogleChrome {
                 $userChromePath = "$($user.FullName)\AppData\Local\Google\Chrome"
                 if (Test-Path $userChromePath) {
                     Remove-Item $userChromePath -Recurse -Force -ErrorAction SilentlyContinue
-                    Write-Host "✅ Removed user data for: $($user.Name)" -ForegroundColor Green
+                    Write-Host "[OK] Removed user data for: $($user.Name)" -ForegroundColor Green
                 }
             }
             
@@ -166,7 +166,7 @@ function Remove-GoogleChrome {
             $currentUserPath = "$env:LOCALAPPDATA\Google\Chrome"
             if (Test-Path $currentUserPath) {
                 Remove-Item $currentUserPath -Recurse -Force -ErrorAction SilentlyContinue
-                Write-Host "✅ Removed current user Chrome data" -ForegroundColor Green
+                Write-Host "[OK] Removed current user Chrome data" -ForegroundColor Green
             }
         }
         
@@ -178,7 +178,7 @@ function Remove-GoogleChrome {
             if ($service) {
                 Stop-Service -Name $serviceName -Force -ErrorAction SilentlyContinue
                 sc.exe delete $serviceName
-                Write-Host "✅ Removed service: $serviceName" -ForegroundColor Green
+                Write-Host "[OK] Removed service: $serviceName" -ForegroundColor Green
             }
         }
         
@@ -196,7 +196,7 @@ function Remove-GoogleChrome {
         foreach ($regPath in $registryPaths) {
             if (Test-Path $regPath) {
                 Remove-Item $regPath -Recurse -Force -ErrorAction SilentlyContinue
-                Write-Host "✅ Removed registry: $regPath" -ForegroundColor Green
+                Write-Host "[OK] Removed registry: $regPath" -ForegroundColor Green
             }
         }
         
@@ -212,7 +212,7 @@ function Remove-GoogleChrome {
         foreach ($shortcut in $shortcutPaths) {
             if (Test-Path $shortcut) {
                 Remove-Item $shortcut -Force -ErrorAction SilentlyContinue
-                Write-Host "✅ Removed shortcut: $shortcut" -ForegroundColor Green
+                Write-Host "[OK] Removed shortcut: $shortcut" -ForegroundColor Green
             }
         }
         
@@ -248,7 +248,7 @@ function Install-GoogleChrome {
     try {
         $process = Start-Process -FilePath $installerPath -ArgumentList $installArgs -Wait -PassThru
         if ($process.ExitCode -eq 0) {
-            Write-Host "✅ Chrome installed successfully" -ForegroundColor Green
+            Write-Host "[OK] Chrome installed successfully" -ForegroundColor Green
         } else {
             Write-Error "Chrome installation failed with exit code: $($process.ExitCode)"
             return $false
@@ -346,7 +346,7 @@ function Set-ChromeConfiguration {
         }
     }
     
-    Write-Host "✅ Chrome configuration applied" -ForegroundColor Green
+    Write-Host "[OK] Chrome configuration applied" -ForegroundColor Green
 }
 
 function Set-ChromeAsDefault {
@@ -361,7 +361,7 @@ function Set-ChromeAsDefault {
         
         if (Test-Path $chromePath) {
             Start-Process -FilePath $chromePath -ArgumentList "--make-default-browser" -Wait
-            Write-Host "✅ Chrome set as default browser" -ForegroundColor Green
+            Write-Host "[OK] Chrome set as default browser" -ForegroundColor Green
         } else {
             Write-Warning "Chrome executable not found, cannot set as default"
         }

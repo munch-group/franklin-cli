@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # Cross-Platform Installer Build Script
 # Builds native installer packages for both Windows (NSIS) and macOS (.app bundle)
@@ -408,7 +408,7 @@ RESOURCES_DIR="$APP_BUNDLE/Contents/Resources"
 show_component_selection() {
     osascript << 'APPLESCRIPT'
     set availableComponents to {"Miniforge (Python Distribution)", "Pixi (Package Manager)", "Docker Desktop", "Google Chrome", "Franklin (via Pixi)"}
-    set selectedComponents to choose from list availableComponents with prompt "Select components to install (⌘+click for multiple):" default items availableComponents with multiple selections allowed with title "Development Environment Installer"
+    set selectedComponents to choose from list availableComponents with prompt "Select components to install (Cmd+click for multiple):" default items availableComponents with multiple selections allowed with title "Development Environment Installer"
     
     if selectedComponents is false then
         error "Installation cancelled by user."

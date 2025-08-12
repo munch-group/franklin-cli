@@ -47,7 +47,7 @@
 
 [CmdletBinding()]
 param(
-    [string]$ScriptPath = $PSScriptRoot,
+    [string]$ScriptPath,
     [switch]$SkipMiniforge,
     [switch]$SkipPixi,
     [switch]$SkipDocker,
@@ -57,6 +57,15 @@ param(
     [switch]$ContinueOnError,
     [switch]$Yes
 )
+
+# Set default for ScriptPath if not provided
+if (-not $ScriptPath) {
+    if ($PSScriptRoot) {
+        $ScriptPath = $PSScriptRoot
+    } else {
+        $ScriptPath = (Get-Location).Path
+    }
+}
 
 # Configuration
 $ErrorActionPreference = "Stop"

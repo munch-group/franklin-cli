@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+﻿#!/usr/bin/env bash
 #
 # Build role-specific installer scripts
 # This script creates simplified installers with hardcoded roles
@@ -329,10 +329,10 @@ create_role_html "administrator" "Administrator"
 create_role_html "admin" "Administrator"
 
 echo ""
-echo -e "${GREEN}✓ Role-specific installers created successfully!${NC}"
+echo -e "${GREEN}[OK] Role-specific installers created successfully!${NC}"
 echo ""
 echo "Created files:"
-ls -la "$OUTPUT_DIR"/*-install.* | awk '{print "  • " $NF}'
+ls -la "$OUTPUT_DIR"/*-install.* | awk '{print "  - " $NF}'
 echo ""
 echo -e "${YELLOW}Usage examples:${NC}"
 echo ""
