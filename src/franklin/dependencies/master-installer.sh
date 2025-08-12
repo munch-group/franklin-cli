@@ -21,6 +21,7 @@ FORCE_DOCKER=false
 FORCE_CHROME=false
 FORCE_FRANKLIN=false
 CONTINUE_ON_ERROR=false
+YES_FLAG=false  # Auto-accept all confirmations
 USER_ROLE="student"  # Default role: student, educator, or administrator
 
 # Script execution tracking (using simple counters and variables)
@@ -567,19 +568,19 @@ show_installation_plan() {
     log_info "Force reinstall: $FORCE_INSTALL"
     log_info "Continue on error: $CONTINUE_ON_ERROR"
     
-    # if [ "$FORCE_INSTALL" = false ]; then
-    #     echo
-    #     printf "Do you want to proceed with the installation? (y/N): "
-    #     read -r reply
-    #     case "$reply" in
-    #         [Yy]|[Yy][Ee][Ss])
-    #             ;;
-    #         *)
-    #             log_info "Installation cancelled by user."
-    #             exit 0
-    #             ;;
-    #     esac
-    # fi
+    if [ "$FORCE_INSTALL" = false ] && [ "$YES_FLAG" = false ]; then
+        echo
+        printf "Do you want to proceed with the installation? (y/N): "
+        read -r reply
+        case "$reply" in
+            [Yy]|[Yy][Ee][Ss])
+                ;;
+            *)
+                log_info "Installation cancelled by user."
+                exit 0
+                ;;
+        esac
+    fi
 }
 
 # Function to show installation summary
@@ -651,6 +652,7 @@ Options:
     --force-chrome        Force reinstall Chrome only
     --force-franklin      Force reinstall Franklin only
     -c, --continue-on-error Continue with remaining installations if one fails
+    -y, --yes              Bypass all user confirmations (auto-accept)
     --role ROLE           Set user role: student, educator, or administrator (default: student)
 
 Examples:
@@ -735,6 +737,10 @@ parse_arguments() {
                 ;;
             -c|--continue-on-error)
                 CONTINUE_ON_ERROR=true
+                shift
+                ;;
+            -y|--yes)
+                YES_FLAG=true
                 shift
                 ;;
             --role)

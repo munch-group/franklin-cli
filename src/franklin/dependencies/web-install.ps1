@@ -118,9 +118,9 @@ function Write-ColorOutput {
 
 function Show-Banner {
     Write-Host ""
-    Write-Host "╔════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-    Write-Host "║     Franklin Development Environment Installer         ║" -ForegroundColor Cyan
-    Write-Host "╚════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+    Write-Host "============================================" -ForegroundColor Cyan
+    Write-Host "             Franklin Installer             " -ForegroundColor Cyan
+    Write-Host "============================================" -ForegroundColor Cyan
     Write-Host ""
 }
 
@@ -359,6 +359,9 @@ function Download-Installers {
 
 function Build-Arguments {
     $args = @()
+    
+    # Always add -Yes flag to bypass confirmations when called from web installer
+    $args += '-Yes'
     
     if ($Role -and $Role -ne 'student') {
         $args += '--role', $Role

@@ -32,6 +32,9 @@
 .PARAMETER ContinueOnError
     Continue with remaining installations if one fails
     
+.PARAMETER Yes
+    Bypass all user confirmations (auto-accept)
+    
 .EXAMPLE
     .\Master-Installer.ps1
     
@@ -51,7 +54,8 @@ param(
     [switch]$SkipChrome,
     [switch]$SkipFranklin,
     [switch]$Force,
-    [switch]$ContinueOnError
+    [switch]$ContinueOnError,
+    [switch]$Yes
 )
 
 # Configuration
@@ -463,7 +467,7 @@ function Show-InstallationPlan {
     # Write-Info "Force reinstall: $Force"
     # Write-Info "Continue on error: $ContinueOnError"
     
-    if (-not $Force) {
+    if (-not $Force -and -not $Yes) {
         Write-Host ""
         $confirm = Read-Host "Do you want to proceed with the installation? (y/N)"
         if ($confirm -notmatch '^[Yy]$') {

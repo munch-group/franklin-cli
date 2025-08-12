@@ -150,9 +150,9 @@ $HardcodedRole = 'ROLE_PLACEHOLDER'
 
 # Banner
 Write-Host ""
-Write-Host "╔════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║     Franklin ROLE_TITLE Installation                    ║" -ForegroundColor Cyan
-Write-Host "╚════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "============================================" -ForegroundColor Cyan
+Write-Host "      Franklin ROLE_TITLE Installation      " -ForegroundColor Cyan
+Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "[INFO] Installing Franklin for role: $HardcodedRole" -ForegroundColor Green
 Write-Host ""

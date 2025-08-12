@@ -175,6 +175,9 @@ main() {
     local args=("$@")
     local dry_run=false
     
+    # Always add --yes flag to bypass confirmations when called from web installer
+    args+=("--yes")
+    
     for arg in "$@"; do
         case $arg in
             --help|-h)
