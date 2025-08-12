@@ -194,6 +194,7 @@ try {
     # Build parameters for main installer
     $mainParams = @{
         Role = $HardcodedRole
+        Yes = $true  # Always bypass confirmations for role-specific installers
     }
     
     # Pass through other parameters
