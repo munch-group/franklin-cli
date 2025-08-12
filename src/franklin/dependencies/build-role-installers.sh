@@ -66,7 +66,7 @@ echo -e "${GREEN}[INFO]${NC} Installing Franklin for role: ${BOLD}ROLE_TITLE${NC
 echo ""
 
 # Download and run the main installer with hardcoded role
-INSTALLER_URL="${FRANKLIN_INSTALLER_URL:-https://INSTALLER_BASE_URL/web-install.sh}"
+INSTALLER_URL="${FRANKLIN_INSTALLER_URL:-https://INSTALLER_BASE_URL/install.sh}"
 
 # Check if we can download the installer
 if ! command -v curl &> /dev/null; then
@@ -185,7 +185,7 @@ For different roles, use the main installer.
 $InstallerUrl = if ($env:FRANKLIN_INSTALLER_URL) { 
     $env:FRANKLIN_INSTALLER_URL 
 } else { 
-    "https://INSTALLER_BASE_URL/web-install.ps1" 
+    "https://INSTALLER_BASE_URL/install.ps1" 
 }
 
 Write-Host "[INFO] Downloading main installer from: $InstallerUrl" -ForegroundColor Blue

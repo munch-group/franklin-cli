@@ -59,6 +59,7 @@ param(
     [switch]$SkipFranklin,
     [switch]$Force,
     [switch]$DryRun,
+    [switch]$Yes,
     [switch]$Help
 )
 
@@ -360,9 +361,8 @@ function Download-Installers {
 function Build-Arguments {
     $installArgs = @()
     
-    # Always add -Yes flag to bypass confirmations when called from web installer
-    $installArgs += '-Yes'
-    
+    # Pass through all parameters to Master-Installer
+    if ($Yes) { $installArgs += '-Yes' }
     if ($Role -and $Role -ne 'student') {
         $installArgs += '-Role', $Role
     }
@@ -452,13 +452,16 @@ function Main {
             Write-Host "Installation directory: $InstallDir"
             Write-Host ""
             
-            # Confirm installation (if interactive)
-            if (-not $env:CI -and -not $env:FRANKLIN_NONINTERACTIVE) {
+            # Confirm installation (if interactive and not using -Yes)
+            if (-not $Yes -and -not $env:CI -and -not $env:FRANKLIN_NONINTERACTIVE) {
                 $response = Read-Host "Continue with installation? (Y/n)"
                 if ($response -and $response -ne 'Y' -and $response -ne 'y') {
                     Write-ColorOutput "Installation cancelled" -Type Info
                     return
                 }
+            }
+            elseif ($Yes) {
+                Write-ColorOutput "Auto-accepting installation (Yes flag specified)" -Type Info
             }
             else {
                 Write-ColorOutput "Running in non-interactive mode" -Type Info
