@@ -358,23 +358,23 @@ function Download-Installers {
 }
 
 function Build-Arguments {
-    $args = @()
+    $installArgs = @()
     
     # Always add -Yes flag to bypass confirmations when called from web installer
-    $args += '-Yes'
+    $installArgs += '-Yes'
     
     if ($Role -and $Role -ne 'student') {
-        $args += '-Role', $Role
+        $installArgs += '-Role', $Role
     }
     
-    if ($SkipMiniforge) { $args += '-SkipMiniforge' }
-    if ($SkipPixi) { $args += '-SkipPixi' }
-    if ($SkipDocker) { $args += '-SkipDocker' }
-    if ($SkipChrome) { $args += '-SkipChrome' }
-    if ($SkipFranklin) { $args += '-SkipFranklin' }
-    if ($Force) { $args += '-Force' }
+    if ($SkipMiniforge) { $installArgs += '-SkipMiniforge' }
+    if ($SkipPixi) { $installArgs += '-SkipPixi' }
+    if ($SkipDocker) { $installArgs += '-SkipDocker' }
+    if ($SkipChrome) { $installArgs += '-SkipChrome' }
+    if ($SkipFranklin) { $installArgs += '-SkipFranklin' }
+    if ($Force) { $installArgs += '-Force' }
     
-    return $args
+    return $installArgs
 }
 
 function Invoke-Installation {
