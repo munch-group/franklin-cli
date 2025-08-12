@@ -280,6 +280,25 @@ install_docker_desktop() {
         return 0
     fi
     
+    # Check OS - Docker Desktop installer is macOS-only
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        log_warning "Docker Desktop installer is for macOS only."
+        log_info "For Linux, please install Docker Engine manually:"
+        log_info "  Ubuntu/Debian: https://docs.docker.com/engine/install/ubuntu/"
+        log_info "  RHEL/CentOS: https://docs.docker.com/engine/install/centos/"
+        log_info "  Other: https://docs.docker.com/engine/install/"
+        
+        # Check if Docker is already installed via other means
+        if command_exists docker; then
+            log_success "Docker is already installed via system package manager"
+            add_to_successful_installations "Docker (system)"
+            return 0
+        else
+            log_info "Skipping Docker Desktop installation on Linux"
+            return 0
+        fi
+    fi
+    
     # Check if already installed
     if command_exists docker && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_DOCKER" = false ]; then
         log_info "Docker already installed. Use --force or --force-docker to reinstall."
@@ -322,12 +341,27 @@ install_chrome() {
         return 0
     fi
     
+    # Check OS first
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        log_warning "Chrome installer script is for macOS only."
+        log_info "For Linux, please install Chrome manually:"
+        log_info "  Ubuntu/Debian: sudo apt install google-chrome-stable"
+        log_info "  Fedora: sudo dnf install google-chrome-stable"
+        log_info "  Or download from: https://www.google.com/chrome/"
+        
+        # Check if Chrome is already installed via system package manager
+        if command_exists google-chrome || command_exists google-chrome-stable; then
+            log_success "Chrome is already installed via system package manager"
+            add_to_successful_installations "Chrome (system)"
+            return 0
+        else
+            log_info "Skipping Chrome installation on Linux"
+            return 0
+        fi
+    fi
+    
     # Check if already installed (macOS specific check)
-    if [ "$(uname)" = "Darwin" ] && [ -d "/Applications/Google Chrome.app" ] && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_CHROME" = false ]; then
-        log_info "Chrome already installed. Use --force or --force-chrome to reinstall."
-        add_to_successful_installations "Chrome"
-        return 0
-    elif command_exists google-chrome && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_CHROME" = false ]; then
+    if [ -d "/Applications/Google Chrome.app" ] && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_CHROME" = false ]; then
         log_info "Chrome already installed. Use --force or --force-chrome to reinstall."
         add_to_successful_installations "Chrome"
         return 0

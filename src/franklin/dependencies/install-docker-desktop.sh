@@ -1,6 +1,14 @@
 #!/bin/bash
 set -euo pipefail
 
+# Early OS check - this script is for macOS only
+if [[ "$OSTYPE" != "darwin"* ]]; then
+    echo "ERROR: This script is for macOS only. Detected OS: $OSTYPE"
+    echo "For Linux, please visit: https://docs.docker.com/engine/install/"
+    echo "For Windows, please use the PowerShell installer instead."
+    exit 1
+fi
+
 # Configuration
 INSTALL_METHOD="dmg"  # Options: dmg, homebrew
 USERNAME=$(whoami)
@@ -56,14 +64,28 @@ log() {
 }
 
 check_requirements() {
-    MACOS_VERSION=$(sw_vers -productVersion)
-    MAJOR_VERSION=$(echo $MACOS_VERSION | cut -d. -f1)
-    
-    if [[ $MAJOR_VERSION -lt 13 ]]; then
-        log "ERROR: macOS 13.0 (Ventura) or later required"
+    # Check OS type
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        log "ERROR: This script is for macOS only. Detected OS: $OSTYPE"
+        log "For Linux, please visit: https://docs.docker.com/engine/install/"
+        log "For Windows, please use the PowerShell installer instead."
         exit 1
     fi
     
+    # Check macOS version (only if sw_vers is available)
+    if command -v sw_vers >/dev/null 2>&1; then
+        MACOS_VERSION=$(sw_vers -productVersion)
+        MAJOR_VERSION=$(echo $MACOS_VERSION | cut -d. -f1)
+        
+        if [[ $MAJOR_VERSION -lt 13 ]]; then
+            log "ERROR: macOS 13.0 (Ventura) or later required"
+            exit 1
+        fi
+    else
+        log "WARNING: Cannot determine macOS version"
+    fi
+    
+    # Check available disk space
     AVAILABLE_SPACE=$(df -g / | tail -1 | awk '{print $4}')
     if [[ $AVAILABLE_SPACE -lt 10 ]]; then
         log "ERROR: Insufficient disk space"

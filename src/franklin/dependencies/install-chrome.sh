@@ -1,6 +1,16 @@
 #!/bin/bash
 set -euo pipefail
 
+# Early OS check - this script is for macOS only
+if [[ "$OSTYPE" != "darwin"* ]]; then
+    echo "ERROR: This script is for macOS only. Detected OS: $OSTYPE"
+    echo "For Linux, please install Chrome via your package manager:"
+    echo "  Ubuntu/Debian: sudo apt install google-chrome-stable"
+    echo "  Fedora: sudo dnf install google-chrome-stable"
+    echo "  Or download from: https://www.google.com/chrome/"
+    exit 1
+fi
+
 # Configuration
 USERNAME=$(whoami)
 LOG_FILE="/tmp/chrome_install.log"
