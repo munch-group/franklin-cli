@@ -103,16 +103,16 @@ function Write-Error {
 function Write-Header {
     param([string]$Message)
     Write-Host ""
-    Write-Host "=" * 60 -ForegroundColor Cyan
+    Write-Host ("=" * 60) -ForegroundColor Cyan
     Write-Host "  $Message" -ForegroundColor Cyan
-    Write-Host "=" * 60 -ForegroundColor Cyan
+    Write-Host ("=" * 60) -ForegroundColor Cyan
 }
 
 function Write-StepHeader {
     param([string]$Step, [string]$Description)
     Write-Host ""
     Write-Host ">>> STEP ${Step}: $Description" -ForegroundColor Magenta
-    Write-Host "-" * 50 -ForegroundColor Gray
+    Write-Host ("-" * 50) -ForegroundColor Gray
 }
 
 function Test-ScriptExists {
@@ -360,7 +360,7 @@ function Install-Franklin {
         }
     }
     
-    Write-Info "Installing Franklin using pixi global..."
+    # Write-Info "Installing Franklin using pixi global..."
     
     try {
         # Refresh environment to ensure pixi is in PATH
@@ -374,7 +374,7 @@ function Install-Franklin {
             "franklin"
         )
         
-        Write-Info "Executing: pixi $($pixiArgs -join ' ')"
+        # Write-Info "Executing: pixi $($pixiArgs -join ' ')"
         
         $process = Start-Process -FilePath "pixi" -ArgumentList $pixiArgs -Wait -PassThru -NoNewWindow
         
@@ -407,12 +407,12 @@ function Test-Prerequisites {
     if ($psVersion.Major -lt 5) {
         throw "PowerShell 5.1 or higher is required. Current version: $psVersion"
     }
-    Write-Info "PowerShell version: $psVersion ✓"
+    Write-Info "PowerShell version: $psVersion [OK]"
     
     # Check if running as administrator (recommended but not required)
     $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
     if ($isAdmin) {
-        Write-Info "Running as Administrator ✓"
+        Write-Info "Running as Administrator [OK]"
     } else {
         Write-Warning "Not running as Administrator. Some installations may require elevation."
     }
@@ -421,7 +421,7 @@ function Test-Prerequisites {
     if (-not (Test-Path $ScriptPath)) {
         throw "Script directory not found: $ScriptPath"
     }
-    Write-Info "Script directory: $ScriptPath ✓"
+    Write-Info "Script directory: $ScriptPath [OK]"
     
     # Check for available installer scripts
     $availableScripts = @()
@@ -460,10 +460,10 @@ function Show-InstallationPlan {
         Write-Host "  $step" -ForegroundColor White
     }
     
-    Write-Host ""
-    Write-Info "Script directory: $ScriptPath"
-    Write-Info "Force reinstall: $Force"
-    Write-Info "Continue on error: $ContinueOnError"
+    # Write-Host ""
+    # Write-Info "Script directory: $ScriptPath"
+    # Write-Info "Force reinstall: $Force"
+    # Write-Info "Continue on error: $ContinueOnError"
     
     if (-not $Force) {
         Write-Host ""
@@ -482,22 +482,22 @@ function Show-InstallationSummary {
     #>
     Write-Header "INSTALLATION SUMMARY"
     
-    if (($Script:SuccessfulInstallations).Count -gt 0) {
+    if ($Script:SuccessfulInstallations -and $Script:SuccessfulInstallations.Count -gt 0) {
         Write-Success "Successfully installed:"
-        foreach ($item in ($Script:SuccessfulInstallations)) {
-            Write-Host "  ✓ $item" -ForegroundColor Green
+        foreach ($item in $Script:SuccessfulInstallations) {
+            Write-Host "  [OK] $item" -ForegroundColor Green
         }
     }
     
-    if (($Script:FailedInstallations).Count -gt 0) {
+    if ($Script:FailedInstallations -and $Script:FailedInstallations.Count -gt 0) {
         Write-Warning "Failed installations:"
-        foreach ($item in ($Script:FailedInstallations)) {
-            Write-Host "  ✗ $item" -ForegroundColor Red
+        foreach ($item in $Script:FailedInstallations) {
+            Write-Host "  [FAILED] $item" -ForegroundColor Red
         }
     }
     
     Write-Host ""
-    if (($Script:FailedInstallations).Count -eq 0) {
+    if (-not $Script:FailedInstallations -or $Script:FailedInstallations.Count -eq 0) {
         Write-Success "All installations completed successfully!"
         Write-Info "Your development environment is ready to use."
     } else {
@@ -571,7 +571,7 @@ function Start-MasterInstallation {
         Write-Info "Total installation time: $($duration.ToString('hh\:mm\:ss'))"
         
         # Determine exit code
-        if (($Script:FailedInstallations).Count -eq 0) {
+        if (-not $Script:FailedInstallations -or $Script:FailedInstallations.Count -eq 0) {
             Write-Success "Master installation completed successfully!"
             exit 0
         } elseif ($ContinueOnError) {

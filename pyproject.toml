@@ -40,7 +40,7 @@ maintainers = [
   {name = "Kasper Munch", email = "kaspermunch@birc.au.dk"},
 ]
 description = "Terminal client for Jupyter exercises"
-keywords = ["teaching", "jupyter", "docker", "gitlab"]
+keywords = ["teaching", "data", "jupyter", "docker", "git"]
 readme = "README.md"
 
 [project.urls]
@@ -78,10 +78,6 @@ franklin = [
 [tool.pixi.workspace]
 channels = ["conda-forge", "munch-group"]
 platforms = ["osx-arm64", "win-64", "osx-64", "linux-64"]
-
-[tool.pixi.target.osx-arm64.dependencies]
-setuptools = "*"
-pip = "*"
 
 [tool.pixi.tasks.install-dev]
 #cmd = "pip install --no-build-isolation --no-deps --disable-pip-version-check -e ."
