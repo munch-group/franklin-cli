@@ -506,17 +506,19 @@ function Show-InstallationSummary {
         Write-Warning "Some installations failed. Check the error messages above."
         Write-Info "You may need to install the failed components manually."
     }
-    
-    # Show next steps
-    Write-Host ""
-    Write-Info "NEXT STEPS:"
-    Write-Info "1. Restart your PowerShell session to refresh environment variables"
-    Write-Info "2. Verify installations:"
-    Write-Info "   - conda --version"
-    Write-Info "   - pixi --version"
-    Write-Info "   - docker --version"
-    Write-Info "   - franklin --version (if installed)"
-    Write-Info "3. Check that Franklin is available via 'franklin' command"
+
+    Write-Info "You must restart PowerShell to use installed components"
+
+    # # Show next steps
+    # Write-Host ""
+    # Write-Info "NEXT STEPS:"
+    # Write-Info "1. Restart your PowerShell session to refresh environment variables"
+    # Write-Info "2. Verify installations:"
+    # Write-Info "   - conda --version"
+    # Write-Info "   - pixi --version"
+    # Write-Info "   - docker --version"
+    # Write-Info "   - franklin --version (if installed)"
+    # Write-Info "3. Check that Franklin is available via 'franklin' command"
 }
 
 function Save-InstallationLog {
