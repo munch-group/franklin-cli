@@ -57,9 +57,9 @@ NC='\033[0m'
 
 # Show banner
 echo -e "${BOLD}"
-echo "╔════════════════════════════════════════════════════════╗"
-echo "║     Franklin ROLE_TITLE Installation                    ║"
-echo "╚════════════════════════════════════════════════════════╝"
+echo "=============================================="
+echo "      Franklin ROLE_TITLE Installation        "
+echo "=============================================="
 echo -e "${NC}"
 echo ""
 echo -e "${GREEN}[INFO]${NC} Installing Franklin for role: ${BOLD}ROLE_TITLE${NC}"
