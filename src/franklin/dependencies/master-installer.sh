@@ -829,17 +829,17 @@ start_master_installation() {
     
     # Show installation plan
     show_installation_plan
-    
+
+    if [ "$DRY_RUN" = true ]; then 
+        exit 0
+    fi
+
     if [ "$YES_FLAG" = false ]; then 
         read -p "Continue? (type Y for Yes or N for No) " -n 1 -r
         echo    # (optional) move to a new line
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
             exit 0
         fi
-    fi
-
-    if [ "$DRY_RUN" = true ]; then 
-        exit 0
     fi
 
     # Execute installations in sequence
