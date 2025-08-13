@@ -602,7 +602,7 @@ show_installation_plan() {
     log_info "Force reinstall: $FORCE_INSTALL"
     log_info "Continue on error: $CONTINUE_ON_ERROR"
     
-    if [ "$FORCE_INSTALL" = false ] && [ "$YES_FLAG" = false ]; then
+    if [ "$YES_FLAG" = false ]; then
         echo
         printf "Do you want to proceed with the installation? (y/N): "
         read -r reply
