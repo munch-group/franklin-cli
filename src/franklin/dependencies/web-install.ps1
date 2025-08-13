@@ -59,7 +59,6 @@ param(
     [switch]$SkipFranklin,
     [switch]$Force,
     [switch]$DryRun,
-    [switch]$Yes,
     [switch]$Help
 )
 
@@ -145,6 +144,7 @@ PARAMETERS:
     -SkipFranklin   Skip Franklin installation
     -Force          Force reinstall all components
     -DryRun         Show what would be installed without doing it
+    -Yes            Do not prompt for confirmations
     -Help           Show this help message
 
 EXAMPLES:
