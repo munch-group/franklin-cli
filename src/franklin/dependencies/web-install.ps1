@@ -59,6 +59,7 @@ param(
     [switch]$SkipFranklin,
     [switch]$Force,
     [switch]$DryRun,
+    [switch]$Yes,
     [switch]$Help
 )
 
