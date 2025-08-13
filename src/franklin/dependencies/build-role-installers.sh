@@ -77,7 +77,7 @@ fi
 # Pass all arguments plus the hardcoded role and the --yes flag
 # Users can still override with additional options like --skip-docker
 echo -e "${BLUE}[INFO]${NC} Downloading main installer from: $INSTALLER_URL"
-curl -fsSL "$INSTALLER_URL" | bash -s -- --role "$HARDCODED_ROLE" "$@"
+curl -fsSL "$INSTALLER_URL" | bash -s -- --yes --role "$HARDCODED_ROLE" "$@"
 EOF
     
     # Replace placeholders
@@ -173,7 +173,6 @@ PARAMETERS:
     -SkipFranklin   Skip Franklin installation
     -Force          Force reinstall all components
     -DryRun         Show what would be installed
-    -Yes            Do not prompt for confirmations
     -Help           Show this help message
 
 NOTE: Role is pre-set to ROLE_TITLE
@@ -206,7 +205,6 @@ try {
     if ($SkipFranklin) { $mainParams['SkipFranklin'] = $true }
     if ($Force) { $mainParams['Force'] = $true }
     if ($DryRun) { $mainParams['DryRun'] = $true }
-    if ($Yes) { $mainParams['Yes'] = $true }
     
     # Download and execute
     $scriptContent = Invoke-RestMethod -Uri $InstallerUrl -UseBasicParsing
