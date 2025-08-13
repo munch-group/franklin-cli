@@ -34,7 +34,10 @@
     
 .PARAMETER Yes
     Bypass all user confirmations (auto-accept)
-    
+
+.PARAMETER DryRun
+    Only show installation plan
+
 .EXAMPLE
     .\Master-Installer.ps1
     
@@ -57,6 +60,7 @@ param(
     [switch]$SkipFranklin,
     [switch]$Force,
     [switch]$ContinueOnError,
+    [switch]$DryRun
     [switch]$Yes
 )
 
@@ -484,8 +488,13 @@ function Show-InstallationPlan {
     # Write-Info "Script directory: $ScriptPath"
     # Write-Info "Force reinstall: $Force"
     # Write-Info "Continue on error: $ContinueOnError"
-    
-    if (-not $Force -and -not $Yes) {
+
+    if ($DryRun) {
+        exit 0
+    }
+
+    # if (-not $Force -and -not $Yes) {
+    if (-not $Yes) {
         Write-Host ""
         $confirm = Read-Host "Do you want to proceed with the installation? (y/N)"
         if ($confirm -notmatch '^[Yy]$') {

@@ -362,11 +362,11 @@ function Build-Arguments {
     $installArgs = @()
     
     # Pass through all parameters to Master-Installer
-    if ($Yes) { $installArgs += '-Yes' }
     if ($Role -and $Role -ne 'student') {
         $installArgs += '-Role', $Role
     }
-    
+    if ($Yes) { $installArgs += '-Yes' }
+    if ($DryRun) { $installArgs += '-DryRun' }
     if ($SkipMiniforge) { $installArgs += '-SkipMiniforge' }
     if ($SkipPixi) { $installArgs += '-SkipPixi' }
     if ($SkipDocker) { $installArgs += '-SkipDocker' }
