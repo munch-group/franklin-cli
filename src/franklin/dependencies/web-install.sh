@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 #
 # Franklin Development Environment - Web Installer
 # 
@@ -42,15 +42,15 @@ determine_base_url() {
     fi
 }
 
-# Show banner
-show_banner() {
-    echo -e "${BOLD}"
-    echo "+=====================================================+"
-    echo "|     Franklin Development Environment Installer      |"
-    echo "+=====================================================+"
-    echo -e "${NC}"
-    echo ""
-}
+# # Show banner
+# show_banner() {
+#     echo -e "${BOLD}"
+#     echo "+=====================================================+"
+#     echo "|     Franklin Development Environment Installer      |"
+#     echo "+=====================================================+"
+#     echo -e "${NC}"
+#     echo ""
+# }
 
 # Show help
 show_help() {
@@ -64,6 +64,7 @@ show_help() {
     echo "  --skip-chrome     Skip Chrome installation"
     echo "  --skip-franklin   Skip Franklin installation"
     echo "  --force           Force reinstall all components"
+    echo "  --yes             Bypass confirmation prompts"
     echo "  --dry-run         Show what would be installed without doing it"
     echo "  --help            Show this help message"
     echo ""
@@ -169,23 +170,16 @@ download_installers() {
 
 # Main installation
 main() {
-    show_banner
+    # show_banner
     
     # Parse arguments
     local args=("$@")
-    local dry_run=false
-    
-    # Always add --yes flag to bypass confirmations when called from web installer
-    args+=("--yes")
     
     for arg in "$@"; do
         case $arg in
             --help|-h)
                 show_help
                 exit 0
-                ;;
-            --dry-run)
-                dry_run=true
                 ;;
         esac
     done
@@ -200,39 +194,14 @@ main() {
     fi
     
     if [[ "$os" == "windows" ]]; then
-        log_error "This is a Unix/Linux installer. For Windows, use:"
-        echo "  irm https://munch-group.org/install.ps1 | iex"
+        log_error "Unsupported operating system: $OSTYPE"
+        # log_error "This is a Unix/Linux installer. For Windows, use:"
+        # echo "  irm https://munch-group.org/install.ps1 | iex"
         exit 1
     fi
     
     # Check requirements
     check_requirements "$os"
-    
-    # Confirm installation
-    if [[ "$dry_run" == "false" ]]; then
-        echo ""
-        echo -e "${BOLD}This script will install:${NC}"
-        echo "  - Miniforge (Python environment manager)"
-        echo "  - Pixi (Fast package manager)"
-        echo "  - Docker Desktop (Container platform)"
-        echo "  - Google Chrome (Web browser)"
-        echo "  - Franklin (Development environment)"
-        echo ""
-        echo "Installation directory: $INSTALL_DIR"
-        echo ""
-        
-        # Check if running in CI/automated environment
-        if [ -t 0 ] && [ -z "${CI:-}" ] && [ -z "${FRANKLIN_NONINTERACTIVE:-}" ]; then
-            read -p "Continue with installation? (y/N) " -n 1 -r
-            echo
-            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-                log_info "Installation cancelled"
-                exit 0
-            fi
-        else
-            log_info "Running in non-interactive mode"
-        fi
-    fi
     
     # Determine base URL
     local base_url
@@ -250,28 +219,25 @@ main() {
     download_installers "$temp_dir" "$os" "$base_url"
     
     # Run installation
-    if [[ "$dry_run" == "true" ]]; then
-        log_info "Dry run - would execute:"
-        echo "  cd '$temp_dir'"
-        echo "  ./master-installer.sh ${args[*]}"
+    # log_step "Starting installation..."
+    cd "$temp_dir"
+    
+    log_info "Running: ./master-installer.sh ${args[@]}"
+
+    # Run master installer with all arguments
+    if ./master-installer.sh "${args[@]}"; then
+        echo ""
+        log_info "${GREEN}${BOLD}Installation completed successfully!${NC}"
+        # echo ""
+        # echo "Next steps:"
+        # echo "  1. Restart your terminal or run: source ~/.bashrc"
+        # echo "  2. Verify installation: franklin --version"
+        # echo "  3. Get started: franklin --help"
     else
-        log_step "Starting installation..."
-        cd "$temp_dir"
-        
-        # Run master installer with all arguments
-        if ./master-installer.sh "${args[@]}"; then
-            echo ""
-            log_info "${GREEN}${BOLD}Installation completed successfully!${NC}"
-            # echo ""
-            # echo "Next steps:"
-            # echo "  1. Restart your terminal or run: source ~/.bashrc"
-            # echo "  2. Verify installation: franklin --version"
-            # echo "  3. Get started: franklin --help"
-        else
-            log_error "Installation failed. Check the output above for errors."
-            exit 1
-        fi
+        log_error "Installation failed. Check the output above for errors."
+        exit 1
     fi
+
 
     echo "export BASH_SILENCE_DEPRECATION_WARNING=1" >> "$HOME/.bashrc"
 }

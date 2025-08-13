@@ -79,7 +79,7 @@ fi
 echo -e "${BLUE}[INFO]${NC} Downloading main installer from: $INSTALLER_URL"
 curl -fsSL "$INSTALLER_URL" | bash -s -- --role "$HARDCODED_ROLE" "$@"
 EOF
-    
+
     # Replace placeholders
     local role_title
     case "$role" in

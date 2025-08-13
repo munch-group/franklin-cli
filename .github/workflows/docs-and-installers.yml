@@ -39,7 +39,7 @@ jobs:
       - name: Install NSIS
         run: |
           brew install makensis
-          echo "✓ NSIS installed: $(makensis -VERSION)"
+          echo "NSIS installed: $(makensis -VERSION)"
       
       - name: Install osslsigncode for Windows signing
         run: |

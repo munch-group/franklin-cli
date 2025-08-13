@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # Master Development Environment Installer for macOS/Linux
 # Orchestrates the installation of a complete development environment
@@ -21,6 +21,7 @@ FORCE_DOCKER=false
 FORCE_CHROME=false
 FORCE_FRANKLIN=false
 CONTINUE_ON_ERROR=false
+DRY_RUN=false
 YES_FLAG=false  # Auto-accept all confirmations
 USER_ROLE="student"  # Default role: student, educator, or administrator
 
@@ -602,7 +603,9 @@ show_installation_plan() {
     log_info "Force reinstall: $FORCE_INSTALL"
     log_info "Continue on error: $CONTINUE_ON_ERROR"
     
-    if [ "$YES_FLAG" = false ]; then
+    if [ "$YES_FLAG" = true ]; then
+        log_info "Bypassing confirmation"
+    else
         echo
         printf "Do you want to proceed with the installation? (y/N): "
         read -r reply
@@ -777,6 +780,10 @@ parse_arguments() {
                 CONTINUE_ON_ERROR=true
                 shift
                 ;;
+            -n|--dry-run)
+                DRY_RUN=true
+                shift
+                ;;
             -y|--yes)
                 YES_FLAG=true
                 shift
@@ -823,6 +830,18 @@ start_master_installation() {
     # Show installation plan
     show_installation_plan
     
+    if [ "$YES_FLAG" = false ]; then 
+        read -p "Continue? (type Y for Yes or N for No) " -n 1 -r
+        echo    # (optional) move to a new line
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            exit 0
+        fi
+    fi
+
+    if [ "$DRY_RUN" = true ]; then 
+        exit 0
+    fi
+
     # Execute installations in sequence
     install_miniforge
     install_pixi
@@ -859,7 +878,8 @@ start_master_installation() {
 }
 
 # Script entry point
-echo -e "${CYAN}Master Development Environment Installer for macOS/Linux${NC}"
+echo -e "${CYAN}=======================================================${NC}"
+echo -e "${CYAN}Franklin setup for $USER_ROLE macOS/Linux${NC}"
 echo -e "${CYAN}=======================================================${NC}"
 
 # Parse command line arguments
