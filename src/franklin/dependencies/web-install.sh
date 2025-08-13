@@ -223,7 +223,7 @@ main() {
     cd "$temp_dir"
     
     # Run master installer with all arguments
-    if ./master-installer.sh ${array[@]+"${array[@]}"}; then
+    if ./master-installer.sh ${args[@]+"${args[@]}"}; then
         echo ""
         log_info "${GREEN}${BOLD}Installation completed successfully!${NC}"
         # echo ""
