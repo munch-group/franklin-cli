@@ -36,8 +36,7 @@ curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash -s -- --yes
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
-powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/student-install.ps1" > inst.ps1 && powershell .\inst.ps1 -Yes
-powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/install.ps1" > i.ps1 && powershell .\i.ps1 student -Yes ; rm .\i.ps1
+ powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/install.ps1" > i.ps1 &&  powershell .\i.ps1 -Role student ; rm .\i.ps1A
 ```
 
 ## <i class="bi bi-bank"></i> Educators

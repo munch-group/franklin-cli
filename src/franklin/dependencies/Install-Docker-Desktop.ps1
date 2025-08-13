@@ -337,7 +337,7 @@ Add-LocalGroupMember -Group "docker-users" -Member $currentUser -ErrorAction Sil
 Write-Host "Configuring Docker Desktop settings..." -ForegroundColor Yellow
 
 $dockerConfig = @{
-    AutoDownloadUpdates = -not $DisableAnalytics
+    AutoDownloadUpdates = $true
     AutoPauseTimedActivitySeconds = 30
     AutoPauseTimeoutSeconds = 300
     AutoStart = $false
@@ -359,6 +359,22 @@ $dockerConfig = @{
     SwapMiB = 1024
     UseCredentialHelper = $true
     UseResourceSaver = $false
+}
+
+# Apply Docker Desktop configuration
+$settingsPath = "$env:APPDATA\Docker\settings-store.json"
+try {
+    # Create Docker settings directory if it doesn't exist
+    $dockerDir = Split-Path $settingsPath -Parent
+    if (-not (Test-Path $dockerDir)) {
+        New-Item -ItemType Directory -Path $dockerDir -Force | Out-Null
+    }
+    
+    # Write the configuration to the settings file
+    $dockerConfig | ConvertTo-Json -Depth 10 | Set-Content $settingsPath -Encoding UTF8
+    Write-Host "Docker Desktop configuration applied" -ForegroundColor Green
+} catch {
+    Write-Warning "Could not apply Docker Desktop configuration: $($_.Exception.Message)"
 }
 
 # Configure analytics settings if requested

@@ -393,8 +393,9 @@ configure_docker_desktop() {
         .showGeneralNotifications = true |
         .useCredentialHelper = true |
         .useResourceSaver = false |
+        .autoDownloadUpdates = true |
+        .autoPauseTimedActivitySeconds = 30 |
         .autoPauseTimeoutSeconds = 300 |
-        .disableUpdate = true |
         .filesharingDirectories = ["/Users", "/Volumes", "/private", "/tmp", "/var/folders"]' \
         "$DOCKER_SETTINGS_FILE" > "$temp_file"
     

@@ -530,9 +530,6 @@ function Show-InstallationSummary {
         Write-Warning "Some installations failed. Check the error messages above."
         Write-Info "You may need to install the failed components manually."
     }
-    Write-Host ""
-    Write-Error "You must now restart your computer to activate installed components"
-    Write-Host ""
 
     # # Show next steps
     # Write-Host ""
@@ -602,6 +599,9 @@ function Start-MasterInstallation {
         # Determine exit code
         if (-not $Script:FailedInstallations -or $Script:FailedInstallations.Count -eq 0) {
             Write-Success "Master installation completed successfully!"
+            Write-Host ""
+            Write-Success "YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS"
+            Write-Host ""
             exit 0
         } elseif ($ContinueOnError) {
             Write-Warning "Master installation completed with some failures."

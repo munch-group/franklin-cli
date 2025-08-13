@@ -1,6 +1,6 @@
 param(
     [string]$InstallPath = "${env:ProgramFiles}\Google\Chrome\Application",
-    [switch]$SetAsDefault = $true,
+    [switch]$SetAsDefault = $false,
     [switch]$DisableUpdates = $false,
     [switch]$DisableTracking = $true,
     [switch]$EnterpriseMode = $false,
