@@ -60,7 +60,7 @@ param(
     [switch]$SkipFranklin,
     [switch]$Force,
     [switch]$ContinueOnError,
-    [switch]$DryRun
+    [switch]$DryRun,
     [switch]$Yes
 )
 
