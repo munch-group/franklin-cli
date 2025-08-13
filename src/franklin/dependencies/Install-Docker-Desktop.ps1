@@ -432,6 +432,21 @@ if ($stillRunning) {
 
 Start-Sleep -Seconds 2
 
+# Update WSL if enabled
+if ($EnableWSL2) {
+    Write-Host "`nUpdating WSL..." -ForegroundColor Yellow
+    try {
+        $wslUpdateProcess = Start-Process -FilePath "wsl" -ArgumentList "--update" -Wait -PassThru -NoNewWindow
+        if ($wslUpdateProcess.ExitCode -eq 0) {
+            Write-Host "WSL updated successfully" -ForegroundColor Green
+        } else {
+            Write-Warning "WSL update completed with exit code $($wslUpdateProcess.ExitCode)"
+        }
+    } catch {
+        Write-Warning "Could not update WSL: $($_.Exception.Message)"
+    }
+}
+
 Write-Host "`nInstallation and configuration complete!" -ForegroundColor Green
 Write-Host ""
 # Write-Host "Docker Desktop has been installed and configured." -ForegroundColor Green
