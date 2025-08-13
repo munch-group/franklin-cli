@@ -29,14 +29,14 @@ Copy the command below by clicking the small clipboard icon you can see if you h
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
-curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash
+curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash -s -- --yes
 ```
 
 <i class="bi bi-windows"></i> **Windows**:  
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
-powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/student-install.ps1" > inst.ps1 && powershell .\inst.ps1
+powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/student-install.ps1" > inst.ps1 && powershell .\inst.ps1 -Yes
 ```
 
 ## <i class="bi bi-bank"></i> Educators
