@@ -222,10 +222,8 @@ main() {
     # log_step "Starting installation..."
     cd "$temp_dir"
     
-    log_info "Running: ./master-installer.sh ${args[@]}"
-
     # Run master installer with all arguments
-    if ./master-installer.sh "${args[@]}"; then
+    if ./master-installer.sh ${array[@]+"${array[@]}"}; then
         echo ""
         log_info "${GREEN}${BOLD}Installation completed successfully!${NC}"
         # echo ""

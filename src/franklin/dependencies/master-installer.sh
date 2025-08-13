@@ -866,7 +866,9 @@ start_master_installation() {
     
     # Determine exit code
     if [ $FAILED_INSTALLATIONS_COUNT -eq 0 ]; then
-        log_success "Master installation completed successfully!"
+        if [ "$DRY_RUN" = false ]; then
+            log_success "Master installation completed successfully!"
+        fi
         exit 0
     elif [ "$CONTINUE_ON_ERROR" = true ]; then
         log_warning "Master installation completed with some failures."
