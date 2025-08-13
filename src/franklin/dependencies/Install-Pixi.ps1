@@ -190,7 +190,15 @@ function Install-PixiViaCurl {
     try {
         # Download and run official installer
         $installerScript = Invoke-WebRequest -Uri "https://pixi.sh/install.ps1" -UseBasicParsing
-        Invoke-Expression $installerScript.Content
+        
+        # Convert content to string if it's a byte array
+        if ($installerScript.Content -is [byte[]]) {
+            $scriptContent = [System.Text.Encoding]::UTF8.GetString($installerScript.Content)
+        } else {
+            $scriptContent = $installerScript.Content
+        }
+        
+        Invoke-Expression $scriptContent
         return $true
     } catch {
         Write-Error "Official installer failed: $($_.Exception.Message)"
