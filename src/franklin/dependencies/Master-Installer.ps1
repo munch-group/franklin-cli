@@ -52,7 +52,7 @@
 param(
     # [string]$ScriptPath,
     # [ValidateSet('student', 'educator', 'administrator')]
-    [string]$Role = 'student',
+    [string]$Role,
     [switch]$SkipMiniforge,
     [switch]$SkipPixi,
     [switch]$SkipDocker,
