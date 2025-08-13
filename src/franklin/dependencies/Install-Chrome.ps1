@@ -12,8 +12,27 @@ param(
 
 # Verify administrator privileges
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Error "Administrator privileges required"
-    exit 1
+    Write-Host ""
+    Write-Host "Administrator privileges required for Chrome installation" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "User Password:" -ForegroundColor Green
+    Write-Host "Please approve the Administrator prompt that will appear..." -ForegroundColor Cyan
+    Write-Host ""
+    
+    # Attempt to restart script with elevation
+    $arguments = @()
+    if ($InstallPath) { $arguments += "-InstallPath", "`"$InstallPath`"" }
+    if ($SetAsDefault) { $arguments += "-SetAsDefault" }
+    if ($DisableUpdates) { $arguments += "-DisableUpdates" }
+    if ($DisableTracking) { $arguments += "-DisableTracking" }
+    if ($EnterpriseMode) { $arguments += "-EnterpriseMode" }
+    if ($HomepageURL) { $arguments += "-HomepageURL", "`"$HomepageURL`"" }
+    if ($Uninstall) { $arguments += "-Uninstall" }
+    if ($CleanUninstall) { $arguments += "-CleanUninstall" }
+    if ($StatusCheck) { $arguments += "-StatusCheck" }
+    
+    Start-Process PowerShell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $($arguments -join ' ')" -Wait
+    exit $LASTEXITCODE
 }
 
 function Get-ChromeInstallationStatus {
