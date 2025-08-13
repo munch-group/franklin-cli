@@ -607,16 +607,21 @@ show_installation_plan() {
         log_info "Bypassing confirmation"
     else
         echo
-        printf "Do you want to proceed with the installation? (y/N): "
-        read -r reply
-        case "$reply" in
-            [Yy]|[Yy][Ee][Ss])
-                ;;
-            *)
-                log_info "Installation cancelled by user."
-                exit 0
-                ;;
-        esac
+        read -p "Do you want to proceed with the installation? (y/N): " -n 1 -r
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            exit 0
+        fi
+
+
+        # read -r reply
+        # case "$reply" in
+        #     [Yy]|[Yy][Ee][Ss])
+        #         ;;
+        #     *)
+        #         log_info "Installation cancelled by user."
+        #         exit 0
+        #         ;;
+        # esac
     fi
 }
 
