@@ -34,7 +34,7 @@ create_bash_installer() {
     cat > "$output_file" << 'EOF'
 #!/usr/bin/env bash
 #
-# Franklin Development Environment - ROLE_PLACEHOLDER Installation
+# Franklin Setup - ROLE_PLACEHOLDER Installation
 # 
 # Usage:
 #   curl -fsSL https://munch-group.org/installers/ROLE_PLACEHOLDER-install.sh | bash
@@ -115,7 +115,7 @@ create_powershell_installer() {
 #Requires -Version 5.0
 <#
 .SYNOPSIS
-    Franklin Development Environment - ROLE_TITLE Installation
+    Franklin Setup - ROLE_TITLE Installation
 
 .DESCRIPTION
     Simplified installer with pre-configured role.
