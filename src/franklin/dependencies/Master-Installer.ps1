@@ -31,9 +31,6 @@
     
 .PARAMETER ContinueOnError
     Continue with remaining installations if one fails
-    
-.PARAMETER Yes
-    Bypass all user confirmations (auto-accept)
 
 .PARAMETER DryRun
     Only show installation plan
