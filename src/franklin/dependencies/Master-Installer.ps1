@@ -50,7 +50,7 @@
 
 [CmdletBinding()]
 param(
-    [string]$ScriptPath,
+    # [string]$ScriptPath,
     [ValidateSet('student', 'educator', 'administrator')]
     [string]$Role = 'student',
     [switch]$SkipMiniforge,
@@ -64,14 +64,15 @@ param(
     [switch]$Yes
 )
 
-# Set default for ScriptPath if not provided
-if (-not $ScriptPath) {
-    if ($PSScriptRoot) {
-        $ScriptPath = $PSScriptRoot
-    } else {
-        $ScriptPath = (Get-Location).Path
-    }
-}
+# # Set default for ScriptPath if not provided
+# if (-not $ScriptPath) {
+#     if ($PSScriptRoot) {
+#         $ScriptPath = $PSScriptRoot
+#     } else {
+#         $ScriptPath = (Get-Location).Path
+#     }
+# }
+$ScriptPath = (Get-Location).Path
 
 # Configuration
 $ErrorActionPreference = "Stop"
