@@ -27,8 +27,8 @@
 .PARAMETER Force
     Force reinstall all components
 
-.PARAMETER DryRun
-    Show what would be installed without doing it
+.PARAMETER Yes
+Auto confirm prompts
 
 .EXAMPLE
     # RECOMMENDED - Most compatible method using WebClient
