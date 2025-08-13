@@ -360,20 +360,20 @@ function Download-Installers {
 }
 
 function Build-Arguments {
-    $installArgs = @()
+    $installArgs = @{}
     
     # Pass through all parameters to Master-Installer
     # Always pass the Role parameter
-    $installArgs += '-Role', $Role
+    $installArgs['Role'] = $Role
     
-    if ($Yes) { $installArgs += '-Yes' }
-    if ($DryRun) { $installArgs += '-DryRun' }
-    if ($SkipMiniforge) { $installArgs += '-SkipMiniforge' }
-    if ($SkipPixi) { $installArgs += '-SkipPixi' }
-    if ($SkipDocker) { $installArgs += '-SkipDocker' }
-    if ($SkipChrome) { $installArgs += '-SkipChrome' }
-    if ($SkipFranklin) { $installArgs += '-SkipFranklin' }
-    if ($Force) { $installArgs += '-Force' }
+    if ($Yes) { $installArgs['Yes'] = $true }
+    if ($DryRun) { $installArgs['DryRun'] = $true }
+    if ($SkipMiniforge) { $installArgs['SkipMiniforge'] = $true }
+    if ($SkipPixi) { $installArgs['SkipPixi'] = $true }
+    if ($SkipDocker) { $installArgs['SkipDocker'] = $true }
+    if ($SkipChrome) { $installArgs['SkipChrome'] = $true }
+    if ($SkipFranklin) { $installArgs['SkipFranklin'] = $true }
+    if ($Force) { $installArgs['Force'] = $true }
     
     return $installArgs
 }
@@ -381,7 +381,7 @@ function Build-Arguments {
 function Invoke-Installation {
     param(
         [string]$TempDir,
-        [array]$Arguments
+        [hashtable]$Arguments
     )
     
     $masterInstaller = Join-Path $TempDir "Master-Installer.ps1"
@@ -389,7 +389,8 @@ function Invoke-Installation {
     if ($DryRun) {
         Write-ColorOutput "Dry run - would execute:" -Type Info
         Write-Host "  Set-Location '$TempDir'"
-        Write-Host "  & '$masterInstaller' $($Arguments -join ' ')"
+        $argString = ($Arguments.GetEnumerator() | ForEach-Object { "-$($_.Key) $($_.Value)" }) -join ' '
+        Write-Host "  & '$masterInstaller' $argString"
         return
     }
     
