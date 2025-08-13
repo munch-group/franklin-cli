@@ -51,7 +51,7 @@
 [CmdletBinding()]
 param(
     # [string]$ScriptPath,
-    [ValidateSet('student', 'educator', 'administrator')]
+    # [ValidateSet('student', 'educator', 'administrator')]
     [string]$Role = 'student',
     [switch]$SkipMiniforge,
     [switch]$SkipPixi,
