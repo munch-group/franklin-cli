@@ -8,9 +8,9 @@
     Orchestrates the installation of a complete development environment by running
     multiple installer scripts in sequence, then configures pixi with franklin.
     
-.PARAMETER ScriptPath
-    Directory containing the installer scripts (default: current directory)
-    
+.PARAMETER Role
+    User role: must be student, educator, or administrator
+
 .PARAMETER SkipMiniforge
     Skip miniforge installation
     
