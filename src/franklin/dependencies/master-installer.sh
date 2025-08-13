@@ -9,13 +9,13 @@ set -euo pipefail
 
 # Configuration
 SCRIPT_DIR="$(dirname "$0")"
-SKIP_MINIFORGE=false
+# SKIP_MINIFORGE=false # Removed - using Pixi for Python management
 SKIP_PIXI=false
 SKIP_DOCKER=false
 SKIP_CHROME=false
 SKIP_FRANKLIN=false
 FORCE_INSTALL=false
-FORCE_MINIFORGE=false
+# FORCE_MINIFORGE=false # Removed - using Pixi
 FORCE_PIXI=false
 FORCE_DOCKER=false
 FORCE_CHROME=false
@@ -31,7 +31,7 @@ FAILED_INSTALLATIONS_COUNT=0
 SUCCESSFUL_INSTALLATIONS_COUNT=0
 
 # Installer script names
-MINIFORGE_SCRIPT="install-miniforge.sh"
+# MINIFORGE_SCRIPT="install-miniforge.sh" # Removed
 PIXI_SCRIPT="install-pixi.sh"
 DOCKER_SCRIPT="install-docker-desktop.sh"
 CHROME_SCRIPT="install-chrome.sh"
@@ -194,48 +194,48 @@ invoke_installer_script() {
     fi
 }
 
-# Function to install miniforge
-install_miniforge() {
-    log_step_header "1" "Installing Miniforge Python Distribution"
-    
-    if [ "$SKIP_MINIFORGE" = true ]; then
-        log_info "Skipping miniforge installation (--skip-miniforge flag)"
-        return 0
-    fi
-    
-    # Check if already installed
-    if command_exists conda && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_MINIFORGE" = false ]; then
-        log_info "Miniforge/Conda already installed. Use --force or --force-miniforge to reinstall."
-        add_to_successful_installations "Miniforge"
-        return 0
-    fi
-    
-    local script_path
-    if script_path=$(script_exists "$MINIFORGE_SCRIPT"); then
-        if invoke_installer_script "Miniforge" "$script_path" "install"; then
-            return 0
-        elif [ "$CONTINUE_ON_ERROR" = true ]; then
-            log_warning "Miniforge installation failed. Continuing..."
-            return 1
-        else
-            log_error "Miniforge installation failed. Stopping."
-            exit 1
-        fi
-    else
-        if [ "$CONTINUE_ON_ERROR" = true ]; then
-            log_warning "Miniforge installer script not found. Continuing..."
-            add_to_failed_installations "Miniforge"
-            return 1
-        else
-            log_error "Miniforge installer script not found: $MINIFORGE_SCRIPT"
-            exit 1
-        fi
-    fi
-}
+# Miniforge installation removed - Pixi handles Python environment management
+# install_miniforge() {
+#     log_step_header "1" "Installing Miniforge Python Distribution"
+#     
+#     if [ "$SKIP_MINIFORGE" = true ]; then
+#         log_info "Skipping miniforge installation (--skip-miniforge flag)"
+#         return 0
+#     fi
+#     
+#     # Check if already installed
+#     if command_exists conda && [ "$FORCE_INSTALL" = false ] && [ "$FORCE_MINIFORGE" = false ]; then
+#         log_info "Miniforge/Conda already installed. Use --force or --force-miniforge to reinstall."
+#         add_to_successful_installations "Miniforge"
+#         return 0
+#     fi
+#     
+#     local script_path
+#     if script_path=$(script_exists "$MINIFORGE_SCRIPT"); then
+#         if invoke_installer_script "Miniforge" "$script_path" "install"; then
+#             return 0
+#         elif [ "$CONTINUE_ON_ERROR" = true ]; then
+#             log_warning "Miniforge installation failed. Continuing..."
+#             return 1
+#         else
+#             log_error "Miniforge installation failed. Stopping."
+#             exit 1
+#         fi
+#     else
+#         if [ "$CONTINUE_ON_ERROR" = true ]; then
+#             log_warning "Miniforge installer script not found. Continuing..."
+#             add_to_failed_installations "Miniforge"
+#             return 1
+#         else
+#             log_error "Miniforge installer script not found: $MINIFORGE_SCRIPT"
+#             exit 1
+#         fi
+#     fi
+# }
 
 # Function to install pixi
 install_pixi() {
-    log_step_header "2" "Installing Pixi Package Manager"
+    log_step_header "1" "Installing Pixi Package Manager"
     
     if [ "$SKIP_PIXI" = true ]; then
         log_info "Skipping pixi installation (--skip-pixi flag)"
@@ -274,7 +274,7 @@ install_pixi() {
 
 # Function to install Docker Desktop
 install_docker_desktop() {
-    log_step_header "3" "Installing Docker Desktop"
+    log_step_header "2" "Installing Docker Desktop"
     
     if [ "$SKIP_DOCKER" = true ]; then
         log_info "Skipping Docker Desktop installation (--skip-docker flag)"
@@ -335,7 +335,7 @@ install_docker_desktop() {
 
 # Function to install Chrome
 install_chrome() {
-    log_step_header "4" "Installing Google Chrome"
+    log_step_header "3" "Installing Google Chrome"
     
     if [ "$SKIP_CHROME" = true ]; then
         log_info "Skipping Chrome installation (--skip-chrome flag)"
@@ -393,7 +393,7 @@ install_chrome() {
 
 # Function to install Franklin via pixi global
 install_franklin() {
-    log_step_header "5" "Installing Franklin via Pixi Global"
+    log_step_header "4" "Installing Franklin via Pixi Global"
     
     if [ "$SKIP_FRANKLIN" = true ]; then
         log_info "Skipping Franklin installation (--skip-franklin flag)"
@@ -456,14 +456,14 @@ install_franklin() {
     log_info "Package to install: $package_name"
     
     # Run pixi global install command
-    log_info "Executing: pixi global install -c munch-group -c conda-forge $package_name"
+    log_info "Executing: pixi global install -c munch-group -c conda-forge python $package_name"
     
     # Capture the output and error for debugging
     local install_output
     local install_exit_code
     
     # Run the command and capture output
-    install_output=$(pixi global install -c munch-group -c conda-forge "$package_name" 2>&1)
+    install_output=$(pixi global install -c munch-group -c conda-forge python "$package_name" 2>&1)
     install_exit_code=$?
     
     if [ $install_exit_code -eq 0 ]; then
@@ -532,11 +532,9 @@ check_prerequisites() {
     local missing_scripts=""
     
     # Check each script individually
-    if [ -f "$SCRIPT_DIR/$MINIFORGE_SCRIPT" ]; then
-        available_scripts="miniforge"
-    else
-        missing_scripts="miniforge"
-    fi
+    # Miniforge script check removed - using Pixi
+    available_scripts=""
+    missing_scripts=""
     
     if [ -f "$SCRIPT_DIR/$PIXI_SCRIPT" ]; then
         if [ -n "$available_scripts" ]; then
@@ -592,11 +590,11 @@ check_prerequisites() {
 show_installation_plan() {
     log_header "INSTALLATION PLAN"
     
-    if [ "$SKIP_MINIFORGE" = false ]; then echo "  1. Miniforge Python Distribution"; fi
-    if [ "$SKIP_PIXI" = false ]; then echo "  2. Pixi Package Manager"; fi
-    if [ "$SKIP_DOCKER" = false ]; then echo "  3. Docker Desktop"; fi
-    if [ "$SKIP_CHROME" = false ]; then echo "  4. Google Chrome"; fi
-    if [ "$SKIP_FRANKLIN" = false ]; then echo "  5. Franklin (via pixi global)"; fi
+    # Miniforge removed - Pixi handles Python environments
+    if [ "$SKIP_PIXI" = false ]; then echo "  1. Pixi Package Manager"; fi
+    if [ "$SKIP_DOCKER" = false ]; then echo "  2. Docker Desktop"; fi
+    if [ "$SKIP_CHROME" = false ]; then echo "  3. Google Chrome"; fi
+    if [ "$SKIP_FRANKLIN" = false ]; then echo "  4. Franklin (via pixi global)"; fi
     
     echo
     log_info "Script directory: $SCRIPT_DIR"
@@ -686,13 +684,13 @@ Usage: $0 [OPTIONS]
 Options:
     -h, --help              Show this help message
     -d, --script-dir DIR    Directory containing installer scripts (default: script directory)
-    --skip-miniforge        Skip miniforge installation
+    # --skip-miniforge        Removed - using Pixi for Python management
     --skip-pixi            Skip pixi installation
     --skip-docker          Skip Docker Desktop installation
     --skip-chrome          Skip Chrome installation
     --skip-franklin        Skip Franklin installation
     -f, --force            Force installation even if components already exist
-    --force-miniforge      Force reinstall Miniforge only
+    # --force-miniforge      Removed - using Pixi
     --force-pixi          Force reinstall Pixi only
     --force-docker        Force reinstall Docker Desktop only
     --force-chrome        Force reinstall Chrome only
@@ -712,7 +710,7 @@ Examples:
     ./master-installer.sh --role administrator     # Install admin version
 
 Required Scripts:
-    - install-miniforge.sh
+    # - install-miniforge.sh (Removed - using Pixi)
     - install-pixi.sh
     - install-docker-desktop.sh
     - install-chrome.sh
@@ -737,10 +735,10 @@ parse_arguments() {
                     exit 1
                 fi
                 ;;
-            --skip-miniforge)
-                SKIP_MINIFORGE=true
-                shift
-                ;;
+            # --skip-miniforge) # Removed - using Pixi
+            #     SKIP_MINIFORGE=true
+            #     shift
+            #     ;;
             --skip-pixi)
                 SKIP_PIXI=true
                 shift
@@ -761,10 +759,10 @@ parse_arguments() {
                 FORCE_INSTALL=true
                 shift
                 ;;
-            --force-miniforge)
-                FORCE_MINIFORGE=true
-                shift
-                ;;
+            # --force-miniforge) # Removed - using Pixi
+            #     FORCE_MINIFORGE=true
+            #     shift
+            #     ;;
             --force-pixi)
                 FORCE_PIXI=true
                 shift
@@ -848,7 +846,7 @@ start_master_installation() {
     fi
 
     # Execute installations in sequence
-    install_miniforge
+    # install_miniforge # Removed - using Pixi
     install_pixi
     install_docker_desktop
     install_chrome

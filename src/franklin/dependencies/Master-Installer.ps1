@@ -11,8 +11,7 @@
 .PARAMETER Role
     User role: must be student, educator, or administrator
 
-.PARAMETER SkipMiniforge
-    Skip miniforge installation
+# .PARAMETER SkipMiniforge - Removed, using Pixi for Python management
     
 .PARAMETER SkipPixi
     Skip pixi installation
@@ -49,7 +48,7 @@
 param(
     [ValidateSet('student', 'educator', 'administrator')]
     [string]$Role = 'student',
-    [switch]$SkipMiniforge,
+    # [switch]$SkipMiniforge, # Removed - using Pixi instead
     [switch]$SkipPixi,
     [switch]$SkipDocker,
     [switch]$SkipChrome,
@@ -81,7 +80,7 @@ $Script:SuccessfulInstallations = @()
 
 # Installer script names
 $InstallerScripts = @{
-    Miniforge = "Install-Miniforge.ps1"
+    # Miniforge = "Install-Miniforge.ps1" # Removed - using Pixi instead
     Pixi = "Install-Pixi.ps1"
     Docker = "Install-Docker-Desktop.ps1"
     Chrome = "Install-Chrome.ps1"
@@ -200,45 +199,46 @@ function Invoke-InstallerScript {
     }
 }
 
-function Install-Miniforge {
-    <#
-    .SYNOPSIS
-        Install miniforge conda distribution
-    #>
-    Write-StepHeader "1" "Installing Miniforge Python Distribution"
-    
-    if ($SkipMiniforge) {
-        Write-Info "Skipping miniforge installation (SkipMiniforge flag)"
-        return $true
-    }
-    
-    # Check if already installed
-    if ((Test-CommandExists "conda") -and (-not $Force)) {
-        Write-Info "Miniforge/Conda already installed. Use -Force to reinstall."
-        $Script:SuccessfulInstallations += "Miniforge"
-        return $true
-    }
-    
-    $scriptPath = Test-ScriptExists $InstallerScripts.Miniforge
-    if (-not $scriptPath) {
-        if ($ContinueOnError) {
-            Write-Warning "Miniforge installer script not found. Continuing..."
-            $Script:FailedInstallations += "Miniforge"
-            return $false
-        } else {
-            throw "Miniforge installer script not found: $($InstallerScripts.Miniforge)"
-        }
-    }
-    
-    return Invoke-InstallerScript -Name "Miniforge" -ScriptPath $scriptPath
-}
+# Miniforge installation removed - Pixi handles Python environment management
+# function Install-Miniforge {
+#     <#
+#     .SYNOPSIS
+#         Install miniforge conda distribution
+#     #>
+#     Write-StepHeader "1" "Installing Miniforge Python Distribution"
+#     
+#     if ($SkipMiniforge) {
+#         Write-Info "Skipping miniforge installation (SkipMiniforge flag)"
+#         return $true
+#     }
+#     
+#     # Check if already installed
+#     if ((Test-CommandExists "conda") -and (-not $Force)) {
+#         Write-Info "Miniforge/Conda already installed. Use -Force to reinstall."
+#         $Script:SuccessfulInstallations += "Miniforge"
+#         return $true
+#     }
+#     
+#     $scriptPath = Test-ScriptExists $InstallerScripts.Miniforge
+#     if (-not $scriptPath) {
+#         if ($ContinueOnError) {
+#             Write-Warning "Miniforge installer script not found. Continuing..."
+#             $Script:FailedInstallations += "Miniforge"
+#             return $false
+#         } else {
+#             throw "Miniforge installer script not found: $($InstallerScripts.Miniforge)"
+#         }
+#     }
+#     
+#     return Invoke-InstallerScript -Name "Miniforge" -ScriptPath $scriptPath
+# }
 
 function Install-Pixi {
     <#
     .SYNOPSIS
         Install pixi package manager
     #>
-    Write-StepHeader "2" "Installing Pixi Package Manager"
+    Write-StepHeader "1" "Installing Pixi Package Manager"
     
     if ($SkipPixi) {
         Write-Info "Skipping pixi installation (SkipPixi flag)"
@@ -271,7 +271,7 @@ function Install-DockerDesktop {
     .SYNOPSIS
         Install Docker Desktop
     #>
-    Write-StepHeader "3" "Installing Docker Desktop"
+    Write-StepHeader "2" "Installing Docker Desktop"
     
     if ($SkipDocker) {
         Write-Info "Skipping Docker Desktop installation (SkipDocker flag)"
@@ -315,7 +315,7 @@ function Install-Chrome {
     .SYNOPSIS
         Install Google Chrome
     #>
-    Write-StepHeader "4" "Installing Google Chrome"
+    Write-StepHeader "3" "Installing Google Chrome"
     
     if ($SkipChrome) {
         Write-Info "Skipping Chrome installation (SkipChrome flag)"
@@ -356,7 +356,7 @@ function Install-Franklin {
     .SYNOPSIS
         Install Franklin via pixi global
     #>
-    Write-StepHeader "5" "Installing Franklin via Pixi Global"
+    Write-StepHeader "4" "Installing Franklin via Pixi Global"
     
     if ($SkipFranklin) {
         Write-Info "Skipping Franklin installation (SkipFranklin flag)"
@@ -392,6 +392,7 @@ function Install-Franklin {
             "global", "install",
             "-c", "munch-group",
             "-c", "conda-forge",
+            "python",
             $franklinPackage
         )
         
@@ -471,11 +472,11 @@ function Show-InstallationPlan {
     Write-Header "INSTALLATION PLAN"
     
     $steps = @()
-    if (-not $SkipMiniforge) { $steps += "1. Miniforge Python Distribution" }
-    if (-not $SkipPixi) { $steps += "2. Pixi Package Manager" }
-    if (-not $SkipDocker) { $steps += "3. Docker Desktop" }
-    if (-not $SkipChrome) { $steps += "4. Google Chrome" }
-    if (-not $SkipFranklin) { $steps += "5. Franklin (via pixi global)" }
+    # Miniforge removed - Pixi handles Python environments
+    if (-not $SkipPixi) { $steps += "1. Pixi Package Manager" }
+    if (-not $SkipDocker) { $steps += "2. Docker Desktop" }
+    if (-not $SkipChrome) { $steps += "3. Google Chrome" }
+    if (-not $SkipFranklin) { $steps += "4. Franklin (via pixi global)" }
     
     foreach ($step in $steps) {
         Write-Host "  $step" -ForegroundColor White
@@ -580,7 +581,7 @@ function Start-MasterInstallation {
         # Execute installations in sequence
         $installationResults = @()
         
-        $installationResults += Install-Miniforge
+        # $installationResults += Install-Miniforge # Removed - using Pixi
         $installationResults += Install-Pixi
         $installationResults += Install-DockerDesktop
         $installationResults += Install-Chrome
