@@ -175,31 +175,27 @@ main() {
     # Parse arguments
     local args=("$@")
     
-    for arg in "$@"; do
-        case $arg in
-            --help|-h)
-                show_help
-                exit 0
-                ;;
-        esac
-    done
+    # for arg in "$@"; do
+    #     case $arg in
+    #         --help|-h)
+    #             show_help
+    #             exit 0
+    #             ;;
+    #     esac
+    # done
     
     # Detect OS
     local os=$(detect_os)
     log_info "Detected operating system: ${BOLD}$os${NC}"
-    
     if [[ "$os" == "unknown" ]]; then
         log_error "Unsupported operating system: $OSTYPE"
         exit 1
     fi
-    
     if [[ "$os" == "windows" ]]; then
-        log_error "Unsupported operating system: $OSTYPE"
-        # log_error "This is a Unix/Linux installer. For Windows, use:"
-        # echo "  irm https://munch-group.org/install.ps1 | iex"
+        log_error "Please use the install command for Windows."
         exit 1
     fi
-    
+
     # Check requirements
     check_requirements "$os"
     
