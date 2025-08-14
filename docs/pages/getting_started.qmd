@@ -91,6 +91,7 @@ Simple and robust command line interface in Terminal/PowerShell:
 1. Run `franklin download`
 2. Select your course
 3. Select the exercise notebook to download
+4. `cd` to the downloaded exercise folder.
 
 <i class="bi bi-terminal"></i> **Start working**: 
 
