@@ -487,8 +487,8 @@ main() {
     # Apply configuration
     configure_chrome
     
-    # Set as default browser
-    set_chrome_as_default
+    # # Set as default browser
+    # set_chrome_as_default
     
     log "Installation and configuration complete!"
     

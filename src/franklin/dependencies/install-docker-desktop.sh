@@ -23,6 +23,16 @@ CLEAN_UNINSTALL=false
 STATUS_CHECK=false
 CONFIGURE_ONLY=false
 
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
+GRAY='\033[0;37m'
+NC='\033[0m' # No Color
+
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -222,7 +232,7 @@ uninstall_docker_desktop() {
         
         # Prompt for password with clear message
         echo
-        echo -e "\033[0;32mUser Password:\033[0m"
+        echo -e "${GREEN}User Password:${NC}"
         sudo -v  # Pre-authenticate sudo to cache credentials
         
         sudo launchctl unload "$helper_plist" 2>/dev/null || true

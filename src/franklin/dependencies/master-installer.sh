@@ -89,13 +89,13 @@ get_successful_installations() {
 # Logging functions
 log_info() {
     local timestamp=$(date '+%H:%M:%S')
-    echo -e "${BLUE}[$timestamp] [INFO]${NC} $1"
+    echo -e "${NC}[$timestamp] [INFO]${NC} $1"
     add_to_execution_log "[$timestamp] [INFO] $1"
 }
 
 log_success() {
     local timestamp=$(date '+%H:%M:%S')
-    echo -e "${GREEN}[$timestamp] [SUCCESS]${NC} $1"
+    echo -e "${BLUE}[$timestamp] [SUCCESS]${NC} $1"
     add_to_execution_log "[$timestamp] [SUCCESS] $1"
 }
 
@@ -113,15 +113,15 @@ log_error() {
 
 log_header() {
     echo
-    echo -e "${CYAN}============================================================${NC}"
-    echo -e "${CYAN}  $1${NC}"
-    echo -e "${CYAN}============================================================${NC}"
+    echo -e "${GREEN}============================================================${NC}"
+    echo -e "${GREEN}  $1${NC}"
+    echo -e "${GREEN}============================================================${NC}"
 }
 
 log_step_header() {
     echo
-    echo -e "${MAGENTA}>>> STEP $1: $2${NC}"
-    echo -e "${GRAY}--------------------------------------------------${NC}"
+    echo -e "${BLUE}>>> STEP $1: $2${NC}"
+    echo -e "${BLUE}--------------------------------------------------${NC}"
 }
 
 # Function to check if command exists
