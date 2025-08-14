@@ -113,9 +113,9 @@ log_error() {
 
 log_header() {
     echo
-    echo -e "${GREEN}============================================================${NC}"
-    echo -e "${GREEN}  $1${NC}"
-    echo -e "${GREEN}============================================================${NC}"
+    # echo -e "${BLUE}============================================================${NC}"
+    echo -e "${BLUE}  $1${NC}"
+    echo -e "${BLUE}============================================================${NC}"
 }
 
 log_step_header() {
@@ -598,7 +598,7 @@ check_prerequisites() {
 
 # Function to show installation plan
 show_installation_plan() {
-    log_header "INSTALLATION PLAN"
+    log_header "Installation Plan"
     
     # Miniforge removed - Pixi handles Python environments
     if [ "$SKIP_PIXI" = false ]; then echo "  1. Pixi Package Manager"; fi
@@ -635,7 +635,7 @@ show_installation_plan() {
 
 # Function to show installation summary
 show_installation_summary() {
-    log_header "INSTALLATION SUMMARY"
+    log_header "Installation Summary"
     
     if [ $SUCCESSFUL_INSTALLATIONS_COUNT -gt 0 ]; then
         log_success "Successfully installed:"
@@ -833,8 +833,9 @@ start_master_installation() {
     local start_time
     start_time=$(date +%s)
     
-    # Show header
-    log_header "MASTER DEVELOPMENT ENVIRONMENT INSTALLER"
+    # # Show header
+    # log_header "Franklin setup for $USER_ROLE on Mac"
+
     log_info "Starting installation process at $(date '+%Y-%m-%d %H:%M:%S')"
     
     # Check prerequisites
@@ -894,7 +895,7 @@ start_master_installation() {
 
 # Script entry point
 echo -e "${GREEN}=======================================================${NC}"
-echo -e "${GREEN}Franklin setup for $USER_ROLE macOS/Linux${NC}"
+echo -e "${GREEN}  Installation for $USER_ROLE macOS/Linux${NC}"
 echo -e "${GREEN}=======================================================${NC}"
 
 # Parse command line arguments

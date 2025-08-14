@@ -118,9 +118,9 @@ function Write-Error {
 function Write-Header {
     param([string]$Message)
     Write-Host ""
-    Write-Host ("=" * 60) -ForegroundColor Green # Cyan
-    Write-Host "  $Message" -ForegroundColor Green # Cyan
-    Write-Host ("=" * 60) -ForegroundColor Green # Cyan
+    # Write-Host ("=" * 60) -ForegroundColor Blue # Cyan
+    Write-Host "  $Message" -ForegroundColor Blue # Cyan
+    Write-Host ("=" * 60) -ForegroundColor GreeBluen # Cyan
 }
 
 function Write-StepHeader {
@@ -470,7 +470,7 @@ function Show-InstallationPlan {
     .SYNOPSIS
         Display the installation plan to the user
     #>
-    Write-Header "INSTALLATION PLAN"
+    Write-Header "Installation Plan"
     
     $steps = @()
     # Miniforge removed - Pixi handles Python environments
@@ -508,7 +508,7 @@ function Show-InstallationSummary {
     .SYNOPSIS
         Display installation summary and results
     #>
-    Write-Header "INSTALLATION SUMMARY"
+    Write-Header "Installation Summary"
     
     if ($Script:SuccessfulInstallations -and $Script:SuccessfulInstallations.Count -gt 0) {
         Write-Success "Successfully installed:"
