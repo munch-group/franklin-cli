@@ -173,7 +173,7 @@ invoke_installer_script() {
     # Execute the script
     if [ -n "$args" ]; then
         if $script_path $args; then
-            log_success "$name installation completed successfully"
+            log_info "$name installation completed successfully"
             add_to_successful_installations "$name"
             return 0
         else
@@ -183,7 +183,7 @@ invoke_installer_script() {
         fi
     else
         if $script_path; then
-            log_success "$name installation completed successfully"
+            log_info "$name installation completed successfully"
             add_to_successful_installations "$name"
             return 0
         else
@@ -291,7 +291,7 @@ install_docker_desktop() {
         
         # Check if Docker is already installed via other means
         if command_exists docker; then
-            log_success "Docker is already installed via system package manager"
+            log_info "Docker is already installed via system package manager"
             add_to_successful_installations "Docker (system)"
             return 0
         else
@@ -352,7 +352,7 @@ install_chrome() {
         
         # Check if Chrome is already installed via system package manager
         if command_exists google-chrome || command_exists google-chrome-stable; then
-            log_success "Chrome is already installed via system package manager"
+            log_info "Chrome is already installed via system package manager"
             add_to_successful_installations "Chrome (system)"
             return 0
         else
@@ -477,7 +477,7 @@ install_franklin() {
     
 
     if [ $install_exit_code -eq 0 ]; then
-        log_success "$package_name installed successfully via pixi global"
+        log_info "$package_name installed successfully via pixi global"
         add_to_successful_installations "Franklin ($USER_ROLE)"
         return 0
     else
@@ -636,10 +636,10 @@ show_installation_plan() {
 # Function to show installation summary
 show_installation_summary() {
     # log_header "Installation Summary"
-    echo -e "${BLUE}Installation Summary:${NC}"    
+    echo -e "${BLUE}Summary:${NC}"    
     
     if [ $SUCCESSFUL_INSTALLATIONS_COUNT -gt 0 ]; then
-        log_success "Successfully installed:"
+        echo -e "${BLUE}Successfully installed:${NC}" 
         get_successful_installations | while read -r item; do
             echo -e "  ${BLUE}[OK] $item${NC}"
         done
@@ -654,7 +654,7 @@ show_installation_summary() {
     
     echo
     if [ $FAILED_INSTALLATIONS_COUNT -eq 0 ]; then
-        log_success "All installations completed successfully!"
+        log_info "All installations completed successfully!"
         log_info "Your development environment is ready to use."
     else
         log_warning "Some installations failed. Check the error messages above."
@@ -882,7 +882,7 @@ start_master_installation() {
     # Determine exit code
     if [ $FAILED_INSTALLATIONS_COUNT -eq 0 ]; then
         if [ "$DRY_RUN" = false ]; then
-            log_success "Master installation completed successfully!"
+            log_info "Master installation completed successfully!"
         fi
         exit 0
     elif [ "$CONTINUE_ON_ERROR" = true ]; then
