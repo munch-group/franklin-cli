@@ -640,7 +640,7 @@ show_installation_summary() {
     if [ $SUCCESSFUL_INSTALLATIONS_COUNT -gt 0 ]; then
         log_success "Successfully installed:"
         get_successful_installations | while read -r item; do
-            echo -e "  ${GREEN}[OK] $item${NC}"
+            echo -e "  ${BLUE}[OK] $item${NC}"
         done
     fi
     
@@ -893,9 +893,9 @@ start_master_installation() {
 }
 
 # Script entry point
-echo -e "${CYAN}=======================================================${NC}"
-echo -e "${CYAN}Franklin setup for $USER_ROLE macOS/Linux${NC}"
-echo -e "${CYAN}=======================================================${NC}"
+echo -e "${GREEN}=======================================================${NC}"
+echo -e "${GREEN}Franklin setup for $USER_ROLE macOS/Linux${NC}"
+echo -e "${GREEN}=======================================================${NC}"
 
 # Parse command line arguments
 parse_arguments "$@"
