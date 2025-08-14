@@ -29,6 +29,7 @@ USER_ROLE="student"  # Default role: student, educator, or administrator
 EXECUTION_LOG_COUNT=0
 FAILED_INSTALLATIONS_COUNT=0
 SUCCESSFUL_INSTALLATIONS_COUNT=0
+RESTART_REQUIRED=0
 
 # Installer script names
 # MINIFORGE_SCRIPT="install-miniforge.sh" # Removed
@@ -636,7 +637,7 @@ show_installation_plan() {
 # Function to show installation summary
 show_installation_summary() {
     # log_header "Installation Summary"
-    echo -e "${BLUE}Summary:${NC}"    
+    # echo -e "${BLUE}Summary:${NC}"    
     
     if [ $SUCCESSFUL_INSTALLATIONS_COUNT -gt 0 ]; then
         echo -e "${BLUE}Successfully installed:${NC}" 
@@ -856,7 +857,9 @@ start_master_installation() {
     # Execute installations in sequence
     # install_miniforge # Removed - using Pixi
     install_pixi
-    install_docker_desktop
+    if [ install_docker_desktop -eq 1 ]; then
+        RESTART_REQUIRED=1
+    fi
     install_chrome
     install_franklin
     
@@ -879,7 +882,13 @@ start_master_installation() {
     if [ $FAILED_INSTALLATIONS_COUNT -eq 0 ]; then
         if [ "$DRY_RUN" = false ]; then
             log_info "Master installation completed successfully!"
+            if [ $RESTART_REQUIRED -eq 1 ]; then
+                echo ""
+                echo -e "  ${RED}You must now restart your computer to activate installed components${NC}"
+                echo ""
+            fi
         fi
+
         exit 0
     elif [ "$CONTINUE_ON_ERROR" = true ]; then
         log_warning "Master installation completed with some failures."
@@ -906,7 +915,3 @@ fi
 
 # Start the installation process
 start_master_installation
-
-echo ""
-echo -e "  ${RED}You must now restart your computer to activate installed components${NC}"
-echo ""

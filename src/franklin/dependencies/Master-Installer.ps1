@@ -77,6 +77,7 @@ $ProgressPreference = "SilentlyContinue"
 $Script:ExecutionLog = @()
 $Script:FailedInstallations = @()
 $Script:SuccessfulInstallations = @()
+$Script:RestartRequired = 0
 
 # Installer script names
 $InstallerScripts = @{
@@ -306,7 +307,9 @@ function Install-DockerDesktop {
         Write-Host "When prompted, please allow the app to make changes to your device..." -ForegroundColor Green
         Write-Host ""
     }
-    
+
+    $Script:RestartRequired = 1
+
     return Invoke-InstallerScript -Name "Docker Desktop" -ScriptPath $scriptPath
 }
 
@@ -601,9 +604,14 @@ function Start-MasterInstallation {
         # Determine exit code
         if (-not $Script:FailedInstallations -or $Script:FailedInstallations.Count -eq 0) {
             Write-Success "Master installation completed successfully!"
-            Write-Host ""
-            Write-Host "  YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS" -ForegroundColor Yellow
-            Write-Host ""
+
+            if ($Script:RestartRequired) {
+                Write-Host ""
+                Write-Host "  YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS" -ForegroundColor Yellow
+                Write-Host ""
+            }
+            
+
             exit 0
         } elseif ($ContinueOnError) {
             Write-Warning "Master installation completed with some failures."
