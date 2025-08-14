@@ -508,12 +508,12 @@ function Show-InstallationSummary {
     .SYNOPSIS
         Display installation summary and results
     #>
-    Write-Header "Installation Summary"
+    Write-Hpst "Installation Summary:" -ForegroundColor Blue
     
     if ($Script:SuccessfulInstallations -and $Script:SuccessfulInstallations.Count -gt 0) {
         Write-Success "Successfully installed:"
         foreach ($item in $Script:SuccessfulInstallations) {
-            Write-Host "  [OK] $item" -ForegroundColor Green
+            Write-Host "  [OK] $item" -ForegroundColor Blue
         }
     }
     
@@ -601,8 +601,8 @@ function Start-MasterInstallation {
         # Determine exit code
         if (-not $Script:FailedInstallations -or $Script:FailedInstallations.Count -eq 0) {
             Write-Success "Master installation completed successfully!"
-            Write-Warning ""
-            Write-Success "YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS"
+            Write-Host ""
+            Write-Host "  YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS" -ForegroundColor Yellow
             Write-Host ""
             exit 0
         } elseif ($ContinueOnError) {

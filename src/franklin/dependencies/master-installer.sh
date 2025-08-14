@@ -635,7 +635,8 @@ show_installation_plan() {
 
 # Function to show installation summary
 show_installation_summary() {
-    log_header "Installation Summary"
+    # log_header "Installation Summary"
+    echo -e "${BLUE}Installation Summary:${NC}"    
     
     if [ $SUCCESSFUL_INSTALLATIONS_COUNT -gt 0 ]; then
         log_success "Successfully installed:"
