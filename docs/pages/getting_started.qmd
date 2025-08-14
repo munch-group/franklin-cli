@@ -29,7 +29,7 @@ Copy the command below by clicking the small clipboard icon you can see if you h
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
-curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash -s -- --yes
+curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash -s -- --role student --yes
 ```
 
 <i class="bi bi-windows"></i> **Windows**:  
@@ -47,14 +47,14 @@ Copy the command below by clicking the small clipboard icon you can see if you h
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
-curl -fsSL https://tinyurl.com/franklin-mac-educator-install | bash -s -- --yes
+curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash -s -- --role educator --yes
 ```
 
 <i class="bi bi-windows"></i> **Windows**:  
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
-powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/educator-install.ps1" > inst.ps1 && powershell .\inst.ps1 -Yes
+ powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/install.ps1" > finst.ps1 &&  powershell .\finst.ps1 -Role educator -Yes ; rm .\finst.ps1A
 ```
 
 ## <i class="bi bi-bank"></i> Administrators
@@ -65,14 +65,14 @@ Copy the command below by clicking the small clipboard icon you can see if you h
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
-curl -fsSL https://tinyurl.com/franklin-mac-admin-install | bash -s -- --yes
+curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash -s -- --role administrator --yes
 ```
 
 <i class="bi bi-windows"></i> **Windows**:  
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
-powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/admin-install.ps1" > inst.ps1 && powershell .\inst.ps1 -Yes
+ powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/install.ps1" > finst.ps1 &&  powershell .\finst.ps1 -Role administrator -Yes ; rm .\finst.ps1A
 ```
 
 :::
