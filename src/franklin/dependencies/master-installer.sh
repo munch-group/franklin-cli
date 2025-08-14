@@ -455,17 +455,27 @@ install_franklin() {
     esac
     log_info "Package to install: $package_name"
     
+
+    command="pixi global install -c munch-group -c conda-forge python git $package_name 2>&1)"
     # Run pixi global install command
-    log_info "Executing: pixi global install -c munch-group -c conda-forge python $package_name"
-    
+    log_info "Executing: $command"
     # Capture the output and error for debugging
     local install_output
     local install_exit_code
-    
     # Run the command and capture output
-    install_output=$(pixi global install -c munch-group -c conda-forge python "$package_name" 2>&1)
+    install_output=$(eval "$command")
     install_exit_code=$?
+
+    # # Run pixi global install command
+    # log_info "Executing: pixi global install -c munch-group -c conda-forge python git $package_name"
+    # # Capture the output and error for debugging
+    # local install_output
+    # local install_exit_code
+    # # Run the command and capture output
+    # install_output=$(pixi global install -c munch-group -c conda-forge python git "$package_name" 2>&1)
+    # install_exit_code=$?
     
+
     if [ $install_exit_code -eq 0 ]; then
         log_success "$package_name installed successfully via pixi global"
         add_to_successful_installations "Franklin ($USER_ROLE)"
