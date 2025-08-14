@@ -570,7 +570,7 @@ function Start-MasterInstallation {
     
     try {
         # Show header
-        Write-Header "MASTER DEVELOPMENT ENVIRONMENT INSTALLER"
+        Write-Header "Franklin setup for $Role on Windows"
         Write-Info "Starting installation process at $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
         
         # Check prerequisites

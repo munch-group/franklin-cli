@@ -13,7 +13,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     Write-Host "Administrator privileges required for Docker Desktop installation" -ForegroundColor Green
     Write-Host ""
     # Write-Host "User Password:" -ForegroundColor Green
-    Write-Host "Please approve the Administrator prompt that will appear..." -ForegroundColor Green
+    Write-Host "When prompted, please allow the app to make changes to your device..." -ForegroundColor Green
     Write-Host ""
     
     # Attempt to restart script with elevation
