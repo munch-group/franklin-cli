@@ -43,10 +43,12 @@ def ensure_docker_installed(func: Callable) -> Callable:
             term.boxed_text(
                 f"Franklin needs Docker Desktop", 
                 ['Franklin depends on a program called Docker Desktop that '
-                 'needs to be installed on your computer. You can download '
-                 'it from ',
-                'https://docs.docker.com/get-started/get-docker ',
-                'and follow the default installation procedure.',
+                 'needs to be installed on your computer. '
+                 'Maybe you forgot to restart your computer after installing it?',
+                #  'You can download '
+                #  'it from ',
+                # 'https://docs.docker.com/get-started/get-docker ',
+                # 'and follow the default installation procedure.',
                 ],
                 fg='blue')
             sys.exit(1)

@@ -456,7 +456,7 @@ install_franklin() {
     log_info "Package to install: $package_name"
     
 
-    command="pixi global install -c munch-group -c conda-forge python git $package_name 2>&1)"
+    command="pixi global install -c munch-group -c conda-forge python git $package_name 2>&1"
     # Run pixi global install command
     log_info "Executing: $command"
     # Capture the output and error for debugging
