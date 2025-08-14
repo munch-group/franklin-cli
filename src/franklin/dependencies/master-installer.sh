@@ -661,10 +661,6 @@ show_installation_summary() {
         log_info "You may need to install the failed components manually."
     fi
 
-    echo ""
-    echo -e "  ${RED}You must now restart your computer to activate installed components${NC}"
-    echo ""
-
     # # Show next steps
     # echo
     # log_info "NEXT STEPS:"
@@ -910,3 +906,7 @@ fi
 
 # Start the installation process
 start_master_installation
+
+echo ""
+echo -e "  ${RED}You must now restart your computer to activate installed components${NC}"
+echo ""
