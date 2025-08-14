@@ -895,7 +895,7 @@ start_master_installation() {
 
 # Script entry point
 echo -e "${GREEN}=======================================================${NC}"
-echo -e "${GREEN}  Installation for $USER_ROLE macOS/Linux${NC}"
+echo -e "${GREEN}  Installing for $USER_ROLE {NC}"
 echo -e "${GREEN}=======================================================${NC}"
 
 # Parse command line arguments

@@ -120,7 +120,7 @@ function Write-Header {
     Write-Host ""
     # Write-Host ("=" * 60) -ForegroundColor Blue # Cyan
     Write-Host "  $Message" -ForegroundColor Blue # Cyan
-    Write-Host ("=" * 60) -ForegroundColor GreeBluen # Cyan
+    Write-Host ("=" * 60) -ForegroundColor Blue # Cyan
 }
 
 function Write-StepHeader {
@@ -620,9 +620,9 @@ function Start-MasterInstallation {
     }
 }
 
-# Script entry point
-Write-Host "Master Development Environment Installer" -ForegroundColor Cyan
-Write-Host "=========================================" -ForegroundColor Cyan
+# # Script entry point
+# Write-Host "Master Development Environment Installer" -ForegroundColor Blue
+# Write-Host "=========================================" -ForegroundColor Blue
 
 # Validate script path parameter
 if (-not (Test-Path $ScriptPath)) {

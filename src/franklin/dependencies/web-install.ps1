@@ -109,11 +109,11 @@ function Write-ColorOutput {
     )
     
     switch ($Type) {
-        'Info' { Write-Host "[INFO] $Message" -ForegroundColor Green }
+        'Info' { Write-Host "[INFO] $Message" }
         'Warn' { Write-Host "[WARN] $Message" -ForegroundColor Yellow }
         'Error' { Write-Host "[ERROR] $Message" -ForegroundColor Red }
-        'Step' { Write-Host "[STEP] $Message" -ForegroundColor Cyan }
-        'Success' { Write-Host "[OK] $Message" -ForegroundColor Green }
+        'Step' { Write-Host "[STEP] $Message" -ForegroundColor Blue }
+        'Success' { Write-Host "[OK] $Message" -ForegroundColor Blue }
     }
 }
 
@@ -433,7 +433,7 @@ function Main {
             return
         }
         
-        Show-Banner
+        # Show-Banner
         
         Write-ColorOutput "Starting Franklin web installer for Windows" -Type Info
         Write-ColorOutput "User role: $Role" -Type Info
