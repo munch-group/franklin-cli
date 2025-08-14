@@ -29,7 +29,7 @@ Copy the command below by clicking the small clipboard icon you can see if you h
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
-curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash -s -- --role student --yes
+curl -fsSL http://munch-group.org/franklin/installers/install.sh | bash -s -- --role student --yes
 ```
 
 <i class="bi bi-windows"></i> **Windows**:  
@@ -47,7 +47,7 @@ Copy the command below by clicking the small clipboard icon you can see if you h
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
-curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash -s -- --role educator --yes
+curl -fsSL http://munch-group.org/franklin/installers/install.sh | bash -s -- --role educator --yes
 ```
 
 <i class="bi bi-windows"></i> **Windows**:  
@@ -65,7 +65,7 @@ Copy the command below by clicking the small clipboard icon you can see if you h
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
-curl -fsSL https://tinyurl.com/franklin-mac-student-install | bash -s -- --role administrator --yes
+curl -fsSL http://munch-group.org/franklin/installers/install.sh | bash -s -- --role administrator --yes
 ```
 
 <i class="bi bi-windows"></i> **Windows**:  
