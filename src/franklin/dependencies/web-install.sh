@@ -21,7 +21,8 @@ BOLD='\033[1m'
 NC='\033[0m' # No Color
 
 # Logging
-log_info() { echo -e "${GREEN}[INFO]${NC} $*"; }
+# log_info() { echo -e "${GREEN}[INFO]${NC} $*"; }
+log_info() { echo -e "[INFO] $*"; }
 log_warn() { echo -e "${YELLOW}[WARN]${NC} $*"; }
 log_error() { echo -e "${RED}[ERROR]${NC} $*" >&2; }
 log_step() { echo -e "${BLUE}[STEP]${NC} $*"; }
