@@ -370,7 +370,7 @@ install_chrome() {
     
     local script_path
     if script_path=$(script_exists "$CHROME_SCRIPT"); then
-        if invoke_installer_script "Chrome" "$script_path" "install"; then
+        if invoke_installer_script "Chrome" "$script_path"; then
             return 0
         elif [ "$CONTINUE_ON_ERROR" = true ]; then
             log_warning "Chrome installation failed. Continuing..."
