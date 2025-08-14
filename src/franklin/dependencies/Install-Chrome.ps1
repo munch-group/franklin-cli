@@ -13,9 +13,9 @@ param(
 # Verify administrator privileges
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     Write-Host ""
-    Write-Host "Administrator privileges required for Chrome installation" -ForegroundColor Yellow
+    Write-Host "Administrator privileges required for Chrome installation" -ForegroundColor Green
     Write-Host ""
-    Write-Host "User Password:" -ForegroundColor Green
+    # Write-Host "User Password:" -ForegroundColor Green
     Write-Host "Please approve the Administrator prompt that will appear..." -ForegroundColor Cyan
     Write-Host ""
     

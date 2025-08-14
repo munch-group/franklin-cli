@@ -90,14 +90,14 @@ $InstallerScripts = @{
 function Write-Info {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "[$timestamp] [INFO] $Message" -ForegroundColor Blue
+    Write-Host "[$timestamp] [INFO] $Message" #-ForegroundColor Blue
     $Script:ExecutionLog += "[$timestamp] [INFO] $Message"
 }
 
 function Write-Success {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "[$timestamp] [SUCCESS] $Message" -ForegroundColor Green
+    Write-Host "[$timestamp] [SUCCESS] $Message" #-ForegroundColor Blue
     $Script:ExecutionLog += "[$timestamp] [SUCCESS] $Message"
 }
 
@@ -118,15 +118,15 @@ function Write-Error {
 function Write-Header {
     param([string]$Message)
     Write-Host ""
-    Write-Host ("=" * 60) -ForegroundColor Cyan
-    Write-Host "  $Message" -ForegroundColor Cyan
-    Write-Host ("=" * 60) -ForegroundColor Cyan
+    Write-Host ("=" * 60) -ForegroundColor Green # Cyan
+    Write-Host "  $Message" -ForegroundColor Green # Cyan
+    Write-Host ("=" * 60) -ForegroundColor Green # Cyan
 }
 
 function Write-StepHeader {
     param([string]$Step, [string]$Description)
     Write-Host ""
-    Write-Host ">>> STEP ${Step}: $Description" -ForegroundColor Magenta
+    Write-Host ">>> STEP ${Step}: $Description" -ForegroundColor Blue # Magenta
     Write-Host ("-" * 50) -ForegroundColor Gray
 }
 
@@ -300,10 +300,10 @@ function Install-DockerDesktop {
     $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
     if (-not $isAdmin) {
         Write-Host ""
-        Write-Host "Docker Desktop requires Administrator privileges" -ForegroundColor Yellow
+        Write-Host "Docker Desktop requires Administrator privileges" -ForegroundColor Green
         Write-Host ""
-        Write-Host "User Password:" -ForegroundColor Green
-        Write-Host "An Administrator prompt will appear when the Docker installer starts..." -ForegroundColor Cyan
+        # Write-Host "User Password:" -ForegroundColor Green
+        Write-Host "When prompted, please allow the app to make changes to your device..." -ForegroundColor Green
         Write-Host ""
     }
     
@@ -389,11 +389,12 @@ function Install-Franklin {
         }
         
         $pixiArgs = @(
+            "--color", "never", 
+            "--quiet", 
             "global", "install",
             "-c", "munch-group",
             "-c", "conda-forge",
-            "python",
-            $franklinPackage
+            "python", "git", $franklinPackage
         )
         
         # Write-Info "Executing: pixi $($pixiArgs -join ' ')"
@@ -600,7 +601,7 @@ function Start-MasterInstallation {
         # Determine exit code
         if (-not $Script:FailedInstallations -or $Script:FailedInstallations.Count -eq 0) {
             Write-Success "Master installation completed successfully!"
-            Write-Host ""
+            Write-Warning ""
             Write-Success "YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS"
             Write-Host ""
             exit 0

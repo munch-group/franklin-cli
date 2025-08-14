@@ -587,18 +587,18 @@ function Show-CompletionMessage {
     .SYNOPSIS
         Display completion message with usage instructions
     #>
-    Write-Host ""
-    Write-Success "Operation completed!"
-    Write-Host ""
-    Write-Info "Quick start with pixi:"
-    Write-Info "  pixi --version                     # Check version"
-    Write-Info "  pixi init my-project              # Initialize new project"
-    Write-Info "  pixi add python=3.11              # Add Python dependency"
-    Write-Info "  pixi run python --version         # Run command in environment"
-    Write-Info "  pixi shell                        # Activate project environment"
-    Write-Host ""
-    Write-Info "For more information, visit: https://pixi.sh/"
-    Write-Host ""
+    # Write-Host ""
+    # Write-Success "Operation completed!"
+    # Write-Host ""
+    # Write-Info "Quick start with pixi:"
+    # Write-Info "  pixi --version                     # Check version"
+    # Write-Info "  pixi init my-project              # Initialize new project"
+    # Write-Info "  pixi add python=3.11              # Add Python dependency"
+    # Write-Info "  pixi run python --version         # Run command in environment"
+    # Write-Info "  pixi shell                        # Activate project environment"
+    # Write-Host ""
+    # Write-Info "For more information, visit: https://pixi.sh/"
+    # Write-Host ""
 }
 
 # Main execution
