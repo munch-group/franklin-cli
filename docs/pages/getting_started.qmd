@@ -35,7 +35,7 @@ curl -fsSL http://munch-group.org/franklin/installers/install.sh | bash -s -- --
 <i class="bi bi-windows"></i> **Windows**:  
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
-```powershell
+```powershell   
 (powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/install.ps1" > finst.ps1) -and (powershell .\finst.ps1 -Role student -Yes) ; rm .\finst.ps1
 ```
 
