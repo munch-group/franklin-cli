@@ -54,6 +54,7 @@ website:
   title: "franklin"
   page-navigation: true
   navbar:
+    logo: logo.png
     left:
       # - file: examples/
       #   text: Examples
