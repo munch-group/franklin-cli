@@ -9,11 +9,11 @@ title: Getting started
 
 ## <i class="bi bi-mortarboard-fill"></i> Students
 
-{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
+{{< video https://www.youtube.com/embed/8D8qp_-NJPQ >}}
 
 ## <i class="bi bi-bank"></i> Educators
 
-{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
+{{< video https://www.youtube.com/embed/8D8qp_-NJPQ >}}
 
 :::
 
