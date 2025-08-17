@@ -11,9 +11,9 @@ The `franklin-educator` plugin extends Franklin with commands for creating and m
 - SSH key configured for GitLab access
 - Educator role in the Franklin GitLab group
 
-## Exercise Management Commands
+## Exercises
 
-### Create a new exercise
+**Create a new exercise**:
 
 This command creates a new exercise repository with starter template.
 
@@ -21,7 +21,7 @@ This command creates a new exercise repository with starter template.
 franklin exercise new
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -39,7 +39,7 @@ franklin exercise new
 - Set repository visibility to "Public" in GitLab settings after creation
 - Add a clear description for students
 
-:::
+::: -->
 
 <details>
 <summary>Technical details of the process</summary>
@@ -54,31 +54,7 @@ franklin exercise new
 
 </details>
 
-#### Create with parameters
-
-Skip interactive prompts by providing parameters directly.
-
-```bash
-franklin exercise new --course intro-bio --name week1-intro
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Creates repository directly without prompts
-2. Uses specified course, name, and template
-3. Opens settings page when complete
-
-# Tips
-
-- Useful for scripting or batch creation
-- Template options: standard, advanced, minimal
-- Course name must match GitLab group name
-
-:::
-
-### Edit an exercise
+**Edit an exercise**:
 
 This command launches an exercise editing workflow with live testing.
 
@@ -86,7 +62,7 @@ This command launches an exercise editing workflow with live testing.
 franklin exercise edit
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -105,7 +81,7 @@ franklin exercise edit
 - Dependencies are detected automatically
 - Test feedback appears in terminal
 
-:::
+::: -->
 
 <details>
 <summary>Technical details of the process</summary>
@@ -120,204 +96,7 @@ franklin exercise edit
 
 </details>
 
-#### Edit workflows
-
-Choose different editing workflows based on your needs.
-
-```bash
-franklin exercise edit --workflow assisted  # Git-aware workflow
-franklin exercise edit --workflow manual    # Just clone and exit
-```
-
-<!-- ::: {.panel-tabset}
-
-# Workflow options
-
-- **automated** (default): Full automation with file watching
-- **assisted**: Branch creation, manual commits
-- **manual**: Clone only, you handle everything
-
-# Tips
-
-- Use assisted if comfortable with Git
-- Manual mode for advanced users
-- Automated mode best for beginners
-
-::: -->
-
-### Clone an exercise
-
-This command clones an exercise repository for local development.
-
-```bash
-franklin exercise clone
-```
-
-<!-- ::: {.panel-tabset}
-
-# This happens
-
-1. You select the course
-2. You select the exercise
-3. Franklin clones the repository to current directory
-4. All files are preserved (including solutions)
-
-# Tips
-
-- Different from student download - keeps all files
-- Preserves Git history for version control
-- Use for complex edits requiring multiple tools
-- Clone to a dedicated development folder
-
-::: -->
-
-#### Clone with URL
-
-Clone a specific repository directly.
-
-```bash
-franklin exercise clone https://gitlab.au.dk/franklin/course/exercise.git
-```
-
-<!-- ::: {.panel-tabset}
-
-# This happens
-
-1. Clones the specified repository
-2. Preserves all educator files
-3. Maintains Git history
-
-# Tips
-
-- Faster when you know the URL
-- Useful for automation
-- Works with any branch
-
-::: -->
-
-### Test an exercise
-
-This command runs the exercise test suite locally.
-
-```bash
-franklin exercise test
-```
-
-<!-- ::: {.panel-tabset}
-
-# This happens
-
-1. Detects exercise in current directory
-2. Builds Docker image if needed
-3. Starts test container
-4. Runs all tests in `tests/` directory
-5. Validates notebooks execute without errors
-6. Checks expected outputs are present
-7. Cleans up test container
-
-# Tips
-
-- Run from exercise root directory
-- Tests include notebook execution and unit tests
-- Add `--verbose` for detailed output
-- Use `--notebook` to test specific notebook
-
-::: -->
-
-<details>
-<summary>Technical details of the process</summary>
-
-1. **Detection**: Finds exercise in current directory
-2. **Image Build**: Builds Docker image if needed
-3. **Container Start**: Launches test container
-4. **Test Execution**: Runs all tests in `tests/`
-5. **Notebook Execution**: Validates notebooks run
-6. **Output Check**: Verifies expected outputs
-7. **Cleanup**: Removes test container
-
-</details>
-
-### Build Docker image
-
-This command builds the Docker image for an exercise.
-
-```bash
-franklin exercise build
-```
-
-<!-- ::: {.panel-tabset}
-
-# This happens
-
-1. Validates Dockerfile exists
-2. Processes dependencies from pixi.toml
-3. Builds Docker image
-4. Tags with repository name
-5. Reports image size
-
-# Tips
-
-- Run after updating dependencies
-- Use `--no-cache` for clean rebuild
-- Add `--push` to upload immediately
-- Large images (>2GB) may be slow for students
-
-::: -->
-
-### Publish an exercise
-
-This command publishes an exercise to the GitLab registry.
-
-```bash
-franklin exercise publish
-```
-
-<!-- ::: {.panel-tabset}
-
-# This happens
-
-1. Runs test suite (unless skipped)
-2. Builds Docker image
-3. Authenticates with GitLab registry
-4. Pushes image to registry
-5. Updates latest tag
-6. Verifies image accessibility
-
-# Tips
-
-- Always test before publishing
-- Use version tags for releases
-- Students get `latest` tag by default
-- Run from exercise directory
-
-::: -->
-
-#### Publish with tag
-
-Publish with a specific version tag.
-
-```bash
-franklin exercise publish --tag v1.0
-franklin exercise publish --tag fall2024
-```
-
-<!-- ::: {.panel-tabset}
-
-# This happens
-
-1. Same as regular publish
-2. Additionally tags with specified version
-3. Preserves previous versions
-
-# Tips
-
-- Use semantic versioning (v1.0, v1.1, etc.)
-- Tag by semester for clarity
-- Always also publish as `latest`
-
-::: -->
-
-### Open exercise settings
+**Open exercise settings page**:
 
 This command opens the GitLab settings page for an exercise.
 
@@ -325,155 +104,3 @@ This command opens the GitLab settings page for an exercise.
 franklin exercise settings
 ```
 
-<!-- ::: {.panel-tabset}
-
-# This happens
-
-1. You select the exercise
-2. Browser opens to GitLab settings page
-
-# Tips
-
-- Change visibility to Public for student access
-- Add course description
-- Configure CI/CD variables
-- Manage access permissions
-
-::: -->
-
-#### Open specific section
-
-Navigate directly to a settings section.
-
-```bash
-franklin exercise settings --section visibility
-franklin exercise settings --section ci-cd
-franklin exercise settings --section members
-```
-
-<!-- ::: {.panel-tabset}
-
-# Sections
-
-- **visibility**: Project visibility settings
-- **ci-cd**: Pipeline configuration
-- **members**: Access management
-
-# Tips
-
-- Saves clicks when you know what to change
-- Useful for batch configuration
-- Some sections require maintainer access
-
-::: -->
-
-### Archive an exercise
-
-This command archives (hides) an exercise from students.
-
-```bash
-franklin exercise archive
-```
-
-<!-- ::: {.panel-tabset}
-
-# This happens
-
-1. You select the exercise to archive
-2. Confirmation prompt appears
-3. Repository is set to archived state
-4. Exercise hidden from student lists
-5. Image remains in registry
-
-# Tips
-
-- Use for outdated exercises
-- Can be unarchived later
-- Students can't see archived exercises
-- All data is preserved
-
-::: -->
-
-<details>
-<summary>Technical details of the process</summary>
-
-1. **Exercise Selection**: Choose exercise to archive
-2. **Confirmation**: Confirm archival intent
-3. **API Call**: Sets repository to archived state
-4. **Registry Update**: Removes from student view
-5. **Preservation**: Keeps all code, history, and images
-
-</details>
-
-## Best Practices
-
-### Exercise Design
-
-1. **Clear Learning Objectives**: State what students will learn
-2. **Incremental Complexity**: Build from simple to complex
-3. **Frequent Checkpoints**: Let students verify progress
-4. **Rich Feedback**: Provide hints and validation
-5. **Real-World Relevance**: Use meaningful datasets
-
-### Dependency Management
-
-1. **Minimal Dependencies**: Only what's needed
-2. **Pin Major Versions**: Avoid breaking changes
-3. **Test Compatibility**: Verify versions work together
-4. **Document Requirements**: List in README
-
-### Version Control
-
-1. **Meaningful Commits**: Describe changes clearly
-2. **Tag Releases**: Mark stable versions
-3. **Branch Features**: Develop in branches
-4. **Test Before Merge**: Ensure CI passes
-
-## Troubleshooting
-
-### SSH Key Problems
-
-**Problem**: "Permission denied (publickey)"
-
-**Solution**: Configure SSH key
-```bash
-ssh-keygen -t ed25519 -C "your-email@au.dk"
-# Add public key to GitLab profile
-```
-
-### Permission Denied
-
-**Problem**: "You don't have permission"
-
-**Solution**: Verify educator role
-- Contact course coordinator for access
-- Check GitLab group membership
-
-### Docker Build Failures
-
-**Problem**: "Docker build failed"
-
-**Solution**: Check Dockerfile
-```bash
-docker build . --no-cache  # Clean rebuild
-# Verify base image exists
-# Check dependency conflicts
-```
-
-### Test Failures
-
-**Problem**: "Tests failed"
-
-**Solution**: Debug tests
-```bash
-franklin exercise test --verbose
-# Check test configuration
-# Verify notebook outputs
-```
-
-## Getting Help
-
-1. **Built-in help**: `franklin exercise COMMAND --help`
-2. **Documentation**: This guide and other resources
-3. **GitLab issues**: Report problems in exercise repository
-4. **Course coordinator**: For access and permissions

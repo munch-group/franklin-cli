@@ -22,7 +22,7 @@ franklin download --help   # Show download command help
 
 ## Exercise Commands
 
-### Download an exercise
+**Download an exercise**:
 
 This command downloads an exercise repository to your computer.
 
@@ -60,7 +60,7 @@ franklin download
 
 </details>
 
-### Launch Jupyter
+**Launch Jupyter**:
 
 This command launches JupyterLab in a Docker container configured for the current exercise.
 
@@ -104,7 +104,7 @@ franklin jupyter
 </details>
 
 
-## Updating Franklin
+**Update Franklin**:
 
 This command updates Franklin to the latest version.
 
@@ -145,7 +145,7 @@ franklin update
 
 ## Docker resources
 
-### Show images
+**Show images**:
 
 List all Docker images on your system.
 
@@ -171,7 +171,7 @@ franklin show images
 :::
  -->
 
-### Show containers
+**Show containers**:
 
 List all Docker containers (running and stopped).
 
@@ -197,7 +197,7 @@ franklin show containers
 :::
  -->
 
-### Show storage
+**Show storage**:
 
 Display Docker disk usage summary.
 
@@ -223,9 +223,7 @@ franklin show storage
 :::
 -->
 
-## Manage Docker Disk Usage
-
-### Clean up Docker images
+**Clean up Docker images**:
 
 This command removes Docker images and containers to free disk space.
 
