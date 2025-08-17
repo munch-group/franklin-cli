@@ -4,9 +4,7 @@ title: Core Commands
 
 Franklin is a command-line tool that manages Jupyter notebook exercises through Docker containers.
 
-## Overview
-
-Franklin uses a hierarchical command structure:
+It uses a hierarchical command structure:
 
 ```bash
 franklin [GLOBAL OPTIONS] COMMAND [COMMAND OPTIONS] [ARGUMENTS]
@@ -31,7 +29,7 @@ This command downloads an exercise repository to your computer.
 ```bash
 franklin download
 ```
-
+<!-- 
 ::: {.panel-tabset}
 
 # This happens
@@ -48,6 +46,7 @@ franklin download
 - The exercise will be downloaded into a new subfolder named after the exercise
 
 :::
+-->
 
 <details>
 <summary>Technical details of the process</summary>
@@ -61,22 +60,6 @@ franklin download
 
 </details>
 
-::: {.panel-tabset}
-
-# This happens
-
-1. Franklin validates the URL format
-2. Checks your access permissions
-3. Downloads the exercise to a subfolder of your current folder
-
-# Tips
-
-- Get the URL from your course page or instructor
-- The URL must be a GitLab repository URL
-- You need access rights to the repository
-
-:::
-
 ### Launch Jupyter
 
 This command launches JupyterLab in a Docker container configured for the current exercise.
@@ -85,6 +68,7 @@ This command launches JupyterLab in a Docker container configured for the curren
 franklin jupyter
 ```
 
+<!-- 
 ::: {.panel-tabset}
 
 # This happens
@@ -104,6 +88,7 @@ franklin jupyter
 - Your work is saved in the exercise folder, not the container
 
 :::
+ -->
 
 <details>
 <summary>Technical details of the process</summary>
@@ -118,21 +103,6 @@ franklin jupyter
 
 </details>
 
-::: {.panel-tabset}
-
-# This happens
-
-1. Pulls the specified Docker image
-2. Starts container with current folder mounted
-3. Opens JupyterLab in browser
-
-# Tips
-
-- Use when you know the exact image you need
-- Useful for testing or special configurations
-- The image URL is shown in exercise documentation
-
-:::
 
 ## Updating Franklin
 
@@ -142,6 +112,7 @@ This command updates Franklin to the latest version.
 franklin update
 ```
 
+<!-- 
 ::: {.panel-tabset}
 
 # This happens
@@ -159,6 +130,7 @@ franklin update
 - The update includes franklin-educator and franklin-admin if installed
 
 :::
+ -->
 
 <details>
 <summary>Technical details of the process</summary>
@@ -181,6 +153,7 @@ List all Docker images on your system.
 franklin show images
 ```
 
+<!-- 
 ::: {.panel-tabset}
 
 # This happens
@@ -196,6 +169,7 @@ franklin show images
 - Small images (<1GB) are usually base images
 
 :::
+ -->
 
 ### Show containers
 
@@ -205,6 +179,7 @@ List all Docker containers (running and stopped).
 franklin show containers
 ```
 
+<!-- 
 ::: {.panel-tabset}
 
 # This happens
@@ -220,6 +195,7 @@ franklin show containers
 - Use to check if Jupyter is still running
 
 :::
+ -->
 
 ### Show storage
 
@@ -229,6 +205,7 @@ Display Docker disk usage summary.
 franklin show storage
 ```
 
+<!-- 
 ::: {.panel-tabset}
 
 # This happens
@@ -244,6 +221,7 @@ franklin show storage
 - Large build cache can often be cleared safely
 
 :::
+-->
 
 ## Manage Docker Disk Usage
 
@@ -255,6 +233,7 @@ This command removes Docker images and containers to free disk space.
 franklin cleanup
 ```
 
+<!-- 
 ::: {.panel-tabset}
 
 # This happens
@@ -273,6 +252,7 @@ franklin cleanup
 - Consider removing old course images at semester end
 
 :::
+-->
 
 <details>
 <summary>Technical details of the process</summary>

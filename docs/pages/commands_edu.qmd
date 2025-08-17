@@ -59,7 +59,7 @@ franklin exercise new
 Skip interactive prompts by providing parameters directly.
 
 ```bash
-franklin exercise new --course intro-bio --name week1-intro --template standard
+franklin exercise new --course intro-bio --name week1-intro
 ```
 
 ::: {.panel-tabset}
@@ -129,7 +129,7 @@ franklin exercise edit --workflow assisted  # Git-aware workflow
 franklin exercise edit --workflow manual    # Just clone and exit
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # Workflow options
 
@@ -143,7 +143,7 @@ franklin exercise edit --workflow manual    # Just clone and exit
 - Manual mode for advanced users
 - Automated mode best for beginners
 
-:::
+::: -->
 
 ### Clone an exercise
 
@@ -153,7 +153,7 @@ This command clones an exercise repository for local development.
 franklin exercise clone
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -169,7 +169,7 @@ franklin exercise clone
 - Use for complex edits requiring multiple tools
 - Clone to a dedicated development folder
 
-:::
+::: -->
 
 #### Clone with URL
 
@@ -179,7 +179,7 @@ Clone a specific repository directly.
 franklin exercise clone https://gitlab.au.dk/franklin/course/exercise.git
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -193,7 +193,7 @@ franklin exercise clone https://gitlab.au.dk/franklin/course/exercise.git
 - Useful for automation
 - Works with any branch
 
-:::
+::: -->
 
 ### Test an exercise
 
@@ -203,7 +203,7 @@ This command runs the exercise test suite locally.
 franklin exercise test
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -222,7 +222,7 @@ franklin exercise test
 - Add `--verbose` for detailed output
 - Use `--notebook` to test specific notebook
 
-:::
+::: -->
 
 <details>
 <summary>Technical details of the process</summary>
@@ -245,7 +245,7 @@ This command builds the Docker image for an exercise.
 franklin exercise build
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -262,7 +262,7 @@ franklin exercise build
 - Add `--push` to upload immediately
 - Large images (>2GB) may be slow for students
 
-:::
+::: -->
 
 ### Publish an exercise
 
@@ -272,7 +272,7 @@ This command publishes an exercise to the GitLab registry.
 franklin exercise publish
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -290,7 +290,7 @@ franklin exercise publish
 - Students get `latest` tag by default
 - Run from exercise directory
 
-:::
+::: -->
 
 #### Publish with tag
 
@@ -301,7 +301,7 @@ franklin exercise publish --tag v1.0
 franklin exercise publish --tag fall2024
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -315,7 +315,7 @@ franklin exercise publish --tag fall2024
 - Tag by semester for clarity
 - Always also publish as `latest`
 
-:::
+::: -->
 
 ### Open exercise settings
 
@@ -325,7 +325,7 @@ This command opens the GitLab settings page for an exercise.
 franklin exercise settings
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -339,7 +339,7 @@ franklin exercise settings
 - Configure CI/CD variables
 - Manage access permissions
 
-:::
+::: -->
 
 #### Open specific section
 
@@ -351,7 +351,7 @@ franklin exercise settings --section ci-cd
 franklin exercise settings --section members
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # Sections
 
@@ -365,7 +365,7 @@ franklin exercise settings --section members
 - Useful for batch configuration
 - Some sections require maintainer access
 
-:::
+::: -->
 
 ### Archive an exercise
 
@@ -375,7 +375,7 @@ This command archives (hides) an exercise from students.
 franklin exercise archive
 ```
 
-::: {.panel-tabset}
+<!-- ::: {.panel-tabset}
 
 # This happens
 
@@ -392,7 +392,7 @@ franklin exercise archive
 - Students can't see archived exercises
 - All data is preserved
 
-:::
+::: -->
 
 <details>
 <summary>Technical details of the process</summary>
