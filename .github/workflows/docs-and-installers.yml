@@ -81,9 +81,9 @@ jobs:
         # with:
         #   tinytex: true
       
-      - name: Install TinyTeX
-        run: |
-          quarto install tinytex --no-prompt
+      # - name: Install TinyTeX
+      #   run: |
+      #     quarto install tinytex --no-prompt
 
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v2
