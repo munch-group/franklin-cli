@@ -437,27 +437,45 @@ install_franklin() {
         log_warning "Pixi not found in PATH after refresh"
     fi
     
+    # # Determine which package to install based on user role
+    # log_info "User role: $USER_ROLE"
+    # local package_name="franklin"
+    # case "$USER_ROLE" in
+    #     educator)
+    #         package_name="franklin-educator"
+    #         log_info "Installing Franklin Educator package for educator role"
+    #         ;;
+    #     administrator|admin)
+    #         package_name="franklin-admin"
+    #         log_info "Installing Franklin Administrator package for admin role"
+    #         ;;
+    #     student|*)
+    #         package_name="franklin"
+    #         log_info "Installing standard Franklin package for student role"
+    #         ;;
+    # esac
+    # log_info "Package to install: $package_name"
+    
     # Determine which package to install based on user role
     log_info "User role: $USER_ROLE"
     local package_name="franklin"
     case "$USER_ROLE" in
         educator)
-            package_name="franklin-educator"
+            command="pixi global install -c munch-group -c conda-forge python git franklin 2>&1 && pixi global add --environment franklin franklin-educator 2>&1"
             log_info "Installing Franklin Educator package for educator role"
             ;;
         administrator|admin)
-            package_name="franklin-admin"
+            command="pixi global install -c munch-group -c conda-forge python git franklin 2>&1 && pixi global add --environment franklin franklin-educator franklin-admin 2>&1"
             log_info "Installing Franklin Administrator package for admin role"
             ;;
         student|*)
-            package_name="franklin"
+            command="pixi global install -c munch-group -c conda-forge python git franklin 2>&1"
             log_info "Installing standard Franklin package for student role"
             ;;
     esac
     log_info "Package to install: $package_name"
-    
 
-    command="pixi global install -c munch-group -c conda-forge python git $package_name 2>&1"
+
     # Run pixi global install command
     log_info "Executing: $command"
     # Capture the output and error for debugging
@@ -466,6 +484,10 @@ install_franklin() {
     # Run the command and capture output
     install_output=$(eval "$command")
     install_exit_code=$?
+
+
+
+
 
     # # Run pixi global install command
     # log_info "Executing: pixi global install -c munch-group -c conda-forge python git $package_name"

@@ -383,28 +383,22 @@ function Install-Franklin {
         # Refresh environment to ensure pixi is in PATH
         $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "User") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "Machine")
         
-        # Run pixi global install command
-        # Install the appropriate franklin package based on role
-        $franklinPackage = switch ($Role) {
-            'administrator' { 'franklin-admin' }
-            'educator' { 'franklin-educator' }
-            default { 'franklin' }
+        $pixiArgs = @("--color", "never", "--quiet", "global", "install", "-c", "munch-group", "-c", "conda-forge", "python", "git", "franklin")        
+        $process = Start-Process -FilePath "pixi" -ArgumentList $pixiArgs -Wait -PassThru -NoNewWindow
+        $exitCodes = $process.ExitCode
+
+        if ( $Role -eq "educator" ) {
+            $pixiArgs = @("--color", "never", "--quiet", "global", "add", " --environment", "franklin", "franklin-educator")
+            $process = Start-Process -FilePath "pixi" -ArgumentList $pixiArgs -Wait -PassThru -NoNewWindow
+            $exitCodes = $exitCodes + $process.ExitCode            
+        }
+        elseif ( $Role -eq "administrator" ) {
+            $pixiArgs = @("--color", "never", "--quiet", "global", "add", " --environment", "franklin", "franklin-educator", "franklin-admin")
+            $process = Start-Process -FilePath "pixi" -ArgumentList $pixiArgs -Wait -PassThru -NoNewWindow
+            $exitCodes = $exitCodes + $process.ExitCode            
         }
         
-        $pixiArgs = @(
-            "--color", "never", 
-            "--quiet", 
-            "global", "install",
-            "-c", "munch-group",
-            "-c", "conda-forge",
-            "python", "git", $franklinPackage
-        )
-        
-        # Write-Info "Executing: pixi $($pixiArgs -join ' ')"
-        
-        $process = Start-Process -FilePath "pixi" -ArgumentList $pixiArgs -Wait -PassThru -NoNewWindow
-        
-        if ($process.ExitCode -eq 0) {
+        if ($exitCodes -eq 0) {
             Write-Success "$franklinPackage installed successfully via pixi global"
             $Script:SuccessfulInstallations += "Franklin"
             return $true
