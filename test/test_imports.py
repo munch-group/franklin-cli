@@ -18,12 +18,12 @@ class TestImports(unittest.TestCase):
     
     def test_franklin_import(self):
         """Test importing main franklin module."""
-        import franklin
+        import franklin_cli
         self.assertTrue(hasattr(franklin, 'franklin'))
         
     def test_cli_callable(self):
         """Test that franklin CLI is callable."""
-        import franklin
+        import franklin_cli
         from click.testing import CliRunner
         
         runner = CliRunner()
@@ -33,12 +33,12 @@ class TestImports(unittest.TestCase):
         
     def test_submodule_imports(self):
         """Test importing Franklin submodules."""
-        from franklin import docker
-        from franklin import gitlab
-        from franklin import jupyter
-        from franklin import update
-        from franklin import config
-        from franklin import utils
+        from franklin_cli import docker
+        from franklin_cli import gitlab
+        from franklin_cli import jupyter
+        from franklin_cli import update
+        from franklin_cli import config
+        from franklin_cli import utils
         
         # Verify modules loaded
         self.assertIsNotNone(docker)

@@ -17,7 +17,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 src_dir = os.path.join(parent_dir, 'src')
 sys.path.insert(0, src_dir)
 
-import franklin
+import franklin_cli
 
 
 class TestFranklinWithClick(unittest.TestCase):
@@ -170,7 +170,7 @@ class TestModuleIntegration(unittest.TestCase):
     
     def test_gitlab_module_imports(self):
         """Test gitlab module imports click instead of cutie."""
-        from franklin import gitlab
+        from franklin_cli import gitlab
         
         # Should have click imported
         self.assertTrue(hasattr(gitlab, 'click'))
@@ -181,7 +181,7 @@ class TestModuleIntegration(unittest.TestCase):
         
     def test_docker_module_imports(self):
         """Test docker module imports click."""
-        from franklin import docker
+        from franklin_cli import docker
         
         # Should have click imported
         self.assertTrue(hasattr(docker, 'click'))

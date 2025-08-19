@@ -14,7 +14,7 @@ class GitLabInterface:
     """Stable interface for GitLab operations.
     
     Plugins should use this interface instead of directly importing
-    from franklin.gitlab to ensure compatibility across versions.
+    from franklin_cli.gitlab to ensure compatibility across versions.
     """
     
     @staticmethod

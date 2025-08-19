@@ -10,7 +10,7 @@ interchangeably.
 #   1. Add import hook in franklin/__init__.py:
 #   import os
 #   if os.environ.get('FRANKLIN_USE_BACKEND'):
-#       from franklin.backends.adapter import gitlab
+#       from franklin_cli.backends.adapter import gitlab
 #       sys.modules['franklin.gitlab'] = gitlab
 #   2. Test with environment variable:
 #   export FRANKLIN_USE_BACKEND=true
@@ -20,7 +20,7 @@ interchangeably.
 
 # import sys, os
 # if os.environ.get('FRANKLIN_USE_BACKEND'):
-#     from franklin.backends.adapter import gitlab
+#     from franklin_cli.backends.adapter import gitlab
 #     sys.modules['franklin.gitlab'] = gitlab
 # os.environ['FRANKLIN_USE_BACKEND'] = 'true' 
 # # Ensure the environment variable is set

@@ -17,7 +17,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 src_dir = os.path.join(parent_dir, 'src')
 sys.path.insert(0, src_dir)
 
-import franklin
+import franklin_cli
 
 
 class TestFranklinCore(unittest.TestCase):
@@ -171,7 +171,7 @@ class TestModuleStructure(unittest.TestCase):
     
     def test_docker_module_functions(self):
         """Test docker module has expected functions."""
-        from franklin import docker
+        from franklin_cli import docker
         
         # Core Docker functions
         self.assertTrue(callable(getattr(docker, 'desktop_status', None)))
@@ -181,7 +181,7 @@ class TestModuleStructure(unittest.TestCase):
         
     def test_gitlab_module_functions(self):
         """Test gitlab module has expected functions."""
-        from franklin import gitlab
+        from franklin_cli import gitlab
         
         # Core GitLab functions
         self.assertTrue(callable(getattr(gitlab, 'get_registry_listing', None)))
@@ -189,7 +189,7 @@ class TestModuleStructure(unittest.TestCase):
         
     def test_jupyter_module_functions(self):
         """Test jupyter module has expected functions."""
-        from franklin import jupyter
+        from franklin_cli import jupyter
         
         # Core Jupyter functions
         self.assertTrue(callable(getattr(jupyter, 'launch_jupyter', None)))
@@ -197,7 +197,7 @@ class TestModuleStructure(unittest.TestCase):
         
     def test_update_module_structure(self):
         """Test update module has expected components."""
-        from franklin import update
+        from franklin_cli import update
         
         # Check for UpdateStatus class
         self.assertTrue(hasattr(update, 'UpdateStatus'))

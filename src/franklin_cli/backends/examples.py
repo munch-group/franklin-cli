@@ -9,7 +9,7 @@ with both GitLab and GitHub.
 import os
 from typing import Optional
 
-from franklin.backends import (
+from franklin_cli.backends import (
     get_backend,
     GitLabBackend,
     GitHubBackend,
@@ -184,7 +184,7 @@ def example_switching_backends():
     """Example of switching between backends."""
     print("\n=== Backend Switching Example ===\n")
     
-    from franklin.backends import BackendFactory
+    from franklin_cli.backends import BackendFactory
     
     # Get list of available backends
     available = BackendFactory.list_backends()

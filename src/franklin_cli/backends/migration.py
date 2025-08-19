@@ -396,9 +396,9 @@ class CodeMigrator:
     def __init__(self):
         """Initialize code migrator."""
         self.import_mapping = {
-            'from franklin import gitlab': 'from franklin.backends.adapter import gitlab',
-            'from franklin.gitlab import': 'from franklin.backends.adapter import',
-            'import franklin.gitlab': 'import franklin.backends.adapter as gitlab',
+            'from franklin import gitlab': 'from franklin_cli.backends.adapter import gitlab',
+            'from franklin.gitlab import': 'from franklin_cli.backends.adapter import',
+            'import franklin.gitlab': 'import franklin_cli.backends.adapter as gitlab',
         }
     
     def migrate_file(self, file_path: Path, dry_run: bool = False) -> bool:

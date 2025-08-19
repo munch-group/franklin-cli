@@ -1,7 +1,7 @@
 {% set pyproject = load_file_data("../pyproject.toml", from_recipe_dir=True) %}
 
 package:
-  name: franklin
+  name: franklin-cli
   version: {{ pyproject.get("project").get("version") }}
 
 source:
@@ -12,7 +12,7 @@ build:
   script: $PYTHON -m pip install . -vv
   python_version_independent: true
   entry_points:
-    - franklin = franklin:franklin
+    - franklin = franklin_cli:franklin
 
 requirements:
   host:
@@ -38,7 +38,7 @@ dependencies:   # keep this block with only these packages
 
 test:
   imports:
-    - franklin
+    - franklin_cli
 
 about:
   home: https://github.com/munch-group/franklin.git

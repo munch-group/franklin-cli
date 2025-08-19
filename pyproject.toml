@@ -3,7 +3,7 @@ requires = ["setuptools >= 65.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "franklin"
+name = "franklin-cli"
 version = "0.25.108"
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -50,13 +50,13 @@ Repository = "https://github.com/munch-group/franklin.git"
 Issues = "https://github.com/munch-group/franklin/issues"
 
 [project.scripts]
-franklin = "franklin:franklin"
+franklin = "franklin_cli:franklin"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-franklin = [
+franklin_cli = [
   "data/*.yaml", 
   "data/gitui/*", 
   "data/templates/exercise/.devcontainer/devcontainer.json",

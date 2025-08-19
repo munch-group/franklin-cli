@@ -14,28 +14,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Project Structure:**
 - Uses `setuptools` with `pyproject.toml` configuration
-- Entry point: `franklin = "franklin:franklin"` - CLI command defined in `src/franklin/__init__.py`
+- Entry point: `franklin = "franklin_cli:franklin"` - CLI command defined in `src/franklin_cli/__init__.py`
 
 ## Architecture
 
 **Core CLI Framework:**
 - Built with Click framework using plugin architecture
-- Main CLI group defined in `src/franklin/__init__.py:franklin()` 
+- Main CLI group defined in `src/franklin_cli/__init__.py:franklin()` 
 - Uses `AliasedGroup` for command aliases and `click-plugins` for extensibility
 - Commands are organized into modules: `docker`, `jupyter`, `gitlab`, `update`
 
 **Key Components:**
-- `src/franklin/__init__.py` - Main CLI entry point and command registration
-- `src/franklin/docker.py` - Docker container management 
-- `src/franklin/jupyter.py` - Jupyter notebook integration
-- `src/franklin/gitlab.py` - GitLab integration for exercise downloads
-- `src/franklin/desktop.py` - Desktop/system integration (Docker Desktop setup)
-- `src/franklin/config.py` - Configuration management
-- `src/franklin/utils.py` - Shared utilities
+- `src/franklin_cli/__init__.py` - Main CLI entry point and command registration
+- `src/franklin_cli/docker.py` - Docker container management 
+- `src/franklin_cli/jupyter.py` - Jupyter notebook integration
+- `src/franklin_cli/gitlab.py` - GitLab integration for exercise downloads
+- `src/franklin_cli/desktop.py` - Desktop/system integration (Docker Desktop setup)
+- `src/franklin_cli/config.py` - Configuration management
+- `src/franklin_cli/utils.py` - Shared utilities
 
 **Package Distribution:**
-- Three-tier conda package system: `franklin` (students) → `franklin-educator` (educators) → `franklin-admin` (admin)
-- Template system in `src/franklin/data/templates/` for exercise scaffolding
+- Three-tier conda package system: `franklin-cli` (students) → `franklin-educator` (educators) → `franklin-admin` (admin)
+- Template system in `src/franklin_cli/data/templates/` for exercise scaffolding
 - Uses Pixi for dependency management in exercises
 
 **Exercise System:**

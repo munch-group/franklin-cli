@@ -1,6 +1,6 @@
 # import unittest
 
-# from franklin.modulename import functionname
+# from franklin_cli.modulename import functionname
 
 # class TestModulename(unittest.TestCase):
 

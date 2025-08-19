@@ -14,12 +14,12 @@ from . import jupyter as _jupyter
 from .utils import AliasedGroup
 from .crash import crash_report
 
-# @with_plugins(iter_entry_points('franklin.plugins'))
-@with_plugins(entry_points().select(group='franklin.plugins'))
+# @with_plugins(iter_entry_points('franklin_cli.plugins'))
+@with_plugins(entry_points().select(group='franklin_cli.plugins'))
 @click.group(cls=AliasedGroup, 
              context_settings={"auto_envvar_prefix": "FRANKLIN"}, 
              epilog=f'See {cfg.documentation_url} for more details')
-@click.version_option(package_name='franklin')
+@click.version_option(package_name='franklin-cli')
 @options.update
 @crash_report
 def franklin(update: bool) -> None:

@@ -14,7 +14,7 @@ parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 src_dir = os.path.join(parent_dir, 'src')
 sys.path.insert(0, src_dir)
 
-import franklin
+import franklin_cli
 
 
 class TestFranklinCommands(unittest.TestCase):
@@ -105,7 +105,7 @@ class TestModuleImports(unittest.TestCase):
     
     def test_docker_module(self):
         """Test docker module has expected functions."""
-        from franklin import docker
+        from franklin_cli import docker
         
         # Check key functions exist
         self.assertTrue(hasattr(docker, 'desktop_status'))
@@ -117,7 +117,7 @@ class TestModuleImports(unittest.TestCase):
         
     def test_gitlab_module(self):
         """Test gitlab module has expected functions."""
-        from franklin import gitlab
+        from franklin_cli import gitlab
         
         # Check key functions exist
         self.assertTrue(hasattr(gitlab, 'get_registry_listing'))
@@ -127,7 +127,7 @@ class TestModuleImports(unittest.TestCase):
         
     def test_jupyter_module(self):
         """Test jupyter module has expected functions."""
-        from franklin import jupyter
+        from franklin_cli import jupyter
         
         # Check key functions exist
         self.assertTrue(hasattr(jupyter, 'launch_jupyter'))
@@ -135,7 +135,7 @@ class TestModuleImports(unittest.TestCase):
         
     def test_update_module(self):
         """Test update module has expected functions."""
-        from franklin import update
+        from franklin_cli import update
         
         # Check key functions exist
         self.assertTrue(hasattr(update, 'detect_installation_method'))

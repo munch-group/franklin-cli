@@ -499,7 +499,7 @@ def get_exercise_adapter() -> ExerciseAdapter:
 
 
 # Module-level instance for import compatibility
-# This allows: from franklin.gitlab_adapter import gitlab
+# This allows: from franklin_cli.gitlab_adapter import gitlab
 gitlab = GitLabCompatibilityAdapter()
 
 

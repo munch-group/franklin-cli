@@ -22,10 +22,10 @@ src_dir = os.path.join(parent_dir, 'src')
 sys.path.insert(0, src_dir)
 
 # Import franklin modules directly
-import franklin
-from franklin import cutie
-from franklin import gitlab  
-from franklin import docker
+import franklin_cli
+from franklin_cli import cutie
+from franklin_cli import gitlab  
+from franklin_cli import docker
 
 
 class InteractiveTestBase(unittest.TestCase):
