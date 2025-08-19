@@ -4,28 +4,6 @@ title: Administrator Commands
 
 The `franklin-admin` plugin provides administrative tools for managing users, permissions, and course infrastructure.
 
-## Installation
-
-Install the franklin-admin plugin:
-
-::: {.panel-tabset}
-
-# Using Conda
-
-```bash
-conda install -c conda-forge -c munch-group franklin-admin
-```
-
-# Using Pixi
-
-```bash
-pixi global install --channel conda-forge --channel munch-group franklin-admin
-```
-
-:::
-
-The admin plugin automatically installs both franklin and franklin-educator as dependencies.
-
 ## Prerequisites
 
 - GitLab account with Owner or Maintainer role in Franklin group
@@ -35,222 +13,72 @@ The admin plugin automatically installs both franklin and franklin-educator as d
 
 ## User Management
 
-### List users
 
-This command lists all users in a GitLab group.
 
-```bash
-franklin admin users list
-```
+**Guest (role: guest)**:  
 
-::: {.panel-tabset}
 
-# This happens
+**Teaching Assistant (role: ta)**:  
+- Create create and edit exercises
+- Can edit exercise settings
+- Cannot delete exercises
 
-1. Queries GitLab for group members
-2. Retrieves user information and roles
-3. Displays formatted table with username, name, role, and email
+**Professor / Course Responsible (role: prof)**:  
+- Create create, edit and delete exercises
+- Grant users the roles of Guest and Teaching Assistant.
 
-# Tips
 
-- Use `--group` to specify a different group
-- Filter by role with `--role` option
-- Export to CSV with `--format csv`
-- Default group is "franklin"
 
-:::
+**Find username**:
 
-#### List with filters
-
-Filter users by group and role.
+Find username by searching full names of users.
 
 ```bash
-franklin admin users list --group intro-bio --role Maintainer
+franklin finger
 ```
 
-::: {.panel-tabset}
+**Grant professor rights**:
 
-# This happens
+Grant user the ability to only:  
+- Create exercises
+- Edit exercises
+- Edit exercise settings
 
-1. Queries specified group
-2. Filters by specified role
-3. Shows only matching users
-
-# Tips
-
-- Roles: Guest, Reporter, Developer, Maintainer, Owner
-- Use for auditing permissions
-- Combine with `--format json` for scripting
-
-:::
-
-### Add user to group
-
-This command adds a user to a GitLab group with a specific role.
 
 ```bash
-franklin admin users add USERNAME --group GROUP --role ROLE
+franklin grant prof
 ```
 
-::: {.panel-tabset}
+**Grant TA rights**:
 
-# This happens
+Grant user the ability to only:  
 
-1. Looks up user by username
-2. Adds user to specified group
-3. Assigns specified role
-4. Confirms successful addition
-
-# Tips
-
-- Username must exist in GitLab
-- Role determines permissions level
-- Use `--expires-at` for temporary access
-- Add TAs as Developer or Maintainer
-
-:::
-
-### Remove user from group
-
-This command removes a user from a GitLab group.
 
 ```bash
-franklin admin users remove USERNAME --group GROUP
+franklin grant ta
 ```
 
-::: {.panel-tabset}
+**Grant guest rights**:
 
-# This happens
-
-1. Confirms user exists in group
-2. Removes user from group
-3. User loses access to group resources
-
-# Tips
-
-- Use `--confirm` to skip confirmation
-- User's work is preserved
-- Can be re-added later
-- Remove TAs at semester end
-
-:::
-
-### Update user role
-
-This command changes a user's role in a group.
+Grant user the ability to only:  
+- Can view exercises
+- Cannot edit exercise content or settings
 
 ```bash
-franklin admin users update USERNAME --group GROUP --role NEW_ROLE
+franklin grant guest
 ```
 
-::: {.panel-tabset}
+**Revoke user rights**:
 
-# This happens
-
-1. Verifies user is in group
-2. Changes role to new level
-3. Updates permissions immediately
-
-# Tips
-
-- Promote TAs to Maintainer for more access
-- Downgrade to Reporter for read-only
-- Changes take effect immediately
-- Check current role first with `list`
-
-:::
-
-## Group Management
-
-### Create course group
-
-This command creates a new course subgroup.
+To revoke access just grant the guest role.
 
 ```bash
-franklin admin groups create GROUP_NAME
+franklin grant guest
 ```
 
-::: {.panel-tabset}
+## Tokens and Passwords
 
-# This happens
-
-1. Creates subgroup under Franklin parent
-2. Sets initial permissions
-3. Configures group settings
-4. Returns group URL
-
-# Tips
-
-- Use descriptive names like "intro-bio-2024"
-- Set visibility with `--visibility`
-- Add description with `--description`
-- Default parent is "franklin"
-
-:::
-
-<details>
-<summary>Technical details of the process</summary>
-
-1. **Name Validation**: Ensures valid GitLab group name
-2. **Parent Check**: Verifies parent group exists
-3. **API Call**: Creates group via GitLab API
-4. **Settings**: Applies visibility and description
-5. **Permissions**: Sets up initial access controls
-
-</details>
-
-### List groups
-
-This command lists all subgroups.
-
-```bash
-franklin admin groups list
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Queries GitLab for subgroups
-2. Retrieves group metadata
-3. Shows groups with member and project counts
-
-# Tips
-
-- Use `--details` for more information
-- Filter by parent with `--parent`
-- Shows visibility level for each group
-- Useful for semester planning
-
-:::
-
-### Open group settings
-
-This command opens group settings in browser.
-
-```bash
-franklin admin groups settings GROUP_NAME
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Constructs GitLab URL for group
-2. Opens browser to settings page
-
-# Tips
-
-- Faster than navigating manually
-- Works with any group you can access
-- Use for batch configuration
-- Check permissions if page won't load
-
-:::
-
-## Token Management
-
-### Store API token
+**Store API token**:
 
 This command stores an encrypted API token for a user.
 
@@ -258,37 +86,7 @@ This command stores an encrypted API token for a user.
 franklin token set
 ```
 
-::: {.panel-tabset}
-
-# This happens
-
-1. Prompts for username
-2. Prompts for password (for encryption)
-3. Prompts for API token (hidden input)
-4. Encrypts token with password
-5. Stores in secure local storage
-
-# Tips
-
-- Token is never transmitted
-- Password encrypts token locally
-- Use strong, unique password
-- Token needed for API operations
-
-:::
-
-<details>
-<summary>Technical details of the process</summary>
-
-1. **Input Collection**: Secure prompts for credentials
-2. **Encryption**: AES encryption with password-derived key
-3. **Storage**: Saves to local config directory
-4. **Validation**: Verifies token format
-5. **Security**: Never logs or transmits token
-
-</details>
-
-### Retrieve API token
+**Retrieve API token**:
 
 This command retrieves and decrypts a stored API token.
 
@@ -296,328 +94,10 @@ This command retrieves and decrypts a stored API token.
 franklin token get
 ```
 
-::: {.panel-tabset}
-
-# This happens
-
-1. Prompts for username
-2. Prompts for password
-3. Decrypts stored token
-4. Displays token (be careful!)
-
-# Tips
-
-- Only display in secure environment
-- Token shown can be copied
-- Wrong password fails silently
-- Use for debugging or backup
-
-:::
-
-### Verify token validity
-
-This command checks if a stored token is valid.
-
-```bash
-franklin token verify
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Prompts for credentials
-2. Decrypts token
-3. Tests token with GitLab API
-4. Reports validity and permissions
-
-# Tips
-
-- Run periodically to check expiration
-- Shows token scopes
-- Confirms API access works
-- Use before important operations
-
-:::
-
-### Rotate API token
-
-This command replaces an API token with a new one.
-
-```bash
-franklin token rotate
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Creates new token with same permissions
-2. Updates stored encrypted token
-3. Revokes old token
-4. Confirms rotation success
-
-# Tips
-
-- Do this periodically for security
-- Maintains same access level
-- Old token stops working immediately
-- Update any scripts using old token
-
-:::
-
-## Password Management
-
-### Change password
+**Change password**:
 
 This command changes your password for token encryption.
 
 ```bash
 franklin password change
 ```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Prompts for username
-2. Prompts for current password
-3. Prompts for new password (twice)
-4. Re-encrypts token with new password
-5. Updates stored credentials
-
-# Tips
-
-- Choose strong password
-- Different from GitLab password
-- Required to decrypt tokens
-- Change regularly for security
-
-:::
-
-## User Discovery
-
-### Find users
-
-This command searches for GitLab users by name or username.
-
-```bash
-franklin finger SEARCH_TERMS
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Searches GitLab user database
-2. Matches against name and username
-3. Returns list of matching users
-4. Shows username, name, email, and state
-
-# Tips
-
-- Use quotes for full names
-- Wildcards work for patterns
-- Requires authentication
-- Useful for finding TAs
-
-:::
-
-## Permission Levels
-
-### GitLab Roles Explained
-
-| Role | View Code | Push Code | Merge | CI/CD | Delete | Members |
-|------|-----------|-----------|-------|-------|--------|---------|
-| **Guest** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Reporter** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **Developer** | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ |
-| **Maintainer** | ✅ | ✅ | ✅ | ✅ | ❌ | Limited |
-| **Owner** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-
-### Role Recommendations
-
-**Course Coordinator**: Owner of course subgroup
-- Can create/delete exercises
-- Manages course TAs
-- Full control over course content
-
-**Teaching Assistant**: Maintainer of course subgroup
-- Can merge student submissions
-- Manages exercise settings
-- Cannot delete course
-
-**Educator (Other Courses)**: Reporter in main group
-- Can view exercises for reference
-- Cannot modify content
-
-**Student**: Guest or no access
-- Can only see public repositories
-- Cannot push code
-
-## Bulk Operations
-
-### Import users from CSV
-
-This command adds multiple users from a CSV file.
-
-```bash
-franklin admin bulk import-users FILE.csv
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Reads CSV file with user data
-2. Validates each row
-3. Adds users to specified groups
-4. Reports success/failure for each
-
-# Tips
-
-- CSV needs: username, email, name, group, role
-- Use `--dry-run` to preview
-- Add `--skip-existing` to avoid errors
-- Process in batches for large lists
-
-:::
-
-#### CSV Format
-
-Required CSV structure:
-
-```csv
-username,email,name,group,role
-student1,s1@au.dk,Alice Student,intro-bio,Reporter
-student2,s2@au.dk,Bob Student,intro-bio,Reporter
-ta1,ta1@au.dk,Carol TA,intro-bio,Developer
-```
-
-### Export users to CSV
-
-This command exports group members to a CSV file.
-
-```bash
-franklin admin bulk export-users --group GROUP
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Queries group members
-2. Formats as CSV
-3. Writes to output file
-4. Includes all user metadata
-
-# Tips
-
-- Default output is "users.csv"
-- Use `--output` for custom name
-- Good for record keeping
-- Import to spreadsheet for analysis
-
-:::
-
-### Audit permissions
-
-This command checks for permission issues.
-
-```bash
-franklin admin bulk audit
-```
-
-::: {.panel-tabset}
-
-# This happens
-
-1. Scans all groups and users
-2. Identifies permission problems
-3. Finds orphaned users
-4. Reports excessive permissions
-5. Suggests fixes
-
-# Tips
-
-- Run at semester start/end
-- Use `--fix-issues` for auto-repair
-- Save report with `--report`
-- Check for expired access
-
-:::
-
-## Security Best Practices
-
-### Token Security
-
-1. **Never share API tokens** - Treat like passwords
-2. **Use token expiration** - Set reasonable expiration dates
-3. **Rotate regularly** - Change tokens periodically
-4. **Limit scope** - Only request needed permissions
-5. **Revoke unused tokens** - Clean up old tokens
-
-### Password Security
-
-1. **Use strong passwords** - Minimum 12 characters
-2. **Unique passwords** - Don't reuse passwords
-3. **Change regularly** - Update every semester
-4. **Use password manager** - Store securely
-5. **Enable 2FA** - On GitLab account
-
-### Permission Security
-
-1. **Principle of least privilege** - Minimum necessary access
-2. **Regular audits** - Review permissions each semester
-3. **Remove old users** - Clean up after course ends
-4. **Document changes** - Keep permission change log
-5. **Use groups** - Manage permissions via groups
-
-## Troubleshooting
-
-### Authentication Failed
-
-**Problem**: "Invalid username or password"
-
-**Solution**: Verify credentials
-```bash
-franklin token verify --user USERNAME
-# Reset if needed
-franklin password change
-```
-
-### Permission Denied
-
-**Problem**: "You don't have permission to perform this action"
-
-**Solution**: Check your role
-```bash
-franklin admin users list --group GROUP | grep USERNAME
-# Request elevation from group owner
-```
-
-### Token Expired
-
-**Problem**: "401 Unauthorized"
-
-**Solution**: Create new token
-- Go to GitLab Profile → Access Tokens
-- Create new token with needed scopes
-- Update with `franklin token set`
-
-### Debug Mode
-
-Enable detailed logging:
-```bash
-export FRANKLIN_ADMIN_DEBUG=true
-franklin admin users list
-```
-
-Shows API calls, responses, and error details.
-
-## Getting Help
-
-1. **Built-in help**: `franklin admin COMMAND --help`
-2. **Documentation**: This guide and GitLab docs
-3. **Support**: Contact Franklin administrators
-4. **Issues**: Report bugs to development team

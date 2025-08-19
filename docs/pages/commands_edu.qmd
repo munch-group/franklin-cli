@@ -11,6 +11,25 @@ The `franklin-educator` plugin extends Franklin with commands for creating and m
 - SSH key configured for GitLab access
 - Educator role in the Franklin GitLab group
 
+
+## Roles
+
+**Guest (role: guest)**:  
+- Can view exercises
+- Cannot edit exercise content or settings
+
+**Teaching Assistant (role: ta)**:  
+- Create create and edit exercises
+- Can edit exercise settings
+- Cannot delete exercises
+
+**Professor / Course Responsible (role: prof)**:  
+- Create create, edit and delete exercises
+- Grant users the roles of Guest and Teaching Assistant.
+
+
+
+
 ## Exercises
 
 **Create a new exercise**:

@@ -4,6 +4,46 @@ subtitle: "All Commands at a Glance"
 ---
 
 
+
+
+
+
+
+## Permission Levels
+
+### GitLab Roles Explained
+
+| Role | View Code | Push Code | Merge | CI/CD | Delete | Members |
+|------|-----------|-----------|-------|-------|--------|---------|
+| **Guest** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Reporter** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Developer** | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ |
+| **Maintainer** | ✅ | ✅ | ✅ | ✅ | ❌ | Limited |
+| **Owner** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+### Roles 
+
+
+**Course Coordinator**: Owner of course subgroup
+- Can create/delete exercises
+- Manages course TAs
+- Full control over course content
+
+**Teaching Assistant**: Maintainer of course subgroup
+- Can merge student submissions
+- Manages exercise settings
+- Cannot delete course
+
+**Educator (Other Courses)**: Reporter in main group
+- Can view exercises for reference
+- Cannot modify content
+
+**Student**: Guest or no access
+- Can only see public repositories
+- Cannot push code
+
+
+
 <!-- ::: {.panel-tabset} -->
 
 ## Core Commands (Students)
