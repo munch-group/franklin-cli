@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin"
-version = "0.25.103"
+version = "0.25.104"
 classifiers = [
-  "Development Status :: 5 - Beta",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Education",
   "Topic :: Software Development :: Build Tools",
   "Programming Language :: Python :: 3",
