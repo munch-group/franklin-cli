@@ -472,7 +472,7 @@ def update_client_conda(status: UpdateStatus, include_prereleases: bool = False)
     
     # Update core franklin package
     try:
-        if conda_update('franklin', status, include_prereleases=include_prereleases):
+        if conda_update('franklin-cli', status, include_prereleases=include_prereleases):
             updated_count += 1
     except UpdateCrash:
         # Re-raise to let caller handle
@@ -523,12 +523,12 @@ def update_client_pixi(status: UpdateStatus, include_prereleases: bool = False, 
     
     # Update core franklin package
     try:
-        if pixi_update('franklin', status, is_global=is_global, include_prereleases=include_prereleases):
+        if pixi_update('franklin-cli', status, is_global=is_global, include_prereleases=include_prereleases):
             updated_count += 1
     except UpdateCrash:
         raise
     except Exception as e:
-        logger.error(f"Unexpected error updating franklin: {e}")
+        logger.error(f"Unexpected error updating franklin-cli: {e}")
         raise
 
     # Update plugins if installed
@@ -554,14 +554,14 @@ def update_client_pixi(status: UpdateStatus, include_prereleases: bool = False, 
     return updated_count
 
 
-def detect_installation_method(package: str = 'franklin') -> str:
+def detect_installation_method(package: str = 'franklin-cli') -> str:
     """
     Detect how a package was installed (conda or pixi).
     
     Parameters
     ----------
     package : str, optional
-        Package name to check, by default 'franklin'.
+        Package name to check, by default 'franklin-cli'.
     
     Returns
     -------
@@ -618,8 +618,8 @@ def  _update(include_prereleases: bool = False) -> int:
     status.record_check()
     
     # Detect how franklin was installed
-    installation_method = detect_installation_method('franklin')
-    logger.info(f"Detected installation method for franklin: {installation_method}")
+    installation_method = detect_installation_method('franklin-cli')
+    logger.info(f"Detected installation method for franklin-cli: {installation_method}")
     logger.debug(f"Python executable: {sys.executable}")
     
     if installation_method == 'unknown':

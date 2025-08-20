@@ -150,7 +150,7 @@ franklin update
 List all Docker images on your system.
 
 ```bash
-franklin show images
+franklin docker images
 ```
 
 <!-- 
@@ -176,7 +176,7 @@ franklin show images
 List all Docker containers (running and stopped).
 
 ```bash
-franklin show containers
+franklin docker containers
 ```
 
 <!-- 
@@ -202,7 +202,7 @@ franklin show containers
 Display Docker disk usage summary.
 
 ```bash
-franklin show storage
+franklin docker storage
 ```
 
 <!-- 

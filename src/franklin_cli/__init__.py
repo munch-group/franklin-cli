@@ -44,7 +44,7 @@ franklin.add_command(_gitlab.download)
 
 franklin.add_command(_docker.cleanup_all_command)
 
-franklin.add_command(_docker.show)
+franklin.add_command(_docker.docker)
 
 
 @click.group(hidden=True)

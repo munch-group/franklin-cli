@@ -874,7 +874,7 @@ def _prune_all():
 # @docker.group(cls=AliasedGroup)
 @click.group(cls=AliasedGroup)
 @crash_report
-def show():
+def docker():
     """Commands for showing Docker content.
     """
     pass
@@ -894,7 +894,7 @@ def containers() -> List[Dict[str, Any]]:
     return [json.loads(line) for line in output.strip().splitlines()]
 
 
-@show.command('containers')
+@docker.command('containers')
 @ensure_docker_running
 @crash_report
 def _containers():
@@ -916,7 +916,7 @@ def storage(verbose=False):
 
 @click.option("--verbose/--no-verbose", default=False, 
               help="More detailed output")
-@show.command('storage')
+@docker.command('storage')
 @ensure_docker_running
 @crash_report
 def _storage(verbose):
@@ -986,7 +986,7 @@ def images() -> List[Dict[str, Any]]:
     return [json.loads(line) for line in output.strip().splitlines()]
 
 
-@show.command('images')
+@docker.command('images')
 @ensure_docker_running
 @crash_report
 def _images():
