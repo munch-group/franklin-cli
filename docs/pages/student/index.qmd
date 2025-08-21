@@ -58,4 +58,4 @@ franklin jupyter
 
 You can find more detail along with installation instructions and tutorials in the side bar.
 
-Should you come across a bug or find yourself missing some functionality, you are welcome to [submit an issue](https://github.com/munch-group/franklin/issues).
+Should you come across a bug or find yourself missing some functionality, you are welcome to [submit an issue](https://github.com/munch-group/franklin-cli/issues).

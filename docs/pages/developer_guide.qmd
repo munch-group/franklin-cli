@@ -761,9 +761,9 @@ pip install -e . --force-reinstall
 - [Pixi Documentation](https://pixi.sh/latest/)
 
 ### Community
-- [Franklin GitHub Discussions](https://github.com/munch-group/franklin/discussions)
-- [Franklin Issues](https://github.com/munch-group/franklin/issues)
-- [Contributing Guide](https://github.com/munch-group/franklin/blob/main/CONTRIBUTING.md)
+- [Franklin GitHub Discussions](https://github.com/munch-group/franklin-cli/discussions)
+- [Franklin Issues](https://github.com/munch-group/franklin-cli/issues)
+- [Contributing Guide](https://github.com/munch-group/franklin-cli/blob/main/CONTRIBUTING.md)
 
 ### Tools
 - [Python Packaging Guide](https://packaging.python.org/)

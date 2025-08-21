@@ -20,7 +20,7 @@
 #         text: Sandbox
 #     right:
 #       - icon: github
-#         href: https://github.com/munch-group/franklin/
+#         href: https://github.com/munch-group/franklin-cli/
 #   sidebar:
 #     - id: pages
 #       title: Get Started

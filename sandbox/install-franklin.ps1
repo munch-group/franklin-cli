@@ -64,7 +64,7 @@ Write-Host "Downloading Franklin installer..." -ForegroundColor Green
 
 try {
     # Direct URL to avoid any redirects
-    $installerUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/web-install.ps1"
+    $installerUrl = "https://raw.githubusercontent.com/munch-group/franklin-cli/main/src/franklin_cli/dependencies/web-install.ps1"
     
     # Download using WebClient (most reliable)
     $webClient = New-Object System.Net.WebClient

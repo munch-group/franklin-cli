@@ -24,7 +24,7 @@ def crash_report(func):
         except KeyboardInterrupt as e:
             raise e
         except Exception as e:
-            url = 'https://github.com/munch-group/franklin/issues'
+            url = 'https://github.com/munch-group/franklin-cli/issues'
             print(f"Error while running magic: {e}", file=sys.stderr)
             print("Please report this by creating an issue at:")
             print(url)

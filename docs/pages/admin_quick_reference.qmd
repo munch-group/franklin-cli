@@ -446,7 +446,7 @@ franklin download --help        # Command-specific help
 franklin --version
 
 # Submit issues
-# https://github.com/munch-group/franklin/issues
+# https://github.com/munch-group/franklin-cli/issues
 
 # Documentation
 # https://munch-group.org/franklin

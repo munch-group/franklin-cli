@@ -76,7 +76,7 @@ toc: false
 ### Get Started Or Get Help
 
 - <i class="bi bi-box-seam"></i> [Documentation](pages/getting_started.qmd) - Comprehensive guides
-- <i class="bi bi-box-seam"></i> [Issue Tracker](https://github.com/munch-group/franklin/issues) - Report bugs
+- <i class="bi bi-box-seam"></i> [Issue Tracker](https://github.com/munch-group/franklin-cli/issues) - Report bugs
 - <i class="bi bi-box-seam"></i> [Contact](mailto:kaspermunch@birc.au.dk) - Direct support
 :::
 

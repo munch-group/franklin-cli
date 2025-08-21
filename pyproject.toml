@@ -47,7 +47,7 @@ readme = "README.md"
 Homepage = "https://munch-group.org/franklin"
 Documentation = "https://munch-group.org/franklin"
 Repository = "https://github.com/munch-group/franklin.git"
-Issues = "https://github.com/munch-group/franklin/issues"
+Issues = "https://github.com/munch-group/franklin_cli/issues"
 
 [project.scripts]
 franklin = "franklin_cli:franklin"

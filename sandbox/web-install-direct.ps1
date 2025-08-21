@@ -31,7 +31,7 @@ New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
 try {
     # Direct GitHub raw URLs (no DNS redirects)
-    $baseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies"
+    $baseUrl = "https://raw.githubusercontent.com/munch-group/franklin-cli/main/src/franklin_cli/dependencies"
     
     Write-Host "[INFO] Downloading from GitHub..." -ForegroundColor Green
     

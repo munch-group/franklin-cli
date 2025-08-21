@@ -618,7 +618,7 @@ franklin logs --tail 100 >> debug.txt
 
 ### Support Channels
 
-1. **GitHub Issues**: [github.com/munch-group/franklin/issues](https://github.com/munch-group/franklin/issues)
+1. **GitHub Issues**: [github.com/munch-group/franklin-cli/issues](https://github.com/munch-group/franklin-cli/issues)
 2. **Documentation**: [munch-group.org/franklin](https://munch-group.org/franklin)
 3. **Course Instructor**: For exercise-specific issues
 4. **IT Support**: For network/firewall issues
