@@ -71,7 +71,7 @@ $ProgressPreference = 'SilentlyContinue'
 
 # Configuration
 $RepoOrg = if ($env:FRANKLIN_REPO_ORG) { $env:FRANKLIN_REPO_ORG } else { "munch-group" }
-$RepoName = if ($env:FRANKLIN_REPO_NAME) { $env:FRANKLIN_REPO_NAME } else { "franklin" }
+$RepoName = if ($env:FRANKLIN_REPO_NAME) { $env:FRANKLIN_REPO_NAME } else { "franklin-cli" }
 $RepoBranch = if ($env:FRANKLIN_REPO_BRANCH) { $env:FRANKLIN_REPO_BRANCH } else { "main" }
 $InstallDir = if ($env:FRANKLIN_INSTALL_DIR) { $env:FRANKLIN_INSTALL_DIR } else { "$env:USERPROFILE\.franklin-installer" }
 

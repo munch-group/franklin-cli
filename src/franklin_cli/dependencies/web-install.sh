@@ -29,7 +29,7 @@ log_step() { echo -e "${BLUE}[STEP]${NC} $*"; }
 
 # Configuration
 REPO_ORG="${FRANKLIN_REPO_ORG:-munch-group}"
-REPO_NAME="${FRANKLIN_REPO_NAME:-franklin}"
+REPO_NAME="${FRANKLIN_REPO_NAME:-franklin-cli}"
 REPO_BRANCH="${FRANKLIN_REPO_BRANCH:-main}"
 INSTALL_DIR="${FRANKLIN_INSTALL_DIR:-$HOME/.franklin-installer}"
 
