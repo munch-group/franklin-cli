@@ -185,9 +185,9 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            src/franklin/dependencies/dist/*.dmg
-            src/franklin/dependencies/dist/*.exe
-            src/franklin/dependencies/dist/*.py
+            src/franklin_cli/dependencies/dist/*.dmg
+            src/franklin_cli/dependencies/dist/*.exe
+            src/franklin_cli/dependencies/dist/*.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

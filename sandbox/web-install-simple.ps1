@@ -31,7 +31,7 @@ New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
 try {
     # Determine URLs
-    $baseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies"
+    $baseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies"
     
     # Try GitHub Pages first
     try {

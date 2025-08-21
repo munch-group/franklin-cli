@@ -72,8 +72,8 @@ Push to main branch to test documentation changes without building installers.
 
 ## File Locations
 
-- **Installer build script**: `src/franklin/dependencies/build_native_installers.sh`
-- **Installer sources**: `src/franklin/dependencies/`
-- **Built installers**: `src/franklin/dependencies/dist/`
+- **Installer build script**: `src/franklin_cli/dependencies/build_native_installers.sh`
+- **Installer sources**: `src/franklin_cli/dependencies/`
+- **Built installers**: `src/franklin_cli/dependencies/dist/`
 - **Documentation**: `docs/`
 - **Published site**: GitHub Pages at `https://[org].github.io/franklin/`

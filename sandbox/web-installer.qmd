@@ -198,11 +198,11 @@ main() {
     # Download appropriate installer
     cd "$TEMP_DIR"
     if [[ "$OS" == "macos" ]] || [[ "$OS" == "linux" ]]; then
-        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/master-installer.sh" -o master-installer.sh
-        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/install-miniforge.sh" -o install-miniforge.sh
-        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/install-pixi.sh" -o install-pixi.sh
-        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/install-docker-desktop.sh" -o install-docker-desktop.sh
-        curl -fsSL "$REPO_URL/raw/main/src/franklin/dependencies/install-chrome.sh" -o install-chrome.sh
+        curl -fsSL "$REPO_URL/raw/main/src/franklin_cli/dependencies/master-installer.sh" -o master-installer.sh
+        curl -fsSL "$REPO_URL/raw/main/src/franklin_cli/dependencies/install-miniforge.sh" -o install-miniforge.sh
+        curl -fsSL "$REPO_URL/raw/main/src/franklin_cli/dependencies/install-pixi.sh" -o install-pixi.sh
+        curl -fsSL "$REPO_URL/raw/main/src/franklin_cli/dependencies/install-docker-desktop.sh" -o install-docker-desktop.sh
+        curl -fsSL "$REPO_URL/raw/main/src/franklin_cli/dependencies/install-chrome.sh" -o install-chrome.sh
         
         chmod +x *.sh
         
@@ -260,7 +260,7 @@ try {
     )
     
     foreach ($file in $files) {
-        $url = "$RepoUrl/raw/main/src/franklin/dependencies/$file"
+        $url = "$RepoUrl/raw/main/src/franklin_cli/dependencies/$file"
         $dest = Join-Path $TempDir $file
         Invoke-WebRequest -Uri $url -OutFile $dest
     }
@@ -298,8 +298,8 @@ jobs:
       - name: Copy installer scripts
         run: |
           mkdir -p public
-          cp src/franklin/dependencies/web-install.sh public/install.sh
-          cp src/franklin/dependencies/web-install.ps1 public/install.ps1
+          cp src/franklin_cli/dependencies/web-install.sh public/install.sh
+          cp src/franklin_cli/dependencies/web-install.ps1 public/install.ps1
       
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

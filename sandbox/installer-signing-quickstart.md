@@ -23,7 +23,7 @@ export APPLE_ID_PASSWORD="xxxx-xxxx-xxxx-xxxx"
 export TEAM_ID="XXXXXXXXXX"
 
 # 2. Build and sign
-cd src/franklin/dependencies
+cd src/franklin_cli/dependencies
 ./build_native_installers.sh
 
 # 3. Verify
@@ -42,7 +42,7 @@ export WINDOWS_CERT_PASSWORD="your_password"
 
 # 3. Build and sign (on macOS with cross-compile)
 brew install makensis osslsigncode
-cd src/franklin/dependencies
+cd src/franklin_cli/dependencies
 ./build_native_installers.sh
 
 # 4. Verify

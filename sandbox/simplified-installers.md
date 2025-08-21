@@ -116,7 +116,7 @@ Each role also has an interactive web page:
 ### Building Role Installers
 ```bash
 # Run the builder script
-./src/franklin/dependencies/build-role-installers.sh
+./src/franklin_cli/dependencies/build-role-installers.sh
 
 # Creates:
 #   student-install.sh / .ps1

@@ -249,5 +249,5 @@ Some components (Docker, Chrome) may require administrator/sudo privileges.
 ### Script not found
 Check if GitHub Pages is deployed. Try the raw GitHub URL instead:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/[org]/franklin/main/src/franklin/dependencies/web-install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/[org]/franklin/main/src/franklin_cli/dependencies/web-install.sh | bash
 ```

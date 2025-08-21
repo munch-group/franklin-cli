@@ -63,7 +63,7 @@ export TEAM_ID="XXXXXXXXXX"  # Found in Apple Developer account
 #### 5. Build and Sign Installer
 
 ```bash
-cd src/franklin/dependencies
+cd src/franklin_cli/dependencies
 ./build_native_installers.sh
 ```
 
@@ -174,7 +174,7 @@ cd src\franklin\dependencies
 brew install makensis osslsigncode
 
 # Build and sign
-cd src/franklin/dependencies
+cd src/franklin_cli/dependencies
 ./build_native_installers.sh
 ```
 
@@ -244,15 +244,15 @@ jobs:
           WINDOWS_CERT_BASE64: ${{ secrets.WINDOWS_CERT_BASE64 }}
           WINDOWS_CERT_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
         run: |
-          cd src/franklin/dependencies
+          cd src/franklin_cli/dependencies
           ./build_native_installers.sh
       
       - name: Upload release assets
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            src/franklin/dependencies/dist/*.dmg
-            src/franklin/dependencies/dist/*.exe
+            src/franklin_cli/dependencies/dist/*.dmg
+            src/franklin_cli/dependencies/dist/*.exe
 ```
 
 ## Cost Comparison

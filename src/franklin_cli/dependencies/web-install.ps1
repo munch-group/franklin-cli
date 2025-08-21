@@ -32,15 +32,15 @@ Auto confirm prompts
 
 .EXAMPLE
     # RECOMMENDED - Most compatible method using WebClient
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1') | iex
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/web-install.ps1') | iex
 
 .EXAMPLE
     # Alternative using Invoke-WebRequest (iwr) instead of irm
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iwr -useb https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 | iex
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iwr -useb https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/web-install.ps1 | iex
 
 .EXAMPLE
     # If you must use irm, disable SSL validation (less secure)
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; irm https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 | iex
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; irm https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/web-install.ps1 | iex
 
 .NOTES
     Author: Franklin Project
@@ -131,10 +131,10 @@ Franklin Development Environment - Web Installer for Windows
 
 USAGE:
     # RECOMMENDED - Use WebClient to avoid redirect issues
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1') | iex
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/web-install.ps1') | iex
     
     # Alternative with iwr (Invoke-WebRequest)
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iwr -useb https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 | iex
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iwr -useb https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/web-install.ps1 | iex
 
 PARAMETERS:
     -Role           User role: student, educator, or administrator (default: student)
@@ -151,16 +151,16 @@ PARAMETERS:
 EXAMPLES:
     # Default installation (student) - RECOMMENDED METHOD
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1') | iex
+    (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/web-install.ps1') | iex
 
     # With parameters - educator role (avoid irm due to redirect issues)
-    `$url = 'https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1'
+    `$url = 'https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/web-install.ps1'
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     & ([scriptblock]::Create((New-Object Net.WebClient).DownloadString(`$url))) -Role educator
 
     # Alternative with iwr (Invoke-WebRequest)
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    iwr -useb https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1 | iex
+    iwr -useb https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/web-install.ps1 | iex
 
 NOTES:
     - Requires PowerShell 5.0 or later
@@ -260,7 +260,7 @@ function Download-Installers {
         if ($BaseUrl -match "github\.io") {
             Write-ColorOutput "Trying direct GitHub raw URL..." -Type Info
             try {
-                $altUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/Master-Installer.ps1"
+                $altUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/Master-Installer.ps1"
                 $webClient = New-Object System.Net.WebClient
                 $webClient.Headers.Add("User-Agent", "PowerShell/WebInstaller")
                 $webClient.Proxy = [System.Net.WebRequest]::GetSystemWebProxy()
@@ -270,7 +270,7 @@ function Download-Installers {
                 $downloadSuccess = $true
                 
                 # Update BaseUrl for subsequent downloads
-                $BaseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies"
+                $BaseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies"
             }
             catch {
                 Write-ColorOutput "Alternative download also failed: $_" -Type Warn
@@ -323,7 +323,7 @@ function Download-Installers {
             catch {
                 # If BaseUrl was GitHub Pages and failed, try raw GitHub
                 if ($BaseUrl -match "github\.io" -or -not $componentSuccess) {
-                    $altUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/$script"
+                    $altUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/$script"
                     Write-ColorOutput "Trying alternative URL for $script..." -Type Info
                     $webClient.DownloadFile($altUrl, $scriptPath)
                     $componentSuccess = $true
@@ -336,7 +336,7 @@ function Download-Installers {
                 try {
                     Write-ColorOutput "Using fallback for $script..." -Type Info
                     $fallbackUrl = if ($BaseUrl -match "github\.io") {
-                        "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/$script"
+                        "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies/$script"
                     } else {
                         "$BaseUrl/$script"
                     }
@@ -477,7 +477,7 @@ function Main {
         }
         catch {
             Write-ColorOutput "Could not determine optimal URL, using direct GitHub" -Type Warn
-            $baseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies"
+            $baseUrl = "https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin_cli/dependencies"
         }
         
         Write-ColorOutput "Using base URL: $baseUrl" -Type Info
@@ -530,7 +530,7 @@ function Main {
         Write-Host ""
         Write-Host "For help, use this command:" -ForegroundColor Yellow
         Write-Host "  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12" -ForegroundColor White
-        Write-Host "  (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin-cli/main/src/franklin/dependencies/web-install.ps1') | iex" -ForegroundColor White
+        Write-Host "  (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin-cli/main/src/franklin_cli/dependencies/web-install.ps1') | iex" -ForegroundColor White
         exit 1
     }
 }
