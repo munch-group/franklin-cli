@@ -60,7 +60,7 @@ jobs:
           WINDOWS_CERT_BASE64: ${{ secrets.WINDOWS_CERT_BASE64 }}
           WINDOWS_CERT_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
         run: |
-          cd src/franklin/dependencies
+          cd src/franklin_cli/dependencies
           chmod +x build_native_installers.sh
           chmod +x *.sh 2>/dev/null || true
           
