@@ -39,7 +39,7 @@ determine_base_url() {
     if curl -fsSL "https://${REPO_ORG}.github.io/${REPO_NAME}/installers/scripts/master-installer.sh" -o /dev/null 2>&1; then
         echo "https://${REPO_ORG}.github.io/${REPO_NAME}/installers/scripts"
     else
-        echo "https://raw.githubusercontent.com/${REPO_ORG}/${REPO_NAME}/${REPO_BRANCH}/src/franklin/dependencies"
+        echo "https://raw.githubusercontent.com/${REPO_ORG}/${REPO_NAME}/${REPO_BRANCH}/src/franklin_cli/dependencies"
     fi
 }
 

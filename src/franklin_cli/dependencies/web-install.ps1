@@ -78,7 +78,7 @@ $InstallDir = if ($env:FRANKLIN_INSTALL_DIR) { $env:FRANKLIN_INSTALL_DIR } else 
 # Determine base URL (GitHub Pages or raw GitHub)
 function Get-BaseUrl {
     $ghPagesUrl = "https://$RepoOrg.github.io/$RepoName/installers/scripts"
-    $rawGithubUrl = "https://raw.githubusercontent.com/$RepoOrg/$RepoName/$RepoBranch/src/franklin/dependencies"
+    $rawGithubUrl = "https://raw.githubusercontent.com/$RepoOrg/$RepoName/$RepoBranch/src/franklin_cli/dependencies"
     
     # Try GitHub Pages first, but handle DNS/network errors gracefully
     try {
@@ -530,7 +530,7 @@ function Main {
         Write-Host ""
         Write-Host "For help, use this command:" -ForegroundColor Yellow
         Write-Host "  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12" -ForegroundColor White
-        Write-Host "  (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin/main/src/franklin/dependencies/web-install.ps1') | iex" -ForegroundColor White
+        Write-Host "  (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin-cli/main/src/franklin/dependencies/web-install.ps1') | iex" -ForegroundColor White
         exit 1
     }
 }
