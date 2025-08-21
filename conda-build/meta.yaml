@@ -5,7 +5,7 @@ package:
   version: {{ pyproject.get("project").get("version") }}
 
 source:
-  git_url: https://github.com/munch-group/franklin.git
+  git_url: https://github.com/munch-group/franklin-cli.git
 
 build:
   number: 0
@@ -41,7 +41,7 @@ test:
     - franklin_cli
 
 about:
-  home: https://github.com/munch-group/franklin.git
+  home: https://github.com/munch-group/franklin-cli.git
   license: MIT
-  dev_url: https://github.com/munch-group/franklin.git
+  dev_url: https://github.com/munch-group/franklin-cli.git
   doc_url: https://munch-group.org/franklin
