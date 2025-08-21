@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin-cli"
-version = "0.25.112"
+version = "0.25.113"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Education",
@@ -130,6 +130,7 @@ devel = ["devel"]
 
 [tool.pixi.dependencies]
 rpds-py = ">=0.27.0,<0.28"
+pip = ">=25.2,<26"
   
 #franklin = "0.25.8.*"
 

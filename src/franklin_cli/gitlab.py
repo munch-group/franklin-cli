@@ -285,7 +285,10 @@ def get_user_id(user_name: str, api_token: str) -> int:
     url = f"https://{cfg.gitlab_domain}/api/v4/users?username={user_name}"
     headers = {"PRIVATE-TOKEN": api_token}
     response = requests.get(url, headers=headers)
-    user = response.json()[0]
+    data = response.json()
+    if not data:
+        return None
+    user = data[0]
     return user['id']
 
 
