@@ -363,7 +363,7 @@ function Install-Pixi {
     .SYNOPSIS
         Main pixi installation function
     #>
-    Write-Header "Installing Pixi Package Manager"
+    # Write-Header "Installing Pixi Package Manager"
     
     if (-not (Test-ExistingPixi)) {
         return
@@ -603,10 +603,10 @@ function Show-CompletionMessage {
 
 # Main execution
 function Main {
-    Write-Host "==================================================" -ForegroundColor Cyan
-    Write-Host "       Pixi Package Manager Installer (Windows)"   -ForegroundColor Cyan
-    Write-Host "==================================================" -ForegroundColor Cyan
-    Write-Host ""
+    # Write-Host "==================================================" -ForegroundColor Cyan
+    # Write-Host "       Pixi Package Manager Installer (Windows)"   -ForegroundColor Cyan
+    # Write-Host "==================================================" -ForegroundColor Cyan
+    # Write-Host ""
     
     switch ($Command) {
         "Install" {

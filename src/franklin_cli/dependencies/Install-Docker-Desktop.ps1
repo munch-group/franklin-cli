@@ -7,6 +7,9 @@ param(
     [switch]$CleanUninstall = $false
 )
 
+# Optimize download performance
+$ProgressPreference = 'SilentlyContinue'
+
 # Verify administrator privileges
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     Write-Host ""
@@ -301,7 +304,7 @@ if ($EnableWSL2) {
     # Download and install WSL2 kernel
     $wslKernelUrl = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
     $wslKernelPath = "$env:TEMP\wsl_update_x64.msi"
-    Invoke-WebRequest -Uri $wslKernelUrl -OutFile $wslKernelPath
+    Invoke-WebRequest -Uri $wslKernelUrl -OutFile $wslKernelPath -UseBasicParsing
     Start-Process msiexec.exe -Wait -ArgumentList "/I $wslKernelPath /quiet"
     
     # Set WSL default version and handle any errors
@@ -319,7 +322,7 @@ if ($EnableWSL2) {
 Write-Host "Downloading Docker Desktop..." -ForegroundColor Yellow
 $dockerUrl = "https://desktop.docker.com/win/main/amd64/Docker Desktop Installer.exe"
 $dockerInstaller = "$env:TEMP\DockerDesktopInstaller.exe"
-Invoke-WebRequest -Uri $dockerUrl -OutFile $dockerInstaller
+Invoke-WebRequest -Uri $dockerUrl -OutFile $dockerInstaller -UseBasicParsing
 
 $installArgs = @('install', '--quiet', '--accept-license', '--backend=wsl-2')
 if ($OrganizationName) {

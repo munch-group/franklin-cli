@@ -444,7 +444,7 @@ function Main {
         # Show what will be installed
         if (-not $DryRun) {
             Write-Host ""
-            Write-Host "This script will install:" -ForegroundColor Cyan
+            Write-Host "This script will install:" -ForegroundColor Blue
             if (-not $SkipMiniforge) { Write-Host "  - Miniforge (Python environment manager)" }
             if (-not $SkipPixi) { Write-Host "  - Pixi (Fast package manager)" }
             if (-not $SkipDocker) { Write-Host "  - Docker Desktop (Container platform)" }

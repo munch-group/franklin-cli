@@ -505,7 +505,7 @@ function Show-InstallationSummary {
     .SYNOPSIS
         Display installation summary and results
     #>
-    Write-Hpst "Summary:" -ForegroundColor Blue
+    Write-Host "Summary:" -ForegroundColor Blue
     
     if ($Script:SuccessfulInstallations -and $Script:SuccessfulInstallations.Count -gt 0) {
         Write-Host "Successfully installed:"  -ForegroundColor Blue
