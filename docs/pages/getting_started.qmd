@@ -54,7 +54,7 @@ curl -fsSL http://munch-group.org/franklin/installers/install.sh | bash -s -- --
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
-powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin/installers/install.ps1" > franklin_installer.ps1 ; powershell -ExecutionPolicy ByPass -File "franklin_installer.ps1" -Role "educator" -Yes
+powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin-cli/installers/install.ps1" > franklin_installer.ps1 ; powershell -ExecutionPolicy ByPass -File "franklin_installer.ps1" -Role "educator" -Yes
 ```
 
 ## <i class="bi bi-bank"></i> Administrators
