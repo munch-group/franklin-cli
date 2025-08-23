@@ -73,19 +73,18 @@ toc: false
 ::: {.grid}
 
 ::: {.g-col-12 .g-col-md-6}
-### Get Started Or Get Help
+### Get Started
 
+- <i class="bi bi-box-seam"></i> [Install and quickstart](pages/getting_started.qmd) - Comprehensive guides
 - <i class="bi bi-box-seam"></i> [Documentation](pages/getting_started.qmd) - Comprehensive guides
-- <i class="bi bi-box-seam"></i> [Issue Tracker](https://github.com/munch-group/franklin-cli/issues) - Report bugs
-- <i class="bi bi-box-seam"></i> [Contact](mailto:kaspermunch@birc.au.dk) - Direct support
+
 :::
 
 ::: {.g-col-12 .g-col-md-6}
-### Contribute
+### Get Help
 
-- <i class="bi bi-box-seam"></i> [Developer Guide](pages/developer_guide.qmd) - Start contributing
-- <i class="bi bi-box-seam"></i> [GitHub](https://github.com/munch-group/franklin) - Star the project
-- <i class="bi bi-box-seam"></i> [Plugins](pages/developer_guide.qmd#plugin-development) - Extend Franklin
+- <i class="bi bi-box-seam"></i> [Issue Tracker](https://github.com/munch-group/franklin-cli/issues) - Report bugs
+- <i class="bi bi-box-seam"></i> [Contact](mailto:kaspermunch@birc.au.dk) - Direct support
 
 :::
 
