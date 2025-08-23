@@ -263,14 +263,52 @@ update_shell_profile() {
     if ! echo "$PATH" | grep -q "$BINARY_DIR"; then
         log_info "Adding $BINARY_DIR to PATH in $shell_profile"
         
-        echo "" >> "$shell_profile"
-        echo "# Added by pixi installer" >> "$shell_profile"
-        echo "export PATH=\"$BINARY_DIR:\$PATH\"" >> "$shell_profile"
+        # Function to write to shell profile with permission handling
+        write_to_profile() {
+            local profile="$1"
+            local content="$2"
+            
+            # Try to write normally first
+            if echo "$content" >> "$profile" 2>/dev/null; then
+                return 0
+            else
+                # If permission denied, try with sudo
+                log_warning "Permission denied writing to $profile"
+                log_info "Attempting to write with elevated privileges..."
+                
+                # Create temporary file with content
+                local temp_file=$(mktemp)
+                cat "$profile" > "$temp_file" 2>/dev/null || true
+                echo "$content" >> "$temp_file"
+                
+                # Try to move with sudo
+                if sudo -p "Enter password to update $profile: " mv "$temp_file" "$profile"; then
+                    # Fix ownership to match user
+                    sudo chown "$USER:$(id -gn)" "$profile"
+                    return 0
+                else
+                    rm -f "$temp_file"
+                    return 1
+                fi
+            fi
+        }
         
-        # Update PATH for current session
-        export PATH="$BINARY_DIR:$PATH"
+        # Prepare content to add
+        local content=""
+        content="${content}\n# Added by pixi installer"
+        content="${content}\nexport PATH=\"$BINARY_DIR:\$PATH\""
         
-        log_success "PATH updated in $shell_profile"
+        # Try to write to profile
+        if write_to_profile "$shell_profile" "$content"; then
+            # Update PATH for current session
+            export PATH="$BINARY_DIR:$PATH"
+            log_success "PATH updated in $shell_profile"
+        else
+            log_error "Failed to update $shell_profile"
+            log_info "Please manually add the following to your $shell_profile:"
+            echo "    export PATH=\"$BINARY_DIR:\$PATH\""
+            return 1
+        fi
     else
         log_info "PATH already contains $BINARY_DIR"
     fi

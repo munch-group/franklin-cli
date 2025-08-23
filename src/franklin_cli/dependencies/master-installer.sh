@@ -662,7 +662,7 @@ show_installation_summary() {
     # echo -e "${BLUE}Summary:${NC}"    
     
     if [ $SUCCESSFUL_INSTALLATIONS_COUNT -gt 0 ]; then
-        echo -e "${BLUE}Successfully installed:${NC}" 
+        echo -e "${BLUE}Installation status:${NC}" 
         get_successful_installations | while read -r item; do
             echo -e "  ${BLUE}[OK] $item${NC}"
         done
