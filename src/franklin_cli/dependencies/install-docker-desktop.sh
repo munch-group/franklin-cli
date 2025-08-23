@@ -232,7 +232,7 @@ uninstall_docker_desktop() {
         
         # Prompt for password with clear message
         echo
-        echo -e "${GREEN}User Password:${NC}"
+        echo -e "${GREEN}Type your user password and press enter:${NC}"
         sudo -v  # Pre-authenticate sudo to cache credentials
         
         sudo launchctl unload "$helper_plist" 2>/dev/null || true

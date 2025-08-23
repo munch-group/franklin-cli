@@ -461,15 +461,15 @@ install_franklin() {
     local package_name="franklin"
     case "$USER_ROLE" in
         educator)
-            command="pixi global install -c munch-group -c conda-forge python git franklin 2>&1 && pixi global add --environment franklin franklin-educator 2>&1"
+            command="pixi global install -c munch-group -c conda-forge python git franklin-cli 2>&1 && pixi global add --environment franklin franklin-educator 2>&1"
             log_info "Installing Franklin Educator package for educator role"
             ;;
         administrator|admin)
-            command="pixi global install -c munch-group -c conda-forge python git franklin 2>&1 && pixi global add --environment franklin franklin-educator franklin-admin 2>&1"
+            command="pixi global install -c munch-group -c conda-forge python git franklin-cli 2>&1 && pixi global add --environment franklin franklin-educator franklin-admin 2>&1"
             log_info "Installing Franklin Administrator package for admin role"
             ;;
         student|*)
-            command="pixi global install -c munch-group -c conda-forge python git franklin 2>&1"
+            command="pixi global install -c munch-group -c conda-forge python git franklin-cli 2>&1"
             log_info "Installing standard Franklin package for student role"
             ;;
     esac
@@ -621,7 +621,7 @@ check_prerequisites() {
 
 # Function to show installation plan
 show_installation_plan() {
-    log_header "Installation Plan"
+    echo "Installation Plan:"
     
     # Miniforge removed - Pixi handles Python environments
     if [ "$SKIP_PIXI" = false ]; then echo "  1. Pixi Package Manager"; fi

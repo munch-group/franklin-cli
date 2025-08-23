@@ -467,7 +467,7 @@ function Show-InstallationPlan {
     .SYNOPSIS
         Display the installation plan to the user
     #>
-    Write-Header "Installation Plan"
+    Write-Host "Installation Plan:"
     
     $steps = @()
     # Miniforge removed - Pixi handles Python environments

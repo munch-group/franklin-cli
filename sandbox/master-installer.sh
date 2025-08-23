@@ -449,7 +449,7 @@ install_franklin() {
             log_info "Installing Franklin Administrator package for admin role"
             ;;
         student|*)
-            package_name="franklin"
+            package_name="franklin-cli"
             log_info "Installing standard Franklin package for student role"
             ;;
     esac

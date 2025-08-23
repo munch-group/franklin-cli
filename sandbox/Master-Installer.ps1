@@ -302,7 +302,7 @@ function Install-DockerDesktop {
         Write-Host ""
         Write-Host "Docker Desktop requires Administrator privileges" -ForegroundColor Yellow
         Write-Host ""
-        Write-Host "User Password:" -ForegroundColor Green
+        Write-Host "Type your user password and press enter:" -ForegroundColor Green
         Write-Host "An Administrator prompt will appear when the Docker installer starts..." -ForegroundColor Cyan
         Write-Host ""
     }
