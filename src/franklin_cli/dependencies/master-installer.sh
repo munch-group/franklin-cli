@@ -461,11 +461,11 @@ install_franklin() {
     local package_name="franklin"
     case "$USER_ROLE" in
         educator)
-            command="pixi global install -c munch-group -c conda-forge python git franklin-cli 2>&1 && pixi global add --environment franklin franklin-educator 2>&1"
+            command="pixi global install -c munch-group -c conda-forge python git franklin-cli 2>&1 && pixi global add --environment franklin-cli franklin-educator 2>&1"
             log_info "Installing Franklin Educator package for educator role"
             ;;
         administrator|admin)
-            command="pixi global install -c munch-group -c conda-forge python git franklin-cli 2>&1 && pixi global add --environment franklin franklin-educator franklin-admin 2>&1"
+            command="pixi global install -c munch-group -c conda-forge python git franklin-cli 2>&1 && pixi global add --environment franklin-cli franklin-educator franklin-admin 2>&1"
             log_info "Installing Franklin Administrator package for admin role"
             ;;
         student|*)
