@@ -312,7 +312,44 @@ if ($EnableWSL2) {
     # Download and install WSL2 kernel
     $wslKernelUrl = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
     $wslKernelPath = "$env:TEMP\wsl_update_x64.msi"
-    Invoke-WebRequest -Uri $wslKernelUrl -OutFile $wslKernelPath
+    
+    Write-Host "Downloading WSL2 kernel update..." -ForegroundColor Yellow
+    try {
+        # Get file size
+        $response = Invoke-WebRequest -Uri $wslKernelUrl -Method Head
+        $totalSize = [int]$response.Headers.'Content-Length'[0]
+        $totalSizeMB = [math]::Round($totalSize / 1MB, 2)
+        Write-Host "Download size: $totalSizeMB MB" -ForegroundColor Cyan
+        
+        # Download with progress
+        $webClient = New-Object System.Net.WebClient
+        $webClient.DownloadFileCompleted += {
+            Write-Host "WSL2 kernel download completed!" -ForegroundColor Green
+        }
+        
+        $webClient.DownloadProgressChanged += {
+            $percentComplete = $_.ProgressPercentage
+            $downloadedMB = [math]::Round($_.BytesReceived / 1MB, 2)
+            $totalMB = [math]::Round($_.TotalBytesToReceive / 1MB, 2)
+            
+            Write-Progress -Activity "Downloading WSL2 Kernel Update" `
+                          -Status "$percentComplete% ($downloadedMB MB / $totalMB MB)" `
+                          -PercentComplete $percentComplete
+        }
+        
+        $webClient.DownloadFileAsync($wslKernelUrl, $wslKernelPath)
+        
+        while ($webClient.IsBusy) {
+            Start-Sleep -Milliseconds 100
+        }
+        
+        Write-Progress -Activity "Downloading WSL2 Kernel Update" -Completed
+        
+    } catch {
+        # Fallback to simple download
+        Write-Warning "Progress tracking failed, using simple download..."
+        Invoke-WebRequest -Uri $wslKernelUrl -OutFile $wslKernelPath
+    }
     Start-Process msiexec.exe -Wait -ArgumentList "/I $wslKernelPath /quiet"
     
     # Set WSL default version and handle any errors
@@ -330,7 +367,52 @@ if ($EnableWSL2) {
 Write-Host "Downloading Docker Desktop..." -ForegroundColor Yellow
 $dockerUrl = "https://desktop.docker.com/win/main/amd64/Docker Desktop Installer.exe"
 $dockerInstaller = "$env:TEMP\DockerDesktopInstaller.exe"
-Invoke-WebRequest -Uri $dockerUrl -OutFile $dockerInstaller
+
+# Download with progress bar
+$ProgressPreference = 'Continue'
+try {
+    # Get file size first
+    $response = Invoke-WebRequest -Uri $dockerUrl -Method Head
+    $totalSize = [int]$response.Headers.'Content-Length'[0]
+    $totalSizeMB = [math]::Round($totalSize / 1MB, 2)
+    
+    Write-Host "Download size: $totalSizeMB MB" -ForegroundColor Cyan
+    
+    # Download with progress tracking
+    $webClient = New-Object System.Net.WebClient
+    $webClient.DownloadFileCompleted += {
+        Write-Host "`nDownload completed!" -ForegroundColor Green
+    }
+    
+    $webClient.DownloadProgressChanged += {
+        $percentComplete = $_.ProgressPercentage
+        $downloadedMB = [math]::Round($_.BytesReceived / 1MB, 2)
+        $totalMB = [math]::Round($_.TotalBytesToReceive / 1MB, 2)
+        
+        # Create progress bar
+        $progressBar = "[" + ("=" * [math]::Floor($percentComplete / 2)) + (" " * (50 - [math]::Floor($percentComplete / 2))) + "]"
+        
+        # Update progress display
+        Write-Progress -Activity "Downloading Docker Desktop Installer" `
+                      -Status "$progressBar $percentComplete% ($downloadedMB MB / $totalMB MB)" `
+                      -PercentComplete $percentComplete
+    }
+    
+    # Start async download with event handling
+    $webClient.DownloadFileAsync($dockerUrl, $dockerInstaller)
+    
+    # Wait for download to complete
+    while ($webClient.IsBusy) {
+        Start-Sleep -Milliseconds 100
+    }
+    
+    Write-Progress -Activity "Downloading Docker Desktop Installer" -Completed
+    
+} catch {
+    # Fallback to simple download if progress tracking fails
+    Write-Warning "Progress tracking failed, using simple download..."
+    Invoke-WebRequest -Uri $dockerUrl -OutFile $dockerInstaller
+}
 
 $installArgs = @('install', '--quiet', '--accept-license', '--backend=wsl-2')
 if ($OrganizationName) {

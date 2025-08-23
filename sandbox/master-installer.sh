@@ -627,10 +627,10 @@ show_installation_plan() {
 
 # Function to show installation summary
 show_installation_summary() {
-    log_header "INSTALLATION SUMMARY"
+    # log_header "INSTALLATION SUMMARY"
     
     if [ $SUCCESSFUL_INSTALLATIONS_COUNT -gt 0 ]; then
-        log_success "Successfully installed:"
+        log_success "Installation status:"
         get_successful_installations | while read -r item; do
             echo -e "  ${GREEN}[OK] $item${NC}"
         done
