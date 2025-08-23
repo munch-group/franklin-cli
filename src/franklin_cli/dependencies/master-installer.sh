@@ -879,7 +879,7 @@ start_master_installation() {
     # Execute installations in sequence
     # install_miniforge # Removed - using Pixi
     install_pixi
-    if [ install_docker_desktop -eq 1 ]; then
+    if [ $install_docker_desktop -eq 1 ]; then
         RESTART_REQUIRED=1
     fi
     install_chrome
