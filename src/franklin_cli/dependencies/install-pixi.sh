@@ -414,10 +414,10 @@ install_via_curl() {
 
 # # instead of or also
 
-    # Source the shell configuration to update PATH
-    if [ -f "$HOME/.bashrc" ]; then
-        source "$HOME/.bashrc" 2>/dev/null || true
-    fi
+    # # Source the shell configuration to update PATH
+    # if [ -f "$HOME/.bashrc" ]; then
+    #     source "$HOME/.bashrc" 2>/dev/null || true
+    # fi
     
 
 
