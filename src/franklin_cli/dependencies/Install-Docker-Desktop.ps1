@@ -37,7 +37,8 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 function Remove-DockerDesktop {
     param(
         [switch]$KeepUserData = $false,
-        [switch]$KeepWSLDistros = $false
+        [switch]$KeepWSLDistros = $false,
+        [switch]$Silent = $false
     )
     
     Write-Host "Starting Docker Desktop uninstallation..." -ForegroundColor Yellow
@@ -164,12 +165,16 @@ function Remove-DockerDesktop {
         }
         
         # Remove Windows features if no other VM software depends on them
-        $confirmation = Read-Host "Remove Hyper-V and Virtual Machine Platform features? This may affect other virtualization software (y/N)"
-        if ($confirmation -eq "y" -or $confirmation -eq "Y") {
-            Write-Host "Disabling Windows virtualization features..." -ForegroundColor Yellow
-            dism.exe /online /disable-feature /featurename:Microsoft-Hyper-V-All /norestart
-            dism.exe /online /disable-feature /featurename:VirtualMachinePlatform /norestart
-            dism.exe /online /disable-feature /featurename:Microsoft-Windows-Subsystem-Linux /norestart
+        if (-not $Silent) {
+            $confirmation = Read-Host "Remove Hyper-V and Virtual Machine Platform features? This may affect other virtualization software (y/N)"
+            if ($confirmation -eq "y" -or $confirmation -eq "Y") {
+                Write-Host "Disabling Windows virtualization features..." -ForegroundColor Yellow
+                dism.exe /online /disable-feature /featurename:Microsoft-Hyper-V-All /norestart
+                dism.exe /online /disable-feature /featurename:VirtualMachinePlatform /norestart
+                dism.exe /online /disable-feature /featurename:Microsoft-Windows-Subsystem-Linux /norestart
+            }
+        } else {
+            Write-Host "Skipping Windows feature removal (silent mode)" -ForegroundColor Yellow
         }
         
         # Clean up firewall rules
@@ -301,7 +306,7 @@ if ($Force) {
     $dockerInstalled = Test-Path "${env:ProgramFiles}\Docker\Docker\Docker Desktop.exe"
     if ($dockerInstalled) {
         Write-Host "Force flag specified. Uninstalling existing Docker Desktop first..." -ForegroundColor Yellow
-        $uninstallResult = Remove-DockerDesktop -KeepUserData -KeepWSLDistros  # Keep user data during force reinstall
+        $uninstallResult = Remove-DockerDesktop -KeepUserData -KeepWSLDistros -Silent  # Keep user data, silent mode for force reinstall
         if (-not $uninstallResult) {
             Write-Error "Failed to uninstall existing Docker Desktop"
             exit 1

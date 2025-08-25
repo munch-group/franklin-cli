@@ -202,6 +202,7 @@ get_installation_status() {
 
 uninstall_docker_desktop() {
     local keep_user_data=${1:-false}
+    local silent_mode=${2:-false}
     
     log "Starting Docker Desktop uninstallation..."
     
@@ -236,9 +237,11 @@ uninstall_docker_desktop() {
     if [[ -f "$helper_plist" ]]; then
         log "Removing privileged helper..."
         
-        # Prompt for password with clear message
-        echo
-        echo -e "${GREEN}Type your user password and press enter:${NC}"
+        # Prompt for password with clear message (unless in silent mode)
+        if [[ "$silent_mode" != "true" ]]; then
+            echo
+            echo -e "${GREEN}Type your user password and press enter:${NC}"
+        fi
         sudo -v  # Pre-authenticate sudo to cache credentials
         
         sudo launchctl unload "$helper_plist" 2>/dev/null || true
@@ -520,7 +523,7 @@ main() {
             exit 0
         fi
         
-        uninstall_docker_desktop "$keep_data"
+        uninstall_docker_desktop "$keep_data" "false"
         
         echo ""
         echo "Final status:"
@@ -545,7 +548,7 @@ main() {
     # If force flag is set and Docker Desktop exists, uninstall first
     if [[ "$FORCE_INSTALL" == "true" ]] && [[ -d "/Applications/Docker.app" ]]; then
         log "Force flag specified. Uninstalling existing Docker Desktop first..."
-        uninstall_docker_desktop "true"  # Keep user data during force reinstall
+        uninstall_docker_desktop "true" "true"  # Keep user data, silent mode for force reinstall
         log "Existing installation removed. Proceeding with fresh installation..."
     fi
     
