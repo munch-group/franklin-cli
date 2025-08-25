@@ -293,6 +293,13 @@ check_existing_pixi() {
         
         if [ "$FORCE_INSTALL" = true ]; then
             log_info "Force flag specified. Proceeding with reinstallation..."
+            # Remove existing .pixi folder
+            if [ -d "$HOME/.pixi" ]; then
+                log_info "Removing existing .pixi folder..."
+                rm -rf "$HOME/.pixi" 2>/dev/null || {
+                    log_warning "Could not remove .pixi folder completely. Some files may be in use."
+                }
+            fi
             return 0
         fi
         
@@ -304,6 +311,12 @@ check_existing_pixi() {
             log_info "Installation cancelled."
             exit 0
         fi
+    elif [ "$FORCE_INSTALL" = true ] && [ -d "$HOME/.pixi" ]; then
+        # Even if pixi command doesn't exist, remove .pixi folder if force flag is set
+        log_info "Force flag specified. Removing existing .pixi folder..."
+        rm -rf "$HOME/.pixi" 2>/dev/null || {
+            log_warning "Could not remove .pixi folder completely. Some files may be in use."
+        }
     fi
     return 0
 }

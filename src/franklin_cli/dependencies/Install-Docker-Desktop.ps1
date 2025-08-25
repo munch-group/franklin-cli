@@ -3,6 +3,7 @@ param(
     [switch]$EnableWSL2 = $true,
     [switch]$DisableAnalytics = $true,
     [switch]$AutoRepairWSL = $true,
+    [switch]$Force = $false,
     [switch]$Uninstall = $false,
     [switch]$CleanUninstall = $false
 )
@@ -25,6 +26,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     if ($EnableWSL2) { $arguments += "-EnableWSL2" }
     if ($DisableAnalytics) { $arguments += "-DisableAnalytics" }
     if ($AutoRepairWSL) { $arguments += "-AutoRepairWSL" }
+    if ($Force) { $arguments += "-Force" }
     if ($Uninstall) { $arguments += "-Uninstall" }
     if ($CleanUninstall) { $arguments += "-CleanUninstall" }
     
@@ -292,6 +294,20 @@ if ($Uninstall -or $CleanUninstall) {
     }
     
     exit $(if ($result) { 0 } else { 1 })
+}
+
+# If Force flag is set and Docker Desktop is installed, uninstall first
+if ($Force) {
+    $dockerInstalled = Test-Path "${env:ProgramFiles}\Docker\Docker\Docker Desktop.exe"
+    if ($dockerInstalled) {
+        Write-Host "Force flag specified. Uninstalling existing Docker Desktop first..." -ForegroundColor Yellow
+        $uninstallResult = Remove-DockerDesktop -KeepUserData -KeepWSLDistros  # Keep user data during force reinstall
+        if (-not $uninstallResult) {
+            Write-Error "Failed to uninstall existing Docker Desktop"
+            exit 1
+        }
+        Write-Host "Existing installation removed. Proceeding with fresh installation..." -ForegroundColor Green
+    }
 }
 
 # Enable Windows features for WSL2

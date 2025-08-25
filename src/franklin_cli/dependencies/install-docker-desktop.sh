@@ -22,6 +22,7 @@ UNINSTALL=false
 CLEAN_UNINSTALL=false
 STATUS_CHECK=false
 CONFIGURE_ONLY=false
+FORCE_INSTALL=false
 
 # Colors for output
 RED='\033[0;31m'
@@ -36,6 +37,10 @@ NC='\033[0m' # No Color
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
+        --force)
+            FORCE_INSTALL=true
+            shift
+            ;;
         --uninstall)
             UNINSTALL=true
             shift
@@ -55,8 +60,9 @@ while [[ $# -gt 0 ]]; do
         -h|--help)
             echo "Usage: $0 [options]"
             echo "Options:"
-            echo "  --uninstall        Remove Docker Desktop (keep user data)"
-            echo "  --clean-uninstall  Remove Docker Desktop and all data"
+            echo "  --force           Force reinstall (uninstall first if exists)"
+            echo "  --uninstall       Remove Docker Desktop (keep user data)"
+            echo "  --clean-uninstall Remove Docker Desktop and all data"
             echo "  --status          Show installation status"
             echo "  --configure-only  Only configure existing installation"
             echo "  -h, --help        Show this help"
@@ -535,6 +541,14 @@ main() {
     # Normal installation flow
     log "Starting Docker Desktop installation..."
     check_requirements
+    
+    # If force flag is set and Docker Desktop exists, uninstall first
+    if [[ "$FORCE_INSTALL" == "true" ]] && [[ -d "/Applications/Docker.app" ]]; then
+        log "Force flag specified. Uninstalling existing Docker Desktop first..."
+        uninstall_docker_desktop "true"  # Keep user data during force reinstall
+        log "Existing installation removed. Proceeding with fresh installation..."
+    fi
+    
     install_via_dmg
     configure_docker_desktop
     log "Installation and configuration complete!"

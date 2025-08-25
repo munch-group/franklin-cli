@@ -139,6 +139,16 @@ function Test-ExistingPixi {
             
             if ($Force) {
                 Write-Info "Force flag specified. Proceeding with reinstallation..."
+                # Remove existing .pixi folder
+                $pixiPath = "$env:USERPROFILE\.pixi"
+                if (Test-Path $pixiPath) {
+                    Write-Info "Removing existing .pixi folder..."
+                    try {
+                        Remove-Item -Path $pixiPath -Recurse -Force -ErrorAction Stop
+                    } catch {
+                        Write-Warning "Could not remove .pixi folder completely. Some files may be in use."
+                    }
+                }
                 return $true
             }
             
@@ -152,6 +162,17 @@ function Test-ExistingPixi {
         } catch {
             Write-Warning "Pixi command found but version check failed"
             return $true
+        }
+    } elseif ($Force) {
+        # Even if pixi command doesn't exist, remove .pixi folder if force flag is set
+        $pixiPath = "$env:USERPROFILE\.pixi"
+        if (Test-Path $pixiPath) {
+            Write-Info "Force flag specified. Removing existing .pixi folder..."
+            try {
+                Remove-Item -Path $pixiPath -Recurse -Force -ErrorAction Stop
+            } catch {
+                Write-Warning "Could not remove .pixi folder completely. Some files may be in use."
+            }
         }
     }
     return $true
