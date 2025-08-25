@@ -25,14 +25,14 @@ title: Getting started
 
 Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
-<i class="bi bi-apple"></i> **Mac**:  
+<i class="bi bi-apple"></i> Mac:  
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL http://munch-group.org/franklin-cli/installers/install.sh | bash -s -- --role student --yes
 ```
 
-<i class="bi bi-windows"></i> **Windows**:  
+<i class="bi bi-windows"></i> Windows:  
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell   
@@ -43,14 +43,14 @@ powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/frankli
 
 Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
-<i class="bi bi-apple"></i> **Mac**:  
+<i class="bi bi-apple"></i> Mac:  
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL http://munch-group.org/franklin-cli/installers/install.sh | bash -s -- --role educator --yes
 ```
 
-<i class="bi bi-windows"></i> **Windows**:  
+<i class="bi bi-windows"></i> Windows:  
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
@@ -61,14 +61,14 @@ powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/frankli
 
 Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
-<i class="bi bi-apple"></i> **Mac**:  
+<i class="bi bi-apple"></i> Mac:  
 Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL http://munch-group.org/franklin-cli/installers/install.sh | bash -s -- --role administrator --yes
 ```
 
-<i class="bi bi-windows"></i> **Windows**:  
+<i class="bi bi-windows"></i> Windows:  
 Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
 ```powershell
@@ -86,14 +86,14 @@ Simple and robust command line interface in Terminal/PowerShell:
 
 ## <i class="bi bi-mortarboard-fill"></i> Students
 
-<i class="bi bi-terminal"></i> **Download an exercise**:
+<i class="bi bi-terminal"></i> Download an exercise:
 
 1. Run `franklin download`
 2. Select your course
 3. Select the exercise notebook to download
 4. `cd` to the downloaded exercise folder.
 
-<i class="bi bi-terminal"></i> **Start working**: 
+<i class="bi bi-terminal"></i> Start working: 
 
 1. Run `franklin jupyter`
 2. Select your course and exercise to make JupyterLab opens in the Chrome browser.
@@ -105,14 +105,14 @@ See [Franklin core commands](commands_core.qmd) for the full documentation.
 
 ## <i class="bi bi-bank"></i> Educators
 
-<i class="bi bi-terminal"></i> **Create a new exercise from an example template**:
+<i class="bi bi-terminal"></i> Create a new exercise from an example template:
 
 1. Run `franklin exercise new`
 2. Select your course and name exercise
 3. Edit exercise visibility in browser window.
 4. Wait a few minutes while the new image builds.
 
-<i class="bi bi-terminal"></i> **Edit exercise notebook**:
+<i class="bi bi-terminal"></i> Edit exercise notebook:
 
 1. Run `franklin exercise edit`
 2. Select your course and exercise to clone the repository pull image.
