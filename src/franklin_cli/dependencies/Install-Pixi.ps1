@@ -385,7 +385,26 @@ function Add-PixiBeforeConda {
     # Create profile if it doesn't exist
     if (-not (Test-Path $ProfilePath)) {
         Write-Info "Creating profile file..."
-        New-Item -ItemType File -Path $ProfilePath -Force | Out-Null
+        try {
+            New-Item -ItemType File -Path $ProfilePath -Force | Out-Null
+        } catch {
+            Write-Error "Cannot create $ProfilePath (permission denied)"
+            return
+        }
+    }
+    
+    # Check if file is read-only
+    $fileInfo = Get-Item $ProfilePath -ErrorAction SilentlyContinue
+    if ($fileInfo -and $fileInfo.IsReadOnly) {
+        Write-Warning "File is read-only, attempting to make it writable..."
+        try {
+            $fileInfo.IsReadOnly = $false
+        } catch {
+            Write-Error "Cannot modify $ProfilePath (permission denied). You may need to manually add the following to your profile:"
+            Write-Host '# Pixi - Added before conda for priority' -ForegroundColor Cyan
+            Write-Host '$env:PATH = "$env:USERPROFILE\.pixi\bin;$env:PATH"' -ForegroundColor Cyan
+            return
+        }
     }
     
     # Check if pixi path already exists
@@ -396,7 +415,11 @@ function Add-PixiBeforeConda {
     
     # Backup the profile
     $backupPath = "$ProfilePath.backup.$(Get-Date -Format 'yyyyMMdd_HHmmss')"
-    Copy-Item -Path $ProfilePath -Destination $backupPath -Force
+    try {
+        Copy-Item -Path $ProfilePath -Destination $backupPath -Force
+    } catch {
+        Write-Warning "Could not create backup of $ProfilePath"
+    }
     
     $pixiPath = '$env:PATH = "$env:USERPROFILE\.pixi\bin;$env:PATH"'
     $pixiComment = '# Pixi - Added before conda for priority'
@@ -405,29 +428,39 @@ function Add-PixiBeforeConda {
     if (Test-CondaInit $ProfilePath) {
         Write-Info "Found conda initialization, adding pixi before it..."
         
-        $content = Get-Content $ProfilePath -Raw
-        
-        # Find conda initialization and add pixi before it
-        if ($content -match '(#region conda initialize)') {
-            $newContent = $content -replace '(#region conda initialize)', "$pixiComment`n$pixiPath`n`n`$1"
-        } elseif ($content -match '(>>> conda initialize >>>)') {
-            $newContent = $content -replace '(>>> conda initialize >>>)', "$pixiComment`n$pixiPath`n`n`$1"
-        } else {
-            # Fallback: add at the beginning
-            $newContent = "$pixiComment`n$pixiPath`n`n$content"
+        try {
+            $content = Get-Content $ProfilePath -Raw
+            
+            # Find conda initialization and add pixi before it
+            if ($content -match '(#region conda initialize)') {
+                $newContent = $content -replace '(#region conda initialize)', "$pixiComment`n$pixiPath`n`n`$1"
+            } elseif ($content -match '(>>> conda initialize >>>)') {
+                $newContent = $content -replace '(>>> conda initialize >>>)', "$pixiComment`n$pixiPath`n`n`$1"
+            } else {
+                # Fallback: add at the beginning
+                $newContent = "$pixiComment`n$pixiPath`n`n$content"
+            }
+            
+            Set-Content -Path $ProfilePath -Value $newContent
+            Write-Success "Added pixi path before conda initialization"
+        } catch {
+            Write-Error "Failed to update $ProfilePath : $_"
+            return
         }
-        
-        Set-Content -Path $ProfilePath -Value $newContent
-        Write-Success "Added pixi path before conda initialization"
     } else {
         Write-Info "No conda initialization found, adding pixi path at the beginning..."
         
-        # Add pixi at the beginning of the file
-        $content = if (Test-Path $ProfilePath) { Get-Content $ProfilePath -Raw } else { "" }
-        $newContent = "$pixiComment`n$pixiPath`n`n$content"
-        
-        Set-Content -Path $ProfilePath -Value $newContent
-        Write-Success "Added pixi path at the beginning of file"
+        try {
+            # Add pixi at the beginning of the file
+            $content = if (Test-Path $ProfilePath) { Get-Content $ProfilePath -Raw } else { "" }
+            $newContent = "$pixiComment`n$pixiPath`n`n$content"
+            
+            Set-Content -Path $ProfilePath -Value $newContent
+            Write-Success "Added pixi path at the beginning of file"
+        } catch {
+            Write-Error "Failed to update $ProfilePath : $_"
+            return
+        }
     }
 }
 

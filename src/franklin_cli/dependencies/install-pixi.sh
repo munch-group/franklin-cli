@@ -46,7 +46,21 @@ add_pixi_before_conda() {
     # Check if file exists
     if [ ! -f "$file" ]; then
         echo -e "${YELLOW}  File doesn't exist, creating it...${NC}"
-        touch "$file"
+        touch "$file" 2>/dev/null || {
+            echo -e "${RED}  ✗ Cannot create $file (permission denied)${NC}"
+            return 1
+        }
+    fi
+    
+    # Check if file is writable
+    if [ ! -w "$file" ]; then
+        echo -e "${YELLOW}  File is read-only, attempting to make it writable...${NC}"
+        chmod u+w "$file" 2>/dev/null || {
+            echo -e "${RED}  ✗ Cannot modify $file (permission denied). You may need to manually add the following to your $file:${NC}"
+            echo -e "${CYAN}$PIXI_COMMENT${NC}"
+            echo -e "${CYAN}$PIXI_PATH${NC}"
+            return 1
+        }
     fi
     
     # Check if pixi path already exists
@@ -55,12 +69,14 @@ add_pixi_before_conda() {
         return 0
     fi
     
+    # Create a backup
+    cp "$file" "${file}.backup.$(date +%Y%m%d_%H%M%S)" 2>/dev/null || {
+        echo -e "${YELLOW}  Warning: Could not create backup of $file${NC}"
+    }
+    
     # Check if conda initialization exists
     if has_conda_init "$file"; then
         echo -e "${YELLOW}  Found conda initialization, adding pixi before it...${NC}"
-        
-        # Create a backup
-        cp "$file" "${file}.backup.$(date +%Y%m%d_%H%M%S)"
         
         # Use awk to insert pixi before conda init
         awk -v pixi_comment="$PIXI_COMMENT" -v pixi_path="$PIXI_PATH" '
@@ -73,15 +89,19 @@ add_pixi_before_conda() {
                 }
             }
             { print }
-        ' "$file" > "$temp_file"
+        ' "$file" > "$temp_file" 2>/dev/null || {
+            echo -e "${RED}  ✗ Failed to process $file${NC}"
+            return 1
+        }
         
-        mv "$temp_file" "$file"
+        mv "$temp_file" "$file" 2>/dev/null || {
+            echo -e "${RED}  ✗ Failed to update $file${NC}"
+            rm -f "$temp_file"
+            return 1
+        }
         echo -e "${GREEN}  ✓ Added pixi path before conda initialization${NC}"
     else
         echo -e "${YELLOW}  No conda initialization found, adding pixi path at the beginning...${NC}"
-        
-        # Create a backup
-        cp "$file" "${file}.backup.$(date +%Y%m%d_%H%M%S)"
         
         # Add pixi at the beginning of the file
         {
@@ -89,9 +109,16 @@ add_pixi_before_conda() {
             echo "$PIXI_PATH"
             echo ""
             cat "$file"
-        } > "$temp_file"
+        } > "$temp_file" 2>/dev/null || {
+            echo -e "${RED}  ✗ Failed to process $file${NC}"
+            return 1
+        }
         
-        mv "$temp_file" "$file"
+        mv "$temp_file" "$file" 2>/dev/null || {
+            echo -e "${RED}  ✗ Failed to update $file${NC}"
+            rm -f "$temp_file"
+            return 1
+        }
         echo -e "${GREEN}  ✓ Added pixi path at the beginning of file${NC}"
     fi
 }
@@ -119,8 +146,19 @@ check_and_fix_sourcing() {
             if has_conda_init "$rc" && ! has_conda_init "$profile"; then
                 echo -e "${YELLOW}  Adding source command to $profile...${NC}"
                 
+                # Check if profile is writable
+                if [ ! -w "$profile" ]; then
+                    echo -e "${YELLOW}  Profile is read-only, attempting to make it writable...${NC}"
+                    chmod u+w "$profile" 2>/dev/null || {
+                        echo -e "${RED}  ✗ Cannot modify $profile (permission denied)${NC}"
+                        return 1
+                    }
+                fi
+                
                 # Create backup
-                cp "$profile" "${profile}.backup.$(date +%Y%m%d_%H%M%S)"
+                cp "$profile" "${profile}.backup.$(date +%Y%m%d_%H%M%S)" 2>/dev/null || {
+                    echo -e "${YELLOW}  Warning: Could not create backup of $profile${NC}"
+                }
                 
                 # Add source command at the beginning (after pixi if it exists)
                 if has_pixi_path "$profile"; then
