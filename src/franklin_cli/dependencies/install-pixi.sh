@@ -21,6 +21,155 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
+
+# Pixi path to add
+PIXI_PATH='export PATH="$HOME/.pixi/bin:$PATH"'
+PIXI_COMMENT='# Pixi - Added before conda for priority'
+
+# Function to check if file contains pixi path
+has_pixi_path() {
+    grep -q '\.pixi/bin' "$1" 2>/dev/null
+}
+
+# Function to check if file contains conda initialization
+has_conda_init() {
+    grep -q '>>> conda initialize >>>' "$1" 2>/dev/null
+}
+
+# Function to add pixi path before conda initialization
+add_pixi_before_conda() {
+    local file=$1
+    local temp_file="${file}.tmp"
+    
+    echo -e "${YELLOW}Processing $file...${NC}"
+    
+    # Check if file exists
+    if [ ! -f "$file" ]; then
+        echo -e "${YELLOW}  File doesn't exist, creating it...${NC}"
+        touch "$file"
+    fi
+    
+    # Check if pixi path already exists
+    if has_pixi_path "$file"; then
+        echo -e "${GREEN}  ✓ Pixi path already exists in $file${NC}"
+        return 0
+    fi
+    
+    # Check if conda initialization exists
+    if has_conda_init "$file"; then
+        echo -e "${YELLOW}  Found conda initialization, adding pixi before it...${NC}"
+        
+        # Create a backup
+        cp "$file" "${file}.backup.$(date +%Y%m%d_%H%M%S)"
+        
+        # Use awk to insert pixi before conda init
+        awk -v pixi_comment="$PIXI_COMMENT" -v pixi_path="$PIXI_PATH" '
+            />>> conda initialize >>>/ {
+                if (!pixi_added) {
+                    print pixi_comment
+                    print pixi_path
+                    print ""
+                    pixi_added = 1
+                }
+            }
+            { print }
+        ' "$file" > "$temp_file"
+        
+        mv "$temp_file" "$file"
+        echo -e "${GREEN}  ✓ Added pixi path before conda initialization${NC}"
+    else
+        echo -e "${YELLOW}  No conda initialization found, adding pixi path at the beginning...${NC}"
+        
+        # Create a backup
+        cp "$file" "${file}.backup.$(date +%Y%m%d_%H%M%S)"
+        
+        # Add pixi at the beginning of the file
+        {
+            echo "$PIXI_COMMENT"
+            echo "$PIXI_PATH"
+            echo ""
+            cat "$file"
+        } > "$temp_file"
+        
+        mv "$temp_file" "$file"
+        echo -e "${GREEN}  ✓ Added pixi path at the beginning of file${NC}"
+    fi
+}
+
+# Function to ensure conda base is not auto-activated
+disable_conda_auto_activate() {
+    if command -v conda &> /dev/null; then
+        echo -e "${YELLOW}Disabling conda auto_activate_base...${NC}"
+        conda config --set auto_activate_base false 2>/dev/null || true
+        echo -e "${GREEN}  ✓ Conda auto_activate_base disabled${NC}"
+    fi
+}
+
+# Function to handle sourcing between files
+check_and_fix_sourcing() {
+    local profile=$1
+    local rc=$2
+    
+    if [ -f "$profile" ] && [ -f "$rc" ]; then
+        # Check if profile sources rc
+        if ! grep -q "source.*$rc\|\..*$rc" "$profile" 2>/dev/null; then
+            echo -e "${YELLOW}$profile doesn't source $rc${NC}"
+            
+            # If rc has conda but profile doesn't, we need to ensure rc is sourced
+            if has_conda_init "$rc" && ! has_conda_init "$profile"; then
+                echo -e "${YELLOW}  Adding source command to $profile...${NC}"
+                
+                # Create backup
+                cp "$profile" "${profile}.backup.$(date +%Y%m%d_%H%M%S)"
+                
+                # Add source command at the beginning (after pixi if it exists)
+                if has_pixi_path "$profile"; then
+                    # Add after pixi
+                    awk -v rc_file="$rc" '
+                        /\.pixi\/bin/ { 
+                            print
+                            getline
+                            print
+                            print "# Source " rc_file " for additional configurations"
+                            print "if [ -f ~/" rc_file " ]; then"
+                            print "    source ~/" rc_file
+                            print "fi"
+                            print ""
+                            sourced = 1
+                            next
+                        }
+                        { print }
+                        END {
+                            if (!sourced) {
+                                print ""
+                                print "# Source " rc_file " for additional configurations"
+                                print "if [ -f ~/" rc_file " ]; then"
+                                print "    source ~/" rc_file
+                                print "fi"
+                            }
+                        }
+                    ' "$profile" > "${profile}.tmp"
+                else
+                    # Add at the end if no pixi
+                    {
+                        cat "$profile"
+                        echo ""
+                        echo "# Source $rc for additional configurations"
+                        echo "if [ -f ~/$rc ]; then"
+                        echo "    source ~/$rc"
+                        echo "fi"
+                    } > "${profile}.tmp"
+                fi
+                
+                mv "${profile}.tmp" "$profile"
+                echo -e "${GREEN}  ✓ Added source command to $profile${NC}"
+            fi
+        fi
+    fi
+}
+
+
+
 # Logging functions
 log_info() {
     echo -e "${BLUE}[INFO]${NC} $1"
@@ -84,14 +233,18 @@ command_exists() {
 get_latest_version() {
     if command_exists curl; then
         # curl -s https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
-        curl -fsSL https://pixi.sh/install.sh | sh
-    elif command_exists wget; then
-        # wget -qO- https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
-        wget -qO- https://pixi.sh/install.sh | sh        
+        curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path
     else
-        log_error "Neither curl nor wget found. Cannot determine latest version."
+        log_error "curl not found."
         exit 1
     fi
+    # elif command_exists wget; then
+    #     # wget -qO- https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
+    #     wget -qO- https://pixi.sh/install.sh | sh        
+    # else
+    #     log_error "Neither curl nor wget found. Cannot determine latest version."
+    #     exit 1
+    # fi
 }
 
 # Function to check if pixi is already installed
@@ -127,13 +280,96 @@ install_via_curl() {
     fi
     
     # Download and run official installer
-    curl -fsSL https://pixi.sh/install.sh | bash
+    curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path
     
+
+
+
+    # Check which shell configs exist and process them
+    configs_processed=0
+
+    # Handle bash configurations
+    if [ -f "$HOME/.bashrc" ] || [ -f "$HOME/.bash_profile" ]; then
+        echo -e "${GREEN}Found bash configuration files${NC}"
+        
+        # Process .bash_profile first (it's read first on macOS)
+        if [ -f "$HOME/.bash_profile" ]; then
+            add_pixi_before_conda "$HOME/.bash_profile"
+            configs_processed=$((configs_processed + 1))
+        fi
+        
+        # Process .bashrc
+        if [ -f "$HOME/.bashrc" ]; then
+            add_pixi_before_conda "$HOME/.bashrc"
+            configs_processed=$((configs_processed + 1))
+        fi
+        
+        # Ensure proper sourcing
+        check_and_fix_sourcing ".bash_profile" ".bashrc"
+    fi
+
+    # Handle zsh configuration
+    if [ -f "$HOME/.zshrc" ]; then
+        echo -e "${GREEN}Found zsh configuration file${NC}"
+        add_pixi_before_conda "$HOME/.zshrc"
+        configs_processed=$((configs_processed + 1))
+    fi
+
+    # Create config files if none exist (based on current shell)
+    if [ $configs_processed -eq 0 ]; then
+        current_shell=$(basename "$SHELL")
+        echo -e "${YELLOW}No shell config files found. Creating for $current_shell...${NC}"
+        
+        if [ "$current_shell" = "zsh" ]; then
+            touch "$HOME/.zshrc"
+            add_pixi_before_conda "$HOME/.zshrc"
+        else
+            touch "$HOME/.bash_profile"
+            add_pixi_before_conda "$HOME/.bash_profile"
+        fi
+    fi
+
+    # Disable conda auto-activation
+    disable_conda_auto_activate
+
+
+
+
+
+
+
+
+# # if conda installed
+# if command -v conda > /dev/null 2>&1; then
+#     echo "conda is installed"
+# else
+#     echo "conda is not installed"
+# fi
+# conda config --set auto_activate_base false
+
+# echo $(basename $SHELL)
+
+
+# CHECK PERMISSIONS
+#     touch ~/.bashrc
+# chmod 644 ~/.bashrc
+
+# echo 'export PATH="$HOME/.pixi/bin:$PATH"' >> ~/.zshrc
+# # or for bash
+# echo 'export PATH="$HOME/.pixi/bin:$PATH"' >> ~/.bash_profile
+
+
+# export PATH="$HOME/.pixi/bin:$PATH"
+
+# # instead of or also
+
     # Source the shell configuration to update PATH
     if [ -f "$HOME/.bashrc" ]; then
         source "$HOME/.bashrc" 2>/dev/null || true
     fi
     
+
+
     return 0
 }
 

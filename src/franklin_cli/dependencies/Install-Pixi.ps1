@@ -183,12 +183,12 @@ function Test-ExistingPixi {
 function Install-PixiViaCurl {
     <#
     .SYNOPSIS
-        Install pixi via official installer script
+        Install pixi via official installer script with no-modify-path option
     #>
     Write-Info "Installing pixi via official installer..."
     
     try {
-        # Download and run official installer
+        # Download installer script
         $installerScript = Invoke-WebRequest -Uri "https://pixi.sh/install.ps1" -UseBasicParsing
         
         # Convert content to string if it's a byte array
@@ -198,7 +198,17 @@ function Install-PixiViaCurl {
             $scriptContent = $installerScript.Content
         }
         
-        Invoke-Expression $scriptContent
+        # Modify the script to add --no-modify-path flag
+        # We'll need to invoke it with the flag
+        $tempFile = [System.IO.Path]::GetTempFileName() + ".ps1"
+        Set-Content -Path $tempFile -Value $scriptContent
+        
+        # Run with no-modify-path flag
+        & $tempFile -NoModifyPath
+        
+        # Clean up temp file
+        Remove-Item -Path $tempFile -Force -ErrorAction SilentlyContinue
+        
         return $true
     } catch {
         Write-Error "Official installer failed: $($_.Exception.Message)"
@@ -319,10 +329,112 @@ function Update-EnvironmentPath {
     Write-Success "PATH updated successfully"
 }
 
+function Test-PixiPath {
+    <#
+    .SYNOPSIS
+        Check if file contains pixi path
+    #>
+    param([string]$FilePath)
+    
+    if (Test-Path $FilePath) {
+        $content = Get-Content $FilePath -Raw -ErrorAction SilentlyContinue
+        return ($content -match '\.pixi\\bin' -or $content -match '\.pixi/bin')
+    }
+    return $false
+}
+
+function Test-CondaInit {
+    <#
+    .SYNOPSIS
+        Check if file contains conda initialization
+    #>
+    param([string]$FilePath)
+    
+    if (Test-Path $FilePath) {
+        $content = Get-Content $FilePath -Raw -ErrorAction SilentlyContinue
+        return ($content -match '#region conda initialize' -or $content -match '>>> conda initialize >>>')
+    }
+    return $false
+}
+
+function Disable-CondaAutoActivate {
+    <#
+    .SYNOPSIS
+        Disable conda auto_activate_base
+    #>
+    if (Test-CommandExists "conda") {
+        Write-Info "Disabling conda auto_activate_base..."
+        try {
+            & conda config --set auto_activate_base false 2>$null
+            Write-Success "Conda auto_activate_base disabled"
+        } catch {
+            Write-Warning "Could not disable conda auto_activate_base"
+        }
+    }
+}
+
+function Add-PixiBeforeConda {
+    <#
+    .SYNOPSIS
+        Add pixi path before conda initialization in profile
+    #>
+    param([string]$ProfilePath)
+    
+    Write-Info "Processing $ProfilePath..."
+    
+    # Create profile if it doesn't exist
+    if (-not (Test-Path $ProfilePath)) {
+        Write-Info "Creating profile file..."
+        New-Item -ItemType File -Path $ProfilePath -Force | Out-Null
+    }
+    
+    # Check if pixi path already exists
+    if (Test-PixiPath $ProfilePath) {
+        Write-Success "Pixi path already exists in $ProfilePath"
+        return
+    }
+    
+    # Backup the profile
+    $backupPath = "$ProfilePath.backup.$(Get-Date -Format 'yyyyMMdd_HHmmss')"
+    Copy-Item -Path $ProfilePath -Destination $backupPath -Force
+    
+    $pixiPath = '$env:PATH = "$env:USERPROFILE\.pixi\bin;$env:PATH"'
+    $pixiComment = '# Pixi - Added before conda for priority'
+    
+    # Check if conda initialization exists
+    if (Test-CondaInit $ProfilePath) {
+        Write-Info "Found conda initialization, adding pixi before it..."
+        
+        $content = Get-Content $ProfilePath -Raw
+        
+        # Find conda initialization and add pixi before it
+        if ($content -match '(#region conda initialize)') {
+            $newContent = $content -replace '(#region conda initialize)', "$pixiComment`n$pixiPath`n`n`$1"
+        } elseif ($content -match '(>>> conda initialize >>>)') {
+            $newContent = $content -replace '(>>> conda initialize >>>)', "$pixiComment`n$pixiPath`n`n`$1"
+        } else {
+            # Fallback: add at the beginning
+            $newContent = "$pixiComment`n$pixiPath`n`n$content"
+        }
+        
+        Set-Content -Path $ProfilePath -Value $newContent
+        Write-Success "Added pixi path before conda initialization"
+    } else {
+        Write-Info "No conda initialization found, adding pixi path at the beginning..."
+        
+        # Add pixi at the beginning of the file
+        $content = if (Test-Path $ProfilePath) { Get-Content $ProfilePath -Raw } else { "" }
+        $newContent = "$pixiComment`n$pixiPath`n`n$content"
+        
+        Set-Content -Path $ProfilePath -Value $newContent
+        Write-Success "Added pixi path at the beginning of file"
+    }
+}
+
 function Update-PowerShellProfile {
     <#
     .SYNOPSIS
-        Update PowerShell profile to include pixi in PATH
+        Update PowerShell profile to include pixi in PATH with conda priority handling
     #>
     $profilePath = $PROFILE.CurrentUserCurrentHost
     $profileDir = Split-Path $profilePath -Parent
@@ -332,30 +444,15 @@ function Update-PowerShellProfile {
         New-Item -ItemType Directory -Path $profileDir -Force | Out-Null
     }
     
-    # Create profile file if it doesn't exist
-    if (-not (Test-Path $profilePath)) {
-        New-Item -ItemType File -Path $profilePath -Force | Out-Null
+    # Add pixi before conda
+    Add-PixiBeforeConda -ProfilePath $profilePath
+    
+    # Also update AllUsers profile if it exists and has conda
+    $allUsersProfile = $PROFILE.AllUsersCurrentHost
+    if ((Test-Path $allUsersProfile) -and (Test-CondaInit $allUsersProfile)) {
+        Write-Info "Found conda in AllUsers profile, updating it too..."
+        Add-PixiBeforeConda -ProfilePath $allUsersProfile
     }
-    
-    # Check if pixi PATH is already in profile
-    $profileContent = Get-Content $profilePath -Raw -ErrorAction SilentlyContinue
-    if ($profileContent -and $profileContent -match "# Added by pixi installer") {
-        Write-Info "PowerShell profile already contains pixi PATH configuration"
-        return
-    }
-    
-    Write-Info "Updating PowerShell profile: $profilePath"
-    
-    $pixiPathConfig = @"
-
-# Added by pixi installer
-if (-not (`$env:PATH -split ';' -contains '$BinDir')) {
-    `$env:PATH = "$BinDir;`$env:PATH"
-}
-"@
-    
-    Add-Content -Path $profilePath -Value $pixiPathConfig
-    Write-Success "PowerShell profile updated"
 }
 
 function Install-Pixi {
@@ -413,6 +510,16 @@ function Install-Pixi {
     }
     
     if ($installSuccess) {
+        # Update PowerShell profile with pixi path prioritization
+        Update-PowerShellProfile
+        
+        # Update environment PATH
+        Update-EnvironmentPath
+        
+        # Disable conda auto-activation
+        Disable-CondaAutoActivate
+        
+        # Test the installation
         Test-PixiInstallation
     } else {
         Write-Error "Installation failed"
@@ -506,11 +613,27 @@ function Remove-PixiFromProfile {
         
         $profileContent = Get-Content $profilePath -Raw
         
-        # Remove pixi-related entries
+        # Remove both old and new pixi-related entries
         $cleanedContent = $profileContent -replace '(?s)\r?\n# Added by pixi installer.*?(?=\r?\n#|\r?\n\S|\Z)', ''
+        $cleanedContent = $cleanedContent -replace '(?s)\r?\n# Pixi - Added before conda for priority.*?\$env:PATH[^\r\n]+\.pixi\\bin[^\r\n]+\r?\n?', ''
         
         Set-Content -Path $profilePath -Value $cleanedContent
         Write-Success "Cleaned up PowerShell profile"
+    }
+    
+    # Also clean AllUsers profile if it exists
+    $allUsersProfile = $PROFILE.AllUsersCurrentHost
+    if (Test-Path $allUsersProfile) {
+        Write-Info "Cleaning up AllUsers PowerShell profile..."
+        
+        $profileContent = Get-Content $allUsersProfile -Raw
+        
+        # Remove both old and new pixi-related entries
+        $cleanedContent = $profileContent -replace '(?s)\r?\n# Added by pixi installer.*?(?=\r?\n#|\r?\n\S|\Z)', ''
+        $cleanedContent = $cleanedContent -replace '(?s)\r?\n# Pixi - Added before conda for priority.*?\$env:PATH[^\r\n]+\.pixi\\bin[^\r\n]+\r?\n?', ''
+        
+        Set-Content -Path $allUsersProfile -Value $cleanedContent
+        Write-Success "Cleaned up AllUsers PowerShell profile"
     }
 }
 
