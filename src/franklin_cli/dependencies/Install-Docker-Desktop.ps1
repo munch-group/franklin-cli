@@ -1,3 +1,4 @@
+[CmdletBinding()]
 param(
     [string]$OrganizationName = "",
     [switch]$EnableWSL2 = $true,
@@ -5,8 +6,7 @@ param(
     [switch]$AutoRepairWSL = $true,
     [switch]$Force = $false,
     [switch]$Uninstall = $false,
-    [switch]$CleanUninstall = $false,
-    [switch]$Verbose = $false
+    [switch]$CleanUninstall = $false
 )
 
 # Optimize download performance
@@ -15,14 +15,14 @@ $ProgressPreference = 'SilentlyContinue'
 # Logging functions
 function Write-VerboseMessage {
     param([string]$Message, [string]$Color = "White")
-    if ($Verbose) {
+    if ($VerbosePreference -eq 'Continue') {
         Write-Host $Message -ForegroundColor $Color
     }
 }
 
 function Write-InfoMessage {
     param([string]$Message)
-    if ($Verbose) {
+    if ($VerbosePreference -eq 'Continue') {
         Write-Host "[INFO] $Message" -ForegroundColor Cyan
     }
 }
@@ -51,7 +51,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     if ($Force) { $arguments += "-Force" }
     if ($Uninstall) { $arguments += "-Uninstall" }
     if ($CleanUninstall) { $arguments += "-CleanUninstall" }
-    if ($Verbose) { $arguments += "-Verbose" }
+    if ($PSCmdlet.MyInvocation.BoundParameters.ContainsKey('Verbose')) { $arguments += "-Verbose" }
     
     Start-Process PowerShell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $($arguments -join ' ')" -Wait
     exit $LASTEXITCODE
