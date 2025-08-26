@@ -63,7 +63,7 @@ param(
     [switch]$Force,
     [switch]$DryRun,
     [switch]$Yes,
-    [switch]$Help,
+    [switch]$Help
 )
 
 $ErrorActionPreference = 'Stop'
