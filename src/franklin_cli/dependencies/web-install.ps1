@@ -1,4 +1,5 @@
-#Requires -Version 5.0
+#Requires -Version 5.1
+
 <#
 .SYNOPSIS
     Franklin Development Environment - Web Installer for Windows
@@ -114,9 +115,11 @@ function Get-BaseUrl {
 #     }
 # }
 
-function Write-UnlessQuiet  {
+# Conditional write - suppressed in quiet mode unless colored
+function Write-UnlessQuiet {
+    param([string]$Message, [string]$Color = "White")
     if (-not $Quiet) {
-        Write-Host @Args
+        Write-Host  $Message -ForegroundColor $Color
     }
 }
 
@@ -129,19 +132,19 @@ function Write-ColorOutput {
     if (-not $Quiet) {
         switch ($Type) {
             'Info' { Write-UnlessQuiet  "$Message" }
-            'Warn' { Write-UnlessQuiet  "$Message" -ForegroundColor Yellow }
-            'Error' { Write-UnlessQuiet  "$Message" -ForegroundColor Red }
-            'Step' { Write-UnlessQuiet  "$Message" -ForegroundColor Blue }
-            'Success' { Write-UnlessQuiet  "$Message" -ForegroundColor Blue }
+            'Warn' { Write-UnlessQuiet  "$Message" Yellow }
+            'Error' { Write-UnlessQuiet  "$Message" Red }
+            'Step' { Write-UnlessQuiet  "$Message" Blue }
+            'Success' { Write-UnlessQuiet  "$Message" Blue }
         }
     }
 }
 
 function Show-Banner {
     Write-UnlessQuiet  ""
-    Write-UnlessQuiet  "============================================" -ForegroundColor Cyan
-    Write-UnlessQuiet  "             Franklin Installer             " -ForegroundColor Cyan
-    Write-UnlessQuiet  "============================================" -ForegroundColor Cyan
+    Write-UnlessQuiet  "============================================" Cyan
+    Write-UnlessQuiet  "             Franklin Installer             " Cyan
+    Write-UnlessQuiet  "============================================" Cyan
     Write-UnlessQuiet  ""
 }
 
@@ -432,7 +435,7 @@ function Invoke-Installation {
         # Write-UnlessQuiet  ""
         # Write-ColorOutput "Installation completed successfully!" -Type Success
         # Write-UnlessQuiet  ""
-        # Write-UnlessQuiet  "Next steps:" -ForegroundColor Cyan
+        # Write-UnlessQuiet  "Next steps:" Cyan
         # Write-UnlessQuiet  "  1. Restart your terminal"
         # Write-UnlessQuiet  "  2. Verify installation: franklin --version"
         # Write-UnlessQuiet  "  3. Get started: franklin --help"
@@ -466,7 +469,7 @@ function Main {
         # Show what will be installed
         if (-not $DryRun) {
             Write-UnlessQuiet  ""
-            Write-UnlessQuiet  "This script will install:" -ForegroundColor Blue
+            Write-UnlessQuiet  "This script will install:" Blue
             if (-not $SkipMiniforge) { Write-UnlessQuiet  "  - Miniforge (Python environment manager)" }
             if (-not $SkipPixi) { Write-UnlessQuiet  "  - Pixi (Fast package manager)" }
             if (-not $SkipDocker) { Write-UnlessQuiet  "  - Docker Desktop (Container platform)" }
@@ -531,28 +534,28 @@ function Main {
         # Provide specific help for common errors
         if ($_.Exception.Message -match "host|DNS|resolve") {
             Write-UnlessQuiet  ""
-            Write-UnlessQuiet  "DNS Resolution Error Detected!" -ForegroundColor Red
-            Write-UnlessQuiet  "This usually means:" -ForegroundColor Yellow
-            Write-UnlessQuiet  "  1. No internet connection" -ForegroundColor White
-            Write-UnlessQuiet  "  2. DNS server issues" -ForegroundColor White
-            Write-UnlessQuiet  "  3. Firewall/proxy blocking GitHub access" -ForegroundColor White
+            Write-UnlessQuiet  "DNS Resolution Error Detected!" Red
+            Write-UnlessQuiet  "This usually means:" Yellow
+            Write-UnlessQuiet  "  1. No internet connection" White
+            Write-UnlessQuiet  "  2. DNS server issues" White
+            Write-UnlessQuiet  "  3. Firewall/proxy blocking GitHub access" White
             Write-UnlessQuiet  ""
-            Write-UnlessQuiet  "Try these solutions:" -ForegroundColor Cyan
-            Write-UnlessQuiet  "  - Check your internet connection" -ForegroundColor White
-            Write-UnlessQuiet  "  - Try using Google DNS (8.8.8.8) or Cloudflare DNS (1.1.1.1)" -ForegroundColor White
-            Write-UnlessQuiet  "  - Disable VPN if connected" -ForegroundColor White
-            Write-UnlessQuiet  "  - Check corporate firewall settings" -ForegroundColor White
+            Write-UnlessQuiet  "Try these solutions:" Cyan
+            Write-UnlessQuiet  "  - Check your internet connection" White
+            Write-UnlessQuiet  "  - Try using Google DNS (8.8.8.8) or Cloudflare DNS (1.1.1.1)" White
+            Write-UnlessQuiet  "  - Disable VPN if connected" White
+            Write-UnlessQuiet  "  - Check corporate firewall settings" White
         }
         elseif ($_.Exception.Message -match "connect|network|timeout") {
             Write-UnlessQuiet  ""
-            Write-UnlessQuiet  "Network Connection Error!" -ForegroundColor Red
-            Write-UnlessQuiet  "Cannot reach GitHub servers." -ForegroundColor Yellow
+            Write-UnlessQuiet  "Network Connection Error!" Red
+            Write-UnlessQuiet  "Cannot reach GitHub servers." Yellow
         }
         
         Write-UnlessQuiet  ""
-        Write-UnlessQuiet  "For help, use this command:" -ForegroundColor Yellow
-        Write-UnlessQuiet  "  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12" -ForegroundColor White
-        Write-UnlessQuiet  "  (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin-cli/main/src/franklin_cli/dependencies/web-install.ps1') | iex" -ForegroundColor White
+        Write-UnlessQuiet  "For help, use this command:" Yellow
+        Write-UnlessQuiet  "  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12" White
+        Write-UnlessQuiet  "  (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin-cli/main/src/franklin_cli/dependencies/web-install.ps1') | iex" White
         exit 1
     }
 }

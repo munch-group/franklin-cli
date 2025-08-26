@@ -13,9 +13,11 @@ param(
 # Optimize download performance
 $ProgressPreference = 'SilentlyContinue'
 
-function Write-UnlessQuiet  {
+# Conditional write - suppressed in quiet mode unless colored
+function Write-UnlessQuiet {
+    param([string]$Message, [string]$Color = "White")
     if (-not $Quiet) {
-        Write-Host @Args
+        Write-Host  $Message -ForegroundColor $Color
     }
 }
 
@@ -23,14 +25,14 @@ function Write-UnlessQuiet  {
 function Write-VerboseMessage {
     param([string]$Message, [string]$Color = "White")
     if ($VerbosePreference -eq 'Continue') {
-        Write-UnlessQuiet  $Message -ForegroundColor $Color
+        Write-UnlessQuiet  $Message $Color
     }
 }
 
 function Write-InfoMessage {
     param([string]$Message)
     if ($VerbosePreference -eq 'Continue') {
-        Write-UnlessQuiet  "$Message" -ForegroundColor Cyan
+        Write-UnlessQuiet  "$Message" Cyan
     }
 }
 
@@ -38,28 +40,20 @@ function Write-ErrorMessage {
     param([string]$Message)
     # Suppressed in quiet mode
     if (-not $Quiet) {
-        Write-UnlessQuiet  "$Message" -ForegroundColor Red
+        Write-UnlessQuiet  "$Message" Red
     }
 }
-
-# # Conditional write - suppressed in quiet mode unless colored
-# function Write-UnlessQuiet {
-#     param([string]$Message, [string]$Color = "White")
-#     if (-not $Quiet) {
-#         Write-UnlessQuiet  $Message -ForegroundColor $Color
-#     }
-# }
 
 # Always show green text even in quiet mode
 function Write-Green {
     param([string]$Message)
-    Write-UnlessQuiet  $Message -ForegroundColor Green
+    Write-UnlessQuiet  $Message Green
 }
 
 # Always show blue text even in quiet mode  
 function Write-Blue {
     param([string]$Message)
-    Write-UnlessQuiet  $Message -ForegroundColor Blue
+    Write-UnlessQuiet  $Message Blue
 }
 
 # Verify administrator privileges
@@ -547,13 +541,13 @@ if ($EnableWSL2) {
 
 Write-Green "`n[OK] Installation and configuration complete!"
 Write-UnlessQuiet ""
-# Write-UnlessQuiet  "Docker Desktop has been installed and configured." -ForegroundColor Green
-# Write-UnlessQuiet  "Docker Desktop has been stopped and is NOT currently running." -ForegroundColor Cyan
+# Write-UnlessQuiet  "Docker Desktop has been installed and configured." Green
+# Write-UnlessQuiet  "Docker Desktop has been stopped and is NOT currently running." Cyan
 # Write-UnlessQuiet  ""
-# Write-UnlessQuiet  "Next steps:" -ForegroundColor Yellow
-# Write-UnlessQuiet  "1. Restart your computer to ensure group membership takes effect" -ForegroundColor White
-# Write-UnlessQuiet  "2. Start Docker Desktop from the Start Menu when needed" -ForegroundColor White
-# Write-UnlessQuiet  "3. Docker will be available in the system tray when running" -ForegroundColor White
+# Write-UnlessQuiet  "Next steps:" Yellow
+# Write-UnlessQuiet  "1. Restart your computer to ensure group membership takes effect" White
+# Write-UnlessQuiet  "2. Start Docker Desktop from the Start Menu when needed" White
+# Write-UnlessQuiet  "3. Docker will be available in the system tray when running" White
 
 if ($EnableWSL2) {
     Write-Blue "3. Verify WSL2 integration by running: docker run hello-world"

@@ -88,9 +88,11 @@ $InstallerScripts = @{
     Chrome = "Install-Chrome.ps1"
 }
 
-function Write-UnlessQuiet  {
+# Conditional write - suppressed in quiet mode unless colored
+function Write-UnlessQuiet {
+    param([string]$Message, [string]$Color = "White")
     if (-not $Quiet) {
-        Write-Host @Args
+        Write-Host  $Message -ForegroundColor $Color
     }
 }
 
@@ -112,30 +114,30 @@ function Write-Success {
 function Write-Warning {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-UnlessQuiet  "$Message" -ForegroundColor Yellow
+    Write-UnlessQuiet  "$Message" Yellow
     $Script:ExecutionLog += "$Message"
 }
 
 function Write-Error {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-UnlessQuiet  "$Message" -ForegroundColor Red
+    Write-UnlessQuiet  "$Message" Red
     $Script:ExecutionLog += "$Message"
 }
 
 function Write-Header {
     param([string]$Message)
     Write-UnlessQuiet  ""
-    # Write-UnlessQuiet  ("=" * 60) -ForegroundColor Blue # Cyan
-    Write-UnlessQuiet  "  $Message" -ForegroundColor Blue # Cyan
-    Write-UnlessQuiet  ("=" * 60) -ForegroundColor Blue # Cyan
+    # Write-UnlessQuiet  ("=" * 60) Blue # Cyan
+    Write-UnlessQuiet  "  $Message" Blue # Cyan
+    Write-UnlessQuiet  ("=" * 60) Blue # Cyan
 }
 
 function Write-StepHeader {
     param([string]$Step, [string]$Description)
     Write-UnlessQuiet  ""
-    Write-UnlessQuiet  ">>> STEP ${Step}: $Description" -ForegroundColor Blue # Magenta
-    Write-UnlessQuiet  ("-" * 50) -ForegroundColor Gray
+    Write-UnlessQuiet  ">>> STEP ${Step}: $Description" Blue # Magenta
+    Write-UnlessQuiet  ("-" * 50) Gray
 }
 
 function Test-ScriptExists {
@@ -314,10 +316,10 @@ function Install-DockerDesktop {
     $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
     if (-not $isAdmin) {
         Write-UnlessQuiet  ""
-        Write-UnlessQuiet  "Docker Desktop requires Administrator privileges" -ForegroundColor Green
+        Write-UnlessQuiet  "Docker Desktop requires Administrator privileges" Green
         Write-UnlessQuiet  ""
-        # Write-UnlessQuiet  "User Password:" -ForegroundColor Green
-        Write-UnlessQuiet  "When prompted, please allow the app to make changes to your device..." -ForegroundColor Green
+        # Write-UnlessQuiet  "User Password:" Green
+        Write-UnlessQuiet  "When prompted, please allow the app to make changes to your device..." Green
         Write-UnlessQuiet  ""
     }
 
@@ -490,7 +492,7 @@ function Show-InstallationPlan {
     if (-not $SkipFranklin) { $steps += "4. Franklin (via pixi global)" }
     
     foreach ($step in $steps) {
-        Write-UnlessQuiet  "  $step" -ForegroundColor White
+        Write-UnlessQuiet  "  $step" White
     }
     
     # Write-UnlessQuiet  ""
@@ -518,19 +520,19 @@ function Show-InstallationSummary {
     .SYNOPSIS
         Display installation summary and results
     #>
-    # Write-UnlessQuiet  "Summary:" -ForegroundColor Blue
+    # Write-UnlessQuiet  "Summary:" Blue
     
     if ($Script:SuccessfulInstallations -and $Script:SuccessfulInstallations.Count -gt 0) {
-        Write-UnlessQuiet  "Installation status:"  -ForegroundColor Blue
+        Write-UnlessQuiet  "Installation status:"  Blue
         foreach ($item in $Script:SuccessfulInstallations) {
-            Write-UnlessQuiet  "  $item" -ForegroundColor Blue
+            Write-UnlessQuiet  "  $item" Blue
         }
     }
     
     if ($Script:FailedInstallations -and $Script:FailedInstallations.Count -gt 0) {
         Write-Warning "Failed installations:"
         foreach ($item in $Script:FailedInstallations) {
-            Write-UnlessQuiet  "  $item" -ForegroundColor Red
+            Write-UnlessQuiet  "  $item" Red
         }
     }
     
@@ -614,7 +616,7 @@ function Start-MasterInstallation {
 
             if ($Script:RestartRequired) {
                 Write-UnlessQuiet  ""
-                Write-UnlessQuiet  "  YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS" -ForegroundColor Yellow
+                Write-UnlessQuiet  "  YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS" Yellow
                 Write-UnlessQuiet  ""
             }
             
@@ -636,8 +638,8 @@ function Start-MasterInstallation {
 }
 
 # # Script entry point
-# Write-UnlessQuiet  "Master Development Environment Installer" -ForegroundColor Blue
-# Write-UnlessQuiet  "=========================================" -ForegroundColor Blue
+# Write-UnlessQuiet  "Master Development Environment Installer" Blue
+# Write-UnlessQuiet  "=========================================" Blue
 
 # Validate script path parameter
 if (-not (Test-Path $ScriptPath)) {

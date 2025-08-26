@@ -62,9 +62,10 @@ param(
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
-function Write-UnlessQuiet  {
+function Write-UnlessQuiet {
+    param([string]$Message, [string]$Color = "White")
     if (-not $Quiet) {
-        Write-Host @Args
+        Write-Host  $Message -ForegroundColor $Color
     }
 }
 
@@ -72,7 +73,7 @@ function Write-UnlessQuiet  {
 function Write-Info {
     param([string]$Message)
     if ($VerbosePreference -eq 'Continue') {
-        Write-UnlessQuiet  "$Message" -ForegroundColor Blue
+        Write-UnlessQuiet  "$Message" Blue
     } elseif (-not $Quiet) {
         Write-UnlessQuiet  "$Message"
     }
@@ -81,7 +82,7 @@ function Write-Info {
 function Write-Success {
     param([string]$Message)
     if (-not $Quiet) {
-        Write-UnlessQuiet  "$Message" -ForegroundColor Green
+        Write-UnlessQuiet  "$Message" Green
     }
 }
 
@@ -89,9 +90,9 @@ function Write-Warning {
     param([string]$Message)
     if (-not $Quiet) {
         if ($VerbosePreference -eq 'Continue') {
-            Write-UnlessQuiet  "$Message" -ForegroundColor Yellow
+            Write-UnlessQuiet  "$Message" Yellow
         } else {
-            Write-UnlessQuiet  "Warning: $Message" -ForegroundColor Yellow
+            Write-UnlessQuiet  "Warning: $Message" Yellow
         }
     }
 }
@@ -100,7 +101,7 @@ function Write-Error {
     param([string]$Message)
     # Show errors unless in quiet mode
     if (-not $Quiet) {
-        Write-UnlessQuiet  "$Message" -ForegroundColor Red
+        Write-UnlessQuiet  "$Message" Red
     }
 }
 
@@ -108,7 +109,7 @@ function Write-Header {
     param([string]$Message)
     if (-not $Quiet) {
         if ($VerbosePreference -eq 'Continue') {
-            Write-UnlessQuiet  $Message -ForegroundColor Cyan
+            Write-UnlessQuiet  $Message Cyan
         } else {
             Write-UnlessQuiet  $Message
         }
@@ -451,8 +452,8 @@ function Add-PixiBeforeConda {
             $fileInfo.IsReadOnly = $false
         } catch {
             Write-Error "Cannot modify $ProfilePath (permission denied). You may need to manually add the following to your profile:"
-            Write-UnlessQuiet  '# Pixi - Added before conda for priority' -ForegroundColor Cyan
-            Write-UnlessQuiet  '$env:PATH = "$env:USERPROFILE\.pixi\bin;$env:PATH"' -ForegroundColor Cyan
+            Write-UnlessQuiet  '# Pixi - Added before conda for priority' Cyan
+            Write-UnlessQuiet  '$env:PATH = "$env:USERPROFILE\.pixi\bin;$env:PATH"' Cyan
             return
         }
     }
@@ -810,9 +811,9 @@ function Show-CompletionMessage {
 
 # Main execution
 function Main {
-    # Write-UnlessQuiet  "==================================================" -ForegroundColor Cyan
-    # Write-UnlessQuiet  "       Pixi Package Manager Installer (Windows)"   -ForegroundColor Cyan
-    # Write-UnlessQuiet  "==================================================" -ForegroundColor Cyan
+    # Write-UnlessQuiet  "==================================================" Cyan
+    # Write-UnlessQuiet  "       Pixi Package Manager Installer (Windows)"   Cyan
+    # Write-UnlessQuiet  "==================================================" Cyan
     # Write-UnlessQuiet  ""
     
     switch ($Command) {
