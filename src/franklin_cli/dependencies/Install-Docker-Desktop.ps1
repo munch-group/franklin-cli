@@ -6,7 +6,8 @@ param(
     [switch]$AutoRepairWSL = $true,
     [switch]$Force = $false,
     [switch]$Uninstall = $false,
-    [switch]$CleanUninstall = $false
+    [switch]$CleanUninstall = $false,
+    [switch]$Quiet = $false
 )
 
 # Optimize download performance
@@ -29,18 +30,40 @@ function Write-InfoMessage {
 
 function Write-ErrorMessage {
     param([string]$Message)
-    # Always show errors regardless of verbose mode
-    Write-Host "$Message" -ForegroundColor Red
+    # Suppressed in quiet mode
+    if (-not $Quiet) {
+        Write-Host "$Message" -ForegroundColor Red
+    }
+}
+
+# Conditional write - suppressed in quiet mode unless colored
+function Write-UnlessQuiet {
+    param([string]$Message, [string]$Color = "White")
+    if (-not $Quiet) {
+        Write-Host $Message -ForegroundColor $Color
+    }
+}
+
+# Always show green text even in quiet mode
+function Write-Green {
+    param([string]$Message)
+    Write-Host $Message -ForegroundColor Green
+}
+
+# Always show blue text even in quiet mode  
+function Write-Blue {
+    param([string]$Message)
+    Write-Host $Message -ForegroundColor Blue
 }
 
 # Verify administrator privileges
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Host ""
-    Write-Host "Administrator privileges required for Docker Desktop installation" -ForegroundColor Green
-    Write-Host ""
-    # Write-Host "User Password:" -ForegroundColor Green
-    Write-Host "When prompted, please allow the app to make changes to your device..." -ForegroundColor Green
-    Write-Host ""
+    Write-UnlessQuiet ""
+    Write-Green "Administrator privileges required for Docker Desktop installation"
+    Write-UnlessQuiet ""
+    # Write-Green "User Password:"
+    Write-Green "When prompted, please allow the app to make changes to your device..."
+    Write-UnlessQuiet ""
     
     # Attempt to restart script with elevation
     $arguments = @()
@@ -51,6 +74,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     if ($Force) { $arguments += "-Force" }
     if ($Uninstall) { $arguments += "-Uninstall" }
     if ($CleanUninstall) { $arguments += "-CleanUninstall" }
+    if ($Quiet) { $arguments += "-Quiet" }
     if ($PSCmdlet.MyInvocation.BoundParameters.ContainsKey('Verbose')) { $arguments += "-Verbose" }
     
     Start-Process PowerShell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $($arguments -join ' ')" -Wait
@@ -133,7 +157,7 @@ function Remove-DockerDesktop {
         foreach ($path in $installPaths) {
             if (Test-Path $path) {
                 Remove-Item $path -Recurse -Force -ErrorAction SilentlyContinue
-                Write-Host "Removed: $path" -ForegroundColor Green
+                Write-Green "[OK] Removed: $path"
             }
         }
         
@@ -150,7 +174,7 @@ function Remove-DockerDesktop {
             foreach ($path in $userPaths) {
                 if (Test-Path $path) {
                     Remove-Item $path -Recurse -Force -ErrorAction SilentlyContinue
-                    Write-Host "Removed: $path" -ForegroundColor Green
+                    Write-Green "[OK] Removed: $path"
                 }
             }
         }
@@ -168,7 +192,7 @@ function Remove-DockerDesktop {
         foreach ($regPath in $registryPaths) {
             if (Test-Path $regPath) {
                 Remove-Item $regPath -Recurse -Force -ErrorAction SilentlyContinue
-                Write-Host "Removed registry: $regPath" -ForegroundColor Green
+                Write-Green "[OK] Removed registry: $regPath"
             }
         }
         
@@ -188,7 +212,7 @@ function Remove-DockerDesktop {
         }
         
         # Remove Windows features if no other VM software depends on them
-        if (-not $Silent) {
+        if (-not $Silent -and -not $Quiet) {
             $confirmation = Read-Host "Remove Hyper-V and Virtual Machine Platform features? This may affect other virtualization software (y/N)"
             if ($confirmation -eq "y" -or $confirmation -eq "Y") {
                 Write-VerboseMessage "Disabling Windows virtualization features..." "Yellow"
@@ -204,8 +228,8 @@ function Remove-DockerDesktop {
         Write-VerboseMessage "Removing Docker firewall rules..." "Yellow"
         Get-NetFirewallRule | Where-Object { $_.DisplayName -like "*Docker*" } | Remove-NetFirewallRule -ErrorAction SilentlyContinue
         
-        Write-Host "Docker Desktop uninstallation completed successfully!" -ForegroundColor Green
-        Write-Host "A system restart is recommended to complete the removal process." -ForegroundColor Yellow
+        Write-Green "[OK] Docker Desktop uninstallation completed successfully!"
+        Write-Blue "A system restart is recommended to complete the removal process."
         
     } catch {
         Write-Error "Uninstallation failed: $($_.Exception.Message)"
@@ -216,40 +240,48 @@ function Remove-DockerDesktop {
 }
 
 function Get-DockerInstallationStatus {
-    Write-Host "=== Docker Desktop Installation Status ===" -ForegroundColor Cyan
+    Write-UnlessQuiet "=== Docker Desktop Installation Status ===" "Cyan"
     
     # Check if Docker Desktop is installed
     $dockerExe = "${env:ProgramFiles}\Docker\Docker\Docker Desktop.exe"
     $dockerInstalled = Test-Path $dockerExe
     
-    Write-Host "Docker Desktop Installed: $dockerInstalled" -ForegroundColor $(if ($dockerInstalled) { "Green" } else { "Red" })
+    if ($dockerInstalled) {
+        Write-Green "[OK] Docker Desktop: Installed"
+    } else {
+        Write-UnlessQuiet "[FAILED] Docker Desktop: Not installed" "Red"
+    }
     
     if ($dockerInstalled) {
         $version = (Get-Item $dockerExe).VersionInfo.FileVersion
-        Write-Host "Version: $version" -ForegroundColor White
+        Write-UnlessQuiet "Version: $version" "White"
     }
     
     # Check Docker service
     $service = Get-Service -Name "com.docker.service" -ErrorAction SilentlyContinue
     if ($service) {
-        Write-Host "Docker Service Status: $($service.Status)" -ForegroundColor White
-        Write-Host "Docker Service Startup: $($service.StartType)" -ForegroundColor White
+        if ($service.Status -eq "Running") {
+            Write-Green "[OK] Docker Service Status: $($service.Status)"
+        } else {
+            Write-UnlessQuiet "[WARNING] Docker Service Status: $($service.Status)" "Yellow"
+        }
+        Write-UnlessQuiet "Docker Service Startup: $($service.StartType)" "White"
     } else {
-        Write-Host "Docker Service: Not found" -ForegroundColor Red
+        Write-UnlessQuiet "[FAILED] Docker Service: Not found" "Red"
     }
     
     # Check WSL distros
-    Write-Host "`nWSL Docker Distros:" -ForegroundColor Yellow
+    Write-UnlessQuiet "`nWSL Docker Distros:" "Yellow"
     try {
         $distros = wsl --list --quiet 2>$null
         $dockerDistros = $distros | Where-Object { $_ -match "docker" }
         if ($dockerDistros) {
-            $dockerDistros | ForEach-Object { Write-Host "  $_" -ForegroundColor Green }
+            $dockerDistros | ForEach-Object { Write-Green "  [OK] $_" }
         } else {
-            Write-Host "  No Docker WSL distros found" -ForegroundColor Red
+            Write-UnlessQuiet "  [FAILED] No Docker WSL distros found" "Red"
         }
     } catch {
-        Write-Host "  WSL not available" -ForegroundColor Red
+        Write-UnlessQuiet "  [FAILED] WSL not available" "Red"
     }
     
     # Check user groups
@@ -257,21 +289,21 @@ function Get-DockerInstallationStatus {
         $group = Get-LocalGroup -Name "docker-users" -ErrorAction SilentlyContinue
         if ($group) {
             $members = Get-LocalGroupMember -Group "docker-users" -ErrorAction SilentlyContinue
-            Write-Host "`nDocker Users Group Members:" -ForegroundColor Yellow
+            Write-UnlessQuiet "`nDocker Users Group Members:" "Yellow"
             if ($members) {
-                $members | ForEach-Object { Write-Host "  $($_.Name)" -ForegroundColor Green }
+                $members | ForEach-Object { Write-Green "  [OK] $($_.Name)" }
             } else {
-                Write-Host "  No members" -ForegroundColor Red
+                Write-UnlessQuiet "  [WARNING] No members" "Yellow"
             }
         } else {
-            Write-Host "`nDocker Users Group: Not found" -ForegroundColor Red
+            Write-UnlessQuiet "`n[FAILED] Docker Users Group: Not found" "Red"
         }
     } catch {
-        Write-Host "`nDocker Users Group: Could not check" -ForegroundColor Red
+        Write-UnlessQuiet "`n[WARNING] Docker Users Group: Could not check" "Yellow"
     }
     
     # Check data directories
-    Write-Host "`nData Directories:" -ForegroundColor Yellow
+    Write-UnlessQuiet "`nData Directories:" "Yellow"
     $dataPaths = @(
         "$env:APPDATA\Docker",
         "$env:LOCALAPPDATA\Docker", 
@@ -288,25 +320,34 @@ function Get-DockerInstallationStatus {
             } catch { "Unknown" }
         } else { "N/A" }
         
-        Write-Host "  $path : $exists ($size)" -ForegroundColor $(if ($exists) { "Green" } else { "Red" })
+        if ($exists) {
+            Write-Green "  [OK] $path : $exists ($size)"
+        } else {
+            Write-UnlessQuiet "  [FAILED] $path : $exists" "Red"
+        }
     }
 }
 
 # Handle uninstall operations
 if ($Uninstall -or $CleanUninstall) {
-    Write-Host "Docker Desktop Uninstallation" -ForegroundColor Red
-    Write-Host "==============================" -ForegroundColor Red
+    Write-UnlessQuiet "Docker Desktop Uninstallation" "Red"
+    Write-UnlessQuiet "==============================" "Red"
     
     # Show current installation status
     Get-DockerInstallationStatus
     
-    Write-Host "`nUninstall Options:" -ForegroundColor Yellow
-    Write-Host "- Standard uninstall: Removes Docker Desktop but keeps user data and WSL distros" -ForegroundColor White
-    Write-Host "- Clean uninstall: Removes everything including user data and WSL distros" -ForegroundColor White
+    Write-UnlessQuiet "`nUninstall Options:" "Yellow"
+    Write-UnlessQuiet "- Standard uninstall: Removes Docker Desktop but keeps user data and WSL distros" "White"
+    Write-UnlessQuiet "- Clean uninstall: Removes everything including user data and WSL distros" "White"
     
-    $confirmUninstall = Read-Host "`nProceed with uninstallation? (yes/no)"
+    if ($Quiet) {
+        Write-Blue "Proceed with uninstallation? (yes/no):"
+        $confirmUninstall = Read-Host
+    } else {
+        $confirmUninstall = Read-Host "`nProceed with uninstallation? (yes/no)"
+    }
     if ($confirmUninstall -ne "yes") {
-        Write-Host "Uninstallation cancelled" -ForegroundColor Yellow
+        Write-UnlessQuiet "Uninstallation cancelled" "Yellow"
         exit 0
     }
     
@@ -317,7 +358,7 @@ if ($Uninstall -or $CleanUninstall) {
     }
     
     if ($result) {
-        Write-Host "`nFinal status check:" -ForegroundColor Cyan
+        Write-UnlessQuiet "`nFinal status check:" "Cyan"
         Get-DockerInstallationStatus
     }
     
@@ -328,13 +369,13 @@ if ($Uninstall -or $CleanUninstall) {
 if ($Force) {
     $dockerInstalled = Test-Path "${env:ProgramFiles}\Docker\Docker\Docker Desktop.exe"
     if ($dockerInstalled) {
-        Write-Host "Force flag specified. Uninstalling existing Docker Desktop first..." -ForegroundColor Yellow
+        Write-UnlessQuiet "Force flag specified. Uninstalling existing Docker Desktop first..." "Yellow"
         $uninstallResult = Remove-DockerDesktop -KeepUserData -KeepWSLDistros -Silent  # Keep user data, silent mode for force reinstall
         if (-not $uninstallResult) {
             Write-Error "Failed to uninstall existing Docker Desktop"
             exit 1
         }
-        Write-Host "Existing installation removed. Proceeding with fresh installation..." -ForegroundColor Green
+        Write-Green "[OK] Existing installation removed. Proceeding with fresh installation..."
     }
 }
 
@@ -366,7 +407,11 @@ if ($EnableWSL2) {
 Write-VerboseMessage "Downloading Docker Desktop..." "Yellow"
 $dockerUrl = "https://desktop.docker.com/win/main/amd64/Docker Desktop Installer.exe"
 $dockerInstaller = "$env:TEMP\DockerDesktopInstaller.exe"
-Invoke-WebRequest -Uri $dockerUrl -OutFile $dockerInstaller -UseBasicParsing
+if ($Quiet) {
+    Invoke-WebRequest -Uri $dockerUrl -OutFile $dockerInstaller -UseBasicParsing
+} else {
+    Invoke-WebRequest -Uri $dockerUrl -OutFile $dockerInstaller -UseBasicParsing
+}
 
 $installArgs = @('install', '--quiet', '--accept-license', '--backend=wsl-2')
 if ($OrganizationName) {
@@ -419,7 +464,7 @@ try {
     
     # Write the configuration to the settings file
     $dockerConfig | ConvertTo-Json -Depth 10 | Set-Content $settingsPath -Encoding UTF8
-    Write-Host "Docker Desktop configuration applied" -ForegroundColor Green
+    Write-Green "[OK] Docker Desktop configuration applied"
 } catch {
     Write-Warning "Could not apply Docker Desktop configuration: $($_.Exception.Message)"
 }
@@ -432,7 +477,7 @@ if ($DisableAnalytics) {
             $settings = Get-Content $settingsPath -Raw | ConvertFrom-Json
             $settings | Add-Member -Type NoteProperty -Name analyticsEnabled -Value $false -Force
             $settings | ConvertTo-Json -Depth 10 | Set-Content $settingsPath
-            Write-Host "Analytics disabled" -ForegroundColor Green
+            Write-Green "[OK] Analytics disabled"
         } catch {
             Write-Warning "Could not disable analytics in settings file"
         }
@@ -440,7 +485,7 @@ if ($DisableAnalytics) {
 }
 
 # Stop Docker Desktop completely after installation
-Write-Host "`nStopping Docker Desktop to complete installation..." -ForegroundColor Yellow
+Write-UnlessQuiet "`nStopping Docker Desktop to complete installation..." "Yellow"
 
 # Stop all Docker-related processes
 $dockerProcesses = @(
@@ -455,7 +500,7 @@ $dockerProcesses = @(
 foreach ($processName in $dockerProcesses) {
     $processes = Get-Process -Name $processName -ErrorAction SilentlyContinue
     if ($processes) {
-        Write-Host "Stopping $processName..." -ForegroundColor Cyan
+        Write-VerboseMessage "Stopping $processName..." "Cyan"
         $processes | Stop-Process -Force -ErrorAction SilentlyContinue
     }
 }
@@ -463,7 +508,7 @@ foreach ($processName in $dockerProcesses) {
 # Stop Docker service if running
 $dockerService = Get-Service -Name "com.docker.service" -ErrorAction SilentlyContinue
 if ($dockerService -and $dockerService.Status -eq 'Running') {
-    Write-Host "Stopping Docker service..." -ForegroundColor Cyan
+    Write-VerboseMessage "Stopping Docker service..." "Cyan"
     Stop-Service -Name "com.docker.service" -Force -ErrorAction SilentlyContinue
 }
 
@@ -473,7 +518,7 @@ Start-Sleep -Seconds 3
 # Verify Docker is stopped
 $stillRunning = Get-Process -Name "Docker*" -ErrorAction SilentlyContinue
 if ($stillRunning) {
-    Write-Host "Force stopping remaining Docker processes..." -ForegroundColor Yellow
+    Write-VerboseMessage "Force stopping remaining Docker processes..." "Yellow"
     $stillRunning | Stop-Process -Force -ErrorAction SilentlyContinue
 }
 
@@ -481,11 +526,11 @@ Start-Sleep -Seconds 2
 
 # Update WSL if enabled
 if ($EnableWSL2) {
-    Write-Host "`nUpdating WSL..." -ForegroundColor Yellow
+    Write-UnlessQuiet "`nUpdating WSL..." "Yellow"
     try {
         $wslUpdateProcess = Start-Process -FilePath "wsl" -ArgumentList "--update" -Wait -PassThru -NoNewWindow
         if ($wslUpdateProcess.ExitCode -eq 0) {
-            Write-Host "WSL updated successfully" -ForegroundColor Green
+            Write-Green "[OK] WSL updated successfully"
         } else {
             Write-Warning "WSL update completed with exit code $($wslUpdateProcess.ExitCode)"
         }
@@ -494,8 +539,8 @@ if ($EnableWSL2) {
     }
 }
 
-Write-Host "`nInstallation and configuration complete!" -ForegroundColor Green
-Write-Host ""
+Write-Green "`n[OK] Installation and configuration complete!"
+Write-UnlessQuiet ""
 # Write-Host "Docker Desktop has been installed and configured." -ForegroundColor Green
 # Write-Host "Docker Desktop has been stopped and is NOT currently running." -ForegroundColor Cyan
 # Write-Host ""
@@ -505,15 +550,15 @@ Write-Host ""
 # Write-Host "3. Docker will be available in the system tray when running" -ForegroundColor White
 
 if ($EnableWSL2) {
-    Write-Host "3. Verify WSL2 integration by running: docker run hello-world" -ForegroundColor White
+    Write-Blue "3. Verify WSL2 integration by running: docker run hello-world"
     
     # Show current WSL status
-    Write-Host "`nCurrent WSL status:" -ForegroundColor Cyan
+    Write-UnlessQuiet "`nCurrent WSL status:" "Cyan"
     try {
         wsl --list --verbose
     } catch {
-        Write-Host "Could not retrieve WSL status. This is normal if WSL was just installed." -ForegroundColor Yellow
+        Write-UnlessQuiet "Could not retrieve WSL status. This is normal if WSL was just installed." "Yellow"
     }
 }
 
-Write-Host "`nTo uninstall Docker Desktop later, run this script with -Uninstall or -CleanUninstall" -ForegroundColor Cyan
+Write-Blue "`nTo uninstall Docker Desktop later, run this script with -Uninstall or -CleanUninstall"

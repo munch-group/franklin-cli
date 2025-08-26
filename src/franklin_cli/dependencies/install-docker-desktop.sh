@@ -25,6 +25,7 @@ STATUS_CHECK=false
 CONFIGURE_ONLY=false
 FORCE_INSTALL=false
 VERBOSE=false
+QUIET=false
 
 # Colors for output
 RED='\033[0;31m'
@@ -63,6 +64,10 @@ while [[ $# -gt 0 ]]; do
             VERBOSE=true
             shift
             ;;
+        --quiet|-quiet)
+            QUIET=true
+            shift
+            ;;
         -h|--help)
             echo "Usage: $0 [options]"
             echo "Options:"
@@ -72,6 +77,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --status          Show installation status"
             echo "  --configure-only  Only configure existing installation"
             echo "  --verbose         Show detailed logging information"
+            echo "  --quiet, -quiet   Show only blue and green colored output"
             echo "  -h, --help        Show this help"
             exit 0
             ;;
@@ -88,17 +94,36 @@ log() {
     fi
 }
 
-# Log errors always, even in non-verbose mode
+# Conditional echo - suppressed in quiet mode unless colored
+echo_unless_quiet() {
+    if [ "$QUIET" != true ]; then
+        echo "$@"
+    fi
+}
+
+# Always show green text even in quiet mode
+echo_green() {
+    echo -e "${GREEN}$@${NC}"
+}
+
+# Always show blue text even in quiet mode
+echo_blue() {
+    echo -e "${BLUE}$@${NC}"
+}
+
+# Log errors - suppressed in quiet mode
 log_error() {
-    echo "$1" | tee -a "$LOG_FILE"
+    if [ "$QUIET" != true ]; then
+        echo "$1" | tee -a "$LOG_FILE"
+    fi
 }
 
 check_requirements() {
     # Check OS type
     if [[ "$OSTYPE" != "darwin"* ]]; then
         log_error "This script is for macOS only. Detected OS: $OSTYPE"
-        echo "For Linux, please visit: https://docs.docker.com/engine/install/"
-        echo "For Windows, please use the PowerShell installer instead."
+        echo_unless_quiet "For Linux, please visit: https://docs.docker.com/engine/install/"
+        echo_unless_quiet "For Windows, please use the PowerShell installer instead."
         exit 1
     fi
     
@@ -124,7 +149,7 @@ check_requirements() {
 }
 
 get_installation_status() {
-    echo "=== Docker Desktop Installation Status ==="
+    echo_unless_quiet "=== Docker Desktop Installation Status ==="
     
     # Check if Docker Desktop is installed
     local docker_app="/Applications/Docker.app"
@@ -132,63 +157,63 @@ get_installation_status() {
     
     if [[ -d "$docker_app" ]]; then
         docker_installed=true
-        echo "Docker Desktop: Installed"
+        echo_green "[OK] Docker Desktop: Installed"
         
         # Get version info
         local version_plist="$docker_app/Contents/Info.plist"
         if [[ -f "$version_plist" ]]; then
             local version=$(defaults read "$version_plist" CFBundleShortVersionString 2>/dev/null || echo "Unknown")
-            echo "   Version: $version"
+            echo_unless_quiet "   Version: $version"
         fi
     else
-        echo "Docker Desktop: Not installed"
+        echo_unless_quiet "[FAILED] Docker Desktop: Not installed"
     fi
     
     # Check if Docker is running
     if pgrep -x "Docker Desktop" > /dev/null; then
-        echo "Docker Desktop: Running"
+        echo_green "[OK] Docker Desktop: Running"
     else
-        echo "Docker Desktop: Not running"
+        echo_unless_quiet "[WARNING] Docker Desktop: Not running"
     fi
     
     # Check Docker daemon
     if command -v docker &> /dev/null; then
         if docker info &>/dev/null; then
-            echo "Docker Daemon: Running"
+            echo_green "[OK] Docker Daemon: Running"
         else
-            echo "Docker Daemon: Not accessible"
+            echo_unless_quiet "[WARNING] Docker Daemon: Not accessible"
         fi
     else
-        echo "Docker CLI: Not found"
+        echo_unless_quiet "[FAILED] Docker CLI: Not found"
     fi
     
     # Check privileged helper
     local helper_plist="/Library/LaunchDaemons/com.docker.vmnetd.plist"
     if [[ -f "$helper_plist" ]]; then
-        echo "Privileged Helper: Installed"
+        echo_green "[OK] Privileged Helper: Installed"
         if launchctl list | grep -q com.docker.vmnetd; then
-            echo "   Status: Running"
+            echo_unless_quiet "   Status: Running"
         else
-            echo "   Status: Not running"
+            echo_unless_quiet "   Status: Not running"
         fi
     else
-        echo "Privileged Helper: Not installed"
+        echo_unless_quiet "[FAILED] Privileged Helper: Not installed"
     fi
     
     # Check configuration files
-    echo ""
-    echo "Configuration Files:"
+    echo_unless_quiet ""
+    echo_unless_quiet "Configuration Files:"
     if [[ -f "$DOCKER_SETTINGS_FILE" ]]; then
-        echo "Settings file: $DOCKER_SETTINGS_FILE"
+        echo_green "[OK] Settings file: $DOCKER_SETTINGS_FILE"
         local size=$(stat -f%z "$DOCKER_SETTINGS_FILE" 2>/dev/null || echo "0")
-        echo "   Size: $size bytes"
+        echo_unless_quiet "   Size: $size bytes"
     else
-        echo "Settings file: Not found"
+        echo_unless_quiet "[FAILED] Settings file: Not found"
     fi
     
     # Check data usage
-    echo ""
-    echo "Data Usage:"
+    echo_unless_quiet ""
+    echo_unless_quiet "Data Usage:"
     local data_paths=(
         "$DOCKER_SETTINGS_DIR"
         "$HOME/.docker"
@@ -198,9 +223,9 @@ get_installation_status() {
     for path in "${data_paths[@]}"; do
         if [[ -d "$path" ]]; then
             local size=$(du -sh "$path" 2>/dev/null | cut -f1 || echo "Unknown")
-            echo "$path: $size"
+            echo_green "[OK] $path: $size"
         else
-            echo "$path: Not found"
+            echo_unless_quiet "[FAILED] $path: Not found"
         fi
     done
     
@@ -208,9 +233,9 @@ get_installation_status() {
     local vm_disk="$DOCKER_SETTINGS_DIR/Data/vms/0/data/Docker.raw"
     if [[ -f "$vm_disk" ]]; then
         local vm_size=$(du -sh "$vm_disk" 2>/dev/null | cut -f1 || echo "Unknown")
-        echo "VM Disk: $vm_size"
+        echo_green "[OK] VM Disk: $vm_size"
     else
-        echo "VM Disk: Not found"
+        echo_unless_quiet "[FAILED] VM Disk: Not found"
     fi
 }
 
@@ -243,7 +268,7 @@ uninstall_docker_desktop() {
     if [[ -d "$docker_app" ]]; then
         log "Removing Docker Desktop application..."
         sudo rm -rf "$docker_app"
-        echo "Removed: $docker_app"
+        echo_green "[OK] Removed: $docker_app"
     fi
     
     # Remove privileged helper
@@ -253,15 +278,15 @@ uninstall_docker_desktop() {
         
         # Prompt for password with clear message (unless in silent mode)
         if [[ "$silent_mode" != "true" ]]; then
-            echo
-            echo -e "${GREEN}Type your user password and press enter:${NC}"
+            echo_unless_quiet
+            echo_green "Type your user password and press enter:"
         fi
         sudo -v  # Pre-authenticate sudo to cache credentials
         
         sudo launchctl unload "$helper_plist" 2>/dev/null || true
         sudo rm -f "$helper_plist"
         sudo rm -f "/Library/PrivilegedHelperTools/com.docker.vmnetd"
-        echo "Removed privileged helper"
+        echo_green "[OK] Removed privileged helper"
     fi
     
     # Remove symlinks
@@ -277,7 +302,7 @@ uninstall_docker_desktop() {
     for symlink in "${symlinks[@]}"; do
         if [[ -L "$symlink" ]]; then
             sudo rm -f "$symlink"
-            echo "Removed symlink: $symlink"
+            echo_green "[OK] Removed symlink: $symlink"
         fi
     done
     
@@ -300,7 +325,7 @@ uninstall_docker_desktop() {
         for path in "${user_paths[@]}"; do
             if [[ -e "$path" ]]; then
                 rm -rf "$path"
-                echo "Removed: $path"
+                echo_green "[OK] Removed: $path"
             fi
         done
     else
@@ -318,7 +343,7 @@ uninstall_docker_desktop() {
     for path in "${system_paths[@]}"; do
         if [[ -e "$path" ]]; then
             sudo rm -rf "$path" 2>/dev/null || true
-            echo "Removed: $path"
+            echo_green "[OK] Removed: $path"
         fi
     done
     
@@ -333,20 +358,20 @@ uninstall_docker_desktop() {
     sudo ifconfig bridge0 down 2>/dev/null || true
     
     log "Docker Desktop uninstallation completed!"
-    echo ""
-    echo "Uninstallation Summary:"
-    echo "Docker Desktop application removed"
-    echo "Privileged helper removed"
-    echo "System symlinks removed"
+    echo_unless_quiet ""
+    echo_unless_quiet "Uninstallation Summary:"
+    echo_green "[OK] Docker Desktop application removed"
+    echo_green "[OK] Privileged helper removed"
+    echo_green "[OK] System symlinks removed"
     
     if [[ "$keep_user_data" != "true" ]]; then
-        echo "User data removed"
+        echo_green "[OK] User data removed"
     else
-        echo "User data preserved"
+        echo_unless_quiet "[WARNING] User data preserved"
     fi
     
-    echo ""
-    echo "You may want to restart your Mac to ensure all resources are cleaned up."
+    echo_unless_quiet ""
+    echo_blue "You may want to restart your Mac to ensure all resources are cleaned up."
 }
 
 install_via_dmg() {
@@ -358,13 +383,17 @@ install_via_dmg() {
     fi
     
     log "Downloading Docker Desktop for $ARCH"
-    curl -L -o /tmp/Docker.dmg "$DOWNLOAD_URL"
+    if [ "$QUIET" = true ]; then
+        curl -L -s -o /tmp/Docker.dmg "$DOWNLOAD_URL"
+    else
+        curl -L -o /tmp/Docker.dmg "$DOWNLOAD_URL"
+    fi
     
     log "Installing Docker Desktop"
     
     # Prompt for password with clear message
-    echo
-    echo -e "\033[0;32mUser Password:\033[0m"
+    echo_unless_quiet
+    echo_green "User Password:"
     sudo -v  # Pre-authenticate sudo to cache credentials
     
     sudo hdiutil attach /tmp/Docker.dmg -nobrowse
@@ -511,36 +540,41 @@ main() {
     fi
     
     if [[ "$UNINSTALL" == "true" ]] || [[ "$CLEAN_UNINSTALL" == "true" ]]; then
-        echo "Docker Desktop Uninstallation"
-        echo "=============================="
-        echo ""
+        echo_unless_quiet "Docker Desktop Uninstallation"
+        echo_unless_quiet "=============================="
+        echo_unless_quiet ""
         
         # Show current status
         get_installation_status
-        echo ""
+        echo_unless_quiet ""
         
         local keep_data="true"
         if [[ "$CLEAN_UNINSTALL" == "true" ]]; then
             keep_data="false"
-            echo "CLEAN UNINSTALL: This will remove ALL Docker data including:"
-            echo "   - Container images and volumes"
-            echo "   - Docker settings and configuration"
-            echo "   - All user data and preferences"
+            echo_unless_quiet "[WARNING] CLEAN UNINSTALL: This will remove ALL Docker data including:"
+            echo_unless_quiet "   - Container images and volumes"
+            echo_unless_quiet "   - Docker settings and configuration"
+            echo_unless_quiet "   - All user data and preferences"
         else
-            echo "Standard uninstall: Docker Desktop will be removed but user data preserved"
+            echo_blue "Standard uninstall: Docker Desktop will be removed but user data preserved"
         fi
         
-        echo ""
-        read -p "Proceed with uninstallation? (yes/no): " confirm
+        echo_unless_quiet ""
+        if [ "$QUIET" = true ]; then
+            echo_blue "Proceed with uninstallation? (yes/no): "
+            read confirm
+        else
+            read -p "Proceed with uninstallation? (yes/no): " confirm
+        fi
         if [[ "$confirm" != "yes" ]]; then
-            echo "Uninstallation cancelled"
+            echo_unless_quiet "Uninstallation cancelled"
             exit 0
         fi
         
         uninstall_docker_desktop "$keep_data" "false"
         
-        echo ""
-        echo "Final status:"
+        echo_unless_quiet ""
+        echo_unless_quiet "Final status:"
         get_installation_status
         exit 0
     fi
