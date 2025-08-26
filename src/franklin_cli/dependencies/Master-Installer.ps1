@@ -56,7 +56,8 @@ param(
     [switch]$Force,
     [switch]$ContinueOnError,
     [switch]$DryRun,
-    [switch]$Yes
+    [switch]$Yes,
+    [switch]$Quiet
 )
 
 # # Set default for ScriptPath if not provided
@@ -87,48 +88,56 @@ $InstallerScripts = @{
     Chrome = "Install-Chrome.ps1"
 }
 
+# Conditional write - suppressed in quiet mode unless colored
+function Write-UnlessQuiet {
+    param([string]$Message, [string]$Color = "White")
+    if (-not $Quiet) {
+        Write-Host  $Message -ForegroundColor $Color
+    }
+}
+
 # Logging functions
 function Write-Info {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "$Message" #-ForegroundColor Blue
+    Write-UnlessQuiet  "$Message" #-ForegroundColor Blue
     $Script:ExecutionLog += " $Message"
 }
 
 function Write-Success {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "$Message" #-ForegroundColor Blue
+    Write-UnlessQuiet  "$Message" #-ForegroundColor Blue
     $Script:ExecutionLog += "$Message"
 }
 
 function Write-Warning {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "$Message" -ForegroundColor Yellow
+    Write-UnlessQuiet  "$Message" Yellow
     $Script:ExecutionLog += "$Message"
 }
 
 function Write-Error {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "$Message" -ForegroundColor Red
+    Write-UnlessQuiet  "$Message" Red
     $Script:ExecutionLog += "$Message"
 }
 
 function Write-Header {
     param([string]$Message)
-    Write-Host ""
-    # Write-Host ("=" * 60) -ForegroundColor Blue # Cyan
-    Write-Host "  $Message" -ForegroundColor Blue # Cyan
-    Write-Host ("=" * 60) -ForegroundColor Blue # Cyan
+    Write-UnlessQuiet  ""
+    # Write-UnlessQuiet  ("=" * 60) Blue # Cyan
+    Write-UnlessQuiet  "  $Message" Blue # Cyan
+    Write-UnlessQuiet  ("=" * 60) Blue # Cyan
 }
 
 function Write-StepHeader {
     param([string]$Step, [string]$Description)
-    Write-Host ""
-    Write-Host ">>> STEP ${Step}: $Description" -ForegroundColor Blue # Magenta
-    Write-Host ("-" * 50) -ForegroundColor Gray
+    Write-UnlessQuiet  ""
+    Write-UnlessQuiet  ">>> STEP ${Step}: $Description" Blue # Magenta
+    Write-UnlessQuiet  ("-" * 50) Gray
 }
 
 function Test-ScriptExists {
@@ -179,6 +188,9 @@ function Invoke-InstallerScript {
         }
         if ($VerbosePreference -eq 'Continue') {
             $argList += "-Verbose"
+        }
+        if ($Quiet) {
+            $argList += "-Quiet"
         }
         $argList += $Arguments
         
@@ -303,12 +315,12 @@ function Install-DockerDesktop {
     # Docker requires administrator privileges - provide clear prompt
     $isAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
     if (-not $isAdmin) {
-        Write-Host ""
-        Write-Host "Docker Desktop requires Administrator privileges" -ForegroundColor Green
-        Write-Host ""
-        # Write-Host "User Password:" -ForegroundColor Green
-        Write-Host "When prompted, please allow the app to make changes to your device..." -ForegroundColor Green
-        Write-Host ""
+        Write-UnlessQuiet  ""
+        Write-UnlessQuiet  "Docker Desktop requires Administrator privileges" Green
+        Write-UnlessQuiet  ""
+        # Write-UnlessQuiet  "User Password:" Green
+        Write-UnlessQuiet  "When prompted, please allow the app to make changes to your device..." Green
+        Write-UnlessQuiet  ""
     }
 
     $Script:RestartRequired = 1
@@ -470,7 +482,7 @@ function Show-InstallationPlan {
     .SYNOPSIS
         Display the installation plan to the user
     #>
-    Write-Host "Installation Plan:"
+    Write-UnlessQuiet  "Installation Plan:"
     
     $steps = @()
     # Miniforge removed - Pixi handles Python environments
@@ -480,10 +492,10 @@ function Show-InstallationPlan {
     if (-not $SkipFranklin) { $steps += "4. Franklin (via pixi global)" }
     
     foreach ($step in $steps) {
-        Write-Host "  $step" -ForegroundColor White
+        Write-UnlessQuiet  "  $step" White
     }
     
-    # Write-Host ""
+    # Write-UnlessQuiet  ""
     # Write-Info "Script directory: $ScriptPath"
     # Write-Info "Force reinstall: $Force"
     # Write-Info "Continue on error: $ContinueOnError"
@@ -494,7 +506,7 @@ function Show-InstallationPlan {
 
     # if (-not $Force -and -not $Yes) {
     if (-not $Yes) {
-        Write-Host ""
+        Write-UnlessQuiet  ""
         $confirm = Read-Host "Do you want to proceed with the installation? (y/N)"
         if ($confirm -notmatch '^[Yy]$') {
             Write-Info "Installation cancelled by user."
@@ -508,23 +520,23 @@ function Show-InstallationSummary {
     .SYNOPSIS
         Display installation summary and results
     #>
-    # Write-Host "Summary:" -ForegroundColor Blue
+    # Write-UnlessQuiet  "Summary:" Blue
     
     if ($Script:SuccessfulInstallations -and $Script:SuccessfulInstallations.Count -gt 0) {
-        Write-Host "Installation status:"  -ForegroundColor Blue
+        Write-UnlessQuiet  "Installation status:"  Blue
         foreach ($item in $Script:SuccessfulInstallations) {
-            Write-Host "  $item" -ForegroundColor Blue
+            Write-UnlessQuiet  "  $item" Blue
         }
     }
     
     if ($Script:FailedInstallations -and $Script:FailedInstallations.Count -gt 0) {
         Write-Warning "Failed installations:"
         foreach ($item in $Script:FailedInstallations) {
-            Write-Host "  $item" -ForegroundColor Red
+            Write-UnlessQuiet  "  $item" Red
         }
     }
     
-    Write-Host ""
+    Write-UnlessQuiet  ""
     if (-not $Script:FailedInstallations -or $Script:FailedInstallations.Count -eq 0) {
         Write-Success "All installations completed successfully!"
         Write-Info "Your development environment is ready to use."
@@ -534,7 +546,7 @@ function Show-InstallationSummary {
     }
 
     # # Show next steps
-    # Write-Host ""
+    # Write-UnlessQuiet  ""
     # Write-Info "NEXT STEPS:"
     # Write-Info "1. Restart your PowerShell session to refresh environment variables"
     # Write-Info "2. Verify installations:"
@@ -603,9 +615,9 @@ function Start-MasterInstallation {
             Write-Success "Master installation completed successfully!"
 
             if ($Script:RestartRequired) {
-                Write-Host ""
-                Write-Host "  YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS" -ForegroundColor Yellow
-                Write-Host ""
+                Write-UnlessQuiet  ""
+                Write-UnlessQuiet  "  YOU MUST NOW RESTART YOUR COMPUTER TO ACTIVATE INSTALLED COMPONENTS" Yellow
+                Write-UnlessQuiet  ""
             }
             
 
@@ -626,8 +638,8 @@ function Start-MasterInstallation {
 }
 
 # # Script entry point
-# Write-Host "Master Development Environment Installer" -ForegroundColor Blue
-# Write-Host "=========================================" -ForegroundColor Blue
+# Write-UnlessQuiet  "Master Development Environment Installer" Blue
+# Write-UnlessQuiet  "=========================================" Blue
 
 # Validate script path parameter
 if (-not (Test-Path $ScriptPath)) {
