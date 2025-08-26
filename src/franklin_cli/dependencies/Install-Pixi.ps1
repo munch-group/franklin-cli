@@ -53,9 +53,7 @@ param(
     [ValidateSet("Auto", "Curl", "Cargo", "Binary")]
     [string]$Method = "Auto",
     
-    [switch]$Force,
-    
-    [switch]$Verbose
+    [switch]$Force
 )
 
 # Configuration
@@ -65,21 +63,21 @@ $ProgressPreference = "SilentlyContinue"
 # Logging functions
 function Write-Info {
     param([string]$Message)
-    if ($Verbose) {
+    if ($VerbosePreference -eq 'Continue') {
         Write-Host "[INFO] $Message" -ForegroundColor Blue
     }
 }
 
 function Write-Success {
     param([string]$Message)
-    if ($Verbose) {
+    if ($VerbosePreference -eq 'Continue') {
         Write-Host "[SUCCESS] $Message" -ForegroundColor Green
     }
 }
 
 function Write-Warning {
     param([string]$Message)
-    if ($Verbose) {
+    if ($VerbosePreference -eq 'Continue') {
         Write-Host "[WARNING] $Message" -ForegroundColor Yellow
     } else {
         # Always show warnings even in non-verbose mode
@@ -95,7 +93,7 @@ function Write-Error {
 
 function Write-Header {
     param([string]$Message)
-    if ($Verbose) {
+    if ($VerbosePreference -eq 'Continue') {
         Write-Host $Message -ForegroundColor Cyan
     }
 }

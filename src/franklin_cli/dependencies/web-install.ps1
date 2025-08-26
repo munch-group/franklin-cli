@@ -64,7 +64,6 @@ param(
     [switch]$DryRun,
     [switch]$Yes,
     [switch]$Help,
-    [switch]$Verbose
 )
 
 $ErrorActionPreference = 'Stop'
@@ -378,7 +377,7 @@ function Build-Arguments {
     if ($SkipChrome) { $installArgs['SkipChrome'] = $true }
     if ($SkipFranklin) { $installArgs['SkipFranklin'] = $true }
     if ($Force) { $installArgs['Force'] = $true }
-    if ($Verbose) { $installArgs['Verbose'] = $true }
+    if ($VerbosePreference -eq 'Continue') { $installArgs['Verbose'] = $true }
     
     return $installArgs
 }
