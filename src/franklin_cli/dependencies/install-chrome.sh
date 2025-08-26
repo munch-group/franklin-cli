@@ -29,6 +29,7 @@ ENTERPRISE_MODE=false
 HOMEPAGE_URL=""
 FORCE_INSTALL=false
 VERBOSE=false
+QUIET=false
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -73,6 +74,10 @@ while [[ $# -gt 0 ]]; do
             VERBOSE=true
             shift
             ;;
+        --quiet)
+            QUIET=true
+            shift
+            ;;
         -h|--help)
             echo "Usage: $0 [options]"
             echo "Options:"
@@ -86,6 +91,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --homepage URL    Set custom homepage"
             echo "  --force           Force reinstall even if already installed"
             echo "  --verbose         Show detailed logging information"
+            echo "  --quiet           Show only essential colored output"
             echo "  -h, --help        Show this help"
             exit 0
             ;;
@@ -97,7 +103,11 @@ while [[ $# -gt 0 ]]; do
 done
 
 log() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+    if [ "$QUIET" != true ]; then
+        echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+    else
+        echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" >> "$LOG_FILE"
+    fi
 }
 
 # Log errors always, even in non-verbose mode

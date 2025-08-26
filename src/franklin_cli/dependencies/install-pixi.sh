@@ -13,6 +13,7 @@ BINARY_DIR="$HOME/.local/bin"
 FORCE_INSTALL=false
 INSTALL_METHOD="auto"  # auto, curl, cargo, binary
 VERBOSE=false
+QUIET=false
 
 # Colors for output
 RED='\033[0;31m'
@@ -213,32 +214,41 @@ check_and_fix_sourcing() {
 log_info() {
     if [ "$VERBOSE" = true ]; then
         echo -e "${BLUE}[INFO]${NC} $1"
+    elif [ "$QUIET" != true ]; then
+        echo "$1"
     fi
 }
 
 log_success() {
-    if [ "$VERBOSE" = true ]; then
+    if [ "$QUIET" != true ]; then
         echo -e "${GREEN}[SUCCESS]${NC} $1"
     fi
 }
 
 log_warning() {
-    if [ "$VERBOSE" = true ]; then
-        echo -e "${YELLOW}[WARNING]${NC} $1"
-    else
-        # Always show warnings even in non-verbose mode
-        echo -e "${YELLOW}Warning:${NC} $1"
+    if [ "$QUIET" != true ]; then
+        if [ "$VERBOSE" = true ]; then
+            echo -e "${YELLOW}[WARNING]${NC} $1"
+        else
+            echo -e "${YELLOW}Warning:${NC} $1"
+        fi
     fi
 }
 
 log_error() {
-    # Always show errors regardless of verbose mode
-    echo -e "${RED}[ERROR]${NC} $1"
+    # Show errors unless in quiet mode
+    if [ "$QUIET" != true ]; then
+        echo -e "${RED}[ERROR]${NC} $1"
+    fi
 }
 
 log_header() {
-    if [ "$VERBOSE" = true ]; then
-        echo -e "${CYAN}$1${NC}"
+    if [ "$QUIET" != true ]; then
+        if [ "$VERBOSE" = true ]; then
+            echo -e "${CYAN}$1${NC}"
+        else
+            echo "$1"
+        fi
     fi
 }
 
@@ -780,6 +790,7 @@ Options:
     -m, --method METHOD    Installation method: auto, curl, cargo, binary (default: auto)
     -f, --force            Force installation even if already installed
     --verbose              Show detailed logging information
+    --quiet                Show only essential colored output
     -h, --help             Show this help message
 
 Examples:
@@ -830,6 +841,10 @@ parse_arguments() {
                 ;;
             --verbose)
                 VERBOSE=true
+                shift
+                ;;
+            --quiet)
+                QUIET=true
                 shift
                 ;;
             -h|--help)

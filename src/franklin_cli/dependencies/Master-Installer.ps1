@@ -56,7 +56,8 @@ param(
     [switch]$Force,
     [switch]$ContinueOnError,
     [switch]$DryRun,
-    [switch]$Yes
+    [switch]$Yes,
+    [switch]$Quiet
 )
 
 # # Set default for ScriptPath if not provided
@@ -179,6 +180,9 @@ function Invoke-InstallerScript {
         }
         if ($VerbosePreference -eq 'Continue') {
             $argList += "-Verbose"
+        }
+        if ($Quiet) {
+            $argList += "-Quiet"
         }
         $argList += $Arguments
         

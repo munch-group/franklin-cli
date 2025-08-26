@@ -9,7 +9,8 @@ param(
     [switch]$Uninstall = $false,
     [switch]$CleanUninstall = $false,
     [switch]$StatusCheck = $false,
-    [switch]$Force = $false
+    [switch]$Force = $false,
+    [switch]$Quiet = $false
 )
 
 # Verify administrator privileges
@@ -33,6 +34,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     if ($CleanUninstall) { $arguments += "-CleanUninstall" }
     if ($StatusCheck) { $arguments += "-StatusCheck" }
     if ($Force) { $arguments += "-Force" }
+    if ($Quiet) { $arguments += "-Quiet" }
     if ($PSCmdlet.MyInvocation.BoundParameters.ContainsKey('Verbose')) { $arguments += "-Verbose" }
     
     Start-Process PowerShell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $($arguments -join ' ')" -Wait

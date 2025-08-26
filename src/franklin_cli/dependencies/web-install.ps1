@@ -63,6 +63,7 @@ param(
     [switch]$Force,
     [switch]$DryRun,
     [switch]$Yes,
+    [switch]$Quiet,
     [switch]$Help
 )
 
@@ -377,6 +378,7 @@ function Build-Arguments {
     if ($SkipChrome) { $installArgs['SkipChrome'] = $true }
     if ($SkipFranklin) { $installArgs['SkipFranklin'] = $true }
     if ($Force) { $installArgs['Force'] = $true }
+    if ($Quiet) { $installArgs['Quiet'] = $true }
     if ($VerbosePreference -eq 'Continue') { $installArgs['Verbose'] = $true }
     
     return $installArgs

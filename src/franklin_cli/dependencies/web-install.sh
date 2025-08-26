@@ -66,6 +66,7 @@ show_help() {
     echo "  --skip-franklin   Skip Franklin installation"
     echo "  --force           Force reinstall all components"
     echo "  --yes             Bypass confirmation prompts"
+    echo "  --quiet           Show only essential colored output"
     echo "  --dry-run         Show what would be installed without doing it"
     echo "  --help            Show this help message"
     echo ""

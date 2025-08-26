@@ -21,6 +21,7 @@ FORCE_DOCKER=false
 FORCE_CHROME=false
 FORCE_FRANKLIN=false
 VERBOSE=false
+QUIET=false
 CONTINUE_ON_ERROR=false
 DRY_RUN=false
 YES_FLAG=false  # Auto-accept all confirmations
@@ -166,6 +167,13 @@ invoke_installer_script() {
             args="$args --verbose"
         else
             args="--verbose"
+        fi
+    fi
+    if [ "$QUIET" = true ]; then
+        if [ -n "$args" ]; then
+            args="$args --quiet"
+        else
+            args="--quiet"
         fi
     fi
     
@@ -737,6 +745,7 @@ Options:
     -y, --yes              Bypass all user confirmations (auto-accept)
     --role ROLE           Set user role: student, educator, or administrator (default: student)
     --verbose              Show detailed logging information
+    --quiet                Show only essential colored output
 
 Examples:
     ./master-installer.sh                          # Install all components
@@ -800,6 +809,10 @@ parse_arguments() {
                 ;;
             --verbose)
                 VERBOSE=true
+                shift
+                ;;
+            --quiet)
+                QUIET=true
                 shift
                 ;;
             # --force-miniforge) # Removed - using Pixi

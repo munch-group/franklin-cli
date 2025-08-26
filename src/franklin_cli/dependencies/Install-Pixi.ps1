@@ -53,7 +53,9 @@ param(
     [ValidateSet("Auto", "Curl", "Cargo", "Binary")]
     [string]$Method = "Auto",
     
-    [switch]$Force
+    [switch]$Force,
+    
+    [switch]$Quiet
 )
 
 # Configuration
@@ -65,36 +67,45 @@ function Write-Info {
     param([string]$Message)
     if ($VerbosePreference -eq 'Continue') {
         Write-Host "$Message" -ForegroundColor Blue
+    } elseif (-not $Quiet) {
+        Write-Host "$Message"
     }
 }
 
 function Write-Success {
     param([string]$Message)
-    if ($VerbosePreference -eq 'Continue') {
+    if (-not $Quiet) {
         Write-Host "$Message" -ForegroundColor Green
     }
 }
 
 function Write-Warning {
     param([string]$Message)
-    if ($VerbosePreference -eq 'Continue') {
-        Write-Host "$Message" -ForegroundColor Yellow
-    } else {
-        # Always show warnings even in non-verbose mode
-        Write-Host "Warning: $Message" -ForegroundColor Yellow
+    if (-not $Quiet) {
+        if ($VerbosePreference -eq 'Continue') {
+            Write-Host "$Message" -ForegroundColor Yellow
+        } else {
+            Write-Host "Warning: $Message" -ForegroundColor Yellow
+        }
     }
 }
 
 function Write-Error {
     param([string]$Message)
-    # Always show errors regardless of verbose mode
-    Write-Host "$Message" -ForegroundColor Red
+    # Show errors unless in quiet mode
+    if (-not $Quiet) {
+        Write-Host "$Message" -ForegroundColor Red
+    }
 }
 
 function Write-Header {
     param([string]$Message)
-    if ($VerbosePreference -eq 'Continue') {
-        Write-Host $Message -ForegroundColor Cyan
+    if (-not $Quiet) {
+        if ($VerbosePreference -eq 'Continue') {
+            Write-Host $Message -ForegroundColor Cyan
+        } else {
+            Write-Host $Message
+        }
     }
 }
 
