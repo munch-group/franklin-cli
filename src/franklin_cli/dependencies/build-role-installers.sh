@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 #
 # Build role-specific installer scripts
 # This script creates simplified installers with hardcoded roles
