@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set -euo pipefail
 
 # Early OS check - this script is for macOS only
@@ -241,7 +242,7 @@ uninstall_docker_desktop() {
     local docker_app="/Applications/Docker.app"
     if [[ -d "$docker_app" ]]; then
         log "Removing Docker Desktop application..."
-        rm -rf "$docker_app"
+        sudo rm -rf "$docker_app"
         echo "[OK] Removed: $docker_app"
     fi
     
