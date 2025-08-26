@@ -20,12 +20,30 @@ BLUE='\033[0;34m'
 BOLD='\033[1m'
 NC='\033[0m' # No Color
 
+QUIET=false
+
 # Logging
 # log_info() { echo -e "${GREEN}[INFO]${NC} $*"; }
-log_info() { echo -e "[INFO] $*"; }
-log_warn() { echo -e "${YELLOW}[WARN]${NC} $*"; }
-log_error() { echo -e "${RED}[ERROR]${NC} $*" >&2; }
-log_step() { echo -e "${BLUE}[STEP]${NC} $*"; }
+log_info() { 
+    if [ "$QUIET" != true ]; then
+        echo -e "$*"; 
+    fi
+}
+log_warn() { 
+    if [ "$QUIET" != true ]; then
+        echo -e "${YELLOW}$*${NC}"; 
+    fi
+}
+log_error() {
+    if [ "$QUIET" != true ]; then
+        echo -e "${RED}$*${NC}" >&2; 
+    fi        
+}
+log_step() { 
+    if [ "$QUIET" != true ]; then
+        echo -e "${BLUE}$*${NC}";
+    fi
+}
 
 # Configuration
 REPO_ORG="${FRANKLIN_REPO_ORG:-munch-group}"
@@ -177,6 +195,15 @@ main() {
     # Parse arguments
     local args=("$@")
     
+    for arg in "$@"; do
+        case $arg in
+            --quiet|-h)
+                QUIET=true
+                ;;
+        esac
+    done
+
+
     # for arg in "$@"; do
     #     case $arg in
     #         --help|-h)
