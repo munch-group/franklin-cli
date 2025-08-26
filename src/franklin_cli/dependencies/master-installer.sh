@@ -20,6 +20,7 @@ FORCE_PIXI=false
 FORCE_DOCKER=false
 FORCE_CHROME=false
 FORCE_FRANKLIN=false
+VERBOSE=false
 CONTINUE_ON_ERROR=false
 DRY_RUN=false
 YES_FLAG=false  # Auto-accept all confirmations
@@ -159,6 +160,13 @@ invoke_installer_script() {
     local args=""
     if [ "$FORCE_INSTALL" = true ]; then
         args="--force"
+    fi
+    if [ "$VERBOSE" = true ]; then
+        if [ -n "$args" ]; then
+            args="$args --verbose"
+        else
+            args="--verbose"
+        fi
     fi
     
     # Add additional arguments
@@ -728,6 +736,7 @@ Options:
     -c, --continue-on-error Continue with remaining installations if one fails
     -y, --yes              Bypass all user confirmations (auto-accept)
     --role ROLE           Set user role: student, educator, or administrator (default: student)
+    --verbose              Show detailed logging information
 
 Examples:
     ./master-installer.sh                          # Install all components
@@ -787,6 +796,10 @@ parse_arguments() {
                 ;;
             -f|--force)
                 FORCE_INSTALL=true
+                shift
+                ;;
+            --verbose)
+                VERBOSE=true
                 shift
                 ;;
             # --force-miniforge) # Removed - using Pixi

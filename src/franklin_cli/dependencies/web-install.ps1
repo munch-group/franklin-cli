@@ -30,6 +30,9 @@
 .PARAMETER Yes
 Auto confirm prompts
 
+.PARAMETER Verbose
+Show detailed logging information
+
 .EXAMPLE
     # RECOMMENDED - Most compatible method using WebClient
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/munch-group/franklin-cli/main/src/franklin_cli/dependencies/web-install.ps1') | iex
@@ -60,7 +63,8 @@ param(
     [switch]$Force,
     [switch]$DryRun,
     [switch]$Yes,
-    [switch]$Help
+    [switch]$Help,
+    [switch]$Verbose
 )
 
 $ErrorActionPreference = 'Stop'
@@ -374,6 +378,7 @@ function Build-Arguments {
     if ($SkipChrome) { $installArgs['SkipChrome'] = $true }
     if ($SkipFranklin) { $installArgs['SkipFranklin'] = $true }
     if ($Force) { $installArgs['Force'] = $true }
+    if ($Verbose) { $installArgs['Verbose'] = $true }
     
     return $installArgs
 }

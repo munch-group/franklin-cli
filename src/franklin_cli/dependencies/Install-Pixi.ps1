@@ -53,7 +53,9 @@ param(
     [ValidateSet("Auto", "Curl", "Cargo", "Binary")]
     [string]$Method = "Auto",
     
-    [switch]$Force
+    [switch]$Force,
+    
+    [switch]$Verbose
 )
 
 # Configuration
@@ -63,27 +65,39 @@ $ProgressPreference = "SilentlyContinue"
 # Logging functions
 function Write-Info {
     param([string]$Message)
-    Write-Host "[INFO] $Message" -ForegroundColor Blue
+    if ($Verbose) {
+        Write-Host "[INFO] $Message" -ForegroundColor Blue
+    }
 }
 
 function Write-Success {
     param([string]$Message)
-    Write-Host "[SUCCESS] $Message" -ForegroundColor Green
+    if ($Verbose) {
+        Write-Host "[SUCCESS] $Message" -ForegroundColor Green
+    }
 }
 
 function Write-Warning {
     param([string]$Message)
-    Write-Host "[WARNING] $Message" -ForegroundColor Yellow
+    if ($Verbose) {
+        Write-Host "[WARNING] $Message" -ForegroundColor Yellow
+    } else {
+        # Always show warnings even in non-verbose mode
+        Write-Host "Warning: $Message" -ForegroundColor Yellow
+    }
 }
 
 function Write-Error {
     param([string]$Message)
+    # Always show errors regardless of verbose mode
     Write-Host "[ERROR] $Message" -ForegroundColor Red
 }
 
 function Write-Header {
     param([string]$Message)
-    Write-Host $Message -ForegroundColor Cyan
+    if ($Verbose) {
+        Write-Host $Message -ForegroundColor Cyan
+    }
 }
 
 function Test-CommandExists {
@@ -742,6 +756,7 @@ Parameters:
     -BinDir <PATH>                     Binary directory (default: $env:USERPROFILE\.local\bin)
     -Method <Auto|Curl|Cargo|Binary>   Installation method (default: Auto)
     -Force                             Force installation even if already installed
+    -Verbose                           Show detailed logging information
 
 Examples:
     .\Install-Pixi.ps1                                    # Install with default settings

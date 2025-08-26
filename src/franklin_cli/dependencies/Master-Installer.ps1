@@ -56,7 +56,8 @@ param(
     [switch]$Force,
     [switch]$ContinueOnError,
     [switch]$DryRun,
-    [switch]$Yes
+    [switch]$Yes,
+    [switch]$Verbose
 )
 
 # # Set default for ScriptPath if not provided
@@ -176,6 +177,9 @@ function Invoke-InstallerScript {
         $argList = @()
         if ($Force) {
             $argList += "-Force"
+        }
+        if ($Verbose) {
+            $argList += "-Verbose"
         }
         $argList += $Arguments
         

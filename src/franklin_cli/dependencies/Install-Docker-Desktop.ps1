@@ -5,11 +5,33 @@ param(
     [switch]$AutoRepairWSL = $true,
     [switch]$Force = $false,
     [switch]$Uninstall = $false,
-    [switch]$CleanUninstall = $false
+    [switch]$CleanUninstall = $false,
+    [switch]$Verbose = $false
 )
 
 # Optimize download performance
 $ProgressPreference = 'SilentlyContinue'
+
+# Logging functions
+function Write-VerboseMessage {
+    param([string]$Message, [string]$Color = "White")
+    if ($Verbose) {
+        Write-Host $Message -ForegroundColor $Color
+    }
+}
+
+function Write-InfoMessage {
+    param([string]$Message)
+    if ($Verbose) {
+        Write-Host "[INFO] $Message" -ForegroundColor Cyan
+    }
+}
+
+function Write-ErrorMessage {
+    param([string]$Message)
+    # Always show errors regardless of verbose mode
+    Write-Host "[ERROR] $Message" -ForegroundColor Red
+}
 
 # Verify administrator privileges
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -29,6 +51,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     if ($Force) { $arguments += "-Force" }
     if ($Uninstall) { $arguments += "-Uninstall" }
     if ($CleanUninstall) { $arguments += "-CleanUninstall" }
+    if ($Verbose) { $arguments += "-Verbose" }
     
     Start-Process PowerShell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $($arguments -join ' ')" -Wait
     exit $LASTEXITCODE
@@ -41,11 +64,11 @@ function Remove-DockerDesktop {
         [switch]$Silent = $false
     )
     
-    Write-Host "Starting Docker Desktop uninstallation..." -ForegroundColor Yellow
+    Write-VerboseMessage "Starting Docker Desktop uninstallation..." "Yellow"
     
     try {
         # Stop Docker Desktop and related services
-        Write-Host "Stopping Docker Desktop services..." -ForegroundColor Yellow
+        Write-VerboseMessage "Stopping Docker Desktop services..." "Yellow"
         
         # Stop Docker Desktop application
         Get-Process -Name "Docker Desktop" -ErrorAction SilentlyContinue | Stop-Process -Force
@@ -62,13 +85,13 @@ function Remove-DockerDesktop {
         
         # Stop and remove WSL distros if requested
         if (-not $KeepWSLDistros) {
-            Write-Host "Removing Docker WSL distros..." -ForegroundColor Yellow
+            Write-VerboseMessage "Removing Docker WSL distros..." "Yellow"
             wsl --unregister docker-desktop 2>$null
             wsl --unregister docker-desktop-data 2>$null
         }
         
         # Uninstall Docker Desktop
-        Write-Host "Uninstalling Docker Desktop..." -ForegroundColor Yellow
+        Write-VerboseMessage "Uninstalling Docker Desktop..." "Yellow"
         
         # Try uninstalling via Windows Apps first
         $dockerApp = Get-WmiObject -Class Win32_Product | Where-Object { $_.Name -like "*Docker Desktop*" }
@@ -89,7 +112,7 @@ function Remove-DockerDesktop {
             if ($dockerApp) {
                 foreach ($app in $dockerApp) {
                     if ($app.UninstallString) {
-                        Write-Host "Running uninstaller: $($app.UninstallString)" -ForegroundColor Cyan
+                        Write-VerboseMessage "Running uninstaller: $($app.UninstallString)" "Cyan"
                         $uninstallArgs = $app.UninstallString -replace "msiexec.exe", "" -replace "/I", "/X"
                         Start-Process "msiexec.exe" -ArgumentList "$uninstallArgs /quiet /norestart" -Wait
                     }
@@ -98,7 +121,7 @@ function Remove-DockerDesktop {
         }
         
         # Remove installation directories
-        Write-Host "Removing Docker Desktop files..." -ForegroundColor Yellow
+        Write-VerboseMessage "Removing Docker Desktop files..." "Yellow"
         
         $installPaths = @(
             "${env:ProgramFiles}\Docker",
@@ -116,7 +139,7 @@ function Remove-DockerDesktop {
         
         # Remove user data if requested
         if (-not $KeepUserData) {
-            Write-Host "Removing user data..." -ForegroundColor Yellow
+            Write-VerboseMessage "Removing user data..." "Yellow"
             
             $userPaths = @(
                 "$env:APPDATA\Docker",
@@ -133,7 +156,7 @@ function Remove-DockerDesktop {
         }
         
         # Remove registry entries
-        Write-Host "Cleaning registry entries..." -ForegroundColor Yellow
+        Write-VerboseMessage "Cleaning registry entries..." "Yellow"
         
         $registryPaths = @(
             "HKCU:\SOFTWARE\Docker Inc.",
@@ -150,7 +173,7 @@ function Remove-DockerDesktop {
         }
         
         # Remove from docker-users group
-        Write-Host "Removing users from docker-users group..." -ForegroundColor Yellow
+        Write-VerboseMessage "Removing users from docker-users group..." "Yellow"
         try {
             $group = Get-LocalGroup -Name "docker-users" -ErrorAction SilentlyContinue
             if ($group) {
@@ -168,17 +191,17 @@ function Remove-DockerDesktop {
         if (-not $Silent) {
             $confirmation = Read-Host "Remove Hyper-V and Virtual Machine Platform features? This may affect other virtualization software (y/N)"
             if ($confirmation -eq "y" -or $confirmation -eq "Y") {
-                Write-Host "Disabling Windows virtualization features..." -ForegroundColor Yellow
+                Write-VerboseMessage "Disabling Windows virtualization features..." "Yellow"
                 dism.exe /online /disable-feature /featurename:Microsoft-Hyper-V-All /norestart
                 dism.exe /online /disable-feature /featurename:VirtualMachinePlatform /norestart
                 dism.exe /online /disable-feature /featurename:Microsoft-Windows-Subsystem-Linux /norestart
             }
         } else {
-            Write-Host "Skipping Windows feature removal (silent mode)" -ForegroundColor Yellow
+            Write-VerboseMessage "Skipping Windows feature removal (silent mode)" "Yellow"
         }
         
         # Clean up firewall rules
-        Write-Host "Removing Docker firewall rules..." -ForegroundColor Yellow
+        Write-VerboseMessage "Removing Docker firewall rules..." "Yellow"
         Get-NetFirewallRule | Where-Object { $_.DisplayName -like "*Docker*" } | Remove-NetFirewallRule -ErrorAction SilentlyContinue
         
         Write-Host "Docker Desktop uninstallation completed successfully!" -ForegroundColor Green
@@ -317,7 +340,7 @@ if ($Force) {
 
 # Enable Windows features for WSL2
 if ($EnableWSL2) {
-    Write-Host "Enabling WSL2 features..." -ForegroundColor Yellow
+    Write-VerboseMessage "Enabling WSL2 features..." "Yellow"
     
     dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
     dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
@@ -340,7 +363,7 @@ if ($EnableWSL2) {
 }
 
 # Download and install Docker Desktop
-Write-Host "Downloading Docker Desktop..." -ForegroundColor Yellow
+Write-VerboseMessage "Downloading Docker Desktop..." "Yellow"
 $dockerUrl = "https://desktop.docker.com/win/main/amd64/Docker Desktop Installer.exe"
 $dockerInstaller = "$env:TEMP\DockerDesktopInstaller.exe"
 Invoke-WebRequest -Uri $dockerUrl -OutFile $dockerInstaller -UseBasicParsing
@@ -350,7 +373,7 @@ if ($OrganizationName) {
     $installArgs += "--allowed-org=$OrganizationName"
 }
 
-Write-Host "Installing Docker Desktop..." -ForegroundColor Yellow
+Write-VerboseMessage "Installing Docker Desktop..." "Yellow"
 Start-Process $dockerInstaller -Wait -ArgumentList $installArgs
 
 # Add current user to docker-users group
@@ -358,7 +381,7 @@ $currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 Add-LocalGroupMember -Group "docker-users" -Member $currentUser -ErrorAction SilentlyContinue
 
 # Configure Docker Desktop settings
-Write-Host "Configuring Docker Desktop settings..." -ForegroundColor Yellow
+Write-VerboseMessage "Configuring Docker Desktop settings..." "Yellow"
 
 $dockerConfig = @{
     AutoDownloadUpdates = $true

@@ -27,6 +27,8 @@ DISABLE_TRACKING=true
 DISABLE_UPDATES=false
 ENTERPRISE_MODE=false
 HOMEPAGE_URL=""
+FORCE_INSTALL=false
+VERBOSE=false
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -63,6 +65,14 @@ while [[ $# -gt 0 ]]; do
             HOMEPAGE_URL="$2"
             shift 2
             ;;
+        --force)
+            FORCE_INSTALL=true
+            shift
+            ;;
+        --verbose)
+            VERBOSE=true
+            shift
+            ;;
         -h|--help)
             echo "Usage: $0 [options]"
             echo "Options:"
@@ -74,6 +84,8 @@ while [[ $# -gt 0 ]]; do
             echo "  --disable-updates  Disable automatic updates"
             echo "  --enterprise      Apply enterprise security settings"
             echo "  --homepage URL    Set custom homepage"
+            echo "  --force           Force reinstall even if already installed"
+            echo "  --verbose         Show detailed logging information"
             echo "  -h, --help        Show this help"
             exit 0
             ;;
@@ -85,7 +97,14 @@ while [[ $# -gt 0 ]]; do
 done
 
 log() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+    if [ "$VERBOSE" = true ]; then
+        echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+    fi
+}
+
+# Log errors always, even in non-verbose mode
+log_error() {
+    echo "[ERROR] $1" | tee -a "$LOG_FILE"
 }
 
 check_requirements() {
@@ -93,13 +112,13 @@ check_requirements() {
     MAJOR_VERSION=$(echo $MACOS_VERSION | cut -d. -f1)
     
     if [[ $MAJOR_VERSION -lt 11 ]]; then
-        log "ERROR: macOS 11.0 (Big Sur) or later required"
+        log_error "macOS 11.0 (Big Sur) or later required"
         exit 1
     fi
     
     AVAILABLE_SPACE=$(df -g / | tail -1 | awk '{print $4}')
     if [[ $AVAILABLE_SPACE -lt 5 ]]; then
-        log "ERROR: Insufficient disk space (5GB required)"
+        log_error "Insufficient disk space (5GB required)"
         exit 1
     fi
 }
@@ -310,7 +329,7 @@ install_chrome() {
     curl -L -o /tmp/GoogleChrome.dmg "$DOWNLOAD_URL"
     
     if [[ ! -f "/tmp/GoogleChrome.dmg" ]]; then
-        log "ERROR: Failed to download Chrome"
+        log_error "Failed to download Chrome"
         exit 1
     fi
     
@@ -479,7 +498,13 @@ main() {
     
     # Check if Chrome is already installed
     if [[ -d "$CHROME_APP" ]]; then
-        log "Chrome is already installed. Applying configuration..."
+        if [[ "$FORCE_INSTALL" == "true" ]]; then
+            log "Force flag specified. Reinstalling Chrome..."
+            uninstall_chrome "true"  # Keep user data during force reinstall
+            install_chrome
+        else
+            log "Chrome is already installed. Applying configuration..."
+        fi
     else
         install_chrome
     fi

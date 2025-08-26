@@ -12,6 +12,7 @@ INSTALL_DIR="$HOME/.pixi"
 BINARY_DIR="$HOME/.local/bin"
 FORCE_INSTALL=false
 INSTALL_METHOD="auto"  # auto, curl, cargo, binary
+VERBOSE=false
 
 # Colors for output
 RED='\033[0;31m'
@@ -41,11 +42,11 @@ add_pixi_before_conda() {
     local file=$1
     local temp_file="${file}.tmp"
     
-    echo -e "${YELLOW}Processing $file...${NC}"
+    [ "$VERBOSE" = true ] && echo -e "${YELLOW}Processing $file...${NC}"
     
     # Check if file exists
     if [ ! -f "$file" ]; then
-        echo -e "${YELLOW}  File doesn't exist, creating it...${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${YELLOW}  File doesn't exist, creating it...${NC}"
         touch "$file" 2>/dev/null || {
             echo -e "${RED}  ✗ Cannot create $file (permission denied)${NC}"
             return 1
@@ -54,7 +55,7 @@ add_pixi_before_conda() {
     
     # Check if file is writable
     if [ ! -w "$file" ]; then
-        echo -e "${YELLOW}  File is read-only, attempting to make it writable...${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${YELLOW}  File is read-only, attempting to make it writable...${NC}"
         chmod u+w "$file" 2>/dev/null || {
             echo -e "${RED}  ✗ Cannot modify $file (permission denied). You may need to manually add the following to your $file:${NC}"
             echo -e "${CYAN}$PIXI_COMMENT${NC}"
@@ -65,7 +66,7 @@ add_pixi_before_conda() {
     
     # Check if pixi path already exists
     if has_pixi_path "$file"; then
-        echo -e "${GREEN}  ✓ Pixi path already exists in $file${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${GREEN}  ✓ Pixi path already exists in $file${NC}"
         return 0
     fi
     
@@ -76,7 +77,7 @@ add_pixi_before_conda() {
     
     # Check if conda initialization exists
     if has_conda_init "$file"; then
-        echo -e "${YELLOW}  Found conda initialization, adding pixi before it...${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${YELLOW}  Found conda initialization, adding pixi before it...${NC}"
         
         # Use awk to insert pixi before conda init
         awk -v pixi_comment="$PIXI_COMMENT" -v pixi_path="$PIXI_PATH" '
@@ -99,9 +100,9 @@ add_pixi_before_conda() {
             rm -f "$temp_file"
             return 1
         }
-        echo -e "${GREEN}  ✓ Added pixi path before conda initialization${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${GREEN}  ✓ Added pixi path before conda initialization${NC}"
     else
-        echo -e "${YELLOW}  No conda initialization found, adding pixi path at the beginning...${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${YELLOW}  No conda initialization found, adding pixi path at the beginning...${NC}"
         
         # Add pixi at the beginning of the file
         {
@@ -119,16 +120,16 @@ add_pixi_before_conda() {
             rm -f "$temp_file"
             return 1
         }
-        echo -e "${GREEN}  ✓ Added pixi path at the beginning of file${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${GREEN}  ✓ Added pixi path at the beginning of file${NC}"
     fi
 }
 
 # Function to ensure conda base is not auto-activated
 disable_conda_auto_activate() {
     if command -v conda &> /dev/null; then
-        echo -e "${YELLOW}Disabling conda auto_activate_base...${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${YELLOW}Disabling conda auto_activate_base...${NC}"
         conda config --set auto_activate_base false 2>/dev/null || true
-        echo -e "${GREEN}  ✓ Conda auto_activate_base disabled${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${GREEN}  ✓ Conda auto_activate_base disabled${NC}"
     fi
 }
 
@@ -210,23 +211,35 @@ check_and_fix_sourcing() {
 
 # Logging functions
 log_info() {
-    echo -e "${BLUE}[INFO]${NC} $1"
+    if [ "$VERBOSE" = true ]; then
+        echo -e "${BLUE}[INFO]${NC} $1"
+    fi
 }
 
 log_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $1"
+    if [ "$VERBOSE" = true ]; then
+        echo -e "${GREEN}[SUCCESS]${NC} $1"
+    fi
 }
 
 log_warning() {
-    echo -e "${YELLOW}[WARNING]${NC} $1"
+    if [ "$VERBOSE" = true ]; then
+        echo -e "${YELLOW}[WARNING]${NC} $1"
+    else
+        # Always show warnings even in non-verbose mode
+        echo -e "${YELLOW}Warning:${NC} $1"
+    fi
 }
 
 log_error() {
+    # Always show errors regardless of verbose mode
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
 log_header() {
-    echo -e "${CYAN}$1${NC}"
+    if [ "$VERBOSE" = true ]; then
+        echo -e "${CYAN}$1${NC}"
+    fi
 }
 
 # Function to detect operating system and architecture
@@ -341,7 +354,7 @@ install_via_curl() {
 
     # Handle bash configurations
     if [ -f "$HOME/.bashrc" ] || [ -f "$HOME/.bash_profile" ]; then
-        echo -e "${GREEN}Found bash configuration files${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${GREEN}Found bash configuration files${NC}"
         
         # Process .bash_profile first (it's read first on macOS)
         if [ -f "$HOME/.bash_profile" ]; then
@@ -361,7 +374,7 @@ install_via_curl() {
 
     # Handle zsh configuration
     if [ -f "$HOME/.zshrc" ]; then
-        echo -e "${GREEN}Found zsh configuration file${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${GREEN}Found zsh configuration file${NC}"
         add_pixi_before_conda "$HOME/.zshrc"
         configs_processed=$((configs_processed + 1))
     fi
@@ -369,7 +382,7 @@ install_via_curl() {
     # Create config files if none exist (based on current shell)
     if [ $configs_processed -eq 0 ]; then
         current_shell=$(basename "$SHELL")
-        echo -e "${YELLOW}No shell config files found. Creating for $current_shell...${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${YELLOW}No shell config files found. Creating for $current_shell...${NC}"
         
         if [ "$current_shell" = "zsh" ]; then
             touch "$HOME/.zshrc"
@@ -766,6 +779,7 @@ Options:
     -b, --bin-dir DIR      Binary directory (default: $HOME/.local/bin)
     -m, --method METHOD    Installation method: auto, curl, cargo, binary (default: auto)
     -f, --force            Force installation even if already installed
+    --verbose              Show detailed logging information
     -h, --help             Show this help message
 
 Examples:
@@ -812,6 +826,10 @@ parse_arguments() {
                 ;;
             -f|--force)
                 FORCE_INSTALL=true
+                shift
+                ;;
+            --verbose)
+                VERBOSE=true
                 shift
                 ;;
             -h|--help)

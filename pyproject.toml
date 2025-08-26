@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "franklin-cli"
-version = "0.25.130"
+version = "0.25.131"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Education",

@@ -23,6 +23,7 @@ CLEAN_UNINSTALL=false
 STATUS_CHECK=false
 CONFIGURE_ONLY=false
 FORCE_INSTALL=false
+VERBOSE=false
 
 # Colors for output
 RED='\033[0;31m'
@@ -57,6 +58,10 @@ while [[ $# -gt 0 ]]; do
             CONFIGURE_ONLY=true
             shift
             ;;
+        --verbose)
+            VERBOSE=true
+            shift
+            ;;
         -h|--help)
             echo "Usage: $0 [options]"
             echo "Options:"
@@ -65,6 +70,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --clean-uninstall Remove Docker Desktop and all data"
             echo "  --status          Show installation status"
             echo "  --configure-only  Only configure existing installation"
+            echo "  --verbose         Show detailed logging information"
             echo "  -h, --help        Show this help"
             exit 0
             ;;
@@ -76,15 +82,22 @@ while [[ $# -gt 0 ]]; do
 done
 
 log() {
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+    if [ "$VERBOSE" = true ]; then
+        echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+    fi
+}
+
+# Log errors always, even in non-verbose mode
+log_error() {
+    echo "[ERROR] $1" | tee -a "$LOG_FILE"
 }
 
 check_requirements() {
     # Check OS type
     if [[ "$OSTYPE" != "darwin"* ]]; then
-        log "ERROR: This script is for macOS only. Detected OS: $OSTYPE"
-        log "For Linux, please visit: https://docs.docker.com/engine/install/"
-        log "For Windows, please use the PowerShell installer instead."
+        log_error "This script is for macOS only. Detected OS: $OSTYPE"
+        echo "For Linux, please visit: https://docs.docker.com/engine/install/"
+        echo "For Windows, please use the PowerShell installer instead."
         exit 1
     fi
     
@@ -94,7 +107,7 @@ check_requirements() {
         MAJOR_VERSION=$(echo $MACOS_VERSION | cut -d. -f1)
         
         if [[ $MAJOR_VERSION -lt 13 ]]; then
-            log "ERROR: macOS 13.0 (Ventura) or later required"
+            log_error "macOS 13.0 (Ventura) or later required"
             exit 1
         fi
     else
@@ -104,7 +117,7 @@ check_requirements() {
     # Check available disk space
     AVAILABLE_SPACE=$(df -g / | tail -1 | awk '{print $4}')
     if [[ $AVAILABLE_SPACE -lt 10 ]]; then
-        log "ERROR: Insufficient disk space"
+        log_error "Insufficient disk space"
         exit 1
     fi
 }
@@ -376,7 +389,7 @@ configure_docker_desktop() {
         done
         
         if [[ ! -f "$DOCKER_SETTINGS_FILE" ]]; then
-            log "ERROR: Settings file not created after 3 minutes"
+            log_error "Settings file not created after 3 minutes"
             exit 1
         fi
     fi
@@ -391,7 +404,7 @@ configure_docker_desktop() {
         if command -v brew &> /dev/null; then
             brew install jq
         else
-            log "ERROR: jq is required but not available. Please install Homebrew or jq manually."
+            log_error "jq is required but not available. Please install Homebrew or jq manually."
             exit 1
         fi
     fi
@@ -484,7 +497,7 @@ configure_docker_desktop() {
         
     else
         rm "$temp_file"
-        log "ERROR: Generated configuration is invalid JSON"
+        log_error "Generated configuration is invalid JSON"
         exit 1
     fi
 }
@@ -534,7 +547,7 @@ main() {
     if [[ "$CONFIGURE_ONLY" == "true" ]]; then
         # Check if Docker Desktop is installed
         if [[ ! -d "/Applications/Docker.app" ]]; then
-            log "ERROR: Docker Desktop is not installed. Install it first."
+            log_error "Docker Desktop is not installed. Install it first."
             exit 1
         fi
         configure_docker_desktop
