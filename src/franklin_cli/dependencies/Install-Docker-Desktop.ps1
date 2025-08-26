@@ -13,18 +13,24 @@ param(
 # Optimize download performance
 $ProgressPreference = 'SilentlyContinue'
 
+function Write-UnlessQuiet  {
+    if (-not $Quiet) {
+        Write-Host @Args
+    }
+}
+
 # Logging functions
 function Write-VerboseMessage {
     param([string]$Message, [string]$Color = "White")
     if ($VerbosePreference -eq 'Continue') {
-        Write-Host $Message -ForegroundColor $Color
+        Write-UnlessQuiet  $Message -ForegroundColor $Color
     }
 }
 
 function Write-InfoMessage {
     param([string]$Message)
     if ($VerbosePreference -eq 'Continue') {
-        Write-Host "$Message" -ForegroundColor Cyan
+        Write-UnlessQuiet  "$Message" -ForegroundColor Cyan
     }
 }
 
@@ -32,28 +38,28 @@ function Write-ErrorMessage {
     param([string]$Message)
     # Suppressed in quiet mode
     if (-not $Quiet) {
-        Write-Host "$Message" -ForegroundColor Red
+        Write-UnlessQuiet  "$Message" -ForegroundColor Red
     }
 }
 
-# Conditional write - suppressed in quiet mode unless colored
-function Write-UnlessQuiet {
-    param([string]$Message, [string]$Color = "White")
-    if (-not $Quiet) {
-        Write-Host $Message -ForegroundColor $Color
-    }
-}
+# # Conditional write - suppressed in quiet mode unless colored
+# function Write-UnlessQuiet {
+#     param([string]$Message, [string]$Color = "White")
+#     if (-not $Quiet) {
+#         Write-UnlessQuiet  $Message -ForegroundColor $Color
+#     }
+# }
 
 # Always show green text even in quiet mode
 function Write-Green {
     param([string]$Message)
-    Write-Host $Message -ForegroundColor Green
+    Write-UnlessQuiet  $Message -ForegroundColor Green
 }
 
 # Always show blue text even in quiet mode  
 function Write-Blue {
     param([string]$Message)
-    Write-Host $Message -ForegroundColor Blue
+    Write-UnlessQuiet  $Message -ForegroundColor Blue
 }
 
 # Verify administrator privileges
@@ -74,7 +80,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     if ($Force) { $arguments += "-Force" }
     if ($Uninstall) { $arguments += "-Uninstall" }
     if ($CleanUninstall) { $arguments += "-CleanUninstall" }
-    if ($Quiet) { $arguments += "-Quiet" }
+    if ($PSCmdlet.MyInvocation.BoundParameters.ContainsKey('Quiet')) { $arguments += "-Quiet" }
     if ($PSCmdlet.MyInvocation.BoundParameters.ContainsKey('Verbose')) { $arguments += "-Verbose" }
     
     Start-Process PowerShell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $($arguments -join ' ')" -Wait
@@ -541,13 +547,13 @@ if ($EnableWSL2) {
 
 Write-Green "`n[OK] Installation and configuration complete!"
 Write-UnlessQuiet ""
-# Write-Host "Docker Desktop has been installed and configured." -ForegroundColor Green
-# Write-Host "Docker Desktop has been stopped and is NOT currently running." -ForegroundColor Cyan
-# Write-Host ""
-# Write-Host "Next steps:" -ForegroundColor Yellow
-# Write-Host "1. Restart your computer to ensure group membership takes effect" -ForegroundColor White
-# Write-Host "2. Start Docker Desktop from the Start Menu when needed" -ForegroundColor White
-# Write-Host "3. Docker will be available in the system tray when running" -ForegroundColor White
+# Write-UnlessQuiet  "Docker Desktop has been installed and configured." -ForegroundColor Green
+# Write-UnlessQuiet  "Docker Desktop has been stopped and is NOT currently running." -ForegroundColor Cyan
+# Write-UnlessQuiet  ""
+# Write-UnlessQuiet  "Next steps:" -ForegroundColor Yellow
+# Write-UnlessQuiet  "1. Restart your computer to ensure group membership takes effect" -ForegroundColor White
+# Write-UnlessQuiet  "2. Start Docker Desktop from the Start Menu when needed" -ForegroundColor White
+# Write-UnlessQuiet  "3. Docker will be available in the system tray when running" -ForegroundColor White
 
 if ($EnableWSL2) {
     Write-Blue "3. Verify WSL2 integration by running: docker run hello-world"

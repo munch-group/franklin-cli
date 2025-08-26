@@ -62,20 +62,26 @@ param(
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
+function Write-UnlessQuiet  {
+    if (-not $Quiet) {
+        Write-Host @Args
+    }
+}
+
 # Logging functions
 function Write-Info {
     param([string]$Message)
     if ($VerbosePreference -eq 'Continue') {
-        Write-Host "$Message" -ForegroundColor Blue
+        Write-UnlessQuiet  "$Message" -ForegroundColor Blue
     } elseif (-not $Quiet) {
-        Write-Host "$Message"
+        Write-UnlessQuiet  "$Message"
     }
 }
 
 function Write-Success {
     param([string]$Message)
     if (-not $Quiet) {
-        Write-Host "$Message" -ForegroundColor Green
+        Write-UnlessQuiet  "$Message" -ForegroundColor Green
     }
 }
 
@@ -83,9 +89,9 @@ function Write-Warning {
     param([string]$Message)
     if (-not $Quiet) {
         if ($VerbosePreference -eq 'Continue') {
-            Write-Host "$Message" -ForegroundColor Yellow
+            Write-UnlessQuiet  "$Message" -ForegroundColor Yellow
         } else {
-            Write-Host "Warning: $Message" -ForegroundColor Yellow
+            Write-UnlessQuiet  "Warning: $Message" -ForegroundColor Yellow
         }
     }
 }
@@ -94,7 +100,7 @@ function Write-Error {
     param([string]$Message)
     # Show errors unless in quiet mode
     if (-not $Quiet) {
-        Write-Host "$Message" -ForegroundColor Red
+        Write-UnlessQuiet  "$Message" -ForegroundColor Red
     }
 }
 
@@ -102,9 +108,9 @@ function Write-Header {
     param([string]$Message)
     if (-not $Quiet) {
         if ($VerbosePreference -eq 'Continue') {
-            Write-Host $Message -ForegroundColor Cyan
+            Write-UnlessQuiet  $Message -ForegroundColor Cyan
         } else {
-            Write-Host $Message
+            Write-UnlessQuiet  $Message
         }
     }
 }
@@ -445,8 +451,8 @@ function Add-PixiBeforeConda {
             $fileInfo.IsReadOnly = $false
         } catch {
             Write-Error "Cannot modify $ProfilePath (permission denied). You may need to manually add the following to your profile:"
-            Write-Host '# Pixi - Added before conda for priority' -ForegroundColor Cyan
-            Write-Host '$env:PATH = "$env:USERPROFILE\.pixi\bin;$env:PATH"' -ForegroundColor Cyan
+            Write-UnlessQuiet  '# Pixi - Added before conda for priority' -ForegroundColor Cyan
+            Write-UnlessQuiet  '$env:PATH = "$env:USERPROFILE\.pixi\bin;$env:PATH"' -ForegroundColor Cyan
             return
         }
     }
@@ -780,7 +786,7 @@ Installation Methods:
     Cargo   - Install via Rust cargo (requires Rust)
     Binary  - Download and install binary directly
 
-"@ | Write-Host
+"@ | Write-UnlessQuiet 
 }
 
 function Show-CompletionMessage {
@@ -788,26 +794,26 @@ function Show-CompletionMessage {
     .SYNOPSIS
         Display completion message with usage instructions
     #>
-    # Write-Host ""
+    # Write-UnlessQuiet  ""
     # Write-Success "Operation completed!"
-    # Write-Host ""
+    # Write-UnlessQuiet  ""
     # Write-Info "Quick start with pixi:"
     # Write-Info "  pixi --version                     # Check version"
     # Write-Info "  pixi init my-project              # Initialize new project"
     # Write-Info "  pixi add python=3.11              # Add Python dependency"
     # Write-Info "  pixi run python --version         # Run command in environment"
     # Write-Info "  pixi shell                        # Activate project environment"
-    # Write-Host ""
+    # Write-UnlessQuiet  ""
     # Write-Info "For more information, visit: https://pixi.sh/"
-    # Write-Host ""
+    # Write-UnlessQuiet  ""
 }
 
 # Main execution
 function Main {
-    # Write-Host "==================================================" -ForegroundColor Cyan
-    # Write-Host "       Pixi Package Manager Installer (Windows)"   -ForegroundColor Cyan
-    # Write-Host "==================================================" -ForegroundColor Cyan
-    # Write-Host ""
+    # Write-UnlessQuiet  "==================================================" -ForegroundColor Cyan
+    # Write-UnlessQuiet  "       Pixi Package Manager Installer (Windows)"   -ForegroundColor Cyan
+    # Write-UnlessQuiet  "==================================================" -ForegroundColor Cyan
+    # Write-UnlessQuiet  ""
     
     switch ($Command) {
         "Install" {
