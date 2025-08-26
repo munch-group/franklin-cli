@@ -90,7 +90,7 @@ log() {
 
 # Log errors always, even in non-verbose mode
 log_error() {
-    echo "[ERROR] $1" | tee -a "$LOG_FILE"
+    echo "$1" | tee -a "$LOG_FILE"
 }
 
 check_requirements() {
@@ -132,7 +132,7 @@ get_installation_status() {
     
     if [[ -d "$docker_app" ]]; then
         docker_installed=true
-        echo "[OK] Docker Desktop: Installed"
+        echo "Docker Desktop: Installed"
         
         # Get version info
         local version_plist="$docker_app/Contents/Info.plist"
@@ -141,49 +141,49 @@ get_installation_status() {
             echo "   Version: $version"
         fi
     else
-        echo "[FAILED] Docker Desktop: Not installed"
+        echo "Docker Desktop: Not installed"
     fi
     
     # Check if Docker is running
     if pgrep -x "Docker Desktop" > /dev/null; then
-        echo "[OK] Docker Desktop: Running"
+        echo "Docker Desktop: Running"
     else
-        echo "[WARNING]  Docker Desktop: Not running"
+        echo "Docker Desktop: Not running"
     fi
     
     # Check Docker daemon
     if command -v docker &> /dev/null; then
         if docker info &>/dev/null; then
-            echo "[OK] Docker Daemon: Running"
+            echo "Docker Daemon: Running"
         else
-            echo "[WARNING]  Docker Daemon: Not accessible"
+            echo "Docker Daemon: Not accessible"
         fi
     else
-        echo "[FAILED] Docker CLI: Not found"
+        echo "Docker CLI: Not found"
     fi
     
     # Check privileged helper
     local helper_plist="/Library/LaunchDaemons/com.docker.vmnetd.plist"
     if [[ -f "$helper_plist" ]]; then
-        echo "[OK] Privileged Helper: Installed"
+        echo "Privileged Helper: Installed"
         if launchctl list | grep -q com.docker.vmnetd; then
             echo "   Status: Running"
         else
             echo "   Status: Not running"
         fi
     else
-        echo "[FAILED] Privileged Helper: Not installed"
+        echo "Privileged Helper: Not installed"
     fi
     
     # Check configuration files
     echo ""
     echo "Configuration Files:"
     if [[ -f "$DOCKER_SETTINGS_FILE" ]]; then
-        echo "[OK] Settings file: $DOCKER_SETTINGS_FILE"
+        echo "Settings file: $DOCKER_SETTINGS_FILE"
         local size=$(stat -f%z "$DOCKER_SETTINGS_FILE" 2>/dev/null || echo "0")
         echo "   Size: $size bytes"
     else
-        echo "[FAILED] Settings file: Not found"
+        echo "Settings file: Not found"
     fi
     
     # Check data usage
@@ -198,9 +198,9 @@ get_installation_status() {
     for path in "${data_paths[@]}"; do
         if [[ -d "$path" ]]; then
             local size=$(du -sh "$path" 2>/dev/null | cut -f1 || echo "Unknown")
-            echo "[OK] $path: $size"
+            echo "$path: $size"
         else
-            echo "[FAILED] $path: Not found"
+            echo "$path: Not found"
         fi
     done
     
@@ -208,9 +208,9 @@ get_installation_status() {
     local vm_disk="$DOCKER_SETTINGS_DIR/Data/vms/0/data/Docker.raw"
     if [[ -f "$vm_disk" ]]; then
         local vm_size=$(du -sh "$vm_disk" 2>/dev/null | cut -f1 || echo "Unknown")
-        echo "[OK] VM Disk: $vm_size"
+        echo "VM Disk: $vm_size"
     else
-        echo "[FAILED] VM Disk: Not found"
+        echo "VM Disk: Not found"
     fi
 }
 
@@ -243,7 +243,7 @@ uninstall_docker_desktop() {
     if [[ -d "$docker_app" ]]; then
         log "Removing Docker Desktop application..."
         sudo rm -rf "$docker_app"
-        echo "[OK] Removed: $docker_app"
+        echo "Removed: $docker_app"
     fi
     
     # Remove privileged helper
@@ -261,7 +261,7 @@ uninstall_docker_desktop() {
         sudo launchctl unload "$helper_plist" 2>/dev/null || true
         sudo rm -f "$helper_plist"
         sudo rm -f "/Library/PrivilegedHelperTools/com.docker.vmnetd"
-        echo "[OK] Removed privileged helper"
+        echo "Removed privileged helper"
     fi
     
     # Remove symlinks
@@ -277,7 +277,7 @@ uninstall_docker_desktop() {
     for symlink in "${symlinks[@]}"; do
         if [[ -L "$symlink" ]]; then
             sudo rm -f "$symlink"
-            echo "[OK] Removed symlink: $symlink"
+            echo "Removed symlink: $symlink"
         fi
     done
     
@@ -300,7 +300,7 @@ uninstall_docker_desktop() {
         for path in "${user_paths[@]}"; do
             if [[ -e "$path" ]]; then
                 rm -rf "$path"
-                echo "[OK] Removed: $path"
+                echo "Removed: $path"
             fi
         done
     else
@@ -318,7 +318,7 @@ uninstall_docker_desktop() {
     for path in "${system_paths[@]}"; do
         if [[ -e "$path" ]]; then
             sudo rm -rf "$path" 2>/dev/null || true
-            echo "[OK] Removed: $path"
+            echo "Removed: $path"
         fi
     done
     
@@ -335,14 +335,14 @@ uninstall_docker_desktop() {
     log "Docker Desktop uninstallation completed!"
     echo ""
     echo "Uninstallation Summary:"
-    echo "[OK] Docker Desktop application removed"
-    echo "[OK] Privileged helper removed"
-    echo "[OK] System symlinks removed"
+    echo "Docker Desktop application removed"
+    echo "Privileged helper removed"
+    echo "System symlinks removed"
     
     if [[ "$keep_user_data" != "true" ]]; then
-        echo "[OK] User data removed"
+        echo "User data removed"
     else
-        echo "[WARNING]  User data preserved"
+        echo "User data preserved"
     fi
     
     echo ""
@@ -522,7 +522,7 @@ main() {
         local keep_data="true"
         if [[ "$CLEAN_UNINSTALL" == "true" ]]; then
             keep_data="false"
-            echo "[WARNING]  CLEAN UNINSTALL: This will remove ALL Docker data including:"
+            echo "CLEAN UNINSTALL: This will remove ALL Docker data including:"
             echo "   - Container images and volumes"
             echo "   - Docker settings and configuration"
             echo "   - All user data and preferences"

@@ -91,26 +91,26 @@ get_successful_installations() {
 # Logging functions
 log_info() {
     local timestamp=$(date '+%H:%M:%S')
-    echo -e "${NC}[$timestamp] [INFO]${NC} $1"
-    add_to_execution_log "[$timestamp] [INFO] $1"
+    echo -e "${NC}${NC} $1"
+    add_to_execution_log "$1"
 }
 
 log_success() {
     local timestamp=$(date '+%H:%M:%S')
-    echo -e "${BLUE}[$timestamp] [SUCCESS]${NC} $1"
-    add_to_execution_log "[$timestamp] [SUCCESS] $1"
+    echo -e "${BLUE}${NC} $1"
+    add_to_execution_log "$1"
 }
 
 log_warning() {
     local timestamp=$(date '+%H:%M:%S')
-    echo -e "${YELLOW}[$timestamp] [WARNING]${NC} $1"
-    add_to_execution_log "[$timestamp] [WARNING] $1"
+    echo -e "${YELLOW}${NC} $1"
+    add_to_execution_log "$1"
 }
 
 log_error() {
     local timestamp=$(date '+%H:%M:%S')
-    echo -e "${RED}[$timestamp] [ERROR]${NC} $1"
-    add_to_execution_log "[$timestamp] [ERROR] $1"
+    echo -e "${RED}${NC} $1"
+    add_to_execution_log "$1"
 }
 
 log_header() {
@@ -672,7 +672,7 @@ show_installation_summary() {
     if [ $SUCCESSFUL_INSTALLATIONS_COUNT -gt 0 ]; then
         echo -e "${BLUE}Installation status:${NC}" 
         get_successful_installations | while read -r item; do
-            echo -e "  ${BLUE}[OK] $item${NC}"
+            echo -e "  ${BLUE}$item${NC}"
         done
     fi
     
