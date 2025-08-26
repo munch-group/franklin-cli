@@ -56,7 +56,7 @@ param(
     [switch]$Force,
     [switch]$ContinueOnError,
     [switch]$DryRun,
-    [switch]$Yes,
+    [switch]$Yes
 )
 
 # # Set default for ScriptPath if not provided
