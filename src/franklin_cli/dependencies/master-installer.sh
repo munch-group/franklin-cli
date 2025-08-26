@@ -91,20 +91,26 @@ get_successful_installations() {
 
 # Logging functions
 log_info() {
-    local timestamp=$(date '+%H:%M:%S')
-    echo -e "${NC}${NC} $1"
+    if [ "$QUIET" != true ]; then
+        local timestamp=$(date '+%H:%M:%S')
+        echo -e "${NC}${NC} $1"
+    fi
     add_to_execution_log "$1"
 }
 
 log_success() {
-    local timestamp=$(date '+%H:%M:%S')
-    echo -e "${BLUE}${NC} $1"
+    if [ "$QUIET" != true ]; then
+        local timestamp=$(date '+%H:%M:%S')
+        echo -e "${BLUE}${NC} $1"
+    fi
     add_to_execution_log "$1"
 }
 
 log_warning() {
-    local timestamp=$(date '+%H:%M:%S')
-    echo -e "${YELLOW}${NC} $1"
+    if [ "$QUIET" != true ]; then
+        local timestamp=$(date '+%H:%M:%S')
+        echo -e "${YELLOW}${NC} $1"
+    fi
     add_to_execution_log "$1"
 }
 
@@ -115,16 +121,20 @@ log_error() {
 }
 
 log_header() {
-    echo
-    # echo -e "${BLUE}============================================================${NC}"
-    echo -e "${BLUE}  $1${NC}"
-    echo -e "${BLUE}============================================================${NC}"
+    if [ "$QUIET" != true ]; then
+        echo
+        # echo -e "${BLUE}============================================================${NC}"
+        echo -e "${BLUE}  $1${NC}"
+        echo -e "${BLUE}============================================================${NC}"
+    fi
 }
 
 log_step_header() {
-    echo
-    echo -e "${BLUE}>>> STEP $1: $2${NC}"
-    echo -e "${BLUE}--------------------------------------------------${NC}"
+    if [ "$QUIET" != true ]; then
+        echo
+        echo -e "${BLUE}>>> STEP $1: $2${NC}"
+        echo -e "${BLUE}--------------------------------------------------${NC}"
+    fi
 }
 
 # Function to check if command exists
