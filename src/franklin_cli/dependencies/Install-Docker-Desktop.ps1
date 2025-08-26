@@ -23,14 +23,14 @@ function Write-VerboseMessage {
 function Write-InfoMessage {
     param([string]$Message)
     if ($VerbosePreference -eq 'Continue') {
-        Write-Host "[INFO] $Message" -ForegroundColor Cyan
+        Write-Host "$Message" -ForegroundColor Cyan
     }
 }
 
 function Write-ErrorMessage {
     param([string]$Message)
     # Always show errors regardless of verbose mode
-    Write-Host "[ERROR] $Message" -ForegroundColor Red
+    Write-Host "$Message" -ForegroundColor Red
 }
 
 # Verify administrator privileges

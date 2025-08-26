@@ -112,11 +112,11 @@ function Write-ColorOutput {
     )
     
     switch ($Type) {
-        'Info' { Write-Host "[INFO] $Message" }
-        'Warn' { Write-Host "[WARN] $Message" -ForegroundColor Yellow }
-        'Error' { Write-Host "[ERROR] $Message" -ForegroundColor Red }
-        'Step' { Write-Host "[STEP] $Message" -ForegroundColor Blue }
-        'Success' { Write-Host "[OK] $Message" -ForegroundColor Blue }
+        'Info' { Write-Host "$Message" }
+        'Warn' { Write-Host "$Message" -ForegroundColor Yellow }
+        'Error' { Write-Host "$Message" -ForegroundColor Red }
+        'Step' { Write-Host "$Message" -ForegroundColor Blue }
+        'Success' { Write-Host "$Message" -ForegroundColor Blue }
     }
 }
 

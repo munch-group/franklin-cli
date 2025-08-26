@@ -64,21 +64,21 @@ $ProgressPreference = "SilentlyContinue"
 function Write-Info {
     param([string]$Message)
     if ($VerbosePreference -eq 'Continue') {
-        Write-Host "[INFO] $Message" -ForegroundColor Blue
+        Write-Host "$Message" -ForegroundColor Blue
     }
 }
 
 function Write-Success {
     param([string]$Message)
     if ($VerbosePreference -eq 'Continue') {
-        Write-Host "[SUCCESS] $Message" -ForegroundColor Green
+        Write-Host "$Message" -ForegroundColor Green
     }
 }
 
 function Write-Warning {
     param([string]$Message)
     if ($VerbosePreference -eq 'Continue') {
-        Write-Host "[WARNING] $Message" -ForegroundColor Yellow
+        Write-Host "$Message" -ForegroundColor Yellow
     } else {
         # Always show warnings even in non-verbose mode
         Write-Host "Warning: $Message" -ForegroundColor Yellow
@@ -88,7 +88,7 @@ function Write-Warning {
 function Write-Error {
     param([string]$Message)
     # Always show errors regardless of verbose mode
-    Write-Host "[ERROR] $Message" -ForegroundColor Red
+    Write-Host "$Message" -ForegroundColor Red
 }
 
 function Write-Header {

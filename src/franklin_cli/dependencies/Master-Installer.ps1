@@ -91,29 +91,29 @@ $InstallerScripts = @{
 function Write-Info {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "[$timestamp] [INFO] $Message" #-ForegroundColor Blue
-    $Script:ExecutionLog += "[$timestamp] [INFO] $Message"
+    Write-Host "$Message" #-ForegroundColor Blue
+    $Script:ExecutionLog += " $Message"
 }
 
 function Write-Success {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "[$timestamp] [SUCCESS] $Message" #-ForegroundColor Blue
-    $Script:ExecutionLog += "[$timestamp] [SUCCESS] $Message"
+    Write-Host "$Message" #-ForegroundColor Blue
+    $Script:ExecutionLog += "$Message"
 }
 
 function Write-Warning {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "[$timestamp] [WARNING] $Message" -ForegroundColor Yellow
-    $Script:ExecutionLog += "[$timestamp] [WARNING] $Message"
+    Write-Host "$Message" -ForegroundColor Yellow
+    $Script:ExecutionLog += "$Message"
 }
 
 function Write-Error {
     param([string]$Message)
     $timestamp = Get-Date -Format "HH:mm:ss"
-    Write-Host "[$timestamp] [ERROR] $Message" -ForegroundColor Red
-    $Script:ExecutionLog += "[$timestamp] [ERROR] $Message"
+    Write-Host "$Message" -ForegroundColor Red
+    $Script:ExecutionLog += "$Message"
 }
 
 function Write-Header {
@@ -513,14 +513,14 @@ function Show-InstallationSummary {
     if ($Script:SuccessfulInstallations -and $Script:SuccessfulInstallations.Count -gt 0) {
         Write-Host "Installation status:"  -ForegroundColor Blue
         foreach ($item in $Script:SuccessfulInstallations) {
-            Write-Host "  [OK] $item" -ForegroundColor Blue
+            Write-Host "  $item" -ForegroundColor Blue
         }
     }
     
     if ($Script:FailedInstallations -and $Script:FailedInstallations.Count -gt 0) {
         Write-Warning "Failed installations:"
         foreach ($item in $Script:FailedInstallations) {
-            Write-Host "  [FAILED] $item" -ForegroundColor Red
+            Write-Host "  $item" -ForegroundColor Red
         }
     }
     
