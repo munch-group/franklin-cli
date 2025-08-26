@@ -9,25 +9,17 @@ param(
     [switch]$Uninstall = $false,
     [switch]$CleanUninstall = $false,
     [switch]$StatusCheck = $false,
-    [switch]$Force = $false,
-    [switch]$Quiet = $false
+    [switch]$Force = $false
 )
-
-function Write-UnlessQuiet {
-    param([string]$Message, [string]$Color = "White")
-    if (-not $Quiet) {
-        Write-Host  $Message -ForegroundColor $Color
-    }
-}
 
 # Verify administrator privileges
 if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-UnlessQuiet  ""
-    Write-UnlessQuiet  "Administrator privileges required for Chrome installation" Green
-    Write-UnlessQuiet  ""
-    # Write-UnlessQuiet  "User Password:" Green
-    Write-UnlessQuiet  "Please approve the Administrator prompt that will appear..." Cyan
-    Write-UnlessQuiet  ""
+    Write-Host ""
+    Write-Host "Administrator privileges required for Chrome installation" -ForegroundColor Green
+    Write-Host ""
+    # Write-Host "User Password:" -ForegroundColor Green
+    Write-Host "Please approve the Administrator prompt that will appear..." -ForegroundColor Cyan
+    Write-Host ""
     
     # Attempt to restart script with elevation
     $arguments = @()
@@ -41,7 +33,6 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     if ($CleanUninstall) { $arguments += "-CleanUninstall" }
     if ($StatusCheck) { $arguments += "-StatusCheck" }
     if ($Force) { $arguments += "-Force" }
-    if ($PSCmdlet.MyInvocation.BoundParameters.ContainsKey('Quiet')) { $arguments += "-Quiet" }
     if ($PSCmdlet.MyInvocation.BoundParameters.ContainsKey('Verbose')) { $arguments += "-Verbose" }
     
     Start-Process PowerShell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $($arguments -join ' ')" -Wait
@@ -49,7 +40,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 }
 
 function Get-ChromeInstallationStatus {
-    Write-UnlessQuiet  "=== Google Chrome Installation Status ===" Cyan
+    Write-Host "=== Google Chrome Installation Status ===" -ForegroundColor Cyan
     
     # Check if Chrome is installed
     $chromeExe = "${env:ProgramFiles}\Google\Chrome\Application\chrome.exe"
@@ -65,54 +56,54 @@ function Get-ChromeInstallationStatus {
         $chromePath = $chromeExe32
     }
     
-    Write-UnlessQuiet  "Chrome Installed: $chromeInstalled" $(if ($chromeInstalled) { "Green" } else { "Red" })
+    Write-Host "Chrome Installed: $chromeInstalled" -ForegroundColor $(if ($chromeInstalled) { "Green" } else { "Red" })
     
     if ($chromeInstalled) {
         $version = (Get-Item $chromePath).VersionInfo.FileVersion
-        Write-UnlessQuiet  "Version: $version" White
-        Write-UnlessQuiet  "Location: $chromePath" White
+        Write-Host "Version: $version" -ForegroundColor White
+        Write-Host "Location: $chromePath" -ForegroundColor White
     }
     
     # Check Chrome update service
     $updateService = Get-Service -Name "gupdate" -ErrorAction SilentlyContinue
     if ($updateService) {
-        Write-UnlessQuiet  "Update Service: $($updateService.Status)" White
+        Write-Host "Update Service: $($updateService.Status)" -ForegroundColor White
     } else {
-        Write-UnlessQuiet  "Update Service: Not found" Red
+        Write-Host "Update Service: Not found" -ForegroundColor Red
     }
     
     # Check default browser
     try {
         $defaultBrowser = Get-ItemProperty "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice" -Name ProgId -ErrorAction SilentlyContinue
         if ($defaultBrowser -and $defaultBrowser.ProgId -like "*Chrome*") {
-            Write-UnlessQuiet  "Default Browser: Chrome" Green
+            Write-Host "Default Browser: Chrome" -ForegroundColor Green
         } else {
-            Write-UnlessQuiet  "Default Browser: Not Chrome" Yellow
+            Write-Host "Default Browser: Not Chrome" -ForegroundColor Yellow
         }
     } catch {
-        Write-UnlessQuiet  "Default Browser: Cannot determine" Red
+        Write-Host "Default Browser: Cannot determine" -ForegroundColor Red
     }
     
     # Check user profiles
     $profilePath = "$env:LOCALAPPDATA\Google\Chrome\User Data"
     if (Test-Path $profilePath) {
         $profiles = Get-ChildItem $profilePath -Directory | Where-Object { $_.Name -like "Profile*" -or $_.Name -eq "Default" }
-        Write-UnlessQuiet  "User Profiles: $($profiles.Count)" White
+        Write-Host "User Profiles: $($profiles.Count)" -ForegroundColor White
         
         $totalSize = (Get-ChildItem $profilePath -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum
         $sizeGB = [math]::Round($totalSize / 1GB, 2)
-        Write-UnlessQuiet  "Profile Data Size: $sizeGB GB" White
+        Write-Host "Profile Data Size: $sizeGB GB" -ForegroundColor White
     } else {
-        Write-UnlessQuiet  "User Profiles: None found" Red
+        Write-Host "User Profiles: None found" -ForegroundColor Red
     }
     
     # Check enterprise policies
     $policyPath = "HKLM:\SOFTWARE\Policies\Google\Chrome"
     if (Test-Path $policyPath) {
         $policies = Get-ChildItem $policyPath -Recurse -ErrorAction SilentlyContinue
-        Write-UnlessQuiet  "Enterprise Policies: $($policies.Count) configured" White
+        Write-Host "Enterprise Policies: $($policies.Count) configured" -ForegroundColor White
     } else {
-        Write-UnlessQuiet  "Enterprise Policies: None configured" Yellow
+        Write-Host "Enterprise Policies: None configured" -ForegroundColor Yellow
     }
 }
 
@@ -121,11 +112,11 @@ function Remove-GoogleChrome {
         [switch]$KeepUserData = $false
     )
     
-    Write-UnlessQuiet  "Starting Google Chrome uninstallation..." Yellow
+    Write-Host "Starting Google Chrome uninstallation..." -ForegroundColor Yellow
     
     try {
         # Stop Chrome processes
-        Write-UnlessQuiet  "Stopping Chrome processes..." Yellow
+        Write-Host "Stopping Chrome processes..." -ForegroundColor Yellow
         Get-Process -Name "chrome" -ErrorAction SilentlyContinue | Stop-Process -Force
         Get-Process -Name "GoogleUpdate" -ErrorAction SilentlyContinue | Stop-Process -Force
         Start-Sleep -Seconds 3
@@ -146,7 +137,7 @@ function Remove-GoogleChrome {
         
         # Uninstall Chrome
         if ($chromeApp -and $chromeApp.UninstallString) {
-            Write-UnlessQuiet  "Running Chrome uninstaller..." Yellow
+            Write-Host "Running Chrome uninstaller..." -ForegroundColor Yellow
             $uninstallCmd = $chromeApp.UninstallString
             
             # Add silent flags if not present
@@ -157,7 +148,7 @@ function Remove-GoogleChrome {
                 $uninstallCmd += " --system-level"
             }
             
-            Write-UnlessQuiet  "Executing: $uninstallCmd" Cyan
+            Write-Host "Executing: $uninstallCmd" -ForegroundColor Cyan
             Invoke-Expression "& $uninstallCmd"
             Start-Sleep -Seconds 5
         } else {
@@ -174,15 +165,15 @@ function Remove-GoogleChrome {
         
         foreach ($path in $installPaths) {
             if (Test-Path $path) {
-                Write-UnlessQuiet  "Removing: $path" Yellow
+                Write-Host "Removing: $path" -ForegroundColor Yellow
                 Remove-Item $path -Recurse -Force -ErrorAction SilentlyContinue
-                Write-UnlessQuiet  "Removed: $path" Green
+                Write-Host "Removed: $path" -ForegroundColor Green
             }
         }
         
         # Remove user data if requested
         if (-not $KeepUserData) {
-            Write-UnlessQuiet  "Removing user data..." Yellow
+            Write-Host "Removing user data..." -ForegroundColor Yellow
             
             # Get all user profiles
             $users = Get-ChildItem "C:\Users" -Directory -ErrorAction SilentlyContinue
@@ -190,7 +181,7 @@ function Remove-GoogleChrome {
                 $userChromePath = "$($user.FullName)\AppData\Local\Google\Chrome"
                 if (Test-Path $userChromePath) {
                     Remove-Item $userChromePath -Recurse -Force -ErrorAction SilentlyContinue
-                    Write-UnlessQuiet  "Removed user data for: $($user.Name)" Green
+                    Write-Host "Removed user data for: $($user.Name)" -ForegroundColor Green
                 }
             }
             
@@ -198,24 +189,24 @@ function Remove-GoogleChrome {
             $currentUserPath = "$env:LOCALAPPDATA\Google\Chrome"
             if (Test-Path $currentUserPath) {
                 Remove-Item $currentUserPath -Recurse -Force -ErrorAction SilentlyContinue
-                Write-UnlessQuiet  "Removed current user Chrome data" Green
+                Write-Host "Removed current user Chrome data" -ForegroundColor Green
             }
         }
         
         # Remove services
-        Write-UnlessQuiet  "Removing Chrome services..." Yellow
+        Write-Host "Removing Chrome services..." -ForegroundColor Yellow
         $services = @("gupdate", "gupdatem", "GoogleChromeElevationService")
         foreach ($serviceName in $services) {
             $service = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
             if ($service) {
                 Stop-Service -Name $serviceName -Force -ErrorAction SilentlyContinue
                 sc.exe delete $serviceName
-                Write-UnlessQuiet  "Removed service: $serviceName" Green
+                Write-Host "Removed service: $serviceName" -ForegroundColor Green
             }
         }
         
         # Remove registry entries
-        Write-UnlessQuiet  "Cleaning registry entries..." Yellow
+        Write-Host "Cleaning registry entries..." -ForegroundColor Yellow
         $registryPaths = @(
             "HKLM:\SOFTWARE\Google",
             "HKLM:\SOFTWARE\WOW6432Node\Google",
@@ -228,12 +219,12 @@ function Remove-GoogleChrome {
         foreach ($regPath in $registryPaths) {
             if (Test-Path $regPath) {
                 Remove-Item $regPath -Recurse -Force -ErrorAction SilentlyContinue
-                Write-UnlessQuiet  "Removed registry: $regPath" Green
+                Write-Host "Removed registry: $regPath" -ForegroundColor Green
             }
         }
         
         # Remove shortcuts
-        Write-UnlessQuiet  "Removing shortcuts..." Yellow
+        Write-Host "Removing shortcuts..." -ForegroundColor Yellow
         $shortcutPaths = @(
             "$env:PUBLIC\Desktop\Google Chrome.lnk",
             "$env:USERPROFILE\Desktop\Google Chrome.lnk",
@@ -244,11 +235,11 @@ function Remove-GoogleChrome {
         foreach ($shortcut in $shortcutPaths) {
             if (Test-Path $shortcut) {
                 Remove-Item $shortcut -Force -ErrorAction SilentlyContinue
-                Write-UnlessQuiet  "Removed shortcut: $shortcut" Green
+                Write-Host "Removed shortcut: $shortcut" -ForegroundColor Green
             }
         }
         
-        Write-UnlessQuiet  "Google Chrome uninstallation completed!" Green
+        Write-Host "Google Chrome uninstallation completed!" -ForegroundColor Green
         
     } catch {
         Write-Error "Uninstallation failed: $($_.Exception.Message)"
@@ -259,13 +250,13 @@ function Remove-GoogleChrome {
 }
 
 function Install-GoogleChrome {
-    Write-UnlessQuiet  "Starting Google Chrome installation..." Green
+    Write-Host "Starting Google Chrome installation..." -ForegroundColor Green
     
     # Download Chrome installer
     $installerUrl = "https://dl.google.com/chrome/install/latest/chrome_installer.exe"
     $installerPath = "$env:TEMP\chrome_installer.exe"
     
-    Write-UnlessQuiet  "Downloading Chrome installer..." Yellow
+    Write-Host "Downloading Chrome installer..." -ForegroundColor Yellow
     try {
         Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -UseBasicParsing
     } catch {
@@ -274,13 +265,13 @@ function Install-GoogleChrome {
     }
     
     # Install Chrome silently
-    Write-UnlessQuiet  "Installing Chrome..." Yellow
+    Write-Host "Installing Chrome..." -ForegroundColor Yellow
     $installArgs = @("/silent", "/install")
     
     try {
         $process = Start-Process -FilePath $installerPath -ArgumentList $installArgs -Wait -PassThru
         if ($process.ExitCode -eq 0) {
-            Write-UnlessQuiet  "Chrome installed successfully" Green
+            Write-Host "Chrome installed successfully" -ForegroundColor Green
         } else {
             Write-Error "Chrome installation failed with exit code: $($process.ExitCode)"
             return $false
@@ -297,7 +288,7 @@ function Install-GoogleChrome {
 }
 
 function Set-ChromeConfiguration {
-    Write-UnlessQuiet  "Configuring Google Chrome..." Yellow
+    Write-Host "Configuring Google Chrome..." -ForegroundColor Yellow
     
     # Create Chrome policies registry path
     $policyPath = "HKLM:\SOFTWARE\Policies\Google\Chrome"
@@ -307,7 +298,7 @@ function Set-ChromeConfiguration {
     
     # Configure based on parameters
     if ($DisableUpdates) {
-        Write-UnlessQuiet  "Disabling Chrome updates..." Yellow
+        Write-Host "Disabling Chrome updates..." -ForegroundColor Yellow
         Set-ItemProperty -Path $policyPath -Name "UpdateDefault" -Value 0 -Type DWord
         
         # Stop and disable update services
@@ -322,7 +313,7 @@ function Set-ChromeConfiguration {
     }
     
     if ($DisableTracking) {
-        Write-UnlessQuiet  "Configuring privacy settings..." Yellow
+        Write-Host "Configuring privacy settings..." -ForegroundColor Yellow
         
         # Disable various tracking and data collection features
         $privacySettings = @{
@@ -346,13 +337,13 @@ function Set-ChromeConfiguration {
     }
     
     if ($HomepageURL) {
-        Write-UnlessQuiet  "Setting homepage to: $HomepageURL" Yellow
+        Write-Host "Setting homepage to: $HomepageURL" -ForegroundColor Yellow
         Set-ItemProperty -Path $policyPath -Name "HomepageLocation" -Value $HomepageURL -Type String
         Set-ItemProperty -Path $policyPath -Name "HomepageIsNewTabPage" -Value 0 -Type DWord
     }
     
     if ($EnterpriseMode) {
-        Write-UnlessQuiet  "Configuring enterprise settings..." Yellow
+        Write-Host "Configuring enterprise settings..." -ForegroundColor Yellow
         
         $enterpriseSettings = @{
             "DeveloperToolsDisabled" = 1
@@ -378,11 +369,11 @@ function Set-ChromeConfiguration {
         }
     }
     
-    Write-UnlessQuiet  "Chrome configuration applied" Green
+    Write-Host "Chrome configuration applied" -ForegroundColor Green
 }
 
 function Set-ChromeAsDefault {
-    Write-UnlessQuiet  "Setting Chrome as default browser..." Yellow
+    Write-Host "Setting Chrome as default browser..." -ForegroundColor Yellow
     
     try {
         # Use Chrome's built-in method to set as default
@@ -393,7 +384,7 @@ function Set-ChromeAsDefault {
         
         if (Test-Path $chromePath) {
             Start-Process -FilePath $chromePath -ArgumentList "--make-default-browser" -Wait
-            Write-UnlessQuiet  "Chrome set as default browser" Green
+            Write-Host "Chrome set as default browser" -ForegroundColor Green
         } else {
             Write-Warning "Chrome executable not found, cannot set as default"
         }
@@ -409,22 +400,22 @@ if ($StatusCheck) {
 }
 
 if ($Uninstall -or $CleanUninstall) {
-    Write-UnlessQuiet  "Google Chrome Uninstallation" Red
-    Write-UnlessQuiet  "=============================" Red
+    Write-Host "Google Chrome Uninstallation" -ForegroundColor Red
+    Write-Host "=============================" -ForegroundColor Red
     
     # Show current status
     Get-ChromeInstallationStatus
     
-    Write-UnlessQuiet  "`nUninstall Options:" Yellow
+    Write-Host "`nUninstall Options:" -ForegroundColor Yellow
     if ($CleanUninstall) {
-        Write-UnlessQuiet  "- Clean uninstall: Removes Chrome and ALL user data (bookmarks, history, etc.)" White
+        Write-Host "- Clean uninstall: Removes Chrome and ALL user data (bookmarks, history, etc.)" -ForegroundColor White
     } else {
-        Write-UnlessQuiet  "- Standard uninstall: Removes Chrome but keeps user data" White
+        Write-Host "- Standard uninstall: Removes Chrome but keeps user data" -ForegroundColor White
     }
     
     $confirmUninstall = Read-Host "`nProceed with uninstallation? (yes/no)"
     if ($confirmUninstall -ne "yes") {
-        Write-UnlessQuiet  "Uninstallation cancelled" Yellow
+        Write-Host "Uninstallation cancelled" -ForegroundColor Yellow
         exit 0
     }
     
@@ -435,7 +426,7 @@ if ($Uninstall -or $CleanUninstall) {
     }
     
     if ($result) {
-        Write-UnlessQuiet  "`nFinal status check:" Cyan
+        Write-Host "`nFinal status check:" -ForegroundColor Cyan
         Get-ChromeInstallationStatus
     }
     
@@ -443,15 +434,15 @@ if ($Uninstall -or $CleanUninstall) {
 }
 
 # Normal installation flow
-Write-UnlessQuiet  "Google Chrome Installation and Configuration" Green
-Write-UnlessQuiet  "===========================================" Green
+Write-Host "Google Chrome Installation and Configuration" -ForegroundColor Green
+Write-Host "===========================================" -ForegroundColor Green
 
 # Check if Chrome is already installed
 $chromeExe = "${env:ProgramFiles}\Google\Chrome\Application\chrome.exe"
 $chromeExe32 = "${env:ProgramFiles(x86)}\Google\Chrome\Application\chrome.exe"
 
 if ((Test-Path $chromeExe) -or (Test-Path $chromeExe32)) {
-    Write-UnlessQuiet  "Chrome is already installed. Applying configuration..." Yellow
+    Write-Host "Chrome is already installed. Applying configuration..." -ForegroundColor Yellow
 } else {
     # Install Chrome
     $installResult = Install-GoogleChrome
@@ -469,12 +460,12 @@ if ($SetAsDefault) {
     Set-ChromeAsDefault
 }
 
-Write-UnlessQuiet  "`nInstallation and configuration complete!" Green
-Write-UnlessQuiet  "Usage:" Yellow
-Write-UnlessQuiet  "- To check status: $($MyInvocation.MyCommand.Name) -StatusCheck" White
-Write-UnlessQuiet  "- To uninstall: $($MyInvocation.MyCommand.Name) -Uninstall" White
-Write-UnlessQuiet  "- To clean uninstall: $($MyInvocation.MyCommand.Name) -CleanUninstall" White
+Write-Host "`nInstallation and configuration complete!" -ForegroundColor Green
+Write-Host "Usage:" -ForegroundColor Yellow
+Write-Host "- To check status: $($MyInvocation.MyCommand.Name) -StatusCheck" -ForegroundColor White
+Write-Host "- To uninstall: $($MyInvocation.MyCommand.Name) -Uninstall" -ForegroundColor White
+Write-Host "- To clean uninstall: $($MyInvocation.MyCommand.Name) -CleanUninstall" -ForegroundColor White
 
 # Show final status
-Write-UnlessQuiet  "`nFinal installation status:" Cyan
+Write-Host "`nFinal installation status:" -ForegroundColor Cyan
 Get-ChromeInstallationStatus
