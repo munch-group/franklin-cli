@@ -298,6 +298,7 @@ get_latest_version() {
             curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path
         else
             curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path 1> /dev/null
+        fi
     else
         log_error "curl not found."
         exit 1
