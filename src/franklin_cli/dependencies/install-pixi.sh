@@ -244,11 +244,7 @@ log_error() {
 
 log_header() {
     if [ "$QUIET" != true ]; then
-        if [ "$VERBOSE" = true ]; then
-            echo -e "${CYAN}$1${NC}"
-        else
-            echo "$1"
-        fi
+        echo "$1"
     fi
 }
 
