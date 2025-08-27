@@ -99,10 +99,7 @@ function Write-Warning {
 
 function Write-Error {
     param([string]$Message)
-    # Show errors unless in quiet mode
-    if (-not $Quiet) {
-        Write-UnlessQuiet  "$Message" Red
-    }
+    Write-Host "$Message" -ForegroundColor Red
 }
 
 function Write-Header {
