@@ -146,20 +146,20 @@ check_and_fix_sourcing() {
             
             # If rc has conda but profile doesn't, we need to ensure rc is sourced
             if has_conda_init "$rc" && ! has_conda_init "$profile"; then
-                echo -e "${YELLOW}  Adding source command to $profile...${NC}"
+                echo -e "${YELLOW}Adding source command to $profile...${NC}"
                 
                 # Check if profile is writable
                 if [ ! -w "$profile" ]; then
-                    echo -e "${YELLOW}  Profile is read-only, attempting to make it writable...${NC}"
+                    echo -e "${YELLOW}Profile is read-only, attempting to make it writable...${NC}"
                     chmod u+w "$profile" 2>/dev/null || {
-                        echo -e "${RED}  ✗ Cannot modify $profile (permission denied)${NC}"
+                        echo -e "${RED}Cannot modify $profile (permission denied)${NC}"
                         return 1
                     }
                 fi
                 
                 # Create backup
                 cp "$profile" "${profile}.backup.$(date +%Y%m%d_%H%M%S)" 2>/dev/null || {
-                    echo -e "${YELLOW}  Warning: Could not create backup of $profile${NC}"
+                    echo -e "${YELLOW}Warning: Could not create backup of $profile${NC}"
                 }
                 
                 # Add source command at the beginning (after pixi if it exists)
@@ -202,7 +202,7 @@ check_and_fix_sourcing() {
                 fi
                 
                 mv "${profile}.tmp" "$profile"
-                echo -e "${GREEN}  ✓ Added source command to $profile${NC}"
+                echo -e "${GREEN}Added source command to $profile${NC}"
             fi
         fi
     fi
@@ -213,7 +213,7 @@ check_and_fix_sourcing() {
 # Logging functions
 log_info() {
     if [ "$VERBOSE" = true ]; then
-        echo -e "${BLUE}[INFO]${NC} $1"
+        echo -e "${BLUE}$1${NC}"
     elif [ "$QUIET" != true ]; then
         echo "$1"
     fi
@@ -221,16 +221,16 @@ log_info() {
 
 log_success() {
     if [ "$QUIET" != true ]; then
-        echo -e "${GREEN}[SUCCESS]${NC} $1"
+        echo -e "${GREEN}$1${NC}"
     fi
 }
 
 log_warning() {
     if [ "$QUIET" != true ]; then
         if [ "$VERBOSE" = true ]; then
-            echo -e "${YELLOW}[WARNING]${NC} $1"
+            echo -e "${YELLOW}Warning: $1${NC}"
         else
-            echo -e "${YELLOW}Warning:${NC} $1"
+            echo -e "${YELLOW}Warning: $1${NC}"
         fi
     fi
 }
@@ -294,7 +294,10 @@ command_exists() {
 get_latest_version() {
     if command_exists curl; then
         # curl -s https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
-        curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path
+        if [ "$QUIET" != true ]; then
+            curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path
+        else
+            curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path 1> /dev/null
     else
         log_error "curl not found."
         exit 1
@@ -895,11 +898,12 @@ show_completion_message() {
 
 # Main function
 main() {
-    echo "=================================================="
-    echo "       Pixi Package Manager Installer"
-    echo "=================================================="
-    echo
-    
+    if [ "$QUIET" != true ]; then
+        echo "=================================================="
+        echo "       Pixi Package Manager Installer"
+        echo "=================================================="
+        echo
+    fi    
     # Check if no arguments provided, default to install
     if [ $# -eq 0 ]; then
         install_pixi
