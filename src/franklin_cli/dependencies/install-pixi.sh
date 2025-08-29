@@ -25,7 +25,7 @@ NC='\033[0m' # No Color
 
 
 # Pixi path to add
-PIXI_PATH='export PATH="$HOME/.pixi/bin:$PATH"'
+#PIXI_PATH='export PATH="$HOME/.pixi/bin:$PATH"'
 PIXI_COMMENT='# Pixi - Added before conda for priority'
 
 # Function to check if file contains pixi path
@@ -38,8 +38,7 @@ has_conda_init() {
     grep -q '>>> conda initialize >>>' "$1" 2>/dev/null
 }
 
-# Function to add pixi path before conda initialization
-add_pixi_before_conda() {
+add_pixi_to_shell_config_file() {
     local file=$1
     local temp_file="${file}.tmp"
     
@@ -47,82 +46,25 @@ add_pixi_before_conda() {
     
     # Check if file exists
     if [ ! -f "$file" ]; then
-        [ "$VERBOSE" = true ] && echo -e "${YELLOW}  File doesn't exist, creating it...${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${YELLOW}File doesn't exist, creating it...${NC}"
         touch "$file" 2>/dev/null || {
-            echo -e "${RED}  ✗ Cannot create $file (permission denied)${NC}"
+            echo -e "${RED}Cannot create $file (permission denied)${NC}"
             return 1
         }
     fi
     
     # Check if file is writable
     if [ ! -w "$file" ]; then
-        [ "$VERBOSE" = true ] && echo -e "${YELLOW}  File is read-only, attempting to make it writable...${NC}"
+        [ "$VERBOSE" = true ] && echo -e "${YELLOW}File is read-only, attempting to make it writable...${NC}"
         chmod u+w "$file" 2>/dev/null || {
-            echo -e "${RED}  ✗ Cannot modify $file (permission denied). You may need to manually add the following to your $file:${NC}"
+            echo -e "${RED}Cannot modify $file (permission denied). You may need to manually add the following to your $file:${NC}"
             echo -e "${CYAN}$PIXI_COMMENT${NC}"
             echo -e "${CYAN}$PIXI_PATH${NC}"
             return 1
         }
     fi
     
-    # Check if pixi path already exists
-    if has_pixi_path "$file"; then
-        [ "$VERBOSE" = true ] && echo -e "${GREEN}  ✓ Pixi path already exists in $file${NC}"
-        return 0
-    fi
-    
-    # Create a backup
-    cp "$file" "${file}.backup.$(date +%Y%m%d_%H%M%S)" 2>/dev/null || {
-        echo -e "${YELLOW}  Warning: Could not create backup of $file${NC}"
-    }
-    
-    # Check if conda initialization exists
-    if has_conda_init "$file"; then
-        [ "$VERBOSE" = true ] && echo -e "${YELLOW}  Found conda initialization, adding pixi before it...${NC}"
-        
-        # Use awk to insert pixi before conda init
-        awk -v pixi_comment="$PIXI_COMMENT" -v pixi_path="$PIXI_PATH" '
-            />>> conda initialize >>>/ {
-                if (!pixi_added) {
-                    print pixi_comment
-                    print pixi_path
-                    print ""
-                    pixi_added = 1
-                }
-            }
-            { print }
-        ' "$file" > "$temp_file" 2>/dev/null || {
-            echo -e "${RED}  ✗ Failed to process $file${NC}"
-            return 1
-        }
-        
-        mv "$temp_file" "$file" 2>/dev/null || {
-            echo -e "${RED}  ✗ Failed to update $file${NC}"
-            rm -f "$temp_file"
-            return 1
-        }
-        [ "$VERBOSE" = true ] && echo -e "${GREEN}  ✓ Added pixi path before conda initialization${NC}"
-    else
-        [ "$VERBOSE" = true ] && echo -e "${YELLOW}  No conda initialization found, adding pixi path at the beginning...${NC}"
-        
-        # Add pixi at the beginning of the file
-        {
-            echo "$PIXI_COMMENT"
-            echo "$PIXI_PATH"
-            echo ""
-            cat "$file"
-        } > "$temp_file" 2>/dev/null || {
-            echo -e "${RED}  ✗ Failed to process $file${NC}"
-            return 1
-        }
-        
-        mv "$temp_file" "$file" 2>/dev/null || {
-            echo -e "${RED}  ✗ Failed to update $file${NC}"
-            rm -f "$temp_file"
-            return 1
-        }
-        [ "$VERBOSE" = true ] && echo -e "${GREEN}  ✓ Added pixi path at the beginning of file${NC}"
-    fi
+    printf "\n# Adding to path:\nexport PATH=$HOME/.pixi/bin:\$PATH\n" >> "$file"
 }
 
 # Function to ensure conda base is not auto-activated
@@ -133,82 +75,6 @@ disable_conda_auto_activate() {
         [ "$VERBOSE" = true ] && echo -e "${GREEN}  ✓ Conda auto_activate_base disabled${NC}"
     fi
 }
-
-# Function to handle sourcing between files
-check_and_fix_sourcing() {
-    local profile=$1
-    local rc=$2
-    
-    if [ -f "$profile" ] && [ -f "$rc" ]; then
-        # Check if profile sources rc
-        if ! grep -q "source.*$rc\|\..*$rc" "$profile" 2>/dev/null; then
-            echo -e "${YELLOW}$profile doesn't source $rc${NC}"
-            
-            # If rc has conda but profile doesn't, we need to ensure rc is sourced
-            if has_conda_init "$rc" && ! has_conda_init "$profile"; then
-                echo -e "${YELLOW}Adding source command to $profile...${NC}"
-                
-                # Check if profile is writable
-                if [ ! -w "$profile" ]; then
-                    echo -e "${YELLOW}Profile is read-only, attempting to make it writable...${NC}"
-                    chmod u+w "$profile" 2>/dev/null || {
-                        echo -e "${RED}Cannot modify $profile (permission denied)${NC}"
-                        return 1
-                    }
-                fi
-                
-                # Create backup
-                cp "$profile" "${profile}.backup.$(date +%Y%m%d_%H%M%S)" 2>/dev/null || {
-                    echo -e "${YELLOW}Warning: Could not create backup of $profile${NC}"
-                }
-                
-                # Add source command at the beginning (after pixi if it exists)
-                if has_pixi_path "$profile"; then
-                    # Add after pixi
-                    awk -v rc_file="$rc" '
-                        /\.pixi\/bin/ { 
-                            print
-                            getline
-                            print
-                            print "# Source " rc_file " for additional configurations"
-                            print "if [ -f ~/" rc_file " ]; then"
-                            print "    source ~/" rc_file
-                            print "fi"
-                            print ""
-                            sourced = 1
-                            next
-                        }
-                        { print }
-                        END {
-                            if (!sourced) {
-                                print ""
-                                print "# Source " rc_file " for additional configurations"
-                                print "if [ -f ~/" rc_file " ]; then"
-                                print "    source ~/" rc_file
-                                print "fi"
-                            }
-                        }
-                    ' "$profile" > "${profile}.tmp"
-                else
-                    # Add at the end if no pixi
-                    {
-                        cat "$profile"
-                        echo ""
-                        echo "# Source $rc for additional configurations"
-                        echo "if [ -f ~/$rc ]; then"
-                        echo "    source ~/$rc"
-                        echo "fi"
-                    } > "${profile}.tmp"
-                fi
-                
-                mv "${profile}.tmp" "$profile"
-                echo -e "${GREEN}Added source command to $profile${NC}"
-            fi
-        fi
-    fi
-}
-
-
 
 # Logging functions
 log_info() {
@@ -286,28 +152,6 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Function to get latest pixi version
-get_latest_version() {
-    if command_exists curl; then
-        # curl -s https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
-        if [ "$QUIET" != true ]; then
-            curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path
-        else
-            curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path 1> /dev/null
-        fi
-    else
-        log_error "curl not found."
-        exit 1
-    fi
-    # elif command_exists wget; then
-    #     # wget -qO- https://api.github.com/repos/prefix-dev/pixi/releases/latest | grep '"tag_name"' | sed -E 's/.*"v([^"]+)".*/\1/'
-    #     wget -qO- https://pixi.sh/install.sh | sh        
-    # else
-    #     log_error "Neither curl nor wget found. Cannot determine latest version."
-    #     exit 1
-    # fi
-}
-
 # Function to check if pixi is already installed
 check_existing_pixi() {
     if command_exists pixi; then
@@ -354,274 +198,25 @@ install_via_curl() {
     fi
     
     # Download and run official installer
-    curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path
-    
-
-
-
-    # Check which shell configs exist and process them
-    configs_processed=0
-
-    # Handle bash configurations
-    if [ -f "$HOME/.bashrc" ] || [ -f "$HOME/.bash_profile" ]; then
-        [ "$VERBOSE" = true ] && echo -e "${GREEN}Found bash configuration files${NC}"
-        
-        # Process .bash_profile first (it's read first on macOS)
-        if [ -f "$HOME/.bash_profile" ]; then
-            add_pixi_before_conda "$HOME/.bash_profile"
-            configs_processed=$((configs_processed + 1))
-        fi
-        
-        # Process .bashrc
-        if [ -f "$HOME/.bashrc" ]; then
-            add_pixi_before_conda "$HOME/.bashrc"
-            configs_processed=$((configs_processed + 1))
-        fi
-        
-        # Ensure proper sourcing
-        check_and_fix_sourcing ".bash_profile" ".bashrc"
+    if [ "$QUIET" != true ]; then
+        curl -fsSL https://pixi.sh/install.sh | bash -s -- --no-modify-path
+    else
+        curl -fsSL https://pixi.sh/install.sh  2> /dev/null | bash -s -- --no-modify-path 1> /dev/null > /dev/null 2>&1
     fi
+
+    
+    # Process .bash_profile first (it's read first on macOS)
+    add_pixi_to_shell_config_file "$HOME/.bash_profile"
+
+    add_pixi_to_shell_config_file "$HOME/.bashrc"
 
     # Handle zsh configuration
-    if [ -f "$HOME/.zshrc" ]; then
-        [ "$VERBOSE" = true ] && echo -e "${GREEN}Found zsh configuration file${NC}"
-        add_pixi_before_conda "$HOME/.zshrc"
-        configs_processed=$((configs_processed + 1))
-    fi
-
-    # Create config files if none exist (based on current shell)
-    if [ $configs_processed -eq 0 ]; then
-        current_shell=$(basename "$SHELL")
-        [ "$VERBOSE" = true ] && echo -e "${YELLOW}No shell config files found. Creating for $current_shell...${NC}"
-        
-        if [ "$current_shell" = "zsh" ]; then
-            touch "$HOME/.zshrc"
-            add_pixi_before_conda "$HOME/.zshrc"
-        else
-            touch "$HOME/.bash_profile"
-            add_pixi_before_conda "$HOME/.bash_profile"
-        fi
-    fi
+    add_pixi_to_shell_config_file "$HOME/.zshrc"
 
     # Disable conda auto-activation
     disable_conda_auto_activate
 
-
-
-
-
-
-
-
-# # if conda installed
-# if command -v conda > /dev/null 2>&1; then
-#     echo "conda is installed"
-# else
-#     echo "conda is not installed"
-# fi
-# conda config --set auto_activate_base false
-
-# echo $(basename $SHELL)
-
-
-# CHECK PERMISSIONS
-#     touch ~/.bashrc
-# chmod 644 ~/.bashrc
-
-# echo 'export PATH="$HOME/.pixi/bin:$PATH"' >> ~/.zshrc
-# # or for bash
-# echo 'export PATH="$HOME/.pixi/bin:$PATH"' >> ~/.bash_profile
-
-
-# export PATH="$HOME/.pixi/bin:$PATH"
-
-# # instead of or also
-
-    # # Source the shell configuration to update PATH
-    # if [ -f "$HOME/.bashrc" ]; then
-    #     source "$HOME/.bashrc" 2>/dev/null || true
-    # fi
-    
-
-
     return 0
-}
-
-# Function to install pixi via cargo
-install_via_cargo() {
-    log_info "Installing pixi via cargo..."
-    
-    if ! command_exists cargo; then
-        log_error "Rust/Cargo is required for this installation method"
-        log_info "Install Rust from: https://rustup.rs/"
-        return 1
-    fi
-    
-    cargo install pixi
-    return 0
-}
-
-# Function to install pixi via direct binary download
-install_via_binary() {
-    log_info "Installing pixi via direct binary download..."
-    
-    local platform=$(detect_platform)
-    local version=$PIXI_VERSION
-    
-    if [ "$version" = "latest" ]; then
-        version=$(get_latest_version)
-        log_info "Latest version: $version"
-    fi
-    
-    # Construct download URL
-    local base_url="https://github.com/prefix-dev/pixi/releases/download"
-    local filename
-    
-    case "$platform" in
-        linux-64) filename="pixi-x86_64-unknown-linux-musl.tar.bz2" ;;
-        linux-aarch64) filename="pixi-aarch64-unknown-linux-musl.tar.bz2" ;;
-        osx-64) filename="pixi-x86_64-apple-darwin.tar.bz2" ;;
-        osx-arm64) filename="pixi-aarch64-apple-darwin.tar.bz2" ;;
-        win-64) filename="pixi-x86_64-pc-windows-msvc.zip" ;;
-        *) log_error "No binary available for platform: $platform"; return 1 ;;
-    esac
-    
-    local download_url="$base_url/v$version/$filename"
-    local temp_dir=$(mktemp -d)
-    local download_file="$temp_dir/$filename"
-    
-    log_info "Downloading from: $download_url"
-    
-    # Download the binary
-    if command_exists curl; then
-        curl -L -o "$download_file" "$download_url"
-    elif command_exists wget; then
-        wget -O "$download_file" "$download_url"
-    else
-        log_error "Neither curl nor wget found"
-        rm -rf "$temp_dir"
-        return 1
-    fi
-    
-    # Create binary directory if it doesn't exist
-    mkdir -p "$BINARY_DIR"
-    
-    # Extract and install
-    cd "$temp_dir"
-    if [[ "$filename" == *.tar.bz2 ]]; then
-        tar -xjf "$filename"
-        # Find the pixi binary in extracted contents
-        local pixi_binary=$(find . -name "pixi" -type f | head -1)
-        if [ -n "$pixi_binary" ]; then
-            chmod +x "$pixi_binary"
-            cp "$pixi_binary" "$BINARY_DIR/pixi"
-        else
-            log_error "Could not find pixi binary in extracted archive"
-            rm -rf "$temp_dir"
-            return 1
-        fi
-    elif [[ "$filename" == *.zip ]]; then
-        if command_exists unzip; then
-            unzip -q "$filename"
-            local pixi_binary=$(find . -name "pixi.exe" -o -name "pixi" | head -1)
-            if [ -n "$pixi_binary" ]; then
-                chmod +x "$pixi_binary"
-                cp "$pixi_binary" "$BINARY_DIR/pixi"
-            else
-                log_error "Could not find pixi binary in extracted archive"
-                rm -rf "$temp_dir"
-                return 1
-            fi
-        else
-            log_error "unzip command not found"
-            rm -rf "$temp_dir"
-            return 1
-        fi
-    fi
-    
-    # Clean up
-    rm -rf "$temp_dir"
-    
-    log_success "Binary installed to $BINARY_DIR/pixi"
-    return 0
-}
-
-# Function to add pixi to PATH
-update_shell_profile() {
-    local shell_profile=""
-    
-    # Determine shell profile file
-    if [ -n "${BASH_VERSION:-}" ]; then
-        if [ -f "$HOME/.bashrc" ]; then
-            shell_profile="$HOME/.bashrc"
-        elif [ -f "$HOME/.bash_profile" ]; then
-            shell_profile="$HOME/.bash_profile"
-        fi
-    elif [ -n "${ZSH_VERSION:-}" ]; then
-        shell_profile="$HOME/.zshrc"
-    elif [ -f "$HOME/.profile" ]; then
-        shell_profile="$HOME/.profile"
-    fi
-    
-    if [ -z "$shell_profile" ]; then
-        log_warning "Could not determine shell profile file"
-        log_info "Please manually add $BINARY_DIR to your PATH"
-        return 0
-    fi
-    
-    # Check if PATH update is needed
-    if ! echo "$PATH" | grep -q "$BINARY_DIR"; then
-        log_info "Adding $BINARY_DIR to PATH in $shell_profile"
-        
-        # Function to write to shell profile with permission handling
-        write_to_profile() {
-            local profile="$1"
-            local content="$2"
-            
-            # Try to write normally first
-            if echo "$content" >> "$profile" 2>/dev/null; then
-                return 0
-            else
-                # If permission denied, try with sudo
-                log_warning "Permission denied writing to $profile"
-                log_info "Attempting to write with elevated privileges..."
-                
-                # Create temporary file with content
-                local temp_file=$(mktemp)
-                cat "$profile" > "$temp_file" 2>/dev/null || true
-                echo "$content" >> "$temp_file"
-                
-                # Try to move with sudo
-                if sudo -p "Enter password to update $profile: " mv "$temp_file" "$profile"; then
-                    # Fix ownership to match user
-                    sudo chown "$USER:$(id -gn)" "$profile"
-                    return 0
-                else
-                    rm -f "$temp_file"
-                    return 1
-                fi
-            fi
-        }
-        
-        # Prepare content to add
-        local content=""
-        content="${content}\n# Added by pixi installer"
-        content="${content}\nexport PATH=\"$BINARY_DIR:\$PATH\""
-        
-        # Try to write to profile
-        if write_to_profile "$shell_profile" "$content"; then
-            # Update PATH for current session
-            export PATH="$BINARY_DIR:$PATH"
-            log_success "PATH updated in $shell_profile"
-        else
-            log_error "Failed to update $shell_profile"
-            log_info "Please manually add the following to your $shell_profile:"
-            echo "    export PATH=\"$BINARY_DIR:\$PATH\""
-            return 1
-        fi
-    else
-        log_info "PATH already contains $BINARY_DIR"
-    fi
 }
 
 # Function to install pixi
@@ -647,14 +242,14 @@ install_pixi() {
             # Try methods in order of preference
             if install_via_curl; then
                 install_success=true
-            elif install_via_binary; then
-                install_success=true
-                update_shell_profile
-            elif install_via_cargo; then
-                install_success=true
-            else
-                log_error "All installation methods failed"
-                exit 1
+            # elif install_via_binary; then
+            #     install_success=true
+            #     update_shell_profile
+            # elif install_via_cargo; then
+            #     install_success=true
+            # else
+            #     log_error "All installation methods failed"
+            #     exit 1
             fi
             ;;
         *)
@@ -877,41 +472,39 @@ parse_arguments() {
     esac
 }
 
-# Function to show completion message
-show_completion_message() {
-    echo
-    log_success "Operation completed!"
-    echo
-    log_info "Quick start with pixi:"
-    log_info "  pixi --version                     # Check version"
-    log_info "  pixi init my-project              # Initialize new project"
-    log_info "  pixi add python=3.11              # Add Python dependency"
-    log_info "  pixi run python --version         # Run command in environment"
-    log_info "  pixi shell                        # Activate project environment"
-    echo
-    log_info "For more information, visit: https://pixi.sh/"
-    echo
-}
+# # Function to show completion message
+# show_completion_message() {
+#     echo
+#     log_success "Operation completed!"
+#     echo
+#     log_info "Quick start with pixi:"
+#     log_info "  pixi --version                     # Check version"
+#     log_info "  pixi init my-project              # Initialize new project"
+#     log_info "  pixi add python=3.11              # Add Python dependency"
+#     log_info "  pixi run python --version         # Run command in environment"
+#     log_info "  pixi shell                        # Activate project environment"
+#     echo
+#     log_info "For more information, visit: https://pixi.sh/"
+#     echo
+# }
 
-# Main function
-main() {
-    if [ "$QUIET" != true ]; then
-        echo "=================================================="
-        echo "       Pixi Package Manager Installer"
-        echo "=================================================="
-        echo
-    fi    
-    # Check if no arguments provided, default to install
-    if [ $# -eq 0 ]; then
-        install_pixi
-        show_completion_message
-    else
-        parse_arguments "$@"
-        if [ "$1" = "install" ] || [ "$1" = "uninstall" ]; then
-            show_completion_message
-        fi
-    fi
-}
+# # Main function
+# main() {
 
-# Run main function with all arguments
-main "$@"
+#     parse_arguments "$@"
+
+#     # Check if no arguments provided, default to install
+#     if [ $# -eq 0 ]; then
+#         install_pixi
+# #        show_completion_message
+#     # else
+#     #     parse_arguments "$@"
+#     #     if [ "$1" = "install" ] || [ "$1" = "uninstall" ]; then
+#     #         show_completion_message
+#     #     fi
+#     fi
+# }
+
+# # Run main function with all arguments
+# main "$@"
+parse_arguments "$@"

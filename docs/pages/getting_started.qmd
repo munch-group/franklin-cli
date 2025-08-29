@@ -23,57 +23,73 @@ title: Getting started
 
 ## <i class="bi bi-mortarboard-fill"></i> Students
 
-Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
-
 <i class="bi bi-apple"></i> Mac:  
-Open your Terminal application, paste the command into the Terminal window and press Enter.
+
+1. Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
+2. Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL http://munch-group.org/franklin-cli/installers/install.sh | bash -s -- --role student --yes --quiet
 ```
 
 <i class="bi bi-windows"></i> Windows:  
-Open your PowerShell application, paste the command into the PowerShell window and press Enter.
 
-```powershell   
-powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin-cli/installers/install.ps1" > installer.ps1 ; Unblock-File -Path "installer.ps1" ; powershell -ExecutionPolicy ByPass -File "installer.ps1" -Force -Quiet
+1. Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
+
+```powershell
+ powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin-cli/installers/scripts/Install-Pixi.ps1" > installer.ps1 ; dir "$env:USERPROFILE/Downloads/*.ps1" | Unblock ; powershell -ExecutionPolicy ByPass -File "installer.ps1" -Force -Quiet -Role "student"
 ```
 
-## <i class="bi bi-bank"></i> Educators
+2. Find Windows PowerShell and open it by right-clicking it and select "Run as administrator".
+3. Paste the command into the PowerShell window and press Enter. You may be prompted several times to allow the app to make changes to your computer.
+4. Once the Pixi installation has completed successfully, you need to restart the Windows Powershell application.
 
-Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
+## <i class="bi bi-mortarboard-fill"></i> Educators
 
 <i class="bi bi-apple"></i> Mac:  
-Open your Terminal application, paste the command into the Terminal window and press Enter.
+
+1. Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
+2. Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL http://munch-group.org/franklin-cli/installers/install.sh | bash -s -- --role educator --yes --quiet
 ```
 
 <i class="bi bi-windows"></i> Windows:  
-Open your PowerShell application, paste the command into the PowerShell window and press Enter.
+
+1. Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
 ```powershell
-powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin-cli/installers/install.ps1" > franklin_installer.ps1 ; powershell -ExecutionPolicy ByPass -File "franklin_installer.ps1" -Yes -Quiet -Role "educator"
+ powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin-cli/installers/scripts/Install-Pixi.ps1" > installer.ps1 ; dir "$env:USERPROFILE/Downloads/*.ps1" | Unblock ; powershell -ExecutionPolicy ByPass -File "installer.ps1" -Force -Quiet -Role "educator"
 ```
 
-## <i class="bi bi-bank"></i> Administrators
+2. Find Windows PowerShell and open it by right-clicking it and select "Run as administrator".
+3. Paste the command into the PowerShell window and press Enter. You may be prompted several times to allow the app to make changes to your computer.
+4. Once the Pixi installation has completed successfully, you need to restart the Windows Powershell application.
 
-Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
+
+## <i class="bi bi-mortarboard-fill"></i> Administrator
 
 <i class="bi bi-apple"></i> Mac:  
-Open your Terminal application, paste the command into the Terminal window and press Enter.
+
+1. Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
+2. Open your Terminal application, paste the command into the Terminal window and press Enter.
 
 ```bash
 curl -fsSL http://munch-group.org/franklin-cli/installers/install.sh | bash -s -- --role administrator --yes --quiet
 ```
 
 <i class="bi bi-windows"></i> Windows:  
-Open your PowerShell application, paste the command into the PowerShell window and press Enter.
+
+1. Copy the command below by clicking the small clipboard icon you can see if you hover over the right end of the box below.
 
 ```powershell
-powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin-cli/installers/install.ps1" > franklin_installer.ps1 ; powershell -ExecutionPolicy ByPass -File "franklin_installer.ps1" -Yes -Quiet -Role "administrator"
+ powershell -ExecutionPolicy ByPass -c "irm -useb  http://munch-group.org/franklin-cli/installers/scripts/Install-Pixi.ps1" > installer.ps1 ; dir "$env:USERPROFILE/Downloads/*.ps1" | Unblock ; powershell -ExecutionPolicy ByPass -File "installer.ps1" -Force -Quiet -Role "administrator"
 ```
+
+2. Find Windows PowerShell and open it by right-clicking it and select "Run as administrator".
+3. Paste the command into the PowerShell window and press Enter. You may be prompted several times to allow the app to make changes to your computer.
+4. Once the Pixi installation has completed successfully, you need to restart the Windows Powershell application.
 
 :::
 

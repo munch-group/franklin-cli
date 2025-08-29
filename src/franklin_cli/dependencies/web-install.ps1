@@ -631,8 +631,12 @@ function Main {
         
         Write-ColorOutput "Using base URL: $baseUrl" -Type Info
         
-        # Create temp directory
-        $tempDir = Get-TempDirectory
+        # # Create temp directory
+        # $tempDir = Get-TempDirectory
+        # Get Downloads folder
+        $tempDir = "$env:USERPROFILE/Downloads"
+        # $tempDir = (New-Object -ComObject Shell.Application).Namespace('shell:Downloads').Self.Path
+        
         Write-ColorOutput "Using temporary directory: $tempDir" -Type Info
         
         try {
