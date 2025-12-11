@@ -63,7 +63,7 @@ registry_base_url: str = f'registry.{gitlab_domain}'
 github_issues_template_url: str = 'https://api.github.com/repos/munch-group/{repository_name}/issues'
 conda_channel: str = 'munch-group'
 documentation_url: str = 'https://munch-group.org/{name}'
-github_write_issue_token: str = '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'
+github_write_issue_token: str = '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'
 
 required_gb_free_disk: float = 5.0
 
